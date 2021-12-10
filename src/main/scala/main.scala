@@ -1,13 +1,12 @@
 import viz.vega.plots._
 
-import viz.target.PlotTargets.doNothing
+import viz.target.PlotTargets.desktopBrowser
 
 @main
 def Main(args: String*): Unit =
-
-  val c = new BarChart()
+  
   val b = new BarChart(
-    List(spec => spec("height") = 600)
+    List(spec => spec("height") = 1200)
   )
   
 

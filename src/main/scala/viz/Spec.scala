@@ -8,4 +8,5 @@ trait Spec (using plotTarget : PlotTarget) {
 
     def show(using plotTarget : PlotTarget) : Unit = plotTarget.show(spec)
 
+    show
 }
