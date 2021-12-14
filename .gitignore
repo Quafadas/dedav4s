@@ -8,3 +8,4 @@ project/project
 project/target
 target
 .DS_Store
+project/metals.sbt
