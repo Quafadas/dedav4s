@@ -5,6 +5,7 @@ object Utils:
     (spec: ujson.Value) => {
       spec.obj.remove("height")
       spec.obj.remove("width")
+      spec.obj.remove("autosize")
        val signalW = ujson.read("""
           {
                 "name": "width",
@@ -38,5 +39,6 @@ object Utils:
         signal("name").str.toLowerCase() == "height"
       )
       println(spec("signals"))
+      spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains"->"padding")
       spec("signals").arr.append(signalH).append(signalW)
 }
