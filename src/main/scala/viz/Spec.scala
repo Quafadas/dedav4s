@@ -1,6 +1,6 @@
 package viz
 
-import viz.target.PlotTarget
+import viz.PlotTarget
 
 trait Spec (using plotTarget : PlotTarget) {
   

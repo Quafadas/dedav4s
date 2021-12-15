@@ -6,7 +6,7 @@ trait WithBaseSpec extends Spec {
   
     lazy val baseSpec : ujson.Value = ???
     
-    val modifiers : List[ujson.Value => Unit] = List()
+    val modifiers : Seq[ujson.Value => Unit] = List()    
 
     /*
     The idea - start from a base spec, "deep copy" it to prevent mutating "state" of any subclass. 
