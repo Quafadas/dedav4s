@@ -4,6 +4,8 @@ import viz.vega.plots.BarChart
 import viz.PlotTarget
 import scala.util.Random
 import scala.annotation.targetName
+import viz.vega.extensions
+import viz.vega.plots.Wordcloud
 
 extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
   def plotBarChart(): BarChart =
@@ -15,7 +17,7 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
         )
     new BarChart(
       List(
-          viz.Utils.fillDiv,
+        viz.Utils.fillDiv,
         spec => spec("data")(0)("values") = labelToNotShow,
         spec =>
           spec("axes").arr.dropWhileInPlace(ax => ax("scale").str == "xscale")
@@ -36,5 +38,18 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
       List(
       spec => spec("data")(0)("values") = labelled,
       viz.Utils.fillDiv,
+      )
+    )
+    
+extension (s: String)(using plotTarget: PlotTarget)
+  def plotWordcloud(): Wordcloud = List(s).plotWordcloud()
+
+extension (s: Seq[String])(using plotTarget: PlotTarget)
+  def plotWordcloud(): Wordcloud = 
+    new Wordcloud(
+      List(
+        spec => spec("data")(0)("values").arr.clear(),
+        spec => spec("data")(0)("values") = s,
+        viz.Utils.fillDiv
       )
     )

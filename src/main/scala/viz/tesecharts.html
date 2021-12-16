@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8" />
+        <!-- Import vega-embed -->
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2"></script>
+        <style>
+            div#vis {
+                width: 95vmin;
+                height:95vmin;                
+            }
+        </style>
+        </head>
+        <body>
+            check            
+            <div id="vis"></div>
+
+            <script type="text/javascript">
+                // Initialize the echarts instance based on the prepared dom
+                var myChart = echarts.init(document.getElementById('vis'));
+          
+                // Specify the configuration items and data for the chart
+                var option = {
+                  title: {
+                    text: 'ECharts Getting Started Example'
+                  },
+                  tooltip: {},
+                  legend: {
+                    data: ['sales']
+                  },
+                  xAxis: {
+                    data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'sales',
+                      type: 'bar',
+                      data: [5, 20, 36, 10, 10, 20]
+                    }
+                  ]
+                };
+          
+                // Display the chart using the configuration items and data just specified.
+                myChart.setOption(option);
+              </script>
+
+        </script>
+        </body>
+        </html> 

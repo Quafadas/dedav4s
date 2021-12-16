@@ -1,6 +1,6 @@
 import viz.vega.plots._
 
-import viz.PlotTargets.desktopBrowser
+import viz.PlotTargets.postHttp
 import viz.vega.extensions.*
 
 @main
@@ -10,10 +10,7 @@ def Main(args: String*): Unit =
     List(spec => spec("height") = 1200)
   ) */
 
-  //val b1 = Vector(5.0,2.0,6.0).plotBarChart()
-  val b2 = Vector(("hi",5l),("to",2l),("number six",6l)).plotBarChart()
-
-  
-
-
-  
+   List(
+   "how much wood would a wood chuck chuck if a wood chuck could chuck wood", 
+   "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"
+   ).plotWordcloud()

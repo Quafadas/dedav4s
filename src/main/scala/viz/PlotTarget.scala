@@ -19,6 +19,7 @@ object PlotTargets:
         val theHtml = raw"""<!DOCTYPE html>
         <html>
         <head>
+        <meta charset="utf-8" />
         <!-- Import Vega & Vega-Lite -->
         <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
         <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
@@ -71,3 +72,6 @@ object PlotTargets:
 
   given almond: PlotTarget with
     override def show(spec: String) = ???
+
+  given postHttp: PlotTarget with
+    override def show(spec: String) = requests.post("http://localhost:8080/viz", data=spec)
