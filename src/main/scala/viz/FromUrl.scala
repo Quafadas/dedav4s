@@ -1,14 +1,17 @@
 package viz
 
 import ujson.Value
+import viz.vega.plots.SpecUrl
 import java.net.URI
+import viz.vega.Framework
 
-trait FromUrl extends WithBaseSpec {
+abstract class FromUrl(val location:SpecUrl)(using PlotTarget) extends WithBaseSpec {
 
-    lazy val url : String = ???
+    //lazy val url : String = ???
 
-    override lazy val baseSpec = ujson.read(requests.get(url).text())
+    override lazy val baseSpec = location.jsonSpec
 
-    def viewBaseSpec = java.awt.Desktop.getDesktop.browse(URI(url.replace(".vg.json", "")))
+    def viewBaseSpec(f: Framework = Framework.Vega) = 
+        java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))
 
 }

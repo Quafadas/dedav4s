@@ -20,7 +20,7 @@ object Utils:
               """)
 
       val signalH = ujson.read("""
-              {
+          {
                 "name": "height",
                 "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
                 "on": [
@@ -29,19 +29,25 @@ object Utils:
                     "events": "window:resize"
                   }
                 ]
-              }
+          }
           
         """)
       if spec.obj.keys.toSeq.contains("signals") then
-        spec("signals").arr.dropWhileInPlace(signal =>
-          signal("name").str.toLowerCase() == "width"
-        )
-        spec("signals").arr.dropWhileInPlace(signal =>
-          signal("name").str.toLowerCase() == "height"
-        )
-        else
-          spec("signals") = ujson.Arr()
-      spec("autosize") =
-        ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
-
+        spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "width")
+        spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "height")
+      else spec("signals") = ujson.Arr()
+      spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
       spec("signals").arr.append(signalH).append(signalW)
+
+  val fixDefaultDataUrl: ujson.Value => Unit =
+    (spec: ujson.Value) =>
+      val test = spec("data")
+      test.arrOpt match
+        case Some(arrayd) =>
+          spec("data")(0)("url") =
+            "https://raw.githubusercontent.com/vega/vega/master/docs/" + spec("data")(0)("url").str
+        case None => ()
+      test.objOpt match
+        case Some(objd) =>
+          spec("data")("url") = "https://raw.githubusercontent.com/vega/vega/master/docs/" + spec("data")("url").str
+        case None => ()

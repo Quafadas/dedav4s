@@ -5,7 +5,7 @@ import viz.PlotTarget
 import scala.util.Random
 import scala.annotation.targetName
 import viz.vega.extensions
-import viz.vega.plots.Wordcloud
+import viz.vega.plots.WordCloud
 
 extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
   def plotBarChart(): BarChart =
@@ -42,11 +42,11 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
     )
     
 extension (s: String)(using plotTarget: PlotTarget)
-  def plotWordcloud(): Wordcloud = List(s).plotWordcloud()
+  def plotWordcloud(): WordCloud = List(s).plotWordcloud()
 
 extension (s: Seq[String])(using plotTarget: PlotTarget)
-  def plotWordcloud(): Wordcloud = 
-    new Wordcloud(
+  def plotWordcloud(): WordCloud = 
+    new WordCloud(
       List(
         spec => spec("data")(0)("values").arr.clear(),
         spec => spec("data")(0)("values") = s,

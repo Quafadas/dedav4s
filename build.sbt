@@ -10,7 +10,8 @@ lazy val root = project
     scalaVersion := "3.0.2",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.2",
-      "com.lihaoyi" %% "requests" % "0.6.9"
+      "com.lihaoyi" %% "requests" % "0.6.9",
+      "org.jsoup"%"jsoup"%"1.12.1"
     )
   )
 
