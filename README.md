@@ -22,7 +22,7 @@ You could instantiate this case class directly by calling
 
     viz.vega.plots.BarChart()
 
-Which would use the default data. Remember... the spec is just a JSON object. The case class accepts a list of modifiers to the spec. 
+Which would use the default data. Remember... the spec is just a JSON object. The case class accepts a list of modifiers to a "base" spec - in this case the vega bar chart example. 
 
 ## Assuming you have the "viz.PlotTargets.desktopBrowser" target in scope.
 
