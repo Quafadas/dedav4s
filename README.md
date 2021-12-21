@@ -1,12 +1,15 @@
 # dedav4s
 Declarative Data Viz 4 Scala. This wraps Vega and Vega Lite
 
-# In an ammonite terminal 
+# In a (scala 3) ammonite terminal 
+
     import $ivy.`io.github.quafadas::dedav4s:0.0.5-SNAPSHOT`
     import viz.PlotTargets.desktopBrowser
     import viz.vega.extensions.*
 
     (1 to 10).plotBarCart()
+
+Will also work in any repl environment, as long as... 
 
 # What just happened? What are the constraints? 
 plotBarChart is an [extension method](https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html) on numeric iterables. It deals with some light admin before setting up a (Bar Chart)[https://vega.github.io/vega/examples/bar-chart/]. 
