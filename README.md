@@ -12,7 +12,7 @@ Declarative Data Viz 4 Scala - a thin shim around vega and vega lite.
 Will also work in any repl environment, as long as... 
 
 # What just happened? What are the constraints? 
-plotBarChart is an [extension method](https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html) on numeric iterables. It deals with some light admin before setting up a [Bar Chart](https://vega.github.io/vega/examples/bar-chart/). The BarChart is a case class... which runs the "plotTarget" side effect. 
+plotBarChart is an [extension method](https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html) on numeric iterables. It deals with some light admin before setting up a [Bar Chart](https://vega.github.io/vega/examples/bar-chart/). The BarChart is a case class... which runs the "plotTarget" side effect [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) which is in scope. 
 
 The "setup" assumes one is able to access this url - it reads the spec from;
 
@@ -22,7 +22,7 @@ You could instantiate this case class directly by calling
 
     viz.vega.plots.BarChart()
 
-Which would use the default data. 
+Which would use the default data. Remember... the spec is just a JSON object. The case class accepts a list of modifiers to the spec. 
 
 ## Assuming you have the "viz.PlotTargets.desktopBrowser" target in scope.
 
