@@ -3,7 +3,7 @@ Declarative Data Viz 4 Scala. This wraps Vega and Vega Lite
 
 # In a (scala 3) ammonite terminal 
 
-    import $ivy.`io.github.quafadas::dedav4s:0.0.5-SNAPSHOT`
+    import $ivy.`io.github.quafadas::dedav4s:0.0.6`
     import viz.PlotTargets.desktopBrowser
     import viz.vega.extensions.*
 
