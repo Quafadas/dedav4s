@@ -1,5 +1,5 @@
 # dedav4s
-Declarative Data Viz 4 Scala. This wraps Vega and Vega Lite
+Declarative Data Viz 4 Scala - a thin shim around vega and vega lite.
 
 # In a (scala 3) ammonite terminal 
 
@@ -30,7 +30,7 @@ The library writes a (temporary) file, assuming that
 
     java.io.File.createTempFile() 
 
-Is available. That file assumes that you have an internet connection, and can resolve 
+Is available. That temporary file assumes that you have an internet connection, and can resolve 
 
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -47,10 +47,10 @@ Which has a browser available...
 Basically, a great big giant hack :-)! Feel free to inspect the temporary file. In exchange for that hack, you get convienient access to the expressive plotting power of Vega, and Vega lite. 
 
 # Other targets
-See the PlotTarget file. The ones I use are implemented - but more could be added easily enough. The websockets one is cool (companion project)[https://github.com/Quafadas/viz-websockets].
+See the PlotTarget file. The ones I use are implemented - but more could be added easily enough. The websockets one is cool [companion project](https://github.com/Quafadas/viz-websockets).
 
 # Which plots are available?
-The library exposes the (vega examples)[https://vega.github.io/vega/examples/] and (vega lite examples)[https://vega.github.io/vega-lite/examples/] convieniently as case classes. The class names correspond to the title of the charts with some special characters removed. 
+The library exposes the [vega examples](https://vega.github.io/vega/examples/) and [vega lite examples](https://vega.github.io/vega-lite/examples/) convieniently as case classes. The class names correspond to the title of the charts with some special characters removed. 
 
 A tiny number of "custom plots" are included in the Custom.scala file.
 
@@ -65,16 +65,18 @@ To add a title
 
     SimpleBarChartLite(List(spec => spec("title") = "Got Viz?"))
 
-I use a small number of helpers enough that they are included; 
+I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
 
-    SimpleBarChartLite(List(viz.Utils.fillDiv, spec => spec("title") = "Got Viz?" ))
+    SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
 
 I work with this library in 3 ways
-1. I want to see viz on some "self owned" datatype. Define an extension method on it...
+1. I want to see viz on some "self owned" datatype. Define an extension method on it... munge the data, pipe it into an example spec.
 2. I want to visualise some fairly raw dataset in a fashion which looks similar to one of the vega examples. Use scala to obtain data and pipe it directly into the spec
-3. Spec has been modified enough that a list of modifiers is confusing. Extend the base spec class direct via a file or resource (see "Custom.scala").
+3. Spec has been modified enough that a list of modifiers is confusing. Extend the base spec class direct via a file or resource (see "Custom.scala"). Then pipe data into it.
 
-In general, lean into Vega. Debug your specs using vega, then pipe the data you want into it through scala.
+YOu can read the existing extension methods for inspiration.
+
+In general, lean into Vega. Debug your specs using vega, then pipe the data you want into it through scala. This library is a thin shim around vega.
 
 Video to follow... maybe... 
 
