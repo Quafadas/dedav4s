@@ -71,7 +71,8 @@ object PlotTargets:
     override def show(spec: String) = ??? // don't think we need this with the embedding working properly
 
   given almond: PlotTarget with
-    override def show(spec: String) = ???
+    override def show(spec: String) = ??? // TODO : wait for Almond to evolve scala 3 support :-)... 
 
   given postHttp: PlotTarget with
-    override def show(spec: String) = requests.post("http://localhost:8080/viz", data=spec)
+    override def show(spec: String) = requests.post("http://localhost:8080/viz", data=spec) // see https://github.com/Quafadas/viz-websockets for an example use
+    // TODO read the url from configuration / ENV variable.

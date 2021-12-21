@@ -6,12 +6,12 @@ lazy val root = project
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
-    version := "0.0.5-SNAPSHOT",
+    version := "0.0.6",
     scalaVersion := "3.0.2",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.2",
       "com.lihaoyi" %% "requests" % "0.6.9",
-      "org.jsoup"%"jsoup"%"1.12.1"
+      "org.jsoup"%"jsoup"%"1.14.3"
     )
   )
 

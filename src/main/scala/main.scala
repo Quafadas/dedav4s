@@ -19,7 +19,7 @@ def Main(args: String*): Unit =
    
 
    // Check a vega lite viz
-   SimpleBarChartLite(List(viz.Utils.fillDiv))
+   SimpleBarChartLite(List(viz.Utils.fillDiv, spec => spec("title") = "Got Viz?" ))
 
    // Check a vega viz
    BarChart(List(viz.Utils.fillDiv))   
