@@ -57,7 +57,7 @@ A tiny number of "custom plots" are included in the Custom.scala file.
 # But how do I? 
 The idea of the library is to wrap vega by simply treating the spec as a JSON object.  
 
-As "spec" is a JSON object, we can easily manipulate JSON objects using [ujson](https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html). Each "plot" is a case class which accepts a list of modifiers. Each case class has the signature; 
+As "spec" is a JSON object, we can easily manipulate JSON objects using [ujson](https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html). Each "plot" is a case class which accepts a list of modifiers. Each case class has the signature accepting a single argument of type; 
 
     Seq[ujson.Value => Unit]
 
