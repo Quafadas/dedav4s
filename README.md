@@ -1,5 +1,5 @@
 # dedav4s
-Declarative Data Viz 4 Scala - a thin shim around vega and vega lite.
+Declarative Data Viz 4 Scala - a thin shim around vega and vega lite. It is aimed at repl, interactive environments and exploratory analysis
 
 # In a (scala 3) ammonite terminal 
 
@@ -69,10 +69,11 @@ I use a small number of "helpers" enough that they are honoured with an implemet
 
     SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
 
-I work with this library in 3 ways
+I work with this library in 4 ways
 1. I want to see viz on some "self owned" datatype. Define an extension method on it... munge the data, pipe it into an example spec.
 2. I want to visualise some fairly raw dataset in a fashion which looks similar to one of the vega examples. Use scala to obtain data and pipe it directly into the spec
 3. Spec has been modified enough that a list of modifiers is confusing. Extend the base spec class direct via a file or resource (see "Custom.scala"). Then pipe data into it.
+4. In prod... don't use this library anymore - probably you have a webserver. Keep the spec under version control and use vega data loading capabilities to talk to the API providing data. 
 
 YOu can read the existing extension methods for inspiration.
 
