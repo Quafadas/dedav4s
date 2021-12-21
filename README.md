@@ -47,7 +47,7 @@ Which has a browser available...
 Basically, a great big giant hack :-)! Feel free to inspect the temporary file. In exchange for that hack, you get convienient access to the expressive plotting power of Vega, and Vega lite. 
 
 # Other targets
-See the PlotTarget file. The ones I use are implemented - but more could be added easily enough. The websockets one is cool [companion project](https://github.com/Quafadas/viz-websockets).
+See the PlotTarget file. The ones I use are implemented - but more could be added easily enough. The post one is cool used with a [companion project](https://github.com/Quafadas/viz-websockets).
 
 # Which plots are available?
 The library exposes the [vega examples](https://vega.github.io/vega/examples/) and [vega lite examples](https://vega.github.io/vega-lite/examples/) convieniently as case classes. The class names correspond to the title of the charts with some special characters removed. 
