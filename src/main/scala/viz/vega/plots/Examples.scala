@@ -6,6 +6,7 @@ import viz.vega.plots.SpecUrl
 
 type JsonMod = Seq[ujson.Value => Unit]
 
+// Vega
 case class BarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.BarChart)
 case class StackedBarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.StackedBarChart)
 case class GroupedBarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.GroupedBarChart)
@@ -90,6 +91,7 @@ case class StockIndexChart(override val mods : JsonMod=List())(using PlotTarget)
 case class PiMonteCarlo(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.PiMonteCarlo)
 case class Pacman(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.Pacman)
 case class Platformer(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.Platformer)
+//Vega Lite
 
 case class SimpleBarChartLite (override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.SimpleBarChartLite)
 case class ResponsiveBarChartLite (override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.ResponsiveBarChartLite)

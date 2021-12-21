@@ -5,9 +5,7 @@ import viz.vega.plots.SpecUrl
 import java.net.URI
 import viz.vega.Framework
 
-abstract class FromUrl(val location:SpecUrl)(using PlotTarget) extends WithBaseSpec {
-
-    //lazy val url : String = ???
+abstract class FromUrl(val location:SpecUrl)(using PlotTarget) extends WithBaseSpec {    
 
     override lazy val baseSpec = location.jsonSpec
 

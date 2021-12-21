@@ -32,12 +32,16 @@ object Utils:
           }
           
         """)
-      if spec.obj.keys.toSeq.contains("signals") then
-        spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "width")
-        spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "height")
-      else spec("signals") = ujson.Arr()
-      spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
-      spec("signals").arr.append(signalH).append(signalW)
+      if spec("$schema").str.contains("lite") then
+        spec("width") = "container"
+        spec("height") = "container"
+      else
+        if spec.obj.keys.toSeq.contains("signals") then
+          spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "width")
+          spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "height")
+        else spec("signals") = ujson.Arr()
+        spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
+        spec("signals").arr.append(signalH).append(signalW)
 
   val fixDefaultDataUrl: ujson.Value => Unit =
     (spec: ujson.Value) =>
