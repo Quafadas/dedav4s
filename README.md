@@ -22,7 +22,9 @@ You could instantiate this case class directly by calling
 
     viz.vega.plots.BarChart()
 
-Which would use the default data. Assuming you have the "viz.PlotTargets.desktopBrowser" target in scope.
+Which would use the default data. 
+
+## Assuming you have the "viz.PlotTargets.desktopBrowser" target in scope.
 
 The library writes a (temporary) file, assuming that
 
