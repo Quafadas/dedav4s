@@ -12,7 +12,7 @@ Declarative Data Viz 4 Scala. This wraps Vega and Vega Lite
 Will also work in any repl environment, as long as... 
 
 # What just happened? What are the constraints? 
-plotBarChart is an [extension method](https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html) on numeric iterables. It deals with some light admin before setting up a (Bar Chart)[https://vega.github.io/vega/examples/bar-chart/]. 
+plotBarChart is an [extension method](https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html) on numeric iterables. It deals with some light admin before setting up a [Bar Chart](https://vega.github.io/vega/examples/bar-chart/). The BarChart is a case class... which runs the "plotTarget" side effect. 
 
 The "setup" assumes one is able to access this url - it reads the spec from;
 
@@ -42,13 +42,13 @@ Which has a browser available...
 
     java.awt.Desktop.browse()
 
-Basically, a great big giant hack :-)! In exchange for that, you get convienient access to the expressive plotting power of Vega, and Vega lite. 
+Basically, a great big giant hack :-)! Feel free to inspect the temporary file. In exchange for that hack, you get convienient access to the expressive plotting power of Vega, and Vega lite. 
 
 # Other targets
-See the PlotTarget file. The ones I use are implemented - but more could be added easily enough. The websockets one is cool.
+See the PlotTarget file. The ones I use are implemented - but more could be added easily enough. The websockets one is cool (companion project)[https://github.com/Quafadas/viz-websockets].
 
 # Which plots are available?
-The library exposes the (vega examples)[https://vega.github.io/vega/examples/] and (vega lite examples)[https://vega.github.io/vega-lite/examples/]. The class names correspond to the title of the charts with some special characters removed. 
+The library exposes the (vega examples)[https://vega.github.io/vega/examples/] and (vega lite examples)[https://vega.github.io/vega-lite/examples/] convieniently as case classes. The class names correspond to the title of the charts with some special characters removed. 
 
 A tiny number of "custom plots" are included in the Custom.scala file.
 
@@ -75,6 +75,16 @@ I work with this library in 3 ways
 In general, lean into Vega. Debug your specs using vega, then pipe the data you want into it through scala.
 
 Video to follow... maybe... 
+
+# Gotcha!!!
+
+    CirclePacking() 
+
+Doesn't display anything! inspect the spec or move it into the vega help (click the three buttons and go to the vega editor) and you'll see it doesn't have access to the data. The plot displays in the vega editor correctly though. Try... 
+
+    CirclePacking(
+        List(viz.Utils.fixDefaultDataUrl, viz.Utils.fillDiv)
+    )
 
 # Prior Art
 If you are interested in plotting things in scala, you may find any or all of the below libraries of interest. I obviously felt strongly enough to attempt to create my own version... but YMMV and here are other attempts at similar paradigms. In each case I either found they were unmaintained or didn't suit my way of working. They are none the less valuable resources;
