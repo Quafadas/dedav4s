@@ -1,7 +1,7 @@
 # dedav4s
 Declarative Data Viz 4 Scala - a thin shim around vega and vega lite. It is aimed at repl, interactive environments and exploratory analysis
 
-It pays to understanding the core Vega & Vega-Lite. If you're new to the scene, it's worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
+It pays to understanding the core Vega & Vega-Lite. It's worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
 
 If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
 
