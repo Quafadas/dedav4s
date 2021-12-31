@@ -7,5 +7,9 @@
 project/project
 project/target
 target
+!/myproject-docs/target
+scala-2.12/
+scala-3.0.2/
+streams/
 .DS_Store
 project/metals.sbt

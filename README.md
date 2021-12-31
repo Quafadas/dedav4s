@@ -5,6 +5,8 @@ It pays to understanding the core Vega & Vega-Lite. It's worth taking a few minu
 
 If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
 
+[Documentation](https://quafadas.github.io/dedav4s/) 
+
 # In a (scala 3) ammonite terminal 
 
     import $ivy.`io.github.quafadas::dedav4s:0.0.6`
