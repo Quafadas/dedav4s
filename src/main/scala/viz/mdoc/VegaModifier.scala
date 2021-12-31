@@ -8,8 +8,6 @@ import scala.meta.inputs.Position
 class VegaModifier extends mdoc.PostModifier:
   val name = "vegaplot"
   def process(ctx: PostModifierContext): String =
-    //val relpath = Paths.get(ctx.info)
-    //val out = ctx.outputFile.toNIO.getParent.resolve(relpath)
     println("at least we got here")
     ctx.lastValue match
       case spec: viz.Spec =>
