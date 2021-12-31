@@ -205,7 +205,7 @@ const spec = {
     }
   ]
 };  
-vegaEmbed('#vis', spec, {
+vegaEmbed('#viz', spec, {
     renderer: "canvas", // renderer (canvas or svg)
     container: "#vis", // parent DOM container
     hover: true, // enable hover processing
