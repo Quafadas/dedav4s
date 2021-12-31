@@ -1,5 +1,6 @@
 Global / semanticdbEnabled := true
 Global / onChangedBuildSource := ReloadOnSourceChanges
+import java.io.File
 val libV = "0.0.6"
 
 lazy val root = project
@@ -30,6 +31,7 @@ lazy val docs = project
     mdocVariables := Map(
       "VERSION" -> libV
     ),
+    mdocOut := new File("publishedDoc"),
     scalaVersion := "3.0.2",
     mdocAutoDependency := false,
     libraryDependencies ++= List(
