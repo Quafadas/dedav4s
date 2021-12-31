@@ -27,6 +27,10 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 ```scala mdoc
 val x = 1+1
 ```
-<div>
-    <b> So we can haz Div, again? </b>
+<div id="viz">
+    replace me?
 </div>
+
+<script>
+document.getElementById("viz").innerHTML = "Text added by JavaScript code";
+</script>

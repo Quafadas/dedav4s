@@ -28,13 +28,10 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
 val x = 1+1
 // x: Int = 2
 ```
-<div id="viz">    
-    hi
+<div id="viz">
+    replace me?
 </div>
 
-darn
-
-```js script
-    var myDiv = document.getElementById("viz");
-  myDiv.innerHTML = "Content To Show";
-```
+<script>
+document.getElementById("viz").innerHTML = "Text added by JavaScript code";
+</script>
