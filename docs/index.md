@@ -9,8 +9,8 @@ A scala plotting concept
         <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
         <style>
             div#vis {
-                width: 95vmin;
-                height:95vmin;
+            width: 25vmin;
+            height: 25vmin;
             style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
         }
     </style>
@@ -30,9 +30,6 @@ val x = 1+1
 ```
 <div id="viz">    
 </div>
-
-<script>
-<div id="vis"></div>
 
 <script type="text/javascript">
 const spec = {
@@ -211,7 +208,7 @@ const spec = {
 };  
 vegaEmbed('#vis', spec, {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz", // parent DOM container
+    container: "#vis", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
