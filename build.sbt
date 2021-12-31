@@ -9,11 +9,16 @@ lazy val root = project
     name := "dedav4s",
     description := "Declarative data viz for scala",
     version := libV,
-    scalaVersion := "3.0.2",
+    scalaVersion := "3.1.0",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.2",
       "com.lihaoyi" %% "requests" % "0.6.9",
-      "org.jsoup" % "jsoup" % "1.14.3"
+      "org.jsoup" % "jsoup" % "1.14.3",   
+      ("org.scalameta" %% "mdoc" % "2.2.24").exclude(
+        "com.lihaoyi",
+        "geny_2.13"
+      )
+
     )
   )
 
@@ -35,12 +40,8 @@ lazy val docs = project
     mdocIn := new File("rawDocs"),
     scalaVersion := "3.0.2",
     mdocAutoDependency := false,
-    libraryDependencies ++= List(
-      ("org.scalameta" %% "mdoc" % "2.2.24").exclude(
-        "com.lihaoyi",
-        "geny_2.13"
-      )
-    )
+    
+    
   )
   .dependsOn(root)
   .enablePlugins(MdocPlugin)

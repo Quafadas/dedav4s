@@ -25,11 +25,21 @@ To use this library in ammonite
 libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 ```
 ```scala mdoc
-val x = 1+1
+val x = (1 to 10)
 ```
 <div id="viz">    
 </div>
 
+```scala mdoc:vegaplot
+import viz.PlotTargets.printlnTarget
+import viz.vega.extensions.*
+
+val firstChart = (1 to 10).plotBarChart()
+```
+cheat below
+
+
+<!-- 
 <script type="text/javascript">
 const spec = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
@@ -215,4 +225,4 @@ vegaEmbed('#viz', spec, {
 }).then(function(result) {
 
 })
-</script>
+</script> -->
