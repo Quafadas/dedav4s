@@ -3,9 +3,8 @@ A scala plotting concept
 
 To install this library
 ```scala
-libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
+libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 ```
-```scala
+```scala mdoc
 val x = 1+1
-// x: Int = 2
 ```

@@ -31,7 +31,8 @@ lazy val docs = project
     mdocVariables := Map(
       "VERSION" -> libV
     ),
-    mdocOut := new File("publishedDoc"),
+    mdocOut := new File("docs"),
+    mdocIn := new File("rawDocs"),
     scalaVersion := "3.0.2",
     mdocAutoDependency := false,
     libraryDependencies ++= List(
