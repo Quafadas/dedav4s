@@ -13,7 +13,7 @@ If you are interested in plotting in general, I think that you will not regret l
     import viz.PlotTargets.desktopBrowser
     import viz.vega.extensions.*
 
-    (1 to 10).plotBarCart()
+    (1 to 10).plotBarChart()
 
 Will also work in any repl environment, as long as... 
 
