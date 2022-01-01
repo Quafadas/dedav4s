@@ -22,7 +22,7 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
 ```
 To use this library in ammonite
 ```scala
-libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
+import $ivy.`io.github.quafadas::dedav4s:0.0.6`
 ```
 
 Next, fire up an sbt console (or in a repl... )
@@ -35,18 +35,18 @@ import viz.vega.extensions.*
 // res0: BarChart = BarChart(
 //   List(
 //     viz.Utils$$$Lambda$20131/0x00000008027d9b38@66a1e687,
-//     viz.vega.extensions.extensions$package$$$Lambda$20133/0x00000008027e0000@bded359,
-//     viz.vega.extensions.extensions$package$$$Lambda$20134/0x00000008027e0408@63b3341
+//     viz.vega.extensions.extensions$package$$$Lambda$20133/0x00000008027e0000@3360b331,
+//     viz.vega.extensions.extensions$package$$$Lambda$20134/0x00000008027e0408@503e8d60
 //   )
 // )
 ```
-A side effect should mean should see a browser window open, with this inside
+A side effect should open a browser window, with this inside
 
 
-<div id="viz_Z8XBsc61" class="viz"></div>
+<div id="viz_N3KExAuZ" class="viz"></div>
 
 <script type="text/javascript">
-const specZ8XBsc61 = {
+const specN3KExAuZ = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -55,43 +55,43 @@ const specZ8XBsc61 = {
       "name": "table",
       "values": [
         {
-          "category": "gl20x06q",
+          "category": "LQhstr6m",
           "amount": "1"
         },
         {
-          "category": "fPqZOQFh",
+          "category": "55GdZ9P8",
           "amount": "2"
         },
         {
-          "category": "Q8lmWl0s",
+          "category": "nyGt0HrU",
           "amount": "3"
         },
         {
-          "category": "rjgIPrDb",
+          "category": "HyDDbLu6",
           "amount": "4"
         },
         {
-          "category": "4eBSvq2A",
+          "category": "sLD4UFRD",
           "amount": "5"
         },
         {
-          "category": "VblWFph7",
+          "category": "7ik1O6ZQ",
           "amount": "6"
         },
         {
-          "category": "fTHtjlGt",
+          "category": "LpH6eoHo",
           "amount": "7"
         },
         {
-          "category": "S2aVjysd",
+          "category": "A8GG23Pm",
           "amount": "8"
         },
         {
-          "category": "GCs2dHj2",
+          "category": "4h79f6HS",
           "amount": "9"
         },
         {
-          "category": "dvOyXxkV",
+          "category": "IUr9TDRc",
           "amount": "10"
         }
       ]
@@ -247,9 +247,9 @@ const specZ8XBsc61 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_Z8XBsc61', specZ8XBsc61 , {
+vegaEmbed('#viz_N3KExAuZ', specN3KExAuZ , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_Z8XBsc61", // parent DOM container
+    container: "#viz_N3KExAuZ", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -259,6 +259,7 @@ vegaEmbed('#viz_Z8XBsc61', specZ8XBsc61 , {
 })
 </script>
 
+If that worked, then you're ready to go!
 
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis

@@ -1,7 +1,9 @@
+---
+layout: page
+title: explantation
+---
+
 # Explanation
-
-
-
 
 
 <div id="viz_rPZwOsl4" class="viz"></div>

@@ -22,7 +22,7 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 ```
 To use this library in ammonite
 ```scala
-libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
+import $ivy.`io.github.quafadas::dedav4s:@VERSION@`
 ```
 
 Next, fire up an sbt console (or in a repl... )
@@ -33,10 +33,11 @@ import viz.vega.extensions.*
 
 (1 to 10).plotBarChart()
 ```
-A side effect should mean should see a browser window open, with this inside
+A side effect should open a browser window, with this inside
 ```scala mdoc:vegaplot
 val secondChart = (1 to 10).plotBarChart()
 ```
+If that worked, then you're ready to go!
 
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis
