@@ -1,6 +1,5 @@
 ---
 id: home
-title: Home
 ---
 # Dedav4s
 A scala plotting concept

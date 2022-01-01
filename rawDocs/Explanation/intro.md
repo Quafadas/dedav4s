@@ -1,13 +1,12 @@
 ---
-layout: default
+id: explanation
 title: Explanation
 ---
 
 # Explanation
 
-
 ```scala mdoc:invisible
-import viz.PlotTargets.printlnTarget
+import viz.PlotTargets.doNothing
 import viz.vega.extensions.*
 ```
 
