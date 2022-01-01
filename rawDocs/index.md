@@ -7,6 +7,13 @@ A scala plotting concept
         <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
         <!-- Import vega-embed -->
         <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+        <style>
+		    div#viz {
+                width: 25vmin;
+                height:25vmin;
+                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
+            }
+        </style>
 </head>
 
 To install this library
@@ -20,7 +27,7 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 ```scala mdoc
 val x = (1 to 10)
 ```
-<div id="viz" width: 25vmin; height: 25vmin;></div>
+
 
 ```scala mdoc:vegaplot
 import viz.PlotTargets.printlnTarget
