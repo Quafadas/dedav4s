@@ -1,6 +1,6 @@
 ---
-id: explanation
-title: Explanation
+id: plotTargets
+title: Plot Targets
 ---
 <head>
         <meta charset="utf-8" />
@@ -17,15 +17,17 @@ title: Explanation
             }
         </style>
 </head>
-# Explanation
+# Targets
+You need to decide where you want to see the chart. For this library, the first class citizen is a browser... 
 
 
 
 
-<div id="viz_TQASZitj" class="viz"></div>
+
+<div id="viz_DWIfMuMX" class="viz"></div>
 
 <script type="text/javascript">
-const specTQASZitj = {
+const specDWIfMuMX = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -34,43 +36,43 @@ const specTQASZitj = {
       "name": "table",
       "values": [
         {
-          "category": "btWPwR5G",
+          "category": "hX1tHl4g",
           "amount": "1"
         },
         {
-          "category": "3RhqR2Rg",
+          "category": "quMLzk8x",
           "amount": "2"
         },
         {
-          "category": "feOKZuHw",
+          "category": "rBJUm4ug",
           "amount": "3"
         },
         {
-          "category": "DZfDSOBS",
+          "category": "XM9leVSn",
           "amount": "4"
         },
         {
-          "category": "UEjnwaFQ",
+          "category": "oFjXarDu",
           "amount": "5"
         },
         {
-          "category": "bqWw9a1B",
+          "category": "IXKPEACs",
           "amount": "6"
         },
         {
-          "category": "a9YJKEvi",
+          "category": "nFZQNpfM",
           "amount": "7"
         },
         {
-          "category": "ZQG1rZ1A",
+          "category": "H43a6eeZ",
           "amount": "8"
         },
         {
-          "category": "qQhEDvss",
+          "category": "cZ1oJiOS",
           "amount": "9"
         },
         {
-          "category": "5OWoBvk6",
+          "category": "AtmgQVn5",
           "amount": "10"
         }
       ]
@@ -226,9 +228,9 @@ const specTQASZitj = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_TQASZitj', specTQASZitj , {
+vegaEmbed('#viz_DWIfMuMX', specDWIfMuMX , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_TQASZitj", // parent DOM container
+    container: "#viz_DWIfMuMX", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -242,10 +244,10 @@ Ideally, this would show a second chart
 
 
 
-<div id="viz_e5oWwARc" class="viz"></div>
+<div id="viz_07Ewehq1" class="viz"></div>
 
 <script type="text/javascript">
-const spece5oWwARc = {
+const spec07Ewehq1 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -254,23 +256,23 @@ const spece5oWwARc = {
       "name": "table",
       "values": [
         {
-          "category": "bv77CgmQ",
+          "category": "30MfznW9",
           "amount": "1"
         },
         {
-          "category": "CLwHo2hq",
+          "category": "qSxHkjoZ",
           "amount": "2"
         },
         {
-          "category": "0bhQvHUH",
+          "category": "RJoLa8c8",
           "amount": "3"
         },
         {
-          "category": "XqbCv0BU",
+          "category": "ZzRQUuhR",
           "amount": "4"
         },
         {
-          "category": "DGnVLZNI",
+          "category": "JGjJOHpQ",
           "amount": "5"
         }
       ]
@@ -426,9 +428,9 @@ const spece5oWwARc = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_e5oWwARc', spece5oWwARc , {
+vegaEmbed('#viz_07Ewehq1', spec07Ewehq1 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_e5oWwARc", // parent DOM container
+    container: "#viz_07Ewehq1", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
