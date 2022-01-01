@@ -7,13 +7,6 @@ A scala plotting concept
         <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
         <!-- Import vega-embed -->
         <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
-        <style>
-            div#vis {
-            width: 25vmin;
-            height: 25vmin;
-            style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
-        }
-    </style>
 </head>
 
 To install this library
@@ -28,8 +21,7 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
 val x = (1 to 10)
 // x: Inclusive = Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
-<div id="viz">    
-</div>
+<div id="viz" width: 25vmin; height: 25vmin;></div>
 
 
 <script type="text/javascript">
@@ -37,50 +29,48 @@ const spec = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
-  "height":400,
-  "width":400,
   "data": [
     {
       "name": "table",
       "values": [
         {
-          "category": "56Ltdeug",
+          "category": "i6OMvDPT",
           "amount": "1"
         },
         {
-          "category": "oqPTbUPd",
+          "category": "GhWeoByJ",
           "amount": "2"
         },
         {
-          "category": "9BuDKKkY",
+          "category": "RoHyRQSo",
           "amount": "3"
         },
         {
-          "category": "dB3ZhyZV",
+          "category": "Ol8ATgUL",
           "amount": "4"
         },
         {
-          "category": "Z4Hyx3EK",
+          "category": "I0z5XxM4",
           "amount": "5"
         },
         {
-          "category": "VUX5rJ4u",
+          "category": "EbkzEdB0",
           "amount": "6"
         },
         {
-          "category": "S0SF2fuu",
+          "category": "RRgBq2Mz",
           "amount": "7"
         },
         {
-          "category": "UkmJ42YG",
+          "category": "U3SKwTLo",
           "amount": "8"
         },
         {
-          "category": "2r4ZqdGj",
+          "category": "O5C3k32x",
           "amount": "9"
         },
         {
-          "category": "A5SmQC16",
+          "category": "CCfLI0PL",
           "amount": "10"
         }
       ]
@@ -100,6 +90,26 @@ const spec = {
         {
           "events": "rect:mouseout",
           "update": "{}"
+        }
+      ]
+    },
+    {
+      "name": "height",
+      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
         }
       ]
     }
