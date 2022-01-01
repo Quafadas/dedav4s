@@ -7,10 +7,10 @@ import scala.meta.inputs.Position
 
 class VegaModifier extends mdoc.PostModifier:
   val name = "vegaplot"
-  def process(ctx: PostModifierContext): String =
-    println("at least we got here")
+  def process(ctx: PostModifierContext): String =    
     ctx.lastValue match
       case spec: viz.Spec =>
+        
         vegaEmbed(spec.spec)
       case _ =>
         val (pos, obtained) = ctx.variables.lastOption match
@@ -29,6 +29,9 @@ class VegaModifier extends mdoc.PostModifier:
         ""
 
 def vegaEmbed(inSpec : String ) = s"""
+
+<div id="viz"></div>
+
 <script type="text/javascript">
 const spec = $inSpec
 vegaEmbed('#viz', spec, {

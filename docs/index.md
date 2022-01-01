@@ -7,6 +7,13 @@ A scala plotting concept
         <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
         <!-- Import vega-embed -->
         <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+        <style>
+		    div#viz {
+                width: 25vmin;
+                height:25vmin;
+                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
+            }
+        </style>
 </head>
 
 To install this library
@@ -21,8 +28,12 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
 val x = (1 to 10)
 // x: Inclusive = Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
-<div id="viz" width: 25vmin; height: 25vmin;></div>
 
+<div id="viz"></div>
+
+
+
+<div id="viz"></div>
 
 <script type="text/javascript">
 const spec = {
@@ -34,43 +45,43 @@ const spec = {
       "name": "table",
       "values": [
         {
-          "category": "i6OMvDPT",
+          "category": "1M5gWS8x",
           "amount": "1"
         },
         {
-          "category": "GhWeoByJ",
+          "category": "YmK1dR49",
           "amount": "2"
         },
         {
-          "category": "RoHyRQSo",
+          "category": "kdMxJAah",
           "amount": "3"
         },
         {
-          "category": "Ol8ATgUL",
+          "category": "wotRWN0F",
           "amount": "4"
         },
         {
-          "category": "I0z5XxM4",
+          "category": "EJhaUqpD",
           "amount": "5"
         },
         {
-          "category": "EbkzEdB0",
+          "category": "mbXLz3gE",
           "amount": "6"
         },
         {
-          "category": "RRgBq2Mz",
+          "category": "toRa1tdQ",
           "amount": "7"
         },
         {
-          "category": "U3SKwTLo",
+          "category": "6qkIPm1j",
           "amount": "8"
         },
         {
-          "category": "O5C3k32x",
+          "category": "5dTuElG1",
           "amount": "9"
         },
         {
-          "category": "CCfLI0PL",
+          "category": "0o36Coda",
           "amount": "10"
         }
       ]
