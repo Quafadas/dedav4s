@@ -25,12 +25,19 @@ To use this library in ammonite
 import $ivy.`io.github.quafadas::dedav4s:@VERSION@`
 ```
 
-Next, fire up an sbt console (or in a repl... )
+Next, fire up an sbt console (or in a repl... ) Firstly... 
 
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
 import viz.vega.extensions.*
+```
 
+```scala mdoc:reset:invisible
+import viz.PlotTargets.doNothing
+import viz.vega.extensions.*
+```
+
+```scala mdoc
 (1 to 10).plotBarChart()
 ```
 A side effect should open a browser window, with this inside
@@ -45,5 +52,3 @@ This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](
 It pays to have an understanding (or at least some idea of what those are) core Vega & Vega-Lite. It's worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
 
 If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
-
-[Documentation](https://quafadas.github.io/dedav4s/) 

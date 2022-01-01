@@ -46,5 +46,4 @@ vegaEmbed('#viz_$vizId', spec$vizId , {
 
 })
 </script>
-
 """

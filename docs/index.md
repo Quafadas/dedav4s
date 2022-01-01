@@ -25,28 +25,31 @@ To use this library in ammonite
 import $ivy.`io.github.quafadas::dedav4s:0.0.6`
 ```
 
-Next, fire up an sbt console (or in a repl... )
+Next, fire up an sbt console (or in a repl... ) Firstly... 
 
 ```scala
 import viz.PlotTargets.desktopBrowser
 import viz.vega.extensions.*
+```
 
+
+```scala
 (1 to 10).plotBarChart()
-// res0: BarChart = BarChart(
+// res1: BarChart = BarChart(
 //   List(
-//     viz.Utils$$$Lambda$20131/0x00000008027d9b38@66a1e687,
-//     viz.vega.extensions.extensions$package$$$Lambda$20133/0x00000008027e0000@3360b331,
-//     viz.vega.extensions.extensions$package$$$Lambda$20134/0x00000008027e0408@503e8d60
+//     viz.Utils$$$Lambda$22368/0x0000000802ceb628@1eecb2a3,
+//     viz.vega.extensions.extensions$package$$$Lambda$22370/0x0000000802cebe38@3fbdb45a,
+//     viz.vega.extensions.extensions$package$$$Lambda$22371/0x0000000802cec240@38e8e475
 //   )
 // )
 ```
 A side effect should open a browser window, with this inside
 
 
-<div id="viz_N3KExAuZ" class="viz"></div>
+<div id="viz_BG0pwBte" class="viz"></div>
 
 <script type="text/javascript">
-const specN3KExAuZ = {
+const specBG0pwBte = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -55,43 +58,43 @@ const specN3KExAuZ = {
       "name": "table",
       "values": [
         {
-          "category": "LQhstr6m",
+          "category": "Nj3uEmo9",
           "amount": "1"
         },
         {
-          "category": "55GdZ9P8",
+          "category": "qSarvPvn",
           "amount": "2"
         },
         {
-          "category": "nyGt0HrU",
+          "category": "64zvut9O",
           "amount": "3"
         },
         {
-          "category": "HyDDbLu6",
+          "category": "PS88FaIe",
           "amount": "4"
         },
         {
-          "category": "sLD4UFRD",
+          "category": "IQfcD5Kf",
           "amount": "5"
         },
         {
-          "category": "7ik1O6ZQ",
+          "category": "E00AcuNe",
           "amount": "6"
         },
         {
-          "category": "LpH6eoHo",
+          "category": "khcx7JAt",
           "amount": "7"
         },
         {
-          "category": "A8GG23Pm",
+          "category": "RvedqhTo",
           "amount": "8"
         },
         {
-          "category": "4h79f6HS",
+          "category": "3lE5h6Fp",
           "amount": "9"
         },
         {
-          "category": "IUr9TDRc",
+          "category": "jjhQW6QC",
           "amount": "10"
         }
       ]
@@ -247,9 +250,9 @@ const specN3KExAuZ = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_N3KExAuZ', specN3KExAuZ , {
+vegaEmbed('#viz_BG0pwBte', specBG0pwBte , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_N3KExAuZ", // parent DOM container
+    container: "#viz_BG0pwBte", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -258,7 +261,6 @@ vegaEmbed('#viz_N3KExAuZ', specN3KExAuZ , {
 
 })
 </script>
-
 If that worked, then you're ready to go!
 
 # Background Information
@@ -267,5 +269,3 @@ This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](
 It pays to have an understanding (or at least some idea of what those are) core Vega & Vega-Lite. It's worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
 
 If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
-
-[Documentation](https://quafadas.github.io/dedav4s/) 

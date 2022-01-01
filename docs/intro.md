@@ -1,15 +1,13 @@
----
-layout: page
-title: explantation
----
-
 # Explanation
 
 
-<div id="viz_rPZwOsl4" class="viz"></div>
+
+
+
+<div id="viz_u8vbwh72" class="viz"></div>
 
 <script type="text/javascript">
-const specrPZwOsl4 = {
+const specu8vbwh72 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -18,43 +16,43 @@ const specrPZwOsl4 = {
       "name": "table",
       "values": [
         {
-          "category": "rP9wYcWC",
+          "category": "Uzqqc7gt",
           "amount": "1"
         },
         {
-          "category": "yAg0DE8z",
+          "category": "1hIo0aQK",
           "amount": "2"
         },
         {
-          "category": "dh2VdDWx",
+          "category": "dTJVrAUt",
           "amount": "3"
         },
         {
-          "category": "yPyig9ol",
+          "category": "DC6JPNck",
           "amount": "4"
         },
         {
-          "category": "M1CXDP84",
+          "category": "7TNRzssU",
           "amount": "5"
         },
         {
-          "category": "fvx8umeA",
+          "category": "idiyGe9t",
           "amount": "6"
         },
         {
-          "category": "rjj2RC01",
+          "category": "bE9nXWYe",
           "amount": "7"
         },
         {
-          "category": "Ye0qwePH",
+          "category": "UeM4Sxnr",
           "amount": "8"
         },
         {
-          "category": "S6e3UzDi",
+          "category": "BspgVTCd",
           "amount": "9"
         },
         {
-          "category": "R7aGAzkz",
+          "category": "N1SFrlY7",
           "amount": "10"
         }
       ]
@@ -210,9 +208,9 @@ const specrPZwOsl4 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_rPZwOsl4', specrPZwOsl4 , {
+vegaEmbed('#viz_u8vbwh72', specu8vbwh72 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_rPZwOsl4", // parent DOM container
+    container: "#viz_u8vbwh72", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -222,15 +220,14 @@ vegaEmbed('#viz_rPZwOsl4', specrPZwOsl4 , {
 })
 </script>
 
-
 Ideally, this would show a second chart
 
 
 
-<div id="viz_kUykPVyc" class="viz"></div>
+<div id="viz_Ua1cRyoV" class="viz"></div>
 
 <script type="text/javascript">
-const speckUykPVyc = {
+const specUa1cRyoV = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -239,23 +236,23 @@ const speckUykPVyc = {
       "name": "table",
       "values": [
         {
-          "category": "UmYagRJU",
+          "category": "B8pT4RDo",
           "amount": "1"
         },
         {
-          "category": "iW2u2H68",
+          "category": "MYcIVMBI",
           "amount": "2"
         },
         {
-          "category": "lq4F1fFs",
+          "category": "5ymEGVaj",
           "amount": "3"
         },
         {
-          "category": "HaU8O2cR",
+          "category": "CFuv1NBe",
           "amount": "4"
         },
         {
-          "category": "hEQimbj2",
+          "category": "V6w1QruD",
           "amount": "5"
         }
       ]
@@ -411,9 +408,9 @@ const speckUykPVyc = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_kUykPVyc', speckUykPVyc , {
+vegaEmbed('#viz_Ua1cRyoV', specUa1cRyoV , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_kUykPVyc", // parent DOM container
+    container: "#viz_Ua1cRyoV", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -422,4 +419,3 @@ vegaEmbed('#viz_kUykPVyc', speckUykPVyc , {
 
 })
 </script>
-
