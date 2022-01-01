@@ -1,2 +1,2 @@
-theme: jekyll-theme-tactile
-title: "data viz 4 scala"
+remote_theme: pmarsceill/just-the-docs
+color_scheme: "light"
