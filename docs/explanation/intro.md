@@ -2,16 +2,30 @@
 id: explanation
 title: Explanation
 ---
-
+<head>
+        <meta charset="utf-8" />
+        <!-- Import Vega & Vega-Lite -->
+        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+        <!-- Import vega-embed -->
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+        <style>
+		    div.viz {
+                width: 25vmin;
+                height:25vmin;
+                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
+            }
+        </style>
+</head>
 # Explanation
 
 
 
 
-<div id="viz_DtRXD2Uq" class="viz"></div>
+<div id="viz_4KegKchW" class="viz"></div>
 
 <script type="text/javascript">
-const specDtRXD2Uq = {
+const spec4KegKchW = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -20,43 +34,43 @@ const specDtRXD2Uq = {
       "name": "table",
       "values": [
         {
-          "category": "npPPEffI",
+          "category": "Q7q8nqGQ",
           "amount": "1"
         },
         {
-          "category": "ZtykYNqV",
+          "category": "5rrTIOJA",
           "amount": "2"
         },
         {
-          "category": "zlfWA8Eh",
+          "category": "XW1d07ej",
           "amount": "3"
         },
         {
-          "category": "AdXDGdRw",
+          "category": "9KxAYeWP",
           "amount": "4"
         },
         {
-          "category": "qMZiNeLP",
+          "category": "d8uWUI6E",
           "amount": "5"
         },
         {
-          "category": "wRKtgE8b",
+          "category": "Rg1cnzlw",
           "amount": "6"
         },
         {
-          "category": "6BZ9V5xT",
+          "category": "INkNJHDk",
           "amount": "7"
         },
         {
-          "category": "wiLOoFzS",
+          "category": "dvbNnbdJ",
           "amount": "8"
         },
         {
-          "category": "d0H21AkS",
+          "category": "DguzQOwV",
           "amount": "9"
         },
         {
-          "category": "kxhbqZiP",
+          "category": "9eXNaSWU",
           "amount": "10"
         }
       ]
@@ -212,9 +226,9 @@ const specDtRXD2Uq = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_DtRXD2Uq', specDtRXD2Uq , {
+vegaEmbed('#viz_4KegKchW', spec4KegKchW , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_DtRXD2Uq", // parent DOM container
+    container: "#viz_4KegKchW", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -228,10 +242,10 @@ Ideally, this would show a second chart
 
 
 
-<div id="viz_9unrcedM" class="viz"></div>
+<div id="viz_Z9RYIaJn" class="viz"></div>
 
 <script type="text/javascript">
-const spec9unrcedM = {
+const specZ9RYIaJn = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -240,23 +254,23 @@ const spec9unrcedM = {
       "name": "table",
       "values": [
         {
-          "category": "odoZhyCb",
+          "category": "dkIK2q0e",
           "amount": "1"
         },
         {
-          "category": "FA3gtUR9",
+          "category": "dbKvG7kn",
           "amount": "2"
         },
         {
-          "category": "gfnagiC0",
+          "category": "DaVBTDFq",
           "amount": "3"
         },
         {
-          "category": "IzSOgNJ1",
+          "category": "vdx5TYeD",
           "amount": "4"
         },
         {
-          "category": "lLwGQ2Uz",
+          "category": "HJ3y1tb7",
           "amount": "5"
         }
       ]
@@ -412,9 +426,9 @@ const spec9unrcedM = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_9unrcedM', spec9unrcedM , {
+vegaEmbed('#viz_Z9RYIaJn', specZ9RYIaJn , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_9unrcedM", // parent DOM container
+    container: "#viz_Z9RYIaJn", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
