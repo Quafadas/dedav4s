@@ -8,7 +8,7 @@ A scala plotting concept
         <!-- Import vega-embed -->
         <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
         <style>
-		    div#viz {
+		    div.viz {
                 width: 25vmin;
                 height:25vmin;
                 style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
@@ -28,10 +28,14 @@ libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 val x = (1 to 10)
 ```
 
-
 ```scala mdoc:vegaplot
 import viz.PlotTargets.printlnTarget
 import viz.vega.extensions.*
 
 val firstChart = (1 to 10).plotBarChart()
+```
+Ideally, this would show a second chart
+
+```scala mdoc:vegaplot
+val secondChart = (1 to 5).plotBarChart()
 ```

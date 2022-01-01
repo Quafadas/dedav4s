@@ -4,14 +4,15 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import mdoc.*
 import scala.meta.inputs.Position
+import scala.util.Random
 
 class VegaModifier extends mdoc.PostModifier:
   val name = "vegaplot"
   def process(ctx: PostModifierContext): String =    
     ctx.lastValue match
       case spec: viz.Spec =>
-        
-        vegaEmbed(spec.spec)
+        val anId = Random.alphanumeric.take(8).mkString("")
+        vegaEmbed(spec.spec, anId)
       case _ =>
         val (pos, obtained) = ctx.variables.lastOption match
           case Some(variable) =>
@@ -28,15 +29,15 @@ class VegaModifier extends mdoc.PostModifier:
         )
         ""
 
-def vegaEmbed(inSpec : String ) = s"""
+def vegaEmbed(inSpec : String, vizId:String ) = s"""
 
-<div id="viz"></div>
+<div id="viz_$vizId" class="viz"></div>
 
 <script type="text/javascript">
-const spec = $inSpec
-vegaEmbed('#viz', spec, {
+const spec$vizId = $inSpec
+vegaEmbed('#viz_$vizId', spec$vizId , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz", // parent DOM container
+    container: "#viz_$vizId", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
