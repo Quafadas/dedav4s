@@ -16,7 +16,7 @@ A scala plotting concept
         </style>
 </head>
 
-To install this library
+To add this library to an sbt project
 ```scala
 libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 ```
@@ -24,18 +24,25 @@ To use this library in ammonite
 ```scala
 libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
 ```
-```scala mdoc
-val x = (1 to 10)
-```
 
-```scala mdoc:vegaplot
-import viz.PlotTargets.printlnTarget
+Next, fire up an sbt console (or in a repl... )
+
+```scala mdoc
+import viz.PlotTargets.desktopBrowser
 import viz.vega.extensions.*
 
-val firstChart = (1 to 10).plotBarChart()
+(1 to 10).plotBarChart()
 ```
-Ideally, this would show a second chart
-
+A side effect should mean should see a browser window open, with this inside
 ```scala mdoc:vegaplot
-val secondChart = (1 to 5).plotBarChart()
+val secondChart = (1 to 10).plotBarChart()
 ```
+
+# Background Information
+This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis
+
+It pays to have an understanding (or at least some idea of what those are) core Vega & Vega-Lite. It's worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
+
+If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
+
+[Documentation](https://quafadas.github.io/dedav4s/) 

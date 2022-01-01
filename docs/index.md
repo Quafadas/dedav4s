@@ -8,7 +8,7 @@ A scala plotting concept
         <!-- Import vega-embed -->
         <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
         <style>
-		    div#viz {
+		    div.viz {
                 width: 25vmin;
                 height:25vmin;
                 style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
@@ -16,7 +16,7 @@ A scala plotting concept
         </style>
 </head>
 
-To install this library
+To add this library to an sbt project
 ```scala
 libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
 ```
@@ -24,19 +24,29 @@ To use this library in ammonite
 ```scala
 libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
 ```
+
+Next, fire up an sbt console (or in a repl... )
+
 ```scala
-val x = (1 to 10)
-// x: Inclusive = Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+import viz.PlotTargets.desktopBrowser
+import viz.vega.extensions.*
+
+(1 to 10).plotBarChart()
+// res0: BarChart = BarChart(
+//   List(
+//     viz.Utils$$$Lambda$20131/0x00000008027d9b38@66a1e687,
+//     viz.vega.extensions.extensions$package$$$Lambda$20133/0x00000008027e0000@bded359,
+//     viz.vega.extensions.extensions$package$$$Lambda$20134/0x00000008027e0408@63b3341
+//   )
+// )
 ```
-
-<div id="viz"></div>
-
+A side effect should mean should see a browser window open, with this inside
 
 
-<div id="viz"></div>
+<div id="viz_Z8XBsc61" class="viz"></div>
 
 <script type="text/javascript">
-const spec = {
+const specZ8XBsc61 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -45,43 +55,43 @@ const spec = {
       "name": "table",
       "values": [
         {
-          "category": "1M5gWS8x",
+          "category": "gl20x06q",
           "amount": "1"
         },
         {
-          "category": "YmK1dR49",
+          "category": "fPqZOQFh",
           "amount": "2"
         },
         {
-          "category": "kdMxJAah",
+          "category": "Q8lmWl0s",
           "amount": "3"
         },
         {
-          "category": "wotRWN0F",
+          "category": "rjgIPrDb",
           "amount": "4"
         },
         {
-          "category": "EJhaUqpD",
+          "category": "4eBSvq2A",
           "amount": "5"
         },
         {
-          "category": "mbXLz3gE",
+          "category": "VblWFph7",
           "amount": "6"
         },
         {
-          "category": "toRa1tdQ",
+          "category": "fTHtjlGt",
           "amount": "7"
         },
         {
-          "category": "6qkIPm1j",
+          "category": "S2aVjysd",
           "amount": "8"
         },
         {
-          "category": "5dTuElG1",
+          "category": "GCs2dHj2",
           "amount": "9"
         },
         {
-          "category": "0o36Coda",
+          "category": "dvOyXxkV",
           "amount": "10"
         }
       ]
@@ -237,9 +247,9 @@ const spec = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz', spec, {
+vegaEmbed('#viz_Z8XBsc61', specZ8XBsc61 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz", // parent DOM container
+    container: "#viz_Z8XBsc61", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -249,3 +259,12 @@ vegaEmbed('#viz', spec, {
 })
 </script>
 
+
+# Background Information
+This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis
+
+It pays to have an understanding (or at least some idea of what those are) core Vega & Vega-Lite. It's worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
+
+If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
+
+[Documentation](https://quafadas.github.io/dedav4s/) 
