@@ -3,7 +3,9 @@ id: home
 title: Home
 ---
 # Dedav4s
-A scala plotting concept
+
+Declarative data visualization for scala - a scala plotting concept
+
 <head>
         <meta charset="utf-8" />
         <!-- Import Vega & Vega-Lite -->

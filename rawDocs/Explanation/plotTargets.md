@@ -20,7 +20,9 @@ title: Plot Targets
 # Targets
 You need to decide where you want to see the chart. For this library, the first class citizen is a browser... 
 
-Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a 
+Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) which is in scope. 
+
+The targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
 ## Desktop Browser
 

@@ -20,7 +20,9 @@ title: Plot Targets
 # Targets
 You need to decide where you want to see the chart. For this library, the first class citizen is a browser... 
 
-Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a 
+Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) which is in scope. 
+
+The targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
 ## Desktop Browser
 
@@ -37,10 +39,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 ```
 
 
-<div id="viz_9ySBYAOx" class="viz"></div>
+<div id="viz_MUrzVn3H" class="viz"></div>
 
 <script type="text/javascript">
-const spec9ySBYAOx = {
+const specMUrzVn3H = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -217,9 +219,9 @@ const spec9ySBYAOx = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_9ySBYAOx', spec9ySBYAOx , {
+vegaEmbed('#viz_MUrzVn3H', specMUrzVn3H , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_9ySBYAOx", // parent DOM container
+    container: "#viz_MUrzVn3H", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -269,7 +271,7 @@ import viz.vega.extensions.*
 List(("A",5),("B",8),("C",-1)).plotBarChart()
 // res1: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$22585/0x00000008021623d0@6d411974,
+//     viz.vega.extensions.extensions$package$$$Lambda$22585/0x00000008021623d0@7e586a57,
 //     viz.Utils$$$Lambda$22368/0x0000000802ceb628@1eecb2a3
 //   )
 // )
@@ -461,7 +463,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 // }
 // res3: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$22585/0x00000008021623d0@285a3334,
+//     viz.vega.extensions.extensions$package$$$Lambda$22585/0x00000008021623d0@4f8ad19d,
 //     viz.Utils$$$Lambda$22368/0x0000000802ceb628@1eecb2a3
 //   )
 // )
