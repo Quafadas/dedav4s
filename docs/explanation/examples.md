@@ -17,17 +17,42 @@ title: Examples
             }
         </style>
 </head>
-# Targets
-You need to decide where you want to see the chart. For this library, the first class citizen is a browser... 
+Once you have your plot target in place, we're ready to plot some data. The idea of the library is to wrap vega by simply treating the spec as a JSON object.  
+
+We can easily manipulate JSON objects using [ujson](https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html). 
+
+I work with this library in 4 ways
+1. I want to visualise some fairly raw dataset in a fashion which looks similar to one of the vega examples. Use scala to obtain data and pipe it directly into the spec
+1. I want to see viz on some "self owned" datatype. Define an extension method on it... munge the data, pipe it into an example spec.
+1. Spec has been modified enough that a list of modifiers is confusing. Extend the base spec class direct via a file or resource (see "Custom.scala"). Then pipe data into it.
+1. In prod... don't use this library anymore - probably you have a webserver. Keep the spec under version control and use vega data loading capabilities to talk to the API providing data. 
+
+Each "plot" is a case class which accepts a list of "modifiers". Each case class has the signature accepting a single argument of type; 
+
+    Seq[ujson.Value => Unit]
+
+To add a title
+
+    SimpleBarChartLite(List(spec => spec("title") = "Got Viz?"))
+
+I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
+
+    SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
+
+## "Raw" Data
+
+The idea here, is that "raw datatypes" have some "unambiguous" visualisation which is relatively common to want to plot. Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website. We want to be able to plot these as quickly as possible. 
+
+### Labelled bar chart
+```scala
+List(("A", 4),("B", 6),("C", -1)).plotBarChart()
+```
 
 
-
-
-
-<div id="viz_wBCVBoiq" class="viz"></div>
+<div id="viz_CIrZRyB0" class="viz"></div>
 
 <script type="text/javascript">
-const specwBCVBoiq = {
+const specCIrZRyB0 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -204,9 +229,9 @@ const specwBCVBoiq = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_wBCVBoiq', specwBCVBoiq , {
+vegaEmbed('#viz_CIrZRyB0', specCIrZRyB0 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_wBCVBoiq", // parent DOM container
+    container: "#viz_CIrZRyB0", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -216,14 +241,16 @@ vegaEmbed('#viz_wBCVBoiq', specwBCVBoiq , {
 })
 </script>
 
-Ideally, this would show a second chart
+### Bar chart
+```scala
+val secondChart = (1 to 5).plotBarChart()
+```
 
 
-
-<div id="viz_w6WpfDfq" class="viz"></div>
+<div id="viz_28bDMQuu" class="viz"></div>
 
 <script type="text/javascript">
-const specw6WpfDfq = {
+const spec28bDMQuu = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -232,23 +259,23 @@ const specw6WpfDfq = {
       "name": "table",
       "values": [
         {
-          "category": "IFkgn7qV",
+          "category": "ec3TR3y3",
           "amount": "1"
         },
         {
-          "category": "3T7Y9osj",
+          "category": "MsVSe7hu",
           "amount": "2"
         },
         {
-          "category": "mIxZNpmV",
+          "category": "s4V0XM9f",
           "amount": "3"
         },
         {
-          "category": "VFZnkQS5",
+          "category": "H9MIYysV",
           "amount": "4"
         },
         {
-          "category": "QKeJExkm",
+          "category": "LGsVrxoJ",
           "amount": "5"
         }
       ]
@@ -404,9 +431,170 @@ const specw6WpfDfq = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_w6WpfDfq', specw6WpfDfq , {
+vegaEmbed('#viz_28bDMQuu', spec28bDMQuu , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_w6WpfDfq", // parent DOM container
+    container: "#viz_28bDMQuu", // parent DOM container
+    hover: true, // enable hover processing
+    actions: {
+        editor : true
+    }
+}).then(function(result) {
+
+})
+</script>
+
+### Word cloud
+```scala
+List(
+   "how much wood would a wood chuck chuck if a wood chuck could chuck wood", 
+   "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"
+).plotWordcloud()
+```
+
+
+<div id="viz_rqxPcYbS" class="viz"></div>
+
+<script type="text/javascript">
+const specrqxPcYbS = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "A word cloud visualization depicting Vega research paper abstracts.",
+  "padding": 0,
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        "how much wood would a wood chuck chuck if a wood chuck could chuck wood",
+        "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"
+      ],
+      "transform": [
+        {
+          "type": "countpattern",
+          "field": "data",
+          "case": "upper",
+          "pattern": "[\\w']{3,}",
+          "stopwords": "(i|me|my|myself|we|us|our|ours|ourselves|you|your|yours|yourself|yourselves|he|him|his|himself|she|her|hers|herself|it|its|itself|they|them|their|theirs|themselves|what|which|who|whom|whose|this|that|these|those|am|is|are|was|were|be|been|being|have|has|had|having|do|does|did|doing|will|would|should|can|could|ought|i'm|you're|he's|she's|it's|we're|they're|i've|you've|we've|they've|i'd|you'd|he'd|she'd|we'd|they'd|i'll|you'll|he'll|she'll|we'll|they'll|isn't|aren't|wasn't|weren't|hasn't|haven't|hadn't|doesn't|don't|didn't|won't|wouldn't|shan't|shouldn't|can't|cannot|couldn't|mustn't|let's|that's|who's|what's|here's|there's|when's|where's|why's|how's|a|an|the|and|but|if|or|because|as|until|while|of|at|by|for|with|about|against|between|into|through|during|before|after|above|below|to|from|up|upon|down|in|out|on|off|over|under|again|further|then|once|here|there|when|where|why|how|all|any|both|each|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|say|says|said|shall)"
+        },
+        {
+          "type": "formula",
+          "as": "angle",
+          "expr": "[-45, 0, 45][~~(random() * 3)]"
+        },
+        {
+          "type": "formula",
+          "as": "weight",
+          "expr": "if(datum.text=='VEGA', 600, 300)"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "table",
+        "field": "text"
+      },
+      "range": [
+        "#d5a928",
+        "#652c90",
+        "#939597"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "text",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "text": {
+            "field": "text"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "alphabetic"
+          },
+          "fill": {
+            "scale": "color",
+            "field": "text"
+          }
+        },
+        "update": {
+          "fillOpacity": {
+            "value": 1
+          }
+        },
+        "hover": {
+          "fillOpacity": {
+            "value": 0.5
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "wordcloud",
+          "size": [
+            800,
+            400
+          ],
+          "text": {
+            "field": "text"
+          },
+          "rotate": {
+            "field": "datum.angle"
+          },
+          "font": "Helvetica Neue, Arial",
+          "fontSize": {
+            "field": "datum.count"
+          },
+          "fontWeight": {
+            "field": "datum.weight"
+          },
+          "fontSizeRange": [
+            12,
+            56
+          ],
+          "padding": 2
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "height",
+      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
+        }
+      ]
+    }
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
+}
+vegaEmbed('#viz_rqxPcYbS', specrqxPcYbS , {
+    renderer: "canvas", // renderer (canvas or svg)
+    container: "#viz_rqxPcYbS", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true

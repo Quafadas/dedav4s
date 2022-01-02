@@ -44,18 +44,18 @@ import viz.vega.extensions.*
 // res1: BarChart = BarChart(
 //   List(
 //     viz.Utils$$$Lambda$22368/0x0000000802ceb628@1eecb2a3,
-//     viz.vega.extensions.extensions$package$$$Lambda$22370/0x0000000802cebe38@5ad0c99d,
-//     viz.vega.extensions.extensions$package$$$Lambda$22371/0x0000000802cec240@442ff66
+//     viz.vega.extensions.extensions$package$$$Lambda$22370/0x0000000802cebe38@65064159,
+//     viz.vega.extensions.extensions$package$$$Lambda$22371/0x0000000802cec240@39222bcd
 //   )
 // )
 ```
 A side effect should open a browser window, with this inside
 
 
-<div id="viz_bAuxpTBq" class="viz"></div>
+<div id="viz_7dVKbZTz" class="viz"></div>
 
 <script type="text/javascript">
-const specbAuxpTBq = {
+const spec7dVKbZTz = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -64,43 +64,43 @@ const specbAuxpTBq = {
       "name": "table",
       "values": [
         {
-          "category": "EKjrgdcI",
+          "category": "ehQJhI4J",
           "amount": "1"
         },
         {
-          "category": "msiDSvMg",
+          "category": "bhqrFPot",
           "amount": "2"
         },
         {
-          "category": "1276ERvA",
+          "category": "3ehUiroK",
           "amount": "3"
         },
         {
-          "category": "xAbBgId0",
+          "category": "BOuDaqkA",
           "amount": "4"
         },
         {
-          "category": "2PdWHGFE",
+          "category": "MZAWDh3e",
           "amount": "5"
         },
         {
-          "category": "vFEQUJJ1",
+          "category": "ill3cZv9",
           "amount": "6"
         },
         {
-          "category": "1ZrrvDOt",
+          "category": "O2FMXYAQ",
           "amount": "7"
         },
         {
-          "category": "OmJhhe93",
+          "category": "PEGBaM7E",
           "amount": "8"
         },
         {
-          "category": "VyseSceZ",
+          "category": "RmFFzg7b",
           "amount": "9"
         },
         {
-          "category": "sRMtvtZl",
+          "category": "AyGutD9x",
           "amount": "10"
         }
       ]
@@ -256,9 +256,9 @@ const specbAuxpTBq = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_bAuxpTBq', specbAuxpTBq , {
+vegaEmbed('#viz_7dVKbZTz', spec7dVKbZTz , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_bAuxpTBq", // parent DOM container
+    container: "#viz_7dVKbZTz", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -274,4 +274,4 @@ This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](
 
 It pays to have an understanding (or at least some idea of what those are), both Vega & Vega-Lite. It may be worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
 
-If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
+If you are interested in plotting in general, I think that you will not regret learning a declarative paradigm.

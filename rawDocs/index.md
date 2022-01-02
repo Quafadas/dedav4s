@@ -57,4 +57,4 @@ This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](
 
 It pays to have an understanding (or at least some idea of what those are), both Vega & Vega-Lite. It may be worth taking a few minutes to orient yourself with this [talk/demo](https://www.youtube.com/watch?v=9uaHRWj04D4) from the creators at the Interactive Data Lab (IDL) at University of Washington.
 
-If you are interested in plotting in general, I think that you will not regret learning a declaritive paradigm.
+If you are interested in plotting in general, I think that you will not regret learning a declarative paradigm.
