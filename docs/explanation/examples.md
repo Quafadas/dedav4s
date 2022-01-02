@@ -20,27 +20,14 @@ title: Plot Targets
 # Targets
 You need to decide where you want to see the chart. For this library, the first class citizen is a browser... 
 
-Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a 
-
-## Desktop Browser
-
-Will open a new browser window in your desktop based browser, pointing to a temporary file. 
 
 
-```scala 
-import viz.PlotTargets.desktopBrowser
-import viz.vega.extensions.*
-```
-
-```scala
-List(("A",5),("B",8),("C",-1)).plotBarChart()
-```
 
 
-<div id="viz_wSv6muU5" class="viz"></div>
+<div id="viz_Y308YUHl" class="viz"></div>
 
 <script type="text/javascript">
-const specwSv6muU5 = {
+const specY308YUHl = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -50,11 +37,11 @@ const specwSv6muU5 = {
       "values": [
         {
           "category": "A",
-          "amount": "5"
+          "amount": "4"
         },
         {
           "category": "B",
-          "amount": "8"
+          "amount": "6"
         },
         {
           "category": "C",
@@ -217,9 +204,9 @@ const specwSv6muU5 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_wSv6muU5', specwSv6muU5 , {
+vegaEmbed('#viz_Y308YUHl', specY308YUHl , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_wSv6muU5", // parent DOM container
+    container: "#viz_Y308YUHl", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -228,46 +215,15 @@ vegaEmbed('#viz_wSv6muU5', specwSv6muU5 , {
 
 })
 </script>
-The library writes a (temporary) file, assuming that
 
-    java.io.File.createTempFile() 
-
-Is available. That temporary file assumes that you have an internet connection, and can resolve 
-
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-
-Finally, we assume the existence of a 
-
-    java.awt.Desktop
-
-Which has a browser available... 
-
-    java.awt.Desktop.browse()
-
-And we browse to the temporary file in step one.
-
-## Websockets / Post
-The post side effect is cool used with a [companion project](https://github.com/Quafadas/viz-websockets).
-
-WIP to integrate in a friendly way into this library.
-
-## [Almond](www.almond.sh)
-
-WIP - need a release of almond which supports scala 3
-
-## VSCode 
-
-WIP
-
-## Do Nothing
+Ideally, this would show a second chart
 
 
-<div id="viz_vgyGNwSY" class="viz"></div>
+
+<div id="viz_xq3wd7j7" class="viz"></div>
 
 <script type="text/javascript">
-const specvgyGNwSY = {
+const specxq3wd7j7 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -276,16 +232,24 @@ const specvgyGNwSY = {
       "name": "table",
       "values": [
         {
-          "category": "A",
+          "category": "oNIn3WPG",
+          "amount": "1"
+        },
+        {
+          "category": "srWDIi36",
+          "amount": "2"
+        },
+        {
+          "category": "xZwjvF4M",
+          "amount": "3"
+        },
+        {
+          "category": "6FjqmXm2",
+          "amount": "4"
+        },
+        {
+          "category": "diMwZzx3",
           "amount": "5"
-        },
-        {
-          "category": "B",
-          "amount": "8"
-        },
-        {
-          "category": "C",
-          "amount": "-1"
         }
       ]
     }
@@ -351,10 +315,6 @@ const specvgyGNwSY = {
     }
   ],
   "axes": [
-    {
-      "orient": "bottom",
-      "scale": "xscale"
-    },
     {
       "orient": "left",
       "scale": "yscale"
@@ -444,9 +404,9 @@ const specvgyGNwSY = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_vgyGNwSY', specvgyGNwSY , {
+vegaEmbed('#viz_xq3wd7j7', specxq3wd7j7 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_vgyGNwSY", // parent DOM container
+    container: "#viz_xq3wd7j7", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -455,195 +415,3 @@ vegaEmbed('#viz_vgyGNwSY', specvgyGNwSY , {
 
 })
 </script>
-To no ones surprise, does nothing! The implementation simply executes unit ```()```. I regret the CPU cycles. 
-
-## printlnTarget
-```scala
-import viz.PlotTargets.printlnTarget
-import viz.vega.extensions.*
-
-List(("A",5),("B",8),("C",-1)).plotBarChart()
-// {
-//   "$schema": "https://vega.github.io/schema/vega/v5.json",
-//   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
-//   "padding": 5,
-//   "data": [
-//     {
-//       "name": "table",
-//       "values": [
-//         {
-//           "category": "A",
-//           "amount": "5"
-//         },
-//         {
-//           "category": "B",
-//           "amount": "8"
-//         },
-//         {
-//           "category": "C",
-//           "amount": "-1"
-//         }
-//       ]
-//     }
-//   ],
-//   "signals": [
-//     {
-//       "name": "tooltip",
-//       "value": {
-//         
-//       },
-//       "on": [
-//         {
-//           "events": "rect:mouseover",
-//           "update": "datum"
-//         },
-//         {
-//           "events": "rect:mouseout",
-//           "update": "{}"
-//         }
-//       ]
-//     },
-//     {
-//       "name": "height",
-//       "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-//       "on": [
-//         {
-//           "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-//           "events": "window:resize"
-//         }
-//       ]
-//     },
-//     {
-//       "name": "width",
-//       "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-//       "on": [
-//         {
-//           "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-//           "events": "window:resize"
-//         }
-//       ]
-//     }
-//   ],
-//   "scales": [
-//     {
-//       "name": "xscale",
-//       "type": "band",
-//       "domain": {
-//         "data": "table",
-//         "field": "category"
-//       },
-//       "range": "width",
-//       "padding": 0.05,
-//       "round": true
-//     },
-//     {
-//       "name": "yscale",
-//       "domain": {
-//         "data": "table",
-//         "field": "amount"
-//       },
-//       "nice": true,
-//       "range": "height"
-//     }
-//   ],
-//   "axes": [
-//     {
-//       "orient": "bottom",
-//       "scale": "xscale"
-//     },
-//     {
-//       "orient": "left",
-//       "scale": "yscale"
-//     }
-//   ],
-//   "marks": [
-//     {
-//       "type": "rect",
-//       "from": {
-//         "data": "table"
-//       },
-//       "encode": {
-//         "enter": {
-//           "x": {
-//             "scale": "xscale",
-//             "field": "category"
-//           },
-//           "width": {
-//             "scale": "xscale",
-//             "band": 1
-//           },
-//           "y": {
-//             "scale": "yscale",
-//             "field": "amount"
-//           },
-//           "y2": {
-//             "scale": "yscale",
-//             "value": 0
-//           }
-//         },
-//         "update": {
-//           "fill": {
-//             "value": "steelblue"
-//           }
-//         },
-//         "hover": {
-//           "fill": {
-//             "value": "red"
-//           }
-//         }
-//       }
-//     },
-//     {
-//       "type": "text",
-//       "encode": {
-//         "enter": {
-//           "align": {
-//             "value": "center"
-//           },
-//           "baseline": {
-//             "value": "bottom"
-//           },
-//           "fill": {
-//             "value": "#333"
-//           }
-//         },
-//         "update": {
-//           "x": {
-//             "scale": "xscale",
-//             "signal": "tooltip.category",
-//             "band": 0.5
-//           },
-//           "y": {
-//             "scale": "yscale",
-//             "signal": "tooltip.amount",
-//             "offset": -2
-//           },
-//           "text": {
-//             "signal": "tooltip.amount"
-//           },
-//           "fillOpacity": [
-//             {
-//               "test": "datum === tooltip",
-//               "value": 0
-//             },
-//             {
-//               "value": 1
-//             }
-//           ]
-//         }
-//       }
-//     }
-//   ],
-//   "autosize": {
-//     "type": "fit",
-//     "resize": true,
-//     "contains": "padding"
-//   }
-// }
-// res3: BarChart = BarChart(
-//   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$22585/0x00000008021623d0@3617f4e4,
-//     viz.Utils$$$Lambda$22368/0x0000000802ceb628@1eecb2a3
-//   )
-// )
-```
