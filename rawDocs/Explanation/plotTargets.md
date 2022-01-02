@@ -76,7 +76,7 @@ WIP - need a release of almond which supports scala 3
 WIP
 
 ## Do Nothing
-```scala mdoc:vegaplot
+```scala mdoc
 import viz.PlotTargets.doNothing
 import viz.vega.extensions.*
 
