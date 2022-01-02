@@ -1,6 +1,6 @@
 ---
-id: plotTargets
-title: Plot Targets
+id: example
+title: Examples
 ---
 <head>
         <meta charset="utf-8" />

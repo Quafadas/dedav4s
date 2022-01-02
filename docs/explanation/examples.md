@@ -1,6 +1,6 @@
 ---
-id: plotTargets
-title: Plot Targets
+id: example
+title: Examples
 ---
 <head>
         <meta charset="utf-8" />
@@ -24,10 +24,10 @@ You need to decide where you want to see the chart. For this library, the first 
 
 
 
-<div id="viz_Y308YUHl" class="viz"></div>
+<div id="viz_wBCVBoiq" class="viz"></div>
 
 <script type="text/javascript">
-const specY308YUHl = {
+const specwBCVBoiq = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -204,9 +204,9 @@ const specY308YUHl = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_Y308YUHl', specY308YUHl , {
+vegaEmbed('#viz_wBCVBoiq', specwBCVBoiq , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_Y308YUHl", // parent DOM container
+    container: "#viz_wBCVBoiq", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -220,10 +220,10 @@ Ideally, this would show a second chart
 
 
 
-<div id="viz_xq3wd7j7" class="viz"></div>
+<div id="viz_w6WpfDfq" class="viz"></div>
 
 <script type="text/javascript">
-const specxq3wd7j7 = {
+const specw6WpfDfq = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -232,23 +232,23 @@ const specxq3wd7j7 = {
       "name": "table",
       "values": [
         {
-          "category": "oNIn3WPG",
+          "category": "IFkgn7qV",
           "amount": "1"
         },
         {
-          "category": "srWDIi36",
+          "category": "3T7Y9osj",
           "amount": "2"
         },
         {
-          "category": "xZwjvF4M",
+          "category": "mIxZNpmV",
           "amount": "3"
         },
         {
-          "category": "6FjqmXm2",
+          "category": "VFZnkQS5",
           "amount": "4"
         },
         {
-          "category": "diMwZzx3",
+          "category": "QKeJExkm",
           "amount": "5"
         }
       ]
@@ -404,9 +404,9 @@ const specxq3wd7j7 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_xq3wd7j7', specxq3wd7j7 , {
+vegaEmbed('#viz_w6WpfDfq', specw6WpfDfq , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_xq3wd7j7", // parent DOM container
+    container: "#viz_w6WpfDfq", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
