@@ -49,13 +49,20 @@ Finally, I use a small number of "helpers" enough that they are honoured with an
 
     SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
 
-```scala mdoc:invisible
-import viz.PlotTargets.doNothing
-import viz.vega.extensions.*
-```
+
 ## "Raw" Data
 
 The idea here, is that "raw datatypes" have some "unambiguous" visualisation which is relatively common to want to plot. Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website. We want to be able to plot these as quickly as possible. 
+
+```scala mdoc
+import viz.PlotTargets.desktopBrowser
+import viz.vega.extensions.*
+```
+
+```scala mdoc:invisible:reset
+import viz.PlotTargets.doNothing
+import viz.vega.extensions.*
+```
 
 ### Labelled bar chart
 ```scala
