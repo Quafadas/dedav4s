@@ -8,12 +8,12 @@ import org.jsoup.Jsoup
 
 enum SpecUrl(val url: String, val f: Framework):
   lazy val jsonSpec = f match {
-      case Vega => ujson.read(requests.get(url).text())
+      case Vega => ujson.read(requests.get(url).text()).obj
       case VegaLite => {
             val page = Jsoup.connect(url).get
             val pre = page.select(".language-json")
             val code = pre.asScala.head.text
-            ujson.read(code)
+            ujson.read(code).obj
         }
 }  
 

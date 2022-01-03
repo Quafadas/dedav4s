@@ -43,8 +43,9 @@ object Utils:
         spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
         spec("signals").arr.append(signalH).append(signalW)
 
-  val fixDefaultDataUrl: ujson.Value => Unit =
-    (spec: ujson.Value) =>
+  val fixDefaultDataUrl: ujson.Value => Unit = new Function1[ujson.Value, Unit]:
+    override def toString = "Fix default data url"
+    def apply(spec: ujson.Value) =
       val test = spec("data")
       test.arrOpt match
         case Some(arrayd) =>
