@@ -5,9 +5,11 @@ import viz.vega.Framework
 import viz.vega.Framework.*
 import collection.JavaConverters._
 import org.jsoup.Jsoup
+import ujson.Value
+import scala.collection.mutable.LinkedHashMap
 
 enum SpecUrl(val url: String, val f: Framework):
-  lazy val jsonSpec = f match {
+  lazy val jsonSpec : ujson.Value = f match {
       case Vega => ujson.read(requests.get(url).text()).obj
       case VegaLite => {
             val page = Jsoup.connect(url).get

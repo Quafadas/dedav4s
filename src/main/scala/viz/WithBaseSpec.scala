@@ -2,9 +2,9 @@ package viz
 
 import ujson.Value
 
-abstract class WithBaseSpec(val mods : Seq[ujson.Obj => Unit] = List())(using PlotTarget) extends Spec {
+abstract class WithBaseSpec(val mods : Seq[ujson.Value => Unit] = List())(using PlotTarget) extends Spec {
   
-    lazy val baseSpec : ujson.Obj = ???
+    lazy val baseSpec : ujson.Value = ???
     
     /*
     The idea - start from a base spec, "deep copy" it to prevent mutating "state" of any subclass. 
@@ -13,7 +13,7 @@ abstract class WithBaseSpec(val mods : Seq[ujson.Obj => Unit] = List())(using Pl
     Ideally : validate the outcome against a Schema...
     */
     override def spec : String = {
-        val temp = ujson.read(baseSpec.toString).obj
+        val temp = ujson.read(baseSpec.toString)
         for (m <- mods) {
             m(temp)
         }

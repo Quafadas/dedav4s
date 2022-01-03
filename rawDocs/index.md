@@ -46,7 +46,9 @@ import viz.vega.extensions.*
 ```scala mdoc
 (1 to 10).plotBarChart()
 ```
+
 A side effect should open a browser window, with this inside
+
 ```scala mdoc:vegaplot
 val secondChart = (1 to 10).plotBarChart()
 ```

@@ -78,7 +78,7 @@ List(
 ```
 
 ## "Spec Customisation"
-The core promise of the library, is that it wraps Vega. It makes one further step, by making the "examples" on the vega website, easy to plot.
+The core promise of the library, is that it wraps Vega. It goes one further step, by making the "examples" on the vega website, easy to plot, and then customise.
 
 ```scala mdoc
 viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
@@ -115,7 +115,7 @@ For our first example, let's add a title. I'm writing out the types here in the 
 ```scala mdoc
 import viz.vega.plots.LineChartLite
 import viz.Utils
-val addTitle : ujson.Obj => Unit = (spec:ujson.Obj) => spec("title") = "A Timeseries"
+val addTitle : ujson.Value => Unit = (spec:ujson.Value) => spec("title") = "A Timeseries"
 LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
 ```
 
@@ -129,9 +129,9 @@ So there are a couple of things which are messy;
 Let's have another go.
 
 ```scala mdoc
-def addTitleB(in:String): ujson.Obj => Unit = new((ujson.Obj => Unit)) {
+def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
     override def toString = s"set title to be $in"
-    def apply(spec: ujson.Obj) = spec("title") = in
+    def apply(spec: ujson.Value) = spec("title") = in
  }
 LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```
@@ -142,9 +142,9 @@ LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 At this point, i think it's clear how we're going to deal with piping in the data. Same way as we injected a title
 
 ```scala mdoc
-def addData(in: TimeSeries) = new (ujson.Obj => Unit) {
+def addData(in: TimeSeries) = new (ujson.Value => Unit) {
     override def toString = "pipe in data" 
-    def apply(spec: ujson.Obj) =    
+    def apply(spec: ujson.Value) =    
         val data = in.series.sortBy(_._1).map(point => ujson.Obj("date" -> point._1.toString(), "price" -> point._2))
         spec("data") = ujson.Obj("values" -> data)
         spec.obj.remove("transform")

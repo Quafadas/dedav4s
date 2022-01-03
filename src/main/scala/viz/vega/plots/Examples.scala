@@ -4,7 +4,7 @@ import viz.FromUrl
 import viz.PlotTarget
 import viz.vega.plots.SpecUrl
 
-type JsonMod = Seq[ujson.Obj => Unit]
+type JsonMod = Seq[ujson.Value => Unit]
 
 // Vega
 case class BarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.BarChart)

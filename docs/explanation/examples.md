@@ -49,10 +49,10 @@ List(("A", 4),("B", 6),("C", -1)).plotBarChart()
 ```
 
 
-<div id="viz_qZQbpUpV" class="viz"></div>
+<div id="viz_HYEL9AEY" class="viz"></div>
 
 <script type="text/javascript">
-const specqZQbpUpV = {
+const specHYEL9AEY = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "width": 400,
@@ -226,9 +226,9 @@ const specqZQbpUpV = {
     }
   ]
 }
-vegaEmbed('#viz_qZQbpUpV', specqZQbpUpV , {
+vegaEmbed('#viz_HYEL9AEY', specHYEL9AEY , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_qZQbpUpV", // parent DOM container
+    container: "#viz_HYEL9AEY", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -244,10 +244,10 @@ val secondChart = (1 to 5).plotBarChart()
 ```
 
 
-<div id="viz_WaGsmBDK" class="viz"></div>
+<div id="viz_uAz049sl" class="viz"></div>
 
 <script type="text/javascript">
-const specWaGsmBDK = {
+const specuAz049sl = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "width": 400,
@@ -258,23 +258,23 @@ const specWaGsmBDK = {
       "name": "table",
       "values": [
         {
-          "category": "TwdA2zPi",
+          "category": "qmOyK3eJ",
           "amount": "1"
         },
         {
-          "category": "EFeL8Mkv",
+          "category": "oJMGra5Z",
           "amount": "2"
         },
         {
-          "category": "sRfqrbUV",
+          "category": "vyO6ICJB",
           "amount": "3"
         },
         {
-          "category": "HZnE3Oxl",
+          "category": "8mHT4OWF",
           "amount": "4"
         },
         {
-          "category": "Rqr70sgB",
+          "category": "DSgfRI2U",
           "amount": "5"
         }
       ]
@@ -425,9 +425,9 @@ const specWaGsmBDK = {
     }
   ]
 }
-vegaEmbed('#viz_WaGsmBDK', specWaGsmBDK , {
+vegaEmbed('#viz_uAz049sl', specuAz049sl , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_WaGsmBDK", // parent DOM container
+    container: "#viz_uAz049sl", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -446,10 +446,10 @@ List(
 ```
 
 
-<div id="viz_ZSwchnX2" class="viz"></div>
+<div id="viz_ccWmk9vq" class="viz"></div>
 
 <script type="text/javascript">
-const specZSwchnX2 = {
+const specccWmk9vq = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A word cloud visualization depicting Vega research paper abstracts.",
   "width": 800,
@@ -561,9 +561,9 @@ const specZSwchnX2 = {
     }
   ]
 }
-vegaEmbed('#viz_ZSwchnX2', specZSwchnX2 , {
+vegaEmbed('#viz_ccWmk9vq', specccWmk9vq , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_ZSwchnX2", // parent DOM container
+    container: "#viz_ccWmk9vq", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -574,7 +574,7 @@ vegaEmbed('#viz_ZSwchnX2', specZSwchnX2 , {
 </script>
 
 ## "Spec Customisation"
-The core promise of the library, is that it wraps Vega. It makes one further step, by making the "examples" on the vega website, easy to plot.
+The core promise of the library, is that it wraps Vega. It goes one further step, by making the "examples" on the vega website, easy to plot, and then customise.
 
 ```scala
 viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
@@ -582,10 +582,10 @@ viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
 ```
 
 
-<div id="viz_TXwoHU8z" class="viz"></div>
+<div id="viz_fiF5pcuN" class="viz"></div>
 
 <script type="text/javascript">
-const specTXwoHU8z = {
+const specfiF5pcuN = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -608,9 +608,9 @@ const specTXwoHU8z = {
     }
   }
 }
-vegaEmbed('#viz_TXwoHU8z', specTXwoHU8z , {
+vegaEmbed('#viz_fiF5pcuN', specfiF5pcuN , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_TXwoHU8z", // parent DOM container
+    container: "#viz_fiF5pcuN", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -631,10 +631,10 @@ viz.vega.plots.Pacman()
 ```
 
 
-<div id="viz_u0216ecJ" class="viz"></div>
+<div id="viz_O6Fi9AVs" class="viz"></div>
 
 <script type="text/javascript">
-const specu0216ecJ = {
+const specO6Fi9AVs = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "An implementation of the classic video game Pacman.",
   "width": 600,
@@ -3754,9 +3754,9 @@ const specu0216ecJ = {
     }
   ]
 }
-vegaEmbed('#viz_u0216ecJ', specu0216ecJ , {
+vegaEmbed('#viz_O6Fi9AVs', specO6Fi9AVs , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_u0216ecJ", // parent DOM container
+    container: "#viz_O6Fi9AVs", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3785,12 +3785,12 @@ For our first example, let's add a title. I'm writing out the types here in the 
 ```scala
 import viz.vega.plots.LineChartLite
 import viz.Utils
-val addTitle : ujson.Obj => Unit = (spec:ujson.Obj) => spec("title") = "A Timeseries"
-// addTitle: Function1[Obj, Unit] = repl.MdocSession$App$$Lambda$13335/0x0000000802f84220@7d90036
+val addTitle : ujson.Value => Unit = (spec:ujson.Value) => spec("title") = "A Timeseries"
+// addTitle: Function1[Value, Unit] = repl.MdocSession$App$$Lambda$13443/0x0000000802fa51b0@648c2ad0
 LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
 // res6: LineChartLite = LineChartLite(
 //   List(
-//     repl.MdocSession$App$$Lambda$13335/0x0000000802f84220@7d90036,
+//     repl.MdocSession$App$$Lambda$13443/0x0000000802fa51b0@648c2ad0,
 //     Fix default data url
 //   )
 // )
@@ -3798,10 +3798,10 @@ LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
 
 
 
-<div id="viz_kPOZgFgz" class="viz"></div>
+<div id="viz_7sRjmMjz" class="viz"></div>
 
 <script type="text/javascript">
-const speckPOZgFgz = {
+const spec7sRjmMjz = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -3824,9 +3824,9 @@ const speckPOZgFgz = {
     }
   }
 }
-vegaEmbed('#viz_kPOZgFgz', speckPOZgFgz , {
+vegaEmbed('#viz_7sRjmMjz', spec7sRjmMjz , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_kPOZgFgz", // parent DOM container
+    container: "#viz_7sRjmMjz", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3842,9 +3842,9 @@ So there are a couple of things which are messy;
 Let's have another go.
 
 ```scala
-def addTitleB(in:String): ujson.Obj => Unit = new((ujson.Obj => Unit)) {
+def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
     override def toString = s"set title to be $in"
-    def apply(spec: ujson.Obj) = spec("title") = in
+    def apply(spec: ujson.Value) = spec("title") = in
  }
 LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 // res8: LineChartLite = LineChartLite(
@@ -3854,10 +3854,10 @@ LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 
 
 
-<div id="viz_iOcmEMsV" class="viz"></div>
+<div id="viz_ap21heYg" class="viz"></div>
 
 <script type="text/javascript">
-const speciOcmEMsV = {
+const specap21heYg = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -3880,9 +3880,9 @@ const speciOcmEMsV = {
     }
   }
 }
-vegaEmbed('#viz_iOcmEMsV', speciOcmEMsV , {
+vegaEmbed('#viz_ap21heYg', specap21heYg , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_iOcmEMsV", // parent DOM container
+    container: "#viz_ap21heYg", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3894,9 +3894,9 @@ vegaEmbed('#viz_iOcmEMsV', speciOcmEMsV , {
 At this point, i think it's clear how we're going to deal with piping in the data. Same way as we injected a title
 
 ```scala
-def addData(in: TimeSeries) = new (ujson.Obj => Unit) {
+def addData(in: TimeSeries) = new (ujson.Value => Unit) {
     override def toString = "pipe in data" 
-    def apply(spec: ujson.Obj) =    
+    def apply(spec: ujson.Value) =    
         val data = in.series.sortBy(_._1).map(point => ujson.Obj("date" -> point._1.toString(), "price" -> point._2))
         spec("data") = ujson.Obj("values" -> data)
         spec.obj.remove("transform")
@@ -3909,10 +3909,10 @@ LineChartLite(Seq(addTitleB("Much better"), addData(ts) ))
 
 
 
-<div id="viz_IglFUq1z" class="viz"></div>
+<div id="viz_y4z8SHhH" class="viz"></div>
 
 <script type="text/javascript">
-const specIglFUq1z = {
+const specy4z8SHhH = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -3935,9 +3935,9 @@ const specIglFUq1z = {
     }
   }
 }
-vegaEmbed('#viz_IglFUq1z', specIglFUq1z , {
+vegaEmbed('#viz_y4z8SHhH', specy4z8SHhH , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_IglFUq1z", // parent DOM container
+    container: "#viz_y4z8SHhH", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
