@@ -17,25 +17,35 @@ title: Examples
             }
         </style>
 </head>
-Once you have your plot target in place, we're ready to plot some data. The idea of the library is to wrap vega by simply treating the spec as a JSON object.  
+
+The library exposes the [vega examples](https://vega.github.io/vega/examples/) and [vega lite examples](https://vega.github.io/vega-lite/examples/) convieniently as case classes. The class names correspond to the title of the charts (with some special characters removed).
+
+## Suggested Workflow
+1. Identify a plot which looks simila to your desired visualisation
+2. Customise it, by modifiying the JSON spec to be your desired visualisation
+
+## Levels of abstraction
+You need a [plot target](plotTargets.md) in place, and then we're ready to plot some data. The idea of the library is to wrap vega by simply treating a chart spec as a JSON object.  
 
 We can easily manipulate JSON objects using [ujson](https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html). 
 
 I work with this library in 4 ways
-1. I want to visualise some fairly raw dataset in a fashion which looks similar to one of the vega examples. Use scala to obtain data and pipe it directly into the spec
-1. I want to see viz on some "self owned" datatype. Define an extension method on it... munge the data, pipe it into an example spec.
-1. Spec has been modified enough that a list of modifiers is confusing. Extend the base spec class direct via a file or resource (see "Custom.scala"). Then pipe data into it.
+1. Pipe "raw" data into a vega example
+1. Record a list of modifiers which were useful modifications to an example
+1. Spec has been modified enough that a list of modifiers is confusing. Extend the WithBaseSpec class directly via a file or resource (see "Custom.scala"). Then pipe data into it with one modifier.
 1. In prod... don't use this library anymore - probably you have a webserver. Keep the spec under version control and use vega data loading capabilities to talk to the API providing data. 
 
 Each "plot" is a case class which accepts a list of "modifiers". Each case class has the signature accepting a single argument of type; 
 
     Seq[ujson.Value => Unit]
 
-To add a title
+So for example to add a title;
 
     SimpleBarChartLite(List(spec => spec("title") = "Got Viz?"))
 
-I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
+We'll do that in more detail below. 
+
+Finally, I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
 
     SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
 
@@ -78,6 +88,8 @@ List(
 ```
 
 ## "Spec Customisation"
+Is one level of abstraction deeper. 
+
 The core promise of the library, is that it wraps Vega. It goes one further step, by making the "examples" on the vega website, easy to plot, and then customise.
 
 ```scala mdoc
@@ -94,7 +106,7 @@ As we've changed the home of the chart (which no longer is on the vega lite exam
 
 Here, we have the line chart example from vega lite. ```viz.vega.plots.xxx``` contains _all_ the examples on the vega, and vega-lite websites. vega-lite charts have "lite" appended.
 
-Someone was apparently crazy enough to implement pacman in vega. As proof that we really did _all_ the examples, and for your gaming pleasure.
+Someone was apparently crazy enough to implement pacman in vega. As "proof" that we really did _all_ the examples, and for your gaming pleasure.
 
 ```scala mdoc
 viz.vega.plots.Pacman()
@@ -108,16 +120,19 @@ We need a way to customise charts, which we've hinted at above, by providing a l
 
 ### Line chart
 
-Let's imagine we have some "custom" datatype. For example a 
+Our aim is to plot a line chart with our own data.
 
 ```scala mdoc
 import java.time.LocalDate
 case class TimeSeries(series: Seq[(LocalDate, Double)])
 val ts = TimeSeries(Seq((LocalDate.now(), 1.5), (LocalDate.of(2021,1,1), 0.2), (LocalDate.of(2021,6,1), 20)))
 ```
-That we'd like to represent as a line chart. We'll do that with a series of ```ujson.Obj => Unit```. 
+We'll need a ```Seq[ujson.Value => Unit]```, and the vega-lite example line chart. 
 
-For our first example, let's add a title. I'm writing out the types here in the hopes of being helpful. It looks harder than it is... After you've done it twice it gets easy. 
+#### Adding a title
+To start simple, let's add a title modifier. 
+
+I'm writing out the types here in the hopes of being helpful. It looks harder than it is... After you've done it twice it gets easy. 
 ```scala mdoc
 import viz.vega.plots.LineChartLite
 import viz.Utils
@@ -139,6 +154,8 @@ But there are a couple of things which are messy about our modification;
 
 Let's have another go. With a little more ceremony, we have something that looks reasonable afterwards.
 
+#### Better title modifier
+
 ```scala mdoc
 def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
     override def toString = s"set title to be $in"
@@ -152,6 +169,7 @@ LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```
 At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
 
+#### Piping in the data
 
 ```scala mdoc
 def addData(in: TimeSeries) = new (ujson.Value => Unit) {
@@ -161,11 +179,20 @@ def addData(in: TimeSeries) = new (ujson.Value => Unit) {
         spec("data") = ujson.Obj("values" -> data)
         spec.obj.remove("transform")
 }
-LineChartLite(Seq(addTitleB("Much better"), addData(ts) ))
+LineChartLite(Seq(addTitleB("Now with data"), addData(ts) ))
 ```
 
 ```scala mdoc:vegaplot
-LineChartLite(Seq(addTitleB("Much better"), addData(ts) ))
+LineChartLite(Seq(addTitleB("Now with data!"), addData(ts) ))
 ```
 
-Generally, I find that the best "workflow", is to pump the data into the spec. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 
+Generally, I find that the best "workflow", is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 
+
+# Conclusion
+There's nothing that says 
+
+1. Your plot can't be a method defined on the Timeseries class itself. That's an obvious and trivial next step.
+1. You have to own the data structure - have a look at the example on the homepage. That works through an extension method defined on ```Numeric[Iterable]```
+
+Which basically means you can "interface" plotting on datatypes of interest to you. I found this to be a powerful concept
+

@@ -87,6 +87,9 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 To no ones surprise, does nothing! The implementation simply executes unit ```()```. I regret the CPU cycles. 
 
 ## printlnTarget
+
+Formats and prints the final JSON spec to the console. 
+
 ```scala mdoc:reset
 import viz.PlotTargets.printlnTarget
 import viz.vega.extensions.*

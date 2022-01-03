@@ -39,10 +39,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 ```
 
 
-<div id="viz_j8ZTeH1e" class="viz"></div>
+<div id="viz_dZvyaodc" class="viz"></div>
 
 <script type="text/javascript">
-const specj8ZTeH1e = {
+const specdZvyaodc = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -219,9 +219,9 @@ const specj8ZTeH1e = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_j8ZTeH1e', specj8ZTeH1e , {
+vegaEmbed('#viz_dZvyaodc', specdZvyaodc , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_j8ZTeH1e", // parent DOM container
+    container: "#viz_dZvyaodc", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -271,7 +271,7 @@ import viz.vega.extensions.*
 List(("A",5),("B",8),("C",-1)).plotBarChart()
 // res1: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$15978/0x00000008032b88d0@3ff45b,
+//     viz.vega.extensions.extensions$package$$$Lambda$15978/0x00000008032b88d0@118fe5a2,
 //     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568
 //   )
 // )
@@ -279,6 +279,9 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 To no ones surprise, does nothing! The implementation simply executes unit ```()```. I regret the CPU cycles. 
 
 ## printlnTarget
+
+Formats and prints the final JSON spec to the console. 
+
 ```scala
 import viz.PlotTargets.printlnTarget
 import viz.vega.extensions.*
@@ -463,7 +466,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 // }
 // res3: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$15978/0x00000008032b88d0@54e4495a,
+//     viz.vega.extensions.extensions$package$$$Lambda$15978/0x00000008032b88d0@7403ef45,
 //     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568
 //   )
 // )
