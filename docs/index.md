@@ -31,7 +31,7 @@ To use this library in ammonite
 import $ivy.`io.github.quafadas::dedav4s:0.0.6`
 ```
 
-Next, fire up an sbt console (or in a repl... ) Firstly... 
+Dire up an sbt console (or in a repl... )
 
 ```scala
 import viz.PlotTargets.desktopBrowser
@@ -44,8 +44,8 @@ import viz.vega.extensions.*
 // res1: BarChart = BarChart(
 //   List(
 //     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568,
-//     viz.vega.extensions.extensions$package$$$Lambda$16016/0x0000000803309600@3afed5f4,
-//     viz.vega.extensions.extensions$package$$$Lambda$16017/0x0000000803309a08@33611f34
+//     viz.vega.extensions.extensions$package$$$Lambda$16016/0x0000000803309600@6d535a8,
+//     viz.vega.extensions.extensions$package$$$Lambda$16017/0x0000000803309a08@29b82324
 //   )
 // )
 ```
@@ -54,10 +54,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_Oo7FrBzB" class="viz"></div>
+<div id="viz_aaBoeHiE" class="viz"></div>
 
 <script type="text/javascript">
-const specOo7FrBzB = {
+const specaaBoeHiE = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -66,43 +66,43 @@ const specOo7FrBzB = {
       "name": "table",
       "values": [
         {
-          "category": "fBrgM4KM",
+          "category": "2C45avhI",
           "amount": "1"
         },
         {
-          "category": "5pIvx70C",
+          "category": "7bePiwf3",
           "amount": "2"
         },
         {
-          "category": "Wz7FbTr7",
+          "category": "tuYZZCv1",
           "amount": "3"
         },
         {
-          "category": "tDTHub46",
+          "category": "rp8fAjQ1",
           "amount": "4"
         },
         {
-          "category": "SOROSOs3",
+          "category": "Msmcl5Z0",
           "amount": "5"
         },
         {
-          "category": "IKOmAEOr",
+          "category": "YEOBsf3N",
           "amount": "6"
         },
         {
-          "category": "gdQ1mPti",
+          "category": "uVJtb6v7",
           "amount": "7"
         },
         {
-          "category": "n3kfqjwL",
+          "category": "uMxv79tl",
           "amount": "8"
         },
         {
-          "category": "0uKmBkKb",
+          "category": "iFhqFzrv",
           "amount": "9"
         },
         {
-          "category": "tYwIBg9R",
+          "category": "ZTkm7jg2",
           "amount": "10"
         }
       ]
@@ -258,9 +258,9 @@ const specOo7FrBzB = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_Oo7FrBzB', specOo7FrBzB , {
+vegaEmbed('#viz_aaBoeHiE', specaaBoeHiE , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_Oo7FrBzB", // parent DOM container
+    container: "#viz_aaBoeHiE", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -269,7 +269,7 @@ vegaEmbed('#viz_Oo7FrBzB', specOo7FrBzB , {
 
 })
 </script>
-If that worked, then you're ready to go! See the [explanation](explanation/intro.md) to understand what's happening. 
+If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/examples.md) for suggestions on how to use and extend the concepts.
 
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis

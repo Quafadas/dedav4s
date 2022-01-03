@@ -31,7 +31,7 @@ To use this library in ammonite
 import $ivy.`io.github.quafadas::dedav4s:@VERSION@`
 ```
 
-Next, fire up an sbt console (or in a repl... ) Firstly... 
+Dire up an sbt console (or in a repl... )
 
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
@@ -52,7 +52,7 @@ A side effect should open a browser window, with this inside
 ```scala mdoc:vegaplot
 val secondChart = (1 to 10).plotBarChart()
 ```
-If that worked, then you're ready to go! See the [explanation](explanation/intro.md) to understand what's happening. 
+If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/examples.md) for suggestions on how to use and extend the concepts.
 
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis

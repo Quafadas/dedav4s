@@ -69,7 +69,7 @@ The post side effect is cool used with a [companion project](https://github.com/
 
 WIP to integrate in a friendly way into this library.
 
-## [Almond](www.almond.sh)
+## [Almond](https://www.almond.sh)
 
 WIP - need a release of almond which supports scala 3
 
