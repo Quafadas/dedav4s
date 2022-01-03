@@ -24,7 +24,7 @@ Declarative data visualization for scala - a scala plotting concept
 
 To add this library to an sbt project
 ```scala
-libraryDependencies += "io.github.quafadas" % "dedav4s" % "0.0.6"
+libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.0.6"
 ```
 To use this library in ammonite
 ```scala
@@ -44,8 +44,8 @@ import viz.vega.extensions.*
 // res1: BarChart = BarChart(
 //   List(
 //     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568,
-//     viz.vega.extensions.extensions$package$$$Lambda$16016/0x0000000803309600@6d535a8,
-//     viz.vega.extensions.extensions$package$$$Lambda$16017/0x0000000803309a08@29b82324
+//     viz.vega.extensions.extensions$package$$$Lambda$16016/0x0000000803309600@375534fd,
+//     viz.vega.extensions.extensions$package$$$Lambda$16017/0x0000000803309a08@29f7d7c4
 //   )
 // )
 ```
@@ -54,10 +54,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_aaBoeHiE" class="viz"></div>
+<div id="viz_8xIb0UmN" class="viz"></div>
 
 <script type="text/javascript">
-const specaaBoeHiE = {
+const spec8xIb0UmN = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -66,43 +66,43 @@ const specaaBoeHiE = {
       "name": "table",
       "values": [
         {
-          "category": "2C45avhI",
+          "category": "Pc2KU0xQ",
           "amount": "1"
         },
         {
-          "category": "7bePiwf3",
+          "category": "rB88BsCq",
           "amount": "2"
         },
         {
-          "category": "tuYZZCv1",
+          "category": "YxxYIx5q",
           "amount": "3"
         },
         {
-          "category": "rp8fAjQ1",
+          "category": "VMrzDypI",
           "amount": "4"
         },
         {
-          "category": "Msmcl5Z0",
+          "category": "dUKaJCxj",
           "amount": "5"
         },
         {
-          "category": "YEOBsf3N",
+          "category": "CbuywYjG",
           "amount": "6"
         },
         {
-          "category": "uVJtb6v7",
+          "category": "5jS1Aspd",
           "amount": "7"
         },
         {
-          "category": "uMxv79tl",
+          "category": "epcGIXBi",
           "amount": "8"
         },
         {
-          "category": "iFhqFzrv",
+          "category": "vfQKBk3C",
           "amount": "9"
         },
         {
-          "category": "ZTkm7jg2",
+          "category": "CAcBDJ8C",
           "amount": "10"
         }
       ]
@@ -258,9 +258,9 @@ const specaaBoeHiE = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_aaBoeHiE', specaaBoeHiE , {
+vegaEmbed('#viz_8xIb0UmN', spec8xIb0UmN , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_aaBoeHiE", // parent DOM container
+    container: "#viz_8xIb0UmN", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true

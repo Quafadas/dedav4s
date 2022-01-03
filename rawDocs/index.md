@@ -24,7 +24,7 @@ Declarative data visualization for scala - a scala plotting concept
 
 To add this library to an sbt project
 ```scala
-libraryDependencies += "io.github.quafadas" % "dedav4s" % "@VERSION@"
+libraryDependencies += "io.github.quafadas" %% "dedav4s" % "@VERSION@"
 ```
 To use this library in ammonite
 ```scala
