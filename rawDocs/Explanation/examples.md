@@ -29,7 +29,7 @@ I work with this library in 4 ways
 
 Each "plot" is a case class which accepts a list of "modifiers". Each case class has the signature accepting a single argument of type; 
 
-    Seq[ujson.Obj => Unit]
+    Seq[ujson.Value => Unit]
 
 To add a title
 
@@ -81,16 +81,20 @@ List(
 The core promise of the library, is that it wraps Vega. It goes one further step, by making the "examples" on the vega website, easy to plot, and then customise.
 
 ```scala mdoc
-viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
+viz.vega.plots.LineChartLite(
+    List(
+        viz.Utils.fixDefaultDataUrl
+    )
+)
 ```
 ```scala mdoc:vegaplot
 viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
 ```
-As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, otherwise the chart will be blank. This is our hint on how we're going to manage minor modifications to plots. 
+As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, otherwise the chart will be blank, which is the list of Modifiers. This is our hint on how we're going to manage minor modifications to plots. 
 
 Here, we have the line chart example from vega lite. ```viz.vega.plots.xxx``` contains _all_ the examples on the vega, and vega-lite websites. vega-lite charts have "lite" appended.
 
-Someone was apparently crazy enough to implement pacman in vega. So, for your gaming pleasure.
+Someone was apparently crazy enough to implement pacman in vega. As proof that we really did _all_ the examples, and for your gaming pleasure.
 
 ```scala mdoc
 viz.vega.plots.Pacman()
@@ -98,9 +102,11 @@ viz.vega.plots.Pacman()
 ```scala mdoc:vegaplot
 viz.vega.plots.Pacman()
 ```
-More seriously though, this is not helpful. We need a way to customise charts, which we'll provide through a list of "modifiers". A very common customisation, is to want to display your own data (*gasp!), from the scala runtime, in the chart. Conceptually this is no different from all the other modification we will make - just change the JSON object.
+More seriously though, this library is targeted at "work". 
 
-### Line bar chart
+We need a way to customise charts, which we've hinted at above, by providing a list of "modifiers". A very common customisation, is to want to display your own data (!), from the JVM / ammonite / scala runtime, in the chart. Conceptually this is no different from all the other modification we will make - just change the JSON object.
+
+### Line chart
 
 Let's imagine we have some "custom" datatype. For example a 
 
@@ -116,17 +122,22 @@ For our first example, let's add a title. I'm writing out the types here in the 
 import viz.vega.plots.LineChartLite
 import viz.Utils
 val addTitle : ujson.Value => Unit = (spec:ujson.Value) => spec("title") = "A Timeseries"
-LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
+LineChartLite(
+    Seq(
+        addTitle, 
+        Utils.fixDefaultDataUrl 
+    )
+)
 ```
 
 ```scala mdoc:vegaplot
 LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
 ```
-So there are a couple of things which are messy;
+But there are a couple of things which are messy about our modification;
 1. We've hardcoded the title
 2. the anonymous function display is very anonymous, no idea what that lambda did. 
 
-Let's have another go.
+Let's have another go. With a little more ceremony, we have something that looks reasonable afterwards.
 
 ```scala mdoc
 def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
@@ -139,7 +150,8 @@ LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```scala mdoc:vegaplot
 LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```
-At this point, i think it's clear how we're going to deal with piping in the data. Same way as we injected a title
+At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
+
 
 ```scala mdoc
 def addData(in: TimeSeries) = new (ujson.Value => Unit) {
@@ -155,3 +167,5 @@ LineChartLite(Seq(addTitleB("Much better"), addData(ts) ))
 ```scala mdoc:vegaplot
 LineChartLite(Seq(addTitleB("Much better"), addData(ts) ))
 ```
+
+Generally, I find that the best "workflow", is to pump the data into the spec. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 

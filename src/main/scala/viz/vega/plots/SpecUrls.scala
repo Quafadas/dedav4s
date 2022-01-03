@@ -10,12 +10,12 @@ import scala.collection.mutable.LinkedHashMap
 
 enum SpecUrl(val url: String, val f: Framework):
   lazy val jsonSpec : ujson.Value = f match {
-      case Vega => ujson.read(requests.get(url).text()).obj
+      case Vega => ujson.read(requests.get(url).text())
       case VegaLite => {
             val page = Jsoup.connect(url).get
             val pre = page.select(".language-json")
             val code = pre.asScala.head.text
-            ujson.read(code).obj
+            ujson.read(code)
         }
 }  
 

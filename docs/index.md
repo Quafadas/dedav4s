@@ -43,9 +43,9 @@ import viz.vega.extensions.*
 (1 to 10).plotBarChart()
 // res1: BarChart = BarChart(
 //   List(
-//     viz.Utils$$$Lambda$13290/0x0000000802f0ba30@1b7da8a8,
-//     viz.vega.extensions.extensions$package$$$Lambda$13328/0x0000000802f5cdb8@70c84ca,
-//     viz.vega.extensions.extensions$package$$$Lambda$13329/0x0000000802f5d1c0@478b5d9
+//     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568,
+//     viz.vega.extensions.extensions$package$$$Lambda$16016/0x0000000803309600@3afed5f4,
+//     viz.vega.extensions.extensions$package$$$Lambda$16017/0x0000000803309a08@33611f34
 //   )
 // )
 ```
@@ -54,57 +54,55 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_Mxiz2MTM" class="viz"></div>
+<div id="viz_Oo7FrBzB" class="viz"></div>
 
 <script type="text/javascript">
-const specMxiz2MTM = {
+const specOo7FrBzB = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
-  "width": 400,
-  "height": 200,
   "padding": 5,
   "data": [
     {
       "name": "table",
       "values": [
         {
-          "category": "9mK4R6KS",
+          "category": "fBrgM4KM",
           "amount": "1"
         },
         {
-          "category": "dtLPikq4",
+          "category": "5pIvx70C",
           "amount": "2"
         },
         {
-          "category": "B14V19eu",
+          "category": "Wz7FbTr7",
           "amount": "3"
         },
         {
-          "category": "YNTcux15",
+          "category": "tDTHub46",
           "amount": "4"
         },
         {
-          "category": "VWmgEzBO",
+          "category": "SOROSOs3",
           "amount": "5"
         },
         {
-          "category": "B2qI01x4",
+          "category": "IKOmAEOr",
           "amount": "6"
         },
         {
-          "category": "yNBtAWNo",
+          "category": "gdQ1mPti",
           "amount": "7"
         },
         {
-          "category": "wbPR9nel",
+          "category": "n3kfqjwL",
           "amount": "8"
         },
         {
-          "category": "ZV1qXz0c",
+          "category": "0uKmBkKb",
           "amount": "9"
         },
         {
-          "category": "WRclgf61",
+          "category": "tYwIBg9R",
           "amount": "10"
         }
       ]
@@ -253,11 +251,16 @@ const specMxiz2MTM = {
         }
       }
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
 }
-vegaEmbed('#viz_Mxiz2MTM', specMxiz2MTM , {
+vegaEmbed('#viz_Oo7FrBzB', specOo7FrBzB , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_Mxiz2MTM", // parent DOM container
+    container: "#viz_Oo7FrBzB", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true

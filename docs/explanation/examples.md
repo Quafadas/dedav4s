@@ -29,7 +29,7 @@ I work with this library in 4 ways
 
 Each "plot" is a case class which accepts a list of "modifiers". Each case class has the signature accepting a single argument of type; 
 
-    Seq[ujson.Obj => Unit]
+    Seq[ujson.Value => Unit]
 
 To add a title
 
@@ -49,14 +49,12 @@ List(("A", 4),("B", 6),("C", -1)).plotBarChart()
 ```
 
 
-<div id="viz_HYEL9AEY" class="viz"></div>
+<div id="viz_Zlg1u6H0" class="viz"></div>
 
 <script type="text/javascript">
-const specHYEL9AEY = {
+const specZlg1u6H0 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
-  "width": 400,
-  "height": 200,
   "padding": 5,
   "data": [
     {
@@ -224,11 +222,16 @@ const specHYEL9AEY = {
         }
       }
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
 }
-vegaEmbed('#viz_HYEL9AEY', specHYEL9AEY , {
+vegaEmbed('#viz_Zlg1u6H0', specZlg1u6H0 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_HYEL9AEY", // parent DOM container
+    container: "#viz_Zlg1u6H0", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -244,37 +247,35 @@ val secondChart = (1 to 5).plotBarChart()
 ```
 
 
-<div id="viz_uAz049sl" class="viz"></div>
+<div id="viz_7EALsHO6" class="viz"></div>
 
 <script type="text/javascript">
-const specuAz049sl = {
+const spec7EALsHO6 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
-  "width": 400,
-  "height": 200,
   "padding": 5,
   "data": [
     {
       "name": "table",
       "values": [
         {
-          "category": "qmOyK3eJ",
+          "category": "x6XmvhyM",
           "amount": "1"
         },
         {
-          "category": "oJMGra5Z",
+          "category": "0GMqtcqH",
           "amount": "2"
         },
         {
-          "category": "vyO6ICJB",
+          "category": "cxLbFXBa",
           "amount": "3"
         },
         {
-          "category": "8mHT4OWF",
+          "category": "jzW6KUtV",
           "amount": "4"
         },
         {
-          "category": "DSgfRI2U",
+          "category": "rchCH1hu",
           "amount": "5"
         }
       ]
@@ -423,11 +424,16 @@ const specuAz049sl = {
         }
       }
     }
-  ]
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
 }
-vegaEmbed('#viz_uAz049sl', specuAz049sl , {
+vegaEmbed('#viz_7EALsHO6', spec7EALsHO6 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_uAz049sl", // parent DOM container
+    container: "#viz_7EALsHO6", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -446,14 +452,12 @@ List(
 ```
 
 
-<div id="viz_ccWmk9vq" class="viz"></div>
+<div id="viz_BfwXIyxc" class="viz"></div>
 
 <script type="text/javascript">
-const specccWmk9vq = {
+const specBfwXIyxc = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A word cloud visualization depicting Vega research paper abstracts.",
-  "width": 800,
-  "height": 400,
   "padding": 0,
   "data": [
     {
@@ -559,11 +563,38 @@ const specccWmk9vq = {
         }
       ]
     }
-  ]
+  ],
+  "signals": [
+    {
+      "name": "height",
+      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
+        }
+      ]
+    }
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
 }
-vegaEmbed('#viz_ccWmk9vq', specccWmk9vq , {
+vegaEmbed('#viz_BfwXIyxc', specBfwXIyxc , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_ccWmk9vq", // parent DOM container
+    container: "#viz_BfwXIyxc", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -577,15 +608,19 @@ vegaEmbed('#viz_ccWmk9vq', specccWmk9vq , {
 The core promise of the library, is that it wraps Vega. It goes one further step, by making the "examples" on the vega website, easy to plot, and then customise.
 
 ```scala
-viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
+viz.vega.plots.LineChartLite(
+    List(
+        viz.Utils.fixDefaultDataUrl
+    )
+)
 // res2: LineChartLite = LineChartLite(List(Fix default data url))
 ```
 
 
-<div id="viz_fiF5pcuN" class="viz"></div>
+<div id="viz_VpXlkxvK" class="viz"></div>
 
 <script type="text/javascript">
-const specfiF5pcuN = {
+const specVpXlkxvK = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -608,9 +643,9 @@ const specfiF5pcuN = {
     }
   }
 }
-vegaEmbed('#viz_fiF5pcuN', specfiF5pcuN , {
+vegaEmbed('#viz_VpXlkxvK', specVpXlkxvK , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_fiF5pcuN", // parent DOM container
+    container: "#viz_VpXlkxvK", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -619,11 +654,11 @@ vegaEmbed('#viz_fiF5pcuN', specfiF5pcuN , {
 
 })
 </script>
-As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, otherwise the chart will be blank. This is our hint on how we're going to manage minor modifications to plots. 
+As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, otherwise the chart will be blank, which is the list of Modifiers. This is our hint on how we're going to manage minor modifications to plots. 
 
 Here, we have the line chart example from vega lite. ```viz.vega.plots.xxx``` contains _all_ the examples on the vega, and vega-lite websites. vega-lite charts have "lite" appended.
 
-Someone was apparently crazy enough to implement pacman in vega. So, for your gaming pleasure.
+Someone was apparently crazy enough to implement pacman in vega. As proof that we really did _all_ the examples, and for your gaming pleasure.
 
 ```scala
 viz.vega.plots.Pacman()
@@ -631,10 +666,10 @@ viz.vega.plots.Pacman()
 ```
 
 
-<div id="viz_O6Fi9AVs" class="viz"></div>
+<div id="viz_KIMjRnbs" class="viz"></div>
 
 <script type="text/javascript">
-const specO6Fi9AVs = {
+const specKIMjRnbs = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "An implementation of the classic video game Pacman.",
   "width": 600,
@@ -3754,9 +3789,9 @@ const specO6Fi9AVs = {
     }
   ]
 }
-vegaEmbed('#viz_O6Fi9AVs', specO6Fi9AVs , {
+vegaEmbed('#viz_KIMjRnbs', specKIMjRnbs , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_O6Fi9AVs", // parent DOM container
+    container: "#viz_KIMjRnbs", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3765,9 +3800,11 @@ vegaEmbed('#viz_O6Fi9AVs', specO6Fi9AVs , {
 
 })
 </script>
-More seriously though, this is not helpful. We need a way to customise charts, which we'll provide through a list of "modifiers". A very common customisation, is to want to display your own data (*gasp!), from the scala runtime, in the chart. Conceptually this is no different from all the other modification we will make - just change the JSON object.
+More seriously though, this library is targeted at "work". 
 
-### Line bar chart
+We need a way to customise charts, which we've hinted at above, by providing a list of "modifiers". A very common customisation, is to want to display your own data (!), from the JVM / ammonite / scala runtime, in the chart. Conceptually this is no different from all the other modification we will make - just change the JSON object.
+
+### Line chart
 
 Let's imagine we have some "custom" datatype. For example a 
 
@@ -3786,11 +3823,16 @@ For our first example, let's add a title. I'm writing out the types here in the 
 import viz.vega.plots.LineChartLite
 import viz.Utils
 val addTitle : ujson.Value => Unit = (spec:ujson.Value) => spec("title") = "A Timeseries"
-// addTitle: Function1[Value, Unit] = repl.MdocSession$App$$Lambda$13443/0x0000000802fa51b0@648c2ad0
-LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
+// addTitle: Function1[Value, Unit] = repl.MdocSession$App$$Lambda$16195/0x00000008033c4000@5fa4547a
+LineChartLite(
+    Seq(
+        addTitle, 
+        Utils.fixDefaultDataUrl 
+    )
+)
 // res6: LineChartLite = LineChartLite(
 //   List(
-//     repl.MdocSession$App$$Lambda$13443/0x0000000802fa51b0@648c2ad0,
+//     repl.MdocSession$App$$Lambda$16195/0x00000008033c4000@5fa4547a,
 //     Fix default data url
 //   )
 // )
@@ -3798,10 +3840,10 @@ LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
 
 
 
-<div id="viz_7sRjmMjz" class="viz"></div>
+<div id="viz_EtZrYX2g" class="viz"></div>
 
 <script type="text/javascript">
-const spec7sRjmMjz = {
+const specEtZrYX2g = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -3822,11 +3864,12 @@ const spec7sRjmMjz = {
       "field": "price",
       "type": "quantitative"
     }
-  }
+  },
+  "title": "A Timeseries"
 }
-vegaEmbed('#viz_7sRjmMjz', spec7sRjmMjz , {
+vegaEmbed('#viz_EtZrYX2g', specEtZrYX2g , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_7sRjmMjz", // parent DOM container
+    container: "#viz_EtZrYX2g", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3835,11 +3878,11 @@ vegaEmbed('#viz_7sRjmMjz', spec7sRjmMjz , {
 
 })
 </script>
-So there are a couple of things which are messy;
+But there are a couple of things which are messy about our modification;
 1. We've hardcoded the title
 2. the anonymous function display is very anonymous, no idea what that lambda did. 
 
-Let's have another go.
+Let's have another go. With a little more ceremony, we have something that looks reasonable afterwards.
 
 ```scala
 def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
@@ -3854,10 +3897,10 @@ LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 
 
 
-<div id="viz_ap21heYg" class="viz"></div>
+<div id="viz_84qFNrUD" class="viz"></div>
 
 <script type="text/javascript">
-const specap21heYg = {
+const spec84qFNrUD = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -3878,11 +3921,12 @@ const specap21heYg = {
       "field": "price",
       "type": "quantitative"
     }
-  }
+  },
+  "title": "Much better"
 }
-vegaEmbed('#viz_ap21heYg', specap21heYg , {
+vegaEmbed('#viz_84qFNrUD', spec84qFNrUD , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_ap21heYg", // parent DOM container
+    container: "#viz_84qFNrUD", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3891,7 +3935,8 @@ vegaEmbed('#viz_ap21heYg', specap21heYg , {
 
 })
 </script>
-At this point, i think it's clear how we're going to deal with piping in the data. Same way as we injected a title
+At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
+
 
 ```scala
 def addData(in: TimeSeries) = new (ujson.Value => Unit) {
@@ -3909,20 +3954,28 @@ LineChartLite(Seq(addTitleB("Much better"), addData(ts) ))
 
 
 
-<div id="viz_y4z8SHhH" class="viz"></div>
+<div id="viz_ttuthU1n" class="viz"></div>
 
 <script type="text/javascript">
-const specy4z8SHhH = {
+const specttuthU1n = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
-    "url": "data/stocks.csv"
+    "values": [
+      {
+        "date": "2021-01-01",
+        "price": 0.2
+      },
+      {
+        "date": "2021-06-01",
+        "price": 20
+      },
+      {
+        "date": "2022-01-03",
+        "price": 1.5
+      }
+    ]
   },
-  "transform": [
-    {
-      "filter": "datum.symbol==='GOOG'"
-    }
-  ],
   "mark": "line",
   "encoding": {
     "x": {
@@ -3933,11 +3986,12 @@ const specy4z8SHhH = {
       "field": "price",
       "type": "quantitative"
     }
-  }
+  },
+  "title": "Much better"
 }
-vegaEmbed('#viz_y4z8SHhH', specy4z8SHhH , {
+vegaEmbed('#viz_ttuthU1n', specttuthU1n , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_y4z8SHhH", // parent DOM container
+    container: "#viz_ttuthU1n", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3946,3 +4000,5 @@ vegaEmbed('#viz_y4z8SHhH', specy4z8SHhH , {
 
 })
 </script>
+
+Generally, I find that the best "workflow", is to pump the data into the spec. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 

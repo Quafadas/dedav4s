@@ -7,5 +7,5 @@ trait FromFile extends WithBaseSpec {
 
     lazy val path : String = ???
 
-    override lazy val baseSpec = ujson.read(scala.io.Source.fromFile(path).mkString("")).obj    
+    override lazy val baseSpec = ujson.read(scala.io.Source.fromFile(path).mkString(""))
 }
