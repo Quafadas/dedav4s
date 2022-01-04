@@ -39,10 +39,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 ```
 
 
-<div id="viz_oCMzw1gu" class="viz"></div>
+<div id="viz_PGS6dAQS" class="viz"></div>
 
 <script type="text/javascript">
-const specoCMzw1gu = {
+const specPGS6dAQS = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -219,9 +219,9 @@ const specoCMzw1gu = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_oCMzw1gu', specoCMzw1gu , {
+vegaEmbed('#viz_PGS6dAQS', specPGS6dAQS , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_oCMzw1gu", // parent DOM container
+    container: "#viz_PGS6dAQS", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -271,8 +271,8 @@ import viz.vega.extensions.*
 List(("A",5),("B",8),("C",-1)).plotBarChart()
 // res1: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$15978/0x00000008032b88d0@772d9f9d,
-//     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568
+//     viz.vega.extensions.extensions$package$$$Lambda$8974/0x0000000802375308@20afc22c,
+//     viz.Utils$$$Lambda$8975/0x0000000802375710@61a4ca43
 //   )
 // )
 ```
@@ -466,8 +466,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 // }
 // res3: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$15978/0x00000008032b88d0@6c84de5c,
-//     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568
+//     viz.vega.extensions.extensions$package$$$Lambda$8974/0x0000000802375308@8b4099b,
+//     viz.Utils$$$Lambda$8975/0x0000000802375710@61a4ca43
 //   )
 // )
 ```

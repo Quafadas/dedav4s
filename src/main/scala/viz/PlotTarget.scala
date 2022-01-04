@@ -70,9 +70,20 @@ object PlotTargets:
   given onelineHelp: PlotTarget with
     override def show(spec: String) = ??? // don't think we need this with the embedding working properly
 
-  given almond: PlotTarget with
-    override def show(spec: String) = ??? // TODO : wait for Almond to evolve scala 3 support :-)... 
+  given vsCodeNotebook: PlotTarget with
+    override def show(spec: String) = almond.show(spec) 
 
+  given almond: PlotTarget with
+    override def show(spec: String) = ???
+    // we need almond to publish for scala 3
+/*     override def show(spec: String) = kernel.publish.display(
+      almond.interpreter.api.DisplayData(
+        data = Map(      
+          "application/vnd.vega.v5+json" -> ujson.write(spec, 2)           
+        )
+      )  
+    )
+ */
   given postHttp: PlotTarget with
     override def show(spec: String) = requests.post("http://localhost:8080/viz", data=spec) // see https://github.com/Quafadas/viz-websockets for an example use
     // TODO read the url from configuration / ENV variable.

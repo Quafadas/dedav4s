@@ -31,7 +31,7 @@ To use this library in ammonite
 import $ivy.`io.github.quafadas::dedav4s:@VERSION@`
 ```
 
-Dire up an sbt console (or in a repl... )
+Fire up an sbt console (or in a repl... )
 
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser

@@ -24,14 +24,14 @@ Declarative data visualization for scala - a scala plotting concept
 
 To add this library to an sbt project
 ```scala
-libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.0.6"
+libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.0.7-SNAPSHOT"
 ```
 To use this library in ammonite
 ```scala
-import $ivy.`io.github.quafadas::dedav4s:0.0.6`
+import $ivy.`io.github.quafadas::dedav4s:0.0.7-SNAPSHOT`
 ```
 
-Dire up an sbt console (or in a repl... )
+Fire up an sbt console (or in a repl... )
 
 ```scala
 import viz.PlotTargets.desktopBrowser
@@ -43,9 +43,9 @@ import viz.vega.extensions.*
 (1 to 10).plotBarChart()
 // res1: BarChart = BarChart(
 //   List(
-//     viz.Utils$$$Lambda$15979/0x00000008032b8ee0@6d8f1568,
-//     viz.vega.extensions.extensions$package$$$Lambda$16016/0x0000000803309600@375534fd,
-//     viz.vega.extensions.extensions$package$$$Lambda$16017/0x0000000803309a08@29f7d7c4
+//     viz.Utils$$$Lambda$8975/0x0000000802375710@61a4ca43,
+//     viz.vega.extensions.extensions$package$$$Lambda$9036/0x0000000802412590@554e5827,
+//     viz.vega.extensions.extensions$package$$$Lambda$9037/0x0000000802412998@4190a60c
 //   )
 // )
 ```
@@ -54,10 +54,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_8xIb0UmN" class="viz"></div>
+<div id="viz_2TUAYKLw" class="viz"></div>
 
 <script type="text/javascript">
-const spec8xIb0UmN = {
+const spec2TUAYKLw = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -66,43 +66,43 @@ const spec8xIb0UmN = {
       "name": "table",
       "values": [
         {
-          "category": "Pc2KU0xQ",
+          "category": "POLsRKRn",
           "amount": "1"
         },
         {
-          "category": "rB88BsCq",
+          "category": "oAzwqAX6",
           "amount": "2"
         },
         {
-          "category": "YxxYIx5q",
+          "category": "8eKqhF5D",
           "amount": "3"
         },
         {
-          "category": "VMrzDypI",
+          "category": "2yPFjy22",
           "amount": "4"
         },
         {
-          "category": "dUKaJCxj",
+          "category": "11sTSNZX",
           "amount": "5"
         },
         {
-          "category": "CbuywYjG",
+          "category": "jV0o9Y6W",
           "amount": "6"
         },
         {
-          "category": "5jS1Aspd",
+          "category": "lyjPpNSQ",
           "amount": "7"
         },
         {
-          "category": "epcGIXBi",
+          "category": "ie3HHJIN",
           "amount": "8"
         },
         {
-          "category": "vfQKBk3C",
+          "category": "lLQhIqmY",
           "amount": "9"
         },
         {
-          "category": "CAcBDJ8C",
+          "category": "ui2aF2Hb",
           "amount": "10"
         }
       ]
@@ -258,9 +258,9 @@ const spec8xIb0UmN = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_8xIb0UmN', spec8xIb0UmN , {
+vegaEmbed('#viz_2TUAYKLw', spec2TUAYKLw , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_8xIb0UmN", // parent DOM container
+    container: "#viz_2TUAYKLw", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
