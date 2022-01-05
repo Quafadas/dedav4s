@@ -76,7 +76,8 @@ object PlotTargets:
   given almond: PlotTarget with
     override def show(spec: String) = ???
     // we need almond to publish for scala 3
-/*     override def show(spec: String) = kernel.publish.display(
+/*     override def show(spec: String) = 
+  kernel.publish.display(
       almond.interpreter.api.DisplayData(
         data = Map(      
           "application/vnd.vega.v5+json" -> ujson.write(spec, 2)           

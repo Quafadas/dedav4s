@@ -1,7 +1,7 @@
 Global / semanticdbEnabled := true
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
-val libV = "0.0.7"
+val libV = "0.0.9"
 
 lazy val root = project
   .in(file("."))

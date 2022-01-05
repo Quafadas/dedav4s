@@ -24,6 +24,7 @@ Every time an object is created which extends the "Spec" trait, it executes the 
 
 The targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
+# Scala 3
 ## Desktop Browser
 
 Will open a new browser window in your desktop based browser, pointing to a temporary file. 
@@ -75,7 +76,7 @@ WIP - need a release of almond which supports scala 3
 
 ## VSCode 
 
-WIP
+WIP - will work via notebooks... i.e. almond, once the above is ready.
 
 ## Do Nothing
 ```scala mdoc
@@ -96,3 +97,38 @@ import viz.vega.extensions.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart()
 ```
+
+# Scala 2
+There isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
+
+```
+scala.util.Properties.versionString
+```
+Will need to say 2.13.7 or higher. To import
+
+```scala 
+import $ivy.`io.github.quafadas:dedav4s_3:0.0.9`
+```
+You'll need the tasty reader scalac flag set true. 
+
+```scala
+interp.configureCompiler(_.settings.YtastyReader.value = true)
+```
+
+Finally, if you wish to use this in an almond or vscode notebook environment with scala 2, you'll need to interact with the kernel directly. 
+
+```scala
+import viz.PlotTarget.doNothing
+
+val chart = BarChart()
+
+kernel.publish.display(
+  almond.interpreter.api.DisplayData(
+    data = Map(      
+      "application/vnd.vega.v5+json" -> chart.spec
+    )
+  )  
+)
+```
+
+

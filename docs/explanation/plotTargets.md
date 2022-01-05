@@ -24,6 +24,7 @@ Every time an object is created which extends the "Spec" trait, it executes the 
 
 The targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
+# Scala 3
 ## Desktop Browser
 
 Will open a new browser window in your desktop based browser, pointing to a temporary file. 
@@ -39,10 +40,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 ```
 
 
-<div id="viz_PGS6dAQS" class="viz"></div>
+<div id="viz_EutaInyC" class="viz"></div>
 
 <script type="text/javascript">
-const specPGS6dAQS = {
+const specEutaInyC = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -219,9 +220,9 @@ const specPGS6dAQS = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_PGS6dAQS', specPGS6dAQS , {
+vegaEmbed('#viz_EutaInyC', specEutaInyC , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_PGS6dAQS", // parent DOM container
+    container: "#viz_EutaInyC", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -261,7 +262,7 @@ WIP - need a release of almond which supports scala 3
 
 ## VSCode 
 
-WIP
+WIP - will work via notebooks... i.e. almond, once the above is ready.
 
 ## Do Nothing
 ```scala
@@ -271,8 +272,8 @@ import viz.vega.extensions.*
 List(("A",5),("B",8),("C",-1)).plotBarChart()
 // res1: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$8974/0x0000000802375308@20afc22c,
-//     viz.Utils$$$Lambda$8975/0x0000000802375710@61a4ca43
+//     viz.vega.extensions.extensions$package$$$Lambda$14394/0x0000000803069d48@2dac5d88,
+//     viz.Utils$$$Lambda$14395/0x000000080306a358@55343b8
 //   )
 // )
 ```
@@ -466,8 +467,43 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 // }
 // res3: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$8974/0x0000000802375308@8b4099b,
-//     viz.Utils$$$Lambda$8975/0x0000000802375710@61a4ca43
+//     viz.vega.extensions.extensions$package$$$Lambda$14394/0x0000000803069d48@72797aac,
+//     viz.Utils$$$Lambda$14395/0x000000080306a358@55343b8
 //   )
 // )
 ```
+
+# Scala 2
+There isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
+
+```
+scala.util.Properties.versionString
+```
+Will need to say 2.13.7 or higher. To import
+
+```scala 
+import $ivy.`io.github.quafadas:dedav4s_3:0.0.9`
+```
+You'll need the tasty reader scalac flag set true. 
+
+```scala
+interp.configureCompiler(_.settings.YtastyReader.value = true)
+```
+
+Finally, if you wish to use this in an almond or vscode notebook environment with scala 2, you'll need to interact with the kernel directly. 
+
+```scala
+import viz.PlotTarget.doNothing
+
+val chart = BarChart()
+
+kernel.publish.display(
+  almond.interpreter.api.DisplayData(
+    data = Map(      
+      "application/vnd.vega.v5+json" -> chart.spec
+    )
+  )  
+)
+```
+
+
