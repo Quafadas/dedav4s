@@ -1,1 +1,3 @@
 theme: minima
+  social_links:    
+    github: jekyll
