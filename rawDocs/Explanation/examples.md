@@ -66,10 +66,10 @@ import viz.vega.extensions.*
 
 ### Labelled bar chart
 ```scala
-List(("A", 4),("B", 6),("C", -1)).plotBarChart()
+List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
 ```
 ```scala mdoc:vegaplot
-List(("A", 4),("B", 6),("C", -1)).plotBarChart()
+List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
 ```
 
 ### Bar chart
@@ -92,6 +92,34 @@ List(
    "how much wood would a wood chuck chuck if a wood chuck could chuck wood", 
    "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"
 ).plotWordcloud()
+```
+### Line Chart
+```scala
+List(1,5,3,15,7,8).plotLineChart()
+```
+```scala mdoc:vegaplot
+List(1,5,3,15,7,8).plotLineChart()
+```
+### Dot Plot
+```scala
+List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
+```
+```scala mdoc:vegaplot
+List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
+```
+### Scatter Plot
+```scala
+List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter()
+```
+```scala mdoc:vegaplot
+List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter()
+```
+### Regression
+```scala
+List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
+```
+```scala mdoc:vegaplot
+List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
 ```
 
 ## "Spec Customisation"

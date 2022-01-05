@@ -22,7 +22,7 @@ You need to decide where you want to see the chart. For this library, the first 
 
 Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) which is in scope. 
 
-The targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
+Those "given" targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
 # Scala 3
 ## Desktop Browser
@@ -36,14 +36,14 @@ import viz.vega.extensions.*
 ```
 
 ```scala
-List(("A",5),("B",8),("C",-1)).plotBarChart()
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_EutaInyC" class="viz"></div>
+<div id="viz_NLaV70oA" class="viz"></div>
 
 <script type="text/javascript">
-const specEutaInyC = {
+const specNLaV70oA = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -53,15 +53,15 @@ const specEutaInyC = {
       "values": [
         {
           "category": "A",
-          "amount": "5"
+          "amount": 5
         },
         {
           "category": "B",
-          "amount": "8"
+          "amount": 8
         },
         {
           "category": "C",
-          "amount": "-1"
+          "amount": -1
         }
       ]
     }
@@ -220,9 +220,9 @@ const specEutaInyC = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_EutaInyC', specEutaInyC , {
+vegaEmbed('#viz_NLaV70oA', specNLaV70oA , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_EutaInyC", // parent DOM container
+    container: "#viz_NLaV70oA", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -269,11 +269,11 @@ WIP - will work via notebooks... i.e. almond, once the above is ready.
 import viz.PlotTargets.doNothing
 import viz.vega.extensions.*
 
-List(("A",5),("B",8),("C",-1)).plotBarChart()
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // res1: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$14394/0x0000000803069d48@2dac5d88,
-//     viz.Utils$$$Lambda$14395/0x000000080306a358@55343b8
+//     viz.vega.extensions.extensions$package$$$Lambda$12674/0x00000008026e9c30@44f3c904,
+//     viz.Utils$$$Lambda$12675/0x00000008026ea240@73896596
 //   )
 // )
 ```
@@ -287,7 +287,7 @@ Formats and prints the final JSON spec to the console.
 import viz.PlotTargets.printlnTarget
 import viz.vega.extensions.*
 
-List(("A",5),("B",8),("C",-1)).plotBarChart()
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // {
 //   "$schema": "https://vega.github.io/schema/vega/v5.json",
 //   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
@@ -298,15 +298,15 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 //       "values": [
 //         {
 //           "category": "A",
-//           "amount": "5"
+//           "amount": 5
 //         },
 //         {
 //           "category": "B",
-//           "amount": "8"
+//           "amount": 8
 //         },
 //         {
 //           "category": "C",
-//           "amount": "-1"
+//           "amount": -1
 //         }
 //       ]
 //     }
@@ -467,14 +467,16 @@ List(("A",5),("B",8),("C",-1)).plotBarChart()
 // }
 // res3: BarChart = BarChart(
 //   List(
-//     viz.vega.extensions.extensions$package$$$Lambda$14394/0x0000000803069d48@72797aac,
-//     viz.Utils$$$Lambda$14395/0x000000080306a358@55343b8
+//     viz.vega.extensions.extensions$package$$$Lambda$12674/0x00000008026e9c30@3a98f6bf,
+//     viz.Utils$$$Lambda$12675/0x00000008026ea240@73896596
 //   )
 // )
 ```
 
 # Scala 2
 There isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
+
+Everything will work as above, noting the below. 
 
 ```
 scala.util.Properties.versionString

@@ -22,7 +22,7 @@ You need to decide where you want to see the chart. For this library, the first 
 
 Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) which is in scope. 
 
-The targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
+Those "given" targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
 # Scala 3
 ## Desktop Browser
@@ -40,10 +40,10 @@ import viz.vega.extensions.*
 ```
 
 ```scala
-List(("A",5),("B",8),("C",-1)).plotBarChart()
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 ```scala mdoc:vegaplot
-List(("A",5),("B",8),("C",-1)).plotBarChart()
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 The library writes a (temporary) file, assuming that
 
@@ -83,7 +83,7 @@ WIP - will work via notebooks... i.e. almond, once the above is ready.
 import viz.PlotTargets.doNothing
 import viz.vega.extensions.*
 
-List(("A",5),("B",8),("C",-1)).plotBarChart()
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 To no ones surprise, does nothing! The implementation simply executes unit ```()```. I regret the CPU cycles. 
 
@@ -95,11 +95,13 @@ Formats and prints the final JSON spec to the console.
 import viz.PlotTargets.printlnTarget
 import viz.vega.extensions.*
 
-List(("A",5),("B",8),("C",-1)).plotBarChart()
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 # Scala 2
 There isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
+
+Everything will work as above, noting the below. 
 
 ```
 scala.util.Properties.versionString

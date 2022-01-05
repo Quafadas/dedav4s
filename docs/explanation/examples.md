@@ -62,14 +62,14 @@ import viz.vega.extensions.*
 
 ### Labelled bar chart
 ```scala
-List(("A", 4),("B", 6),("C", -1)).plotBarChart()
+List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
 ```
 
 
-<div id="viz_DyBJI597" class="viz"></div>
+<div id="viz_D5fx27cR" class="viz"></div>
 
 <script type="text/javascript">
-const specDyBJI597 = {
+const specD5fx27cR = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -79,15 +79,15 @@ const specDyBJI597 = {
       "values": [
         {
           "category": "A",
-          "amount": "4"
+          "amount": 4
         },
         {
           "category": "B",
-          "amount": "6"
+          "amount": 6
         },
         {
           "category": "C",
-          "amount": "-1"
+          "amount": -1
         }
       ]
     }
@@ -246,9 +246,9 @@ const specDyBJI597 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_DyBJI597', specDyBJI597 , {
+vegaEmbed('#viz_D5fx27cR', specD5fx27cR , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_DyBJI597", // parent DOM container
+    container: "#viz_D5fx27cR", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -264,10 +264,10 @@ val secondChart = (1 to 5).plotBarChart()
 ```
 
 
-<div id="viz_DtlhhFMI" class="viz"></div>
+<div id="viz_JCJtTxiG" class="viz"></div>
 
 <script type="text/javascript">
-const specDtlhhFMI = {
+const specJCJtTxiG = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -276,24 +276,24 @@ const specDtlhhFMI = {
       "name": "table",
       "values": [
         {
-          "category": "kDSvXdNV",
-          "amount": "1"
+          "category": "SjdviPRK",
+          "amount": 1
         },
         {
-          "category": "iSxZEsxG",
-          "amount": "2"
+          "category": "mZpwiOAD",
+          "amount": 2
         },
         {
-          "category": "sEGck748",
-          "amount": "3"
+          "category": "OFj6qqbm",
+          "amount": 3
         },
         {
-          "category": "xOyI3fYd",
-          "amount": "4"
+          "category": "p3Vx59fn",
+          "amount": 4
         },
         {
-          "category": "KXJF7Kyb",
-          "amount": "5"
+          "category": "yfEw0Xy0",
+          "amount": 5
         }
       ]
     }
@@ -448,9 +448,9 @@ const specDtlhhFMI = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_DtlhhFMI', specDtlhhFMI , {
+vegaEmbed('#viz_JCJtTxiG', specJCJtTxiG , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_DtlhhFMI", // parent DOM container
+    container: "#viz_JCJtTxiG", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -469,10 +469,10 @@ List(
 ```
 
 
-<div id="viz_zE39rztQ" class="viz"></div>
+<div id="viz_CHqsh803" class="viz"></div>
 
 <script type="text/javascript">
-const speczE39rztQ = {
+const specCHqsh803 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A word cloud visualization depicting Vega research paper abstracts.",
   "padding": 0,
@@ -609,9 +609,845 @@ const speczE39rztQ = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_zE39rztQ', speczE39rztQ , {
+vegaEmbed('#viz_CHqsh803', specCHqsh803 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_zE39rztQ", // parent DOM container
+    container: "#viz_CHqsh803", // parent DOM container
+    hover: true, // enable hover processing
+    actions: {
+        editor : true
+    }
+}).then(function(result) {
+
+})
+</script>
+### Line Chart
+```scala
+List(1,5,3,15,7,8).plotLineChart()
+```
+
+
+<div id="viz_YsXhBI4h" class="viz"></div>
+
+<script type="text/javascript">
+const specYsXhBI4h = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "A basic line chart example.",
+  "padding": 5,
+  "signals": [
+    {
+      "name": "interpolate",
+      "value": "linear",
+      "bind": {
+        "input": "select",
+        "options": [
+          "basis",
+          "cardinal",
+          "catmull-rom",
+          "linear",
+          "monotone",
+          "natural",
+          "step",
+          "step-after",
+          "step-before"
+        ]
+      }
+    },
+    {
+      "name": "height",
+      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
+        }
+      ]
+    }
+  ],
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 1,
+          "y": 5
+        },
+        {
+          "x": 2,
+          "y": 3
+        },
+        {
+          "x": 3,
+          "y": 15
+        },
+        {
+          "x": 4,
+          "y": 7
+        },
+        {
+          "x": 5,
+          "y": 8
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "range": "width",
+      "domain": {
+        "data": "table",
+        "field": "x"
+      }
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {
+        "data": "table",
+        "field": "y"
+      }
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": "category",
+      "domain": {
+        "data": "table",
+        "field": "c"
+      }
+    }
+  ],
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "x"
+    },
+    {
+      "orient": "left",
+      "scale": "y"
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "table",
+          "groupby": "c"
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {
+            "data": "series"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "scale": "x",
+                "field": "x"
+              },
+              "y": {
+                "scale": "y",
+                "field": "y"
+              },
+              "stroke": {
+                "scale": "color",
+                "field": "c"
+              },
+              "strokeWidth": {
+                "value": 2
+              }
+            },
+            "update": {
+              "interpolate": {
+                "signal": "interpolate"
+              },
+              "strokeOpacity": {
+                "value": 1
+              }
+            },
+            "hover": {
+              "strokeOpacity": {
+                "value": 0.5
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
+}
+vegaEmbed('#viz_YsXhBI4h', specYsXhBI4h , {
+    renderer: "canvas", // renderer (canvas or svg)
+    container: "#viz_YsXhBI4h", // parent DOM container
+    hover: true, // enable hover processing
+    actions: {
+        editor : true
+    }
+}).then(function(result) {
+
+})
+</script>
+### Dot Plot
+```scala
+List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
+```
+
+
+<div id="viz_mvtKDDXR" class="viz"></div>
+
+<script type="text/javascript">
+const specmvtKDDXR = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "A dot plot example depicting the distribution of animal sleep times.",
+  "width": 300,
+  "padding": 5,
+  "signals": [
+    {
+      "name": "step",
+      "value": 0.65,
+      "bind": {
+        "input": "range",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.01
+      }
+    },
+    {
+      "name": "offset",
+      "value": "zero",
+      "bind": {
+        "input": "radio",
+        "options": [
+          "zero",
+          "center"
+        ]
+      }
+    },
+    {
+      "name": "smooth",
+      "value": true,
+      "bind": {
+        "input": "checkbox"
+      }
+    },
+    {
+      "name": "size",
+      "update": "scale('x', step) - scale('x', 0)"
+    },
+    {
+      "name": "area",
+      "update": "size * size"
+    },
+    {
+      "name": "ddh",
+      "update": "(span(ddext) + 1) * size"
+    },
+    {
+      "name": "hdh",
+      "update": "(span(hdext) + 1) * size"
+    },
+    {
+      "name": "height",
+      "update": "max(ddh, hdh)"
+    }
+  ],
+  "data": [
+    {
+      "name": "points",
+      "values": [
+        1,
+        11,
+        1,
+        2,
+        3,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        6,
+        8,
+        8,
+        9,
+        8
+      ],
+      "transform": [
+        {
+          "type": "dotbin",
+          "field": "data",
+          "smooth": {
+            "signal": "smooth"
+          },
+          "step": {
+            "signal": "step"
+          }
+        },
+        {
+          "type": "stack",
+          "groupby": [
+            "bin"
+          ],
+          "offset": {
+            "signal": "offset"
+          },
+          "as": [
+            "d0",
+            "d1"
+          ]
+        },
+        {
+          "type": "extent",
+          "field": "d1",
+          "signal": "ddext"
+        },
+        {
+          "type": "extent",
+          "field": "data",
+          "signal": "ext"
+        },
+        {
+          "type": "bin",
+          "field": "data",
+          "step": {
+            "signal": "step"
+          },
+          "extent": {
+            "signal": "ext"
+          }
+        },
+        {
+          "type": "stack",
+          "offset": {
+            "signal": "offset"
+          },
+          "groupby": [
+            "bin0"
+          ]
+        },
+        {
+          "type": "extent",
+          "field": "y0",
+          "signal": "hdext"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": [
+        0,
+        20
+      ],
+      "range": "width"
+    },
+    {
+      "name": "ddy",
+      "domain": {
+        "signal": "[0, ddh / size]"
+      },
+      "range": {
+        "signal": "[height, height - ddh]"
+      }
+    },
+    {
+      "name": "hdy",
+      "domain": {
+        "signal": "[0, hdh / size]"
+      },
+      "range": {
+        "signal": "[height, height - hdh]"
+      }
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "encode": {
+        "update": {
+          "width": {
+            "signal": "width"
+          },
+          "height": {
+            "signal": "height"
+          }
+        }
+      },
+      "axes": [
+        {
+          "scale": "x",
+          "orient": "bottom",
+          "tickCount": 5,
+          "title": "Density Dot Plot"
+        }
+      ],
+      "marks": [
+        {
+          "type": "symbol",
+          "from": {
+            "data": "points"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "x",
+                "field": "bin"
+              },
+              "y": {
+                "scale": "ddy",
+                "signal": "datum.d0 + 0.5"
+              },
+              "size": {
+                "signal": "area"
+              },
+              "fill": {
+                "value": "steelblue"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "width + 10"
+          },
+          "width": {
+            "signal": "width"
+          },
+          "height": {
+            "signal": "height"
+          }
+        }
+      },
+      "axes": [
+        {
+          "scale": "x",
+          "orient": "bottom",
+          "tickCount": 5,
+          "title": "Histogram Dot Plot"
+        }
+      ],
+      "marks": [
+        {
+          "type": "symbol",
+          "from": {
+            "data": "points"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "x",
+                "signal": "(datum.bin0 + datum.bin1) / 2"
+              },
+              "y": {
+                "scale": "hdy",
+                "signal": "datum.y0 + 0.5"
+              },
+              "size": {
+                "signal": "area"
+              },
+              "fill": {
+                "value": "steelblue"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+vegaEmbed('#viz_mvtKDDXR', specmvtKDDXR , {
+    renderer: "canvas", // renderer (canvas or svg)
+    container: "#viz_mvtKDDXR", // parent DOM container
+    hover: true, // enable hover processing
+    actions: {
+        editor : true
+    }
+}).then(function(result) {
+
+})
+</script>
+### Scatter Plot
+```scala
+List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter()
+```
+
+
+<div id="viz_idHLcNya" class="viz"></div>
+
+<script type="text/javascript">
+const specidHLcNya = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "A basic scatter plot example depicting automobile statistics.",
+  "padding": 5,
+  "data": [
+    {
+      "name": "source",
+      "values": [
+        {
+          "x": 1,
+          "y": 2
+        },
+        {
+          "x": 3,
+          "y": 4
+        },
+        {
+          "x": 0.5,
+          "y": 5
+        },
+        {
+          "x": 3.14159,
+          "y": 1
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {
+        "data": "source",
+        "field": "x"
+      },
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {
+        "data": "source",
+        "field": "y"
+      },
+      "range": "height"
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 5,
+      "title": "x"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "titlePadding": 5,
+      "title": "y"
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {
+        "data": "source"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "y"
+          },
+          "size": {
+            "value": 12
+          },
+          "shape": {
+            "value": "circle"
+          },
+          "strokeWidth": {
+            "value": 2
+          },
+          "opacity": {
+            "value": 1
+          },
+          "stroke": {
+            "value": "black"
+          },
+          "fill": {
+            "value": "transparent"
+          }
+        }
+      }
+    }
+  ],
+  "signals": [
+    {
+      "name": "height",
+      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
+        }
+      ]
+    }
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
+}
+vegaEmbed('#viz_idHLcNya', specidHLcNya , {
+    renderer: "canvas", // renderer (canvas or svg)
+    container: "#viz_idHLcNya", // parent DOM container
+    hover: true, // enable hover processing
+    actions: {
+        editor : true
+    }
+}).then(function(result) {
+
+})
+</script>
+### Regression
+```scala
+List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
+```
+
+
+<div id="viz_kGEBthyJ" class="viz"></div>
+
+<script type="text/javascript">
+const speckGEBthyJ = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "A basic scatter plot example depicting automobile statistics.",
+  "padding": 5,
+  "data": [
+    {
+      "name": "source",
+      "values": [
+        {
+          "x": 1,
+          "y": 2
+        },
+        {
+          "x": 3,
+          "y": 4
+        },
+        {
+          "x": 0.5,
+          "y": 5
+        },
+        {
+          "x": 3.14159,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "name": "trend",
+      "source": "source",
+      "transform": [
+        {
+          "type": "regression",
+          "method": "linear",
+          "order": 1,
+          "extent": {
+            "signal": "domain('x')"
+          },
+          "x": "x",
+          "y": "y",
+          "as": [
+            "u",
+            "v"
+          ]
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {
+        "data": "source",
+        "field": "x"
+      },
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {
+        "data": "source",
+        "field": "y"
+      },
+      "range": "height"
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 5,
+      "title": "x"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "titlePadding": 5,
+      "title": "y"
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {
+        "data": "source"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "y"
+          },
+          "size": {
+            "value": 12
+          },
+          "shape": {
+            "value": "circle"
+          },
+          "strokeWidth": {
+            "value": 2
+          },
+          "opacity": {
+            "value": 1
+          },
+          "stroke": {
+            "value": "black"
+          },
+          "fill": {
+            "value": "transparent"
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {
+        "data": "trend"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "x",
+            "field": "u"
+          },
+          "y": {
+            "scale": "y",
+            "field": "v"
+          },
+          "stroke": {
+            "value": "firebrick"
+          }
+        }
+      }
+    }
+  ],
+  "signals": [
+    {
+      "name": "height",
+      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
+        }
+      ]
+    }
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
+}
+vegaEmbed('#viz_kGEBthyJ', speckGEBthyJ , {
+    renderer: "canvas", // renderer (canvas or svg)
+    container: "#viz_kGEBthyJ", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -632,14 +1468,14 @@ viz.vega.plots.LineChartLite(
         viz.Utils.fixDefaultDataUrl
     )
 )
-// res3: LineChartLite = LineChartLite(List(Fix default data url))
+// res7: LineChartLite = LineChartLite(List(Fix default data url))
 ```
 
 
-<div id="viz_qIty27Gf" class="viz"></div>
+<div id="viz_aDw8sEYm" class="viz"></div>
 
 <script type="text/javascript">
-const specqIty27Gf = {
+const specaDw8sEYm = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -662,9 +1498,9 @@ const specqIty27Gf = {
     }
   }
 }
-vegaEmbed('#viz_qIty27Gf', specqIty27Gf , {
+vegaEmbed('#viz_aDw8sEYm', specaDw8sEYm , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_qIty27Gf", // parent DOM container
+    container: "#viz_aDw8sEYm", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -681,14 +1517,14 @@ Someone was apparently crazy enough to implement pacman in vega. As "proof" that
 
 ```scala
 viz.vega.plots.Pacman()
-// res5: Pacman = Pacman(List())
+// res9: Pacman = Pacman(List())
 ```
 
 
-<div id="viz_1xffqFs8" class="viz"></div>
+<div id="viz_7zFzIIOI" class="viz"></div>
 
 <script type="text/javascript">
-const spec1xffqFs8 = {
+const spec7zFzIIOI = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "An implementation of the classic video game Pacman.",
   "width": 600,
@@ -3808,9 +4644,9 @@ const spec1xffqFs8 = {
     }
   ]
 }
-vegaEmbed('#viz_1xffqFs8', spec1xffqFs8 , {
+vegaEmbed('#viz_7zFzIIOI', spec7zFzIIOI , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_1xffqFs8", // parent DOM container
+    container: "#viz_7zFzIIOI", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3845,16 +4681,16 @@ I'm writing out the types here in the hopes of being helpful. It looks harder th
 import viz.vega.plots.LineChartLite
 import viz.Utils
 val addTitle : ujson.Value => Unit = (spec:ujson.Value) => spec("title") = "A Timeseries"
-// addTitle: Function1[Value, Unit] = repl.MdocSession$App0$$Lambda$14439/0x00000008030e0d70@72f68734
+// addTitle: Function1[Value, Unit] = repl.MdocSession$App0$$Lambda$12751/0x0000000802770d70@7a32375f
 LineChartLite(
     Seq(
         addTitle, 
         Utils.fixDefaultDataUrl 
     )
 )
-// res7: LineChartLite = LineChartLite(
+// res11: LineChartLite = LineChartLite(
 //   List(
-//     repl.MdocSession$App0$$Lambda$14439/0x00000008030e0d70@72f68734,
+//     repl.MdocSession$App0$$Lambda$12751/0x0000000802770d70@7a32375f,
 //     Fix default data url
 //   )
 // )
@@ -3862,10 +4698,10 @@ LineChartLite(
 
 
 
-<div id="viz_Y2FvR6WX" class="viz"></div>
+<div id="viz_yY7A8cbn" class="viz"></div>
 
 <script type="text/javascript">
-const specY2FvR6WX = {
+const specyY7A8cbn = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -3889,9 +4725,9 @@ const specY2FvR6WX = {
   },
   "title": "A Timeseries"
 }
-vegaEmbed('#viz_Y2FvR6WX', specY2FvR6WX , {
+vegaEmbed('#viz_yY7A8cbn', specyY7A8cbn , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_Y2FvR6WX", // parent DOM container
+    container: "#viz_yY7A8cbn", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3914,17 +4750,17 @@ def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
     def apply(spec: ujson.Value) = spec("title") = in
  }
 LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
-// res9: LineChartLite = LineChartLite(
+// res13: LineChartLite = LineChartLite(
 //   List(set title to be Much better, Fix default data url)
 // )
 ```
 
 
 
-<div id="viz_pnBhIlLL" class="viz"></div>
+<div id="viz_3myMBoIU" class="viz"></div>
 
 <script type="text/javascript">
-const specpnBhIlLL = {
+const spec3myMBoIU = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -3948,9 +4784,9 @@ const specpnBhIlLL = {
   },
   "title": "Much better"
 }
-vegaEmbed('#viz_pnBhIlLL', specpnBhIlLL , {
+vegaEmbed('#viz_3myMBoIU', spec3myMBoIU , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_pnBhIlLL", // parent DOM container
+    container: "#viz_3myMBoIU", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -3972,17 +4808,17 @@ def addData(in: TimeSeries) = new (ujson.Value => Unit) {
         spec.obj.remove("transform")
 }
 LineChartLite(Seq(addTitleB("Now with data"), addData(ts) ))
-// res11: LineChartLite = LineChartLite(
+// res15: LineChartLite = LineChartLite(
 //   List(set title to be Now with data, pipe in data)
 // )
 ```
 
 
 
-<div id="viz_hZE0k0gO" class="viz"></div>
+<div id="viz_JQdPCf04" class="viz"></div>
 
 <script type="text/javascript">
-const spechZE0k0gO = {
+const specJQdPCf04 = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -4014,9 +4850,9 @@ const spechZE0k0gO = {
   },
   "title": "Now with data!"
 }
-vegaEmbed('#viz_hZE0k0gO', spechZE0k0gO , {
+vegaEmbed('#viz_JQdPCf04', specJQdPCf04 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_hZE0k0gO", // parent DOM container
+    container: "#viz_JQdPCf04", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
