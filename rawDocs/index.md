@@ -4,7 +4,9 @@ title: Home
 ---
 # Dedav4s
 
-Declarative data visualization for scala - a scala plotting concept
+Declarative data visualization for scala - a scala plotting concept. 
+
+It is written exclusively in scala 3 (currently), but will work with scala 2.13.7+ via forward compatibility.
 
 <head>
         <meta charset="utf-8" />

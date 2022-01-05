@@ -1,3 +1,10 @@
 theme: minima
   social_links:    
     github: jekyll
+
+title: dedav4s
+author: Simon Parten
+email: quafadas@gmail.com
+
+description: > 
+  A scala library to wrap vega, targeting ease of plotting in interative / repl scala environments. 
