@@ -45,8 +45,8 @@ import viz.vega.extensions.*
 (1 to 10).plotBarChart()
 // res1: BarChart = BarChart(
 //   List(
-//     viz.Utils$$$Lambda$20451/0x000000080249c6c8@1a4bc2f9,
-//     viz.vega.extensions.extensions$package$$$Lambda$20488/0x0000000801bcc398@28f95b7,
+//     viz.Utils$$$Lambda$28218/0x0000000802d933b8@4705fa7f,
+//     viz.vega.extensions.extensions$package$$$Lambda$28255/0x0000000802de35e8@5d4b77d0,
 //     remove X axis
 //   )
 // )
@@ -56,10 +56,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_bM5Ny8rs" class="viz"></div>
+<div id="viz_65xhimnz" class="viz"></div>
 
 <script type="text/javascript">
-const specbM5Ny8rs = {
+const spec65xhimnz = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -68,43 +68,43 @@ const specbM5Ny8rs = {
       "name": "table",
       "values": [
         {
-          "category": "vbZlesR1",
+          "category": "WfYJsZuK",
           "amount": 1
         },
         {
-          "category": "2OMsdU0f",
+          "category": "2CYO2nhq",
           "amount": 2
         },
         {
-          "category": "6sEOqBQN",
+          "category": "cOFGA2Tj",
           "amount": 3
         },
         {
-          "category": "yMctsNbu",
+          "category": "LiFadklB",
           "amount": 4
         },
         {
-          "category": "jl2GJIYl",
+          "category": "RNvriFXM",
           "amount": 5
         },
         {
-          "category": "eBKk2uyO",
+          "category": "CwevSoQy",
           "amount": 6
         },
         {
-          "category": "2S1P5o0Y",
+          "category": "iGwNtj88",
           "amount": 7
         },
         {
-          "category": "Hp4RyThV",
+          "category": "k7rVkXxA",
           "amount": 8
         },
         {
-          "category": "pkChPCyy",
+          "category": "kq1Ny2ob",
           "amount": 9
         },
         {
-          "category": "cJBOUdL6",
+          "category": "o7eexZrG",
           "amount": 10
         }
       ]
@@ -260,9 +260,9 @@ const specbM5Ny8rs = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_bM5Ny8rs', specbM5Ny8rs , {
+vegaEmbed('#viz_65xhimnz', spec65xhimnz , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_bM5Ny8rs", // parent DOM container
+    container: "#viz_65xhimnz", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
