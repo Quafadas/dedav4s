@@ -2,6 +2,21 @@
 id: customising
 title: Custom Datatypes
 ---
+<head>
+        <meta charset="utf-8" />
+        <!-- Import Vega & Vega-Lite -->
+        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+        <!-- Import vega-embed -->
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+        <style>
+		    div.viz {
+                width: 25vmin;
+                height:25vmin;
+                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
+            }
+        </style>
+</head>
 The key idea behind the library allows what are, to my mind some exciting extensions. 
 
 It would be very common, to have your own representations of data. One example would be [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
