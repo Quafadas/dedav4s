@@ -21,8 +21,51 @@ title: Examples
 The library exposes the [vega examples](https://vega.github.io/vega/examples/) and [vega lite examples](https://vega.github.io/vega-lite/examples/) convieniently as case classes. The class names correspond to the title of the charts (with some special characters removed).
 
 ## Suggested Workflow
-1. Identify a plot which looks simila to your desired visualisation
+1. Identify a plot which looks similar to your desired visualisation
 2. Customise it, by modifiying the JSON spec to be your desired visualisation
+
+As always... lean into vega;
+
+![The Vega Editor](../assets/vegaEditor.png)
+
+## Some Concepts
+Each "plot" is a case class which accepts a list of "modifiers". Each case class has the signature accepting a single argument of type; 
+
+```scala
+Seq[ujson.Value => Unit] 
+```
+which appears often enough that it is aliased as;
+
+```scala
+type JsonMod = Seq[ujson.Value => Unit]
+```
+
+Upon creation, each of these functions is applied to a "base spec". To start with, a base spec will be an example from the vega website). The signature of ```viz.vega.plots.SimpleBarChart()``` is
+```scala 
+case class BarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.BarChart)
+```
+The
+- mods change the spec (to make it look the way you want)
+- PlotTarget is effectively a side effect which is run when the case class is created. Often to display the plot
+- The final part tells this case class, where to obtain a "base specification". In this case, https://vega.github.io/vega/examples/bar-chart.vg.json
+
+What that means, is that to add a title, we need to [read the vega docs](https://vega.github.io/vega/docs/title/). To skip some steps, try...
+
+```scala
+SimpleBarChartLite(List(spec => spec("title") = "Got Viz?"))
+```
+
+We'll revisit this in more detail below. Crucially, to know _where_ to add stuff to the spec, you're going to need the vega documentation. 
+
+[Vega documentation](https://vega.github.io/vega/docs/)
+
+[Vega Lite documentation](https://vega.github.io/vega-lite/docs/)
+
+Finally, I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
+
+```scala
+SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
+```
 
 ## Levels of abstraction
 You need a [plot target](plotTargets.md) in place, and then we're ready to plot some data. The idea of the library is to wrap vega by simply treating a chart spec as a JSON object.  
@@ -32,27 +75,13 @@ We can easily manipulate JSON objects using [ujson](https://www.lihaoyi.com/post
 I work with this library in 4 ways
 1. Pipe "raw" data into a vega example
 1. Record a list of modifiers which were useful modifications to an example
-1. Spec has been modified enough that a list of modifiers is confusing. Extend the WithBaseSpec class directly via a file or resource (see "Custom.scala"). Then pipe data into it with one modifier.
-1. In prod... don't use this library anymore - probably you have a webserver. Keep the spec under version control and use vega data loading capabilities to talk to the API providing data. 
-
-Each "plot" is a case class which accepts a list of "modifiers". Each case class has the signature accepting a single argument of type; 
-
-    Seq[ujson.Value => Unit]
-
-So for example to add a title;
-
-    SimpleBarChartLite(List(spec => spec("title") = "Got Viz?"))
-
-We'll do that in more detail below. 
-
-Finally, I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
-
-    SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
+1. Spec has been modified enough that a list of modifiers is confusing. Extend the WithBaseSpec class directly via a file or resource (see "Custom.scala"). Then pipe data into it.
+1. In prod... don't use this library anymore - probably you have a webserver which means you already have javascript. Use vega directly, Keep the spec under version control and use vega data loading capabilities to talk to the API providing data. 
 
 
 ## "Raw" Data
 
-The idea here, is that "raw datatypes" have some "unambiguous" visualisation which is relatively common to want to plot. Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website. We want to be able to plot these as quickly as possible. 
+The idea here, is that "raw datatypes" have some unambiguous visualisation which is relatively common to want to plot. Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website, and come from a simple datastructure. We want to be able to plot these as quickly as possible. 
 
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
@@ -137,7 +166,10 @@ viz.vega.plots.LineChartLite(
 ```scala mdoc:vegaplot
 viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
 ```
-As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, otherwise the chart will be blank, which is the list of Modifiers. This is our hint on how we're going to manage minor modifications to plots. 
+As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, else data loading will fail. It's not a bad excercise to allow that failure. 
+
+
+This is our hint on how we're going to manage minor modifications to plots. 
 
 Here, we have the line chart example from vega lite. ```viz.vega.plots.xxx``` contains _all_ the examples on the vega, and vega-lite websites. vega-lite charts have "lite" appended.
 
