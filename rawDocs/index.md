@@ -6,7 +6,7 @@ title: Home
 
 Declarative data visualization for scala - a scala plotting concept. 
 
-It is written exclusively in scala 3 (currently), but will work with scala 2.13.7+ via forward compatibility.
+It is written exclusively in scala 3 (currently), but will work with scala 2.13.6+ via forward compatibility.
 
 <head>
         <meta charset="utf-8" />
