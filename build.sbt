@@ -11,10 +11,11 @@ lazy val root = project
     version := libV,
     scalaVersion := "3.0.2",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "upickle" % "1.4.2",
-      "com.lihaoyi" %% "requests" % "0.6.9",
+      "com.lihaoyi" %% "upickle" % "1.4.3",
+      "com.lihaoyi" %% "requests" % "0.7.0",
+      "com.lihaoyi" %% "cask" % "0.8.0",
 //      "sh.almond"      % "scala-kernel-api_2.13.4" % "0.11.2" % Provided,
-      "org.jsoup" % "jsoup" % "1.14.3",
+      "org.jsoup" % "jsoup" % "1.14.3",       
     )
   )
 
@@ -38,10 +39,21 @@ lazy val docs = project
     scalaVersion := "3.1.0",
     mdocAutoDependency := false,
     libraryDependencies ++= Seq(
+      "org.scalanlp"%%"breeze"%"2.0",
           ("org.scalameta" %% "mdoc" % "2.2.24").exclude(
         "com.lihaoyi",
         "geny_2.13"
+      ).exclude(
+        "com.lihaoyi",
+        "sourcecode_2.13"
+      ).exclude(
+        "com.lihaoyi",
+        "fansi_2.13"
+      ).exclude(
+        "com.lihaoyi",
+        "pprint_2.13"
       )
+
     )
     
   )
