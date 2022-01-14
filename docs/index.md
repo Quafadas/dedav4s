@@ -26,11 +26,11 @@ It is written exclusively in scala 3 (currently), but will work with scala 2.13.
 
 To add this library to an sbt project
 ```scala
-libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.0.9"
+libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.1.0"
 ```
 To use this library in ammonite
 ```scala
-import $ivy.`io.github.quafadas::dedav4s:0.0.9`
+import $ivy.`io.github.quafadas::dedav4s:0.1.0`
 ```
 
 Fire up an sbt console (or in a repl... )
@@ -45,8 +45,8 @@ import viz.vega.extensions.*
 (1 to 10).plotBarChart()
 // res1: BarChart = BarChart(
 //   mods = List(
-//     viz.Utils$$$Lambda$10837/0x0000000802ac8000@5d56864e,
-//     viz.vega.extensions.extensions$package$$$Lambda$11164/0x0000000802b872b8@1c3372ae,
+//     viz.Utils$$$Lambda$11910/0x0000000802b7ad10@7f695166,
+//     viz.vega.extensions.extensions$package$$$Lambda$12243/0x0000000802c4f688@31e0e4f9,
 //     remove X axis
 //   )
 // )
@@ -56,10 +56,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_6aVecue8" class="viz"></div>
+<div id="viz_fR29xFuD" class="viz"></div>
 
 <script type="text/javascript">
-const spec6aVecue8 = {
+const specfR29xFuD = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -68,43 +68,43 @@ const spec6aVecue8 = {
       "name": "table",
       "values": [
         {
-          "category": "3rWpIBlf",
+          "category": "eQgOG9Bb",
           "amount": 1
         },
         {
-          "category": "FPCTmqwf",
+          "category": "mGehcvcX",
           "amount": 2
         },
         {
-          "category": "W4Y3KYly",
+          "category": "QepLFGcc",
           "amount": 3
         },
         {
-          "category": "FwyBYczm",
+          "category": "K9US8qO5",
           "amount": 4
         },
         {
-          "category": "upCzsV6H",
+          "category": "BZJXdoEW",
           "amount": 5
         },
         {
-          "category": "GKi0VJxm",
+          "category": "XWjgbzzO",
           "amount": 6
         },
         {
-          "category": "1Wf31biR",
+          "category": "hIPuaD21",
           "amount": 7
         },
         {
-          "category": "AUOMB7df",
+          "category": "ouPBOmme",
           "amount": 8
         },
         {
-          "category": "U2Vikdcs",
+          "category": "HD8ujse9",
           "amount": 9
         },
         {
-          "category": "gPQ7Tx85",
+          "category": "L8USfyiA",
           "amount": 10
         }
       ]
@@ -260,9 +260,9 @@ const spec6aVecue8 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_6aVecue8', spec6aVecue8 , {
+vegaEmbed('#viz_fR29xFuD', specfR29xFuD , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_6aVecue8", // parent DOM container
+    container: "#viz_fR29xFuD", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
