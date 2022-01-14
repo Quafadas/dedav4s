@@ -26,11 +26,7 @@ def Main(args: String*): Unit =
    SimpleBarChartLite(List(viz.Utils.fillDiv, spec => spec("title") = "Got Viz?" ))
 
    // Check a vega viz
-   BarChart(List(viz.Utils.fillDiv))   
-
-
-
-   // Why does this say it needs ordering?
+   BarChart(List(viz.Utils.fillDiv))      
    List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
 
    // Custom viz

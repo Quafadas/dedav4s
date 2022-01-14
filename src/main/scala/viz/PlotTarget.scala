@@ -2,7 +2,9 @@ package viz
 
 import java.io.{ File, PrintWriter }
 import java.awt.Desktop
-
+import almond.api.JupyterApi
+import almond.interpreter.api.DisplayData
+import almond.api.JupyterAPIHolder.value
 trait PlotTarget:
   def show(spec: String): Unit
 
@@ -70,21 +72,20 @@ object PlotTargets:
   given onelineHelp: PlotTarget with
     override def show(spec: String) = ??? // don't think we need this with the embedding working properly
 
-  given vsCodeNotebook: PlotTarget with
-    override def show(spec: String) = almond.show(spec) 
+/*   given vsCodeNotebook: PlotTarget with
+    override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
   given almond: PlotTarget with
-    override def show(spec: String) = ???
-    // we need almond to publish for scala 3
-/*     override def show(spec: String) = 
-  kernel.publish.display(
-      almond.interpreter.api.DisplayData(
-        data = Map(      
-          "application/vnd.vega.v5+json" -> ujson.write(spec, 2)           
+    override def show(spec: String) =   
+      val kernel = summon[JupyterApi]                 
+      kernel.publish.display(
+          DisplayData(
+            data = Map(      
+              "application/vnd.vega.v5+json" -> spec
+            )
+          )  
         )
-      )  
-    )
- */
+ 
   given postHttp: PlotTarget with
     override def show(spec: String) = requests.post("http://localhost:8080/viz", data=spec) // see https://github.com/Quafadas/viz-websockets for an example use
     // TODO read the url from configuration / ENV variable.
