@@ -40,10 +40,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_MQseeyLG" class="viz"></div>
+<div id="viz_RNwq3gus" class="viz"></div>
 
 <script type="text/javascript">
-const specMQseeyLG = {
+const specRNwq3gus = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -220,9 +220,9 @@ const specMQseeyLG = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_MQseeyLG', specMQseeyLG , {
+vegaEmbed('#viz_RNwq3gus', specRNwq3gus , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_MQseeyLG", // parent DOM container
+    container: "#viz_RNwq3gus", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -272,8 +272,8 @@ import viz.vega.extensions.*
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // res1: BarChart = BarChart(
 //   mods = List(
-//     viz.vega.extensions.extensions$package$$$Lambda$11161/0x0000000802b86710@980f5dc,
-//     viz.Utils$$$Lambda$10837/0x0000000802ac8000@5d56864e
+//     viz.vega.extensions.extensions$package$$$Lambda$19738/0x00000008035b6000@14193718,
+//     viz.Utils$$$Lambda$19415/0x00000008034fbaf8@4681fcd9
 //   )
 // )
 ```
@@ -467,11 +467,39 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.vega.extensions.extensions$package$$$Lambda$11161/0x0000000802b86710@2fb4d091,
-//     viz.Utils$$$Lambda$10837/0x0000000802ac8000@5d56864e
+//     viz.vega.extensions.extensions$package$$$Lambda$19738/0x00000008035b6000@4bd97740,
+//     viz.Utils$$$Lambda$19415/0x00000008034fbaf8@4681fcd9
 //   )
 // )
 ```
+
+## Vega CLI outputs
+The [vega CLI](https://vega.github.io/vega/usage/#cli) allows you to output pictures to (non interactive) SVG, PNG, and PDF formats. 
+
+This library _does not_ magically set vega cli up for you. It _assumes_ that you have sucessfully done that yourself - i.e. probably you need node.js and have successfully run ```npm install -g vega-cli```... and tested that worked. 
+
+Assuming we're plotting 
+
+```scala
+(1 to 10).plotBarChart()
+```
+
+### PNG
+```scala
+import viz.PlotTargets.pdf
+```
+![as png]("/dedav4s/assets/plot-10805531892109353827.png")
+
+### PDF
+```scala
+$import viz.PlotTargets.pdf
+````
+
+### SVG
+```scala
+$import viz.PlotTargets.svg
+````
+![as svg]("/dedav4s/assets/plot-15502123500232012865.svg")
 
 # Scala 2
 There isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
