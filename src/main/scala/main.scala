@@ -1,5 +1,7 @@
+
 import viz.vega.plots.*
 
+//import viz.PlotTargets.desktopBrowser
 import viz.PlotTargets.desktopBrowser
 import viz.vega.extensions.*
 
@@ -9,7 +11,7 @@ def Main(args: String*): Unit =
    // Check extension methods
    // 1. Numeric Iterable
    (1 to 10).plotBarChart()
-   (1 to 10).plotPieChart()
+/*    (1 to 10).plotPieChart()
    List(1,5,3,15,7,8).plotLineChart()
    List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
    List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter()
@@ -35,4 +37,4 @@ def Main(args: String*): Unit =
    // With fixed URLs
    CirclePacking(
     List(viz.Utils.fixDefaultDataUrl, viz.Utils.fillDiv)
-   )
+   ) */

@@ -16,6 +16,8 @@ lazy val root = project
       "com.lihaoyi" %% "upickle" % "1.4.3",
       "com.lihaoyi" %% "requests" % "0.7.0",
       "com.lihaoyi" %% "cask" % "0.8.0",
+      "com.lihaoyi" %% "os-lib" % "0.8.0",
+      "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala
        "com.github.jupyter" % "jvm-repr" %  "master-0.4.0-g2e50ad4-1",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided).cross(CrossVersion.for3Use2_13With("",".4")).exclude(
         "com.lihaoyi",
@@ -28,7 +30,12 @@ lazy val root = project
         "fansi_2.13"
       ).exclude(
         "com.lihaoyi",
+        "os-lib_2.13"
+      ).exclude(
+        "com.lihaoyi",
         "pprint_2.13"
+      ).exclude(
+        "org.scala-lang.modules","scala-collection-compat_2.13"
       ) ,
       "org.jsoup" % "jsoup" % "1.14.3",      
     )

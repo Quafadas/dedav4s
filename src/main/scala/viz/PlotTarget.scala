@@ -1,14 +1,27 @@
 package viz
 
+
 import java.io.{ File, PrintWriter }
 import java.awt.Desktop
 import almond.api.JupyterApi
 import almond.interpreter.api.DisplayData
 import almond.api.JupyterAPIHolder.value
+import java.nio.file.Paths
+import java.nio.file.Files
 trait PlotTarget:
   def show(spec: String): Unit
 
 object PlotTargets:
+
+  lazy val conf = org.ekrich.config.ConfigFactory.load()
+  lazy val outPath: Option[String] = {
+    val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
+    if pathIsSet then
+      Some(conf.getString("dedavOutPath"))
+    else
+      None
+  }
+
 
   given doNothing: PlotTarget with
     override def show(spec: String) = ()
@@ -16,7 +29,7 @@ object PlotTargets:
   given printlnTarget: PlotTarget with
     override def show(spec: String) = println(spec)
 
-  given desktopBrowser: PlotTarget with
+  given desktopBrowser: PlotTarget with    
     override def show(spec: String) = {        
         val theHtml = raw"""<!DOCTYPE html>
         <html>
@@ -54,19 +67,13 @@ object PlotTargets:
 
         </script>
         </body>
-        </html> """
-
-        val tempFi = File.createTempFile("plot-",".html")
-        tempFi.deleteOnExit()
-        new PrintWriter(tempFi) {
-            try {
-            write(theHtml)
-            } finally {
-            close()
-            }
-        }
-        Desktop.getDesktop().browse(tempFi.toURI())
-
+        </html> """        
+        val tempFi = outPath match
+          case Some(path) => 
+            os.temp(theHtml, dir = os.Path(path), suffix=".html", prefix="plot-")
+          case None => 
+            os.temp(theHtml, suffix=".html", prefix="plot-")
+        Desktop.getDesktop().browse(tempFi.toNIO.toUri())
     }
 
   given onelineHelp: PlotTarget with
@@ -89,3 +96,39 @@ object PlotTargets:
   given postHttp: PlotTarget with
     override def show(spec: String) = requests.post("http://localhost:8080/viz", data=spec) // see https://github.com/Quafadas/viz-websockets for an example use
     // TODO read the url from configuration / ENV variable.
+
+  given png: PlotTarget with
+    override def show(spec: String) : Unit = 
+      val pngBytes = os.proc("vg2png").call(stdin = spec )
+      pngBytes.exitCode match 
+        case 0 => 
+          outPath match
+            case Some(path) => 
+              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix=".png", prefix="plot-" )
+            case None => 
+              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".png", prefix="plot-")
+        case _ => throw new Exception(pngBytes.err.text())
+  
+  given pdf: PlotTarget with
+    override def show(spec: String) : Unit = 
+      val pngBytes = os.proc("vg2pdf").call(stdin = spec )
+      pngBytes.exitCode match 
+        case 0 => 
+          outPath match
+            case Some(path) => 
+              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix=".html", prefix="plot-" )
+            case None => 
+              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".pdf", prefix="plot-")
+        case _ => throw new Exception(pngBytes.err.text())
+
+  given svg: PlotTarget with
+    override def show(spec: String) : Unit = 
+      val pngBytes = os.proc("vg2svg").call(stdin = spec )
+      pngBytes.exitCode match 
+        case 0 => 
+          outPath match
+            case Some(path) => 
+              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix=".html", prefix="plot-" )
+            case None => 
+              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".svg", prefix="plot-")
+        case _ => throw new Exception(pngBytes.err.text())
