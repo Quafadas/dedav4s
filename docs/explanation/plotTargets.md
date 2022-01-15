@@ -24,6 +24,13 @@ Every time an object is created which extends the "Spec" trait, it executes the 
 
 Those "given" targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
+Finally, many of these rely on writing temp files. You may specify the location through configuration. Either by having a suitably located "application.conf", or by passing in the environment variable ```DEDAV_OUT_PATH```
+
+e.g. 
+```
+sbt -DDEDAV_OUT_PATH=/Users/simon/Pictures   
+```
+
 # Scala 3
 ## Desktop Browser
 
@@ -40,10 +47,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_RNwq3gus" class="viz"></div>
+<div id="viz_k2A6Frqq" class="viz"></div>
 
 <script type="text/javascript">
-const specRNwq3gus = {
+const speck2A6Frqq = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -220,9 +227,9 @@ const specRNwq3gus = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_RNwq3gus', specRNwq3gus , {
+vegaEmbed('#viz_k2A6Frqq', speck2A6Frqq , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_RNwq3gus", // parent DOM container
+    container: "#viz_k2A6Frqq", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -272,8 +279,8 @@ import viz.vega.extensions.*
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // res1: BarChart = BarChart(
 //   mods = List(
-//     viz.vega.extensions.extensions$package$$$Lambda$19738/0x00000008035b6000@14193718,
-//     viz.Utils$$$Lambda$19415/0x00000008034fbaf8@4681fcd9
+//     viz.vega.extensions.extensions$package$$$Lambda$14456/0x000000080357ae58@753a6f56,
+//     viz.Utils$$$Lambda$14133/0x00000008034bb048@61089b59
 //   )
 // )
 ```
@@ -467,8 +474,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.vega.extensions.extensions$package$$$Lambda$19738/0x00000008035b6000@4bd97740,
-//     viz.Utils$$$Lambda$19415/0x00000008034fbaf8@4681fcd9
+//     viz.vega.extensions.extensions$package$$$Lambda$14456/0x000000080357ae58@192f2405,
+//     viz.Utils$$$Lambda$14133/0x00000008034bb048@61089b59
 //   )
 // )
 ```
@@ -488,18 +495,18 @@ Assuming we're plotting
 ```scala
 import viz.PlotTargets.pdf
 ```
-![as png]("/dedav4s/assets/plot-10805531892109353827.png")
+![as png](../assets/plot-10805531892109353827.png)
 
 ### PDF
 ```scala
 $import viz.PlotTargets.pdf
 ````
-
+Markdown can't display this... but it works I promise.
 ### SVG
 ```scala
-$import viz.PlotTargets.svg
+import viz.PlotTargets.svg
 ````
-![as svg]("/dedav4s/assets/plot-15502123500232012865.svg")
+![as svg](../assets/plot-15502123500232012865.svg)
 
 # Scala 2
 There isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.

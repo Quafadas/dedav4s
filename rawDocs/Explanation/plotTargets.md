@@ -120,18 +120,18 @@ Assuming we're plotting
 ```scala
 import viz.PlotTargets.pdf
 ```
-![as png]("/dedav4s/assets/plot-10805531892109353827.png")
+![as png](../assets/plot-10805531892109353827.png)
 
 ### PDF
 ```scala
 $import viz.PlotTargets.pdf
 ````
-
+Markdown can't display this... but it works I promise.
 ### SVG
 ```scala
-$import viz.PlotTargets.svg
+import viz.PlotTargets.svg
 ````
-![as svg]("/dedav4s/assets/plot-15502123500232012865.svg")
+![as svg](../assets/plot-15502123500232012865.svg)
 
 # Scala 2
 There isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
