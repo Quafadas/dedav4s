@@ -1,7 +1,7 @@
 Global / semanticdbEnabled := true
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
-val libV = "0.1.0"
+val libV = "0.1.2"
 
 resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
 
