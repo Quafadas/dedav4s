@@ -1,0 +1,166 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "description": "A basic scatter plot example depicting automobile statistics.",
+    "padding": 5,
+    "data": [
+      {
+        "name": "source",
+        "values": [
+          {
+            "series": "b",
+            "x": 1,
+            "y": 2
+          },
+          {
+            "series": "b",
+            "x": 3,
+            "y": 4
+          },
+          {
+            "series": "r1",
+            "x": 3,
+            "y": 6
+          },
+          {
+            "series": "r1",
+            "x": 8,
+            "y": 9
+          }
+        ]
+      }
+    ],
+    "scales": [
+      {
+        "name": "x",
+        "type": "linear",
+        "round": true,
+        "nice": true,
+        "zero": true,
+        "domain": {
+          "data": "source",
+          "field": "x"
+        },
+        "range": "width"
+      },
+      {
+        "name": "y",
+        "type": "linear",
+        "round": true,
+        "nice": true,
+        "zero": true,
+        "domain": {
+          "data": "source",
+          "field": "y"
+        },
+        "range": "height"
+      },
+      {
+        "name": "color",
+        "type": "ordinal",
+        "domain": {"data": "source", "field": "series"},
+        "range": "category"     
+      }
+    ],
+    "axes": [
+      {
+        "scale": "x",
+        "grid": true,
+        "domain": false,
+        "orient": "bottom",
+        "tickCount": 5,
+        "title": "x"
+      },
+      {
+        "scale": "y",
+        "grid": true,
+        "domain": false,
+        "orient": "left",
+        "titlePadding": 5,
+        "title": "y"
+      }
+    ],
+      "legends": [
+    {
+      "stroke": "color",
+      "title": "Year",
+      "padding": 4,
+      "encode": {
+        "symbols": {
+          "enter": {
+            "strokeWidth": {"value": 2},
+            "size": {"value": 50}
+          }
+        }
+      }
+    }
+  ],
+    "marks": [
+      {
+        "name": "marks",
+        "type": "symbol",
+        "from": {
+          "data": "source"
+        },
+        "encode": {
+          "update": {
+            "x": {
+              "scale": "x",
+              "field": "x"
+            },
+            "y": {
+              "scale": "y",
+              "field": "y"
+            },
+            "size": {
+              "value": 12
+            },
+            "shape": {
+              "value": "circle"
+            },
+            "strokeWidth": {
+              "value": 2
+            },
+            "opacity": {
+              "value": 1
+            },
+            "stroke": {
+              "field": "series",
+              "scale": "color"
+            },
+            "fill": {
+              "value": "transparent"
+            }
+          }
+        }
+      }
+    ],
+    "title": "Fab Chart",
+    "signals": [
+      {
+        "name": "height",
+        "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+        "on": [
+          {
+            "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+            "events": "window:resize"
+          }
+        ]
+      },
+      {
+        "name": "width",
+        "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+        "on": [
+          {
+            "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+            "events": "window:resize"
+          }
+        ]
+      }
+    ],
+    "autosize": {
+      "type": "fit",
+      "resize": true,
+      "contains": "padding"
+    }
+  }
+  
