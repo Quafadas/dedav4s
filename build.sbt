@@ -61,7 +61,9 @@ lazy val docs = project
     scalaVersion := "3.1.0",
     mdocAutoDependency := false,
     libraryDependencies ++= Seq(
-      "org.scalanlp"%%"breeze"%"2.0",
+      ("org.scalanlp"%%"breeze"%"2.0").exclude(
+        "org.scala-lang.modules","scala-collection-compat_2.13"
+      ) ,
           ("org.scalameta" %% "mdoc" % "2.2.24").exclude(
         "com.lihaoyi",
         "geny_2.13"
@@ -74,7 +76,9 @@ lazy val docs = project
       ).exclude(
         "com.lihaoyi",
         "pprint_2.13"
-      )
+      ).exclude(
+        "org.scala-lang.modules","scala-collection-compat_2.13"
+      ) 
 
     )
     

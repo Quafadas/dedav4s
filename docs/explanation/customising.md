@@ -19,9 +19,9 @@ title: Custom Datatypes
 </head>
 The key idea behind the library allows what are, to my mind some exciting extensions. 
 
-It would be very common, to have your own representations of data. One example would be [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
+It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
 
-The below extension method would add line plotting functionality, so all Breeze DenseVectors. What's cool? _You don't need to own either Breeze or dedav to make this work_ 
+The below extension method would add line plotting functionality, to _all_ Breeze DenseVectors. What's cool? _You don't need to own either Breeze or dedav to make this work_. 
 
 ```scala
 extension [T: Numeric](l: DenseVector[T])(using plotTarget: PlotTarget)
@@ -34,7 +34,7 @@ The moment where I figured it might be worth an attempt at at publishing this li
 import breeze.stats.distributions._
 import Rand.VariableSeed._
 import viz.PlotTarget
-import viz.vega.plots.ProbabilityDensity // see vega examples // see vega examples
+import viz.vega.plots.ProbabilityDensity
 
 extension (l: HasInverseCdf)(using plotTarget: PlotTarget)
     def plotDensity(mods: Seq[ujson.Value => Unit] = List()): ProbabilityDensity =
@@ -55,25 +55,25 @@ in 12. lines. of. code. It took way longer to write the documentation, than impl
 Gaussian(2,2).plotDensity()
 // res0: ProbabilityDensity = ProbabilityDensity(
 //   mods = List(
-//     repl.MdocSession$App$$Lambda$14132/0x00000008034b97a0@7a83deb0,
-//     viz.Utils$$$Lambda$14133/0x00000008034bb048@61089b59
+//     repl.MdocSession$App$$Lambda$13572/0x00000008028043d0@6aa6ee7b,
+//     viz.Utils$$$Lambda$13573/0x0000000802801c00@13f09705
 //   )
 // )
 LogNormal(1,0.5).plotDensity()
 // res1: ProbabilityDensity = ProbabilityDensity(
 //   mods = List(
-//     repl.MdocSession$App$$Lambda$14132/0x00000008034b97a0@3b596232,
-//     viz.Utils$$$Lambda$14133/0x00000008034bb048@61089b59
+//     repl.MdocSession$App$$Lambda$13572/0x00000008028043d0@5990a12c,
+//     viz.Utils$$$Lambda$13573/0x0000000802801c00@13f09705
 //   )
 // )
 ```
 
 
 
-<div id="viz_Twx8eF1B" class="viz"></div>
+<div id="viz_KKPfdpdM" class="viz"></div>
 
 <script type="text/javascript">
-const specTwx8eF1B = {
+const specKKPfdpdM = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "Area chart using density estimation to show a probability density or cumulative distribution.",
   "padding": 5,
@@ -4339,9 +4339,9 @@ const specTwx8eF1B = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_Twx8eF1B', specTwx8eF1B , {
+vegaEmbed('#viz_KKPfdpdM', specKKPfdpdM , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_Twx8eF1B", // parent DOM container
+    container: "#viz_KKPfdpdM", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -4353,10 +4353,10 @@ vegaEmbed('#viz_Twx8eF1B', specTwx8eF1B , {
 
 
 
-<div id="viz_PyiRmyq1" class="viz"></div>
+<div id="viz_DY4fsF8Z" class="viz"></div>
 
 <script type="text/javascript">
-const specPyiRmyq1 = {
+const specDY4fsF8Z = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "Area chart using density estimation to show a probability density or cumulative distribution.",
   "padding": 5,
@@ -8622,9 +8622,9 @@ const specPyiRmyq1 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_PyiRmyq1', specPyiRmyq1 , {
+vegaEmbed('#viz_DY4fsF8Z', specDY4fsF8Z , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_PyiRmyq1", // parent DOM container
+    container: "#viz_DY4fsF8Z", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true

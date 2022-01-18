@@ -26,11 +26,11 @@ It is written exclusively in scala 3 (currently), but will work with scala 2.13.
 
 To add this library to an sbt project
 ```scala
-libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.1.0"
+libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.1.2"
 ```
 To use this library in ammonite
 ```scala
-import $ivy.`io.github.quafadas::dedav4s:0.1.0`
+import $ivy.`io.github.quafadas::dedav4s:0.1.2`
 ```
 
 Fire up an sbt console (or in a repl... )
@@ -45,8 +45,8 @@ import viz.vega.extensions.*
 (1 to 10).plotBarChart()
 // res1: BarChart = BarChart(
 //   mods = List(
-//     viz.Utils$$$Lambda$14133/0x00000008034bb048@61089b59,
-//     viz.vega.extensions.extensions$package$$$Lambda$14459/0x000000080357ba00@5425a441,
+//     viz.Utils$$$Lambda$13573/0x0000000802801c00@13f09705,
+//     viz.vega.extensions.extensions$package$$$Lambda$13906/0x0000000801ae0000@50ded0af,
 //     remove X axis
 //   )
 // )
@@ -56,10 +56,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_6nnxbEGS" class="viz"></div>
+<div id="viz_nxGNH0xp" class="viz"></div>
 
 <script type="text/javascript">
-const spec6nnxbEGS = {
+const specnxGNH0xp = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -68,43 +68,43 @@ const spec6nnxbEGS = {
       "name": "table",
       "values": [
         {
-          "category": "u4R0SFLI",
+          "category": "78Rjqaek",
           "amount": 1
         },
         {
-          "category": "74MAoGGY",
+          "category": "Cb1UWWVW",
           "amount": 2
         },
         {
-          "category": "HEL2Sc4v",
+          "category": "qU7ZSGs2",
           "amount": 3
         },
         {
-          "category": "xuWAX6WP",
+          "category": "8vwUFHuK",
           "amount": 4
         },
         {
-          "category": "jfYBMT2C",
+          "category": "3eJPWerp",
           "amount": 5
         },
         {
-          "category": "8RxkHqGe",
+          "category": "5Fs3fTkg",
           "amount": 6
         },
         {
-          "category": "04ga8VxG",
+          "category": "s2fqUOCZ",
           "amount": 7
         },
         {
-          "category": "gLIp7TII",
+          "category": "XnFKUKzn",
           "amount": 8
         },
         {
-          "category": "kAULMgVe",
+          "category": "5cRrN7L3",
           "amount": 9
         },
         {
-          "category": "ovGuqagF",
+          "category": "0Dm41VrN",
           "amount": 10
         }
       ]
@@ -260,9 +260,9 @@ const spec6nnxbEGS = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_6nnxbEGS', spec6nnxbEGS , {
+vegaEmbed('#viz_nxGNH0xp', specnxGNH0xp , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_6nnxbEGS", // parent DOM container
+    container: "#viz_nxGNH0xp", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -273,6 +273,22 @@ vegaEmbed('#viz_6nnxbEGS', spec6nnxbEGS , {
 </script>
 If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/examples.md) for suggestions on how to use and extend the concepts.
 
+### Gotcha
+One of the targets of this library is the amazing [almond](https://almond.sh) project. That brings in a dependance on jvm-repr which is not on maven central. You'll need to add the resolver 
+
+For sbt
+```scala
+resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
+```
+
+In predef.sc for ammonite
+
+```scala
+interp.repositories() ++= Seq(coursierapi.MavenRepository.of(
+   "https://maven.scijava.org/content/repositories/public/"
+))
+```
+If you cannot resolve the artefact due to jvm repr.
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis
 

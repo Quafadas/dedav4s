@@ -19,9 +19,9 @@ title: Custom Datatypes
 </head>
 The key idea behind the library allows what are, to my mind some exciting extensions. 
 
-It would be very common, to have your own representations of data. One example would be [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
+It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
 
-The below extension method would add line plotting functionality, so all Breeze DenseVectors. What's cool? _You don't need to own either Breeze or dedav to make this work_ 
+The below extension method would add line plotting functionality, to _all_ Breeze DenseVectors. What's cool? _You don't need to own either Breeze or dedav to make this work_. 
 
 ```scala
 extension [T: Numeric](l: DenseVector[T])(using plotTarget: PlotTarget)
@@ -34,7 +34,7 @@ The moment where I figured it might be worth an attempt at at publishing this li
 import breeze.stats.distributions._
 import Rand.VariableSeed._
 import viz.PlotTarget
-import viz.vega.plots.ProbabilityDensity // see vega examples
+import viz.vega.plots.ProbabilityDensity
 
 extension (l: HasInverseCdf)(using plotTarget: PlotTarget)
     def plotDensity(mods: Seq[ujson.Value => Unit] = List()): ProbabilityDensity =
