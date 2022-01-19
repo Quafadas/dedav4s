@@ -1,9 +1,11 @@
 Global / semanticdbEnabled := true
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
-val libV = "0.1.2"
+val libV = "0.1.3"
 
-resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
+//resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
+
+resolvers += "jitpack" at "https://jitpack.io"
 
 lazy val root = project
   .in(file("."))
@@ -18,7 +20,7 @@ lazy val root = project
       "com.lihaoyi" %% "cask" % "0.8.0",
       "com.lihaoyi" %% "os-lib" % "0.8.0",
       "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala
-       "com.github.jupyter" % "jvm-repr" %  "master-0.4.0-g2e50ad4-1",
+       "com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided).cross(CrossVersion.for3Use2_13With("",".4")).exclude(
         "com.lihaoyi",
         "geny_2.13"
