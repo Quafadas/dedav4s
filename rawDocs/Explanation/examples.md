@@ -34,7 +34,8 @@ Each "plot" is a case class which accepts a list of "modifiers". Each case class
 ```scala
 Seq[ujson.Value => Unit] 
 ```
-which appears often enough that it is aliased as;
+i.e. a list of functions which modifiy a ```ujson.Value```
+This signature appears often enough that it is aliased as;
 
 ```scala
 type JsonMod = Seq[ujson.Value => Unit]
@@ -44,9 +45,9 @@ Upon creation, each of these functions is applied to a "base spec". To start wit
 ```scala 
 case class BarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.BarChart)
 ```
-The
-- mods change the spec (to make it look the way you want)
-- PlotTarget is effectively a side effect which is run when the case class is created. Often to display the plot
+The constiuents of this definition are;
+- mods change the spec (to make it look the way you want - for example adding your own data)
+- PlotTarget is a side effect which is run when the case class is created. Often will display the plot in a browser.
 - The final part tells this case class, where to obtain a "base specification". In this case, https://vega.github.io/vega/examples/bar-chart.vg.json
 
 What that means, is that to add a title, we need to [read the vega docs](https://vega.github.io/vega/docs/title/). To skip some steps, try...
@@ -61,7 +62,7 @@ We'll revisit this in more detail below. Crucially, to know _where_ to add stuff
 
 [Vega Lite documentation](https://vega.github.io/vega-lite/docs/)
 
-Finally, I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
+Finally, a small number of "helpers" appear often enough that they are honoured with an implementation in the library; 
 
 ```scala
 SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
@@ -85,12 +86,12 @@ The idea here, is that "raw datatypes" have some unambiguous visualisation which
 
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 ```scala mdoc:invisible:reset
 import viz.PlotTargets.doNothing
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 ### Labelled bar chart
@@ -261,5 +262,5 @@ There's nothing that says
 1. Your plot can't be a method defined on the Timeseries class itself. That's an obvious and trivial next step.
 1. You have to own the data structure - have a look at the example on the homepage. That works through an extension method defined on ```Numeric[Iterable]```
 
-Which basically means you can "interface" plotting on datatypes of interest to you. I found this to be a powerful concept
+Which means you can "interface" plotting on datatypes of interest to you. I found this to be a powerful concept
 

@@ -34,7 +34,8 @@ Each "plot" is a case class which accepts a list of "modifiers". Each case class
 ```scala
 Seq[ujson.Value => Unit] 
 ```
-which appears often enough that it is aliased as;
+i.e. a list of functions which modifiy a ```ujson.Value```
+This signature appears often enough that it is aliased as;
 
 ```scala
 type JsonMod = Seq[ujson.Value => Unit]
@@ -44,9 +45,9 @@ Upon creation, each of these functions is applied to a "base spec". To start wit
 ```scala 
 case class BarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.BarChart)
 ```
-The
-- mods change the spec (to make it look the way you want)
-- PlotTarget is effectively a side effect which is run when the case class is created. Often to display the plot
+The constiuents of this definition are;
+- mods change the spec (to make it look the way you want - for example adding your own data)
+- PlotTarget is a side effect which is run when the case class is created. Often will display the plot in a browser.
 - The final part tells this case class, where to obtain a "base specification". In this case, https://vega.github.io/vega/examples/bar-chart.vg.json
 
 What that means, is that to add a title, we need to [read the vega docs](https://vega.github.io/vega/docs/title/). To skip some steps, try...
@@ -61,7 +62,7 @@ We'll revisit this in more detail below. Crucially, to know _where_ to add stuff
 
 [Vega Lite documentation](https://vega.github.io/vega-lite/docs/)
 
-Finally, I use a small number of "helpers" enough that they are honoured with an implemetation in the library; 
+Finally, a small number of "helpers" appear often enough that they are honoured with an implementation in the library; 
 
 ```scala
 SunburstDrag(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl))
@@ -85,7 +86,7 @@ The idea here, is that "raw datatypes" have some unambiguous visualisation which
 
 ```scala
 import viz.PlotTargets.desktopBrowser
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 
@@ -95,10 +96,10 @@ List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
 ```
 
 
-<div id="viz_VhUEZOJn" class="viz"></div>
+<div id="viz_LRTdgAdJ" class="viz"></div>
 
 <script type="text/javascript">
-const specVhUEZOJn = {
+const specLRTdgAdJ = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -275,9 +276,9 @@ const specVhUEZOJn = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_VhUEZOJn', specVhUEZOJn , {
+vegaEmbed('#viz_LRTdgAdJ', specLRTdgAdJ , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_VhUEZOJn", // parent DOM container
+    container: "#viz_LRTdgAdJ", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -293,10 +294,10 @@ val secondChart = (1 to 5).plotBarChart()
 ```
 
 
-<div id="viz_WJXS9pIl" class="viz"></div>
+<div id="viz_yliPpyod" class="viz"></div>
 
 <script type="text/javascript">
-const specWJXS9pIl = {
+const specyliPpyod = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -305,23 +306,23 @@ const specWJXS9pIl = {
       "name": "table",
       "values": [
         {
-          "category": "XOWBHQv7",
+          "category": "Nwyd9fMK",
           "amount": 1
         },
         {
-          "category": "SDhloSXP",
+          "category": "dnB9lP7X",
           "amount": 2
         },
         {
-          "category": "DrLXI7ct",
+          "category": "93a6eVOm",
           "amount": 3
         },
         {
-          "category": "HZo0oohF",
+          "category": "VVDKjyUF",
           "amount": 4
         },
         {
-          "category": "4ASmBxXG",
+          "category": "ZlcXRzZs",
           "amount": 5
         }
       ]
@@ -477,9 +478,9 @@ const specWJXS9pIl = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_WJXS9pIl', specWJXS9pIl , {
+vegaEmbed('#viz_yliPpyod', specyliPpyod , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_WJXS9pIl", // parent DOM container
+    container: "#viz_yliPpyod", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -498,10 +499,10 @@ List(
 ```
 
 
-<div id="viz_c9DW5IaW" class="viz"></div>
+<div id="viz_1LCsWRdc" class="viz"></div>
 
 <script type="text/javascript">
-const specc9DW5IaW = {
+const spec1LCsWRdc = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A word cloud visualization depicting Vega research paper abstracts.",
   "padding": 0,
@@ -638,9 +639,9 @@ const specc9DW5IaW = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_c9DW5IaW', specc9DW5IaW , {
+vegaEmbed('#viz_1LCsWRdc', spec1LCsWRdc , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_c9DW5IaW", // parent DOM container
+    container: "#viz_1LCsWRdc", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -655,10 +656,10 @@ List(1,5,3,15,7,8).plotLineChart()
 ```
 
 
-<div id="viz_UjJyfL9B" class="viz"></div>
+<div id="viz_bRNMZm0v" class="viz"></div>
 
 <script type="text/javascript">
-const specUjJyfL9B = {
+const specbRNMZm0v = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic line chart example.",
   "padding": 5,
@@ -832,9 +833,9 @@ const specUjJyfL9B = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_UjJyfL9B', specUjJyfL9B , {
+vegaEmbed('#viz_bRNMZm0v', specbRNMZm0v , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_UjJyfL9B", // parent DOM container
+    container: "#viz_bRNMZm0v", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -849,10 +850,10 @@ List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
 ```
 
 
-<div id="viz_mHmr8Hyd" class="viz"></div>
+<div id="viz_ik1OzcAq" class="viz"></div>
 
 <script type="text/javascript">
-const specmHmr8Hyd = {
+const specik1OzcAq = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A dot plot example depicting the distribution of animal sleep times.",
   "width": 300,
@@ -1117,9 +1118,9 @@ const specmHmr8Hyd = {
     }
   ]
 }
-vegaEmbed('#viz_mHmr8Hyd', specmHmr8Hyd , {
+vegaEmbed('#viz_ik1OzcAq', specik1OzcAq , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_mHmr8Hyd", // parent DOM container
+    container: "#viz_ik1OzcAq", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -1134,10 +1135,10 @@ List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter()
 ```
 
 
-<div id="viz_T2JQ7vkh" class="viz"></div>
+<div id="viz_gD3B6dCN" class="viz"></div>
 
 <script type="text/javascript">
-const specT2JQ7vkh = {
+const specgD3B6dCN = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic scatter plot example depicting automobile statistics.",
   "padding": 5,
@@ -1275,9 +1276,9 @@ const specT2JQ7vkh = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_T2JQ7vkh', specT2JQ7vkh , {
+vegaEmbed('#viz_gD3B6dCN', specgD3B6dCN , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_T2JQ7vkh", // parent DOM container
+    container: "#viz_gD3B6dCN", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -1292,10 +1293,10 @@ List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
 ```
 
 
-<div id="viz_eKzXAHEl" class="viz"></div>
+<div id="viz_Reckvh8w" class="viz"></div>
 
 <script type="text/javascript">
-const speceKzXAHEl = {
+const specReckvh8w = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic scatter plot example depicting automobile statistics.",
   "padding": 5,
@@ -1474,9 +1475,9 @@ const speceKzXAHEl = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_eKzXAHEl', speceKzXAHEl , {
+vegaEmbed('#viz_Reckvh8w', specReckvh8w , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_eKzXAHEl", // parent DOM container
+    container: "#viz_Reckvh8w", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -1501,10 +1502,10 @@ viz.vega.plots.LineChartLite(
 ```
 
 
-<div id="viz_FUODYwXW" class="viz"></div>
+<div id="viz_OXLWxgiH" class="viz"></div>
 
 <script type="text/javascript">
-const specFUODYwXW = {
+const specOXLWxgiH = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -1527,9 +1528,9 @@ const specFUODYwXW = {
     }
   }
 }
-vegaEmbed('#viz_FUODYwXW', specFUODYwXW , {
+vegaEmbed('#viz_OXLWxgiH', specOXLWxgiH , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_FUODYwXW", // parent DOM container
+    container: "#viz_OXLWxgiH", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -1553,10 +1554,10 @@ viz.vega.plots.Pacman()
 ```
 
 
-<div id="viz_6nHsnltV" class="viz"></div>
+<div id="viz_o0HQNDc0" class="viz"></div>
 
 <script type="text/javascript">
-const spec6nHsnltV = {
+const speco0HQNDc0 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "An implementation of the classic video game Pacman.",
   "width": 600,
@@ -4676,9 +4677,9 @@ const spec6nHsnltV = {
     }
   ]
 }
-vegaEmbed('#viz_6nHsnltV', spec6nHsnltV , {
+vegaEmbed('#viz_o0HQNDc0', speco0HQNDc0 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_6nHsnltV", // parent DOM container
+    container: "#viz_o0HQNDc0", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -4700,7 +4701,7 @@ import java.time.LocalDate
 case class TimeSeries(series: Seq[(LocalDate, Double)])
 val ts = TimeSeries(Seq((LocalDate.now(), 1.5), (LocalDate.of(2021,1,1), 0.2), (LocalDate.of(2021,6,1), 20)))
 // ts: TimeSeries = TimeSeries(
-//   series = List((2022-01-18, 1.5), (2021-01-01, 0.2), (2021-06-01, 20.0))
+//   series = List((2022-01-20, 1.5), (2021-01-01, 0.2), (2021-06-01, 20.0))
 // )
 ```
 We'll need a ```Seq[ujson.Value => Unit]```, and the vega-lite example line chart. 
@@ -4713,7 +4714,7 @@ I'm writing out the types here in the hopes of being helpful. It looks harder th
 import viz.vega.plots.LineChartLite
 import viz.Utils
 val addTitle : ujson.Value => Unit = (spec:ujson.Value) => spec("title") = "A Timeseries"
-// addTitle: Function1[Value, Unit] = repl.MdocSession$App0$$Lambda$13945/0x0000000801c4c220@16e78bf2
+// addTitle: Function1[Value, Unit] = repl.MdocSession$App0$$Lambda$9776/0x0000000802600000@1ee829cc
 LineChartLite(
     Seq(
         addTitle, 
@@ -4722,7 +4723,7 @@ LineChartLite(
 )
 // res11: LineChartLite = LineChartLite(
 //   mods = List(
-//     repl.MdocSession$App0$$Lambda$13945/0x0000000801c4c220@16e78bf2,
+//     repl.MdocSession$App0$$Lambda$9776/0x0000000802600000@1ee829cc,
 //     Fix default data url
 //   )
 // )
@@ -4730,10 +4731,10 @@ LineChartLite(
 
 
 
-<div id="viz_u3UtRf7L" class="viz"></div>
+<div id="viz_d404J6WT" class="viz"></div>
 
 <script type="text/javascript">
-const specu3UtRf7L = {
+const specd404J6WT = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -4757,9 +4758,9 @@ const specu3UtRf7L = {
   },
   "title": "A Timeseries"
 }
-vegaEmbed('#viz_u3UtRf7L', specu3UtRf7L , {
+vegaEmbed('#viz_d404J6WT', specd404J6WT , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_u3UtRf7L", // parent DOM container
+    container: "#viz_d404J6WT", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -4789,10 +4790,10 @@ LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 
 
 
-<div id="viz_vf84UO1z" class="viz"></div>
+<div id="viz_3PxB4eS1" class="viz"></div>
 
 <script type="text/javascript">
-const specvf84UO1z = {
+const spec3PxB4eS1 = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -4816,9 +4817,9 @@ const specvf84UO1z = {
   },
   "title": "Much better"
 }
-vegaEmbed('#viz_vf84UO1z', specvf84UO1z , {
+vegaEmbed('#viz_3PxB4eS1', spec3PxB4eS1 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_vf84UO1z", // parent DOM container
+    container: "#viz_3PxB4eS1", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -4847,10 +4848,10 @@ LineChartLite(Seq(addTitleB("Now with data"), addData(ts) ))
 
 
 
-<div id="viz_B9FbLLWj" class="viz"></div>
+<div id="viz_IHJV1JKB" class="viz"></div>
 
 <script type="text/javascript">
-const specB9FbLLWj = {
+const specIHJV1JKB = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Google's stock price over time.",
   "data": {
@@ -4864,7 +4865,7 @@ const specB9FbLLWj = {
         "price": 20
       },
       {
-        "date": "2022-01-18",
+        "date": "2022-01-20",
         "price": 1.5
       }
     ]
@@ -4882,9 +4883,9 @@ const specB9FbLLWj = {
   },
   "title": "Now with data!"
 }
-vegaEmbed('#viz_B9FbLLWj', specB9FbLLWj , {
+vegaEmbed('#viz_IHJV1JKB', specIHJV1JKB , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_B9FbLLWj", // parent DOM container
+    container: "#viz_IHJV1JKB", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -4902,5 +4903,5 @@ There's nothing that says
 1. Your plot can't be a method defined on the Timeseries class itself. That's an obvious and trivial next step.
 1. You have to own the data structure - have a look at the example on the homepage. That works through an extension method defined on ```Numeric[Iterable]```
 
-Which basically means you can "interface" plotting on datatypes of interest to you. I found this to be a powerful concept
+Which means you can "interface" plotting on datatypes of interest to you. I found this to be a powerful concept
 

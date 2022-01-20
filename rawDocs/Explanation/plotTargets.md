@@ -38,12 +38,12 @@ Will open a new browser window in your desktop based browser, pointing to a temp
 
 ```scala mdoc:invisible
 import viz.PlotTargets.doNothing
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 ```scala 
 import viz.PlotTargets.desktopBrowser
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 ```scala
@@ -88,7 +88,7 @@ WIP - will work via notebooks... i.e. almond, once the above is ready.
 ## Do Nothing
 ```scala mdoc
 import viz.PlotTargets.doNothing
-import viz.vega.extensions.*
+import viz.extensions.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
@@ -100,7 +100,7 @@ Formats and prints the final JSON spec to the console.
 
 ```scala mdoc:reset
 import viz.PlotTargets.printlnTarget
-import viz.vega.extensions.*
+import viz.extensions.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```

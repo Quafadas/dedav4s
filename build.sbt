@@ -1,7 +1,7 @@
 Global / semanticdbEnabled := true
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
-val libV = "0.1.3"
+val libV = "0.2.0"
 
 //resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
 
@@ -22,24 +22,15 @@ lazy val root = project
       "com.lihaoyi" %% "os-lib" % "0.8.0",
       "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala
        "com.github.jupyter" % "jvm-repr" %  "0.4.0",
-      ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided).cross(CrossVersion.for3Use2_13With("",".4")).exclude(
-        "com.lihaoyi",
-        "geny_2.13"
-      ).exclude(
-        "com.lihaoyi",
-        "sourcecode_2.13"
-      ).exclude(
-        "com.lihaoyi",
-        "fansi_2.13"
-      ).exclude(
-        "com.lihaoyi",
-        "os-lib_2.13"
-      ).exclude(
-        "com.lihaoyi",
-        "pprint_2.13"
-      ).exclude(
-        "org.scala-lang.modules","scala-collection-compat_2.13"
-      ) ,
+      ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided).cross(CrossVersion.for3Use2_13With("",".4"))
+        .exclude("com.lihaoyi","geny_2.13")
+        .exclude("com.lihaoyi","sourcecode_2.13")
+        .exclude("com.lihaoyi","fansi_2.13")
+        .exclude("com.lihaoyi","os-lib_2.13")
+        .exclude("com.lihaoyi","pprint_2.13")
+        .exclude("org.scala-lang.modules","scala-collection-compat_2.13")
+        .exclude("com.github.jupyter","jvm_repr"),
+
       "org.jsoup" % "jsoup" % "1.14.3",      
     )
   )
@@ -64,25 +55,13 @@ lazy val docs = project
     scalaVersion := "3.1.0",
     mdocAutoDependency := false,
     libraryDependencies ++= Seq(
-      ("org.scalanlp"%%"breeze"%"2.0").exclude(
-        "org.scala-lang.modules","scala-collection-compat_2.13"
-      ) ,
-          ("org.scalameta" %% "mdoc" % "2.2.24").exclude(
-        "com.lihaoyi",
-        "geny_2.13"
-      ).exclude(
-        "com.lihaoyi",
-        "sourcecode_2.13"
-      ).exclude(
-        "com.lihaoyi",
-        "fansi_2.13"
-      ).exclude(
-        "com.lihaoyi",
-        "pprint_2.13"
-      ).exclude(
-        "org.scala-lang.modules","scala-collection-compat_2.13"
-      ) 
-
+      ("org.scalanlp"%%"breeze"%"2.0").exclude("org.scala-lang.modules","scala-collection-compat_2.13") ,
+      ("org.scalameta" %% "mdoc" % "2.2.24")
+        .exclude("com.lihaoyi","geny_2.13")
+        .exclude("com.lihaoyi", "sourcecode_2.13")
+        .exclude("com.lihaoyi", "fansi_2.13")
+        .exclude("com.lihaoyi","pprint_2.13")
+        .exclude("org.scala-lang.modules","scala-collection-compat_2.13") 
     )
     
   )

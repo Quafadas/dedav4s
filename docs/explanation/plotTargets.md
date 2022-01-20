@@ -39,7 +39,7 @@ Will open a new browser window in your desktop based browser, pointing to a temp
 
 ```scala 
 import viz.PlotTargets.desktopBrowser
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 ```scala
@@ -47,10 +47,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_CfFDxX6c" class="viz"></div>
+<div id="viz_OOjAHNxX" class="viz"></div>
 
 <script type="text/javascript">
-const specCfFDxX6c = {
+const specOOjAHNxX = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -227,9 +227,9 @@ const specCfFDxX6c = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_CfFDxX6c', specCfFDxX6c , {
+vegaEmbed('#viz_OOjAHNxX', specOOjAHNxX , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_CfFDxX6c", // parent DOM container
+    container: "#viz_OOjAHNxX", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -274,13 +274,13 @@ WIP - will work via notebooks... i.e. almond, once the above is ready.
 ## Do Nothing
 ```scala
 import viz.PlotTargets.doNothing
-import viz.vega.extensions.*
+import viz.extensions.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // res1: BarChart = BarChart(
 //   mods = List(
-//     viz.vega.extensions.extensions$package$$$Lambda$13903/0x0000000801c3f060@4108b259,
-//     viz.Utils$$$Lambda$13573/0x0000000802801c00@13f09705
+//     viz.extensions.extensions$package$$$Lambda$9734/0x000000080258a320@2be1ba12,
+//     viz.Utils$$$Lambda$9386/0x00000008024899e0@e1c13f1
 //   )
 // )
 ```
@@ -292,7 +292,7 @@ Formats and prints the final JSON spec to the console.
 
 ```scala
 import viz.PlotTargets.printlnTarget
-import viz.vega.extensions.*
+import viz.extensions.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // {
@@ -474,8 +474,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.vega.extensions.extensions$package$$$Lambda$13903/0x0000000801c3f060@18a9acba,
-//     viz.Utils$$$Lambda$13573/0x0000000802801c00@13f09705
+//     viz.extensions.extensions$package$$$Lambda$9734/0x000000080258a320@2e438ad6,
+//     viz.Utils$$$Lambda$9386/0x00000008024899e0@e1c13f1
 //   )
 // )
 ```

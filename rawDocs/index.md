@@ -37,12 +37,12 @@ Fire up an sbt console (or in a repl... )
 
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 ```scala mdoc:reset:invisible
 import viz.PlotTargets.doNothing
-import viz.vega.extensions.*
+import viz.extensions.*
 ```
 
 ```scala mdoc
