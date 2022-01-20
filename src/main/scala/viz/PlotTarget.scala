@@ -8,6 +8,11 @@ import almond.interpreter.api.DisplayData
 import almond.api.JupyterAPIHolder.value
 import java.nio.file.Paths
 import java.nio.file.Files
+import viz.websockets.WebsocketVizServer
+import scala.concurrent.Future
+
+implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+
 trait PlotTarget:
   def show(spec: String): Unit
 
@@ -62,9 +67,7 @@ object PlotTargets:
             }
         }).then(function(result) {
 
-          })
-
-
+        })
         </script>
         </body>
         </html> """        
@@ -75,9 +78,6 @@ object PlotTargets:
             os.temp(theHtml, suffix=".html", prefix="plot-")
         Desktop.getDesktop().browse(tempFi.toNIO.toUri())
     }
-
-  given onelineHelp: PlotTarget with
-    override def show(spec: String) = ??? // don't think we need this with the embedding working properly
 
 /*   given vsCodeNotebook: PlotTarget with
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
@@ -94,8 +94,17 @@ object PlotTargets:
         )
  
   given postHttp: PlotTarget with
-    override def show(spec: String) = requests.post("http://localhost:8080/viz", data=spec) // see https://github.com/Quafadas/viz-websockets for an example use
-    // TODO read the url from configuration / ENV variable.
+    override def show(spec: String) = 
+      if WebsocketVizServer.firstTime then
+        println("here")
+        val port = WebsocketVizServer.randomPort
+        Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))        
+        Thread.sleep(1000) // give undertow a chance to start
+        requests.post(s"http://localhost:$port/viz", data=spec)
+        
+      else
+        val port = WebsocketVizServer.randomPort
+        requests.post(s"http://localhost:$port/viz", data=spec)
 
   given png: PlotTarget with
     override def show(spec: String) : Unit = 

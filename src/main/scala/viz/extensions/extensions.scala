@@ -1,4 +1,4 @@
-package viz.vega.extensions
+package viz.extensions
 
 import viz.vega.plots.BarChart
 import viz.vega.plots.PieChart
@@ -12,7 +12,7 @@ import ujson.Value
 import viz.vega.plots.JsonMod
 import viz.vega.plots.LineChart
 import viz.vega.plots.DotPlot
- import math.Numeric.Implicits.infixNumericOps
+import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.ScatterPlot
 import viz.vega.plots.Regression
 import viz.vega.plots.SimpleRegression
