@@ -5,7 +5,6 @@ import viz.vega.plots.PieChart
 import viz.PlotTarget
 import scala.util.Random
 import scala.annotation.targetName
-import viz.vega.extensions
 import viz.vega.plots.WordCloud
 import ujson.Value
 

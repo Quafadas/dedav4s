@@ -3,7 +3,7 @@ import viz.vega.plots.*
 
 //import viz.PlotTargets.desktopBrowser
 import viz.PlotTargets.desktopBrowser
-import viz.vega.extensions.*
+import viz.extensions.*
 
 @main
 def Main(args: String*): Unit =
