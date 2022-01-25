@@ -93,7 +93,7 @@ object PlotTargets:
           )  
         )
  
-  given postHttp: PlotTarget with
+  given websocket: PlotTarget with
     override def show(spec: String) = 
       if WebsocketVizServer.firstTime then
         println("here")

@@ -72,18 +72,36 @@ Which has a browser available...
 
 And we browse to the temporary file in step one.
 
-## Websockets / Post
-The post side effect is cool used with a [companion project](https://github.com/Quafadas/viz-websockets).
+## Websocket
 
-WIP to integrate in a friendly way into this library.
+This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.
+
+```scala mdoc:reset
+import viz.PlotTargets.websockets
+import viz.extensions.*
+```
+
+```scala
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
+```scala mdoc:vegaplot
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
 
 ## [Almond](https://www.almond.sh)
 
-WIP - need a release of almond which supports scala 3
+Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook environment.
+
+```scala mdoc:reset
+import viz.PlotTargets.almond
+import viz.extensions.*
+```
+```scala
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
 
 ## VSCode 
-
-WIP - will work via notebooks... i.e. almond, once the above is ready.
+Use the almond target and a notebook... 
 
 ## Do Nothing
 ```scala mdoc
