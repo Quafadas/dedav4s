@@ -24,6 +24,8 @@ It is written exclusively in scala 3 (currently), but will work with scala 2.13.
         </style>
 </head>
 
+![intro](assets/dedav_intro.gif)
+
 To add this library to an sbt project
 ```scala
 libraryDependencies += "io.github.quafadas" %% "dedav4s" % "@VERSION@"
