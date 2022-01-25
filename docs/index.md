@@ -47,8 +47,8 @@ import viz.extensions.*
 (1 to 10).plotBarChart()
 // res1: BarChart = BarChart(
 //   mods = List(
-//     viz.Utils$$$Lambda$15765/0x0000000803754000@60fa50d6,
-//     viz.extensions.extensions$package$$$Lambda$16091/0x000000080380b450@80498ad,
+//     viz.Utils$$$Lambda$18396/0x00000008030cef10@bdfbd99,
+//     viz.extensions.extensions$package$$$Lambda$18722/0x0000000803f0e3d0@415c09e9,
 //     remove X axis
 //   )
 // )
@@ -58,10 +58,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_sUODGtyr" class="viz"></div>
+<div id="viz_PWVZRjq2" class="viz"></div>
 
 <script type="text/javascript">
-const specsUODGtyr = {
+const specPWVZRjq2 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -70,43 +70,43 @@ const specsUODGtyr = {
       "name": "table",
       "values": [
         {
-          "category": "BSyz6RJR",
+          "category": "i0D5N2l6",
           "amount": 1
         },
         {
-          "category": "kPWEXgKC",
+          "category": "tgtNVRL2",
           "amount": 2
         },
         {
-          "category": "dQoGbHin",
+          "category": "WRAaahuk",
           "amount": 3
         },
         {
-          "category": "Op4WbroT",
+          "category": "dzDlQcLk",
           "amount": 4
         },
         {
-          "category": "wPrX25YB",
+          "category": "DJz6jty6",
           "amount": 5
         },
         {
-          "category": "UjUcDEAQ",
+          "category": "svTmoE3B",
           "amount": 6
         },
         {
-          "category": "q2NrMDDM",
+          "category": "Idfa2RYq",
           "amount": 7
         },
         {
-          "category": "Vn9jW7G8",
+          "category": "IrSitJAU",
           "amount": 8
         },
         {
-          "category": "3UtyTeyQ",
+          "category": "HZ9xwRQt",
           "amount": 9
         },
         {
-          "category": "TXWFaZmn",
+          "category": "y4ETcKDB",
           "amount": 10
         }
       ]
@@ -262,9 +262,9 @@ const specsUODGtyr = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_sUODGtyr', specsUODGtyr , {
+vegaEmbed('#viz_PWVZRjq2', specPWVZRjq2 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_sUODGtyr", // parent DOM container
+    container: "#viz_PWVZRjq2", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -275,22 +275,6 @@ vegaEmbed('#viz_sUODGtyr', specsUODGtyr , {
 </script>
 If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/examples.md) for suggestions on how to use and extend the concepts.
 
-### Gotcha
-One of the targets of this library is the amazing [almond](https://almond.sh) project. That brings in a dependance on jvm-repr which is not on maven central. You'll need to add the resolver 
-
-For sbt
-```scala
-resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
-```
-
-In predef.sc for ammonite
-
-```scala
-interp.repositories() ++= Seq(coursierapi.MavenRepository.of(
-   "https://maven.scijava.org/content/repositories/public/"
-))
-```
-If you cannot resolve the artefact due to jvm repr.
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis
 

@@ -58,22 +58,6 @@ val secondChart = (1 to 10).plotBarChart()
 ```
 If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/examples.md) for suggestions on how to use and extend the concepts.
 
-### Gotcha
-One of the targets of this library is the amazing [almond](https://almond.sh) project. That brings in a dependance on jvm-repr which is not on maven central. You'll need to add the resolver 
-
-For sbt
-```scala
-resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
-```
-
-In predef.sc for ammonite
-
-```scala
-interp.repositories() ++= Seq(coursierapi.MavenRepository.of(
-   "https://maven.scijava.org/content/repositories/public/"
-))
-```
-If you cannot resolve the artefact due to jvm repr.
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis
 
