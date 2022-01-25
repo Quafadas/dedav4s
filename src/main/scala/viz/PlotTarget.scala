@@ -27,7 +27,6 @@ object PlotTargets:
       None
   }
 
-
   given doNothing: PlotTarget with
     override def show(spec: String) = ()
 

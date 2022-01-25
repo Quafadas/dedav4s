@@ -47,10 +47,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_OOjAHNxX" class="viz"></div>
+<div id="viz_MEuGGhb2" class="viz"></div>
 
 <script type="text/javascript">
-const specOOjAHNxX = {
+const specMEuGGhb2 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -227,9 +227,9 @@ const specOOjAHNxX = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_OOjAHNxX', specOOjAHNxX , {
+vegaEmbed('#viz_MEuGGhb2', specMEuGGhb2 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_OOjAHNxX", // parent DOM container
+    container: "#viz_MEuGGhb2", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -258,18 +258,226 @@ Which has a browser available...
 
 And we browse to the temporary file in step one.
 
-## Websockets / Post
-The post side effect is cool used with a [companion project](https://github.com/Quafadas/viz-websockets).
+## Websocket
 
-WIP to integrate in a friendly way into this library.
+This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.
+
+```scala
+import viz.PlotTargets.websockets
+import viz.extensions.*
+```
+
+```scala
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
+
+
+<div id="viz_31dCmdmT" class="viz"></div>
+
+<script type="text/javascript">
+const spec31dCmdmT = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "A basic bar chart example, with value labels shown upon mouse hover.",
+  "padding": 5,
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "category": "A",
+          "amount": 5
+        },
+        {
+          "category": "B",
+          "amount": 8
+        },
+        {
+          "category": "C",
+          "amount": -1
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "tooltip",
+      "value": {
+        
+      },
+      "on": [
+        {
+          "events": "rect:mouseover",
+          "update": "datum"
+        },
+        {
+          "events": "rect:mouseout",
+          "update": "{}"
+        }
+      ]
+    },
+    {
+      "name": "height",
+      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "band",
+      "domain": {
+        "data": "table",
+        "field": "category"
+      },
+      "range": "width",
+      "padding": 0.05,
+      "round": true
+    },
+    {
+      "name": "yscale",
+      "domain": {
+        "data": "table",
+        "field": "amount"
+      },
+      "nice": true,
+      "range": "height"
+    }
+  ],
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "xscale"
+    },
+    {
+      "orient": "left",
+      "scale": "yscale"
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "xscale",
+            "field": "category"
+          },
+          "width": {
+            "scale": "xscale",
+            "band": 1
+          },
+          "y": {
+            "scale": "yscale",
+            "field": "amount"
+          },
+          "y2": {
+            "scale": "yscale",
+            "value": 0
+          }
+        },
+        "update": {
+          "fill": {
+            "value": "steelblue"
+          }
+        },
+        "hover": {
+          "fill": {
+            "value": "red"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "bottom"
+          },
+          "fill": {
+            "value": "#333"
+          }
+        },
+        "update": {
+          "x": {
+            "scale": "xscale",
+            "signal": "tooltip.category",
+            "band": 0.5
+          },
+          "y": {
+            "scale": "yscale",
+            "signal": "tooltip.amount",
+            "offset": -2
+          },
+          "text": {
+            "signal": "tooltip.amount"
+          },
+          "fillOpacity": [
+            {
+              "test": "datum === tooltip",
+              "value": 0
+            },
+            {
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "autosize": {
+    "type": "fit",
+    "resize": true,
+    "contains": "padding"
+  }
+}
+vegaEmbed('#viz_31dCmdmT', spec31dCmdmT , {
+    renderer: "canvas", // renderer (canvas or svg)
+    container: "#viz_31dCmdmT", // parent DOM container
+    hover: true, // enable hover processing
+    actions: {
+        editor : true
+    }
+}).then(function(result) {
+
+})
+</script>
 
 ## [Almond](https://www.almond.sh)
 
-WIP - need a release of almond which supports scala 3
+Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook environment.
+
+```scala
+import viz.PlotTargets.almond
+import viz.extensions.*
+```
+```scala
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
 
 ## VSCode 
-
-WIP - will work via notebooks... i.e. almond, once the above is ready.
+Use the almond target and a notebook... 
 
 ## Do Nothing
 ```scala
@@ -277,12 +485,6 @@ import viz.PlotTargets.doNothing
 import viz.extensions.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
-// res1: BarChart = BarChart(
-//   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$9734/0x000000080258a320@2be1ba12,
-//     viz.Utils$$$Lambda$9386/0x00000008024899e0@e1c13f1
-//   )
-// )
 ```
 To no ones surprise, does nothing! The implementation simply executes unit ```()```. I regret the CPU cycles. 
 
@@ -474,8 +676,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$9734/0x000000080258a320@2e438ad6,
-//     viz.Utils$$$Lambda$9386/0x00000008024899e0@e1c13f1
+//     viz.extensions.extensions$package$$$Lambda$10070/0x000000080287c340@4e81b4f5,
+//     viz.Utils$$$Lambda$9723/0x000000080274a300@37acdc4
 //   )
 // )
 ```

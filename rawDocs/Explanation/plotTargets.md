@@ -76,7 +76,7 @@ And we browse to the temporary file in step one.
 
 This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.
 
-```scala mdoc:reset
+```scala
 import viz.PlotTargets.websockets
 import viz.extensions.*
 ```
@@ -92,7 +92,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 
 Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook environment.
 
-```scala mdoc:reset
+```scala
 import viz.PlotTargets.almond
 import viz.extensions.*
 ```
@@ -104,7 +104,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 Use the almond target and a notebook... 
 
 ## Do Nothing
-```scala mdoc
+```scala
 import viz.PlotTargets.doNothing
 import viz.extensions.*
 
