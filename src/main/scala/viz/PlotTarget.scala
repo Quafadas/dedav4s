@@ -94,13 +94,11 @@ object PlotTargets:
  
   given websocket: PlotTarget with
     override def show(spec: String) = 
-      if WebsocketVizServer.firstTime then
-        println("here")
+      if WebsocketVizServer.firstTime then        
         val port = WebsocketVizServer.randomPort
         Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))        
         Thread.sleep(1000) // give undertow a chance to start
-        requests.post(s"http://localhost:$port/viz", data=spec)
-        
+        requests.post(s"http://localhost:$port/viz", data=spec)        
       else
         val port = WebsocketVizServer.randomPort
         requests.post(s"http://localhost:$port/viz", data=spec)
