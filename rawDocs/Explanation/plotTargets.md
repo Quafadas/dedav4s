@@ -52,6 +52,9 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```scala mdoc:vegaplot
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
+
+![intro](../assets/dedav_intro.gif)
+
 The library writes a (temporary) file, assuming that
 
     java.io.File.createTempFile() 
@@ -76,6 +79,8 @@ And we browse to the temporary file in step one.
 
 This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.
 
+![intro](../assets/websockets2.gif)
+
 ```scala
 import viz.PlotTargets.websockets
 import viz.extensions.*
@@ -87,6 +92,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```scala mdoc:vegaplot
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
+
+
 
 ## [Almond](https://www.almond.sh)
 

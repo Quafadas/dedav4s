@@ -47,10 +47,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_MEuGGhb2" class="viz"></div>
+<div id="viz_lweazRYj" class="viz"></div>
 
 <script type="text/javascript">
-const specMEuGGhb2 = {
+const speclweazRYj = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -227,9 +227,9 @@ const specMEuGGhb2 = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_MEuGGhb2', specMEuGGhb2 , {
+vegaEmbed('#viz_lweazRYj', speclweazRYj , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_MEuGGhb2", // parent DOM container
+    container: "#viz_lweazRYj", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -238,6 +238,9 @@ vegaEmbed('#viz_MEuGGhb2', specMEuGGhb2 , {
 
 })
 </script>
+
+![intro](../assets/dedav_intro.gif)
+
 The library writes a (temporary) file, assuming that
 
     java.io.File.createTempFile() 
@@ -262,6 +265,8 @@ And we browse to the temporary file in step one.
 
 This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.
 
+![intro](../assets/websockets2.gif)
+
 ```scala
 import viz.PlotTargets.websockets
 import viz.extensions.*
@@ -272,10 +277,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_31dCmdmT" class="viz"></div>
+<div id="viz_FGJts8xN" class="viz"></div>
 
 <script type="text/javascript">
-const spec31dCmdmT = {
+const specFGJts8xN = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -452,9 +457,9 @@ const spec31dCmdmT = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_31dCmdmT', spec31dCmdmT , {
+vegaEmbed('#viz_FGJts8xN', specFGJts8xN , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_31dCmdmT", // parent DOM container
+    container: "#viz_FGJts8xN", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -463,6 +468,8 @@ vegaEmbed('#viz_31dCmdmT', spec31dCmdmT , {
 
 })
 </script>
+
+
 
 ## [Almond](https://www.almond.sh)
 
@@ -676,8 +683,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$10070/0x000000080287c340@4e81b4f5,
-//     viz.Utils$$$Lambda$9723/0x000000080274a300@37acdc4
+//     viz.extensions.extensions$package$$$Lambda$11783/0x0000000802d73320@1fcc4f60,
+//     viz.Utils$$$Lambda$11435/0x0000000802c33970@3f37d6e5
 //   )
 // )
 ```
