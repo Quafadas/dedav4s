@@ -16,10 +16,6 @@ import viz.vega.plots.ScatterPlot
 import viz.vega.plots.Regression
 import viz.vega.plots.SimpleRegression
 
-val removeXAxis = new ((Value => Unit)):
-  override def toString = "remove X axis"
-  def apply(spec: Value) = spec("axes").arr.dropWhileInPlace(ax => ax("scale").str == "xscale")
-
 extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
   def plotBarChart(mods: JsonMod = List()): BarChart =
     val labelToNotShow =
@@ -32,7 +28,7 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
       List(
         viz.Utils.fillDiv,
         spec => spec("data")(0)("values") = labelToNotShow,
-        removeXAxis
+        viz.Utils.removeXAxis
       ) ++ mods
     )
 
