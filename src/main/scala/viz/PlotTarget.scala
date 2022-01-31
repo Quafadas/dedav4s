@@ -14,7 +14,7 @@ import scala.concurrent.Future
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
 trait PlotTarget:
-  def show(spec: String): Unit
+  def show(spec: String): Unit | os.Path
 
 object PlotTargets:
 
@@ -28,13 +28,13 @@ object PlotTargets:
   }
 
   given doNothing: PlotTarget with
-    override def show(spec: String) = ()
+    override def show(spec: String) : Unit | os.Path = ()
 
   given printlnTarget: PlotTarget with
-    override def show(spec: String) = println(spec)
+    override def show(spec: String) : Unit | os.Path = println(spec)
 
   given desktopBrowser: PlotTarget with    
-    override def show(spec: String) = {        
+    override def show(spec: String) : Unit | os.Path = {        
         val theHtml = raw"""<!DOCTYPE html>
         <html>
         <head>
@@ -76,13 +76,14 @@ object PlotTargets:
           case None => 
             os.temp(theHtml, suffix=".html", prefix="plot-")
         Desktop.getDesktop().browse(tempFi.toNIO.toUri())
+        tempFi
     }
 
 /*   given vsCodeNotebook: PlotTarget with
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
   given almond: PlotTarget with
-    override def show(spec: String) =   
+    override def show(spec: String) : Unit | os.Path =   
       val kernel = summon[JupyterApi]                 
       kernel.publish.display(
           DisplayData(
@@ -93,7 +94,7 @@ object PlotTargets:
         )
  
   given websocket: PlotTarget with
-    override def show(spec: String) = 
+    override def show(spec: String) : Unit | os.Path = 
       if WebsocketVizServer.firstTime then        
         val port = WebsocketVizServer.randomPort
         Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))        
@@ -102,9 +103,10 @@ object PlotTargets:
       else
         val port = WebsocketVizServer.randomPort
         requests.post(s"http://localhost:$port/viz", data=spec)
+      ()
 
   given png: PlotTarget with
-    override def show(spec: String) : Unit = 
+    override def show(spec: String) : Unit | os.Path = 
       val pngBytes = os.proc("vg2png").call(stdin = spec )
       pngBytes.exitCode match 
         case 0 => 
@@ -114,9 +116,10 @@ object PlotTargets:
             case None => 
               os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".png", prefix="plot-")
         case _ => throw new Exception(pngBytes.err.text())
+      
   
   given pdf: PlotTarget with
-    override def show(spec: String) : Unit = 
+    override def show(spec: String) : Unit | os.Path = 
       val pngBytes = os.proc("vg2pdf").call(stdin = spec )
       pngBytes.exitCode match 
         case 0 => 
@@ -127,8 +130,9 @@ object PlotTargets:
               os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".pdf", prefix="plot-")
         case _ => throw new Exception(pngBytes.err.text())
 
+
   given svg: PlotTarget with
-    override def show(spec: String) : Unit = 
+    override def show(spec: String) : Unit | os.Path = 
       val pngBytes = os.proc("vg2svg").call(stdin = spec )
       pngBytes.exitCode match 
         case 0 => 
