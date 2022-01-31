@@ -83,6 +83,10 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
       ) ++ mods
     )
 
+extension [T: Numeric](l: Map[String, T])(using plotTarget: PlotTarget)  
+  @targetName("plotBarChartFromMapWithLabels")
+  def plotBarChart(mods: JsonMod): BarChart = l.iterator.toSeq.plotBarChart(mods)
+
 extension [N1: Numeric, N2:Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)    
   def plotScatter(mods: JsonMod=List()): ScatterPlot =
     val values = l.map{
