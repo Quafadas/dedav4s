@@ -24,7 +24,9 @@ Every time an object is created which extends the "Spec" trait, it executes the 
 
 Those "given" targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
-Finally, many of these rely on writing temp files. You may specify the location through configuration. Either by having a suitably located "application.conf", or by passing in the environment variable ```DEDAV_OUT_PATH```
+Finally, many of these rely on writing temp files. You may specify the location through configuration. Either by having a suitably located "application.conf", or by passing in the environment variable ```DEDAV_OUT_PATH```.
+
+Also, the path of the temporary file is located in the "out" property of the case class, which is of type ```Unit | os.Path```. If the target creates a temporary file, you may "move it around" wherever you wish, using the path as a starting point.
 
 e.g. 
 ```
@@ -97,14 +99,26 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 
 ## [Almond](https://www.almond.sh)
 
-Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook environment.
+![intro](../assets/almond.gif)
+
+Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.
+
+<strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3, and via backwards compatibility with scala 2.13.6+. So if you want this to work you'll currently need to compile a almond kernel from source...
+Also, the extension methods currently use athe ```viz.Utils.fillDiv``` method, which is not compatible with the way Jupyter sizes charts. So don't use those right now. 
+
+Basically there are still a couple of landmnines whilst scala 3 moves through the ecosystem - the intent is to sort this properly in future and there is no fundamental reason this can't work.
+</strong>
 
 ```scala
 import viz.PlotTargets.almond
-import viz.extensions.*
 ```
 ```scala
-List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+viz.vega.plots.BarChart(
+   List(        
+        spec => spec("title") = "Got Viz?", 
+        spec => {spec("height") = 200; spec("width") = 200}
+    )
+)
 ```
 
 ## VSCode 

@@ -24,7 +24,9 @@ Every time an object is created which extends the "Spec" trait, it executes the 
 
 Those "given" targets are listed below, all accessible at ```viz.PlotTargets.xxxxx```
 
-Finally, many of these rely on writing temp files. You may specify the location through configuration. Either by having a suitably located "application.conf", or by passing in the environment variable ```DEDAV_OUT_PATH```
+Finally, many of these rely on writing temp files. You may specify the location through configuration. Either by having a suitably located "application.conf", or by passing in the environment variable ```DEDAV_OUT_PATH```.
+
+Also, the path of the temporary file is located in the "out" property of the case class, which is of type ```Unit | os.Path```. If the target creates a temporary file, you may "move it around" wherever you wish, using the path as a starting point.
 
 e.g. 
 ```
@@ -47,10 +49,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_lweazRYj" class="viz"></div>
+<div id="viz_nTHpUzJg" class="viz"></div>
 
 <script type="text/javascript">
-const speclweazRYj = {
+const specnTHpUzJg = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -227,9 +229,9 @@ const speclweazRYj = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_lweazRYj', speclweazRYj , {
+vegaEmbed('#viz_nTHpUzJg', specnTHpUzJg , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_lweazRYj", // parent DOM container
+    container: "#viz_nTHpUzJg", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -277,10 +279,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_FGJts8xN" class="viz"></div>
+<div id="viz_y3oOwDhX" class="viz"></div>
 
 <script type="text/javascript">
-const specFGJts8xN = {
+const specy3oOwDhX = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "padding": 5,
@@ -457,9 +459,9 @@ const specFGJts8xN = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_FGJts8xN', specFGJts8xN , {
+vegaEmbed('#viz_y3oOwDhX', specy3oOwDhX , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_FGJts8xN", // parent DOM container
+    container: "#viz_y3oOwDhX", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -473,14 +475,26 @@ vegaEmbed('#viz_FGJts8xN', specFGJts8xN , {
 
 ## [Almond](https://www.almond.sh)
 
-Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook environment.
+![intro](../assets/almond.gif)
+
+Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.
+
+<strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3, and via backwards compatibility with scala 2.13.6+. So if you want this to work you'll currently need to compile a almond kernel from source...
+Also, the extension methods currently use athe ```viz.Utils.fillDiv``` method, which is not compatible with the way Jupyter sizes charts. So don't use those right now. 
+
+Basically there are still a couple of landmnines whilst scala 3 moves through the ecosystem - the intent is to sort this properly in future and there is no fundamental reason this can't work.
+</strong>
 
 ```scala
 import viz.PlotTargets.almond
-import viz.extensions.*
 ```
 ```scala
-List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+viz.vega.plots.BarChart(
+   List(        
+        spec => spec("title") = "Got Viz?", 
+        spec => {spec("height") = 200; spec("width") = 200}
+    )
+)
 ```
 
 ## VSCode 
@@ -683,8 +697,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$11783/0x0000000802d73320@1fcc4f60,
-//     viz.Utils$$$Lambda$11435/0x0000000802c33970@3f37d6e5
+//     viz.extensions.extensions$package$$$Lambda$11998/0x0000000802d82b80@834a4c5,
+//     viz.Utils$$$Lambda$11650/0x0000000802c4a1f0@34b6b4ac
 //   )
 // )
 ```

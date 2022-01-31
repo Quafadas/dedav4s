@@ -55,25 +55,25 @@ in 12. lines. of. code. It took way longer to write the documentation, than impl
 Gaussian(2,2).plotDensity()
 // res0: ProbabilityDensity = ProbabilityDensity(
 //   mods = List(
-//     repl.MdocSession$App$$Lambda$9722/0x000000080274c3d0@548365ca,
-//     viz.Utils$$$Lambda$9723/0x000000080274a300@37acdc4
+//     repl.MdocSession$App$$Lambda$11649/0x0000000802c4c3d0@53e56bc0,
+//     viz.Utils$$$Lambda$11650/0x0000000802c4a1f0@34b6b4ac
 //   )
 // )
 LogNormal(1,0.5).plotDensity()
 // res1: ProbabilityDensity = ProbabilityDensity(
 //   mods = List(
-//     repl.MdocSession$App$$Lambda$9722/0x000000080274c3d0@2cfcb471,
-//     viz.Utils$$$Lambda$9723/0x000000080274a300@37acdc4
+//     repl.MdocSession$App$$Lambda$11649/0x0000000802c4c3d0@1a1dddd4,
+//     viz.Utils$$$Lambda$11650/0x0000000802c4a1f0@34b6b4ac
 //   )
 // )
 ```
 
 
 
-<div id="viz_TIkHPiRO" class="viz"></div>
+<div id="viz_wxc2tXo3" class="viz"></div>
 
 <script type="text/javascript">
-const specTIkHPiRO = {
+const specwxc2tXo3 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "Area chart using density estimation to show a probability density or cumulative distribution.",
   "padding": 5,
@@ -4339,9 +4339,9 @@ const specTIkHPiRO = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_TIkHPiRO', specTIkHPiRO , {
+vegaEmbed('#viz_wxc2tXo3', specwxc2tXo3 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_TIkHPiRO", // parent DOM container
+    container: "#viz_wxc2tXo3", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -4353,10 +4353,10 @@ vegaEmbed('#viz_TIkHPiRO', specTIkHPiRO , {
 
 
 
-<div id="viz_1Gqui0lH" class="viz"></div>
+<div id="viz_mWtwUqo3" class="viz"></div>
 
 <script type="text/javascript">
-const spec1Gqui0lH = {
+const specmWtwUqo3 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "Area chart using density estimation to show a probability density or cumulative distribution.",
   "padding": 5,
@@ -8622,9 +8622,9 @@ const spec1Gqui0lH = {
     "contains": "padding"
   }
 }
-vegaEmbed('#viz_1Gqui0lH', spec1Gqui0lH , {
+vegaEmbed('#viz_mWtwUqo3', specmWtwUqo3 , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_1Gqui0lH", // parent DOM container
+    container: "#viz_mWtwUqo3", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
