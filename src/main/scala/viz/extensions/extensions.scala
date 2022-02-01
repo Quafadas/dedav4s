@@ -26,8 +26,8 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
         )
     new BarChart(
       List(
-        viz.Utils.fillDiv,
-        spec => spec("data")(0)("values") = labelToNotShow,
+        //viz.Utils.fillDiv,
+        (spec : Value) => spec("data")(0)("values") = labelToNotShow,
         viz.Utils.removeXAxis
       ) ++ mods
     )
@@ -41,8 +41,8 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
         )
     new PieChart(
       List(
-        viz.Utils.fillDiv,
-        spec => spec("data")(0)("values") = labelToNotShow
+        //viz.Utils.fillDiv,
+        (spec: Value) => spec("data")(0)("values") = labelToNotShow
       ) ++ mods
     )
 
@@ -54,9 +54,8 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
           "y" -> number.toDouble
         )
     new LineChart(
-      List(
-        viz.Utils.fillDiv,
-        spec => spec("data")(0)("values") = labelToNotShow        
+      List(        
+        (spec:Value) => spec("data")(0)("values") = labelToNotShow
       ) ++ mods
     )
 
@@ -78,8 +77,25 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
         )
     new BarChart(
       List(
+        (spec: Value) => spec("data")(0)("values") = labelled
+        //viz.Utils.fillDiv
+      ) ++ mods
+    )
+
+  @targetName("plotPieChartWithLabels")
+  def plotPieChart(mods: JsonMod): BarChart =
+    val labelled =
+      for ((label, number) <- l)
+        yield ujson.Obj(
+          "id" -> label,
+          "field" -> number.toDouble
+        )
+    new BarChart(
+      List(
         (spec: Value) => spec("data")(0)("values") = labelled,
-        viz.Utils.fillDiv
+        (spec: Value) => spec("height") = 400,
+        (spec: Value) => spec("width") = 550,
+        (spec: Value) => spec("marks")(0)("encode")("enter")("x") = "height / 2",
       ) ++ mods
     )
 
@@ -106,7 +122,7 @@ extension [N1: Numeric, N2:Numeric](l: Iterable[(N1, N2)])(using plotTarget: Plo
         (spec: Value) => spec("marks")(0)("encode")("update")("stroke")("value")="black",
         (spec: Value) => spec("marks")(0)("encode")("update")("size")=ujson.Obj("value"->12),
         (spec: Value) => spec("marks")(0)("encode")("update")("opacity")=ujson.Obj("value"->1),
-        viz.Utils.fillDiv
+        //viz.Utils.fillDiv
       ) ++ mods
     )
 
@@ -129,6 +145,6 @@ extension (s: Seq[String])(using plotTarget: PlotTarget)
       List(
         (spec: Value) => spec("data")(0)("values").arr.clear(),
         (spec: Value) => spec("data")(0)("values") = s,
-        viz.Utils.fillDiv
+        //viz.Utils.fillDiv
       ) ++ mods
     )
