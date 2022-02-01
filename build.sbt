@@ -1,11 +1,7 @@
-Global / semanticdbEnabled := true
+
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
-val libV = "0.2.0"
-
-//resolvers += "4 jvm repr" at "https://maven.scijava.org/content/repositories/public/"
-
-resolvers += "jitpack" at "https://jitpack.io"
+val libV = "0.2.1"
 
 lazy val root = project
   .in(file("."))
@@ -20,8 +16,8 @@ lazy val root = project
       "com.lihaoyi" %% "cask" % "0.8.0",
       "com.lihaoyi" %% "scalatags" % "0.11.1",
       "com.lihaoyi" %% "os-lib" % "0.8.0",
-      "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala
-       "com.github.jupyter" % "jvm-repr" %  "0.4.0",
+      "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala       
+       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided).cross(CrossVersion.for3Use2_13With("",".4"))
         .exclude("com.lihaoyi","geny_2.13")
         .exclude("com.lihaoyi","sourcecode_2.13")
@@ -29,7 +25,7 @@ lazy val root = project
         .exclude("com.lihaoyi","os-lib_2.13")
         .exclude("com.lihaoyi","pprint_2.13")
         .exclude("org.scala-lang.modules","scala-collection-compat_2.13")
-        .exclude("com.github.jupyter","jvm_repr"),
+        .exclude("com.github.jupyter","jvm-repr"),
 
       "org.jsoup" % "jsoup" % "1.14.3",      
     )
