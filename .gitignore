@@ -9,3 +9,5 @@ project/target
 target
 .DS_Store
 project/metals.sbt
+.ipynb_checkpoints
+out
