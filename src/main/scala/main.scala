@@ -1,16 +1,21 @@
+package viz.play 
 
 import viz.vega.plots.*
-
-//import viz.PlotTargets.desktopBrowser
 import viz.PlotTargets.desktopBrowser
 import viz.extensions.*
 
+
 @main
 def Main(args: String*): Unit =
-   
-   // Check extension methods
-   // 1. Numeric Iterable
-   (1 to 10).plotBarChart()
+
+   val chart = (1 to 10).plotBarChart()
+   println(chart)
+   println(chart.out)
+   val pie = (1 to 10).plotPieChart(using viz.PlotTargets.png)(List())
+   pie.out match {
+      case p : os.Path => println(p)
+      case () => println("got unit")
+   }
 /*    (1 to 10).plotPieChart()
    List(1,5,3,15,7,8).plotLineChart()
    List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
@@ -38,3 +43,8 @@ def Main(args: String*): Unit =
    CirclePacking(
     List(viz.Utils.fixDefaultDataUrl, viz.Utils.fillDiv)
    ) */
+
+   /*
+      
+
+   */

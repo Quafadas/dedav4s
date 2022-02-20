@@ -49,12 +49,14 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_nTHpUzJg" class="viz"></div>
+<div id="viz_XL0Us7Oi" class="viz"></div>
 
 <script type="text/javascript">
-const specnTHpUzJg = {
+const specXL0Us7Oi = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
+  "width": 400,
+  "height": 200,
   "padding": 5,
   "data": [
     {
@@ -89,26 +91,6 @@ const specnTHpUzJg = {
         {
           "events": "rect:mouseout",
           "update": "{}"
-        }
-      ]
-    },
-    {
-      "name": "height",
-      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-      "on": [
-        {
-          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-          "events": "window:resize"
-        }
-      ]
-    },
-    {
-      "name": "width",
-      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-      "on": [
-        {
-          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-          "events": "window:resize"
         }
       ]
     }
@@ -222,16 +204,11 @@ const specnTHpUzJg = {
         }
       }
     }
-  ],
-  "autosize": {
-    "type": "fit",
-    "resize": true,
-    "contains": "padding"
-  }
+  ]
 }
-vegaEmbed('#viz_nTHpUzJg', specnTHpUzJg , {
+vegaEmbed('#viz_XL0Us7Oi', specXL0Us7Oi , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_nTHpUzJg", // parent DOM container
+    container: "#viz_XL0Us7Oi", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -279,12 +256,14 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_y3oOwDhX" class="viz"></div>
+<div id="viz_cpSHQLGo" class="viz"></div>
 
 <script type="text/javascript">
-const specy3oOwDhX = {
+const speccpSHQLGo = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
+  "width": 400,
+  "height": 200,
   "padding": 5,
   "data": [
     {
@@ -319,26 +298,6 @@ const specy3oOwDhX = {
         {
           "events": "rect:mouseout",
           "update": "{}"
-        }
-      ]
-    },
-    {
-      "name": "height",
-      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-      "on": [
-        {
-          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-          "events": "window:resize"
-        }
-      ]
-    },
-    {
-      "name": "width",
-      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-      "on": [
-        {
-          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-          "events": "window:resize"
         }
       ]
     }
@@ -452,16 +411,11 @@ const specy3oOwDhX = {
         }
       }
     }
-  ],
-  "autosize": {
-    "type": "fit",
-    "resize": true,
-    "contains": "padding"
-  }
+  ]
 }
-vegaEmbed('#viz_y3oOwDhX', specy3oOwDhX , {
+vegaEmbed('#viz_cpSHQLGo', speccpSHQLGo , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_y3oOwDhX", // parent DOM container
+    container: "#viz_cpSHQLGo", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -521,6 +475,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // {
 //   "$schema": "https://vega.github.io/schema/vega/v5.json",
 //   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
+//   "width": 400,
+//   "height": 200,
 //   "padding": 5,
 //   "data": [
 //     {
@@ -555,26 +511,6 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 //         {
 //           "events": "rect:mouseout",
 //           "update": "{}"
-//         }
-//       ]
-//     },
-//     {
-//       "name": "height",
-//       "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-//       "on": [
-//         {
-//           "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-//           "events": "window:resize"
-//         }
-//       ]
-//     },
-//     {
-//       "name": "width",
-//       "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-//       "on": [
-//         {
-//           "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-//           "events": "window:resize"
 //         }
 //       ]
 //     }
@@ -688,17 +624,11 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 //         }
 //       }
 //     }
-//   ],
-//   "autosize": {
-//     "type": "fit",
-//     "resize": true,
-//     "contains": "padding"
-//   }
+//   ]
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$11998/0x0000000802d82b80@834a4c5,
-//     viz.Utils$$$Lambda$11650/0x0000000802c4a1f0@34b6b4ac
+//     viz.extensions.extensions$package$$$Lambda$16539/0x00000008030592d0@756b9ca2
 //   )
 // )
 ```

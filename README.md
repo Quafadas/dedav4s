@@ -5,7 +5,7 @@ Declarative Data Viz 4 Scala - a thin shim around vega and vega lite. It is aime
 
 [Video]()
 
-# 10 second pitch
+# Elevator pitch
 
 ![3 sec pitch](/rawDocs/assets/dedav_intro.gif)
 
