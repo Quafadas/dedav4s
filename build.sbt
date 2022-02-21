@@ -46,7 +46,8 @@ lazy val root = project
         .exclude("org.scala-lang.modules","scala-collection-compat_2.13")
         .exclude("com.github.jupyter","jvm-repr"),
 
-      "org.jsoup" % "jsoup" % "1.14.3",      
+      "org.jsoup" % "jsoup" % "1.14.3",
+      "org.scalameta" %% "munit" % "0.7.29" % Test
     )
   )
 
