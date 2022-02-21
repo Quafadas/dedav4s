@@ -1,7 +1,6 @@
 package viz
 
-
-import java.io.{ File, PrintWriter }
+import java.io.{File, PrintWriter}
 import java.awt.Desktop
 import almond.api.JupyterApi
 import almond.interpreter.api.DisplayData
@@ -19,23 +18,20 @@ trait PlotTarget:
 object PlotTargets:
 
   lazy val conf = org.ekrich.config.ConfigFactory.load()
-  lazy val outPath: Option[String] = {
+  lazy val outPath: Option[String] =
     val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
-    if pathIsSet then
-      Some(conf.getString("dedavOutPath"))
-    else
-      None
-  }
+    if pathIsSet then Some(conf.getString("dedavOutPath"))
+    else None
 
   given doNothing: PlotTarget with
-    override def show(spec: String) : Unit | os.Path = ()
+    override def show(spec: String): Unit | os.Path = ()
 
   given printlnTarget: PlotTarget with
-    override def show(spec: String) : Unit | os.Path = println(spec)
+    override def show(spec: String): Unit | os.Path = println(spec)
 
-  given desktopBrowser: PlotTarget with    
-    override def show(spec: String) : Unit | os.Path = {        
-        val theHtml = raw"""<!DOCTYPE html>
+  given desktopBrowser: PlotTarget with
+    override def show(spec: String): Unit | os.Path =
+      val theHtml = raw"""<!DOCTYPE html>
         <html>
         <head>
         <meta charset="utf-8" />
@@ -69,76 +65,73 @@ object PlotTargets:
         })
         </script>
         </body>
-        </html> """        
-        val tempFi = outPath match
-          case Some(path) => 
-            os.temp(theHtml, dir = os.Path(path), suffix=".html", prefix="plot-")
-          case None => 
-            os.temp(theHtml, suffix=".html", prefix="plot-")
-        Desktop.getDesktop().browse(tempFi.toNIO.toUri())
-        tempFi
-    }
+        </html> """
+      val tempFi = outPath match
+        case Some(path) =>
+          os.temp(theHtml, dir = os.Path(path), suffix = ".html", prefix = "plot-")
+        case None =>
+          os.temp(theHtml, suffix = ".html", prefix = "plot-")
+      Desktop.getDesktop().browse(tempFi.toNIO.toUri())
+      tempFi
 
-/*   given vsCodeNotebook: PlotTarget with
+  /*   given vsCodeNotebook: PlotTarget with
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
   given almond: PlotTarget with
-    override def show(spec: String) : Unit | os.Path =   
-      val kernel = summon[JupyterApi]                 
+    override def show(spec: String): Unit | os.Path =
+      val kernel = summon[JupyterApi]
       kernel.publish.display(
-          DisplayData(
-            data = Map(      
-              "application/vnd.vega.v5+json" -> spec
-            )
-          )  
+        DisplayData(
+          data = Map(
+            "application/vnd.vega.v5+json" -> spec
+          )
         )
- 
+      )
+
   given websocket: PlotTarget with
-    override def show(spec: String) : Unit | os.Path = 
-      if WebsocketVizServer.firstTime then        
+    override def show(spec: String): Unit | os.Path =
+      if WebsocketVizServer.firstTime then
         val port = WebsocketVizServer.randomPort
-        Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))        
+        Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
         Thread.sleep(1000) // give undertow a chance to start
-        requests.post(s"http://localhost:$port/viz", data=spec)        
+        requests.post(s"http://localhost:$port/viz", data = spec)
       else
         val port = WebsocketVizServer.randomPort
-        requests.post(s"http://localhost:$port/viz", data=spec)
+        requests.post(s"http://localhost:$port/viz", data = spec)
       ()
 
   given png: PlotTarget with
-    override def show(spec: String) : Unit | os.Path = 
-      val pngBytes = os.proc("vg2png").call(stdin = spec )
-      pngBytes.exitCode match 
-        case 0 => 
+    override def show(spec: String): Unit | os.Path =
+      val pngBytes = os.proc("vg2png").call(stdin = spec)
+      pngBytes.exitCode match
+        case 0 =>
           outPath match
-            case Some(path) => 
-              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix=".png", prefix="plot-" )
-            case None => 
-              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".png", prefix="plot-")
-        case _ => throw new Exception(pngBytes.err.text())
-      
-  
-  given pdf: PlotTarget with
-    override def show(spec: String) : Unit | os.Path = 
-      val pngBytes = os.proc("vg2pdf").call(stdin = spec )
-      pngBytes.exitCode match 
-        case 0 => 
-          outPath match
-            case Some(path) => 
-              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix=".html", prefix="plot-" )
-            case None => 
-              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".pdf", prefix="plot-")
+            case Some(path) =>
+              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix = ".png", prefix = "plot-")
+            case None =>
+              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix = ".png", prefix = "plot-")
         case _ => throw new Exception(pngBytes.err.text())
 
+  given pdf: PlotTarget with
+    override def show(spec: String): Unit | os.Path =
+      val pngBytes = os.proc("vg2pdf").call(stdin = spec)
+      pngBytes.exitCode match
+        case 0 =>
+          outPath match
+            case Some(path) =>
+              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix = ".html", prefix = "plot-")
+            case None =>
+              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix = ".pdf", prefix = "plot-")
+        case _ => throw new Exception(pngBytes.err.text())
 
   given svg: PlotTarget with
-    override def show(spec: String) : Unit | os.Path = 
-      val pngBytes = os.proc("vg2svg").call(stdin = spec )
-      pngBytes.exitCode match 
-        case 0 => 
+    override def show(spec: String): Unit | os.Path =
+      val pngBytes = os.proc("vg2svg").call(stdin = spec)
+      pngBytes.exitCode match
+        case 0 =>
           outPath match
-            case Some(path) => 
-              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix=".html", prefix="plot-" )
-            case None => 
-              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix=".svg", prefix="plot-")
+            case Some(path) =>
+              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix = ".html", prefix = "plot-")
+            case None =>
+              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix = ".svg", prefix = "plot-")
         case _ => throw new Exception(pngBytes.err.text())

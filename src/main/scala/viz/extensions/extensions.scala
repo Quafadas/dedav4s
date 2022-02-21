@@ -27,7 +27,7 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
     new BarChart(
       List(
         //viz.Utils.fillDiv,
-        (spec : Value) => spec("data")(0)("values") = labelToNotShow,
+        (spec: Value) => spec("data")(0)("values") = labelToNotShow,
         viz.Utils.removeXAxis
       ) ++ mods
     )
@@ -54,19 +54,15 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
           "y" -> number.toDouble
         )
     new LineChart(
-      List(        
-        (spec:Value) => spec("data")(0)("values") = labelToNotShow
-      ) ++ mods
+      List((spec: Value) => spec("data")(0)("values") = labelToNotShow) ++ mods
     )
 
   def plotDotPlot(mods: JsonMod = List()): DotPlot =
     new DotPlot(
-      List(        
-        (spec: Value) => spec("data")(0)("values") = l.map(_.toDouble)
-      ) ++ mods
+      List((spec: Value) => spec("data")(0)("values") = l.map(_.toDouble)) ++ mods
     )
 
-extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)  
+extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
   @targetName("plotBarChartWithLabels")
   def plotBarChart(mods: JsonMod): BarChart =
     val labelled =
@@ -76,9 +72,8 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
           "amount" -> number.toDouble
         )
     new BarChart(
-      List(
-        (spec: Value) => spec("data")(0)("values") = labelled
-        //viz.Utils.fillDiv
+      List((spec: Value) => spec("data")(0)("values") = labelled
+      //viz.Utils.fillDiv
       ) ++ mods
     )
 
@@ -95,45 +90,45 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
         (spec: Value) => spec("data")(0)("values") = labelled,
         (spec: Value) => spec("height") = 400,
         (spec: Value) => spec("width") = 550,
-        (spec: Value) => spec("marks")(0)("encode")("enter")("x") = "height / 2",
+        (spec: Value) => spec("marks")(0)("encode")("enter")("x") = "height / 2"
       ) ++ mods
     )
 
-extension [T: Numeric](l: Map[String, T])(using plotTarget: PlotTarget)  
+extension [T: Numeric](l: Map[String, T])(using plotTarget: PlotTarget)
   @targetName("plotBarChartFromMapWithLabels")
   def plotBarChart(mods: JsonMod): BarChart = l.iterator.toSeq.plotBarChart(mods)
 
-extension [N1: Numeric, N2:Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)    
-  def plotScatter(mods: JsonMod=List()): ScatterPlot =
-    val values = l.map{
-      case(x,y) => ujson.Obj("x"->x.toDouble, "y"->y.toDouble)
+extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)
+  def plotScatter(mods: JsonMod = List()): ScatterPlot =
+    val values = l.map { case (x, y) =>
+      ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
     }
     new ScatterPlot(
       List(
-        (spec: Value) => spec("data") = ujson.Arr(ujson.Obj("name"->"source", "values"->values)),
-        (spec: Value) => {spec.obj.remove("legends");()},
-        (spec: Value) => spec("axes")(0)("title")="x",
-        (spec: Value) => spec("axes")(1)("title")="y",
-        (spec: Value) => spec("marks")(0)("encode")("update")("x")("field")="x",
-        (spec: Value) => spec("scales")(0)("domain")("field")="x",
-        (spec: Value) => spec("scales")(1)("domain")("field")="y",
-        (spec: Value) => {spec("scales").arr.dropRightInPlace(1);()},
-        (spec: Value) => spec("marks")(0)("encode")("update")("y")("field")="y",
-        (spec: Value) => spec("marks")(0)("encode")("update")("stroke")("value")="black",
-        (spec: Value) => spec("marks")(0)("encode")("update")("size")=ujson.Obj("value"->12),
-        (spec: Value) => spec("marks")(0)("encode")("update")("opacity")=ujson.Obj("value"->1),
+        (spec: Value) => spec("data") = ujson.Arr(ujson.Obj("name" -> "source", "values" -> values)),
+        (spec: Value) =>
+          spec.obj.remove("legends"); (),
+        (spec: Value) => spec("axes")(0)("title") = "x",
+        (spec: Value) => spec("axes")(1)("title") = "y",
+        (spec: Value) => spec("marks")(0)("encode")("update")("x")("field") = "x",
+        (spec: Value) => spec("scales")(0)("domain")("field") = "x",
+        (spec: Value) => spec("scales")(1)("domain")("field") = "y",
+        (spec: Value) =>
+          spec("scales").arr.dropRightInPlace(1); (),
+        (spec: Value) => spec("marks")(0)("encode")("update")("y")("field") = "y",
+        (spec: Value) => spec("marks")(0)("encode")("update")("stroke")("value") = "black",
+        (spec: Value) => spec("marks")(0)("encode")("update")("size") = ujson.Obj("value" -> 12),
+        (spec: Value) => spec("marks")(0)("encode")("update")("opacity") = ujson.Obj("value" -> 1)
         //viz.Utils.fillDiv
       ) ++ mods
     )
 
-  def plotRegression(mods: JsonMod=List()): SimpleRegression =
-    val values = l.map{
-      case(x,y) => ujson.Obj("x"->x.toDouble, "y"->y.toDouble)
+  def plotRegression(mods: JsonMod = List()): SimpleRegression =
+    val values = l.map { case (x, y) =>
+      ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
     }
     new SimpleRegression(
-      List(
-        (spec: Value) => spec("data")(0)("values") = values,
-      ) ++ mods
+      List((spec: Value) => spec("data")(0)("values") = values) ++ mods
     )
 
 extension (s: String)(using plotTarget: PlotTarget)
@@ -144,7 +139,7 @@ extension (s: Seq[String])(using plotTarget: PlotTarget)
     new WordCloud(
       List(
         (spec: Value) => spec("data")(0)("values").arr.clear(),
-        (spec: Value) => spec("data")(0)("values") = s,
+        (spec: Value) => spec("data")(0)("values") = s
         //viz.Utils.fillDiv
       ) ++ mods
     )

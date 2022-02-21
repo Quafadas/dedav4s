@@ -2,6 +2,13 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 val libV = "0.2.1"
+inThisBuild(
+  List(
+    scalaVersion := "3.0.2",
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision
+  )
+)
 
 ThisBuild / tlBaseVersion := "0.3"
 ThisBuild / organization := "io.github.quafadas"
@@ -42,14 +49,6 @@ lazy val root = project
       "org.jsoup" % "jsoup" % "1.14.3",      
     )
   )
-
-val scalafixRules = Seq(
-  "OrganizeImports",
-  "DisableSyntax",
-  "LeakingImplicitClassVal",
-  "ProcedureSyntax",
-  "NoValInForComprehension"
-).mkString(" ")
 
 // need a different scala version to respect the version of mdoc
 lazy val docs = project

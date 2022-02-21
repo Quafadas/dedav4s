@@ -5,11 +5,9 @@ import viz.vega.plots.SpecUrl
 import java.net.URI
 import viz.vega.Framework
 
-abstract class FromUrl(val location:SpecUrl)(using PlotTarget) extends WithBaseSpec {    
+abstract class FromUrl(val location: SpecUrl)(using PlotTarget) extends WithBaseSpec:
 
-    override lazy val baseSpec = location.jsonSpec
+  override lazy val baseSpec = location.jsonSpec
 
-    def viewBaseSpec(f: Framework = Framework.Vega) = 
-        java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))
-
-}
+  def viewBaseSpec(f: Framework = Framework.Vega) =
+    java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))

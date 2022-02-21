@@ -3,7 +3,7 @@ package viz.websockets
 import io.undertow.websockets.WebSocketConnectionCallback
 import io.undertow.websockets.core.{AbstractReceiveListener, BufferedTextMessage, WebSocketChannel, WebSockets}
 import io.undertow.websockets.spi.WebSocketHttpExchange
-import scalatags.Text.all._
+import scalatags.Text.all.*
 import java.awt.Desktop
 import io.undertow.websockets.core.WebSocketUtils
 import scala.concurrent.Future
@@ -12,31 +12,32 @@ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionC
 
 object WebsocketVizServer extends cask.MainRoutes:
 
-  var firstTime : Boolean = true
-  lazy val randomPort: Int = {    
-    Future{
+  var firstTime: Boolean = true
+  lazy val randomPort: Int =
+    Future {
       initialize()
       main(Array())
     }
     firstTime = false
-    8080 + scala.util.Random.nextInt(40000) // hope this doesn't generate a port clash! Probably there is a good way to do this?  
-  }
-  
+    8080 + scala.util.Random.nextInt(
+      40000
+    ) // hope this doesn't generate a port clash! Probably there is a good way to do this?
+
   override def port = randomPort
 
   def openBrowserWindow() = Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
 
   @cask.get("/")
-  def home() = {
+  def home() =
     html(
       head(
-        script(src :="https://cdn.jsdelivr.net/npm/vega@5"),
-        script(src :="https://cdn.jsdelivr.net/npm/vega-lite@5"),
-        script(src :="https://cdn.jsdelivr.net/npm/vega-embed@5")        
+        script(src := "https://cdn.jsdelivr.net/npm/vega@5"),
+        script(src := "https://cdn.jsdelivr.net/npm/vega-lite@5"),
+        script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5")
       ),
       body(
         //h1("viz"),
-        div(id:="vis", height:="95vmin", width:="95vmin"),
+        div(id := "vis", height := "95vmin", width := "95vmin"),
         script(raw"""        
         let socket = new WebSocket('ws://localhost:$port/connect/viz');
         socket.onopen = function(e) {
@@ -70,30 +71,28 @@ object WebsocketVizServer extends cask.MainRoutes:
         """)
       )
     )
-    
-  }
 
-    var channelCheat: Option[WebSocketChannel] = None
+  var channelCheat: Option[WebSocketChannel] = None
 
-    @cask.post("/viz")
-    def recievedSpec(request: cask.Request) =
-      val theBody = ujson.read(request.text())
-      channelCheat match
-        case None => cask.Response("no client is listening", statusCode = 418)
-        case Some(value) =>          
-          WebSockets.sendTextBlocking(ujson.write(theBody), value)
-          cask.Response("you should be looking at new viz")
+  @cask.post("/viz")
+  def recievedSpec(request: cask.Request) =
+    val theBody = ujson.read(request.text())
+    channelCheat match
+      case None => cask.Response("no client is listening", statusCode = 418)
+      case Some(value) =>
+        WebSockets.sendTextBlocking(ujson.write(theBody), value)
+        cask.Response("you should be looking at new viz")
 
-    @cask.websocket("/connect/:viz")
-    def setup(viz: String): cask.WebsocketResult =
-      new WebSocketConnectionCallback():
-        override def onConnect(exchange: WebSocketHttpExchange, channel: WebSocketChannel): Unit =
-          channelCheat = Some(channel)
-          channel.getReceiveSetter.set(
-            new AbstractReceiveListener():
-              override def onFullTextMessage(channel: WebSocketChannel, message: BufferedTextMessage) =
-                message.getData match
-                  case ""   => channel.close()
-                  case data => WebSockets.sendTextBlocking(viz + " " + data, channel)
-          )
-          channel.resumeReceives()
+  @cask.websocket("/connect/:viz")
+  def setup(viz: String): cask.WebsocketResult =
+    new WebSocketConnectionCallback():
+      override def onConnect(exchange: WebSocketHttpExchange, channel: WebSocketChannel): Unit =
+        channelCheat = Some(channel)
+        channel.getReceiveSetter.set(
+          new AbstractReceiveListener():
+            override def onFullTextMessage(channel: WebSocketChannel, message: BufferedTextMessage) =
+              message.getData match
+                case ""   => channel.close()
+                case data => WebSockets.sendTextBlocking(viz + " " + data, channel)
+        )
+        channel.resumeReceives()

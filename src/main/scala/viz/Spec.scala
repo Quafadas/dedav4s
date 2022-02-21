@@ -2,11 +2,10 @@ package viz
 
 import viz.PlotTarget
 
-trait Spec (using plotTarget : PlotTarget) {
-  
-    def spec : String = ???
+trait Spec(using plotTarget: PlotTarget):
 
-    def show(using plotTarget : PlotTarget) : Unit | os.Path = plotTarget.show(spec)
+  def spec: String = ???
 
-    val out : Unit | os.Path = show
-}
+  def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
+
+  val out: Unit | os.Path = show
