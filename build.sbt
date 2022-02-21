@@ -68,7 +68,8 @@ lazy val docs = project
         .exclude("com.lihaoyi", "fansi_2.13")
         .exclude("com.lihaoyi", "pprint_2.13")
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-    )
+    ),
+    laikaConfig ~= { _.withRawContent },
   )
   .dependsOn(root)
-  .enablePlugins(MdocPlugin)
+  .enablePlugins(TypelevelSitePlugin)
