@@ -1,6 +1,5 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
-val libV = "0.2.1"
 inThisBuild(
   List(
     scalaVersion := "3.0.2",
@@ -9,6 +8,7 @@ inThisBuild(
   )
 )
 
+ThisBuild / tlSitePublishBranch := Some("main") 
 ThisBuild / tlBaseVersion := "0.3"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
@@ -25,8 +25,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "dedav4s",
-    description := "Declarative data viz for scala",
-    version := libV,
+    description := "Declarative data viz for scala",  
     scalaVersion := "3.0.2",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.3",
@@ -55,7 +54,7 @@ lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
     mdocVariables := Map(
-      "VERSION" -> libV
+      "VERSION" -> root.version
     ),
     mdocOut := new File("docs"),
     mdocIn := new File("rawDocs"),
