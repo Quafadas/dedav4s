@@ -3,6 +3,18 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 val libV = "0.2.1"
 
+ThisBuild / tlBaseVersion := "0.3"
+ThisBuild / organization := "io.github.quafadas"
+ThisBuild / organizationName := "quafadas"
+ThisBuild / licenses := Seq("Apache 2.0" -> new URL("https://www.apache.org/licenses/LICENSE-2.0"))
+ThisBuild / developers := List(
+  // your GitHub handle and name
+  tlGitHubDev("quafadas", "Simon Parten")
+)
+ThisBuild / tlSonatypeUseLegacyHost := false
+
+ThisBuild / scalaVersion := "3.0.2"
+
 lazy val root = project
   .in(file("."))
   .settings(
