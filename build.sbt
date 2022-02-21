@@ -53,8 +53,8 @@ lazy val root = project
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
-    mdocVariables := Map(
-      //"VERSION" -> root.version
+    mdocVariables ++= Map(
+      "VERSION" -> "0.4.0"
     ),
     mdocOut := new File("docs"),
     mdocIn := new File("rawDocs"),
@@ -69,7 +69,7 @@ lazy val docs = project
         .exclude("com.lihaoyi", "pprint_2.13")
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
     ),
-    laikaConfig ~= { _.withRawContent },
+    //laikaConfig ~= { _.withRawContent },
   )
   .dependsOn(root)
-  .enablePlugins(TypelevelSitePlugin)
+  .enablePlugins(MdocPlugin)

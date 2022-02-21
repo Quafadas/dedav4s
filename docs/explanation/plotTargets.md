@@ -49,10 +49,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_XL0Us7Oi" class="viz"></div>
+<div id="viz_aBt65JYQ" class="viz"></div>
 
 <script type="text/javascript">
-const specXL0Us7Oi = {
+const specaBt65JYQ = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "width": 400,
@@ -206,9 +206,9 @@ const specXL0Us7Oi = {
     }
   ]
 }
-vegaEmbed('#viz_XL0Us7Oi', specXL0Us7Oi , {
+vegaEmbed('#viz_aBt65JYQ', specaBt65JYQ , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_XL0Us7Oi", // parent DOM container
+    container: "#viz_aBt65JYQ", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -256,10 +256,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
 
-<div id="viz_cpSHQLGo" class="viz"></div>
+<div id="viz_Wl41D1mE" class="viz"></div>
 
 <script type="text/javascript">
-const speccpSHQLGo = {
+const specWl41D1mE = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "width": 400,
@@ -413,9 +413,9 @@ const speccpSHQLGo = {
     }
   ]
 }
-vegaEmbed('#viz_cpSHQLGo', speccpSHQLGo , {
+vegaEmbed('#viz_Wl41D1mE', specWl41D1mE , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_cpSHQLGo", // parent DOM container
+    container: "#viz_Wl41D1mE", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
@@ -628,7 +628,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 // }
 // res3: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$16539/0x00000008030592d0@756b9ca2
+//     viz.extensions.extensions$package$$$Lambda$11177/0x00000008027a9e38@5f0f32da
 //   )
 // )
 ```

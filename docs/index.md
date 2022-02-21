@@ -28,11 +28,11 @@ It is written exclusively in scala 3 (currently), but will work with scala 2.13.
 
 To add this library to an sbt project
 ```scala
-libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.2.1"
+libraryDependencies += "io.github.quafadas" %% "dedav4s" % "0.4.0"
 ```
 To use this library in ammonite
 ```scala
-import $ivy.`io.github.quafadas::dedav4s:0.2.1`
+import $ivy.`io.github.quafadas::dedav4s:0.4.0`
 ```
 
 Fire up an sbt console (or in a repl... )
@@ -47,7 +47,7 @@ import viz.extensions.*
 (1 to 10).plotBarChart()
 // res1: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$16542/0x0000000803059e78@7d4e6fec,
+//     viz.extensions.extensions$package$$$Lambda$11180/0x00000008027aa9e0@31e20b12,
 //     remove X axis
 //   )
 // )
@@ -57,10 +57,10 @@ A side effect should open a browser window, with this inside
 
 
 
-<div id="viz_sXAyT9c2" class="viz"></div>
+<div id="viz_sdyCoscN" class="viz"></div>
 
 <script type="text/javascript">
-const specsXAyT9c2 = {
+const specsdyCoscN = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A basic bar chart example, with value labels shown upon mouse hover.",
   "width": 400,
@@ -71,43 +71,43 @@ const specsXAyT9c2 = {
       "name": "table",
       "values": [
         {
-          "category": "G3rGueod",
+          "category": "Yp1CkvLR",
           "amount": 1
         },
         {
-          "category": "yt0f5Vm8",
+          "category": "pMbpAO5g",
           "amount": 2
         },
         {
-          "category": "TT5a7XBa",
+          "category": "nZPBmyB6",
           "amount": 3
         },
         {
-          "category": "M2ZikH0P",
+          "category": "u4HvYJ8V",
           "amount": 4
         },
         {
-          "category": "o6ttzMIy",
+          "category": "Ff8aPEI8",
           "amount": 5
         },
         {
-          "category": "rC7UYQNG",
+          "category": "W8z1kjFy",
           "amount": 6
         },
         {
-          "category": "fZaqc4kA",
+          "category": "TB6mdUBt",
           "amount": 7
         },
         {
-          "category": "s9T1QA5B",
+          "category": "dL64Fbik",
           "amount": 8
         },
         {
-          "category": "ekAasllv",
+          "category": "ClYkIXyu",
           "amount": 9
         },
         {
-          "category": "faTVIvqZ",
+          "category": "ImlTLxps",
           "amount": 10
         }
       ]
@@ -238,9 +238,9 @@ const specsXAyT9c2 = {
     }
   ]
 }
-vegaEmbed('#viz_sXAyT9c2', specsXAyT9c2 , {
+vegaEmbed('#viz_sdyCoscN', specsdyCoscN , {
     renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_sXAyT9c2", // parent DOM container
+    container: "#viz_sdyCoscN", // parent DOM container
     hover: true, // enable hover processing
     actions: {
         editor : true
