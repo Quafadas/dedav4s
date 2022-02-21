@@ -9,7 +9,7 @@ inThisBuild(
 )
 
 ThisBuild / tlSitePublishBranch := Some("main") 
-ThisBuild / tlBaseVersion := "0.3"
+ThisBuild / tlBaseVersion := "0.4"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / licenses := Seq(License.Apache2)
@@ -54,7 +54,7 @@ lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
     mdocVariables := Map(
-      "VERSION" -> root.version
+      //"VERSION" -> root.version
     ),
     mdocOut := new File("docs"),
     mdocIn := new File("rawDocs"),
