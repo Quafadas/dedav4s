@@ -8,7 +8,7 @@ inThisBuild(
   )
 )
 
-ThisBuild / tlSitePublishBranch := Some("main") 
+ThisBuild / tlSitePublishBranch := Some("main")
 ThisBuild / tlBaseVersion := "0.4"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
@@ -25,7 +25,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "dedav4s",
-    description := "Declarative data viz for scala",  
+    description := "Declarative data viz for scala",
     scalaVersion := "3.0.2",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.3",
