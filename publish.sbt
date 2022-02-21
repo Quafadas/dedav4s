@@ -1,4 +1,4 @@
-ThisBuild / organization := "io.github.quafadas"
+/* ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / organizationHomepage := Some(
   url("https://github.com/Quafadas/dedav4s")
@@ -39,4 +39,4 @@ ThisBuild / versionScheme := Some("early-semver")
 
 ThisBuild / licenses := List(
   "Apache 2.0" -> new URL("https://www.apache.org/licenses/LICENSE-2.0")
-)
+) */
