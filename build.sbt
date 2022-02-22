@@ -1,3 +1,6 @@
+import laika.helium.Helium
+import laika.theme.config.Color
+
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 inThisBuild(
@@ -49,27 +52,46 @@ lazy val root = project
     )
   )
 
+lazy val jsdocs = project
+  .in(file("jsdocs"))
+  .settings(
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+  )
+  .enablePlugins(ScalaJSPlugin)
+
+lazy val theme = Helium.defaults.site
+  .themeColors(
+    primary = Color.hex("007c99"),
+    secondary = Color.hex("931813"),
+    primaryMedium = Color.hex("a7d4de"),
+    primaryLight = Color.hex("ebf6f7"),
+    text = Color.hex("000000"),
+    background = Color.hex("FFFFFF"),
+    bgGradient = (Color.hex("095269"), Color.hex("007c99"))
+  )
+  .build
+
 // need a different scala version to respect the version of mdoc
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
-    mdocVariables ++= Map(
-      "VERSION" -> "0.4.0"
-    ),
+    mdocJS := Some(jsdocs),
     mdocOut := new File("docs"),
     mdocIn := new File("rawDocs"),
+    mdocVariables ++= Map(
+      "js-html-header" ->
+        """
+<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+"""
+    ),
     scalaVersion := "3.1.0",
-    mdocAutoDependency := false,
     libraryDependencies ++= Seq(
-      ("org.scalanlp" %% "breeze" % "2.0").exclude("org.scala-lang.modules", "scala-collection-compat_2.13"),
-      ("org.scalameta" %% "mdoc" % "2.2.24")
-        .exclude("com.lihaoyi", "geny_2.13")
-        .exclude("com.lihaoyi", "sourcecode_2.13")
-        .exclude("com.lihaoyi", "fansi_2.13")
-        .exclude("com.lihaoyi", "pprint_2.13")
-        .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-    )
-    //laikaConfig ~= { _.withRawContent },
+      ("org.scalanlp" %% "breeze" % "2.0").exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
+    ),
+    laikaConfig ~= { _.withRawContent },
+    laikaTheme := theme
   )
   .dependsOn(root)
-  .enablePlugins(MdocPlugin)
+  .enablePlugins(TypelevelSitePlugin)

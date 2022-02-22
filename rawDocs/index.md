@@ -1,7 +1,3 @@
----
-id: home
-title: Home
----
 # Dedav4s
 
 Declarative data visualization for scala - a scala plotting concept. 
@@ -24,7 +20,7 @@ It is written exclusively in scala 3 (currently), but will work with scala 2.13.
         </style>
 </head>
 
-![intro](assets/dedav_intro.gif)
+<img src="assets/dedav_intro.gif" width=90% height=90% />
 
 To add this library to an sbt project
 ```scala
@@ -53,9 +49,13 @@ import viz.extensions.*
 
 A side effect should open a browser window, with this inside
 
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:assets/home_elevator_pitch.json
 val secondChart = (1 to 10).plotBarChart()
 ```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/home_elevator_pitch.json", node)
+```
+
 If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/examples.md) for suggestions on how to use and extend the concepts.
 
 # Background Information

@@ -1,22 +1,5 @@
----
-id: customising
-title: Custom Datatypes
----
-<head>
-        <meta charset="utf-8" />
-        <!-- Import Vega & Vega-Lite -->
-        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-        <!-- Import vega-embed -->
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
-        <style>
-		    div.viz {
-                width: 25vmin;
-                height:25vmin;
-                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
-            }
-        </style>
-</head>
+# Customisations
+
 The key idea behind the library allows what are, to my mind some exciting extensions. 
 
 It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
@@ -59,10 +42,9 @@ Gaussian(2,2).plotDensity()
 LogNormal(1,0.5).plotDensity()
 ```
 
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/plotDensityGaussian.json
 Gaussian(2,2).plotDensity()
 ```
-
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/plotDensityLogNormal.json
 LogNormal(1,0.5).plotDensity()
 ```

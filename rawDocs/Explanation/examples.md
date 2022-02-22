@@ -1,23 +1,4 @@
----
-id: example
-title: Examples
----
-<head>
-        <meta charset="utf-8" />
-        <!-- Import Vega & Vega-Lite -->
-        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-        <!-- Import vega-embed -->
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
-        <style>
-		    div.viz {
-                width: 25vmin;
-                height:25vmin;
-                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
-            }
-        </style>
-</head>
-
+# Cookbook
 The library exposes the [vega examples](https://vega.github.io/vega/examples/) and [vega lite examples](https://vega.github.io/vega-lite/examples/) convieniently as case classes. The class names correspond to the title of the charts (with some special characters removed).
 
 ## Suggested Workflow
@@ -80,6 +61,7 @@ I work with this library in 4 ways
 1. In prod... don't use this library anymore - probably you have a webserver which means you already have javascript. Use vega directly, Keep the spec under version control and use vega data loading capabilities to talk to the API providing data. 
 
 
+
 ## "Raw" Data
 
 The idea here, is that "raw datatypes" have some unambiguous visualisation which is relatively common to want to plot. Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website, and come from a simple datastructure. We want to be able to plot these as quickly as possible. 
@@ -98,16 +80,22 @@ import viz.extensions.*
 ```scala
 List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/labelledBarChart.json
 List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/labelledBarChart.json", node)
 ```
 
 ### Bar chart
 ```scala
 val secondChart = (1 to 5).plotBarChart()
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/unlballedBarChart.json
 val secondChart = (1 to 5).plotBarChart()
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/unlballedBarChart.json", node)
 ```
 
 ### Word cloud
@@ -117,39 +105,56 @@ List(
    "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"
 ).plotWordcloud()
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/wordcloud.json
 List(
    "how much wood would a wood chuck chuck if a wood chuck could chuck wood", 
    "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"
 ).plotWordcloud()
 ```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/wordcloud.json", node)
+```
+
+
 ### Line Chart
 ```scala
 List(1,5,3,15,7,8).plotLineChart()
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/lineChart.json
 List(1,5,3,15,7,8).plotLineChart()
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/lineChart.json", node)
 ```
 ### Dot Plot
 ```scala
 List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/dotplot.json
 List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/dotplot.json", node)
 ```
 ### Scatter Plot
 ```scala
 List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter()
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/scatterPlot.json
 List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter()
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/scatterPlot.json", node)
 ```
 ### Regression
 ```scala
 List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/regression.json
 List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/regression.json", node)
 ```
 
 ## "Spec Customisation"
@@ -164,8 +169,11 @@ viz.vega.plots.LineChartLite(
     )
 )
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/linechart1.json
 viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/linechart1.json", node)
 ```
 As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, else data loading will fail. It's not a bad excercise to allow that failure. 
 
@@ -179,7 +187,7 @@ Someone was apparently crazy enough to implement pacman in vega. As "proof" that
 ```scala mdoc
 viz.vega.plots.Pacman()
 ```
-```scala mdoc:vegaplot
+```scala mdoc:vegaplot:../assets/pacman.json
 viz.vega.plots.Pacman()
 ```
 More seriously though, this library is targeted at "work". 
@@ -213,7 +221,7 @@ LineChartLite(
 )
 ```
 
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../lineChartBadMods.json
 LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
 ```
 But there are a couple of things which are messy about our modification;
@@ -232,7 +240,7 @@ def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
 LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```
 
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/lineChartLiteWithUrl.json
 LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```
 At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
@@ -250,7 +258,7 @@ def addData(in: TimeSeries) = new (ujson.Value => Unit) {
 LineChartLite(Seq(addTitleB("Now with data"), addData(ts) ))
 ```
 
-```scala mdoc:vegaplot
+```scala mdoc:vegaspec:../assets/lineChartWithData.json
 LineChartLite(Seq(addTitleB("Now with data!"), addData(ts) ))
 ```
 
