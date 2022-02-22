@@ -12,7 +12,7 @@ class VegaModifier extends mdoc.PostModifier:
     ctx.lastValue match
       case spec: viz.Spec =>
         val anId = Random.alphanumeric.take(8).mkString("")
-        vegaEmbed(spec.spec, anId)
+        vegaEmbed1(spec.spec, anId)
       case _ =>
         val (pos, obtained) = ctx.variables.lastOption match
           case Some(variable) =>
@@ -29,7 +29,7 @@ class VegaModifier extends mdoc.PostModifier:
         )
         ""
 
-def vegaEmbed(inSpec : String, vizId:String ) = s"""
+def vegaEmbed1(inSpec : String, vizId:String ) = s"""
 
 <div id="viz_$vizId" class="viz"></div>
 

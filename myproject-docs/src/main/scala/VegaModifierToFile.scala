@@ -33,22 +33,3 @@ class VegaModifierToFile extends mdoc.PostModifier:
   obtained: $obtained"""
         )
         ""
-
-def vegaEmbed(inSpec : String, vizId:String ) = s"""
-
-<div id="viz_$vizId" class="viz"></div>
-
-<script type="text/javascript">
-const spec$vizId = $inSpec
-vegaEmbed('#viz_$vizId', spec$vizId , {
-    renderer: "canvas", // renderer (canvas or svg)
-    container: "#viz_$vizId", // parent DOM container
-    hover: true, // enable hover processing
-    actions: {
-        editor : true
-    }
-}).then(function(result) {
-
-})
-</script>
-"""
