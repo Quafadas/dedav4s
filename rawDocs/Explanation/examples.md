@@ -187,8 +187,11 @@ Someone was apparently crazy enough to implement pacman in vega. As "proof" that
 ```scala mdoc
 viz.vega.plots.Pacman()
 ```
-```scala mdoc:vegaplot:../assets/pacman.json
+```scala mdoc:vegaspec:../assets/pacman.json
 viz.vega.plots.Pacman()
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/pacman.json", node)
 ```
 More seriously though, this library is targeted at "work". 
 
@@ -221,8 +224,11 @@ LineChartLite(
 )
 ```
 
-```scala mdoc:vegaspec:../lineChartBadMods.json
+```scala mdoc:vegaspec:../assets/lineChartBadMods.json
 LineChartLite(Seq(addTitle, Utils.fixDefaultDataUrl ))
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/lineChartBadMods.json", node)
 ```
 But there are a couple of things which are messy about our modification;
 1. We've hardcoded the title
@@ -243,6 +249,9 @@ LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```scala mdoc:vegaspec:../assets/lineChartLiteWithUrl.json
 LineChartLite(Seq(addTitleB("Much better"), Utils.fixDefaultDataUrl ))
 ```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/lineChartLiteWithUrl.json", node)
+```
 At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
 
 #### Piping in the data
@@ -260,6 +269,9 @@ LineChartLite(Seq(addTitleB("Now with data"), addData(ts) ))
 
 ```scala mdoc:vegaspec:../assets/lineChartWithData.json
 LineChartLite(Seq(addTitleB("Now with data!"), addData(ts) ))
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("/assets/lineChartWithData.json", node)
 ```
 
 Generally, I find that the best "workflow", is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 
