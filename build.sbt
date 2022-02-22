@@ -29,7 +29,7 @@ lazy val root = project
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
-    scalaVersion := "3.0.2",
+    scalaVersion := "3.1.0",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.3",
       "com.lihaoyi" %% "requests" % "0.7.0",
