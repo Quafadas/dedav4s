@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2022 quafadas
  *
@@ -14,16 +15,15 @@
  * limitations under the License.
  */
 
-package viz
+import viz.PlotTargets.doNothing
+import viz.vega.plots._
 
-import viz.PlotTarget
+class CustomSpecs extends munit.FunSuite:
 
-trait Spec(using plotTarget: PlotTarget):
+  test("Prove we can instantiate these classes, i.e. that their resource exists") {
 
-  def spec: String = ???
-
-  def jsonSpec = ujson.read(spec)
-
-  def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
-
-  val out: Unit | os.Path = show
+    SeriesScatter()
+    SimpleRegression()
+    SunburstDrag()
+        
+  }

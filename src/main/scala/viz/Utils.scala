@@ -22,11 +22,15 @@ object Utils:
 
   val removeXAxis = new ((Value => Unit)):
     override def toString = "remove X axis"
-    def apply(spec: Value) = spec("axes").arr.dropWhileInPlace(ax => ax("orient").str == "bottom")
+    def apply(spec: Value) = 
+      val tmp = spec("axes").arr.filterNot(ax => ax("orient").str == "bottom")      
+      spec("axes") = tmp
 
   val removeYAxis = new ((Value => Unit)):
     override def toString = "remove Y axis"
-    def apply(spec: Value) = spec("axes").arr.dropWhileInPlace(ax => ax("orient").str == "left")
+    def apply(spec: Value) = 
+      val tmp = spec("axes").arr.filterNot(ax => ax("orient").str == "left")
+      spec("axes") = tmp
 
   val fillDiv: ujson.Value => Unit =
     (spec: ujson.Value) =>
