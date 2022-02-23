@@ -12,7 +12,7 @@ object showJsDocs:
         node.appendChild(child)
         child.setAttribute("style",s"width:${width}vmin;height:${width}vmin")
         scalajs.js.eval(s"""
-            vegaEmbed('#$anId', "/assets/$path.json", {
+            vegaEmbed('#$anId', "../assets/$path.json", {
                 renderer: "canvas", // renderer (canvas or svg)
                 container: "#$anId", // parent DOM container
                 hover: true, // enable hover processing
