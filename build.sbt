@@ -9,7 +9,7 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 inThisBuild(
   List(
-    scalaVersion := "3.0.2",
+    scalaVersion := "3.1.0",
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision
   )
@@ -33,7 +33,6 @@ lazy val root = project
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
-    scalaVersion := "3.1.0",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.3",
       "com.lihaoyi" %% "requests" % "0.7.0",
@@ -78,7 +77,6 @@ lazy val docs = project
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 """
     ),
-    scalaVersion := "3.1.0",
     libraryDependencies ++= Seq(
       ("org.scalanlp" %% "breeze" % "2.0").exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
     ),
