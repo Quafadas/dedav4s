@@ -108,7 +108,8 @@ object PlotTargets:
     override def show(spec: String): Unit | os.Path =
       if WebsocketVizServer.firstTime then
         val port = WebsocketVizServer.randomPort
-        Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
+        if !java.awt.GraphicsEnvironment.isHeadless() then
+          Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
         Thread.sleep(1000) // give undertow a chance to start
         requests.post(s"http://localhost:$port/viz", data = spec)
       else
