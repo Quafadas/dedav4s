@@ -67,7 +67,7 @@ lazy val docs = project
   .settings(
     mdocJS := Some(jsdocs),
     //mdocOut := new File("docs"),
-    mdocIn := new File("rawDocs"),
+    mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
       "js-batch-mode" -> "true",
       "js-html-header" ->

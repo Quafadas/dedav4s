@@ -11,12 +11,12 @@ class VegaModifierToFile extends mdoc.PostModifier:
   val name = "vegaspec"
   def process(ctx: PostModifierContext): String = 
     val relname = (ctx.info)
-    val out = os.Path(ctx.outputFile.toNIO.getParent)
+    val out = os.Path(ctx.outputFile.toNIO.getParent).toString.toLowerCase
     println(out)
     println(relname)
     ctx.lastValue match
       case spec: viz.Spec =>                
-        os.write.over( out / os.up /"assets" / s"$relname.json", spec.spec)
+        os.write.over( os.Path(out) / os.up /"assets" / s"$relname.json", spec.spec)
         ""
       case _ =>
         val (pos, obtained) = ctx.variables.lastOption match
