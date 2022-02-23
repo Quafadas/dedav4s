@@ -21,28 +21,28 @@ import scala.util.Random
 class ExtensionSuite extends munit.FunSuite:
   test("extension methods exist... ") {
 
-      val randomNumbers1: IndexedSeq[Double] = (0 to 20).map(i => i * Random.nextDouble() )
-      val randomTuple_Int_Double: IndexedSeq[(Int, Double)] = (0 to 20).map(i => (i, i * Random.nextDouble() ))
-      val randomTuple_String_Int: IndexedSeq[(String, Int)] = (0 to 5).map(i => (Random.nextString(5), i ))
-      val randomMap_String_Int: Map[String, Int] = randomTuple_String_Int.toMap
+    val randomNumbers1: IndexedSeq[Double] = (0 to 20).map(i => i * Random.nextDouble())
+    val randomTuple_Int_Double: IndexedSeq[(Int, Double)] = (0 to 20).map(i => (i, i * Random.nextDouble()))
+    val randomTuple_String_Int: IndexedSeq[(String, Int)] = (0 to 5).map(i => (Random.nextString(5), i))
+    val randomMap_String_Int: Map[String, Int] = randomTuple_String_Int.toMap
 
-        List(1,2,3,4).plotBarChart()
+    List(1, 2, 3, 4).plotBarChart()
 
-        randomMap_String_Int.plotBarChart(List())
-        randomMap_String_Int.plotPieChart(List())
-        
-        List(("hi", 1.5),("boo", 2.5),("baz", 3.0)).plotPieChart(List())
-        
-        List(("hi", 1.5),("boo", 2.5),("baz", 3.0)).plotBarChart(List())
+    randomMap_String_Int.plotBarChart(List())
+    randomMap_String_Int.plotPieChart(List())
 
-        "interesting stuff stuff interesting".plotWordCloud()
-        
-        List("interesting", "stuff", "interesting").plotWordcloud()
+    List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotPieChart(List())
 
-        randomNumbers1.plotLineChart()
+    List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotBarChart(List())
 
-        randomTuple_Int_Double.plotScatter()
+    "interesting stuff stuff interesting".plotWordCloud()
 
-        randomTuple_Int_Double.plotRegression()
+    List("interesting", "stuff", "interesting").plotWordcloud()
+
+    randomNumbers1.plotLineChart()
+
+    randomTuple_Int_Double.plotScatter()
+
+    randomTuple_Int_Double.plotRegression()
 
   }
