@@ -7,7 +7,7 @@ Declarative Data Viz 4 Scala - a thin shim around vega and vega lite. It is aime
 
 # Elevator pitch
 
-![3 sec pitch](/rawDocs/assets/dedav_intro.gif)
+![3 sec pitch](/raw_docs/assets/dedav_intro.gif)
 
 The aim is to make "simple" plotting cases as simple as possible in interactive / scripting scala environments. The idea is to expose vega / lite, in a fairly "raw" manner. There are "plot targets" for the all the "common" environments that I have wanted.
 
