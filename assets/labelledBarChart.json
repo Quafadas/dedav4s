@@ -9,28 +9,16 @@
       "name": "table",
       "values": [
         {
-          "category": "ePPAdh7j",
-          "amount": 1
-        },
-        {
-          "category": "sBsRB1S1",
+          "category": "A",
           "amount": 4
         },
         {
-          "category": "VHS2czmr",
+          "category": "B",
           "amount": 6
         },
         {
-          "category": "HhJXlVDG",
-          "amount": 7
-        },
-        {
-          "category": "FekT6wPP",
-          "amount": 4
-        },
-        {
-          "category": "t3e3h3Au",
-          "amount": 4
+          "category": "C",
+          "amount": -1
         }
       ]
     }
@@ -76,6 +64,10 @@
     }
   ],
   "axes": [
+    {
+      "orient": "bottom",
+      "scale": "xscale"
+    },
     {
       "orient": "left",
       "scale": "yscale"

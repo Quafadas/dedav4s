@@ -63,12 +63,15 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level1 nav-header">Details</li>
         <li class="level2 active"><a href="#">Plot Targets</a></li>
-        <li class="level2"><a href="examples.html">examples.md</a></li>
-        <li class="level2"><a href="philosophy.html">Prior Art</a></li>
-        <li class="level2"><a href="customising.html">Customisations</a></li>
+        <li class="level2"><a href="workflow.html">Workflow</a></li>
+        <li class="level2"><a href="customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="outFiles.html">Where do the temporary files live?</a></li>
+        <li class="level2"><a href="workingChart.html">Working with a chart</a></li>
+        <li class="level2"><a href="rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level1 nav-header">Scala Versions</li>
         <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
       
     </nav>
@@ -126,13 +129,13 @@
         
         <h2 id="websocket" class="section">Websocket<a class="anchor-link right" href="#websocket"><i class="icofont-laika">&#xef71;</i></a></h2>
         <p>This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.</p>
-        <img src="/assets/websockets2.gif" width=90% height=90%/>
+        <img src="../assets/websockets2.gif" width=90% height=90%/>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">websockets</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*</span></code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
         
         <h2 id="almond" class="section"><a href="https://www.almond.sh">Almond</a><a class="anchor-link right" href="#almond"><i class="icofont-laika">&#xef71;</i></a></h2>
-        <img src="/assets/almond.gif" width=90% height=90%/>
+        <img src="../assets/almond.gif" width=90% height=90%/>
         <p>Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.</p>
         <p><strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3, and via backwards compatibility with scala 2.13.6+. So if you want this to work you&#39;ll currently need to compile a almond kernel from source...
         Also, the extension methods currently use athe <code>viz.Utils.fillDiv</code> method, which is not compatible with the way Jupyter sizes charts. So don&#39;t use those right now. </p>
@@ -318,7 +321,7 @@
 // }
 // res2: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$13726/410472366@b78b92e
+//     viz.extensions.extensions$package$$$Lambda$13724/532145186@65a2eb0
 //   )
 // )</span></code></pre>
         

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Laika 0.18.1 + Helium Theme" />
-    <title>Customisations</title>
+    <title>Customising an existing data structure</title>
     
       <meta name="author" content="Simon Parten"/>
     
@@ -63,12 +63,15 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level1 nav-header">Details</li>
         <li class="level2"><a href="plotTargets.html">Plot Targets</a></li>
-        <li class="level2"><a href="examples.html">examples.md</a></li>
-        <li class="level2"><a href="philosophy.html">Prior Art</a></li>
-        <li class="level2 active"><a href="#">Customisations</a></li>
+        <li class="level2"><a href="workflow.html">Workflow</a></li>
+        <li class="level2 active"><a href="#">Customising an existing data structure</a></li>
         <li class="level2"><a href="outFiles.html">Where do the temporary files live?</a></li>
+        <li class="level2"><a href="workingChart.html">Working with a chart</a></li>
+        <li class="level2"><a href="rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level1 nav-header">Scala Versions</li>
         <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
       
     </nav>
@@ -76,7 +79,7 @@
     <div id="container">
 
       <nav id="page-nav">
-        <p class="header"><a href="#">Customisations</a></p>
+        <p class="header"><a href="#">Customising an existing data structure</a></p>
         
         <ul class="nav-list">
         </ul>
@@ -86,7 +89,7 @@
 
       <main class="content">
 
-        <h1 id="customisations" class="title">Customisations</h1>
+        <h1 id="customising-an-existing-data-structure" class="title">Customising an existing data structure</h1>
         <p>The key idea behind the library allows what are, to my mind some exciting extensions. </p>
         <p>It would be very common, to have your own representations of data. An example of a library with it&#39;s own data structures (there are many) might <a href="https://github.com/scalanlp/breeze">breeze</a>, which is, as far as I can tell the de facto standard for linear algebra in scala. </p>
         <p>The below extension method would add line plotting functionality, to <em>all</em> Breeze DenseVectors. What&#39;s cool? <em>You don&#39;t need to own either Breeze or dedav to make this work</em>. </p>
@@ -113,15 +116,15 @@
         <pre><code class="nohighlight"><span class="type-name">Gaussian</span><span>(</span><span class="number-literal">2</span><span>,</span><span class="number-literal">2</span><span>).</span><span class="identifier">plotDensity</span><span>(</span><span class="type-name">Seq</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
 </span><span class="comment">// res0: ProbabilityDensity = ProbabilityDensity(
 //   mods = List(
-//     repl.MdocSession$App$$Lambda$12125/179690387@74fae58a,
-//     viz.Utils$$$Lambda$12108/1376540565@41a7ab92
+//     repl.MdocSession$App$$Lambda$12117/595704119@49f7d1e3,
+//     viz.Utils$$$Lambda$12100/1113308568@52e27cf5
 //   )
 // )
 </span><span class="type-name">LogNormal</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">0.5</span><span>).</span><span class="identifier">plotDensity</span><span>(</span><span class="type-name">Seq</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
 </span><span class="comment">// res1: ProbabilityDensity = ProbabilityDensity(
 //   mods = List(
-//     repl.MdocSession$App$$Lambda$12125/179690387@7a543d83,
-//     viz.Utils$$$Lambda$12108/1376540565@41a7ab92
+//     repl.MdocSession$App$$Lambda$12117/595704119@7f05a791,
+//     viz.Utils$$$Lambda$12100/1113308568@52e27cf5
 //   )
 // )</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>

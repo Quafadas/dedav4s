@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Laika 0.18.1 + Helium Theme" />
+    <title>Prior Art</title>
+    
+      <meta name="author" content="Simon Parten"/>
+    
+    
+      <meta name="description" content="Declarative data visualisation for scala"/>
+    
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.207/distr/fira_code.css">
+    
+    <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+    <script src="../helium/laika-helium.js"></script>
+    
+    
+    <script> /* for avoiding page load transitions */ </script>
+  </head>
+
+  <body>
+
+    <header id="top-bar">
+
+      <div class="row">
+        <a id="nav-icon">
+          <i class="icofont-laika" title="Navigation">&#xefa2;</i>
+        </a>
+        
+      </div>
+  
+      <a class="icon-link" href="../index.html"><i class="icofont-laika" title="Home">&#xef47;</i></a>
+      
+      <span class="row links"><a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a></span>
+      
+    </header>
+
+    <nav id="sidebar">
+
+      <div class="row">
+        <a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+      </div>
+      
+      <ul class="nav-list">
+        <li class="level1"><a href="../index.html">Dedav4s</a></li>
+        <li class="level1 nav-header">gettingStarted</li>
+        <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+        <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+        <li class="level2"><a href="../explanation/workflow.html">Workflow</a></li>
+        <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
+        <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
+        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
+        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2 active"><a href="#">Prior Art</a></li>
+      </ul>
+      
+    </nav>
+
+    <div id="container">
+
+      <nav id="page-nav">
+        <p class="header"><a href="#">Prior Art</a></p>
+        
+        <ul class="nav-list">
+          <li class="level1"><a href="#why-this-library">Why this library?</a></li>
+          <li class="level2"><a href="#from-first-principles">From first principles</a></li>
+          <li class="level2"><a href="#good-news">Good news</a></li>
+          <li class="level2"><a href="#what-of-typesafety">What of typesafety?</a></li>
+        </ul>
+        
+        <p class="footer"></p>
+      </nav>
+
+      <main class="content">
+
+        <h1 id="prior-art" class="title">Prior Art</h1>
+        <p>If you are interested in plotting things in scala, you may find any or all of the below libraries of interest. I obviously felt strongly enough to attempt to create my own version... but YMMV and here are other attempts at the paradigm. In each case I either found they were unmaintained or didn&#39;t suit my way of working. Plotly scala in particular is probably the &quot;standout candidate&quot; from the below list.</p>
+        <p>All are valuable resources - this library takes bits from all of them...</p>
+        <ul>
+          <li><a href="https://github.com/alexarchambault/plotly-scala">https://github.com/alexarchambault/plotly-scala</a></li>
+          <li><a href="https://github.com/vegas-viz/Vegas">https://github.com/vegas-viz/Vegas</a></li>
+          <li><a href="https://index.scala-lang.org/coxautomotivedatasolutions/vegalite4s/vegalite4s/0.4?target=_2.12">https://index.scala-lang.org/coxautomotivedatasolutions/vegalite4s/vegalite4s/0.4?target=_2.12</a></li>
+          <li><a href="https://index.scala-lang.org/quantifind/wisp/wisp/0.0.4?target=_2.10">https://index.scala-lang.org/quantifind/wisp/wisp/0.0.4?target=_2.10</a></li>
+          <li><a href="https://cibotech.github.io/evilplot/">https://cibotech.github.io/evilplot/</a></li>
+          <li><a href="https://github.com/scalanlp/breeze-viz">https://github.com/scalanlp/breeze-viz</a></li>
+        </ul>
+        <p>A lot more developed... but not scala!
+        - <a href="https://github.com/metasoarous/oz">https://github.com/metasoarous/oz</a></p>
+        
+        <h1 id="why-this-library" class="section">Why this library?<a class="anchor-link right" href="#why-this-library"><i class="icofont-laika">&#xef71;</i></a></h1>
+        <p>I like scala. I&#39;ve found it to be a wonderful experience, with, to my mind a weakness - data visualisation. I certainly feel I put in a solid &quot;best effort&quot; to find an existing library. </p>
+        <p>I concluded I wanted something slightly different. The below explains the rationale behind that statement. </p>
+        
+        <h2 id="from-first-principles" class="section">From first principles<a class="anchor-link right" href="#from-first-principles"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <p>Good data visulaisation is hard. In terms of library authorship, there are two formidable problems one must overcome in order for such a library to be viable. </p>
+        <ol class="arabic">
+          <li>Drawing on screen</li>
+          <li>Sharing</li>
+        </ol>
+        <p>It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise. </p>
+        <p>Unfortunately, this leaves us with a problem. Scala doesn&#39;t run in the browser... well actually, <a href="https://www.scala-js.org">it can</a>... and that project is amazing and powers this website. Sadly, my target is a repl / interactive JVM environment, and the language of browsers is javascript. Ouch.</p>
+        
+        <h2 id="good-news" class="section">Good news<a class="anchor-link right" href="#good-news"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <p>There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let&#39;s provide a thin shim for one! </p>
+        <p>Vega/lite let&#39;s us square the scala / browser circle. We need only a tiny amount of javascript to shim vega embed and host the libraries. The actual visualisation definition is a JSON object. Scala already has good tools for manipulating JSON objects, if we can create the right object, we just need to pipe it into a page template as a string!</p>
+        
+        <h2 id="what-of-typesafety" class="section">What of typesafety?<a class="anchor-link right" href="#what-of-typesafety"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <p>Many of the libraries above set out to define a typesafe DSL. Do we need one? </p>
+        <p>When thinking about this, one has to ask, why? Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost. I argue for this problem, the benefits outweight the costs.</p>
+        <p>In data visualisation, I suspect a typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>.</p>
+        <p>And if you don&#39;t have the runtime guarantees? Insead I propose to simply embrace the tightest feedback loop you can get in exchange. See <a href="https://vega.github.io/editor">vega editor</a>.</p>
+        <p>The actual visualisation here? It&#39;s a <code>ujson.Value</code>. That&#39;s the only type information you have - but... if you read the vega docs... you&#39;ll find you can make those objects do amazing things. </p>
+        <p>I think you will not refgret learning a declarative paradigm. The 10 minutes you&#39;ll spend learning this library (it&#39;s absurdly simple) are sunk cost. I propose that the hours you&#39;ll invest learning vega are a valuable addition to your study of software engineering. It&#39;s amazing how far you can go, and how much value you can deliver, just by pattern matching the vega examples.</p>
+
+      </main>
+
+    </div>
+
+  </body>
+</html>

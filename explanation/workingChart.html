@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Laika 0.18.1 + Helium Theme" />
+    <title>Working with a chart</title>
+    
+      <meta name="author" content="Simon Parten"/>
+    
+    
+      <meta name="description" content="Declarative data visualisation for scala"/>
+    
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.207/distr/fira_code.css">
+    
+    <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+    <script src="../helium/laika-helium.js"></script>
+    
+    
+    <script> /* for avoiding page load transitions */ </script>
+  </head>
+
+  <body>
+
+    <header id="top-bar">
+
+      <div class="row">
+        <a id="nav-icon">
+          <i class="icofont-laika" title="Navigation">&#xefa2;</i>
+        </a>
+        
+      </div>
+  
+      <a class="icon-link" href="../index.html"><i class="icofont-laika" title="Home">&#xef47;</i></a>
+      
+      <span class="row links"><a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a></span>
+      
+    </header>
+
+    <nav id="sidebar">
+
+      <div class="row">
+        <a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+      </div>
+      
+      <ul class="nav-list">
+        <li class="level1"><a href="../index.html">Dedav4s</a></li>
+        <li class="level1 nav-header">gettingStarted</li>
+        <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+        <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="plotTargets.html">Plot Targets</a></li>
+        <li class="level2"><a href="workflow.html">Workflow</a></li>
+        <li class="level2"><a href="customising.html">Customising an existing data structure</a></li>
+        <li class="level2"><a href="outFiles.html">Where do the temporary files live?</a></li>
+        <li class="level2 active"><a href="#">Working with a chart</a></li>
+        <li class="level2"><a href="rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+      </ul>
+      
+    </nav>
+
+    <div id="container">
+
+      <nav id="page-nav">
+        <p class="header"><a href="#">Working with a chart</a></p>
+        
+        <ul class="nav-list">
+          <li class="level1"><a href="#adding-a-title">Adding a title</a></li>
+          <li class="level1"><a href="#better-title-modifier">Better title modifier</a></li>
+          <li class="level1"><a href="#piping-in-the-data">Piping in the data</a></li>
+          <li class="level1"><a href="#conclusion">Conclusion</a></li>
+        </ul>
+        
+        <p class="footer"></p>
+      </nav>
+
+      <main class="content">
+
+        <h1 id="working-with-a-chart" class="title">Working with a chart</h1>
+        <p>We&#39;ll want to manipulate the underlaying JSON specification, we&#39;ll need a <code>Seq[ujson.Value =&gt; Unit]</code>, and the vega-lite example line chart. </p>
+        <p>Ultimately, our aim might be to plot a line chart with our own data.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">java</span><span>.</span><span class="identifier">time</span><span>.</span><span class="type-name">LocalDate</span><span>
+</span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">TimeSeries</span><span>(</span><span class="identifier">series</span><span>: </span><span class="type-name">Seq</span><span>[(</span><span class="type-name">LocalDate</span><span>, </span><span class="type-name">Double</span><span>)])
+</span><span class="keyword">val</span><span> </span><span class="identifier">ts</span><span> = </span><span class="type-name">TimeSeries</span><span>(
+        </span><span class="type-name">Seq</span><span>(            
+            (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">of</span><span>(</span><span class="number-literal">2021</span><span>,</span><span class="number-literal">1</span><span>,</span><span class="number-literal">1</span><span>), </span><span class="number-literal">0.2</span><span>), 
+            (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">of</span><span>(</span><span class="number-literal">2021</span><span>,</span><span class="number-literal">6</span><span>,</span><span class="number-literal">1</span><span>), </span><span class="number-literal">20</span><span>),
+            (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">now</span><span>(), </span><span class="number-literal">1.5</span><span>), 
+        )
+    )
+</span><span class="comment">// ts: TimeSeries = TimeSeries(
+//   series = List((2021-01-01, 0.2), (2021-06-01, 20.0), (2022-02-23, 1.5))
+// )</span></code></pre>
+        
+        <h2 id="adding-a-title" class="section">Adding a title<a class="anchor-link right" href="#adding-a-title"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <p>To start simple, let&#39;s add a title modifier. </p>
+        <p>I&#39;m writing out the types here in the hopes of being helpful. It looks harder than it is... After you&#39;ve done it twice it gets easy. </p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">LineChartLite</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">addTitle</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> = 
+    (</span><span class="identifier">spec</span><span>:</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span>) =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;title&quot;</span><span>) = </span><span class="string-literal">&quot;A Timeseries&quot;</span><span>
+</span><span class="comment">// addTitle: Function1[Value, Unit] = repl.MdocSession$App0$$Lambda$14001/1951183071@d46e86
+</span><span class="type-name">LineChartLite</span><span>(
+    </span><span class="type-name">Seq</span><span>(
+        </span><span class="identifier">addTitle</span><span>, 
+        </span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span> 
+    )
+)
+</span><span class="comment">// res1: LineChartLite = LineChartLite(
+//   mods = List(
+//     repl.MdocSession$App0$$Lambda$14001/1951183071@d46e86,
+//     Fix default data url
+//   )
+// )</span></code></pre>
+        <div id="mdoc-html-run0" data-mdoc-js></div>
+        <p>But there are a couple of things which are messy about our modification;
+        1. We&#39;ve hardcoded the title
+        2. the anonymous function display is very anonymous. </p>
+        <p>Let&#39;s have another go. With a little more ceremony, we have something that looks reasonable afterwards.</p>
+        
+        <h2 id="better-title-modifier" class="section">Better title modifier<a class="anchor-link right" href="#better-title-modifier"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">addTitleB</span><span>(</span><span class="identifier">in</span><span>:</span><span class="type-name">String</span><span>): </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> = </span><span class="keyword">new</span><span>((</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span>)) {
+    </span><span class="keyword">override</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">toString</span><span> = </span><span class="string-literal">s&quot;set title to be </span><span class="substitution">$in</span><span class="string-literal">&quot;</span><span>
+    </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(</span><span class="identifier">spec</span><span>: </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span>) = </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;title&quot;</span><span>) = </span><span class="identifier">in</span><span>
+ }
+</span><span class="type-name">LineChartLite</span><span>(</span><span class="type-name">Seq</span><span>(</span><span class="identifier">addTitleB</span><span>(</span><span class="string-literal">&quot;Much better&quot;</span><span>), </span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span> ))
+</span><span class="comment">// res3: LineChartLite = LineChartLite(
+//   mods = List(set title to be Much better, Fix default data url)
+// )</span></code></pre>
+        <div id="mdoc-html-run1" data-mdoc-js></div>
+        <p>At this point, i think it&#39;s clear how we&#39;re going to deal with piping in the data - the same way as we injected a title</p>
+        
+        <h2 id="piping-in-the-data" class="section">Piping in the data<a class="anchor-link right" href="#piping-in-the-data"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">addData</span><span>(</span><span class="identifier">in</span><span>: </span><span class="type-name">TimeSeries</span><span>) = </span><span class="keyword">new</span><span> (</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span>) {
+    </span><span class="keyword">override</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">toString</span><span> = </span><span class="string-literal">&quot;pipe in data&quot;</span><span> 
+    </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(</span><span class="identifier">spec</span><span>: </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span>) =    
+        </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="identifier">in</span><span>.</span><span class="identifier">series</span><span>.</span><span class="identifier">sortBy</span><span>(</span><span class="identifier">_</span><span class="number-literal">._1</span><span>)
+            .</span><span class="identifier">map</span><span>(
+                </span><span class="identifier">point</span><span> =&gt; 
+                    </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Obj</span><span>(
+                        </span><span class="string-literal">&quot;date&quot;</span><span> -&gt; </span><span class="identifier">point</span><span class="number-literal">._1</span><span>.</span><span class="identifier">toString</span><span>(), 
+                        </span><span class="string-literal">&quot;price&quot;</span><span> -&gt; </span><span class="identifier">point</span><span class="number-literal">._2</span><span>
+                    )
+                )
+        </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;data&quot;</span><span>) = </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Obj</span><span>(</span><span class="string-literal">&quot;values&quot;</span><span> -&gt; </span><span class="identifier">data</span><span>)
+        </span><span class="identifier">spec</span><span>.</span><span class="identifier">obj</span><span>.</span><span class="identifier">remove</span><span>(</span><span class="string-literal">&quot;transform&quot;</span><span>)
+}
+</span><span class="type-name">LineChartLite</span><span>(</span><span class="type-name">Seq</span><span>(</span><span class="identifier">addTitleB</span><span>(</span><span class="string-literal">&quot;Now with data&quot;</span><span>), </span><span class="identifier">addData</span><span>(</span><span class="identifier">ts</span><span>) ))
+</span><span class="comment">// res5: LineChartLite = LineChartLite(
+//   mods = List(set title to be Now with data, pipe in data)
+// )</span></code></pre>
+        <div id="mdoc-html-run2" data-mdoc-js></div>
+        <p>Generally, I find that the best &quot;workflow&quot;, is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It&#39;s then easy to backport the modification into scala. </p>
+        
+        <h1 id="conclusion" class="section">Conclusion<a class="anchor-link right" href="#conclusion"><i class="icofont-laika">&#xef71;</i></a></h1>
+        <p>There&#39;s nothing that says </p>
+        <ol class="arabic">
+          <li>Your plot can&#39;t be a method defined on some Timeseries class itself. That&#39;s an obvious and trivial next step.</li>
+          <li>You have to own the data structure - have a look at the example on the homepage. That works through an extension method defined on <code>Numeric[Iterable]</code></li>
+        </ol>
+        <p>Which means you can &quot;interface&quot; plotting on datatypes of interest to you. I found this to be a powerful idea
+        <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+        <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+        <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script></p>
+        <p><script type="text/javascript" src="workingChart.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script></p>
+
+      </main>
+
+    </div>
+
+  </body>
+</html>
