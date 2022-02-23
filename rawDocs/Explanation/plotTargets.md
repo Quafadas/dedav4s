@@ -1,4 +1,4 @@
-# Targets
+# Plot Targets
 For this library, the first class citizen is a browser... 
 
 Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) PlotTarget which is in scope. 
@@ -8,37 +8,32 @@ Those "given" targets, described below, are accessible at ```viz.PlotTargets.xxx
 
 Many of these rely on writing temp files, and a ```java.awt.Desktop.browse()```, and an internet connection. If your environment does not have those capabilities, then you'll need to look elsewhere or take an advanced approach.
 
-You may specify the location of temporary files through configuration. Either by having a suitably located "application.
-conf", or by passing in the environment variable ```DEDAV_OUT_PATH```.
-
-e.g. 
-```
-sbt -DDEDAV_OUT_PATH=/Users/simon/Pictures   
-```
 
 The path of the temporary file is located in the "out" property of the case class, which is of type ```Unit | os.Path```. If the target creates a temporary file, you may "move it around" wherever you wish, using the path as a starting point.
 
 ## Desktop Browser
 Will open a new browser window in your desktop based browser, pointing to a temporary file. 
 
+<img src="/assets/dedav_intro.gif" width=90% height=90% />
+
+
 ```scala mdoc:invisible
 import viz.PlotTargets.doNothing
 import viz.extensions.*
 ```
-
 ```scala 
 import viz.PlotTargets.desktopBrowser
 import viz.extensions.*
 ```
-
 ```scala
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
-```scala mdoc:vegaspec:../assets/desktopBrowser.json
+```scala mdoc:vegaspec:desktopBrowser
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
-<img src="/assets/dedav_intro.gif" width=90% height=90% />
-
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("desktopBrowser", node, 0 )
+```
 ### How it works
 The library writes a (temporary) file, assuming that
 

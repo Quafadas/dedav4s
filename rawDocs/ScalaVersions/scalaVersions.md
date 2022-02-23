@@ -4,7 +4,7 @@ Is the first class citizen.
 
 ## Scala 2
 ### 2.13.6+
-_Should_ work through the forward compatibility mechanism. There's nothing fundamental about why it wouldn't work, there is simply limited resource availalbe for this project!
+_Should_ work through the forward compatibility mechanism. There's nothing fundamental about why it could be cross compiled, there is simply limited resource availalbe for this project!
 
 So, there isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
 
@@ -43,3 +43,6 @@ kernel.publish.display(
 
 ## 2.13.5 and prior
 Is not supported
+
+# Scala JS
+I'm unclear if this would make sense. Many of the libraries used don't cross compile to JS - they could be replaced, but I'm unclear if there is any value in doing so. If you're in JS land, you already have access to vega...

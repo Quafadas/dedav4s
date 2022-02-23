@@ -4,57 +4,9 @@ Declarative data visualization for scala - a scala plotting concept.
 
 It is written exclusively in scala 3 (currently), but will work with scala 2.13.6+ via forward compatibility.
 
-<head>
-        <meta charset="utf-8" />
-        <!-- Import Vega & Vega-Lite -->
-        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-        <!-- Import vega-embed -->
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
-        <style>
-		    div.viz {
-                width: 25vmin;
-                height:25vmin;
-                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
-            }
-        </style>
-</head>
-
+## Elevator Pitch
 <img src="assets/dedav_intro.gif" width=90% height=90% />
 
-To add this library to an sbt project
-```scala
-libraryDependencies += "io.github.quafadas" %% "dedav4s" % "@VERSION@"
-```
-To use this library in ammonite
-```scala
-import $ivy.`io.github.quafadas::dedav4s:@VERSION@`
-```
-
-Fire up an sbt console (or in a repl... )
-
-```scala mdoc
-import viz.PlotTargets.desktopBrowser
-import viz.extensions.*
-```
-
-```scala mdoc:reset:invisible
-import viz.PlotTargets.doNothing
-import viz.extensions.*
-```
-
-```scala mdoc
-(1 to 10).plotBarChart()
-```
-
-A side effect should open a browser window, with this inside
-
-```scala mdoc:vegaspec:assets/home_elevator_pitch.json
-val secondChart = (1 to 10).plotBarChart()
-```
-```scala mdoc:js:invisible
-viz.doc.showJsDocs("/assets/home_elevator_pitch.json", node)
-```
 
 If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/examples.md) for suggestions on how to use and extend the concepts.
 

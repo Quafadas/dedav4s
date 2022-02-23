@@ -38,13 +38,20 @@ import viz.PlotTargets.doNothing
 ```
 
 ```scala mdoc
-Gaussian(2,2).plotDensity()
-LogNormal(1,0.5).plotDensity()
+Gaussian(2,2).plotDensity(Seq(viz.Utils.fillDiv))
+LogNormal(1,0.5).plotDensity(Seq(viz.Utils.fillDiv))
 ```
 
-```scala mdoc:vegaspec:../assets/plotDensityGaussian.json
-Gaussian(2,2).plotDensity()
+```scala mdoc:vegaspec:plotDensityGaussian
+Gaussian(2,2).plotDensity(Seq(viz.Utils.fillDiv))
 ```
-```scala mdoc:vegaspec:../assets/plotDensityLogNormal.json
-LogNormal(1,0.5).plotDensity()
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("plotDensityGaussian", node)
+```
+
+```scala mdoc:vegaspec:plotDensityLogNormal
+LogNormal(1,0.5).plotDensity(Seq(viz.Utils.fillDiv))
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("plotDensityLogNormal", node )
 ```

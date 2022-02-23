@@ -1,5 +1,9 @@
 import laika.helium.Helium
+import laika.helium.config.HeliumIcon
+import laika.helium.config.IconLink
+import laika.ast.Path.Root
 import laika.theme.config.Color
+import java.time.Instant
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -59,31 +63,19 @@ lazy val jsdocs = project
   )
   .enablePlugins(ScalaJSPlugin)
 
-lazy val theme = Helium.defaults.site
-  .themeColors(
-    primary = Color.hex("007c99"),
-    secondary = Color.hex("931813"),
-    primaryMedium = Color.hex("a7d4de"),
-    primaryLight = Color.hex("ebf6f7"),
-    text = Color.hex("000000"),
-    background = Color.hex("FFFFFF"),
-    bgGradient = (Color.hex("095269"), Color.hex("007c99"))
-  )
-  .build
-
-// need a different scala version to respect the version of mdoc
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
     mdocJS := Some(jsdocs),
-    mdocOut := new File("docs"),
+    //mdocOut := new File("docs"),
     mdocIn := new File("rawDocs"),
     mdocVariables ++= Map(
+      "js-batch-mode" -> "true",
       "js-html-header" ->
         """
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 """
     ),
     scalaVersion := "3.1.0",
@@ -91,7 +83,46 @@ lazy val docs = project
       ("org.scalanlp" %% "breeze" % "2.0").exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
     ),
     laikaConfig ~= { _.withRawContent },
-    laikaTheme := theme
+    tlSiteHeliumConfig ~= {
+      // Actually, this *disables* auto-linking, to avoid duplicates with mdoc
+      _.site.autoLinkJS()
+    },
+    laikaTheme := tlSiteHeliumConfig.value.all
+      .metadata(
+        title = Some("Project Name"),
+        language = Some("en"),
+        description = Some("Declarative data visualisation for scala"),
+        authors = Seq("Simon Parten"),
+        date = Some(Instant.now)
+      )
+      .site
+      .darkMode
+      .themeColors(
+        primary = Color.hex("1c44b2"),
+        secondary = Color.hex("b26046"),
+        primaryMedium = Color.hex("2962ff"),
+        primaryLight = Color.hex("e6f4f3"),
+        text = Color.hex("000000"),
+        background = Color.hex("ffffff"),
+        bgGradient = (Color.hex("3788ac"), Color.hex("fff5e6"))
+      )
+      .site
+      .themeColors(
+        primary = Color.hex("3788ac"),
+        secondary = Color.hex("b26046"),
+        primaryMedium = Color.hex("2962ff"),
+        primaryLight = Color.hex("fff5e6"),
+        text = Color.hex("000000"),
+        background = Color.hex("ffffff"),
+        bgGradient = (Color.hex("3788ac"), Color.hex("fff5e6"))
+      )
+      .site
+      .topNavigationBar(
+        homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
+        navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
+        highContrast = false
+      )
+      .build
   )
   .dependsOn(root)
   .enablePlugins(TypelevelSitePlugin)

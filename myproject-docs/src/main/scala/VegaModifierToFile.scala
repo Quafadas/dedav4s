@@ -5,18 +5,18 @@ import java.nio.file.Paths
 import mdoc.*
 import scala.meta.inputs.Position
 import scala.util.Random
+//import os.RelPath
 
 class VegaModifierToFile extends mdoc.PostModifier:
   val name = "vegaspec"
   def process(ctx: PostModifierContext): String = 
-    val relpath = Paths.get(ctx.info)
-    val out = ctx.outputFile.toNIO.getParent.resolve(relpath)
+    val relname = (ctx.info)
+    val out = os.Path(ctx.outputFile.toNIO.getParent)
+    println(out)
+    println(relname)
     ctx.lastValue match
-      case spec: viz.Spec =>
-        Files.createDirectories(out.getParent)
-        if (!Files.isRegularFile(out)) {
-          os.write.over(os.Path(out.toAbsolutePath), spec.spec)
-        }
+      case spec: viz.Spec =>                
+        os.write.over( out / os.up /"assets" / s"$relname.json", spec.spec)
         ""
       case _ =>
         val (pos, obtained) = ctx.variables.lastOption match

@@ -11,3 +11,4 @@ target
 project/metals.sbt
 .ipynb_checkpoints
 out
+docs/
