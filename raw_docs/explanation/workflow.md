@@ -83,7 +83,7 @@ viz.vega.plots.LineChartLite(
 viz.vega.plots.LineChartLite(List(viz.Utils.fixDefaultDataUrl))
 ```
 ```scala mdoc:js:invisible
-viz.doc.showJsDocs("linechart1", node)
+viz.doc.showJsDocs("linechart1", node, 0)
 ```
 As we've changed the home of the chart (which no longer is on the vega lite examples homepage), we also need to adapt it's data url to point to the right place, else data loading will fail. It's not a bad excercise to allow that failure. 
 

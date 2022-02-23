@@ -14,7 +14,7 @@ The path of the temporary file is located in the "out" property of the case clas
 ## Desktop Browser
 Will open a new browser window in your desktop based browser, pointing to a temporary file. 
 
-<img src="/assets/dedav_intro.gif" width=90% height=90% />
+<img src="assets/dedav_intro.gif" width=90% height=90% />
 
 
 ```scala mdoc:invisible
