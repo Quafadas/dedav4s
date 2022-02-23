@@ -522,3 +522,10 @@ case class ConnectionsamongMajorU_S_Airports_Lite(override val mods: JsonMod = L
 case class Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite(override val mods: JsonMod = List())(
     using PlotTarget
 ) extends FromUrl(SpecUrl.Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite)
+
+
+object BarChart extends viz.companions.AxisUtils {  
+}
+
+object PieChart extends viz.companions.AxisUtils {  
+}
