@@ -22,13 +22,13 @@ object Utils:
 
   val removeXAxis = new ((Value => Unit)):
     override def toString = "remove X axis"
-    def apply(spec: Value) = 
-      val tmp = spec("axes").arr.filterNot(ax => ax("orient").str == "bottom")      
+    def apply(spec: Value) =
+      val tmp = spec("axes").arr.filterNot(ax => ax("orient").str == "bottom")
       spec("axes") = tmp
 
   val removeYAxis = new ((Value => Unit)):
     override def toString = "remove Y axis"
-    def apply(spec: Value) = 
+    def apply(spec: Value) =
       val tmp = spec("axes").arr.filterNot(ax => ax("orient").str == "left")
       spec("axes") = tmp
 

@@ -523,9 +523,6 @@ case class Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite
     using PlotTarget
 ) extends FromUrl(SpecUrl.Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite)
 
+object BarChart extends viz.companions.AxisUtils {}
 
-object BarChart extends viz.companions.AxisUtils {  
-}
-
-object PieChart extends viz.companions.AxisUtils {  
-}
+object PieChart extends viz.companions.AxisUtils {}
