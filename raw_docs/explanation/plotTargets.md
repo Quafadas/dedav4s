@@ -59,7 +59,7 @@ And we browse to the temporary file created in step one.
 
 This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.
 
-<img src="/assets/websockets2.gif" width=90% height=90% />
+<img src="../assets/websockets2.gif" width=90% height=90% />
 
 ```scala
 import viz.PlotTargets.websockets
@@ -72,7 +72,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 
 ## [Almond](https://www.almond.sh)
 
-<img src="/assets/almond.gif" width=90% height=90% />
+<img src="../assets/almond.gif" width=90% height=90% />
 
 Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.
 

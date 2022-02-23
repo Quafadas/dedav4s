@@ -1,6 +1,9 @@
-# Customisations
+# Customising an existing data structure
 
 The key idea behind the library allows what are, to my mind some exciting extensions. 
+```scala mdoc:invisible
+import viz.PlotTargets.doNothing
+```
 
 It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
 
@@ -33,9 +36,6 @@ We extend the trait ```HasInverseCdf```, and now? _Every_ distribution with an i
 
 in 12. lines. of. code. It took way longer to write the documentation, than implement that entire class of plots :-). 
 
-```scala mdoc:invisible
-import viz.PlotTargets.doNothing
-```
 
 ```scala mdoc
 Gaussian(2,2).plotDensity(Seq(viz.Utils.fillDiv))
