@@ -62,6 +62,7 @@ lazy val jsdocs = project
   )
   .enablePlugins(ScalaJSPlugin)
 
+  
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
