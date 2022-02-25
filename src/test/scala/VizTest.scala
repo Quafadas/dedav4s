@@ -1,3 +1,4 @@
+package viz
 /*
  * Copyright 2022 quafadas
  *
@@ -14,9 +15,15 @@
  * limitations under the License.
  */
 
+// import viz.PlotTargets.websocket // for local testing
+import viz.PlotTargets.desktopBrowser // for CI... as we don't have a port available...
+import scala.util.Random
+import viz.extensions.*
+
+
 class MySuite extends munit.FunSuite:
   test("hello") {
-    val obtained = 43
-    val expected = 43
-    assertEquals(obtained, expected)
+    //(1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
+
+    assertEquals(1,1)
   }
