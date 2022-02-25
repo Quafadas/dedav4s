@@ -62,11 +62,11 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level1 nav-header">Details</li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
         <li class="level2"><a href="../explanation/workflow.html">Workflow</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
-        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level1 nav-header">Scala Versions</li>
         <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
         <li class="level1 nav-header">Prior Art</li>
@@ -85,6 +85,8 @@
           <li class="level2"><a href="#from-first-principles">From first principles</a></li>
           <li class="level2"><a href="#good-news">Good news</a></li>
           <li class="level2"><a href="#what-of-typesafety">What of typesafety?</a></li>
+          <li class="level2"><a href="#but-i-realllly-want-typesafety">But I realllly want typesafety</a></li>
+          <li class="level2"><a href="#conclusion">Conclusion</a></li>
         </ul>
         
         <p class="footer"></p>
@@ -128,7 +130,15 @@
         <p>When thinking about this, one has to ask, why? Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost. I argue for this problem, the benefits outweight the costs.</p>
         <p>In data visualisation, I suspect a typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>.</p>
         <p>And if you don&#39;t have the runtime guarantees? Insead I propose to simply embrace the tightest feedback loop you can get in exchange. See <a href="https://vega.github.io/editor">vega editor</a>.</p>
-        <p>The actual visualisation here? It&#39;s a <code>ujson.Value</code>. That&#39;s the only type information you have - but... if you read the vega docs... you&#39;ll find you can make those objects do amazing things. </p>
+        <p>The actual visualisation here? It&#39;s a <code>ujson.Value</code>. That&#39;s the only type information you have - but... if you read the vega docs and use the vega editor... you&#39;ll find you can make those objects do amazing things... which you can now port into scala. </p>
+        <p>But... they are not typesafe.</p>
+        
+        <h2 id="but-i-realllly-want-typesafety" class="section">But I realllly want typesafety<a class="anchor-link right" href="#but-i-realllly-want-typesafety"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <p>The general problem is hard. I see two ways plotting can be made safer in this paradigm.</p>
+        <p>Mostly, you&#39;ll want type safety behind <em>your data structure</em>. It is fairly simple, to add a plot method to an existing datastructure. As you then control the spec and have knowledge of the data... as long as you test correcty, it&#39;s &quot;semi-typesafe&quot;. </p>
+        <p>Also, it is possible to write &quot;safe&quot; modifications to the a spec. Trivial examples (see <code>viz.Utils</code>) would be removing axes. Unfortunately, &quot;general&quot; modifications are not simple - a pie chart doesn&#39;t really want x/y axes for example. Instead of the general problem, this library makes it <em>possible</em> although not necessarily recommended, to construct a &quot;typesafe&quot; DSL <em>per example chart</em>, in the companion objects of the case classes. This is also an infinite amount of work, to which I will not commit... but your contributions (with tests) are welcome if you wish this...</p>
+        
+        <h2 id="conclusion" class="section">Conclusion<a class="anchor-link right" href="#conclusion"><i class="icofont-laika">&#xef71;</i></a></h2>
         <p>I think you will not refgret learning a declarative paradigm. The 10 minutes you&#39;ll spend learning this library (it&#39;s absurdly simple) are sunk cost. I propose that the hours you&#39;ll invest learning vega are a valuable addition to your study of software engineering. It&#39;s amazing how far you can go, and how much value you can deliver, just by pattern matching the vega examples.</p>
 
       </main>

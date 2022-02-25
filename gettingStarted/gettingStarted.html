@@ -62,11 +62,11 @@
         <li class="level2 active"><a href="#">Getting Started</a></li>
         <li class="level1 nav-header">Details</li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
         <li class="level2"><a href="../explanation/workflow.html">Workflow</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
-        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level1 nav-header">Scala Versions</li>
         <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
         <li class="level1 nav-header">Prior Art</li>
@@ -99,7 +99,7 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">6</span><span>,</span><span class="number-literal">7</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>).</span><span class="identifier">plotBarChart</span><span>()
 </span><span class="comment">// res1: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$13747/1185321183@7493fcf,
+//     viz.extensions.extensions$package$$$Lambda$13706/2133946950@7de93235,
 //     remove X axis
 //   )
 // )</span></code></pre>
@@ -109,12 +109,13 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">6</span><span>,</span><span class="number-literal">7</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
 </span><span class="comment">// res3: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$13747/1185321183@1916f1a1,
+//     viz.extensions.extensions$package$$$Lambda$13706/2133946950@12c9ef3,
 //     remove X axis,
-//     viz.Utils$$$Lambda$12105/304499593@73cae602
+//     viz.Utils$$$Lambda$12068/168837768@4789dd15
 //   )
 // )</span></code></pre>
         <div id="mdoc-html-run1" data-mdoc-js></div>
+        <p>If that worked, then you&#39;re ready to go! See the <a href="../explanation/plotTargets.html">plot targets</a> to understand what happened, and the <a href="../explanation/workflow.html">examples</a> for suggestions on how to use and extend the concepts.</p>
         <p><script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
         <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
         <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script></p>

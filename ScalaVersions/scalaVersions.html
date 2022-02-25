@@ -62,11 +62,11 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level1 nav-header">Details</li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
         <li class="level2"><a href="../explanation/workflow.html">Workflow</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
-        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level1 nav-header">Scala Versions</li>
         <li class="level2 active"><a href="#">Scala Versions</a></li>
         <li class="level1 nav-header">Prior Art</li>
@@ -86,6 +86,7 @@
           <li class="level2"><a href="#_2-13-6">2.13.6+</a></li>
           <li class="level1"><a href="#_2-13-5-and-prior">2.13.5 and prior</a></li>
           <li class="level1"><a href="#scala-js">Scala JS</a></li>
+          <li class="level1"><a href="#scala-native">Scala Native</a></li>
         </ul>
         
         <p class="footer"></p>
@@ -101,12 +102,12 @@
         <h2 id="scala-2" class="section">Scala 2<a class="anchor-link right" href="#scala-2"><i class="icofont-laika">&#xef71;</i></a></h2>
         
         <h3 id="_2-13-6" class="section">2.13.6+<a class="anchor-link right" href="#_2-13-6"><i class="icofont-laika">&#xef71;</i></a></h3>
-        <p><em>Should</em> work through the forward compatibility mechanism. There&#39;s nothing fundamental about why it could be cross compiled, there is simply limited resource availalbe for this project!</p>
-        <p>So, there isn&#39;t really &quot;support&quot; for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.</p>
-        <p>Everything will work as above, noting the below. </p>
+        <p><em>Should</em> work through the forward compatibility mechanism. There&#39;s nothing fundamental about why it couldn&#39;t be cross compiled for native support, there is simply limited resource availalbe for this project!</p>
+        <p>So, there isn&#39;t really &quot;support&quot; for scala 2 per se, however... if you have scala 2.13.6+, then the library may be used via the forward compatibility mechanism.</p>
+        <p>Noting the below. </p>
         <pre><code>scala.util.Properties.versionString</code></pre>
-        <p>Will need to say 2.13.7 or higher. To import</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">$ivy</span><span>.</span><span class="identifier">`io.github.quafadas:dedav4s_3:0.0.9`</span></code></pre>
+        <p>Will need to say 2.13.6 or higher. To import</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">$ivy</span><span>.</span><span class="identifier">`io.github.quafadas:dedav4s_3:0.4.1`</span></code></pre>
         <p>i.e. don&#39;t auto derive the artefact version, or use your built tools cross methods.</p>
         <p>You&#39;ll need the tasty reader scalac flag set true. </p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">interp</span><span>.</span><span class="identifier">configureCompiler</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">settings</span><span>.</span><span class="type-name">YtastyReader</span><span>.</span><span class="identifier">value</span><span> = </span><span class="boolean-literal">true</span><span>)</span></code></pre>
@@ -127,7 +128,10 @@
         <p>Is not supported</p>
         
         <h1 id="scala-js" class="section">Scala JS<a class="anchor-link right" href="#scala-js"><i class="icofont-laika">&#xef71;</i></a></h1>
-        <p>I&#39;m unclear if this would make sense. Many of the libraries used don&#39;t cross compile to JS - they could be replaced, but I&#39;m unclear if there is any value in doing so. If you&#39;re in JS land, you already have access to vega...</p>
+        <p>I&#39;m unclear if this would make sense. Many of the libraries used don&#39;t cross compile to JS - they could be replaced, but I&#39;m unclear if there is any value in doing so. If you&#39;re in JS land, you already have access to vega... would you really want this?</p>
+        
+        <h1 id="scala-native" class="section">Scala Native<a class="anchor-link right" href="#scala-native"><i class="icofont-laika">&#xef71;</i></a></h1>
+        <p>Is beyond my pay grade. YMMV.</p>
 
       </main>
 
