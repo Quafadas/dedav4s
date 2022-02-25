@@ -43,6 +43,16 @@ In data visualisation, I suspect a typesafe DSL to be a very hard problem. An ax
 
 And if you don't have the runtime guarantees? Insead I propose to simply embrace the tightest feedback loop you can get in exchange. See [vega editor](https://vega.github.io/editor).
 
-The actual visualisation here? It's a ```ujson.Value```. That's the only type information you have - but... if you read the vega docs... you'll find you can make those objects do amazing things. 
+The actual visualisation here? It's a ```ujson.Value```. That's the only type information you have - but... if you read the vega docs and use the vega editor... you'll find you can make those objects do amazing things... which you can now port into scala. 
 
+But... they are not typesafe.
+
+## But I realllly want typesafety
+The general problem is hard. I see two ways plotting can be made safer in this paradigm.
+
+Mostly, you'll want type safety behind _your data structure_. It is fairly simple, to add a plot method to an existing datastructure. As you then control the spec and have knowledge of the data... as long as you test correcty, it's "semi-typesafe". 
+
+Also, it is possible to write "safe" modifications to the a spec. Trivial examples (see ```viz.Utils```) would be removing axes. Unfortunately, "general" modifications are not simple - a pie chart doesn't really want x/y axes for example. Instead of the general problem, this library makes it _possible_ although not necessarily recommended, to construct a "typesafe" DSL _per example chart_, in the companion objects of the case classes. This is also an infinite amount of work, to which I will not commit... but your contributions (with tests) are welcome if you wish this...
+
+## Conclusion
 I think you will not refgret learning a declarative paradigm. The 10 minutes you'll spend learning this library (it's absurdly simple) are sunk cost. I propose that the hours you'll invest learning vega are a valuable addition to your study of software engineering. It's amazing how far you can go, and how much value you can deliver, just by pattern matching the vega examples.

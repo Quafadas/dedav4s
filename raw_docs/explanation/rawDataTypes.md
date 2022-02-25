@@ -3,6 +3,8 @@
 
 The idea here, is that "raw datatypes" have some unambiguous visualisation which is relatively common to want to plot. Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website, and come from a simple datastructure. We want to be able to plot these as quickly as possible. 
 
+We achieve this through scala 3's extension methods have a look in the ```viz.extensions``` package for ideas. 
+
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
 import viz.extensions.*
@@ -26,13 +28,34 @@ viz.doc.showJsDocs("labelledBarChart", node, 0)
 
 ### Bar chart
 ```scala
-val secondChart = (1 to 5).plotBarChart()
+(1 to 5).plotBarChart()
 ```
 ```scala mdoc:vegaspec:unlballedBarChart
-val secondChart = (1 to 5).plotBarChart()
+(1 to 5).plotBarChart()
 ```
 ```scala mdoc:js:invisible
 viz.doc.showJsDocs("unlballedBarChart", node,0)
+```
+
+### Pie chart
+```scala
+(1 to 5).plotPieChart()
+```
+```scala mdoc:vegaspec:pieChart
+(1 to 5).plotPieChart()
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("pieChart", node,0)
+```
+### Pie chart with labels... 
+```scala
+(1 to 5).map(i => (scala.util.Random.nextString(5), i)).plotPieChart(List())
+```
+```scala mdoc:vegaspec:pieChartLabelled
+(1 to 5).map(i => (scala.util.Random.nextString(5), i)).plotPieChart(List())
+```
+```scala mdoc:js:invisible
+viz.doc.showJsDocs("pieChartLabelled", node,0)
 ```
 
 ### Word cloud
@@ -91,5 +114,5 @@ List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
 List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
 ```
 ```scala mdoc:js:invisible
-viz.doc.showJsDocs("regression", node, 0)
+viz.doc.showJsDocs("regression", node, 25)
 ```

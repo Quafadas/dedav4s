@@ -1,13 +1,16 @@
 # Working with a chart
 
-
 ```scala mdoc:invisible:reset
 import viz.PlotTargets.doNothing
 import viz.extensions.*
 ```
 We'll want to manipulate the underlaying JSON specification, we'll need a ```Seq[ujson.Value => Unit]```, and the vega-lite example line chart. 
 
-Ultimately, our aim might be to plot a line chart with our own data.
+As always... lean into vega;
+
+![The Vega Editor](../assets/vegaEditor.png)
+
+Ultimately, our aim might be to plot a line chart with our own data, for example with this datastructure
 
 ```scala mdoc
 import java.time.LocalDate
@@ -16,7 +19,7 @@ val ts = TimeSeries(
         Seq(            
             (LocalDate.of(2021,1,1), 0.2), 
             (LocalDate.of(2021,6,1), 20),
-            (LocalDate.now(), 1.5), 
+            (LocalDate.now(), 5.5), 
         )
     )
 ```

@@ -4,18 +4,18 @@ Is the first class citizen.
 
 ## Scala 2
 ### 2.13.6+
-_Should_ work through the forward compatibility mechanism. There's nothing fundamental about why it could be cross compiled, there is simply limited resource availalbe for this project!
+_Should_ work through the forward compatibility mechanism. There's nothing fundamental about why it couldn't be cross compiled for native support, there is simply limited resource availalbe for this project!
 
-So, there isn't really "support" for scala 2 per se, however... if you have scala 2.13.7, then the library may be used via the forward compatibility mechanism, so for almond / ammonite, or the equivalent SBT statment.
+So, there isn't really "support" for scala 2 per se, however... if you have scala 2.13.6+, then the library may be used via the forward compatibility mechanism.
 
-Everything will work as above, noting the below. 
+Noting the below. 
 ```
 scala.util.Properties.versionString
 ```
-Will need to say 2.13.7 or higher. To import
+Will need to say 2.13.6 or higher. To import
 
 ```scala 
-import $ivy.`io.github.quafadas:dedav4s_3:0.0.9`
+import $ivy.`io.github.quafadas:dedav4s_3:@VERSION@`
 ```
 i.e. don't auto derive the artefact version, or use your built tools cross methods.
 
@@ -45,4 +45,7 @@ kernel.publish.display(
 Is not supported
 
 # Scala JS
-I'm unclear if this would make sense. Many of the libraries used don't cross compile to JS - they could be replaced, but I'm unclear if there is any value in doing so. If you're in JS land, you already have access to vega...
+I'm unclear if this would make sense. Many of the libraries used don't cross compile to JS - they could be replaced, but I'm unclear if there is any value in doing so. If you're in JS land, you already have access to vega... would you really want this?
+
+# Scala Native
+Is beyond my pay grade. YMMV.

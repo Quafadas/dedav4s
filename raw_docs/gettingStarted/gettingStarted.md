@@ -44,3 +44,5 @@ List(1,4,6,7,4,4).plotBarChart(List(viz.Utils.fillDiv))
 ```scala mdoc:js:invisible
 viz.doc.showJsDocs("simpleBarChartBig", node, 50)
 ```
+
+If that worked, then you're ready to go! See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../explanation/workflow.md) for suggestions on how to use and extend the concepts.

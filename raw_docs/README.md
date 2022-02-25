@@ -7,9 +7,6 @@ It is written exclusively in scala 3 (currently), but will work with scala 2.13.
 ## Elevator Pitch
 <img src="assets/dedav_intro.gif" width=90% height=90% />
 
-
-If that worked, then you're ready to go! See the [plot targets](explanation/plotTargets.md) to understand what happened, and the [examples](explanation/workflow.md) for suggestions on how to use and extend the concepts.
-
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/) and [vega lite](https://vega.github.io/vega-lite/). It is aimed at repl, interactive environments and exploratory analysis
 
