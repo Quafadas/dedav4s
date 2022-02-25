@@ -94,19 +94,21 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
     )
 
   @targetName("plotPieChartWithLabels")
-  def plotPieChart(mods: JsonMod): BarChart =
+  def plotPieChart(mods: JsonMod): PieChart =
     val labelled =
       for ((label, number) <- l)
         yield ujson.Obj(
           "id" -> label,
           "field" -> number.toDouble
         )
-    new BarChart(
+    new PieChart(
       List(
         (spec: Value) => spec("data")(0)("values") = labelled,
         (spec: Value) => spec("height") = 400,
         (spec: Value) => spec("width") = 550,
-        (spec: Value) => spec("marks")(0)("encode")("enter")("x") = "height / 2"
+        (spec: Value) => spec("legends") = ujson.Arr(ujson.Obj("fill" -> "color", "orient" -> "top-right")),
+        (spec: Value) => spec("marks")(0)("encode")("enter")("x") = ujson.Obj("signal" -> "height / 2"),
+        (spec: Value) => spec("marks")(0)("encode")("update")("outerRadius") = ujson.Obj("signal" -> "height / 2")
       ) ++ mods
     )
 
@@ -114,7 +116,7 @@ extension [T: Numeric](l: Map[String, T])(using plotTarget: PlotTarget)
   @targetName("plotBarChartFromMapWithLabels")
   def plotBarChart(mods: JsonMod): BarChart = l.iterator.toSeq.plotBarChart(mods)
 
-  def plotPieChart(mods: JsonMod): BarChart = l.iterator.toSeq.plotPieChart(mods)
+  def plotPieChart(mods: JsonMod): PieChart = l.iterator.toSeq.plotPieChart(mods)
 
 extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)
   def plotScatter(mods: JsonMod = List()): ScatterPlot =
