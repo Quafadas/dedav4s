@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Laika 0.18.1 + Helium Theme" />
-    <title>Scala Versions</title>
+    <title>Links</title>
     
       <meta name="author" content="Simon Parten"/>
     
@@ -59,8 +59,8 @@
       
       <ul class="nav-list">
         <li class="level1 nav-header">Getting Sarted</li>
-        <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-        <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
+        <li class="level2"><a href="gettingStarted.html">Getting Started</a></li>
+        <li class="level2 active"><a href="#">Links</a></li>
         <li class="level1 nav-header">Details</li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
         <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
@@ -69,7 +69,7 @@
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
         <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2 active"><a href="#">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
         <li class="level1 nav-header">Prior Art</li>
         <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
@@ -79,15 +79,10 @@
     <div id="container">
 
       <nav id="page-nav">
-        <p class="header"><a href="#">Scala Versions</a></p>
+        <p class="header"><a href="#">Links</a></p>
         
         <ul class="nav-list">
-          <li class="level1"><a href="#scala-3">Scala 3</a></li>
-          <li class="level1"><a href="#scala-2">Scala 2</a></li>
-          <li class="level2"><a href="#_2-13-6">2.13.6+</a></li>
-          <li class="level1"><a href="#_2-13-5-and-prior">2.13.5 and prior</a></li>
-          <li class="level1"><a href="#scala-js">Scala JS</a></li>
-          <li class="level1"><a href="#scala-native">Scala Native</a></li>
+          <li class="level1"><a href="#vega">Vega</a></li>
         </ul>
         
         <p class="footer"></p>
@@ -95,44 +90,14 @@
 
       <main class="content">
 
-        <h1 id="scala-versions" class="title">Scala Versions</h1>
+        <h1 id="links" class="title">Links</h1>
+        <p>A video which attemps to explain the ideas behind this library
+        <a href="https://www.youtube.com/watch?v=_yhDhvYWPBk">intro video</a></p>
         
-        <h2 id="scala-3" class="section">Scala 3<a class="anchor-link right" href="#scala-3"><i class="icofont-laika">&#xef71;</i></a></h2>
-        <p>Is the first class citizen.</p>
-        
-        <h2 id="scala-2" class="section">Scala 2<a class="anchor-link right" href="#scala-2"><i class="icofont-laika">&#xef71;</i></a></h2>
-        
-        <h3 id="_2-13-6" class="section">2.13.6+<a class="anchor-link right" href="#_2-13-6"><i class="icofont-laika">&#xef71;</i></a></h3>
-        <p><em>Should</em> work through the forward compatibility mechanism. There&#39;s nothing fundamental about why it couldn&#39;t be cross compiled for native support, there is simply limited resource availalbe for this project!</p>
-        <p>So, there isn&#39;t really &quot;support&quot; for scala 2 per se, however... if you have scala 2.13.6+, then the library may be used via the forward compatibility mechanism.</p>
-        <p>Noting the below. </p>
-        <pre><code>scala.util.Properties.versionString</code></pre>
-        <p>Will need to say 2.13.6 or higher. To import</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">$ivy</span><span>.</span><span class="identifier">`io.github.quafadas:dedav4s_3:0.5.0`</span></code></pre>
-        <p>i.e. don&#39;t auto derive the artefact version, or use your built tools cross methods.</p>
-        <p>You&#39;ll need the tasty reader scalac flag set true. </p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">interp</span><span>.</span><span class="identifier">configureCompiler</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">settings</span><span>.</span><span class="type-name">YtastyReader</span><span>.</span><span class="identifier">value</span><span> = </span><span class="boolean-literal">true</span><span>)</span></code></pre>
-        <p>Finally, if you wish to use this in an almond or vscode notebook environment with scala 2, you&#39;ll need to interact with the kernel directly. </p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTarget</span><span>.</span><span class="identifier">doNothing</span><span>
-
-</span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">BarChart</span><span>()
-
-</span><span class="identifier">kernel</span><span>.</span><span class="identifier">publish</span><span>.</span><span class="identifier">display</span><span>(
-  </span><span class="identifier">almond</span><span>.</span><span class="identifier">interpreter</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">DisplayData</span><span>(
-    </span><span class="identifier">data</span><span> = </span><span class="type-name">Map</span><span>(      
-      </span><span class="string-literal">&quot;application/vnd.vega.v5+json&quot;</span><span> -&gt; </span><span class="identifier">chart</span><span>.</span><span class="identifier">spec</span><span>
-    )
-  )  
-)</span></code></pre>
-        
-        <h2 id="_2-13-5-and-prior" class="section">2.13.5 and prior<a class="anchor-link right" href="#_2-13-5-and-prior"><i class="icofont-laika">&#xef71;</i></a></h2>
-        <p>Is not supported</p>
-        
-        <h1 id="scala-js" class="section">Scala JS<a class="anchor-link right" href="#scala-js"><i class="icofont-laika">&#xef71;</i></a></h1>
-        <p>I&#39;m unclear if this would make sense. Many of the libraries used don&#39;t cross compile to JS - they could be replaced, but I&#39;m unclear if there is any value in doing so. If you&#39;re in JS land, you already have access to vega... would you really want this?</p>
-        
-        <h1 id="scala-native" class="section">Scala Native<a class="anchor-link right" href="#scala-native"><i class="icofont-laika">&#xef71;</i></a></h1>
-        <p>Is beyond my pay grade. YMMV.</p>
+        <h2 id="vega" class="section">Vega<a class="anchor-link right" href="#vega"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <p><a href="https://vega.github.io/vega/docs/">Vega documentation</a></p>
+        <p><a href="https://vega.github.io/vega-lite/docs/">Vega Lite documentation</a></p>
+        <p><a href="https://observablehq.com">Observable</a></p>
 
       </main>
 
