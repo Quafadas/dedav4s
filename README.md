@@ -3,7 +3,7 @@ Declarative Data Viz 4 Scala - a thin shim around vega and vega lite. It is aime
 
 [Documentation](https://quafadas.github.io/dedav4s/) 
 
-[Video]()
+[Video](https://www.youtube.com/watch?v=_yhDhvYWPBk)
 
 # Elevator pitch
 

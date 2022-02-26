@@ -37,8 +37,8 @@ class CustomSpecs extends munit.FunSuite:
 
   test("Prove we can instantiate these classes, i.e. that their resource exists") {
 
-    SeriesScatter()
-    SimpleRegression()
-    SunburstDrag()
+    SeriesScatter().spec
+    SimpleRegression().spec
+    SunburstDrag().spec
 
   }
