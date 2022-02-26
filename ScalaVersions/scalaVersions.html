@@ -107,7 +107,7 @@
         <p>Noting the below. </p>
         <pre><code>scala.util.Properties.versionString</code></pre>
         <p>Will need to say 2.13.6 or higher. To import</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">$ivy</span><span>.</span><span class="identifier">`io.github.quafadas:dedav4s_3:0.4.1`</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">$ivy</span><span>.</span><span class="identifier">`io.github.quafadas:dedav4s_3:0.5.0`</span></code></pre>
         <p>i.e. don&#39;t auto derive the artefact version, or use your built tools cross methods.</p>
         <p>You&#39;ll need the tasty reader scalac flag set true. </p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">interp</span><span>.</span><span class="identifier">configureCompiler</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">settings</span><span>.</span><span class="type-name">YtastyReader</span><span>.</span><span class="identifier">value</span><span> = </span><span class="boolean-literal">true</span><span>)</span></code></pre>
