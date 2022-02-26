@@ -40,7 +40,7 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
           "category" -> Random.alphanumeric.take(8).mkString(""),
           "amount" -> number.toDouble
         )
-    new BarChart(
+    BarChart(
       List(
         //viz.Utils.fillDiv,
         (spec: Value) => spec("data")(0)("values") = labelToNotShow,
@@ -69,7 +69,7 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
           "x" -> i,
           "y" -> number.toDouble
         )
-    new LineChart(
+    LineChart(
       List((spec: Value) => spec("data")(0)("values") = labelToNotShow) ++ mods
     )
 
@@ -87,7 +87,7 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
           "category" -> label,
           "amount" -> number.toDouble
         )
-    new BarChart(
+    BarChart(
       List((spec: Value) => spec("data")(0)("values") = labelled
       //viz.Utils.fillDiv
       ) ++ mods
@@ -101,7 +101,7 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
           "id" -> label,
           "field" -> number.toDouble
         )
-    new PieChart(
+    PieChart(
       List(
         (spec: Value) => spec("data")(0)("values") = labelled,
         (spec: Value) => spec("height") = 400,
@@ -123,7 +123,7 @@ extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: Pl
     val values = l.map { case (x, y) =>
       ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
     }
-    new ScatterPlot(
+    ScatterPlot(
       List(
         (spec: Value) => spec("data") = ujson.Arr(ujson.Obj("name" -> "source", "values" -> values)),
         (spec: Value) =>
@@ -147,7 +147,7 @@ extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: Pl
     val values = l.map { case (x, y) =>
       ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
     }
-    new SimpleRegression(
+    SimpleRegression(
       List((spec: Value) => spec("data")(0)("values") = values) ++ mods
     )
 
@@ -156,7 +156,7 @@ extension (s: String)(using plotTarget: PlotTarget)
 
 extension (s: Seq[String])(using plotTarget: PlotTarget)
   def plotWordcloud(mods: JsonMod = List()): WordCloud =
-    new WordCloud(
+    WordCloud(
       List(
         (spec: Value) => spec("data")(0)("values").arr.clear(),
         (spec: Value) => spec("data")(0)("values") = s
