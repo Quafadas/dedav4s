@@ -40,8 +40,7 @@ object PlotTargets:
     if pathIsSet then Some(conf.getString("dedavOutPath"))
     else None
 
-  lazy val port : Int = WebsocketVizServer.randomPort
-
+  lazy val port: Int = WebsocketVizServer.randomPort
 
   given doNothing: PlotTarget with
     override def show(spec: String): Unit | os.Path = ()
@@ -119,13 +118,14 @@ object PlotTargets:
       ()
 
   given gitpod: PlotTarget with
-    override def show(spec: String): Unit | os.Path =    
+    override def show(spec: String): Unit | os.Path =
       if WebsocketGitPodServer.firstTime then
-        println(s"starting local server on $port")        
+        println(s"starting local server on $port")
         println(s"Open a browser at https://${WebsocketGitPodServer.port}-${WebsocketGitPodServer.gitpod_address}")
-        println("Your plot request was ignored because it appeared to be the first one and we needed to start a webserver. Try it again...")
-      else
-        requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)      
+        println(
+          "Your plot request was ignored because it appeared to be the first one and we needed to start a webserver. Try it again..."
+        )
+      else requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)
       ()
 
   given png: PlotTarget with

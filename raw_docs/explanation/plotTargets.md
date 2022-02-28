@@ -97,6 +97,34 @@ viz.vega.plots.BarChart(
 ## VSCode 
 Use the almond target and a notebook... 
 
+## Gitpod
+
+Gitpod support is kind of brittle. By default, dedav will attempt to contact port 48485 of a webserver it starts in the pod. It will detect the pod address through the gitpod [environment variables](https://www.gitpod.io/docs/environment-variables). 
+
+You may change the port number, by setting the environment variable ```DEDAV_POD_PORT```. If it is not set, it's default port is 48485.
+
+The port number, you will need to set in the configuration of your gitpod project. In your .gitpod.yml
+
+```
+ports:
+  - port: 48485
+    onOpen: open-browser
+    visibility: public
+```
+48485 is if you do not require a custom port. In your repl, try... 
+
+```scala
+import viz.PlotTargets.gitpod
+import viz.extensions.*
+
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
+
+The duplicates command is deliberate. The first request will be ignored - it starts the webserver behind the scenes. Unfortunately, I can't find a way to wait for that process to finish, and then send the request - gitpod appears to wait to open up the ports, until the command has finished executing. I am outsmarted... 
+
+The second request however... should work... 
+
 ## Do Nothing
 ```scala
 import viz.PlotTargets.doNothing

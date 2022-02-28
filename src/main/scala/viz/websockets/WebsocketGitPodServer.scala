@@ -24,24 +24,22 @@ import java.awt.Desktop
 import io.undertow.websockets.core.WebSocketUtils
 import scala.concurrent.Future
 
-implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-
 object WebsocketGitPodServer extends cask.MainRoutes:
 
-  lazy val conf = org.ekrich.config.ConfigFactory.load()  
+  lazy val conf = org.ekrich.config.ConfigFactory.load()
   var firstTime: Boolean = true
   lazy val randomPort: Int =
     Future {
       initialize()
       main(Array())
     }
-    firstTime = false    
+    firstTime = false
     val portIsConfigured: Boolean = conf.hasPath("gitpod_port")
-    if portIsConfigured then conf.getInt("gitpod_port") else 48485    
+    if portIsConfigured then conf.getInt("gitpod_port") else 48485
 
   override def port = randomPort
-  lazy val gitpod_address : String = s"${sys.env("GITPOD_WORKSPACE_ID")}.${sys.env("GITPOD_WORKSPACE_CLUSTER_HOST")}"
-  lazy val gitpod_postTo : String = s"https://$port-$gitpod_address:443/viz"
+  lazy val gitpod_address: String = s"${sys.env("GITPOD_WORKSPACE_ID")}.${sys.env("GITPOD_WORKSPACE_CLUSTER_HOST")}"
+  lazy val gitpod_postTo: String = s"https://$port-$gitpod_address:443/viz"
 
   //def openBrowserWindow() = Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
 
@@ -94,7 +92,7 @@ object WebsocketGitPodServer extends cask.MainRoutes:
 
   @cask.post("/viz")
   def recievedSpec(request: cask.Request) =
-    val theBody = ujson.read(request.text())    
+    val theBody = ujson.read(request.text())
     channelCheat match
       case None => cask.Response("no client is listening", statusCode = 418)
       case Some(value) =>
