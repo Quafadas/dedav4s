@@ -87,6 +87,7 @@
           <li class="level1"><a href="#websocket">Websocket</a></li>
           <li class="level1"><a href="#almond"><a href="https://www.almond.sh">Almond</a></a></li>
           <li class="level1"><a href="#vscode">VSCode</a></li>
+          <li class="level1"><a href="#gitpod">Gitpod</a></li>
           <li class="level1"><a href="#do-nothing">Do Nothing</a></li>
           <li class="level1"><a href="#printlntarget">printlnTarget</a></li>
           <li class="level1"><a href="#vega-cli-outputs">Vega CLI outputs</a></li>
@@ -151,6 +152,24 @@
         
         <h2 id="vscode" class="section">VSCode<a class="anchor-link right" href="#vscode"><i class="icofont-laika">&#xef71;</i></a></h2>
         <p>Use the almond target and a notebook... </p>
+        
+        <h2 id="gitpod" class="section">Gitpod<a class="anchor-link right" href="#gitpod"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <p>Gitpod support is kind of brittle and needs a little config. By default, dedav will attempt to contact port 48485 of a webserver it starts in the pod. It will detect the pod address through the gitpod <a href="https://www.gitpod.io/docs/environment-variables">environment variables</a>. </p>
+        <p>You may change the port number, by setting the environment variable <code>DEDAV_POD_PORT</code>. If it is not set, it&#39;s default port is 48485.</p>
+        <p>The port number, you will need to set in the configuration of your gitpod project. In your .gitpod.yml</p>
+        <pre><code>ports:
+  - port: 48485
+    onOpen: open-browser
+    visibility: public</code></pre>
+        <p>48485 is if you do not require a custom port. In your repl, try... </p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">gitpod</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
+
+</span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())
+</span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
+        <p>The duplicates command is deliberate. The first request will be ignored - it starts the webserver behind the scenes. Unfortunately, I can&#39;t find a way to wait for that process to finish, and then send the request - gitpod appears to wait to open up the ports, until the command has finished executing. I am outsmarted... </p>
+        <p>The second request however... should work... 
+        <img src="../assets/gitpod_fast.gif" width=90% height=90%/></p>
         
         <h2 id="do-nothing" class="section">Do Nothing<a class="anchor-link right" href="#do-nothing"><i class="icofont-laika">&#xef71;</i></a></h2>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
@@ -321,7 +340,7 @@
 // }
 // res2: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$13706/205959821@2e084066
+//     viz.extensions.extensions$package$$$Lambda$13695/1099917808@253af5cf
 //   )
 // )</span></code></pre>
         
