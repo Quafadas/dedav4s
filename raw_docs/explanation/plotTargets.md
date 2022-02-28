@@ -99,7 +99,7 @@ Use the almond target and a notebook...
 
 ## Gitpod
 
-Gitpod support is kind of brittle. By default, dedav will attempt to contact port 48485 of a webserver it starts in the pod. It will detect the pod address through the gitpod [environment variables](https://www.gitpod.io/docs/environment-variables). 
+Gitpod support is kind of brittle and needs a little config. By default, dedav will attempt to contact port 48485 of a webserver it starts in the pod. It will detect the pod address through the gitpod [environment variables](https://www.gitpod.io/docs/environment-variables). 
 
 You may change the port number, by setting the environment variable ```DEDAV_POD_PORT```. If it is not set, it's default port is 48485.
 
@@ -124,6 +124,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 The duplicates command is deliberate. The first request will be ignored - it starts the webserver behind the scenes. Unfortunately, I can't find a way to wait for that process to finish, and then send the request - gitpod appears to wait to open up the ports, until the command has finished executing. I am outsmarted... 
 
 The second request however... should work... 
+<img src="../assets/gitpod_fast.gif" width=90% height=90% />
 
 ## Do Nothing
 ```scala
