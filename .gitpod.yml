@@ -2,10 +2,9 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: sbt deps    
-    init: sbt compile
+  - init: sbt compile
 
 ports:
-  - port: 8080
+  - port: 48485
     onOpen: open-browser
     visibility: public

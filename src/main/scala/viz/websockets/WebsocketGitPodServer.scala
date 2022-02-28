@@ -28,20 +28,20 @@ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionC
 
 object WebsocketGitPodServer extends cask.MainRoutes:
 
+  lazy val conf = org.ekrich.config.ConfigFactory.load()  
   var firstTime: Boolean = true
   lazy val randomPort: Int =
     Future {
       initialize()
       main(Array())
     }
-    firstTime = false
-    8080 
-    //+ scala.util.Random.nextInt(40000) // hope this doesn't generate a port clash! Probably there is a good way to do this?
-
+    firstTime = false    
+    val portIsConfigured: Boolean = conf.hasPath("gitpod_port")
+    if portIsConfigured then conf.getInt("gitpod_port") else 48485    
 
   override def port = randomPort
   lazy val gitpod_address : String = s"${sys.env("GITPOD_WORKSPACE_ID")}.${sys.env("GITPOD_WORKSPACE_CLUSTER_HOST")}"
-  lazy val gitpod_postTo : String = s"https://$port-$gitpod_address/viz"
+  lazy val gitpod_postTo : String = s"https://$port-$gitpod_address:443/viz"
 
   //def openBrowserWindow() = Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
 

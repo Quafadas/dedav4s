@@ -114,17 +114,18 @@ object PlotTargets:
         println(s"starting local server on $port")
         if !java.awt.GraphicsEnvironment.isHeadless() then
           Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
-        Thread.sleep(1000) // give undertow a chance to start 
+        Thread.sleep(1000) // give undertow a chance to start
       requests.post(s"http://localhost:$port/viz", data = spec)
       ()
 
   given gitpod: PlotTarget with
     override def show(spec: String): Unit | os.Path =    
       if WebsocketGitPodServer.firstTime then
-        println(s"starting local server on $port")
-        Thread.sleep(1000) // give undertow a chance to start
+        println(s"starting local server on $port")        
         println(s"Open a browser at https://${WebsocketGitPodServer.port}-${WebsocketGitPodServer.gitpod_address}")
-      requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)      
+        println("Your plot request was ignored because it appeared to be the first one and we needed to start a webserver. Try it again...")
+      else
+        requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)      
       ()
 
   given png: PlotTarget with
