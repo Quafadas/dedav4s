@@ -4,3 +4,8 @@ image:
 tasks:
   - name: sbt deps    
     init: sbt compile
+
+ports:
+  - port: 8080
+    onOpen: open-browser
+    visibility: public

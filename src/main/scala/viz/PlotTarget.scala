@@ -24,6 +24,7 @@ import almond.api.JupyterAPIHolder.value
 import java.nio.file.Paths
 import java.nio.file.Files
 import viz.websockets.WebsocketVizServer
+import viz.websockets.WebsocketGitPodServer
 import scala.concurrent.Future
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
@@ -38,6 +39,9 @@ object PlotTargets:
     val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
     if pathIsSet then Some(conf.getString("dedavOutPath"))
     else None
+
+  lazy val port : Int = WebsocketVizServer.randomPort
+
 
   given doNothing: PlotTarget with
     override def show(spec: String): Unit | os.Path = ()
@@ -107,14 +111,20 @@ object PlotTargets:
   given websocket: PlotTarget with
     override def show(spec: String): Unit | os.Path =
       if WebsocketVizServer.firstTime then
-        val port = WebsocketVizServer.randomPort
+        println(s"starting local server on $port")
         if !java.awt.GraphicsEnvironment.isHeadless() then
           Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
+        Thread.sleep(1000) // give undertow a chance to start 
+      requests.post(s"http://localhost:$port/viz", data = spec)
+      ()
+
+  given gitpod: PlotTarget with
+    override def show(spec: String): Unit | os.Path =    
+      if WebsocketGitPodServer.firstTime then
+        println(s"starting local server on $port")
         Thread.sleep(1000) // give undertow a chance to start
-        requests.post(s"http://localhost:$port/viz", data = spec)
-      else
-        val port = WebsocketVizServer.randomPort
-        requests.post(s"http://localhost:$port/viz", data = spec)
+        println(s"Open a browser at https://${WebsocketGitPodServer.port}-${WebsocketGitPodServer.gitpod_address}")
+      requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)      
       ()
 
   given png: PlotTarget with
