@@ -28,17 +28,14 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 
 ThisBuild / scalaVersion := "3.1.0"
 
-lazy val root = project
+lazy val root = crossProject(JVMPlatform, JSPlatform)
   .in(file("."))
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.3",
-      "com.lihaoyi" %% "requests" % "0.7.0",
-      "com.lihaoyi" %% "cask" % "0.8.0",
-      "com.lihaoyi" %% "scalatags" % "0.11.1",
-      "com.lihaoyi" %% "os-lib" % "0.8.0",
+      "com.lihaoyi" %% "scalatags" % "0.11.1",      
       "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided)
@@ -53,6 +50,18 @@ lazy val root = project
       "org.jsoup" % "jsoup" % "1.14.3",
       "org.scalameta" %% "munit" % "0.7.29" % Test
     )
+  ).jvmSettings(
+    libraryDependencies ++= Seq(
+      "com.lihaoyi" %% "os-lib" % "0.8.0",
+      "com.lihaoyi" %% "cask" % "0.8.0",
+      "com.lihaoyi" %% "requests" % "0.7.0",
+    )
+  ).jsSettings(
+    libraryDependencies ++= Seq(
+    
+      "org.scala-js" %%% "scalajs-dom" % "2.1.0",
+    )
+    
   )
 
 lazy val jsdocs = project
@@ -122,5 +131,5 @@ lazy val docs = project
       )
       .build
   )
-  .dependsOn(root)
+  .dependsOn(root.jvm)
   .enablePlugins(TypelevelSitePlugin)

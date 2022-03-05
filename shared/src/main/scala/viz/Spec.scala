@@ -16,14 +16,8 @@
 
 package viz
 
-import viz.PlotTarget
-
-trait Spec(using plotTarget: PlotTarget):
+trait Spec:
 
   def spec: String = ???
 
   def jsonSpec = ujson.read(spec)
-
-  def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
-
-  val out: Unit | os.Path = show

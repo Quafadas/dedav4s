@@ -17,13 +17,18 @@
 package viz
 
 import ujson.Value
-import viz.vega.plots.SpecUrl
-import java.net.URI
-import viz.vega.Framework
 
-abstract class FromUrl(val location: SpecUrl)(using PlotTarget) extends WithBaseSpec:
+abstract class WithBaseSpec(val mods: Seq[ujson.Value => Unit] = List())(using PlotTarget) extends Spec with PlatformShow:
 
-  override lazy val baseSpec = location.jsonSpec
+  lazy val baseSpec: ujson.Value = ???
 
-  def viewBaseSpec(f: Framework = Framework.Vega) =
-    java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))
+  /*
+    The idea - start from a base spec, "deep copy" it to prevent mutating "state" of any subclass.
+    Modify the copy with the list of "modifiers"
+
+    Ideally : validate the outcome against a Schema...
+   */
+  override def spec: String =
+    val temp = ujson.read(baseSpec.toString)
+    for m <- mods do m(temp)
+    ujson.write(temp, 2)
