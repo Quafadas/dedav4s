@@ -15,8 +15,8 @@
  */
 
 import viz.extensions.jvm.*
-import viz.PlotTargets.websocket // for local testing
-//import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
+//import viz.PlotTargets.websocket // for local testing
+import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
 import scala.util.Random
 
 class ExtensionSuiteJVM extends munit.FunSuite:
