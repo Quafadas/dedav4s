@@ -19,14 +19,31 @@ package viz
 import org.scalajs.dom.html
 
 trait PlotTarget:
-  def show(spec: String): Unit | html.Div
+  def show(spec: String, parent: html.Div): Unit
 
 object PlotTargets:
-
   lazy val conf = org.ekrich.config.ConfigFactory.load()
 
   given doNothing: PlotTarget with
-    override def show(spec: String): Unit | html.Div = ()
+    override def show(spec: String, parent: html.Div): Unit = ()
+
+  given formatSpec: PlotTarget with
+    override def show(spec: String, parent: html.Div): Unit = parent.innerHTML = spec
 
   given printlnTarget: PlotTarget with
-    override def show(spec: String): Unit | html.Div = println(spec)
+    override def show(spec: String, parent: html.Div): Unit = println(spec)
+
+  given div: PlotTarget with
+    override def show(spec: String, parent: html.Div): Unit =
+      val anId = parent.getAttribute("id")
+      scalajs.js.eval(s"""
+            vegaEmbed('#$anId', $spec, {
+                renderer: "canvas", // renderer (canvas or svg)
+                container: "#$anId", // parent DOM container
+                hover: true, // enable hover processing
+                actions: {
+                    editor : true
+                }
+            }).then(function(result) {
+              console.log(result)
+            })""")

@@ -20,6 +20,4 @@ import viz.PlotTarget
 import org.scalajs.dom.html
 
 trait PlatformShow(using plotTarget: PlotTarget) extends Spec:
-  def show(using plotTarget: PlotTarget): Unit | html.Div = plotTarget.show(spec)
-
-  val out: Unit | html.Div = show
+  def show(inDiv: html.Div)(using plotTarget: PlotTarget): Unit = plotTarget.show(spec, inDiv)

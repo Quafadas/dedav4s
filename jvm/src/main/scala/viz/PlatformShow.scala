@@ -21,4 +21,5 @@ import viz.PlotTarget
 trait PlatformShow(using plotTarget: PlotTarget) extends Spec:
   def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
 
+  // This is the line, which actually triggers plotting the chart
   val out: Unit | os.Path = show
