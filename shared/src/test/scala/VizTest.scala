@@ -16,7 +16,8 @@
 
 package viz
 // import viz.PlotTargets.websocket // for local testing
-import viz.PlotTargets.desktopBrowser // for CI... as we don't have a port available...
+//import viz.PlotTargets.desktopBrowser // for CI... as we don't have a port available...
+import viz.PlotTargets.doNothing
 import scala.util.Random
 import viz.extensions.*
 

@@ -15,15 +15,14 @@
  */
 
 import viz.extensions.*
- import viz.PlotTargets.websocket // for local testing
-//import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
+//import viz.PlotTargets.websocket // for local testing
+import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
 import scala.util.Random
-
 
 class ExtensionSuite extends munit.FunSuite:
   test("extension methods exist... ") {
 
-    val sleepLenth = 1000    
+    val sleepLenth = 0
 
     val randomNumbers1: IndexedSeq[Double] = (0 to 20).map(i => i * Random.nextDouble())
     val randomTuple_Int_Double: IndexedSeq[(Int, Double)] = (0 to 20).map(i => (i, i * Random.nextDouble()))
@@ -53,8 +52,5 @@ class ExtensionSuite extends munit.FunSuite:
 
     Thread.sleep(sleepLenth)
     randomTuple_Int_Double.plotScatter()
-
-    Thread.sleep(sleepLenth)
-    randomTuple_Int_Double.plotRegression()
 
   }

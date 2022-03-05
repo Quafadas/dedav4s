@@ -14,23 +14,14 @@
  * limitations under the License.
  */
 
-package viz
+import viz.extensions.*
+import viz.PlotTargets.websocket // for local testing
+//import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
+import scala.util.Random
 
-import ujson.Value
+class ExtensionSuite extends munit.FunSuite:
+  test("extension methods exist... ") {
 
-abstract class WithBaseSpec(val mods: Seq[ujson.Value => Unit] = List())(using PlotTarget)
-    extends Spec
-    with PlatformShow:
+    randomTuple_Int_Double.plotRegression()
 
-  lazy val baseSpec: ujson.Value = ???
-
-  /*
-    The idea - start from a base spec, "deep copy" it to prevent mutating "state" of any subclass.
-    Modify the copy with the list of "modifiers"
-
-    Ideally : validate the outcome against a Schema...
-   */
-  override def spec: String =
-    val temp = ujson.read(baseSpec.toString)
-    for m <- mods do m(temp)
-    ujson.write(temp, 2)
+  }

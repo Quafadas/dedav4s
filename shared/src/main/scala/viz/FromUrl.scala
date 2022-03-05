@@ -27,4 +27,4 @@ abstract class FromUrl(val location: SpecUrl)(using PlotTarget) extends WithBase
 
 /*   def viewBaseSpec(f: Framework = Framework.Vega): Unit =
     java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))
-*/
+ */
