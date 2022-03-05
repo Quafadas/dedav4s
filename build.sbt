@@ -16,7 +16,7 @@ inThisBuild(
 )
 
 ThisBuild / tlSitePublishBranch := Some("main")
-ThisBuild / tlBaseVersion := "0.5"
+ThisBuild / tlBaseVersion := "0.6"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / licenses := Seq(License.Apache2)
