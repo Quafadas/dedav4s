@@ -87,7 +87,7 @@ lazy val docs = project
     },
     laikaTheme := tlSiteHeliumConfig.value.all
       .metadata(
-        title = Some("Project Name"),
+        title = Some("Dedav4s"),
         language = Some("en"),
         description = Some("Declarative data visualisation for scala"),
         authors = Seq("Simon Parten"),
