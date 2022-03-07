@@ -53,7 +53,7 @@ Which has a browser available...
 
     java.awt.Desktop.browse()
 
-And we browse to the temporary file created in step one.
+And we browse to the temporary file created in step one. On some linux distributions, this may not work. Consider using the websocket target instead.
 
 ## Websocket
 

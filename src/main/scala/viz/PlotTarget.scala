@@ -90,7 +90,27 @@ object PlotTargets:
           os.temp(theHtml, dir = os.Path(path), suffix = ".html", prefix = "plot-")
         case None =>
           os.temp(theHtml, suffix = ".html", prefix = "plot-")
-      Desktop.getDesktop().browse(tempFi.toNIO.toUri())
+      if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
+        Desktop.getDesktop().browse(tempFi.toNIO.toUri())
+      else
+        /* Hail Mary...
+        https://stackoverflow.com/questions/5226212/how-to-open-the-default-webbrowser-using-java
+        If you are reading this part of the source code, it is likely because you had a crash on your OS.
+        It is not easy for me to test all OSs out there!
+        Websockets should work. But...
+        If you wish, consider cloning
+        https://github.com/Quafadas/dedav4s.git
+        run:
+        sbt console
+        Then copy and paste...
+        import viz.PlotTargets.desktopBrowser
+        import viz.extensions.*
+        List(1,4,6,7,4,4).plotBarChart()
+        and you should have a reproduces your crash in a dev environment... and maybe fix for your OS?
+        PR welcome :-) ...
+         */
+        val runtime = java.lang.Runtime.getRuntime();
+        runtime.exec("xdg-open " + tempFi.toNIO.toUri());
       tempFi
 
   /*   given vsCodeNotebook: PlotTarget with
@@ -111,8 +131,12 @@ object PlotTargets:
     override def show(spec: String): Unit | os.Path =
       if WebsocketVizServer.firstTime then
         println(s"starting local server on $port")
-        if !java.awt.GraphicsEnvironment.isHeadless() then
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
           Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
+        else
+          println(
+            s"java.awt.Desktop claims the browse action is not supported in this environment. Consider opening a browser at https://localhost:$port , where you should find your plot"
+          )
         Thread.sleep(1000) // give undertow a chance to start
       requests.post(s"http://localhost:$port/viz", data = spec)
       ()
