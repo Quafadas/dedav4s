@@ -91,16 +91,16 @@
 
         <h1 id="getting-started" class="title">Getting Started</h1>
         <p>To add this library to an sbt project</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">libraryDependencies</span><span> += </span><span class="string-literal">&quot;io.github.quafadas&quot;</span><span> %% </span><span class="string-literal">&quot;dedav4s&quot;</span><span> % </span><span class="string-literal">&quot;0.5.1&quot;</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">libraryDependencies</span><span> += </span><span class="string-literal">&quot;io.github.quafadas&quot;</span><span> %% </span><span class="string-literal">&quot;dedav4s&quot;</span><span> % </span><span class="string-literal">&quot;0.5.3&quot;</span></code></pre>
         <p>To use this library in ammonite / mill</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">$ivy</span><span>.</span><span class="identifier">`io.github.quafadas::dedav4s:0.5.1`</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">$ivy</span><span>.</span><span class="identifier">`io.github.quafadas::dedav4s:0.5.3`</span></code></pre>
         <p>Fire up an sbt console (or in a repl... )</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">desktopBrowser</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*</span></code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">6</span><span>,</span><span class="number-literal">7</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>).</span><span class="identifier">plotBarChart</span><span>()
 </span><span class="comment">// res1: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$13740/358668398@3ff03d8d,
+//     viz.extensions.extensions$package$$$Lambda$13773/1335916083@5a6d0361,
 //     remove X axis
 //   )
 // )</span></code></pre>
@@ -110,9 +110,9 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">6</span><span>,</span><span class="number-literal">7</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
 </span><span class="comment">// res3: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$13740/358668398@6922b8cd,
+//     viz.extensions.extensions$package$$$Lambda$13773/1335916083@5dde1abd,
 //     remove X axis,
-//     viz.Utils$$$Lambda$12117/938417709@5f5fd4b9
+//     viz.Utils$$$Lambda$12132/504130821@268f336c
 //   )
 // )</span></code></pre>
         <div id="mdoc-html-run1" data-mdoc-js></div>
