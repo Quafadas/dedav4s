@@ -34,11 +34,11 @@ trait PlotTarget:
 
 object PlotTargets:
 
-  def openBrowserWindow(uri: java.net.URI) : Unit =
-      if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
-        Desktop.getDesktop().browse(uri)
-      else
-        /* Hail Mary...
+  def openBrowserWindow(uri: java.net.URI): Unit =
+    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
+      Desktop.getDesktop().browse(uri)
+    else
+      /* Hail Mary...
         https://stackoverflow.com/questions/5226212/how-to-open-the-default-webbrowser-using-java
         If you are reading this part of the source code, it is likely because you had a crash on your OS.
         It is not easy for me to test all OSs out there!
@@ -53,10 +53,9 @@ object PlotTargets:
         List(1,4,6,7,4,4).plotBarChart()
         and you should have a reproduces your crash in a dev environment... and maybe fix for your OS?
         PR welcome :-) ...
-         */
-        val runtime = java.lang.Runtime.getRuntime();
-        runtime.exec("xdg-open " + uri);
-
+       */
+      val runtime = java.lang.Runtime.getRuntime();
+      runtime.exec("xdg-open " + uri);
 
   lazy val conf = org.ekrich.config.ConfigFactory.load()
   lazy val outPath: Option[String] =
