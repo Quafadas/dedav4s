@@ -41,14 +41,6 @@ object WebsocketVizServer extends cask.MainRoutes:
 
   override def port = randomPort
 
-  def openBrowserWindow() =
-    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
-      Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
-    else
-      println(
-        s"java.awt.Desktop claims the browse action is not supported in this environment. Consider opening a browser at https://localhost:$port , where you should find your plot"
-      )
-
   @cask.get("/")
   def home() =
     html(
