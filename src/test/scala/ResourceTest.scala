@@ -29,5 +29,5 @@ class ResourceTest extends munit.FunSuite:
     // by default, these are not set
     assertEquals(conf.hasPath("dedavOutPath"), false)
     assertEquals(conf.hasPath("gitpod_port"), false)
-    
+
   }
