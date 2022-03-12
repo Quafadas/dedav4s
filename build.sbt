@@ -61,8 +61,15 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
   .jsSettings(
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+    ),
+    useYarn := true,
+      Compile / npmDependencies ++= Seq(
+        "vega-typings" -> "0.22.2",
+        "vega-embed" -> "6.20.8",
+        "vega" -> "5.22.0",
+        "vega-lite" -> "5.2.0"
     )
-  )
+  ).enablePlugins(ScalablyTypedConverterPlugin)
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
