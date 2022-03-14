@@ -18,8 +18,10 @@ package viz
 
 import viz.vega.Framework
 import viz.vega.Framework.*
-import scala.concurrent.Await
 import scala.concurrent.Future
+import org.scalajs.dom.XMLHttpRequest
+import org.scalajs.dom.Event
+import scala.scalajs.js
 
 trait PlatformGetSpec:
 
@@ -30,19 +32,20 @@ trait PlatformGetSpec:
   val url: String
 
   // I am aware this is naughty, but everything else is synchronous...
-  lazy val jsonSpec: ujson.Value = Await.result(
-    f match
+  lazy val jsonSpec: ujson.Value = f match
       case Vega =>
-        for
-          response <- org.scalajs.dom.fetch(url)
-          text <- response.text()
-        yield ujson.read(text)
+        val xhr = new XMLHttpRequest()
+        xhr.open("GET",url,false)
+        xhr.send()
+        ujson.read(xhr.responseText)
 
-      case VegaLite => Future(ujson.read(""))
-    ,
-    scala.concurrent.duration.Duration.Inf
-  )
-/*       val page = Jsoup.connect(url).get
-      val pre = page.select(".language-json")
-      val code = pre.asScala.head.text
-      ujson.read(code) */
+      case VegaLite =>  
+        val xhr = new XMLHttpRequest()
+        xhr.open("GET",url,false)        
+        xhr.send()
+        val text = xhr.responseText        
+        val parser = new org.scalajs.dom.DOMParser        
+        val virtualDoc = parser.parseFromString(text, org.scalajs.dom.MIMEType.`text/html`)
+        val something = virtualDoc.querySelector(".example-spec")        
+        ujson.read(something.textContent)
+        

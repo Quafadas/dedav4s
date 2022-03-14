@@ -47,5 +47,27 @@ Is not supported
 # Scala JS
 I'm unclear if this would make sense. Many of the libraries used don't cross compile to JS - they could be replaced, but I'm unclear if there is any value in doing so. If you're in JS land, you already have access to vega... would you really want this?
 
+```scala mdoc:js
+<p>I am a custom <code>loader</code></p>
+---
+println(node.innerHTML)
+```
+
+```scala mdoc:js
+import viz.PlotTargets.div
+import org.scalajs.dom
+import scala.util.Random
+import org.scalajs.dom.Element
+import org.scalajs.dom.html
+
+val child = dom.document.createElement("div")
+val anId = "vega" + Random.alphanumeric.take(8).mkString("")
+child.id = anId
+node.appendChild(child)
+child.setAttribute("style", s"width:50vmin;height:50vmin")
+val chart = viz.vega.plots.GroupedBarChartLite(List(viz.Utils.fillDiv))
+chart.show(child.asInstanceOf[html.Div])
+```
+
 # Scala Native
-Is beyond my pay grade. YMMV.
+Not totally sure how it fits... I guess you'd use scala-js hosted from a webserver.

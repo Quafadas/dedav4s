@@ -34,9 +34,9 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
     name := "dedav4s",
     description := "Declarative data viz for scala",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "upickle" % "1.4.3",
-      "com.lihaoyi" %% "scalatags" % "0.11.1",
-      "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala
+      "com.lihaoyi" %%% "upickle" % "1.4.3",
+      "com.lihaoyi" %%% "scalatags" % "0.11.1",
+      "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".4"))
@@ -69,6 +69,7 @@ lazy val jsdocs = project
   .settings(
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
   )
+  .dependsOn(root.js)
   .enablePlugins(ScalaJSPlugin)
 
 lazy val docs = project
@@ -78,6 +79,7 @@ lazy val docs = project
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
+      "js-opt"->"fast",
       "js-batch-mode" -> "true",
       "js-html-header" ->
         """
