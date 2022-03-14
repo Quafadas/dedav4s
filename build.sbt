@@ -25,6 +25,7 @@ ThisBuild / developers := List(
   tlGitHubDev("quafadas", "Simon Parten")
 )
 ThisBuild / tlSonatypeUseLegacyHost := false
+ThisBuild / tlCiReleaseBranches := Seq("scalajs")
 
 ThisBuild / scalaVersion := "3.1.0"
 
