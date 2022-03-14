@@ -79,7 +79,7 @@ lazy val docs = project
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
-      "js-opt"->"fast",
+      "js-opt" -> "fast",
       "js-batch-mode" -> "true",
       "js-html-header" ->
         """
