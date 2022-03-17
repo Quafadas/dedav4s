@@ -19,7 +19,7 @@ package viz
 import viz.PlotTarget
 import org.scalajs.dom.html
 
-type PlotTarget = html.Div | laminar.Div
+type PlotTarget = html.Div
 
 trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:  
   def show[A](inDiv: A): Unit = inDiv match {
