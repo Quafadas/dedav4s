@@ -21,16 +21,15 @@ import org.scalajs.dom.html
 
 type PlotTarget = html.Div
 
-trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:  
-  def show[A](inDiv: A): Unit = inDiv match {
+trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
+  def show[A](inDiv: A): Unit = inDiv match
     case scalaJsDomDiv: html.Div =>
       val typedDiv = inDiv.asInstanceOf[html.Div]
       val anId = typedDiv.id
-      val newId = if(anId.isEmpty) 
+      val newId = if anId.isEmpty then
         val temp = java.util.UUID.randomUUID()
-          typedDiv.setAttribute("id", temp.toString())
-        else 
-          anId
+        typedDiv.setAttribute("id", temp.toString())
+      else anId
       scalajs.js.eval(s"""
             vegaEmbed('#$newId', $spec, {
                 renderer: "canvas", // renderer (canvas or svg)
@@ -40,6 +39,5 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
                     editor : true
                 }
             })""")
-  } 
 
   val doShow = show(plotTarget)
