@@ -18,9 +18,8 @@ package viz
 
 import ujson.Value
 
-abstract class WithBaseSpec(val mods: Seq[ujson.Value => Unit] = List())(using PlotTarget)
-    extends Spec
-    with PlatformShow:
+abstract class WithBaseSpec(val mods: Seq[ujson.Value => Unit] = List())(using PlotTarget)    
+    extends PlatformShow:
 
   lazy val baseSpec: ujson.Value = ???
 
