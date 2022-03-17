@@ -47,52 +47,32 @@ Is not supported
 # Scala JS
 What turns out to be really nice about this, is the seamless transition between exploration in a repl, e.g. sbt console, and subsequent publication if you already happen to be in a full stack environment. 
 
-It turns out to be (initially finickity), but afterwards fairly simple to use in Scala JS. There is a little more ceremony than with a repl, because we need to respect the charts position in the document. i.e. find it a parent.
+It turns out to be fairly simple to use in Scala JS. There is a little more ceremony than with a repl, because we need to respect the charts position in the document. i.e. find it a parent.
 
-The "node" variable comes from mdoc. It is the dom element provided by mdoc which is displayed for this code fence. We modify it by providing a size, and giving it an identifier. In a "proper" application, you'd need to create (and append) a div element to your webpage, where you want it. Fairly obviously...
+The "node" variable comes from mdoc. It is the dom element provided by mdoc which is displayed for this code fence. We modify it by providing a size, and giving it an identifier. In a "proper" application, you'd need to create a div element. Then create the chart, and feed it this Div. Then append that div element to your parent element on the webpage, where you want it. 
 
-Our parent node (with a good ID) is then passed to the "show" method of the chart - the node id is used to embed the vega graph, so make sure to have a good ID.
+The node of interest passed (as a given) when instantiating the chart. The current supported framework is scala js dom. 
 
 ```scala mdoc:js
-import viz.PlotTargets.div
-import scala.util.Random
-import org.scalajs.dom.html
-
-val anId = "vega" + Random.alphanumeric.take(8).mkString("")
-node.id = anId
 node.setAttribute("style", s"width:50vmin;height:50vmin")
-val chart = viz.vega.plots.GroupedBarChartLite(List(viz.Utils.fillDiv))
-chart.show(node.asInstanceOf[html.Div])
+val chart = viz.vega.plots.GroupedBarChartLite(List(viz.Utils.fillDiv))(using node.asInstanceOf[viz.PlotTarget])
 ```
 
 Just to prove we can have more than one chart on a page... and that the vega examples work.
 
 ```scala mdoc:js
-import viz.PlotTargets.div
-import scala.util.Random
-import org.scalajs.dom.html
-
-val anId = "vega" + Random.alphanumeric.take(8).mkString("")
-node.id = anId
+import viz.vega.plots.BarChart
 node.setAttribute("style", s"width:50vmin;height:50vmin")
-val chart = viz.vega.plots.BarChart(List(viz.Utils.fillDiv))
-chart.show(node.asInstanceOf[html.Div])
+val chart = BarChart(List(viz.Utils.fillDiv))(using node.asInstanceOf[viz.PlotTarget])
 ```
 Let's see if the extension methods work. 
 
 ```scala mdoc:js
-import viz.PlotTargets.div
 import viz.extensions.*
-import scala.util.Random
-import org.scalajs.dom.html
 
-val anId = "vega" + Random.alphanumeric.take(8).mkString("")
-node.id = anId
 node.setAttribute("style", s"width:50vmin;height:50vmin")
+given n: viz.PlotTarget = node.asInstanceOf[viz.PlotTarget]
 val chart = List(1,5,7,3,20).plotBarChart(List(viz.Utils.fillDiv))
-chart.show(node.asInstanceOf[html.Div])
 ```
-
-
 # Scala Native
 Not totally sure how it fits... I guess you'd use scala-js hosted from a webserver.

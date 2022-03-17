@@ -17,7 +17,6 @@
 package viz
 
 trait Spec:
-
   def spec: String = ???
 
   def jsonSpec = ujson.read(spec)

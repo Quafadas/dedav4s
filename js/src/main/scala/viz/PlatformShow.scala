@@ -19,5 +19,27 @@ package viz
 import viz.PlotTarget
 import org.scalajs.dom.html
 
-trait PlatformShow(using plotTarget: PlotTarget) extends Spec:
-  def show(inDiv: html.Div)(using plotTarget: PlotTarget): Unit = plotTarget.show(spec, inDiv)
+type PlotTarget = html.Div | laminar.Div
+
+trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:  
+  def show[A](inDiv: A): Unit = inDiv match {
+    case scalaJsDomDiv: html.Div =>
+      val typedDiv = inDiv.asInstanceOf[html.Div]
+      val anId = typedDiv.id
+      val newId = if(anId.isEmpty) 
+        val temp = java.util.UUID.randomUUID()
+          typedDiv.setAttribute("id", temp.toString())
+        else 
+          anId
+      scalajs.js.eval(s"""
+            vegaEmbed('#$newId', $spec, {
+                renderer: "canvas", // renderer (canvas or svg)
+                container: "#$newId", // parent DOM container
+                hover: true, // enable hover processing
+                actions: {
+                    editor : true
+                }
+            })""")
+  } 
+
+  val doShow = show(plotTarget)
