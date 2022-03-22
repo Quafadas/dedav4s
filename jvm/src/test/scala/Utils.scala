@@ -16,8 +16,37 @@
 
 import viz.PlotTargets.doNothing
 import viz.vega.plots.SeriesScatter
+import viz.WithBaseSpec
 
 class CheckUtils extends munit.FunSuite:
+
+  test{"spec with existing height signal, gets overriten"} {
+    val specStart = ujson.read("""{  
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "signals": [
+    {
+      "name": "rangeStep", "value": 20,
+      "bind": {"input": "range", "min": 5, "max": 50, "step": 1}
+    },
+    {
+      "name": "height",
+      "update": "trellisExtent[1]"
+    }
+  ]}""")
+    class TestSpec(val baseSpecIn:ujson.Value, override val mods: viz.vega.plots.JsonMod = List()) extends WithBaseSpec {
+      override lazy val baseSpec = baseSpecIn
+    }    
+    
+    val out = TestSpec(specStart, List(viz.Utils.fillDiv)).jsonSpec
+
+    val numberSignals = out("signals").arr.length
+    assertEquals(numberSignals, 3) // Should have added width, replaced height
+    val names = out("signals").arr.map(in => in("name").str)
+    assert(names.contains("height"))
+    assert(names.contains("width"))
+
+
+  }
 
   test("check axis removal") {
 

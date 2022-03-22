@@ -68,8 +68,8 @@ object Utils:
         spec("height") = "container"
       else
         if spec.obj.keys.toSeq.contains("signals") then
-          spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "width")
-          spec("signals").arr.dropWhileInPlace(signal => signal("name").str.toLowerCase() == "height")
+          val tmp =spec("signals").arr.filterNot(sig => sig("name").str == "height" || sig("name").str == "width" )         
+          spec("signals") = tmp
         else spec("signals") = ujson.Arr()
         spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
         spec("signals").arr.append(signalH).append(signalW)
