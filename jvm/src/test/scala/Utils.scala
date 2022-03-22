@@ -20,7 +20,7 @@ import viz.WithBaseSpec
 
 class CheckUtils extends munit.FunSuite:
 
-  test{"spec with existing height signal, gets overriten"} {
+  test("spec with existing height signal, gets overriten") {
     val specStart = ujson.read("""{  
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "signals": [
@@ -33,10 +33,10 @@ class CheckUtils extends munit.FunSuite:
       "update": "trellisExtent[1]"
     }
   ]}""")
-    class TestSpec(val baseSpecIn:ujson.Value, override val mods: viz.vega.plots.JsonMod = List()) extends WithBaseSpec {
+    class TestSpec(val baseSpecIn: ujson.Value, override val mods: viz.vega.plots.JsonMod = List())
+        extends WithBaseSpec:
       override lazy val baseSpec = baseSpecIn
-    }    
-    
+
     val out = TestSpec(specStart, List(viz.Utils.fillDiv)).jsonSpec
 
     val numberSignals = out("signals").arr.length
@@ -44,7 +44,6 @@ class CheckUtils extends munit.FunSuite:
     val names = out("signals").arr.map(in => in("name").str)
     assert(names.contains("height"))
     assert(names.contains("width"))
-
 
   }
 
