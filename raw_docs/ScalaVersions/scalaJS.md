@@ -65,12 +65,12 @@ import scala.util.Random
 import viz.Utils
 import viz.vega.plots.NestedBarChart
 import viz.PlotTarget
-val plotDiv = dom.document.createElement("div")
+val plotDiv = dom.document.createElement("div").asInstanceOf[dom.html.Div]
 val anId = "vega" + Random.alphanumeric.take(8).mkString("")
 plotDiv.id = anId
 plotDiv.setAttribute("style", s"width:50vmin;height:300px")
 node.appendChild(plotDiv)
-NestedBarChart(List(Utils.fillDiv))(using plotDiv.asInstanceOf[PlotTarget])
+NestedBarChart(List(Utils.fillDiv))(using plotDiv)
 ```
 
 
