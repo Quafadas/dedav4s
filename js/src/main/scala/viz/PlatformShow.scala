@@ -29,12 +29,17 @@ type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
 trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
   def show[A](inDiv: A): Unit = inDiv match
     case scalaJsDomDiv: html.Div =>
+      println("Plot in div?")
       val typedDiv = inDiv.asInstanceOf[html.Div]
       val anId = typedDiv.id
+      println(anId)
       val newId = if anId.isEmpty then
         val temp = java.util.UUID.randomUUID()
         typedDiv.setAttribute("id", temp.toString())
-      else anId
+      else 
+        anId
+      println(anId)  
+      println(spec)
       scalajs.js.eval(s"""
             embed('#$newId', $spec, {
                 renderer: "canvas", // renderer (canvas or svg)
