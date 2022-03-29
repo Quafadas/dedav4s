@@ -27,28 +27,7 @@ enum BundleStrategy:
 type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
 
 trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
-  def show[A](inDiv: A): Unit = inDiv match
-    case scalaJsDomDiv: html.Div =>
-      println("Plot in div?")
-      val typedDiv = inDiv.asInstanceOf[html.Div]
-      val anId = typedDiv.id
-      println(anId)
-      val newId = if anId.isEmpty then
-        val temp = java.util.UUID.randomUUID()
-        typedDiv.setAttribute("id", temp.toString())
-      else 
-        anId
-      println(anId)  
-      println(spec)
-      scalajs.js.eval(s"""
-            embed('#$newId', $spec, {
-                renderer: "canvas", // renderer (canvas or svg)
-                container: "#$newId", // parent DOM container
-                hover: true, // enable hover processing
-                actions: {
-                    editor : true
-                }
-            })""")
+  def show[A](inDiv: A): Unit = inDiv match    
     case (inDiv: html.Div, b: BundleStrategy) =>
       b match
         case BundleStrategy.BrowserDirect =>
@@ -69,3 +48,23 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
               })""")
 
         case BundleStrategy.Bundler => show(inDiv) // this is the default, as it is assumed what most people will want
+
+    case scalaJsDomDiv: html.Div =>      
+      val typedDiv = inDiv.asInstanceOf[html.Div]
+      val anId = typedDiv.id      
+      val newId = if anId.isEmpty then
+        val temp = java.util.UUID.randomUUID()
+        typedDiv.setAttribute("id", temp.toString())
+      else 
+        anId
+      scalajs.js.eval(s"""
+            vegaEmbed('#$newId', $spec, {
+                renderer: "canvas", // renderer (canvas or svg)
+                container: "#$newId", // parent DOM container
+                hover: true, // enable hover processing
+                actions: {
+                    editor : true
+                }
+            })""")
+
+    val doShow = show(plotTarget)
