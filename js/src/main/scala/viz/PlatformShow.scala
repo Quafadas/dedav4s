@@ -57,7 +57,7 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
         typedDiv.setAttribute("id", temp.toString())
       else anId
       scalajs.js.eval(s"""
-            vegaEmbed('#$newId', $spec, {
+            embed('#$newId', $spec, {
                 renderer: "canvas", // renderer (canvas or svg)
                 container: "#$newId", // parent DOM container
                 hover: true, // enable hover processing
