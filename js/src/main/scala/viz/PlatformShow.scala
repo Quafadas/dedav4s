@@ -19,7 +19,12 @@ package viz
 import viz.PlotTarget
 import org.scalajs.dom.html
 
-type PlotTarget = html.Div
+enum BundleStrategy:
+  case BrowserDirect
+  case Bundler
+
+//case class PlotTarget(in:html.Div, bundleStrategy: BundlerStrategy.Bund)
+type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
 
 trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
   def show[A](inDiv: A): Unit = inDiv match
@@ -31,7 +36,7 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
         typedDiv.setAttribute("id", temp.toString())
       else anId
       scalajs.js.eval(s"""
-            vegaEmbed('#$newId', $spec, {
+            embed('#$newId', $spec, {
                 renderer: "canvas", // renderer (canvas or svg)
                 container: "#$newId", // parent DOM container
                 hover: true, // enable hover processing
@@ -39,5 +44,22 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
                     editor : true
                 }
             })""")
+    case (inDiv: html.Div, b: BundleStrategy) => b match 
+      case BundleStrategy.BrowserDirect => 
+        val typedDiv = inDiv.asInstanceOf[html.Div]
+        val anId = typedDiv.id
+        val newId = if anId.isEmpty then
+          val temp = java.util.UUID.randomUUID()
+          typedDiv.setAttribute("id", temp.toString())
+        else anId
+        scalajs.js.eval(s"""
+              vegaEmbed('#$newId', $spec, {
+                  renderer: "canvas", // renderer (canvas or svg)
+                  container: "#$newId", // parent DOM container
+                  hover: true, // enable hover processing
+                  actions: {
+                      editor : true
+                  }
+              })""")
 
-  val doShow = show(plotTarget)
+      case BundleStrategy.Bundler => show(inDiv) // this is the default, as it is assumed what most people will want
