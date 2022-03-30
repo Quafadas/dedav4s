@@ -18,16 +18,19 @@ package viz
 
 import viz.PlotTarget
 import org.scalajs.dom.html
+import scala.scalajs.js.JSON
 
 enum BundleStrategy:
   case BrowserDirect
   case Bundler
+  case MDoc
 
 //case class PlotTarget(in:html.Div, bundleStrategy: BundlerStrategy.Bund)
 type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
 
 trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
-  def show[A](inDiv: A): Unit = inDiv match
+  def show[A](inDiv: A): Unit = 
+    inDiv match
     case (inDiv: html.Div, b: BundleStrategy) =>
       b match
         case BundleStrategy.BrowserDirect =>
@@ -36,7 +39,7 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
           val newId = if anId.isEmpty then
             val temp = java.util.UUID.randomUUID()
             typedDiv.setAttribute("id", temp.toString())
-          else anId
+          else anId                    
           scalajs.js.eval(s"""
               vegaEmbed('#$newId', $spec, {
                   renderer: "canvas", // renderer (canvas or svg)
@@ -47,7 +50,28 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
                   }
               })""")
 
-        case BundleStrategy.Bundler => show(inDiv) // this is the default, as it is assumed what most people will want
+        case BundleStrategy.MDoc => show(inDiv) // this is the default, as it is assumed what most people will want
+        case BundleStrategy.Bundler => 
+              println("bundler")
+              val typedDiv = inDiv.asInstanceOf[html.Div]
+              val anId = typedDiv.id
+              val newId = if anId.isEmpty then
+                val temp = java.util.UUID.randomUUID()
+                typedDiv.setAttribute("id", temp.toString())
+              else anId
+                  
+              viz.vega.facades.VegaEmbed.embed(s"#$newId", JSON.parse(spec), JSON.parse(
+              s"""
+              {
+                  renderer: "canvas",
+                  container: "#$newId",
+                  hover: true,
+                  actions: {
+                      editor : true
+              }
+              """
+            ) 
+          )
 
     case scalaJsDomDiv: html.Div =>
       val typedDiv = inDiv.asInstanceOf[html.Div]

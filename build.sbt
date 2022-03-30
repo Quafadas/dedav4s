@@ -60,6 +60,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
     )
   )
   .jsSettings(
+    //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     )
@@ -68,7 +69,10 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
 lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
+    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.ESModule) },
+    scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+    
   )
   .dependsOn(root.js)
   .enablePlugins(ScalaJSPlugin)
@@ -76,12 +80,12 @@ lazy val jsdocs = project
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
-    mdocJS := Some(jsdocs),
+    mdocJS := Some(jsdocs),        
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
       "js-opt" -> "fast",
-      "js-batch-mode" -> "true",
+      "js-batch-mode" -> "true",      
       "js-html-header" ->
         """
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
