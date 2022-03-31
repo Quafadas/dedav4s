@@ -19,6 +19,7 @@ package viz
 import viz.PlotTarget
 import org.scalajs.dom.html
 import scala.scalajs.js.JSON
+import viz.embed.vegaEmbed.mod.default as embed
 
 enum BundleStrategy:
   case BrowserDirect
@@ -29,65 +30,46 @@ enum BundleStrategy:
 type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
 
 trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
-  def show[A](inDiv: A): Unit = 
+  def show[A](inDiv: A): Unit =
     inDiv match
-    case (inDiv: html.Div, b: BundleStrategy) =>
-      b match
-        case BundleStrategy.BrowserDirect =>
-          val typedDiv = inDiv.asInstanceOf[html.Div]
-          val anId = typedDiv.id
-          val newId = if anId.isEmpty then
-            val temp = java.util.UUID.randomUUID()
-            typedDiv.setAttribute("id", temp.toString())
-          else anId                    
-          scalajs.js.eval(s"""
-              vegaEmbed('#$newId', $spec, {
-                  renderer: "canvas", // renderer (canvas or svg)
-                  container: "#$newId", // parent DOM container
-                  hover: true, // enable hover processing
-                  actions: {
-                      editor : true
-                  }
-              })""")
+      case (inDiv: html.Div, b: BundleStrategy) =>
+        b match
+          case BundleStrategy.BrowserDirect =>
+            val typedDiv = inDiv.asInstanceOf[html.Div]
+            val anId = typedDiv.id
+            val newId = if anId.isEmpty then
+              val temp = java.util.UUID.randomUUID()
+              typedDiv.setAttribute("id", temp.toString())
+            else anId
+            val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
+            opts.setActions(true)
+            opts.setHover(true)
+            val aPromise = embed(s"#$anId", spec, opts)
 
-        case BundleStrategy.MDoc => show(inDiv) // this is the default, as it is assumed what most people will want
-        case BundleStrategy.Bundler => 
-              println("bundler")
-              val typedDiv = inDiv.asInstanceOf[html.Div]
-              val anId = typedDiv.id
-              val newId = if anId.isEmpty then
-                val temp = java.util.UUID.randomUUID()
-                typedDiv.setAttribute("id", temp.toString())
-              else anId
-                  
-              viz.vega.facades.VegaEmbed.embed(s"#$newId", JSON.parse(spec), JSON.parse(
-              s"""
-              {
-                  renderer: "canvas",
-                  container: "#$newId",
-                  hover: true,
-                  actions: {
-                      editor : true
-              }
-              """
-            ) 
-          )
+          case BundleStrategy.MDoc => show(inDiv) // this is the default, as it is assumed what most people will want
+          case BundleStrategy.Bundler =>
+            println("bundler")
+            val typedDiv = inDiv.asInstanceOf[html.Div]
+            val anId = typedDiv.id
+            val newId = if anId.isEmpty then
+              val temp = java.util.UUID.randomUUID()
+              typedDiv.setAttribute("id", temp.toString())
+            else anId
+            val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
+            opts.setActions(true)
+            opts.setHover(true)
+            val aPromise = embed(s"#$newId", spec, opts)
 
-    case scalaJsDomDiv: html.Div =>
-      val typedDiv = inDiv.asInstanceOf[html.Div]
-      val anId = typedDiv.id
-      val newId = if anId.isEmpty then
-        val temp = java.util.UUID.randomUUID()
-        typedDiv.setAttribute("id", temp.toString())
-      else anId
-      scalajs.js.eval(s"""
-            embed('#$newId', $spec, {
-                renderer: "canvas", // renderer (canvas or svg)
-                container: "#$newId", // parent DOM container
-                hover: true, // enable hover processing
-                actions: {
-                    editor : true
-                }
-            })""")
+      case scalaJsDomDiv: html.Div =>
+        val typedDiv = inDiv.asInstanceOf[html.Div]
+        val anId = typedDiv.id
+        val newId = if anId.isEmpty then
+          val temp = java.util.UUID.randomUUID()
+          typedDiv.setAttribute("id", temp.toString())
+        else anId
+        val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
+        opts.setActions(true)
+        opts.setHover(true)
+        val aPromise = embed(s"#$anId", spec, opts)
 
   val doShow = show(plotTarget)

@@ -25,7 +25,7 @@ ThisBuild / developers := List(
   tlGitHubDev("quafadas", "Simon Parten")
 )
 ThisBuild / tlSonatypeUseLegacyHost := false
-ThisBuild / tlCiReleaseBranches := Seq("scalajs")
+ThisBuild / tlCiReleaseBranches := Seq("st2")
 
 ThisBuild / scalaVersion := "3.1.0"
 
@@ -34,6 +34,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
+    stOutputPackage := "viz.embed",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "1.4.3",
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
@@ -63,8 +64,19 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
     //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+    ),
+    webpackBundlingMode := BundlingMode.LibraryOnly(),
+    stMinimize := Selection.AllExcept("vega-embed"),
+    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
+    useYarn := true,
+    Compile / npmDependencies ++= Seq(
+      "vega-typings" -> "0.22.2",
+      "vega-embed" -> "6.20.8",
+      "vega" -> "5.22.0",
+      "vega-lite" -> "5.2.0"
     )
   )
+  .enablePlugins(ScalablyTypedConverterGenSourcePlugin)
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
@@ -72,7 +84,6 @@ lazy val jsdocs = project
     scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.ESModule) },
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
-    
   )
   .dependsOn(root.js)
   .enablePlugins(ScalaJSPlugin)
@@ -80,12 +91,12 @@ lazy val jsdocs = project
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
-    mdocJS := Some(jsdocs),        
+    mdocJS := Some(jsdocs),
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
       "js-opt" -> "fast",
-      "js-batch-mode" -> "true",      
+      "js-batch-mode" -> "true",
       "js-html-header" ->
         """
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
