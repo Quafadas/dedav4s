@@ -19,13 +19,10 @@ package jsdocs
 //import viz.embed.vegaEmbed.mod.^
 import viz.docs.vegaEmbed.mod.^
 
-object Main {
-  def main(args: Array[String]): Unit = {
+object Main:
+  def main(args: Array[String]): Unit =
 
-    val opts = viz.docs.vegaEmbed.mod.EmbedOptions[String, viz.docs.vegaTypings.rendererMod.Renderers ]()
+    val opts = viz.docs.vegaEmbed.mod.EmbedOptions[String, viz.docs.vegaTypings.rendererMod.Renderers]()
     opts.setActions(true)
     opts.setHover(true)
-    val aPromise = viz.docs.vegaEmbed.mod.default(s"#bah", s"json", opts)    
-    
-  }
-}
+    val aPromise = viz.docs.vegaEmbed.mod.default(s"#bah", s"json", opts)
