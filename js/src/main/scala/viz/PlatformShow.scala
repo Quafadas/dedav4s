@@ -22,7 +22,6 @@ import scala.scalajs.js.JSON
 import viz.embed.vegaEmbed.mod.default as embedV
 import viz.embed.vegaTypings.specMod.Spec as embedTypings
 
-
 enum BundleStrategy:
   case BrowserDirect
   case Bundler
