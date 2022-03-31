@@ -34,7 +34,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
-    stOutputPackage := "viz.embed",
+    stOutputPackage := "viz.vega",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "1.4.3",
       "com.lihaoyi" %%% "scalatags" % "0.11.1",

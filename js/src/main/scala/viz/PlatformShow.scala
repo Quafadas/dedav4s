@@ -19,62 +19,23 @@ package viz
 import viz.PlotTarget
 import org.scalajs.dom.html
 import scala.scalajs.js.JSON
-import viz.embed.vegaEmbed.mod.default as embedV
-import viz.embed.vegaTypings.specMod.Spec as embedTypings
-
-enum BundleStrategy:
-  case BrowserDirect
-  case Bundler
-  case MDoc
 
 //case class PlotTarget(in:html.Div, bundleStrategy: BundlerStrategy.Bund)
-type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
+//type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
+type PlotTarget = html.Div
+trait PlatformShow(implicit plotTarget: PlotTarget | html.Div) extends Spec:
+  def show(inDiv: html.Div): Unit =
+    val anId = inDiv.id
+    val newId = if anId.isEmpty then
+      val temp = java.util.UUID.randomUUID()
+      inDiv.setAttribute("id", temp.toString())
+    else anId
+    val opts = viz.vega.vegaEmbed.mod.EmbedOptions[String, viz.vega.vegaTypings.rendererMod.Renderers]()
+    opts.setActions(true)
+    opts.setHover(true)
+    val parsed = JSON.parse(spec).asInstanceOf[viz.vega.vegaTypings.specMod.Spec]
+    viz.vega.vegaEmbed.mod.default(s"#$anId", parsed, opts)
+    ()
 
-trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
-  def show[A](inDiv: A): Unit =
-    inDiv match
-      case (inDiv: html.Div, b: BundleStrategy) =>
-        b match
-          case BundleStrategy.BrowserDirect =>
-            val typedDiv = inDiv.asInstanceOf[html.Div]
-            val anId = typedDiv.id
-            val newId = if anId.isEmpty then
-              val temp = java.util.UUID.randomUUID()
-              typedDiv.setAttribute("id", temp.toString())
-            else anId
-            val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
-            opts.setActions(true)
-            opts.setHover(true)
-            val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaTypings.specMod.Spec]
-            val aPromise = embedV(s"#$anId", parsed, opts)
-
-          case BundleStrategy.MDoc => show(inDiv) // this is the default, as it is assumed what most people will want
-          case BundleStrategy.Bundler =>
-            println("bundler")
-            val typedDiv = inDiv.asInstanceOf[html.Div]
-            val anId = typedDiv.id
-            val newId = if anId.isEmpty then
-              val temp = java.util.UUID.randomUUID()
-              typedDiv.setAttribute("id", temp.toString())
-            else anId
-            val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
-            opts.setActions(true)
-            opts.setHover(true)
-            val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaTypings.specMod.Spec]
-            val aPromise = embedV(s"#$anId", parsed, opts)
-
-      case scalaJsDomDiv: html.Div =>
-        val typedDiv = inDiv.asInstanceOf[html.Div]
-        val anId = typedDiv.id
-        val newId = if anId.isEmpty then
-          val temp = java.util.UUID.randomUUID()
-          typedDiv.setAttribute("id", temp.toString())
-        else anId
-        val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
-        opts.setActions(true)
-        opts.setHover(true)
-        //val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaEmbed.VisualizationSpec]
-        val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaTypings.specMod.Spec]
-        val aPromise = embedV(s"#$anId", parsed, opts)
-
-  val doShow = show(plotTarget)
+  // when the class is instantiated, show the plot as a side effect...
+  show(plotTarget)
