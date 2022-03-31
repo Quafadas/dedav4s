@@ -66,7 +66,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     ),
     webpackBundlingMode := BundlingMode.LibraryOnly(),
-    stMinimize := Selection.AllExcept("vega-embed"),
+    stMinimize := Selection.AllExcept("vega-embed", "vega-typings", "vega", "vega-lite"),
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
     useYarn := true,
     Compile / npmDependencies ++= Seq(

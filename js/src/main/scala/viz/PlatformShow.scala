@@ -19,7 +19,9 @@ package viz
 import viz.PlotTarget
 import org.scalajs.dom.html
 import scala.scalajs.js.JSON
-import viz.embed.vegaEmbed.mod.default as embed
+import viz.embed.vegaEmbed.mod.default as embedV
+import viz.embed.vegaTypings.specMod.Spec as embedTypings
+
 
 enum BundleStrategy:
   case BrowserDirect
@@ -44,7 +46,8 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
             val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
             opts.setActions(true)
             opts.setHover(true)
-            val aPromise = embed(s"#$anId", spec, opts)
+            val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaTypings.specMod.Spec]
+            val aPromise = embedV(s"#$anId", parsed, opts)
 
           case BundleStrategy.MDoc => show(inDiv) // this is the default, as it is assumed what most people will want
           case BundleStrategy.Bundler =>
@@ -58,7 +61,8 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
             val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
             opts.setActions(true)
             opts.setHover(true)
-            val aPromise = embed(s"#$newId", spec, opts)
+            val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaTypings.specMod.Spec]
+            val aPromise = embedV(s"#$anId", parsed, opts)
 
       case scalaJsDomDiv: html.Div =>
         val typedDiv = inDiv.asInstanceOf[html.Div]
@@ -70,6 +74,8 @@ trait PlatformShow(implicit plotTarget: PlotTarget) extends Spec:
         val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
         opts.setActions(true)
         opts.setHover(true)
-        val aPromise = embed(s"#$anId", spec, opts)
+        //val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaEmbed.VisualizationSpec]
+        val parsed = JSON.parse(spec).asInstanceOf[viz.embed.vegaTypings.specMod.Spec]
+        val aPromise = embedV(s"#$anId", parsed, opts)
 
   val doShow = show(plotTarget)
