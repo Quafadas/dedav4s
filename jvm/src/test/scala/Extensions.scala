@@ -23,6 +23,6 @@ class ExtensionSuiteJVM extends munit.FunSuite:
   test("extension methods exist... ") {
 
     val randomTuple_Int_Double: IndexedSeq[(Int, Double)] = (0 to 20).map(i => (i, i * Random.nextDouble()))
-    randomTuple_Int_Double.plotRegression()
+    //randomTuple_Int_Double.plotRegression()
 
   }
