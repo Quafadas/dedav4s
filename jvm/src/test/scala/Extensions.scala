@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import viz.extensions.jvm.*
+//import viz.extensions.jvm.*
 //import viz.PlotTargets.websocket // for local testing
 import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
 import scala.util.Random
