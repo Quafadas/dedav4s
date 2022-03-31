@@ -1,3 +1,4 @@
+import sbtcrossproject.Platform
 import laika.helium.Helium
 import laika.helium.config.HeliumIcon
 import laika.helium.config.IconLink
@@ -24,6 +25,7 @@ ThisBuild / developers := List(
   // your GitHub handle and name
   tlGitHubDev("quafadas", "Simon Parten")
 )
+ThisBuild / tlCiReleaseBranches := Seq("scalablyTyped")
 ThisBuild / tlSonatypeUseLegacyHost := false
 
 ThisBuild / scalaVersion := "3.1.0"
@@ -32,6 +34,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
   .in(file("."))
   .settings(
     name := "dedav4s",
+    stOutputPackage := "viz.embed",
     description := "Declarative data viz for scala",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "1.4.3",
@@ -62,21 +65,37 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     ),
+    webpackBundlingMode := BundlingMode.LibraryOnly(),
+    stMinimize := Selection.AllExcept("vega-embed"),
+    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
     useYarn := true,
-      Compile / npmDependencies ++= Seq(
-        "vega-typings" -> "0.22.2",
-        "vega-embed" -> "6.20.8",
-        "vega" -> "5.22.0",
-        "vega-lite" -> "5.2.0"
+    Compile / npmDependencies ++= Seq(
+      "vega-typings" -> "0.22.2",
+      "vega-embed" -> "6.20.8",
+      "vega" -> "5.22.0",
+      "vega-lite" -> "5.2.0"
     )
-  ).enablePlugins(ScalablyTypedConverterPlugin)
+  )
+  .enablePlugins(ScalablyTypedConverterGenSourcePlugin)
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+    webpackBundlingMode := BundlingMode.LibraryOnly(),
+    stOutputPackage := "viz.docs",
+    useYarn := true,
+    scalaJSUseMainModuleInitializer := true,
+    Compile / npmDependencies ++= Seq(
+      "vega-typings" -> "0.22.2",
+      "vega-embed" -> "6.20.8",
+      "vega" -> "5.22.0",
+      "vega-lite" -> "5.2.0"
+    ),
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",
+    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
+    stMinimize := Selection.AllExcept("vega-embed")
   )
-  .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, ScalablyTypedConverterGenSourcePlugin)
 
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
@@ -84,14 +103,9 @@ lazy val docs = project
     mdocJS := Some(jsdocs),
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
+    mdocJSLibraries := webpack.in(jsdocs, Compile, fullOptJS).value,
     mdocVariables ++= Map(
-      "js-batch-mode" -> "true",
-      "js-html-header" ->
-        """
-<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-"""
+      "js-batch-mode" -> "true"
     ),
     libraryDependencies ++= Seq(
       ("org.scalanlp" %% "breeze" % "2.0").exclude("org.scala-lang.modules", "scala-collection-compat_2.13")

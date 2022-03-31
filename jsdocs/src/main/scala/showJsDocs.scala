@@ -18,6 +18,7 @@ package viz.doc
 import org.scalajs.dom
 import scala.util.Random
 import org.scalajs.dom.Element
+import viz.docs.estree.estreeBooleans.`true`
 
 object showJsDocs:
   def apply(path: String, node: Element, width: Int = 50) =
@@ -27,7 +28,12 @@ object showJsDocs:
     child.id = anId
     node.appendChild(child)
     child.setAttribute("style", s"width:${width}vmin;height:${width}vmin")
-    scalajs.js.eval(s"""
+    val opts = viz.docs.vegaEmbed.mod.EmbedOptions[String, viz.docs.vegaTypings.rendererMod.Renderers]()
+    opts.setActions(true)
+    opts.setHover(true)
+    val aPromise = viz.docs.vegaEmbed.mod.default(s"#$anId", s"../assets/$path.json", opts)
+
+/*      scalajs.js.eval(s"""
             vegaEmbed('#$anId', "../assets/$path.json", {
                 renderer: "canvas", // renderer (canvas or svg)
                 container: "#$anId", // parent DOM container
@@ -37,4 +43,4 @@ object showJsDocs:
                 }
             }).then(function(result) {
             console.log(result)
-            })""")
+            })""") */

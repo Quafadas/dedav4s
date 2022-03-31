@@ -17,8 +17,7 @@
 package viz
 
 import org.scalajs.dom.html
-import typings.estree.estreeBooleans.`true`
-
+import viz.embed.estree.estreeBooleans.`true`
 
 trait PlotTarget:
   def show(spec: String, parent: html.Div): Unit
@@ -50,10 +49,9 @@ object PlotTargets:
               console.log(result)
             })""")
   given typedShow: PlotTarget with
-    override def show(spec: String, parent: html.Div) = 
+    override def show(spec: String, parent: html.Div) =
       val anId = parent.getAttribute("id")
-      val opts = typings.vegaEmbed.mod.EmbedOptions[String, typings.vegaTypings.rendererMod.Renderers ]()
+      val opts = viz.embed.vegaEmbed.mod.EmbedOptions[String, viz.embed.vegaTypings.rendererMod.Renderers]()
       opts.setActions(true)
       opts.setHover(true)
-      val aPromise = typings.vegaEmbed.mod.default(s"#$anId", spec, opts)
-      
+      val aPromise = viz.embed.vegaEmbed.mod.default(s"#$anId", spec, opts)
