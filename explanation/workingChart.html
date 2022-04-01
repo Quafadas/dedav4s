@@ -70,6 +70,7 @@
         <li class="level2"><a href="outFiles.html">Where do the temporary files live?</a></li>
         <li class="level1 nav-header">Scala Versions</li>
         <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
         <li class="level1 nav-header">Prior Art</li>
         <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
@@ -108,7 +109,7 @@
         )
     )
 </span><span class="comment">// ts: TimeSeries = TimeSeries(
-//   series = List((2021-01-01, 0.2), (2021-06-01, 20.0), (2022-03-08, 5.5))
+//   series = List((2021-01-01, 0.2), (2021-06-01, 20.0), (2022-04-01, 5.5))
 // )</span></code></pre>
         
         <h2 id="adding-a-title" class="section">Adding a title<a class="anchor-link right" href="#adding-a-title"><i class="icofont-laika">&#xef71;</i></a></h2>
@@ -118,7 +119,7 @@
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>
 </span><span class="keyword">val</span><span> </span><span class="identifier">addTitle</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> = 
     (</span><span class="identifier">spec</span><span>:</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span>) =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;title&quot;</span><span>) = </span><span class="string-literal">&quot;A Timeseries&quot;</span><span>
-</span><span class="comment">// addTitle: Function1[Value, Unit] = repl.MdocSession$App0$$Lambda$14010/1934870235@4302094a
+</span><span class="comment">// addTitle: Function1[Value, Unit] = repl.MdocSession$App0$$Lambda$16339/994398738@18ea6636
 </span><span class="type-name">LineChartLite</span><span>(
     </span><span class="type-name">Seq</span><span>(
         </span><span class="identifier">addTitle</span><span>, 
@@ -127,7 +128,7 @@
 )
 </span><span class="comment">// res1: LineChartLite = LineChartLite(
 //   mods = List(
-//     repl.MdocSession$App0$$Lambda$14010/1934870235@4302094a,
+//     repl.MdocSession$App0$$Lambda$16339/994398738@18ea6636,
 //     Fix default data url
 //   )
 // )</span></code></pre>
