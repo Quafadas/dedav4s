@@ -45,7 +45,7 @@ kernel.publish.display(
 Is not supported
 
 # Scala JS
-See [here](ScalaVersions/scalaJS.md)
+See [here](scalaJS.md)
 
 # Scala Native
 Not totally sure how it fits... I guess you'd use scala-js hosted from a webserver.
