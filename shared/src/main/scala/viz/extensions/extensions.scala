@@ -30,7 +30,6 @@ import viz.vega.plots.DotPlot
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.ScatterPlot
 import viz.vega.plots.Regression
-import viz.vega.plots.SimpleRegression
 
 extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
   def plotBarChart(mods: JsonMod = List()): BarChart =
@@ -141,14 +140,6 @@ extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: Pl
         (spec: Value) => spec("marks")(0)("encode")("update")("opacity") = ujson.Obj("value" -> 1)
         //viz.Utils.fillDiv
       ) ++ mods
-    )
-
-  def plotRegression(mods: JsonMod = List()): SimpleRegression =
-    val values = l.map { case (x, y) =>
-      ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
-    }
-    SimpleRegression(
-      List((spec: Value) => spec("data")(0)("values") = values) ++ mods
     )
 
 extension (s: String)(using plotTarget: PlotTarget)

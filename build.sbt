@@ -16,7 +16,7 @@ inThisBuild(
 )
 
 ThisBuild / tlSitePublishBranch := Some("main")
-ThisBuild / tlBaseVersion := "0.5"
+ThisBuild / tlBaseVersion := "0.6"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / licenses := Seq(License.Apache2)
@@ -25,21 +25,20 @@ ThisBuild / developers := List(
   tlGitHubDev("quafadas", "Simon Parten")
 )
 ThisBuild / tlSonatypeUseLegacyHost := false
+ThisBuild / tlCiReleaseBranches := Seq("st2")
 
 ThisBuild / scalaVersion := "3.1.0"
 
-lazy val root = project
+lazy val root = crossProject(JVMPlatform, JSPlatform)
   .in(file("."))
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
+    stOutputPackage := "viz.vega",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "upickle" % "1.4.3",
-      "com.lihaoyi" %% "requests" % "0.7.0",
-      "com.lihaoyi" %% "cask" % "0.8.0",
-      "com.lihaoyi" %% "scalatags" % "0.11.1",
-      "com.lihaoyi" %% "os-lib" % "0.8.0",
-      "org.ekrich" %% "sconfig" % "1.4.4", // otherwise have to upgrade scala
+      "com.lihaoyi" %%% "upickle" % "1.4.3",
+      "com.lihaoyi" %%% "scalatags" % "0.11.1",
+      "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".4"))
@@ -54,12 +53,39 @@ lazy val root = project
       "org.scalameta" %% "munit" % "0.7.29" % Test
     )
   )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "com.lihaoyi" %% "os-lib" % "0.8.0",
+      "com.lihaoyi" %% "cask" % "0.8.0",
+      "com.lihaoyi" %% "requests" % "0.7.0"
+    )
+  )
+  .jsSettings(
+    //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+    ),
+    webpackBundlingMode := BundlingMode.LibraryOnly(),
+    stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),
+    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
+    useYarn := true,
+    Compile / npmDependencies ++= Seq(
+      "vega-typings" -> "0.22.2",
+      "vega-embed" -> "6.20.8",
+      "vega" -> "5.22.0",
+      "vega-lite" -> "5.2.0"
+    )
+  )
+  .enablePlugins(ScalablyTypedConverterGenSourcePlugin)
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
+    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.ESModule) },
+    scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
   )
+  .dependsOn(root.js)
   .enablePlugins(ScalaJSPlugin)
 
 lazy val docs = project
@@ -69,6 +95,7 @@ lazy val docs = project
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
+      "js-opt" -> "fast",
       "js-batch-mode" -> "true",
       "js-html-header" ->
         """
@@ -122,5 +149,5 @@ lazy val docs = project
       )
       .build
   )
-  .dependsOn(root)
+  .dependsOn(root.jvm)
   .enablePlugins(TypelevelSitePlugin)

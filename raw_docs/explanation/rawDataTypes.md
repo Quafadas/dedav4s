@@ -108,9 +108,11 @@ viz.doc.showJsDocs("scatterPlot", node,0)
 ```
 ### Regression
 ```scala
+import viz.extensions.jvm.*
 List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
 ```
 ```scala mdoc:vegaspec:regression
+import viz.extensions.jvm.*
 List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotRegression()
 ```
 ```scala mdoc:js:invisible

@@ -45,7 +45,7 @@ kernel.publish.display(
 Is not supported
 
 # Scala JS
-I'm unclear if this would make sense. Many of the libraries used don't cross compile to JS - they could be replaced, but I'm unclear if there is any value in doing so. If you're in JS land, you already have access to vega... would you really want this?
+See [here](scalaJS.md)
 
 # Scala Native
-Is beyond my pay grade. YMMV.
+Not totally sure how it fits... I guess you'd use scala-js hosted from a webserver.

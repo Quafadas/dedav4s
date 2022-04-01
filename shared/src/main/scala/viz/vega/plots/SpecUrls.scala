@@ -23,16 +23,9 @@ import collection.JavaConverters.*
 import org.jsoup.Jsoup
 import ujson.Value
 import scala.collection.mutable.LinkedHashMap
+import viz.PlatformGetSpec
 
-enum SpecUrl(val url: String, val f: Framework):
-  lazy val jsonSpec: ujson.Value = f match
-    case Vega => ujson.read(requests.get(url).text())
-    case VegaLite =>
-      val page = Jsoup.connect(url).get
-      val pre = page.select(".language-json")
-      val code = pre.asScala.head.text
-      ujson.read(code)
-
+enum SpecUrl(val url: String, val f: Framework) extends PlatformGetSpec:
   // Vega
   case BarChart extends SpecUrl("https://vega.github.io/vega/examples/bar-chart.vg.json", Vega)
   case StackedBarChart extends SpecUrl("https://vega.github.io/vega/examples/stacked-bar-chart.vg.json", Vega)

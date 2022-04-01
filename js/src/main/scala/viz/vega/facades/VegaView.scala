@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package viz
+package viz.vega.facades
 
-import ujson.Value
+import scala.scalajs.js
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.JSON
 
-abstract class WithBaseSpec(val mods: Seq[ujson.Value => Unit] = List())(using PlotTarget) extends Spec:
+@js.native
+@JSImport("vega-view", JSImport.Namespace)
+class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
 
-  lazy val baseSpec: ujson.Value = ???
+  def runAsync(): Unit = js.native
 
-  /*
-    The idea - start from a base spec, "deep copy" it to prevent mutating "state" of any subclass.
-    Modify the copy with the list of "modifiers"
+  def data(s: String, j: js.Dynamic): Unit = js.native
 
-    Ideally : validate the outcome against a Schema...
-   */
-  override def spec: String =
-    val temp = ujson.read(baseSpec.toString)
-    for m <- mods do m(temp)
-    ujson.write(temp, 2)
+  def data(s: String, j: js.Array[js.Object]): Unit = js.native
+
+  def signal(s: String): js.Dynamic = js.native
+
+  def addSignalListener(s: String, handler: js.Function2[String, js.Dynamic, js.Dynamic]): VegaView = js.native
