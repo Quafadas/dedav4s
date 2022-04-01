@@ -12,7 +12,7 @@ val chart = viz.vega.plots.GroupedBarChartLite(List(viz.Utils.fillDiv))(using no
 ```
 Should display the chart. We've replaced the ```given``` plot target with a div! Where, surprise! Your chart will show up. If all has gone well.
 
-What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl, e.g. sbt console, and  publication - it's the same code! As the core library is already javascript, it turns out to be fairly simple to use in Scala JS. There is a only a little more ceremony than with a repl - we need to respect decide the charts position in the document. i.e. find it a parent. 
+What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl, e.g. sbt console, and  publication - it's the same code! As the core library is already javascript, it turns out to be fairly simple to use in Scala JS. There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent. 
 
 Disclaimer: Scala JS support is currently a little experimental. I'd love feedback.
 
