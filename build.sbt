@@ -60,7 +60,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %% "requests" % "0.7.0"
     )
   )
-  .jsSettings(    
+  .jsSettings(
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     ),
