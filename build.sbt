@@ -25,7 +25,7 @@ ThisBuild / developers := List(
   tlGitHubDev("quafadas", "Simon Parten")
 )
 ThisBuild / tlSonatypeUseLegacyHost := false
-ThisBuild / tlCiReleaseBranches := Seq("st2")
+ThisBuild / tlCiReleaseBranches := Seq("main")
 
 ThisBuild / scalaVersion := "3.1.0"
 
@@ -60,8 +60,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %% "requests" % "0.7.0"
     )
   )
-  .jsSettings(
-    //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
+  .jsSettings(    
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     ),
