@@ -12,7 +12,7 @@ val chart = viz.vega.plots.GroupedBarChartLite(List(viz.Utils.fillDiv))(using no
 ```
 Should display the chart. We've replaced the ```given``` plot target with a div! Where, surprise! Your chart will show up. If all has gone well.
 
-What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl, e.g. sbt console, and  publication - it's the same code! As the core library is already javascript, it turns out to be fairly simple to use in Scala JS. There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent. 
+What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in all it's typsafe tooling, and subsequent publication into a browser with scala JS. It's the same code! As the core library is already javascript, it turns out to be fairly simple (using [scalably typed](https://scalablytyped.org/docs/readme.html)) to use in Scala JS. There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent. 
 
 Disclaimer: Scala JS support is currently a little experimental. I'd love feedback.
 
@@ -43,24 +43,32 @@ It turns out, that scala JS Dom is simply a facade for the browser API. Dedav wo
 Due to how fundamental the statement above is, we implicitly support _all_ UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div.  
 
 ### Examples
+
+#### Laminar
+In laminar, it is simple to obtain the reference to a div.
+
+```scala
+import com.raquo.laminar.api.L._
+import org.scalajs.dom
+import viz.Utils
+import viz.vega.plots.BarChart
+import viz.PlotTarget
+
+  val newDiv = div(
+    height :="40vmin", width := "100vmin", idAttr := "viz",
+    onMountCallback{ nodeCtx =>      
+      BarChart(List(viz.Utils.fillDiv))(using nodeCtx.thisNode.ref)      
+    }
+  )  
+
+```
 #### MDoc
 In the below example, the "node" variable comes from mdoc (automagically appended to the right place in the html). It is the dom element provided by mdoc which is displayed for this code fence. We give it a size, and an identifier. The node of interest passed (as a given) when instantiating the chart. 
-
-Just to prove we can have more than one chart on a page... and that the vega examples work.
 
 ```scala
 import viz.vega.plots.BarChart
 node.setAttribute("style", s"width:50vmin;height:50vmin")
 val chart = BarChart(List(viz.Utils.fillDiv))(using node.asInstanceOf[viz.PlotTarget])
-```
-Let's see if the extension methods work. 
-
-```scala mdoc:js
-import viz.extensions.*
-
-node.setAttribute("style", s"width:50vmin;height:50vmin")
-given n: viz.PlotTarget = node.asInstanceOf[viz.PlotTarget]
-val chart = List(1,5,7,3,20).plotBarChart(List(viz.Utils.fillDiv))
 ```
 You'll need to have either gone through the bundling process on the mdoc docs, or include this in build.sbt to suck down the javascript dependancies into the html.
 
@@ -78,15 +86,3 @@ Which are a formiddable documentation team. You may need to also work with Laika
 2. enable raw content
 
 The github repo of this documentation is a successful example!
-
-### Laminar
-In laminar, it is simple to obtain the reference to a div.
-
-```scala
-import com.raquo.laminar.api.L._
-import org.scalajs.dom
-
-val laminarDiv: Div = div()
-val domDiv: dom.html.Div = laminarDiv.ref
-NestedBarChart(List(viz.Utils.fillDiv))(using domDiv.asInstanceOf[PlotTarget])
-```
