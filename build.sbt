@@ -42,7 +42,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
   .settings(
     name := "dedav4s",
-    description := "Declarative data viz for scala",    
+    description := "Declarative data viz for scala",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "1.4.3",
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
