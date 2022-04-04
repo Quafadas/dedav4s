@@ -36,16 +36,18 @@ ThisBuild / tlCiReleaseBranches := Seq("main")
 
 ThisBuild / scalaVersion := "3.1.0"
 
-lazy val root = crossProject(JVMPlatform, JSPlatform)
-  .in(file("."))
+lazy val root = tlCrossRootProject.aggregate(core, tests)
+
+lazy val core = crossProject(JVMPlatform, JSPlatform)
+  .in(file("core"))
   .settings(
     name := "dedav4s",
-    description := "Declarative data viz for scala",
-    stOutputPackage := "viz.vega",
+    description := "Declarative data viz for scala",    
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "1.4.3",
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
       "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
+      //"org.scalameta" %%% "munit" % "0.7.29" % Test,
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".4"))
@@ -56,8 +58,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
         .exclude("com.lihaoyi", "pprint_2.13")
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.14.3",
-      "org.scalameta" %% "munit" % "0.7.29" % Test
+      "org.jsoup" % "jsoup" % "1.14.3"
     )
   )
   .jvmSettings(
@@ -75,6 +76,7 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
     stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
     useYarn := true,
+    stOutputPackage := "viz.vega",
     Compile / npmDependencies ++= Seq(
       "vega-typings" -> "0.22.2",
       "vega-embed" -> "6.20.8",
@@ -82,7 +84,16 @@ lazy val root = crossProject(JVMPlatform, JSPlatform)
       "vega-lite" -> "5.2.0"
     )
   )
-  .enablePlugins(ScalablyTypedConverterGenSourcePlugin)
+  .jsEnablePlugins(ScalablyTypedConverterGenSourcePlugin)
+
+lazy val tests = crossProject(JVMPlatform, JSPlatform)
+  .in(file("tests"))
+  .enablePlugins(NoPublishPlugin)
+  .dependsOn(core)
+  .settings(
+    name := "dedav-tests",
+    libraryDependencies += "org.scalameta" %%% "munit" % "0.7.29" % Test
+  )
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
@@ -156,6 +167,6 @@ lazy val docs = project
       )
       .build
   )
-  .dependsOn(root.jvm)
+  .dependsOn(core.jvm)
   .enablePlugins(TypelevelSitePlugin)
   .enablePlugins(NoPublishPlugin)
