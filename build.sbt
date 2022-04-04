@@ -4,6 +4,7 @@ import laika.helium.config.IconLink
 import laika.ast.Path.Root
 import laika.theme.config.Color
 import java.time.Instant
+import com.typesafe.tools.mima.core.*
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -15,8 +16,14 @@ inThisBuild(
   )
 )
 
+inThisBuild(
+  mimaBinaryIssueFilters ++= Seq(
+    ProblemFilters.exclude[Problem]("viz.*")
+  )
+)
+
 ThisBuild / tlSitePublishBranch := Some("main")
-ThisBuild / tlBaseVersion := "0.6"
+ThisBuild / tlBaseVersion := "0.7"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / licenses := Seq(License.Apache2)
@@ -86,6 +93,7 @@ lazy val jsdocs = project
   )
   .dependsOn(root.js)
   .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(NoPublishPlugin)
 
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
@@ -150,3 +158,4 @@ lazy val docs = project
   )
   .dependsOn(root.jvm)
   .enablePlugins(TypelevelSitePlugin)
+  .enablePlugins(NoPublishPlugin)
