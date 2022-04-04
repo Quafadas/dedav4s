@@ -54,8 +54,8 @@ object PlotTargets:
         and you should have a reproduces your crash in a dev environment... and maybe fix for your OS?
         PR welcome :-) ...
        */
-      val runtime = java.lang.Runtime.getRuntime();
-      runtime.exec("xdg-open " + uri);
+      val runtime = java.lang.Runtime.getRuntime()
+      runtime.exec(Array[String](s"""xdg-open $uri]"""))
 
   lazy val conf = org.ekrich.config.ConfigFactory.load()
   lazy val outPath: Option[String] =

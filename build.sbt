@@ -9,7 +9,7 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 inThisBuild(
   List(
-    scalaVersion := "3.0.2",
+    scalaVersion := "3.1.0",
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision
   )
@@ -27,7 +27,7 @@ ThisBuild / developers := List(
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 
-ThisBuild / scalaVersion := "3.0.2"
+ThisBuild / scalaVersion := "3.1.0"
 
 lazy val root = crossProject(JVMPlatform, JSPlatform)
   .in(file("."))
