@@ -16,6 +16,10 @@ inThisBuild(
   )
 )
 
+//val Scala213 = "2.13.8"
+ThisBuild / crossScalaVersions := Seq("3.1.0", "2.13.8")
+ThisBuild / scalaVersion := "3.1.0" 
+
 inThisBuild(
   mimaBinaryIssueFilters ++= Seq(
     ProblemFilters.exclude[Problem]("viz.*")
@@ -33,8 +37,6 @@ ThisBuild / developers := List(
 )
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
-
-ThisBuild / scalaVersion := "3.1.0"
 
 lazy val root = tlCrossRootProject.aggregate(core, tests)
 
