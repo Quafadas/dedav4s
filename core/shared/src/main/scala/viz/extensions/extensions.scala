@@ -79,6 +79,20 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
 
 extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
   @targetName("plotBarChartWithLabels")
+  def plotLineChart(mods: JsonMod): LineChart =
+    val labelled =
+      for ((label, number) <- l)
+        yield ujson.Obj(
+          "x" -> label,
+          "y" -> number.toDouble
+        )
+    LineChart(
+      List((spec: Value) => spec("data")(0)("values") = labelled
+      //viz.Utils.fillDiv
+      ) ++ mods
+    )
+
+  @targetName("plotLineChartWithLabels")
   def plotBarChart(mods: JsonMod): BarChart =
     val labelled =
       for ((label, number) <- l)
