@@ -129,6 +129,8 @@ extension [T: Numeric](l: Map[String, T])(using plotTarget: PlotTarget)
   @targetName("plotBarChartFromMapWithLabels")
   def plotBarChart(mods: JsonMod): BarChart = l.iterator.toSeq.plotBarChart(mods)
 
+  def plotLineChart(mods: JsonMod): LineChart = l.iterator.toSeq.plotLineChart(mods)
+
   def plotPieChart(mods: JsonMod): PieChart = l.iterator.toSeq.plotPieChart(mods)
 
 extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)
