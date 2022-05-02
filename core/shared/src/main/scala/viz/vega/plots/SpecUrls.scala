@@ -24,8 +24,22 @@ import org.jsoup.Jsoup
 import ujson.Value
 import scala.collection.mutable.LinkedHashMap
 import viz.PlatformGetSpec
+import io.circe._
+import io.circe.parser._
+import viz.dsl.vegaLite._
+import viz.dsl.vega._
 
 enum SpecUrl(val url: String, val f: Framework) extends PlatformGetSpec:
+
+  def toDsl(): Either[io.circe.Error, VegaLiteDsl | VegaDsl] = {
+    //val spec : io.circe.Json = parse(this.jsonSpec.toString)
+    f match 
+        case Framework.VegaLite => 
+            decode[VegaLiteDsl](this.jsonSpec.toString())
+        case Framework.Vega => 
+            decode[VegaDsl](this.jsonSpec.toString())
+  }    
+
   // Vega
   case BarChart extends SpecUrl("https://vega.github.io/vega/examples/bar-chart.vg.json", Vega)
   case StackedBarChart extends SpecUrl("https://vega.github.io/vega/examples/stacked-bar-chart.vg.json", Vega)

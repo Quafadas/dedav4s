@@ -1,4 +1,4 @@
-package quicktype
+package viz.dsl.vegaLite
 
 import scala.util.Try
 import io.circe.syntax._
@@ -13,7 +13,7 @@ given [A <: Singleton](using ev: A <:< String): Encoder[A] = Encoder.encodeStrin
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
  * specifications. (The json schema is generated from this type.)
  */
-case class VegaLite (
+case class VegaLiteDsl (
     /**
      * URL to [JSON schema](http://json-schema.org/) for a Vega-Lite specification. Unless you
      * have a reason to change this, use `https://vega.github.io/schema/vega-lite/v5.json`.
@@ -732,8 +732,8 @@ case class SpecSpec (
      * facet.
      */
     val layer : Option[Seq[LayerSpec]] = None,
-
     /**
+
      * The number of columns to include in the view composition layout.
      *
      * __Default value__: `undefined` -- An infinite number of columns (a single row) will be
@@ -1830,8 +1830,8 @@ case class AngleClass (
      * 1) For a data `field`, `"nominal"` is the default data type unless the field encoding has
      * `aggregate`, `channel`, `bin`, scale type, `sort`, or `timeUnit` that satisfies the
      * following criteria:
+         * `aggregate` except `"argmin"` and `"argmax"`, (2) the encoding channel is `latitude` or
      * - `"quantitative"` is the default type if (1) the encoded field contains `bin` or
-     * `aggregate` except `"argmin"` and `"argmax"`, (2) the encoding channel is `latitude` or
      * `longitude` channel or (3) if the specified scale type is [a quantitative
      * scale](https://vega.github.io/vega-lite/docs/scale.html#type).
      * - `"temporal"` is the default type if (1) the encoded field contains `timeUnit` or (2)
