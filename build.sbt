@@ -43,9 +43,14 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
+    scalacOptions ++= Seq(
+      "-Xmax-inlines:2000"
+    ),
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "1.4.3",
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
+      "io.circe" %%% "circe-core" % "0.15.0-M1",
+      "io.circe" %%% "circe-parser" % "0.15.0-M1", 
       "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
       //"org.scalameta" %%% "munit" % "0.7.29" % Test,
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
@@ -76,15 +81,15 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
     useYarn := true,
-    stOutputPackage := "viz.vega",
+/*     stOutputPackage := "viz.vega",
     Compile / npmDependencies ++= Seq(
       "vega-typings" -> "0.22.2",
       "vega-embed" -> "6.20.8",
-      "vega" -> "5.22.0",
-      "vega-lite" -> "5.2.0"
-    )
-  )
-  .jsEnablePlugins(ScalablyTypedConverterGenSourcePlugin)
+      //"vega" -> "5.22.0",
+      //"vega-lite" -> "5.2.0"
+    ) 
+ */  )
+  //.jsEnablePlugins(ScalablyTypedConverterGenSourcePlugin)
 
 lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))

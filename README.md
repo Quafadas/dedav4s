@@ -13,3 +13,20 @@ The aim is to make "simple" plotting cases as simple as possible in interactive 
 
 ## Project status
 This library works well enough for my needs. It's been "launched" to see if there is enthusiasm / acceptance of the paradigm. This is a young, simple project with plenty "todo". The barrier to involvement should be rather low, should you have the desire! 
+
+## Generating the DSL 
+
+Clone quicktype, switch to the scala3 branch. 
+```
+script/quicktype -o vega-lite.scala -t VegaLiteDsl -l scala3 --no-combine-classes -s schema --framework circe --src /Users/simon/Code/quicktype/quicktype/test/inputs/schema/vega-lite.schema --package viz.vega.dsl.vegaLite
+```
+```
+script/quicktype -o vega.scala -t Vega -l scala3 --no-combine-classes -s schema --package viz.dsl.vega --framework circe --src /Users/simon/Code/quicktype/quicktype/test/inputs/schema/vega.schema
+```
+
+Currently, there are some niggling problems which remain after generation; 
+1. Some givens of union types have duplicate shapes, need to comment out the encoder / decoders for some of them
+2. introduce a nulltype parameter.
+
+
+

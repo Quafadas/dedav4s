@@ -30,7 +30,7 @@ import viz.dsl.vegaLite._
 import viz.dsl.vega._
 
 enum SpecUrl(val url: String, val f: Framework) extends PlatformGetSpec:
-
+  
   def toDsl(): Either[io.circe.Error, VegaLiteDsl | VegaDsl] = {
     //val spec : io.circe.Json = parse(this.jsonSpec.toString)
     f match 

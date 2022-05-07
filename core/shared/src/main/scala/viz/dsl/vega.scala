@@ -405,8 +405,8 @@ given Decoder[AxeFormat] = {
         Decoder[FluffySignalRef].widen,
         Decoder[String].widen,
     ).reduceLeft(_ or _)
+    
 }
-
 given Encoder[AxeFormat] = Encoder.instance {
     case enc0 : FluffySignalRef => Encoder.AsObject[FluffySignalRef].apply(enc0)
     case enc1 : String => Encoder.encodeString(enc1)
