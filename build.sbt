@@ -47,7 +47,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "-Xmax-inlines:2000"
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "1.4.3",
+      "com.lihaoyi" %%% "upickle" % "2.0.0",
+      //"com.lihaoyi" %%% "ujson-circe" % "2.0.0", doesn't exist for scala3
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
       "io.circe" %%% "circe-core" % "0.15.0-M1",
       "io.circe" %%% "circe-parser" % "0.15.0-M1", 
@@ -97,7 +98,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .dependsOn(core)
   .settings(
     name := "dedav-tests",
-    libraryDependencies += "org.scalameta" %%% "munit" % "0.7.29" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M3" % Test
   )
 
 lazy val jsdocs = project
