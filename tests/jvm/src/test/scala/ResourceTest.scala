@@ -20,14 +20,14 @@ import viz.PlotTargets.doNothing // for CI... as we don't have a port available.
 import scala.util.Random
 import viz.extensions.*
 import scala.io.Source
-import io.circe.parser._
-import io.circe.syntax._
-import viz.dsl.vega._
+import io.circe.parser.*
+import io.circe.syntax.*
+import viz.dsl.vega.*
 import scala.language.implicitConversions
 import io.circe.Json
 import io.circe.Encoder
 //import ujson.circe.CirceJson
-/* 
+/*
 case class PlotFromString(s:String, override val mods: Seq[ujson.Value => Unit] = List()) extends WithBaseSpec {
 
   override lazy val baseSpec: ujson.Value = s
@@ -47,24 +47,24 @@ class ResourceTest extends munit.FunSuite:
   }
 
   test("That the DSL correctly parses a simple spec") {
-    val spec = Source.fromResource("BarChart.json").mkString    
+    val spec = Source.fromResource("BarChart.json").mkString
     //println(spec)
     val parseCirce = decode[VegaDsl](spec)
-    
+
     assert(parseCirce.isRight)
     //println(parseCirce.getOrElse(""))
-    assert(parseCirce.getOrElse(VegaDsl()).isInstanceOf[VegaDsl])    
+    assert(parseCirce.getOrElse(VegaDsl()).isInstanceOf[VegaDsl])
   }
- 
+
   test("DSL to mutuable conversion") {
     import viz.dsl.Conversion.u
 
-    val dslMod : List[ujson.Value => Unit] = List( 
-        viz.Utils.removeXAxis,
-        (spec: ujson.Value) => 
-          spec("axes") = spec("axes").arr :+ Axis(scale = "xscale", orient = "top").u)
+    val dslMod: List[ujson.Value => Unit] = List(
+      viz.Utils.removeXAxis,
+      (spec: ujson.Value) => spec("axes") = spec("axes").arr :+ Axis(scale = "xscale", orient = "top").u
+    )
 
     val bc = viz.vega.plots.BarChart(dslMod)
-    assert(bc.spec.contains("top")) 
+    assert(bc.spec.contains("top"))
     //Thread.sleep(2000)
-  } 
+  }

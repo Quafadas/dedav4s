@@ -51,7 +51,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       //"com.lihaoyi" %%% "ujson-circe" % "2.0.0", doesn't exist for scala3
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
       "io.circe" %%% "circe-core" % "0.15.0-M1",
-      "io.circe" %%% "circe-parser" % "0.15.0-M1", 
+      "io.circe" %%% "circe-parser" % "0.15.0-M1",
       "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
       //"org.scalameta" %%% "munit" % "0.7.29" % Test,
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
@@ -81,16 +81,17 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
-    useYarn := true,
-/*     stOutputPackage := "viz.vega",
+    useYarn := true
+    /*     stOutputPackage := "viz.vega",
     Compile / npmDependencies ++= Seq(
       "vega-typings" -> "0.22.2",
       "vega-embed" -> "6.20.8",
       //"vega" -> "5.22.0",
       //"vega-lite" -> "5.2.0"
-    ) 
- */  )
-  //.jsEnablePlugins(ScalablyTypedConverterGenSourcePlugin)
+    )
+     */
+  )
+//.jsEnablePlugins(ScalablyTypedConverterGenSourcePlugin)
 
 lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))

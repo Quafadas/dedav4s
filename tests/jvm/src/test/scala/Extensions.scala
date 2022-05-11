@@ -42,7 +42,7 @@ class ExtensionSuiteJVM extends munit.FunSuite:
     Thread.sleep(sleepLenth)
     List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotBarChart(List())
 
-      Thread.sleep(sleepLenth)
+    Thread.sleep(sleepLenth)
     List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotLineChart(List())
 
     Thread.sleep(sleepLenth)

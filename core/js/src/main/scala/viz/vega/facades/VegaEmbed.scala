@@ -22,65 +22,63 @@ import scala.scalajs.js.JSON
 import scala.concurrent.Future
 import scala.concurrent.Promise
 type Theme = "excel" | "ggplot2" | "quartz" | "vox" | "dark"
-  trait Actions {
-    
-    var compiled: js.UndefOr[Boolean] = js.undefined
-    
-    var editor: js.UndefOr[Boolean] = js.undefined
-    
-    var `export`: js.UndefOr[Boolean] = js.undefined
-    
-    var source: js.UndefOr[Boolean] = js.undefined
-  }
+trait Actions:
+
+  var compiled: js.UndefOr[Boolean] = js.undefined
+
+  var editor: js.UndefOr[Boolean] = js.undefined
+
+  var `export`: js.UndefOr[Boolean] = js.undefined
+
+  var source: js.UndefOr[Boolean] = js.undefined
 
 object EmbedOptions extends EmbedOptions()
 
-trait EmbedOptions {
-    
-    var actions: js.UndefOr[Boolean | Actions] = true
-    
-    var ast: js.UndefOr[Boolean] = js.undefined
-    
-    var bind: js.UndefOr[String] = js.undefined
-    
-    var config: js.UndefOr[Any] = js.undefined
-    
-    var defaultStyle: js.UndefOr[Boolean | String] = js.undefined
-    
-    var downloadFileName: js.UndefOr[String] = js.undefined
-    
-    var editorUrl: js.UndefOr[String] = js.undefined          
-    
-    var height: js.UndefOr[Double] = js.undefined
-    
-    var hover: js.UndefOr[Boolean] = true      
-    
-    var loader: js.UndefOr[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Loader */ Any
-      ] = js.undefined
-    
-    var logLevel: js.UndefOr[Double] = js.undefined
-    
-    var mode: js.UndefOr[String] = js.undefined
-    
-    var padding: js.UndefOr[Double] = js.undefined      
-    
-    var scaleFactor: js.UndefOr[Double] = js.undefined
-    
-    var sourceFooter: js.UndefOr[String] = js.undefined
-    
-    var sourceHeader: js.UndefOr[String] = js.undefined
-    
-    var theme: js.UndefOr[Theme] = js.undefined      
-    
-    var tooltip: js.UndefOr[Any] = js.undefined
-    
-    var viewClass: js.UndefOr[
-        /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof View */ Any
-      ] = js.undefined
-    
-    var width: js.UndefOr[Double] = js.undefined
-  }
+trait EmbedOptions:
+
+  var actions: js.UndefOr[Boolean | Actions] = true
+
+  var ast: js.UndefOr[Boolean] = js.undefined
+
+  var bind: js.UndefOr[String] = js.undefined
+
+  var config: js.UndefOr[Any] = js.undefined
+
+  var defaultStyle: js.UndefOr[Boolean | String] = js.undefined
+
+  var downloadFileName: js.UndefOr[String] = js.undefined
+
+  var editorUrl: js.UndefOr[String] = js.undefined
+
+  var height: js.UndefOr[Double] = js.undefined
+
+  var hover: js.UndefOr[Boolean] = true
+
+  var loader: js.UndefOr[
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Loader */ Any
+  ] = js.undefined
+
+  var logLevel: js.UndefOr[Double] = js.undefined
+
+  var mode: js.UndefOr[String] = js.undefined
+
+  var padding: js.UndefOr[Double] = js.undefined
+
+  var scaleFactor: js.UndefOr[Double] = js.undefined
+
+  var sourceFooter: js.UndefOr[String] = js.undefined
+
+  var sourceHeader: js.UndefOr[String] = js.undefined
+
+  var theme: js.UndefOr[Theme] = js.undefined
+
+  var tooltip: js.UndefOr[Any] = js.undefined
+
+  var viewClass: js.UndefOr[
+    /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof View */ Any
+  ] = js.undefined
+
+  var width: js.UndefOr[Double] = js.undefined
 
 object VegaEmbed:
 
