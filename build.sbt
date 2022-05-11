@@ -76,6 +76,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
         .exclude("com.lihaoyi", "pprint_2.13")
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         .exclude("com.github.jupyter", "jvm-repr"),
+        
       "org.jsoup" % "jsoup" % "1.14.3"
     )
   )
@@ -142,7 +143,7 @@ lazy val docs = project
 """
     ),
     libraryDependencies ++= Seq(
-      ("org.scalanlp" %% "breeze" % "2.0").exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
+      ("org.scalanlp" %% "breeze" % "2.0").exclude("org.scala-lang.modules", "scala-collection-compat_2.13").exclude("org.typelevel", "cats-kernel_2.13"),
     ),
     laikaConfig ~= { _.withRawContent },
     tlSiteHeliumConfig ~= {
