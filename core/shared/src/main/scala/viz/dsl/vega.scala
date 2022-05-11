@@ -63,7 +63,7 @@ case class Axis (
     val description : Option[String] = None,
     val domain : Option[Boolean] = None,
     val domainCap : Option[DomainCapUnion] = None,
-    val domainColor : Option[ColorValue] = None,
+    val domainColor : Option[DomainColorUnion] = None,
     val domainDash : Option[DomainDashUnion] = None,
     val domainDashOffset : Option[BandPositionUnion] = None,
     val domainOpacity : Option[BandPositionUnion] = None,
@@ -73,7 +73,7 @@ case class Axis (
     val formatType : Option[FormatTypeUnion] = None,
     val grid : Option[Boolean] = None,
     val gridCap : Option[DomainCapUnion] = None,
-    val gridColor : Option[ColorValue] = None,
+    val gridColor : Option[DomainColorUnion] = None,
     val gridDash : Option[DomainDashUnion] = None,
     val gridDashOffset : Option[BandPositionUnion] = None,
     val gridOpacity : Option[BandPositionUnion] = None,
@@ -83,7 +83,7 @@ case class Axis (
     val labelAngle : Option[BandPositionUnion] = None,
     val labelBaseline : Option[LabelBaselineUnion] = None,
     val labelBound : Option[LabelBound] = None,
-    val labelColor : Option[ColorValue] = None,
+    val labelColor : Option[DomainColorUnion] = None,
     val labelFlush : Option[LabelBound] = None,
     val labelFlushOffset : Option[HeightElement] = None,
     val labelFont : Option[DomainCapUnion] = None,
@@ -106,7 +106,7 @@ case class Axis (
     val scale : String,
     val tickBand : Option[TickBand] = None,
     val tickCap : Option[DomainCapUnion] = None,
-    val tickColor : Option[ColorValue] = None,
+    val tickColor : Option[DomainColorUnion] = None,
     val tickCount : Option[TickCount] = None,
     val tickDash : Option[DomainDashUnion] = None,
     val tickDashOffset : Option[BandPositionUnion] = None,
@@ -123,7 +123,7 @@ case class Axis (
     val titleAnchor : Option[TitleAnchorUnion] = None,
     val titleAngle : Option[BandPositionUnion] = None,
     val titleBaseline : Option[LabelBaselineUnion] = None,
-    val titleColor : Option[ColorValue] = None,
+    val titleColor : Option[DomainColorUnion] = None,
     val titleFont : Option[DomainCapUnion] = None,
     val titleFontSize : Option[BandPositionUnion] = None,
     val titleFontStyle : Option[DomainCapUnion] = None,
@@ -217,19 +217,19 @@ given Encoder[Field] = Encoder.instance {
     case enc1 : String => Encoder.encodeString(enc1)
 }
 
-type DomainCapUnion = Seq[DomainCapElement] | String | StringValue
+type DomainCapUnion = DomainCapClass | Seq[DomainCapElement] | String
 given Decoder[DomainCapUnion] = {
     List[Decoder[DomainCapUnion]](
+        Decoder[DomainCapClass].widen,
         Decoder[Seq[DomainCapElement]].widen,
         Decoder[String].widen,
-        Decoder[StringValue].widen,
     ).reduceLeft(_ or _)
 }
 
 given Encoder[DomainCapUnion] = Encoder.instance {
-    case enc0 : Seq[DomainCapElement] => Encoder.encodeSeq[DomainCapElement].apply(enc0)
-    case enc1 : String => Encoder.encodeString(enc1)
-    case enc2 : StringValue => Encoder.AsObject[StringValue].apply(enc2)
+    case enc0 : DomainCapClass => Encoder.AsObject[DomainCapClass].apply(enc0)
+    case enc1 : Seq[DomainCapElement] => Encoder.encodeSeq[DomainCapElement].apply(enc1)
+    case enc2 : String => Encoder.encodeString(enc2)
 }
 
 case class DomainCapElement (
@@ -243,7 +243,7 @@ case class DomainCapElement (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
-case class StringValue (
+case class DomainCapClass (
     val scale : Option[Field] = None,
     val signal : Option[String] = None,
     val value : Option[Json] = None,
@@ -253,9 +253,9 @@ case class StringValue (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
-type ColorValue = Seq[BaseColorValue] | PurpleBaseColorValue | String | NullValue
-given Decoder[ColorValue] = {
-    List[Decoder[ColorValue]](
+type DomainColorUnion = Seq[BaseColorValue] | PurpleBaseColorValue | String | NullValue
+given Decoder[DomainColorUnion] = {
+    List[Decoder[DomainColorUnion]](
         Decoder[Seq[BaseColorValue]].widen,
         Decoder[PurpleBaseColorValue].widen,
         Decoder[String].widen,
@@ -263,7 +263,7 @@ given Decoder[ColorValue] = {
     ).reduceLeft(_ or _)
 }
 
-given Encoder[ColorValue] = Encoder.instance {
+given Encoder[DomainColorUnion] = Encoder.instance {
     case enc0 : Seq[BaseColorValue] => Encoder.encodeSeq[BaseColorValue].apply(enc0)
     case enc1 : PurpleBaseColorValue => Encoder.AsObject[PurpleBaseColorValue].apply(enc1)
     case enc2 : String => Encoder.encodeString(enc2)
@@ -325,33 +325,33 @@ case class PurpleBaseColorValue (
     val color : Option[Color] = None
 ) derives Encoder.AsObject, Decoder
 
-type DomainDashUnion = ArrayValue | Seq[Dash]
+type DomainDashUnion = DomainDashClass | Seq[Dash]
 given Decoder[DomainDashUnion] = {
     List[Decoder[DomainDashUnion]](
-        Decoder[ArrayValue].widen,
+        Decoder[DomainDashClass].widen,
         Decoder[Seq[Dash]].widen,
     ).reduceLeft(_ or _)
 }
 
 given Encoder[DomainDashUnion] = Encoder.instance {
-    case enc0 : ArrayValue => Encoder.AsObject[ArrayValue].apply(enc0)
+    case enc0 : DomainDashClass => Encoder.AsObject[DomainDashClass].apply(enc0)
     case enc1 : Seq[Dash] => Encoder.encodeSeq[Dash].apply(enc1)
 }
 
-type Dash = DomainDashClass | Double
+type Dash = DomainDashElement | Double
 given Decoder[Dash] = {
     List[Decoder[Dash]](
-        Decoder[DomainDashClass].widen,
+        Decoder[DomainDashElement].widen,
         Decoder[Double].widen,
     ).reduceLeft(_ or _)
 }
 
 given Encoder[Dash] = Encoder.instance {
-    case enc0 : DomainDashClass => Encoder.AsObject[DomainDashClass].apply(enc0)
+    case enc0 : DomainDashElement => Encoder.AsObject[DomainDashElement].apply(enc0)
     case enc1 : Double => Encoder.encodeDouble(enc1)
 }
 
-case class DomainDashClass (
+case class DomainDashElement (
     val test : Option[String] = None,
     val scale : Option[Field] = None,
     val signal : Option[String] = None,
@@ -362,7 +362,7 @@ case class DomainDashClass (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
-case class ArrayValue (
+case class DomainDashClass (
     val scale : Option[Field] = None,
     val signal : Option[String] = None,
     val value : Option[Json] = None,
@@ -445,18 +445,18 @@ case class FormatTypeSignalRef (
 ) derives Encoder.AsObject, Decoder
 
 type FormatTypeEnum = "number" | "time" | "utc"
-type LabelAlignUnion = AlignValue | LabelAlignEnum | Seq[LabelAlignElement]
+type LabelAlignUnion = LabelAlignEnum | LabelAlignClass | Seq[LabelAlignElement]
 given Decoder[LabelAlignUnion] = {
     List[Decoder[LabelAlignUnion]](
-        Decoder[AlignValue].widen,
         Decoder[LabelAlignEnum].widen,
+        Decoder[LabelAlignClass].widen,
         Decoder[Seq[LabelAlignElement]].widen,
     ).reduceLeft(_ or _)
 }
 
 given Encoder[LabelAlignUnion] = Encoder.instance {
-    case enc0 : AlignValue => Encoder.AsObject[AlignValue].apply(enc0)
-    case enc1 : LabelAlignEnum => Encoder.encodeString(enc1)
+    case enc0 : LabelAlignEnum => Encoder.encodeString(enc0)
+    case enc1 : LabelAlignClass => Encoder.AsObject[LabelAlignClass].apply(enc1)
     case enc2 : Seq[LabelAlignElement] => Encoder.encodeSeq[LabelAlignElement].apply(enc2)
 }
 
@@ -471,7 +471,7 @@ case class LabelAlignElement (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
-case class AlignValue (
+case class LabelAlignClass (
     val scale : Option[Field] = None,
     val signal : Option[String] = None,
     val value : Option[Json] = None,
@@ -482,18 +482,18 @@ case class AlignValue (
 ) derives Encoder.AsObject, Decoder
 
 type LabelAlignEnum = "center" | "left" | "right"
-type LabelBaselineUnion = BaselineValue | Baseline | Seq[LabelBaselineElement]
+type LabelBaselineUnion = Baseline | LabelBaselineClass | Seq[LabelBaselineElement]
 given Decoder[LabelBaselineUnion] = {
     List[Decoder[LabelBaselineUnion]](
-        Decoder[BaselineValue].widen,
         Decoder[Baseline].widen,
+        Decoder[LabelBaselineClass].widen,
         Decoder[Seq[LabelBaselineElement]].widen,
     ).reduceLeft(_ or _)
 }
 
 given Encoder[LabelBaselineUnion] = Encoder.instance {
-    case enc0 : BaselineValue => Encoder.AsObject[BaselineValue].apply(enc0)
-    case enc1 : Baseline => Encoder.encodeString(enc1)
+    case enc0 : Baseline => Encoder.encodeString(enc0)
+    case enc1 : LabelBaselineClass => Encoder.AsObject[LabelBaselineClass].apply(enc1)
     case enc2 : Seq[LabelBaselineElement] => Encoder.encodeSeq[LabelBaselineElement].apply(enc2)
 }
 
@@ -508,7 +508,7 @@ case class LabelBaselineElement (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
-case class BaselineValue (
+case class LabelBaselineClass (
     val scale : Option[Field] = None,
     val signal : Option[String] = None,
     val value : Option[Json] = None,
@@ -547,13 +547,13 @@ given Encoder[HeightElement] = Encoder.instance {
     case enc1 : FormatTypeSignalRef => Encoder.AsObject[FormatTypeSignalRef].apply(enc1)
 }
 
-type LabelFontWeightUnion = Double | FontWeight | FontWeightValue | Long | Seq[LabelFontWeightElement] | NullValue
+type LabelFontWeightUnion = Double | FontWeight | Long | LabelFontWeightClass | Seq[LabelFontWeightElement] | NullValue
 given Decoder[LabelFontWeightUnion] = {
     List[Decoder[LabelFontWeightUnion]](
         Decoder[Double].widen,
         Decoder[FontWeight].widen,
-        Decoder[FontWeightValue].widen,
         Decoder[Long].widen,
+        Decoder[LabelFontWeightClass].widen,
         Decoder[Seq[LabelFontWeightElement]].widen,
         Decoder[NullValue].widen,
     ).reduceLeft(_ or _)
@@ -562,8 +562,8 @@ given Decoder[LabelFontWeightUnion] = {
 given Encoder[LabelFontWeightUnion] = Encoder.instance {
     case enc0 : Double => Encoder.encodeDouble(enc0)
     case enc1 : FontWeight => Encoder.encodeString(enc1)
-    case enc2 : FontWeightValue => Encoder.AsObject[FontWeightValue].apply(enc2)
-    case enc3 : Long => Encoder.encodeLong(enc3)
+    case enc2 : Long => Encoder.encodeLong(enc2)
+    case enc3 : LabelFontWeightClass => Encoder.AsObject[LabelFontWeightClass].apply(enc3)
     case enc4 : Seq[LabelFontWeightElement] => Encoder.encodeSeq[LabelFontWeightElement].apply(enc4)
     case enc5 : NullValue => Encoder.encodeNone(enc5)
 }
@@ -579,7 +579,7 @@ case class LabelFontWeightElement (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
-case class FontWeightValue (
+case class LabelFontWeightClass (
     val scale : Option[Field] = None,
     val signal : Option[String] = None,
     val value : Option[Json] = None,
@@ -682,18 +682,18 @@ given Encoder[TickExtraUnion] = Encoder.instance {
     case enc1 : FormatTypeSignalRef => Encoder.AsObject[FormatTypeSignalRef].apply(enc1)
 }
 
-type TickRoundUnion = Boolean | BooleanValue | Seq[TickRoundElement]
+type TickRoundUnion = Boolean | TickRoundClass | Seq[TickRoundElement]
 given Decoder[TickRoundUnion] = {
     List[Decoder[TickRoundUnion]](
         Decoder[Boolean].widen,
-        Decoder[BooleanValue].widen,
+        Decoder[TickRoundClass].widen,
         Decoder[Seq[TickRoundElement]].widen,
     ).reduceLeft(_ or _)
 }
 
 given Encoder[TickRoundUnion] = Encoder.instance {
     case enc0 : Boolean => Encoder.encodeBoolean(enc0)
-    case enc1 : BooleanValue => Encoder.AsObject[BooleanValue].apply(enc1)
+    case enc1 : TickRoundClass => Encoder.AsObject[TickRoundClass].apply(enc1)
     case enc2 : Seq[TickRoundElement] => Encoder.encodeSeq[TickRoundElement].apply(enc2)
 }
 
@@ -708,7 +708,7 @@ case class TickRoundElement (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
-case class BooleanValue (
+case class TickRoundClass (
     val scale : Option[Field] = None,
     val signal : Option[String] = None,
     val value : Option[Json] = None,
@@ -1832,18 +1832,18 @@ case class Legend (
     val direction : Option[Direction] = None,
     val encode : Option[LegendEncode] = None,
     val fill : Option[String] = None,
-    val fillColor : Option[ColorValue] = None,
+    val fillColor : Option[DomainColorUnion] = None,
     val format : Option[LegendFormat] = None,
     val formatType : Option[FormatTypeUnion] = None,
     val gradientLength : Option[HeightElement] = None,
     val gradientOpacity : Option[BandPositionUnion] = None,
-    val gradientStrokeColor : Option[ColorValue] = None,
+    val gradientStrokeColor : Option[DomainColorUnion] = None,
     val gradientStrokeWidth : Option[BandPositionUnion] = None,
     val gradientThickness : Option[HeightElement] = None,
     val gridAlign : Option[GridAlignUnion] = None,
     val labelAlign : Option[LabelAlignUnion] = None,
     val labelBaseline : Option[LabelBaselineUnion] = None,
-    val labelColor : Option[ColorValue] = None,
+    val labelColor : Option[DomainColorUnion] = None,
     val labelFont : Option[DomainCapUnion] = None,
     val labelFontSize : Option[BandPositionUnion] = None,
     val labelFontStyle : Option[DomainCapUnion] = None,
@@ -1863,17 +1863,17 @@ case class Legend (
     val shape : Option[String] = None,
     val size : Option[String] = None,
     val stroke : Option[String] = None,
-    val strokeColor : Option[ColorValue] = None,
+    val strokeColor : Option[DomainColorUnion] = None,
     val strokeDash : Option[String] = None,
     val strokeWidth : Option[String] = None,
     val symbolDash : Option[DomainDashUnion] = None,
     val symbolDashOffset : Option[BandPositionUnion] = None,
-    val symbolFillColor : Option[ColorValue] = None,
+    val symbolFillColor : Option[DomainColorUnion] = None,
     val symbolLimit : Option[HeightElement] = None,
     val symbolOffset : Option[BandPositionUnion] = None,
     val symbolOpacity : Option[BandPositionUnion] = None,
     val symbolSize : Option[BandPositionUnion] = None,
-    val symbolStrokeColor : Option[ColorValue] = None,
+    val symbolStrokeColor : Option[DomainColorUnion] = None,
     val symbolStrokeWidth : Option[BandPositionUnion] = None,
     val symbolType : Option[DomainCapUnion] = None,
     val tickCount : Option[TickCount] = None,
@@ -1882,7 +1882,7 @@ case class Legend (
     val titleAlign : Option[LabelAlignUnion] = None,
     val titleAnchor : Option[TitleAnchorUnion] = None,
     val titleBaseline : Option[LabelBaselineUnion] = None,
-    val titleColor : Option[ColorValue] = None,
+    val titleColor : Option[DomainColorUnion] = None,
     val titleFont : Option[DomainCapUnion] = None,
     val titleFontSize : Option[BandPositionUnion] = None,
     val titleFontStyle : Option[DomainCapUnion] = None,
@@ -1985,13 +1985,20 @@ case class OrientValue (
     val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
+case class MarkEncode(
+    val enter : Option[EncodeEntry] = None,
+    val update: Option[EncodeEntry] = None,
+    val hover : Option[EncodeEntry] = None,
+) derives Encoder.AsObject, Decoder
+
+
 case class Mark (
     val from : Option[From] = None,
     val `type` : String,
     val aria : Option[Boolean] = None,
     val clip : Option[Markclip] = None,
     val description : Option[String] = None,
-    val encode : Option[VegaEncode] = None,
+    val encode : Option[MarkEncode] = None,
     val interactive : Option[TickExtraUnion] = None,
     val key : Option[String] = None,
     val name : Option[String] = None,
@@ -2029,6 +2036,388 @@ case class MarkclipSignalRef (
     val signal : Option[String] = None,
     val path : Option[BackgroundElement] = None,
     val sphere : Option[BackgroundElement] = None
+) derives Encoder.AsObject, Decoder
+
+case class EncodeEntry (
+    val align : Option[AlignValue] = None,
+    val angle : Option[NumberValue] = None,
+    val aria : Option[BooleanValue] = None,
+    val ariaRole : Option[StringValue] = None,
+    val aspect : Option[BooleanValue] = None,
+    val ariaRoleDescription : Option[StringValue] = None,
+    val baseline : Option[BaselineValue] = None,
+    val blend : Option[BlendValue] = None,
+    val clip : Option[BooleanValue] = None,
+    val cornerRadius : Option[NumberValue] = None,
+    val cornerRadiusBottomLeft : Option[NumberValue] = None,
+    val cornerRadiusBottomRight : Option[NumberValue] = None,
+    val cornerRadiusTopLeft : Option[NumberValue] = None,
+    val cornerRadiusTopRight : Option[NumberValue] = None,
+    val cursor : Option[StringValue] = None,
+    val defined : Option[BooleanValue] = None,
+    val description : Option[StringValue] = None,
+    val dir : Option[StringValue] = None,
+    val dx : Option[NumberValue] = None,
+    val dy : Option[NumberValue] = None,
+    val ellipsis : Option[StringValue] = None,
+    val endAngle : Option[NumberValue] = None,
+    val fill : Option[ColorValue] = None,
+    val fillOpacity : Option[NumberValue] = None,
+    val font : Option[StringValue] = None,
+    val fontSize : Option[NumberValue] = None,
+    val fontStyle : Option[StringValue] = None,
+    val fontWeight : Option[FontWeightValue] = None,
+    val height : Option[NumberValue] = None,
+    val innerRadius : Option[NumberValue] = None,
+    val interpolate : Option[StringValue] = None,
+    val limit : Option[NumberValue] = None,
+    val lineBreak : Option[StringValue] = None,
+    val lineHeight : Option[NumberValue] = None,
+    val opacity : Option[NumberValue] = None,
+    val orient : Option[DirectionValue] = None,
+    val outerRadius : Option[NumberValue] = None,
+    val padAngle : Option[NumberValue] = None,
+    val path : Option[StringValue] = None,
+    val radius : Option[NumberValue] = None,
+    val scaleX : Option[NumberValue] = None,
+    val scaleY : Option[NumberValue] = None,
+    val shape : Option[StringValue] = None,
+    val size : Option[NumberValue] = None,
+    val smooth : Option[BooleanValue] = None,
+    val startAngle : Option[NumberValue] = None,
+    val stroke : Option[ColorValue] = None,
+    val strokeCap : Option[StrokeCapValue] = None,
+    val strokeDash : Option[ArrayValue] = None,
+    val strokeDashOffset : Option[NumberValue] = None,
+    val strokeForeground : Option[BooleanValue] = None,
+    val strokeJoin : Option[StrokeJoinValue] = None,
+    val strokeMiterLimit : Option[NumberValue] = None,
+    val strokeOffset : Option[NumberValue] = None,
+    val strokeOpacity : Option[NumberValue] = None,
+    val strokeWidth : Option[NumberValue] = None,
+    val tension : Option[NumberValue] = None,
+    val text : Option[TextValue] = None,
+    val theta : Option[NumberValue] = None,
+    val tooltip : Option[AnyValue] = None,
+    val url : Option[StringValue] = None,
+    val width : Option[NumberValue] = None,
+    val x : Option[NumberValue] = None,
+    val x2 : Option[NumberValue] = None,
+    val xc : Option[NumberValue] = None,
+    val y : Option[NumberValue] = None,
+    val y2 : Option[NumberValue] = None,
+    val yc : Option[NumberValue] = None,
+    val zindex : Option[NumberValue] = None
+) derives Encoder.AsObject, Decoder
+
+type AlignValue = LabelAlignClass | Seq[LabelAlignElement]
+given Decoder[AlignValue] = {
+    List[Decoder[AlignValue]](
+        Decoder[LabelAlignClass].widen,
+        Decoder[Seq[LabelAlignElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[AlignValue] = Encoder.instance {
+    case enc0 : LabelAlignClass => Encoder.AsObject[LabelAlignClass].apply(enc0)
+    case enc1 : Seq[LabelAlignElement] => Encoder.encodeSeq[LabelAlignElement].apply(enc1)
+}
+
+type BooleanValue = TickRoundClass | Seq[TickRoundElement]
+given Decoder[BooleanValue] = {
+    List[Decoder[BooleanValue]](
+        Decoder[TickRoundClass].widen,
+        Decoder[Seq[TickRoundElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[BooleanValue] = Encoder.instance {
+    case enc0 : TickRoundClass => Encoder.AsObject[TickRoundClass].apply(enc0)
+    case enc1 : Seq[TickRoundElement] => Encoder.encodeSeq[TickRoundElement].apply(enc1)
+}
+
+type StringValue = DomainCapClass | Seq[DomainCapElement]
+given Decoder[StringValue] = {
+    List[Decoder[StringValue]](
+        Decoder[DomainCapClass].widen,
+        Decoder[Seq[DomainCapElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[StringValue] = Encoder.instance {
+    case enc0 : DomainCapClass => Encoder.AsObject[DomainCapClass].apply(enc0)
+    case enc1 : Seq[DomainCapElement] => Encoder.encodeSeq[DomainCapElement].apply(enc1)
+}
+
+type BaselineValue = LabelBaselineClass | Seq[LabelBaselineElement]
+given Decoder[BaselineValue] = {
+    List[Decoder[BaselineValue]](
+        Decoder[LabelBaselineClass].widen,
+        Decoder[Seq[LabelBaselineElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[BaselineValue] = Encoder.instance {
+    case enc0 : LabelBaselineClass => Encoder.AsObject[LabelBaselineClass].apply(enc0)
+    case enc1 : Seq[LabelBaselineElement] => Encoder.encodeSeq[LabelBaselineElement].apply(enc1)
+}
+
+type BlendValue = BlendValueClass | Seq[BlendValueElement]
+given Decoder[BlendValue] = {
+    List[Decoder[BlendValue]](
+        Decoder[BlendValueClass].widen,
+        Decoder[Seq[BlendValueElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[BlendValue] = Encoder.instance {
+    case enc0 : BlendValueClass => Encoder.AsObject[BlendValueClass].apply(enc0)
+    case enc1 : Seq[BlendValueElement] => Encoder.encodeSeq[BlendValueElement].apply(enc1)
+}
+
+case class BlendValueElement (
+    val test : Option[String] = None,
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+case class BlendValueClass (
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+type ColorValue = Seq[BaseColorValue] | FluffyBaseColorValue
+given Decoder[ColorValue] = {
+    List[Decoder[ColorValue]](
+        Decoder[Seq[BaseColorValue]].widen,
+        Decoder[FluffyBaseColorValue].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[ColorValue] = Encoder.instance {
+    case enc0 : Seq[BaseColorValue] => Encoder.encodeSeq[BaseColorValue].apply(enc0)
+    case enc1 : FluffyBaseColorValue => Encoder.AsObject[FluffyBaseColorValue].apply(enc1)
+}
+
+case class FluffyBaseColorValue (
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None,
+    val count : Option[Double] = None,
+    val gradient : Option[Field] = None,
+    val start : Option[Seq[Double]] = None,
+    val stop : Option[Seq[Double]] = None,
+    val color : Option[Color] = None
+) derives Encoder.AsObject, Decoder
+
+type FontWeightValue = LabelFontWeightClass | Seq[LabelFontWeightElement]
+given Decoder[FontWeightValue] = {
+    List[Decoder[FontWeightValue]](
+        Decoder[LabelFontWeightClass].widen,
+        Decoder[Seq[LabelFontWeightElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[FontWeightValue] = Encoder.instance {
+    case enc0 : LabelFontWeightClass => Encoder.AsObject[LabelFontWeightClass].apply(enc0)
+    case enc1 : Seq[LabelFontWeightElement] => Encoder.encodeSeq[LabelFontWeightElement].apply(enc1)
+}
+
+type DirectionValue = DirectionValueClass | Seq[DirectionValueElement]
+given Decoder[DirectionValue] = {
+    List[Decoder[DirectionValue]](
+        Decoder[DirectionValueClass].widen,
+        Decoder[Seq[DirectionValueElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[DirectionValue] = Encoder.instance {
+    case enc0 : DirectionValueClass => Encoder.AsObject[DirectionValueClass].apply(enc0)
+    case enc1 : Seq[DirectionValueElement] => Encoder.encodeSeq[DirectionValueElement].apply(enc1)
+}
+
+case class DirectionValueElement (
+    val test : Option[String] = None,
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+case class DirectionValueClass (
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+type StrokeCapValue = StrokeCapValueClass | Seq[StrokeCapValueElement]
+given Decoder[StrokeCapValue] = {
+    List[Decoder[StrokeCapValue]](
+        Decoder[StrokeCapValueClass].widen,
+        Decoder[Seq[StrokeCapValueElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[StrokeCapValue] = Encoder.instance {
+    case enc0 : StrokeCapValueClass => Encoder.AsObject[StrokeCapValueClass].apply(enc0)
+    case enc1 : Seq[StrokeCapValueElement] => Encoder.encodeSeq[StrokeCapValueElement].apply(enc1)
+}
+
+case class StrokeCapValueElement (
+    val test : Option[String] = None,
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+case class StrokeCapValueClass (
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+type ArrayValue = DomainDashClass | Seq[DomainDashElement]
+given Decoder[ArrayValue] = {
+    List[Decoder[ArrayValue]](
+        Decoder[DomainDashClass].widen,
+        Decoder[Seq[DomainDashElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[ArrayValue] = Encoder.instance {
+    case enc0 : DomainDashClass => Encoder.AsObject[DomainDashClass].apply(enc0)
+    case enc1 : Seq[DomainDashElement] => Encoder.encodeSeq[DomainDashElement].apply(enc1)
+}
+
+type StrokeJoinValue = StrokeJoinValueClass | Seq[StrokeJoinValueElement]
+given Decoder[StrokeJoinValue] = {
+    List[Decoder[StrokeJoinValue]](
+        Decoder[StrokeJoinValueClass].widen,
+        Decoder[Seq[StrokeJoinValueElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[StrokeJoinValue] = Encoder.instance {
+    case enc0 : StrokeJoinValueClass => Encoder.AsObject[StrokeJoinValueClass].apply(enc0)
+    case enc1 : Seq[StrokeJoinValueElement] => Encoder.encodeSeq[StrokeJoinValueElement].apply(enc1)
+}
+
+case class StrokeJoinValueElement (
+    val test : Option[String] = None,
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+case class StrokeJoinValueClass (
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+type TextValue = TextValueClass | Seq[TextValueElement]
+given Decoder[TextValue] = {
+    List[Decoder[TextValue]](
+        Decoder[TextValueClass].widen,
+        Decoder[Seq[TextValueElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[TextValue] = Encoder.instance {
+    case enc0 : TextValueClass => Encoder.AsObject[TextValueClass].apply(enc0)
+    case enc1 : Seq[TextValueElement] => Encoder.encodeSeq[TextValueElement].apply(enc1)
+}
+
+case class TextValueElement (
+    val test : Option[String] = None,
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+case class TextValueClass (
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+type AnyValue = AnyValueClass | Seq[AnyValueElement]
+given Decoder[AnyValue] = {
+    List[Decoder[AnyValue]](
+        Decoder[AnyValueClass].widen,
+        Decoder[Seq[AnyValueElement]].widen,
+    ).reduceLeft(_ or _)
+}
+
+given Encoder[AnyValue] = Encoder.instance {
+    case enc0 : AnyValueClass => Encoder.AsObject[AnyValueClass].apply(enc0)
+    case enc1 : Seq[AnyValueElement] => Encoder.encodeSeq[AnyValueElement].apply(enc1)
+}
+
+case class AnyValueElement (
+    val test : Option[String] = None,
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
+) derives Encoder.AsObject, Decoder
+
+case class AnyValueClass (
+    val scale : Option[Field] = None,
+    val signal : Option[String] = None,
+    val value : Option[Json] = None,
+    val field : Option[Field] = None,
+    val range : Option[Band] = None,
+    val band : Option[Json] = None,
+    val offset : Option[Json] = None
 ) derives Encoder.AsObject, Decoder
 
 case class From (
@@ -2522,7 +2911,7 @@ case class TitleClass (
     val angle : Option[BandPositionUnion] = None,
     val aria : Option[Boolean] = None,
     val baseline : Option[LabelBaselineUnion] = None,
-    val color : Option[ColorValue] = None,
+    val color : Option[DomainColorUnion] = None,
     val dx : Option[BandPositionUnion] = None,
     val dy : Option[BandPositionUnion] = None,
     val encode : Option[TitleEncode] = None,
@@ -2539,7 +2928,7 @@ case class TitleClass (
     val orient : Option[TitleOrient] = None,
     val style : Option[Style] = None,
     val subtitle : Option[TextOrSignal] = None,
-    val subtitleColor : Option[ColorValue] = None,
+    val subtitleColor : Option[DomainColorUnion] = None,
     val subtitleFont : Option[DomainCapUnion] = None,
     val subtitleFontSize : Option[BandPositionUnion] = None,
     val subtitleFontStyle : Option[DomainCapUnion] = None,
@@ -2556,19 +2945,19 @@ case class TitleEncode (
     val title : Option[GuideEncode] = None
 ) derives Encoder.AsObject, Decoder
 
-type FrameUnion = Seq[DomainCapElement] | Frame | StringValue
+type FrameUnion = DomainCapClass | Seq[DomainCapElement] | Frame
 given Decoder[FrameUnion] = {
     List[Decoder[FrameUnion]](
+        Decoder[DomainCapClass].widen,
         Decoder[Seq[DomainCapElement]].widen,
         Decoder[Frame].widen,
-        Decoder[StringValue].widen,
     ).reduceLeft(_ or _)
 }
 
 given Encoder[FrameUnion] = Encoder.instance {
-    case enc0 : Seq[DomainCapElement] => Encoder.encodeSeq[DomainCapElement].apply(enc0)
-    case enc1 : Frame => Encoder.encodeString(enc1)
-    case enc2 : StringValue => Encoder.AsObject[StringValue].apply(enc2)
+    case enc0 : DomainCapClass => Encoder.AsObject[DomainCapClass].apply(enc0)
+    case enc1 : Seq[DomainCapElement] => Encoder.encodeSeq[DomainCapElement].apply(enc1)
+    case enc2 : Frame => Encoder.encodeString(enc2)
 }
 
 type Frame = "bounds" | "group"
