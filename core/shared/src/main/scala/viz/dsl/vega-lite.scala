@@ -9,6 +9,9 @@ import cats.syntax.functor._
 given [A <: Singleton](using A <:< String): Decoder[A] = Decoder.decodeString.emapTry(x => Try(x.asInstanceOf[A])) 
 given [A <: Singleton](using ev: A <:< String): Encoder[A] = Encoder.encodeString.contramap(ev) 
 
+// If a union has a null in, then we'll need this too... 
+type NullValue = None.type
+
 /**
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
  * specifications. (The json schema is generated from this type.)
@@ -39,7 +42,7 @@ case class VegaLiteDsl (
      *
      * __Default value:__ `"all"`.
      */
-    val align : Option[VegaLiteAlign] = None,
+    val align : Option[VegaLiteDslAlign] = None,
 
     /**
      * How the visualization size should be determined. If a string, should be one of `"pad"`,
@@ -167,7 +170,7 @@ case class VegaLiteDsl (
      *
      * Dynamic variables or selections that parameterize a visualization.
      */
-    val params : Option[Seq[VegaLiteParam]] = None,
+    val params : Option[Seq[VegaLiteDslParam]] = None,
 
     /**
      * An object defining properties of geographic projection, which will be applied to `shape`
@@ -273,7 +276,7 @@ case class VegaLiteDsl (
      *
      * A specification of the view that gets repeated.
      */
-    val spec : Option[VegaLiteSpec] = None,
+    val spec : Option[VegaLiteDslSpec] = None,
 
     /**
      * Layer or single view specifications to be layered.
@@ -328,15 +331,15 @@ case class VegaLiteDsl (
  *
  * __Default value:__ `"all"`.
  */
-type VegaLiteAlign = LayoutAlign | RowColLayoutAlign
-given Decoder[VegaLiteAlign] = {
-    List[Decoder[VegaLiteAlign]](
+type VegaLiteDslAlign = LayoutAlign | RowColLayoutAlign
+given Decoder[VegaLiteDslAlign] = {
+    List[Decoder[VegaLiteDslAlign]](
         Decoder[LayoutAlign].widen,
         Decoder[RowColLayoutAlign].widen,
     ).reduceLeft(_ or _)
 }
 
-given Encoder[VegaLiteAlign] = Encoder.instance {
+given Encoder[VegaLiteDslAlign] = Encoder.instance {
     case enc0 : LayoutAlign => Encoder.encodeString(enc0)
     case enc1 : RowColLayoutAlign => Encoder.AsObject[RowColLayoutAlign].apply(enc1)
 }
@@ -568,7 +571,7 @@ case class SpecSpec (
      *
      * __Default value:__ `"all"`.
      */
-    val align : Option[VegaLiteAlign] = None,
+    val align : Option[VegaLiteDslAlign] = None,
 
     /**
      * The bounds calculation method to use for determining the extent of a sub-plot. One of
@@ -732,8 +735,8 @@ case class SpecSpec (
      * facet.
      */
     val layer : Option[Seq[LayerSpec]] = None,
-    /**
 
+    /**
      * The number of columns to include in the view composition layout.
      *
      * __Default value__: `undefined` -- An infinite number of columns (a single row) will be
@@ -832,7 +835,7 @@ case class Spec (
      *
      * __Default value:__ `"all"`.
      */
-    val align : Option[VegaLiteAlign] = None,
+    val align : Option[VegaLiteDslAlign] = None,
 
     /**
      * The bounds calculation method to use for determining the extent of a sub-plot. One of
@@ -1830,8 +1833,8 @@ case class AngleClass (
      * 1) For a data `field`, `"nominal"` is the default data type unless the field encoding has
      * `aggregate`, `channel`, `bin`, scale type, `sort`, or `timeUnit` that satisfies the
      * following criteria:
-         * `aggregate` except `"argmin"` and `"argmax"`, (2) the encoding channel is `latitude` or
      * - `"quantitative"` is the default type if (1) the encoded field contains `bin` or
+     * `aggregate` except `"argmin"` and `"argmax"`, (2) the encoding channel is `latitude` or
      * `longitude` channel or (3) if the specified scale type is [a quantitative
      * scale](https://vega.github.io/vega-lite/docs/scale.html#type).
      * - `"temporal"` is the default type if (1) the encoded field contains `timeUnit` or (2)
@@ -1926,9 +1929,6 @@ case class ArgmDef (
  *
  * __Default value:__ `"sum"` for stacked plots. Otherwise, `"min"`.
  */
-
-type NullValue = None.type
-
 
 type NonArgAggregateOp = "average" | "ci0" | "ci1" | "count" | "distinct" | "max" | "mean" | "median" | "min" | "missing" | "product" | "q1" | "q3" | "stderr" | "stdev" | "stdevp" | "sum" | "valid" | "values" | "variance" | "variancep"
 type AngleBin = BinParams | Boolean | NullValue
@@ -2317,7 +2317,7 @@ case class EqualDateTime (
  * `year`, `quarter`, `month`, or `date`.
  */
 type Day = Double | String
-/* given Decoder[Day] = {
+given Decoder[Day] = {
     List[Decoder[Day]](
         Decoder[Double].widen,
         Decoder[String].widen,
@@ -2327,7 +2327,7 @@ type Day = Double | String
 given Encoder[Day] = Encoder.instance {
     case enc0 : Double => Encoder.encodeDouble(enc0)
     case enc1 : String => Encoder.encodeString(enc1)
-} */
+}
 
 /**
  * One of: (1) integer value representing the month from `1`-`12`. `1` represents January;
@@ -2335,18 +2335,6 @@ given Encoder[Day] = Encoder.instance {
  * short month name (e.g., `"Jan"`).
  */
 type Month = Double | String
-given Decoder[Month] = {
-    List[Decoder[Month]](
-        Decoder[Double].widen,
-        Decoder[String].widen,
-    ).reduceLeft(_ or _)
-}
-
-given Encoder[Month] = Encoder.instance {
-    case enc0 : Double => Encoder.encodeDouble(enc0)
-    case enc1 : String => Encoder.encodeString(enc1)
-}
-
 type Lt = Double | GtDateTime | String
 given Decoder[Lt] = {
     List[Decoder[Lt]](
@@ -2616,6 +2604,31 @@ case class RangeDateTime (
     val expr : Option[String] = None
 ) derives Encoder.AsObject, Decoder
 
+
+/**
+ * Defines how date-time values should be binned.
+ */
+type TimeUnit = 
+    "date" | 
+    "day" | 
+    "dayhours" | 
+    "dayhoursminutes" | 
+    "dayhoursminutesseconds" | "dayofyear" | "hours" | "hoursminutes" | "hoursminutesseconds" | "milliseconds" | 
+    "minutes" | "minutesseconds" | "month" | "monthdate" | "monthdatehours" | "monthdatehoursminutes" | "monthdatehoursminutesseconds" | "quarter" | "quartermonth" | "seconds" | "secondsmilliseconds" | 
+    //"utcdate" | "utcday" | "utcdayhours" | "utcdayhoursminutes" | "utcdayhoursminutesseconds" | "utcdayofyear" | "utchours" | "utchoursminutes" | "utchoursminutesseconds" | "utcmilliseconds" | "utcminutes" | 
+    //"utcminutesseconds" | "utcmonth" | "utcmonthdate" | "utcmonthdatehours" | "utcmonthdatehoursminutes" | "utcmonthdatehoursminutesseconds" | "utcquarter" | "utcquartermonth" | "utcseconds" | 
+    //"utcsecondsmilliseconds" | "utcweek" | "utcweekday" | "utcweekdayhoursminutes" | "utcweekdayhoursminutesseconds" | "utcweeksdayhours" | "utcyear" | "utcyeardayofyear" | "utcyearmonth" | "utcyearmonthdate" | 
+    //"utcyearmonthdatehours" | "utcyearmonthdatehoursminutes" | "utcyearmonthdatehoursminutesseconds" | "utcyearquarter" | "utcyearquartermonth" | "utcyearweek" | "utcyearweekday" | "utcyearweekdayhours" | 
+    //"utcyearweekdayhoursminutes" | "utcyearweekdayhoursminutesseconds" | 
+    "week" | "weekday" | "weekdayhoursminutes" | "weekdayhoursminutesseconds" | "weeksdayhours" | "year" | "yeardayofyear" | "yearmonth" | 
+    "yearmonthdate" | "yearmonthdatehours" | "yearmonthdatehoursminutes" | "yearmonthdatehoursminutesseconds" | "yearquarter" |  "yearquartermonth" | 
+    "yearweek" | 
+    "yearweekday" | 
+    "yearweekdayhours" | 
+    "yearweekdayhoursminutes" | 
+    "yearweekdayhoursminutesseconds"
+// type TimeUnit = "date" | "day" // Short string unions work...
+
 /**
  * Time unit for the field to be tested.
  *
@@ -2633,7 +2646,7 @@ case class RangeDateTime (
 type TimeUnitUnion = TimeUnit | TimeUnitParams
 given Decoder[TimeUnitUnion] = {
     List[Decoder[TimeUnitUnion]](
-        Decoder.decodeString.emapTry(x => Try(x.asInstanceOf[TimeUnitUnion])),
+        Decoder[TimeUnit].widen,
         Decoder[TimeUnitParams].widen,
     ).reduceLeft(_ or _)
 }
@@ -2665,14 +2678,10 @@ case class TimeUnitParams (
     val utc : Option[Boolean] = None
 ) derives Encoder.AsObject, Decoder
 
-/**
- * Defines how date-time values should be binned.
- */
-
-type TimeUnit = "date" | "day" | "dayhours" | "dayhoursminutes" | "dayhoursminutesseconds" | "dayofyear" | "hours" | "hoursminutes" | "hoursminutesseconds" | "milliseconds" | "minutes" | "minutesseconds" | "month" | "monthdate" | "monthdatehours" | "monthdatehoursminutes" | "monthdatehoursminutesseconds" | "quarter" | "quartermonth" | "seconds" | "secondsmilliseconds" | "utcdate" | "utcday" | "utcdayhours" | "utcdayhoursminutes" | "utcdayhoursminutesseconds" | "utcdayofyear" | "utchours" | "utchoursminutes" | "utchoursminutesseconds" | "utcmilliseconds" | "utcminutes" | "utcminutesseconds" | "utcmonth" | "utcmonthdate" | "utcmonthdatehours" | "utcmonthdatehoursminutes" | "utcmonthdatehoursminutesseconds" | "utcquarter" | "utcquartermonth" | "utcseconds" | "utcsecondsmilliseconds" | "utcweek" | "utcweekday" | "utcweekdayhoursminutes" | "utcweekdayhoursminutesseconds" | "utcweeksdayhours" | "utcyear" | "utcyeardayofyear" | "utcyearmonth" | "utcyearmonthdate" | "utcyearmonthdatehours" | "utcyearmonthdatehoursminutes" | "utcyearmonthdatehoursminutesseconds" | "utcyearquarter" | "utcyearquartermonth" | "utcyearweek" | "utcyearweekday" | "utcyearweekdayhours" | "utcyearweekdayhoursminutes" | "utcyearweekdayhoursminutesseconds" | "week" | "weekday" | "weekdayhoursminutes" | "weekdayhoursminutesseconds" | "weeksdayhours" | "year" | "yeardayofyear" | "yearmonth" | "yearmonthdate" | "yearmonthdatehours" | "yearmonthdatehoursminutes" | "yearmonthdatehoursminutesseconds" | "yearquarter" | "yearquartermonth" | "yearweek" | "yearweekday" | "yearweekdayhours" | "yearweekdayhoursminutes" | "yearweekdayhoursminutesseconds"
 
 type CornerRadius = BackgroundExprRef | Double
-/* given Decoder[CornerRadius] = {
+
+given Decoder[CornerRadius] = {
     List[Decoder[CornerRadius]](
         Decoder[BackgroundExprRef].widen,
         Decoder[Double].widen,
@@ -2683,7 +2692,7 @@ given Encoder[CornerRadius] = Encoder.instance {
     case enc0 : BackgroundExprRef => Encoder.AsObject[BackgroundExprRef].apply(enc0)
     case enc1 : Double => Encoder.encodeDouble(enc1)
 }
- */
+
 case class ConditionalPredicateValueDefNumberExprRefClass (
     /**
      * Predicate for triggering the condition
@@ -3389,18 +3398,6 @@ given Encoder[Format] = Encoder.instance {
 }
 
 type FontSize = BackgroundExprRef | Double
-/* given Decoder[FontSize] = {
-    List[Decoder[FontSize]](
-        Decoder[BackgroundExprRef].widen,
-        Decoder[Double].widen,
-    ).reduceLeft(_ or _)
-}
-
-given Encoder[FontSize] = Encoder.instance {
-    case enc0 : BackgroundExprRef => Encoder.AsObject[BackgroundExprRef].apply(enc0)
-    case enc1 : Double => Encoder.encodeDouble(enc1)
-} */
-
 type GridAlign = BackgroundExprRef | LayoutAlign
 given Decoder[GridAlign] = {
     List[Decoder[GridAlign]](
@@ -6558,7 +6555,7 @@ case class FacetEncodingFieldDef (
      *
      * __Default value:__ `"all"`.
      */
-    val align : Option[VegaLiteAlign] = None,
+    val align : Option[VegaLiteDslAlign] = None,
 
     /**
      * Relative position on a band of a stacked, binned, time unit, or band scale. For example,
@@ -14548,18 +14545,6 @@ case class ConditionCondition (
 ) derives Encoder.AsObject, Decoder
 
 type LabelAngle = BackgroundExprRef | Double
-/* given Decoder[LabelAngle] = {
-    List[Decoder[LabelAngle]](
-        Decoder[BackgroundExprRef].widen,
-        Decoder[Double].widen,
-    ).reduceLeft(_ or _)
-}
-
-given Encoder[LabelAngle] = Encoder.instance {
-    case enc0 : BackgroundExprRef => Encoder.AsObject[BackgroundExprRef].apply(enc0)
-    case enc1 : Double => Encoder.encodeDouble(enc1)
-} */
-
 type TextBaseline = String | TentacledExprRef
 given Decoder[TextBaseline] = {
     List[Decoder[TextBaseline]](
@@ -18095,18 +18080,6 @@ case class Def (
 ) derives Encoder.AsObject, Decoder
 
 type Angle = BackgroundExprRef | Double
-/* given Decoder[Angle] = {
-    List[Decoder[Angle]](
-        Decoder[BackgroundExprRef].widen,
-        Decoder[Double].widen,
-    ).reduceLeft(_ or _)
-}
-
-given Encoder[Angle] = Encoder.instance {
-    case enc0 : BackgroundExprRef => Encoder.AsObject[BackgroundExprRef].apply(enc0)
-    case enc1 : Double => Encoder.encodeDouble(enc1)
-} */
-
 type Box = Boolean | MarkConfig
 given Decoder[Box] = {
     List[Decoder[Box]](
@@ -18700,18 +18673,6 @@ case class FillLinearGradient (
 ) derives Encoder.AsObject, Decoder
 
 type Opacity = BackgroundExprRef | Double
-given Decoder[Opacity] = {
-    List[Decoder[Opacity]](
-        Decoder[BackgroundExprRef].widen,
-        Decoder[Double].widen,
-    ).reduceLeft(_ or _)
-}
-
-given Encoder[Opacity] = Encoder.instance {
-    case enc0 : BackgroundExprRef => Encoder.AsObject[BackgroundExprRef].apply(enc0)
-    case enc1 : Double => Encoder.encodeDouble(enc1)
-}
-
 type MarkConfigInterpolate = BackgroundExprRef | Interpolate
 given Decoder[MarkConfigInterpolate] = {
     List[Decoder[MarkConfigInterpolate]](
@@ -18839,18 +18800,6 @@ case class RelativeBandSize (
 ) derives Encoder.AsObject, Decoder
 
 type BoxPlotDefExtent = Double | String
-/* given Decoder[BoxPlotDefExtent] = {
-    List[Decoder[BoxPlotDefExtent]](
-        Decoder[Double].widen,
-        Decoder[String].widen,
-    ).reduceLeft(_ or _)
-}
-
-given Encoder[BoxPlotDefExtent] = Encoder.instance {
-    case enc0 : Double => Encoder.encodeDouble(enc0)
-    case enc1 : String => Encoder.encodeString(enc1)
-}
- */
 type BoxPlotDefHeight = Double | RelativeBandSizeClass
 given Decoder[BoxPlotDefHeight] = {
     List[Decoder[BoxPlotDefHeight]](
@@ -25741,7 +25690,7 @@ case class DiscreteWidthClass (
     val step : Double
 ) derives Encoder.AsObject, Decoder
 
-case class VegaLiteParam (
+case class VegaLiteDslParam (
     /**
      * Binds the parameter to an external input element such as a slider, selection list or
      * radio button group.
@@ -25840,7 +25789,7 @@ case class VegaLiteParam (
  *
  * Base interface for a unit (single-view) specification.
  */
-case class VegaLiteSpec (
+case class VegaLiteDslSpec (
     /**
      * An object describing the data source. Set to `null` to ignore the parent's data source.
      * If no data is set, it is derived from the parent.
@@ -25975,7 +25924,7 @@ case class VegaLiteSpec (
      *
      * __Default value:__ `"all"`.
      */
-    val align : Option[VegaLiteAlign] = None,
+    val align : Option[VegaLiteDslAlign] = None,
 
     /**
      * The bounds calculation method to use for determining the extent of a sub-plot. One of

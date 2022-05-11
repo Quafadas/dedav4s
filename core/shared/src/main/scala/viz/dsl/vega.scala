@@ -9,6 +9,7 @@ import cats.syntax.functor._
 given [A <: Singleton](using A <:< String): Decoder[A] = Decoder.decodeString.emapTry(x => Try(x.asInstanceOf[A])) 
 given [A <: Singleton](using ev: A <:< String): Encoder[A] = Encoder.encodeString.contramap(ev) 
 
+// If a union has a null in, then we'll need this too... 
 type NullValue = None.type
 
 case class VegaDsl (
@@ -405,8 +406,8 @@ given Decoder[AxeFormat] = {
         Decoder[FluffySignalRef].widen,
         Decoder[String].widen,
     ).reduceLeft(_ or _)
-    
 }
+
 given Encoder[AxeFormat] = Encoder.instance {
     case enc0 : FluffySignalRef => Encoder.AsObject[FluffySignalRef].apply(enc0)
     case enc1 : String => Encoder.encodeString(enc1)
