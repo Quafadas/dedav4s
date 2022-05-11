@@ -47,7 +47,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
       "io.circe" %%% "circe-core" % "0.15.0-M1",
       "io.circe" %%% "circe-parser" % "0.15.0-M1"
     )
-  )
+  ).enablePlugins(NoPublishPlugin)
 
 lazy val root = tlCrossRootProject.aggregate(core, generated, tests)
 
