@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [3.1.0]
+        scala: [3.1.2]
         java: [temurin@8]
         project: [rootJS, rootJVM]
     runs-on: ${{ matrix.os }}
@@ -38,12 +38,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Download Java (temurin@8)
+        id: download-java-temurin-8
+        if: matrix.java == 'temurin@8'
+        uses: typelevel/download-java@v1
+        with:
+          distribution: temurin
+          java-version: 8
+
       - name: Setup Java (temurin@8)
         if: matrix.java == 'temurin@8'
         uses: actions/setup-java@v2
         with:
-          distribution: temurin
+          distribution: jdkfile
           java-version: 8
+          jdkFile: ${{ steps.download-java-temurin-8.outputs.jdkFile }}
 
       - name: Cache sbt
         uses: actions/cache@v2
@@ -101,7 +110,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [3.1.0]
+        scala: [3.1.2]
         java: [temurin@8]
     runs-on: ${{ matrix.os }}
     steps:
@@ -110,12 +119,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Download Java (temurin@8)
+        id: download-java-temurin-8
+        if: matrix.java == 'temurin@8'
+        uses: typelevel/download-java@v1
+        with:
+          distribution: temurin
+          java-version: 8
+
       - name: Setup Java (temurin@8)
         if: matrix.java == 'temurin@8'
         uses: actions/setup-java@v2
         with:
-          distribution: temurin
+          distribution: jdkfile
           java-version: 8
+          jdkFile: ${{ steps.download-java-temurin-8.outputs.jdkFile }}
 
       - name: Cache sbt
         uses: actions/cache@v2
@@ -129,22 +147,22 @@ jobs:
             ~/Library/Caches/Coursier/v1
           key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
-      - name: Download target directories (3.1.0, rootJS)
+      - name: Download target directories (3.1.2, rootJS)
         uses: actions/download-artifact@v2
         with:
-          name: target-${{ matrix.os }}-${{ matrix.java }}-3.1.0-rootJS
+          name: target-${{ matrix.os }}-${{ matrix.java }}-3.1.2-rootJS
 
-      - name: Inflate target directories (3.1.0, rootJS)
+      - name: Inflate target directories (3.1.2, rootJS)
         run: |
           tar xf targets.tar
           rm targets.tar
 
-      - name: Download target directories (3.1.0, rootJVM)
+      - name: Download target directories (3.1.2, rootJVM)
         uses: actions/download-artifact@v2
         with:
-          name: target-${{ matrix.os }}-${{ matrix.java }}-3.1.0-rootJVM
+          name: target-${{ matrix.os }}-${{ matrix.java }}-3.1.2-rootJVM
 
-      - name: Inflate target directories (3.1.0, rootJVM)
+      - name: Inflate target directories (3.1.2, rootJVM)
         run: |
           tar xf targets.tar
           rm targets.tar
@@ -168,7 +186,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [3.1.0]
+        scala: [3.1.2]
         java: [temurin@8]
     runs-on: ${{ matrix.os }}
     steps:
@@ -177,12 +195,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Download Java (temurin@8)
+        id: download-java-temurin-8
+        if: matrix.java == 'temurin@8'
+        uses: typelevel/download-java@v1
+        with:
+          distribution: temurin
+          java-version: 8
+
       - name: Setup Java (temurin@8)
         if: matrix.java == 'temurin@8'
         uses: actions/setup-java@v2
         with:
-          distribution: temurin
+          distribution: jdkfile
           java-version: 8
+          jdkFile: ${{ steps.download-java-temurin-8.outputs.jdkFile }}
 
       - name: Cache sbt
         uses: actions/cache@v2
