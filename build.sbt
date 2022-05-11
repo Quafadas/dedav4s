@@ -47,9 +47,10 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
       "io.circe" %%% "circe-core" % "0.15.0-M1",
       "io.circe" %%% "circe-parser" % "0.15.0-M1"
     )
-  ).enablePlugins(NoPublishPlugin)
+  )
+  .enablePlugins(NoPublishPlugin)
 
-lazy val root = tlCrossRootProject.aggregate(core, generated, tests)
+lazy val root = tlCrossRootProject.aggregate(core, generated, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
@@ -124,6 +125,14 @@ lazy val jsdocs = project
   .dependsOn(root.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
+
+lazy val unidocs = project
+  .in(file("unidocs"))
+  .enablePlugins(TypelevelUnidocPlugin) // also enables the ScalaUnidocPlugin
+  .settings(
+    name := "woozle-docs",
+    ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(core.jvm, generated.jvm)
+  )
 
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
