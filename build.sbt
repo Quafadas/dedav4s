@@ -34,7 +34,7 @@ ThisBuild / developers := List(
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 
-ThisBuild / scalaVersion := "3.1.0"
+ThisBuild / scalaVersion := "3.1.2"
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))
