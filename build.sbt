@@ -15,9 +15,12 @@ import laika.ast._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
+
+val scalaV = "3.1.2"
+
 inThisBuild(
   List(
-    scalaVersion := "3.1.0",
+    scalaVersion := scalaV,
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision
   )
@@ -41,7 +44,7 @@ ThisBuild / developers := List(
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 
-ThisBuild / scalaVersion := "3.1.2"
+ThisBuild / scalaVersion := scalaV
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))
