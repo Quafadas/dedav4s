@@ -97,10 +97,9 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .jsSettings(
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
-    )
-    //webpackBundlingMode := BundlingMode.LibraryOnly(),
-    /*stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),
-    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
+    ),
+
+    /*stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),    
     useYarn := true
     stOutputPackage := "viz.vega",
     Compile / npmDependencies ++= Seq(
@@ -125,13 +124,22 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
 lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
-    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.ESModule) },
+    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",
+    webpackBundlingMode := BundlingMode.LibraryOnly(),
+    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
+    Compile / npmDependencies ++= Seq(
+      "vega-typings" -> "0.22.2",
+      "vega-embed" -> "6.20.8",
+      "vega" -> "5.22.0",
+      "vega-lite" -> "5.2.0"
+    )
   )
   .dependsOn(root.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
+  .enablePlugins(ScalaJSBundlerPlugin)
 
 lazy val unidocs = project
   .in(file("unidocs"))
@@ -145,17 +153,18 @@ lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
     mdocJS := Some(jsdocs),
+    mdocJSLibraries := webpack.in(jsdocs, Compile, fullOptJS).value,
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
       "js-opt" -> "fast",
-      "js-batch-mode" -> "true",
-      "js-html-header" ->
+      //"js-batch-mode" -> "true",
+/*       "js-html-header" ->
         """
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-"""
+""" */
     ),
     libraryDependencies ++= Seq(
       ("org.scalanlp" %% "breeze" % "2.0")
@@ -183,8 +192,7 @@ lazy val docs = project
         .topNavigationBar(
             homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
             navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
-        )
-        
+        )       
     }
   )
   .dependsOn(core.jvm)

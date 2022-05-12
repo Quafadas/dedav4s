@@ -22,6 +22,7 @@ import org.scalajs.dom.Element
 object showJsDocs:
   def apply(path: String, node: Element, width: Int = 50) =
     //val child = dom.document.getElementById(childId)
+    println("here!")
     val child = dom.document.createElement("div")
     val anId = "vega" + Random.alphanumeric.take(8).mkString("")
     child.id = anId
@@ -37,4 +38,5 @@ object showJsDocs:
                 }
             }).then(function(result) {
             console.log(result)
-            })""")
+            })"""
+    )
