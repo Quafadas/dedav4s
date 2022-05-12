@@ -1,86 +1,47 @@
 # Mixed typesafe / mutable
 
-The DSL is generated via [quicktype](https://quicktype.io).
+## Start mutable and add a little safety
+The "mutuable" approach uses `ujson.Value` to represent a chart. We could use a "typesafe" part of the DSL, to mutate the part we want... then turn into ujson.
 
 ```scala mdoc:js
-import viz.dsl.vegaLite.*
-import viz.dsl.DslPlot.*
-import org.scalajs.dom.html.Div
+import viz.dsl.vega.*
+import viz.vega.plots.BarChart
+import viz.dsl.Conversion.u
 import viz.doc.makePlotTarget
-import io.circe._
 
-val child : Div = makePlotTarget(node, 50)
+val axisOrient : TitleOrientEnum = "top"
+val newAxis : Axis= Axis(orient = axisOrient, scale = "xscale")
 
-val someData : InlineDataset = Seq(
-    Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
-    Map("a" -> Some(Json.fromString("Next")), "b" -> Some(Json.fromInt(25))),
-    Map("a" -> Some(Json.fromString("embiggen")), "b" -> Some(Json.fromInt(5)))
-)
+// for demonstration purposes
+val asUjson : ujson.Value = newAxis.u
+// the .u is an hacky extension method to move from circe json to ujson.Value
 
-val theChart = VegaLiteDsl(
-    `$schema` = Some("https://vega.github.io/schema/vega-lite/v5.json"),
-    description = Some("A simple bar chart that is kinda statically typed"),
-    data = Some(
-        URLData(
-            values = Some(
-                someData
-            )
-        )        
-    ),
-    mark = Some("bar".asInstanceOf[AnyMark]),
-    encoding = Some(
-        EdEncoding(
-            x = Some(
-                XClass(
-                    field = Some("a".asInstanceOf[Field]), 
-                    `type` = Some("nominal".asInstanceOf[viz.dsl.vegaLite.Type]), 
-                    axis = Some(Axis(labelAngle = Some(45.asInstanceOf[LabelAngle]))),
-                )
-            ),
-            y = Some(
-                YClass(
-                    field = Some("b".asInstanceOf[Field]), 
-                    `type` = Some("quantitative".asInstanceOf[viz.dsl.vegaLite.Type]),                     
-                )
-            )
-        )
+BarChart(
+    List(
+        viz.Utils.removeXAxis, 
+        viz.Utils.fillDiv,
+        spec => spec("axes") = spec("axes").arr :+ newAxis.u
     )
-)
-println("hi")
-theChart.plot(using child)
-```
+)(using makePlotTarget(node, 50))
 
-if you were in a repl, the last line would be:
 
 ```
-theChart.plot
-```
 
-That is... a lot of work though. Let's cheat.
+## Shortcuts
+```scala mdoc
+import viz.dsl.vega.*
+import io.circe._, io.circe.parser._
 
-# Simpler strategy
-
-Parse the example spec from source... then copy the case class.
-
-```scala mdoc:js
-import viz.dsl.vegaLite.*
-import viz.dsl.DslPlot.*
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
-import viz.vega.plots.*
-import io.circe._
-
-val teehee = SpecUrl.SimpleBarChartLite.toDsl()
-val asDsl = teehee.toOption.get.asInstanceOf[VegaLiteDsl]
-val someData : InlineDataset = Seq(
-    Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
-    Map("a" -> Some(Json.fromString("Next")), "b" -> Some(Json.fromInt(25))),
-    Map("a" -> Some(Json.fromString("embiggen")), "b" -> Some(Json.fromInt(5)))
-)
-
-asDsl.copy(
-    data = Some(URLData(values = Some(someData))),
-    width = Some("container")
-).plot(using makePlotTarget(node, 50))
+// Steal a part of the spec you want from an example. 
+val copyPastedAxisFromExample = """
+{ "orient": "top", "scale": "xscale" }
+"""
+val parsed :  Either[io.circe.Error, viz.dsl.vega.Axis] = decode[Axis](copyPastedAxisFromExample)
 
 ```
+
+```scala mdoc
+val parsedU : ujson.Value = ujson.read(copyPastedAxisFromExample)
+```
+
+You could then use either strategy to insert into a spec, depending on whether you're starting from the "mutable" or "typesafe" approach. 
