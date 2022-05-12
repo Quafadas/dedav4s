@@ -18,7 +18,6 @@ package viz
 
 import viz.vega.Framework
 import viz.vega.Framework.*
-import scala.concurrent.Future
 import org.scalajs.dom.XMLHttpRequest
 import org.scalajs.dom.Event
 import scala.scalajs.js

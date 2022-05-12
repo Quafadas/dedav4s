@@ -76,11 +76,12 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 
 Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.
 
-<strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3, and via backwards compatibility with scala 2.13.6+. So if you want this to work you'll currently need to compile a almond kernel from source...
-Also, the extension methods currently use athe ```viz.Utils.fillDiv``` method, which is not compatible with the way Jupyter sizes charts. So don't use those right now. 
+<strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3. So if you want this to work you'll currently need to roll your own almond kernel from source... Because you're extreme :-). 
 
-Basically there are still a couple of landmnines whilst scala 3 moves through the ecosystem - the intent is to sort this properly in future and there is no fundamental reason this can't work.
+Also, the extension methods currently use athe ```viz.Utils.fillDiv``` method, which is not compatible with the way Jupyter sizes charts. So don't use those right now. 
 </strong>
+
+As scala 3 matures and moves through the ecosystem, I expect this to work smoothly. 
 
 ```scala
 import viz.PlotTargets.almond

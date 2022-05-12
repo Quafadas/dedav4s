@@ -3,7 +3,7 @@
 import viz.PlotTargets.doNothing
 import viz.extensions.*
 ```
-You need a [plot target](plotTargets.md) in place, and then we're ready to plot some data. The idea of the library is to wrap vega by simply treating a chart spec as a JSON object.  
+You need a [plot target](../explanation/plotTargets.md) in place, and then we're ready to plot some data. The idea of the library is to wrap vega by simply treating a chart spec as a JSON object.  
 
 The library exposes the [vega examples](https://vega.github.io/vega/examples/) and [vega lite examples](https://vega.github.io/vega-lite/examples/) convieniently as case classes. The class names correspond to the title of the charts (with some special characters removed).
 
@@ -19,13 +19,11 @@ As always... lean into vega;
 
 We can easily manipulate JSON objects using [ujson](https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html). 
 
-Ideas
+My worflow cascade;
 
 1. Pipe "raw" data into a vega example
-1. Record a list of modifiers which were useful modifications to an example for re-use
+1. Record a list of modifiers which were useful modifications to an example for re-use... (or just use the example as is)
 1. Spec has been modified enough that a list of modifiers is confusing. Extend the WithBaseSpec class directly via a file or resource (see "Custom.scala"). Then pipe data into it.
-1. In prod... don't use this library anymore - probably you have a webserver which means you already have javascript. Use vega directly, Keep the spec under version control and use vega data loading capabilities to talk to the API providing data. 
-
 
 ## Some Concepts
 Each "plot" is a case class which accepts a list of "modifiers". Each case class has the signature accepting a single argument of type; 
@@ -40,11 +38,12 @@ This signature appears often enough that it is aliased as;
 type JsonMod = Seq[ujson.Value => Unit]
 ```
 
-Upon creation, each of these functions is applied to a "base spec". To start with, a base spec will be an example from the vega website). The signature of ```viz.vega.plots.SimpleBarChart()``` is
+Each time a plot "case class" (e.g. `BarPlot`) is created, each of these functions is applied to a "base spec". To start with, a base spec will be an example from the vega website). The signature of ```viz.vega.plots.SimpleBarChart()``` is
 ```scala 
 case class BarChart(override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.BarChart)
 ```
 The constiuents of this definition are;
+
 - mods change the spec (to make it look the way you want - for example adding your own data)
 - PlotTarget is a side effect which is run when the case class is created. Often will display the plot in a browser.
 - The final part tells this case class, where to obtain a "base specification". In this case, https://vega.github.io/vega/examples/bar-chart.vg.json

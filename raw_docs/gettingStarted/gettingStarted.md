@@ -13,36 +13,46 @@ Fire up an sbt console (or in a repl... )
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
 import viz.extensions.*
+import viz.vega.plots.BarChart
 ```
 
 ```scala mdoc:reset:invisible
 import viz.PlotTargets.doNothing
 import viz.extensions.*
+import viz.vega.plots.BarChart
 ```
 
 ```scala mdoc
-List(1,4,6,7,4,4).plotBarChart()
+BarChart(List())
 ```
-```scala mdoc:vegaspec:simpleBarChart
-List(1,4,6,7,4,4).plotBarChart()
+A side effect should open a browser window, that should look like the plot below the next code fence. 
+
+This code fence uses scala JS. Observe how similar the code is to the code you just ran in the REPL. 
+
+```scala mdoc:js
+import viz.vega.plots.BarChart
+import org.scalajs.dom.html.Div
+import viz.doc.makePlotTarget
+
+val child : Div = makePlotTarget(node, 50)
+BarChart(List())(using child)
 ```
 
-A side effect should open a browser window, with this inside
+In fact, it's cross compiled from the same shared source code! That promise - explore in the REPL, publish in scala JS. I believe to be an attractive proposition.
+
+I like a big chart... let's see if we can fill the div.
+```scala
+BarChart(List(viz.Utils.fillDiv))
+```
 
 ```scala mdoc:js:invisible
-viz.doc.showJsDocs("simpleBarChart", node, 0)
+import viz.vega.plots.BarChart
+import org.scalajs.dom.html.Div
+import viz.doc.makePlotTarget
+val child : Div = makePlotTarget(node, 50)
+BarChart(List(viz.Utils.fillDiv))(using child)
 ```
 
-I like a big chart... so you may also try.... 
+If you're curious about how that worked, then you're ready to go! Read on! 
 
-```scala mdoc
-List(1,4,6,7,4,4).plotBarChart(List(viz.Utils.fillDiv))
-```
-```scala mdoc:vegaspec:simpleBarChartBig
-List(1,4,6,7,4,4).plotBarChart(List(viz.Utils.fillDiv))
-```
-```scala mdoc:js:invisible
-viz.doc.showJsDocs("simpleBarChartBig", node, 50)
-```
-
-If that worked, then you're ready to go! See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../explanation/workflow.md) for suggestions on how to use and extend the concepts.
+See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../explanation/workflow.md) for suggestions on how to use and extend the concepts.

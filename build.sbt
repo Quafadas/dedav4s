@@ -54,8 +54,8 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
       "-Xmax-inlines:2000"
     ),
     libraryDependencies ++= Seq(
-      "io.circe" %%% "circe-core" % "0.15.0-M1",
-      "io.circe" %%% "circe-parser" % "0.15.0-M1"
+      "io.circe" %%% "circe-core" % "0.14.1",
+      "io.circe" %%% "circe-parser" % "0.14.1"
     )
   )
   .enablePlugins(NoPublishPlugin)
@@ -73,10 +73,10 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     ),
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "2.0.0",
-      //"com.lihaoyi" %%% "ujson-circe" % "2.0.0", doesn't exist for scala3
+      "io.circe" %%% "circe-core" % "0.14.1",
+      "io.circe" %%% "circe-parser" % "0.14.1",
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
       "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
-      //"org.scalameta" %%% "munit" % "0.7.29" % Test,
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".4"))
@@ -131,6 +131,8 @@ lazy val jsdocs = project
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",    
+    libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
+    libraryDependencies += ("org.scala-js" %%% "scalajs-java-time" % "1.0.0").cross(CrossVersion.for3Use2_13),
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
     Compile / npmDependencies ++= Seq(
       "vega-typings" -> "0.22.2",
@@ -177,10 +179,6 @@ lazy val docs = project
     ),
     //laikaTheme := Helium.defaults.build,
     laikaConfig ~= { _.withRawContent },
-    tlSiteHeliumConfig ~= {
-      // Actually, this *disables* auto-linking, to avoid duplicates with mdoc
-      _.site.autoLinkJS()
-    },
     tlSiteHeliumConfig := {
       Helium
         .defaults
@@ -196,7 +194,8 @@ lazy val docs = project
         .topNavigationBar(
             homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
             navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
-        )       
+        )
+        .site.autoLinkJS()
     }
   )
   .dependsOn(core.jvm)

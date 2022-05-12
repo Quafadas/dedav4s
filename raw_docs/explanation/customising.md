@@ -14,6 +14,7 @@ extension [T: Numeric](l: DenseVector[T])(using plotTarget: PlotTarget)
   def plotLineChart(mods: JsonMod = List()): LineChart =
     l.toArray.plotLineChart(mods)
 ```
+Give it a go in a project - this turns a breeze vector into a plottable data structure that emits a line chart!
 
 The moment where I figured it might be worth an attempt at at publishing this library was this; 
 ```scala mdoc
