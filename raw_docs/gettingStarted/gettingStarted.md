@@ -55,4 +55,4 @@ BarChart(List(viz.Utils.fillDiv))(using child)
 
 If you're curious about how that worked, then you're ready to go! Read on! 
 
-See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../explanation/workflow.md) for suggestions on how to use and extend the concepts.
+See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../working_chart/workflow.md) for suggestions on how to use and extend the concepts.
