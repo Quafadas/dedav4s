@@ -33,7 +33,7 @@ inThisBuild(
 )
 
 ThisBuild / tlSitePublishBranch := Some("main")
-ThisBuild / tlBaseVersion := "0.7"
+ThisBuild / tlBaseVersion := "0.8"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / licenses := Seq(License.Apache2)
@@ -57,8 +57,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
       "io.circe" %%% "circe-core" % "0.14.1",
       "io.circe" %%% "circe-parser" % "0.14.1"
     )
-  )
-  .enablePlugins(NoPublishPlugin)
+  )  
 
 lazy val root = tlCrossRootProject.aggregate(core, generated, unidocs, tests)
 
