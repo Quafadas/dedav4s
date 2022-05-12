@@ -11,7 +11,7 @@ import org.typelevel.sbt.site.*
 import laika.ast.LengthUnit.*
 import laika.helium.config.Favicon
 import laika.helium.config.ImageLink
-import laika.ast._
+import laika.ast.*
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -169,22 +169,20 @@ lazy val docs = project
       _.site.autoLinkJS()
     },
     tlSiteHeliumConfig := {
-      Helium
-        .defaults
-        .site
+      Helium.defaults.site
         .metadata(
           title = Some("Dedav4s"),
           language = Some("en"),
           description = Some("Declarative data visualisation for scala"),
           authors = Seq("Simon Parten"),
           date = Some(Instant.now)
-        )      
+        )
         .site
         .topNavigationBar(
-            homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
-            navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
+          homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
+          navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github))
         )
-        
+
     }
   )
   .dependsOn(core.jvm)
