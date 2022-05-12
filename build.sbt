@@ -124,10 +124,10 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
 lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
-    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
-    scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",
+    //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
     webpackBundlingMode := BundlingMode.LibraryOnly(),
+    scalaJSUseMainModuleInitializer := true,
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",    
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
     Compile / npmDependencies ++= Seq(
       "vega-typings" -> "0.22.2",
@@ -136,7 +136,7 @@ lazy val jsdocs = project
       "vega-lite" -> "5.2.0"
     )
   )
-  .dependsOn(root.js)
+  .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
   .enablePlugins(ScalaJSBundlerPlugin)
@@ -157,8 +157,9 @@ lazy val docs = project
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
-      "js-opt" -> "fast",
-      //"js-batch-mode" -> "true",
+      "js-batch-mode" -> "true",
+      //"js-opt" -> "full",
+      
 /*       "js-html-header" ->
         """
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
