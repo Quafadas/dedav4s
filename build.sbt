@@ -57,7 +57,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
       "io.circe" %%% "circe-core" % "0.14.1",
       "io.circe" %%% "circe-parser" % "0.14.1"
     )
-  )  
+  )
 
 lazy val root = tlCrossRootProject.aggregate(core, generated, unidocs, tests)
 
