@@ -34,7 +34,7 @@ On Scala JS
 
 1. a browser via scalajs
 
-The entire suite of vega examples it easily accessed via the library API. 
+The entire suite of vega examples are easily accessed via the library API. 
 
 Mutating or creating your own charts is then enabled via any of the three approaches below
 
