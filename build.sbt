@@ -11,7 +11,7 @@ import org.typelevel.sbt.site.*
 import laika.ast.LengthUnit.*
 import laika.helium.config.Favicon
 import laika.helium.config.ImageLink
-import laika.ast._
+import laika.ast.*
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -100,9 +100,9 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .jsSettings(
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
-    ),
+    )
 
-    /*stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),    
+    /*stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),
     useYarn := true
     stOutputPackage := "viz.vega",
     Compile / npmDependencies ++= Seq(
@@ -130,7 +130,7 @@ lazy val jsdocs = project
     //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",    
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-time" % "1.0.0").cross(CrossVersion.for3Use2_13),
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
@@ -162,10 +162,10 @@ lazy val docs = project
     //mdocOut := new File("docs"),
     mdocIn := new File("raw_docs"),
     mdocVariables ++= Map(
-      "js-batch-mode" -> "true",
+      "js-batch-mode" -> "true"
       //"js-opt" -> "full",
-      
-/*       "js-html-header" ->
+
+      /*       "js-html-header" ->
         """
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
@@ -180,22 +180,21 @@ lazy val docs = project
     //laikaTheme := Helium.defaults.build,
     laikaConfig ~= { _.withRawContent },
     tlSiteHeliumConfig := {
-      Helium
-        .defaults
-        .site
+      Helium.defaults.site
         .metadata(
           title = Some("Dedav4s"),
           language = Some("en"),
           description = Some("Declarative data visualisation for scala"),
           authors = Seq("Simon Parten"),
           date = Some(Instant.now)
-        )      
+        )
         .site
         .topNavigationBar(
-            homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
-            navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
+          homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
+          navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github))
         )
-        .site.autoLinkJS()
+        .site
+        .autoLinkJS()
     }
   )
   .dependsOn(core.jvm)
