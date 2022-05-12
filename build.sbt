@@ -4,7 +4,14 @@ import laika.helium.config.IconLink
 import laika.ast.Path.Root
 import laika.theme.config.Color
 import java.time.Instant
+import laika.markdown.github.GitHubFlavor
+import laika.parse.code.SyntaxHighlighting
 import com.typesafe.tools.mima.core.*
+import org.typelevel.sbt.site.*
+import laika.ast.LengthUnit.*
+import laika.helium.config.Favicon
+import laika.helium.config.ImageLink
+import laika.ast._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -130,7 +137,7 @@ lazy val unidocs = project
   .in(file("unidocs"))
   .enablePlugins(TypelevelUnidocPlugin) // also enables the ScalaUnidocPlugin
   .settings(
-    name := "woozle-docs",
+    name := "dedav4s-docs",
     ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(core.jvm, generated.jvm)
   )
 
@@ -155,47 +162,30 @@ lazy val docs = project
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         .exclude("org.typelevel", "cats-kernel_2.13")
     ),
+    //laikaTheme := Helium.defaults.build,
     laikaConfig ~= { _.withRawContent },
     tlSiteHeliumConfig ~= {
       // Actually, this *disables* auto-linking, to avoid duplicates with mdoc
       _.site.autoLinkJS()
     },
-    laikaTheme := tlSiteHeliumConfig.value.all
-      .metadata(
-        title = Some("Dedav4s"),
-        language = Some("en"),
-        description = Some("Declarative data visualisation for scala"),
-        authors = Seq("Simon Parten"),
-        date = Some(Instant.now)
-      )
-      .site
-      .darkMode
-      .themeColors(
-        primary = Color.hex("1c44b2"),
-        secondary = Color.hex("b26046"),
-        primaryMedium = Color.hex("2962ff"),
-        primaryLight = Color.hex("e6f4f3"),
-        text = Color.hex("000000"),
-        background = Color.hex("ffffff"),
-        bgGradient = (Color.hex("3788ac"), Color.hex("fff5e6"))
-      )
-      .site
-      .themeColors(
-        primary = Color.hex("3788ac"),
-        secondary = Color.hex("b26046"),
-        primaryMedium = Color.hex("2962ff"),
-        primaryLight = Color.hex("fff5e6"),
-        text = Color.hex("000000"),
-        background = Color.hex("ffffff"),
-        bgGradient = (Color.hex("3788ac"), Color.hex("fff5e6"))
-      )
-      .site
-      .topNavigationBar(
-        homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
-        navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
-        highContrast = false
-      )
-      .build
+    tlSiteHeliumConfig := {
+      Helium
+        .defaults
+        .site
+        .metadata(
+          title = Some("Dedav4s"),
+          language = Some("en"),
+          description = Some("Declarative data visualisation for scala"),
+          authors = Seq("Simon Parten"),
+          date = Some(Instant.now)
+        )      
+        .site
+        .topNavigationBar(
+            homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
+            navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
+        )
+        
+    }
   )
   .dependsOn(core.jvm)
   .enablePlugins(TypelevelSitePlugin)
