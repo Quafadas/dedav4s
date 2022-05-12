@@ -20,6 +20,7 @@
     
     <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../site/styles.css" />
     <script src="../helium/laika-helium.js"></script>
     
     
@@ -36,15 +37,15 @@
         </a>
         
       </div>
-  
-      <a class="icon-link" href="../index.html"><i class="icofont-laika" title="Home">&#xef47;</i></a>
-      
+
+      <a class="icon-link" href="index.html"><i class="icofont-laika" title="Home"></i></a>
+
       <span class="row links"><a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
   <g class="svg-shape">
     <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
   </g>
 </svg></span></a></span>
-      
+
     </header>
 
     <nav id="sidebar">
@@ -56,7 +57,7 @@
   </g>
 </svg></span></a>
       </div>
-      
+
       <ul class="nav-list">
         <li class="level1 nav-header">Getting Sarted</li>
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
@@ -64,8 +65,6 @@
         <li class="level1 nav-header">Details</li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
         <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
-        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
-        <li class="level2"><a href="../explanation/workflow.html">Workflow</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
         <li class="level1 nav-header">Scala Versions</li>
@@ -73,24 +72,35 @@
         <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
         <li class="level1 nav-header">Prior Art</li>
         <li class="level2 active"><a href="#">Prior Art</a></li>
+        <li class="level1 nav-header">Working With A Chart</li>
+        <li class="level2"><a href="../working_chart/intro.html">Styles</a></li>
+        <li class="level2"><a href="../working_chart/mutable.html">Mutable Style</a></li>
+        <li class="level2"><a href="../working_chart/typesafe.html">The DSL</a></li>
+        <li class="level2"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
+        <li class="level2"><a href="../working_chart/workflow.html">Workflow</a></li>
       </ul>
-      
+
+      <ul class="nav-list">
+        <li class="level1 nav-header">Related Projects</li>
+        
+          <li class="level2"><a href="https://typelevel.org/cats/">cats</a></li>
+        
+      </ul>
+
     </nav>
 
     <div id="container">
 
       <nav id="page-nav">
         <p class="header"><a href="#">Prior Art</a></p>
-        
+
         <ul class="nav-list">
           <li class="level1"><a href="#why-this-library">Why this library?</a></li>
           <li class="level2"><a href="#from-first-principles">From first principles</a></li>
           <li class="level2"><a href="#good-news">Good news</a></li>
           <li class="level2"><a href="#what-of-typesafety">What of typesafety?</a></li>
-          <li class="level2"><a href="#but-i-realllly-want-typesafety">But I realllly want typesafety</a></li>
-          <li class="level2"><a href="#conclusion">Conclusion</a></li>
         </ul>
-        
+
         <p class="footer"></p>
       </nav>
 
@@ -109,39 +119,37 @@
         </ul>
         <p>A lot more developed... but not scala!
         - <a href="https://github.com/metasoarous/oz">https://github.com/metasoarous/oz</a></p>
+        <p>Or use scalably typed and generate a typesafe facade for your scala JS library of choice.</p>
         
-        <h1 id="why-this-library" class="section">Why this library?<a class="anchor-link right" href="#why-this-library"><i class="icofont-laika">&#xef71;</i></a></h1>
-        <p>I like scala. I&#39;ve found it to be a wonderful experience, with, to my mind a weakness - data visualisation. I certainly feel I put in a solid &quot;best effort&quot; to find an existing library. </p>
-        <p>I concluded I wanted something slightly different. The below explains the rationale behind that statement. </p>
+        <h1 id="why-this-library" class="section"><a class="anchor-link left" href="#why-this-library"><i class="icofont-laika">&#xef71;</i></a>Why this library?</h1>
+        <p>I like scala. I&#39;ve found it to be a wonderful experience, with, to my mind a weakness - data visualisation. I certainly feel I put in a solid &quot;best effort&quot; to find an existing library, and struggled with them. Also... this was fun.</p>
         
-        <h2 id="from-first-principles" class="section">From first principles<a class="anchor-link right" href="#from-first-principles"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="from-first-principles" class="section"><a class="anchor-link left" href="#from-first-principles"><i class="icofont-laika">&#xef71;</i></a>From first principles</h2>
         <p>Good data visulaisation is hard. In terms of library authorship, there are two formidable problems one must overcome in order for such a library to be viable. </p>
         <ol class="arabic">
           <li>Drawing on screen</li>
           <li>Sharing</li>
         </ol>
         <p>It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise. </p>
-        <p>Unfortunately, this leaves us with a problem. Scala doesn&#39;t run in the browser... well actually, <a href="https://www.scala-js.org">it can</a>... and that project is amazing and powers this website. Sadly, my target is a repl / interactive JVM environment, and the language of browsers is javascript. Ouch.</p>
+        <p>Unfortunately, this leaves us with a problem. Scala doesn&#39;t run in the browser...  (<a href="https://www.scala-js.org">a filthy lie</a>)... but most scala takes place on the JVM. My target is a repl / interactive JVM environment, and that introduces some challenges.</p>
         
-        <h2 id="good-news" class="section">Good news<a class="anchor-link right" href="#good-news"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="good-news" class="section"><a class="anchor-link left" href="#good-news"><i class="icofont-laika">&#xef71;</i></a>Good news</h2>
         <p>There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let&#39;s provide a thin shim for one! </p>
         <p>Vega/lite let&#39;s us square the scala / browser circle. We need only a tiny amount of javascript to shim vega embed and host the libraries. The actual visualisation definition is a JSON object. Scala already has good tools for manipulating JSON objects, if we can create the right object, we just need to pipe it into a page template as a string!</p>
+        <p>It turns out, that vega/lite even publish schema. If we had a way to generate scala case classes from schema... we&#39;d have a convienient, typesafe DSL!</p>
         
-        <h2 id="what-of-typesafety" class="section">What of typesafety?<a class="anchor-link right" href="#what-of-typesafety"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="what-of-typesafety" class="section"><a class="anchor-link left" href="#what-of-typesafety"><i class="icofont-laika">&#xef71;</i></a>What of typesafety?</h2>
         <p>Many of the libraries above set out to define a typesafe DSL. Do we need one? </p>
-        <p>When thinking about this, one has to ask, why? Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost. I argue for this problem, the benefits outweight the costs.</p>
-        <p>In data visualisation, I suspect a typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>.</p>
-        <p>And if you don&#39;t have the runtime guarantees? Insead I propose to simply embrace the tightest feedback loop you can get in exchange. See <a href="https://vega.github.io/editor">vega editor</a>.</p>
-        <p>The actual visualisation here? It&#39;s a <code>ujson.Value</code>. That&#39;s the only type information you have - but... if you read the vega docs and use the vega editor... you&#39;ll find you can make those objects do amazing things... which you can now port into scala. </p>
-        <p>But... they are not typesafe.</p>
-        
-        <h2 id="but-i-realllly-want-typesafety" class="section">But I realllly want typesafety<a class="anchor-link right" href="#but-i-realllly-want-typesafety"><i class="icofont-laika">&#xef71;</i></a></h2>
-        <p>The general problem is hard. I see two ways plotting can be made safer in this paradigm.</p>
-        <p>Mostly, you&#39;ll want type safety behind <em>your data structure</em>. It is fairly simple, to add a plot method to an existing datastructure. As you then control the spec and have knowledge of the data... as long as you test correcty, it&#39;s &quot;semi-typesafe&quot;. </p>
-        <p>Also, it is possible to write &quot;safe&quot; modifications to the a spec. Trivial examples (see <code>viz.Utils</code>) would be removing axes. Unfortunately, &quot;general&quot; modifications are not simple - a pie chart doesn&#39;t really want x/y axes for example. Instead of the general problem, this library makes it <em>possible</em> although not necessarily recommended, to construct a &quot;typesafe&quot; DSL <em>per example chart</em>, in the companion objects of the case classes. This is also an infinite amount of work, to which I will not commit... but your contributions (with tests) are welcome if you wish this...</p>
-        
-        <h2 id="conclusion" class="section">Conclusion<a class="anchor-link right" href="#conclusion"><i class="icofont-laika">&#xef71;</i></a></h2>
-        <p>I think you will not refgret learning a declarative paradigm. The 10 minutes you&#39;ll spend learning this library (it&#39;s absurdly simple) are sunk cost. I propose that the hours you&#39;ll invest learning vega are a valuable addition to your study of software engineering. It&#39;s amazing how far you can go, and how much value you can deliver, just by pattern matching the vega examples.</p>
+        <p>When thinking about this, one has to ask, why? Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost.</p>
+        <p>In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>.</p>
+        <p>So I don&#39;t claim the DSL is perfect. It&#39;s as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close, for your use case.
+        ## Conclusion
+        I think you will not refgret learning a declarative paradigm. The 10 minutes you&#39;ll spend learning this library (it&#39;s absurdly simple) are sunk cost. I propose that the hours you&#39;ll invest learning vega are a valuable addition to your study of software engineering. It&#39;s amazing how far you can go, and how much value you can deliver, just by pattern matching the vega examples.</p>
+
+        <hr style="margin-top: 30px"/>
+        <footer style="font-size: 90%; text-align: center">
+          Dedav4s is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a> license.
+        </footer>
 
       </main>
 

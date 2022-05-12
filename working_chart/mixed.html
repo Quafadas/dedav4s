@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Laika 0.18.1 + Helium Theme" />
+    <title>Mixed typesafe / mutable</title>
+    
+      <meta name="author" content="Simon Parten"/>
+    
+    
+      <meta name="description" content="Declarative data visualisation for scala"/>
+    
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.207/distr/fira_code.css">
+    
+    <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../site/styles.css" />
+    <script src="../helium/laika-helium.js"></script>
+    
+    
+    <script> /* for avoiding page load transitions */ </script>
+  </head>
+
+  <body>
+
+    <header id="top-bar">
+
+      <div class="row">
+        <a id="nav-icon">
+          <i class="icofont-laika" title="Navigation">&#xefa2;</i>
+        </a>
+        
+      </div>
+
+      <a class="icon-link" href="index.html"><i class="icofont-laika" title="Home"></i></a>
+
+      <span class="row links"><a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a></span>
+
+    </header>
+
+    <nav id="sidebar">
+
+      <div class="row">
+        <a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+      </div>
+
+      <ul class="nav-list">
+        <li class="level1 nav-header">Getting Sarted</li>
+        <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+        <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
+        <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+        <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
+        <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+        <li class="level1 nav-header">Working With A Chart</li>
+        <li class="level2"><a href="intro.html">Styles</a></li>
+        <li class="level2"><a href="mutable.html">Mutable Style</a></li>
+        <li class="level2"><a href="typesafe.html">The DSL</a></li>
+        <li class="level2 active"><a href="#">Mixed typesafe / mutable</a></li>
+        <li class="level2"><a href="workflow.html">Workflow</a></li>
+      </ul>
+
+      <ul class="nav-list">
+        <li class="level1 nav-header">Related Projects</li>
+        
+          <li class="level2"><a href="https://typelevel.org/cats/">cats</a></li>
+        
+      </ul>
+
+    </nav>
+
+    <div id="container">
+
+      <nav id="page-nav">
+        <p class="header"><a href="#">Mixed typesafe / mutable</a></p>
+
+        <ul class="nav-list">
+          <li class="level1"><a href="#start-mutable-and-add-a-little-safety">Start mutable and add a little safety</a></li>
+          <li class="level1"><a href="#shortcuts">Shortcuts</a></li>
+        </ul>
+
+        <p class="footer"></p>
+      </nav>
+
+      <main class="content">
+
+        <h1 id="mixed-typesafe-mutable" class="title">Mixed typesafe / mutable</h1>
+        
+        <h2 id="start-mutable-and-add-a-little-safety" class="section"><a class="anchor-link left" href="#start-mutable-and-add-a-little-safety"><i class="icofont-laika">&#xef71;</i></a>Start mutable and add a little safety</h2>
+        <p>The &quot;mutuable&quot; approach uses <code>ujson.Value</code> to represent a chart. We could use a &quot;typesafe&quot; part of the DSL, to mutate the part we want... then turn into ujson.</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">BarChart</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">Conversion</span><span>.</span><span class="identifier">u</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">doc</span><span>.</span><span class="identifier">makePlotTarget</span><span>
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">axisOrient</span><span> : </span><span class="type-name">TitleOrientEnum</span><span> = </span><span class="string-literal">&quot;top&quot;</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">newAxis</span><span> : </span><span class="type-name">Axis</span><span>= </span><span class="type-name">Axis</span><span>(</span><span class="identifier">orient</span><span> = </span><span class="identifier">axisOrient</span><span>, </span><span class="identifier">scale</span><span> = </span><span class="string-literal">&quot;xscale&quot;</span><span>)
+
+</span><span class="comment">// for demonstration purposes
+</span><span class="keyword">val</span><span> </span><span class="identifier">asUjson</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> = </span><span class="identifier">newAxis</span><span>.</span><span class="identifier">u</span><span>
+</span><span class="comment">// the .u is an hacky extension method to move from circe json to ujson.Value
+</span><span>
+</span><span class="type-name">BarChart</span><span>(
+    </span><span class="type-name">List</span><span>(
+        </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeXAxis</span><span>, 
+        </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
+        </span><span class="identifier">spec</span><span> =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;axes&quot;</span><span>) = </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;axes&quot;</span><span>).</span><span class="identifier">arr</span><span> :+ </span><span class="identifier">newAxis</span><span>.</span><span class="identifier">u</span><span>
+    )
+)(</span><span class="keyword">using</span><span> </span><span class="identifier">makePlotTarget</span><span>(</span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>))
+</span></code></pre>
+        <div id="mdoc-html-run0" data-mdoc-js></div>
+        
+        <h2 id="shortcuts" class="section"><a class="anchor-link left" href="#shortcuts"><i class="icofont-laika">&#xef71;</i></a>Shortcuts</h2>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">_</span><span>, </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">parser</span><span>.</span><span class="identifier">_</span><span>
+
+</span><span class="comment">// Steal a part of the spec you want from an example. 
+</span><span class="keyword">val</span><span> </span><span class="identifier">copyPastedAxisFromExample</span><span> = </span><span class="string-literal">&quot;&quot;&quot;
+{ &quot;orient&quot;: &quot;top&quot;, &quot;scale&quot;: &quot;xscale&quot; }
+&quot;&quot;&quot;</span><span>
+</span><span class="comment">// copyPastedAxisFromExample: String = &quot;&quot;&quot;
+//     { &quot;orient&quot;: &quot;top&quot;, &quot;scale&quot;: &quot;xscale&quot; }
+//     &quot;&quot;&quot;
+</span><span class="keyword">val</span><span> </span><span class="identifier">parsed</span><span> :  </span><span class="type-name">Either</span><span>[</span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="type-name">Error</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="type-name">Axis</span><span>] = </span><span class="identifier">decode</span><span>[</span><span class="type-name">Axis</span><span>](</span><span class="identifier">copyPastedAxisFromExample</span><span>)
+</span><span class="comment">// parsed: Either[Error, Axis] = Right(
+//   value = Axis(
+//     aria = None,
+//     bandPosition = None,
+//     description = None,
+//     domain = None,
+//     domainCap = None,
+//     domainColor = None,
+//     domainDash = None,
+//     domainDashOffset = None,
+//     domainOpacity = None,
+//     domainWidth = None,
+//     encode = None,
+//     format = None,
+//     formatType = None,
+//     grid = None,
+//     gridCap = None,
+//     gridColor = None,
+//     gridDash = None,
+//     gridDashOffset = None,
+//     gridOpacity = None,
+//     gridScale = None,
+//     gridWidth = None,
+//     labelAlign = None,
+//     labelAngle = None,
+//     labelBaseline = None,
+//     labelBound = None,
+//     labelColor = None,
+//     labelFlush = None,
+//     labelFlushOffset = None,
+//     labelFont = None,
+//     labelFontSize = None,
+//     labelFontStyle = None,
+//     labelFontWeight = None,
+//     labelLimit = None,
+//     labelLineHeight = None,
+//     labelOffset = None,
+//     labelOpacity = None,
+//     labelOverlap = None,
+//     labelPadding = None,
+//     labels = None,
+//     labelSeparation = None,
+//     maxExtent = None,
+//     minExtent = None,
+//     offset = None,
+//     orient = &quot;top&quot;,
+//     position = None,
+//     scale = &quot;xscale&quot;,
+//     tickBand = None,
+// ...</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">parsedU</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> = </span><span class="identifier">ujson</span><span>.</span><span class="identifier">read</span><span>(</span><span class="identifier">copyPastedAxisFromExample</span><span>)
+</span><span class="comment">// parsedU: Value = Obj(
+//   value = LinkedHashMap(
+//     &quot;orient&quot; -&gt; Str(value = &quot;top&quot;),
+//     &quot;scale&quot; -&gt; Str(value = &quot;xscale&quot;)
+//   )
+// )</span></code></pre>
+        <p>You could then use either strategy to insert into a spec, depending on whether you&#39;re starting from the &quot;mutable&quot; or &quot;typesafe&quot; approach. <script type="text/javascript" src="jsdocs-opt-library.js" defer></script>
+        <script type="text/javascript" src="jsdocs-opt-loader.js" defer></script>
+        <script type="text/javascript" src="mixed.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script></p>
+
+        <hr style="margin-top: 30px"/>
+        <footer style="font-size: 90%; text-align: center">
+          Dedav4s is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a> license.
+        </footer>
+
+      </main>
+
+    </div>
+
+  </body>
+</html>

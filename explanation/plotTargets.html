@@ -20,6 +20,7 @@
     
     <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../site/styles.css" />
     <script src="../helium/laika-helium.js"></script>
     
     
@@ -36,15 +37,15 @@
         </a>
         
       </div>
-  
-      <a class="icon-link" href="../index.html"><i class="icofont-laika" title="Home">&#xef47;</i></a>
-      
+
+      <a class="icon-link" href="index.html"><i class="icofont-laika" title="Home"></i></a>
+
       <span class="row links"><a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
   <g class="svg-shape">
     <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
   </g>
 </svg></span></a></span>
-      
+
     </header>
 
     <nav id="sidebar">
@@ -56,7 +57,7 @@
   </g>
 </svg></span></a>
       </div>
-      
+
       <ul class="nav-list">
         <li class="level1 nav-header">Getting Sarted</li>
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
@@ -64,8 +65,6 @@
         <li class="level1 nav-header">Details</li>
         <li class="level2 active"><a href="#">Plot Targets</a></li>
         <li class="level2"><a href="rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
-        <li class="level2"><a href="workingChart.html">Working with a chart</a></li>
-        <li class="level2"><a href="workflow.html">Workflow</a></li>
         <li class="level2"><a href="customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="outFiles.html">Where do the temporary files live?</a></li>
         <li class="level1 nav-header">Scala Versions</li>
@@ -73,15 +72,28 @@
         <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
         <li class="level1 nav-header">Prior Art</li>
         <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+        <li class="level1 nav-header">Working With A Chart</li>
+        <li class="level2"><a href="../working_chart/intro.html">Styles</a></li>
+        <li class="level2"><a href="../working_chart/mutable.html">Mutable Style</a></li>
+        <li class="level2"><a href="../working_chart/typesafe.html">The DSL</a></li>
+        <li class="level2"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
+        <li class="level2"><a href="../working_chart/workflow.html">Workflow</a></li>
       </ul>
-      
+
+      <ul class="nav-list">
+        <li class="level1 nav-header">Related Projects</li>
+        
+          <li class="level2"><a href="https://typelevel.org/cats/">cats</a></li>
+        
+      </ul>
+
     </nav>
 
     <div id="container">
 
       <nav id="page-nav">
         <p class="header"><a href="#">Plot Targets</a></p>
-        
+
         <ul class="nav-list">
           <li class="level1"><a href="#desktop-browser">Desktop Browser</a></li>
           <li class="level2"><a href="#how-it-works">How it works</a></li>
@@ -95,7 +107,7 @@
           <li class="level2"><a href="#png">PNG</a></li>
           <li class="level2"><a href="#pdf">PDF</a></li>
         </ul>
-        
+
         <p class="footer"></p>
       </nav>
 
@@ -108,7 +120,7 @@
         <p>Many of these rely on writing temp files, and a <code>java.awt.Desktop.browse()</code>, and an internet connection. If your environment does not have those capabilities, then you&#39;ll need to look elsewhere or take an advanced approach.</p>
         <p>The path of the temporary file is located in the &quot;out&quot; property of the case class, which is of type <code>Unit | os.Path</code>. If the target creates a temporary file, you may &quot;move it around&quot; wherever you wish, using the path as a starting point.</p>
         
-        <h2 id="desktop-browser" class="section">Desktop Browser<a class="anchor-link right" href="#desktop-browser"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="desktop-browser" class="section"><a class="anchor-link left" href="#desktop-browser"><i class="icofont-laika">&#xef71;</i></a>Desktop Browser</h2>
         <p>Will open a new browser window in your desktop based browser, pointing to a temporary file. </p>
         <img src="../assets/dedav_intro.gif" width=90% height=90%/>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">desktopBrowser</span><span>
@@ -116,7 +128,7 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
         
-        <h3 id="how-it-works" class="section">How it works<a class="anchor-link right" href="#how-it-works"><i class="icofont-laika">&#xef71;</i></a></h3>
+        <h3 id="how-it-works" class="section"><a class="anchor-link left" href="#how-it-works"><i class="icofont-laika">&#xef71;</i></a>How it works</h3>
         <p>The library writes a (temporary) file, assuming that</p>
         <pre><code>java.io.File.createTempFile() </code></pre>
         <p>Is available. That temporary file assumes that you have an internet connection, and can resolve </p>
@@ -129,20 +141,20 @@
         <pre><code>java.awt.Desktop.browse()</code></pre>
         <p>And we browse to the temporary file created in step one. On some linux distributions, this may not work. Consider using the websocket target instead.</p>
         
-        <h2 id="websocket" class="section">Websocket<a class="anchor-link right" href="#websocket"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="websocket" class="section"><a class="anchor-link left" href="#websocket"><i class="icofont-laika">&#xef71;</i></a>Websocket</h2>
         <p>This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.</p>
         <img src="../assets/websockets2.gif" width=90% height=90%/>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">websockets</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*</span></code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
         
-        <h2 id="almond" class="section"><a href="https://www.almond.sh">Almond</a><a class="anchor-link right" href="#almond"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="almond" class="section"><a class="anchor-link left" href="#almond"><i class="icofont-laika">&#xef71;</i></a><a href="https://www.almond.sh">Almond</a></h2>
         <img src="../assets/almond.gif" width=90% height=90%/>
         <p>Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.</p>
-        <p><strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3, and via backwards compatibility with scala 2.13.6+. So if you want this to work you&#39;ll currently need to compile a almond kernel from source...
-        Also, the extension methods currently use athe <code>viz.Utils.fillDiv</code> method, which is not compatible with the way Jupyter sizes charts. So don&#39;t use those right now. </p>
-        <p>Basically there are still a couple of landmnines whilst scala 3 moves through the ecosystem - the intent is to sort this properly in future and there is no fundamental reason this can&#39;t work.
+        <p><strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3. So if you want this to work you&#39;ll currently need to roll your own almond kernel from source... Because you&#39;re extreme :-). </p>
+        <p>Also, the extension methods currently use athe <code>viz.Utils.fillDiv</code> method, which is not compatible with the way Jupyter sizes charts. So don&#39;t use those right now. 
         </strong></p>
+        <p>As scala 3 matures and moves through the ecosystem, I expect this to work smoothly. </p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">almond</span></code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">BarChart</span><span>(
    </span><span class="type-name">List</span><span>(        
@@ -151,10 +163,10 @@
     )
 )</span></code></pre>
         
-        <h2 id="vscode" class="section">VSCode<a class="anchor-link right" href="#vscode"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="vscode" class="section"><a class="anchor-link left" href="#vscode"><i class="icofont-laika">&#xef71;</i></a>VSCode</h2>
         <p>Use the almond target and a notebook... </p>
         
-        <h2 id="gitpod" class="section">Gitpod<a class="anchor-link right" href="#gitpod"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="gitpod" class="section"><a class="anchor-link left" href="#gitpod"><i class="icofont-laika">&#xef71;</i></a>Gitpod</h2>
         <p>Gitpod support is kind of brittle and needs a little config. By default, dedav will attempt to contact port 48485 of a webserver it starts in the pod. It will detect the pod address through the gitpod <a href="https://www.gitpod.io/docs/environment-variables">environment variables</a>. </p>
         <p>You may change the port number, by setting the environment variable <code>DEDAV_POD_PORT</code>. If it is not set, it&#39;s default port is 48485.</p>
         <p>The port number, you will need to set in the configuration of your gitpod project. In your .gitpod.yml</p>
@@ -172,14 +184,14 @@
         <p>The second request however... should work... 
         <img src="../assets/gitpod_fast.gif" width=90% height=90%/></p>
         
-        <h2 id="do-nothing" class="section">Do Nothing<a class="anchor-link right" href="#do-nothing"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="do-nothing" class="section"><a class="anchor-link left" href="#do-nothing"><i class="icofont-laika">&#xef71;</i></a>Do Nothing</h2>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
 
 </span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
         <p>To no ones surprise, does nothing! The implementation simply executes unit <code>()</code>. I regret the CPU cycles :-). </p>
         
-        <h2 id="printlntarget" class="section">printlnTarget<a class="anchor-link right" href="#printlntarget"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="printlntarget" class="section"><a class="anchor-link left" href="#printlntarget"><i class="icofont-laika">&#xef71;</i></a>printlnTarget</h2>
         <p>Formats and prints the final JSON spec to the console. </p>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">printlnTarget</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
@@ -341,31 +353,35 @@
 // }
 // res2: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$14362/172288385@52b67c03
+//     viz.extensions.extensions$package$$$Lambda$16773/22735814@6dbf5649
 //   )
 // )</span></code></pre>
         
-        <h2 id="vega-cli-outputs" class="section">Vega CLI outputs<a class="anchor-link right" href="#vega-cli-outputs"><i class="icofont-laika">&#xef71;</i></a></h2>
+        <h2 id="vega-cli-outputs" class="section"><a class="anchor-link left" href="#vega-cli-outputs"><i class="icofont-laika">&#xef71;</i></a>Vega CLI outputs</h2>
         <p>The <a href="https://vega.github.io/vega/usage/#cli">vega CLI</a> allows you to output pictures to (non interactive) SVG, PNG, and PDF formats. </p>
         <p>This library <em>does not</em> magically set vega cli up for you. It <em>assumes</em> that you have sucessfully done that yourself - i.e. probably you need node.js and have successfully run <code>npm install -g vega-cli</code>... and tested that worked. </p>
         <p>Assuming we&#39;re plotting </p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="number-literal">1</span><span> </span><span class="identifier">to</span><span> </span><span class="number-literal">10</span><span>).</span><span class="identifier">plotBarChart</span><span>()</span></code></pre>
         
-        <h3 id="png" class="section">PNG<a class="anchor-link right" href="#png"><i class="icofont-laika">&#xef71;</i></a></h3>
+        <h3 id="png" class="section"><a class="anchor-link left" href="#png"><i class="icofont-laika">&#xef71;</i></a>PNG</h3>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">pdf</span></code></pre>
         <p><img src="../assets/plot-10805531892109353827.png" alt="as png"></p>
         
-        <h3 id="pdf" class="section">PDF<a class="anchor-link right" href="#pdf"><i class="icofont-laika">&#xef71;</i></a></h3>
+        <h3 id="pdf" class="section"><a class="anchor-link left" href="#pdf"><i class="icofont-laika">&#xef71;</i></a>PDF</h3>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">$import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">pdf</span></code></pre>
         <p>Markdown can&#39;t display this... but it works I promise.
         ### SVG</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">svg</span></code></pre>
-        <p><img src="../assets/plot-15502123500232012865.svg" alt="as svg"></p>
-        <p><script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-        <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-        <script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script></p>
-        <p><script type="text/javascript" src="plotTargets.md.js" defer></script>
+        <p><img src="../assets/plot-15502123500232012865.svg" alt="as svg">
+        <script type="text/javascript" src="jsdocs-opt-library.js" defer></script>
+        <script type="text/javascript" src="jsdocs-opt-loader.js" defer></script>
+        <script type="text/javascript" src="plotTargets.md.js" defer></script>
         <script type="text/javascript" src="mdoc.js" defer></script></p>
+
+        <hr style="margin-top: 30px"/>
+        <footer style="font-size: 90%; text-align: center">
+          Dedav4s is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a> license.
+        </footer>
 
       </main>
 

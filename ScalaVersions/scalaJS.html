@@ -20,6 +20,7 @@
     
     <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../site/styles.css" />
     <script src="../helium/laika-helium.js"></script>
     
     
@@ -36,15 +37,15 @@
         </a>
         
       </div>
-  
-      <a class="icon-link" href="../index.html"><i class="icofont-laika" title="Home">&#xef47;</i></a>
-      
+
+      <a class="icon-link" href="index.html"><i class="icofont-laika" title="Home"></i></a>
+
       <span class="row links"><a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
   <g class="svg-shape">
     <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
   </g>
 </svg></span></a></span>
-      
+
     </header>
 
     <nav id="sidebar">
@@ -56,7 +57,7 @@
   </g>
 </svg></span></a>
       </div>
-      
+
       <ul class="nav-list">
         <li class="level1 nav-header">Getting Sarted</li>
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
@@ -64,8 +65,6 @@
         <li class="level1 nav-header">Details</li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
         <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
-        <li class="level2"><a href="../explanation/workingChart.html">Working with a chart</a></li>
-        <li class="level2"><a href="../explanation/workflow.html">Workflow</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
         <li class="level1 nav-header">Scala Versions</li>
@@ -73,63 +72,67 @@
         <li class="level2 active"><a href="#">Scala JS</a></li>
         <li class="level1 nav-header">Prior Art</li>
         <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+        <li class="level1 nav-header">Working With A Chart</li>
+        <li class="level2"><a href="../working_chart/intro.html">Styles</a></li>
+        <li class="level2"><a href="../working_chart/mutable.html">Mutable Style</a></li>
+        <li class="level2"><a href="../working_chart/typesafe.html">The DSL</a></li>
+        <li class="level2"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
+        <li class="level2"><a href="../working_chart/workflow.html">Workflow</a></li>
       </ul>
-      
+
+      <ul class="nav-list">
+        <li class="level1 nav-header">Related Projects</li>
+        
+          <li class="level2"><a href="https://typelevel.org/cats/">cats</a></li>
+        
+      </ul>
+
     </nav>
 
     <div id="container">
 
       <nav id="page-nav">
         <p class="header"><a href="#">Scala JS</a></p>
-        
+
         <ul class="nav-list">
           <li class="level1"><a href="#ecosystem-support">Ecosystem support</a></li>
           <li class="level2"><a href="#javascript-libraries">Javascript libraries</a></li>
           <li class="level2"><a href="#scala-js-ui-frameworks">Scala JS UI frameworks</a></li>
         </ul>
-        
+
         <p class="footer"></p>
       </nav>
 
       <main class="content">
 
         <h1 id="scala-js" class="title">Scala JS</h1>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>.</span><span class="identifier">html</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>.</span><span class="identifier">html</span><span>.</span><span class="type-name">Document</span><span>
-</span><span class="keyword">val</span><span> </span><span class="identifier">node</span><span> = </span><span class="identifier">dom</span><span>.</span><span class="identifier">document</span><span>.</span><span class="identifier">createElement</span><span>(</span><span class="string-literal">&quot;div&quot;</span><span>).</span><span class="identifier">asInstanceOf</span><span>[</span><span class="identifier">html</span><span>.</span><span class="type-name">Div</span><span>]
-</span><span class="keyword">val</span><span> </span><span class="identifier">root</span><span> = </span><span class="identifier">dom</span><span>.</span><span class="identifier">document</span><span>.</span><span class="identifier">documentElement</span><span>
-</span><span class="identifier">root</span><span>.</span><span class="identifier">appendChild</span><span>(</span><span class="identifier">node</span><span>)
-</span><span class="identifier">node</span><span>.</span><span class="identifier">setAttribute</span><span>(</span><span class="string-literal">&quot;style&quot;</span><span>, </span><span class="string-literal">s&quot;width:50vmin;height:50vmin&quot;</span><span>)
-</span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">GroupedBarChartLite</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))(</span><span class="identifier">using</span><span> </span><span class="identifier">node</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="identifier">html</span><span>.</span><span class="type-name">Div</span><span>])</span></code></pre>
-        <p>Should display the chart. We&#39;ve replaced the <code>given</code> plot target with a div! Where, surprise! Your chart will show up. If all has gone well.</p>
-        <p>What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in all it&#39;s typsafe tooling, and subsequent publication into a browser with scala JS. It&#39;s the same code! As the core library is already javascript, it turns out to be fairly simple (using <a href="https://scalablytyped.org/docs/readme.html">scalably typed</a>) to use in Scala JS. There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent. </p>
-        <p>Disclaimer: Scala JS support is currently a little experimental. I&#39;d love feedback.</p>
+        <p>The charts in these documents, are display using scala JS :-).</p>
+        <p>What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in it&#39;s rapid feedback and typsafe tooling, and subsequent publication into a browser with scala JS. It&#39;s the same code! There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent. </p>
         <p><mark>Gotcha : dedav <strong><em>does not include</em></strong> the underlying JS libraries out of it&#39;s box</mark>. </p>
         <p>The <del>burden</del> freedom is left to the user to include vega embed in your bundling solution. The simplest package.json depedancies would be;</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="attribute-name">&quot;dependencies&quot;</span><span>: {
     </span><span class="attribute-name">&quot;vega-embed&quot;</span><span> : </span><span class="string-literal">&quot;6.20.8&quot;</span><span>
 }</span></code></pre>
-        <p>A &quot;complete&quot; project may be found here; 
+        <p>I may list out some toy examples on the github readme. Here&#39;s one... 
         <a href="https://github.com/Quafadas/scalajs-snowpack-example">Mill, Scala Js, Snowpack, Laminar, Dedav</a></p>
         
-        <h1 id="ecosystem-support" class="section">Ecosystem support<a class="anchor-link right" href="#ecosystem-support"><i class="icofont-laika">&#xef71;</i></a></h1>
+        <h1 id="ecosystem-support" class="section"><a class="anchor-link left" href="#ecosystem-support"><i class="icofont-laika">&#xef71;</i></a>Ecosystem support</h1>
         <p>We have two orthogonal problems</p>
         <ol class="arabic">
           <li>How to we obtain the javascript libraries? </li>
           <li>How to support the bouquet of scala JS UI frameworks? </li>
         </ol>
         
-        <h2 id="javascript-libraries" class="section">Javascript libraries<a class="anchor-link right" href="#javascript-libraries"><i class="icofont-laika">&#xef71;</i></a></h2>
-        <p>The example dependency is set out above. It <em>should</em> work with <em>any</em> bundling solution, or by directly embedding the dependancies in the header of the html.</p>
+        <h2 id="javascript-libraries" class="section"><a class="anchor-link left" href="#javascript-libraries"><i class="icofont-laika">&#xef71;</i></a>Javascript libraries</h2>
+        <p>The example dependency is set out above. It <em>should</em> work with <em>any</em> bundling solution, or even by directly embedding the dependancies in the header of the html. Your choice.</p>
         
-        <h2 id="scala-js-ui-frameworks" class="section">Scala JS UI frameworks<a class="anchor-link right" href="#scala-js-ui-frameworks"><i class="icofont-laika">&#xef71;</i></a></h2>
-        <p>It turns out, that scala JS Dom is simply a facade for the browser API. Dedav works, through providing a reference to a scala js dom Div element.. </p>
+        <h2 id="scala-js-ui-frameworks" class="section"><a class="anchor-link left" href="#scala-js-ui-frameworks"><i class="icofont-laika">&#xef71;</i></a>Scala JS UI frameworks</h2>
+        <p>It turns out, that scala JS Dom is simply a facade for the browser API. Dedav works, through providing a reference to a scala js dom Div element.</p>
         <p>Due to how fundamental the statement above is, we implicitly support <em>all</em> UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div.<br></p>
         
-        <h3 id="examples" class="section">Examples<a class="anchor-link right" href="#examples"><i class="icofont-laika">&#xef71;</i></a></h3>
+        <h3 id="examples" class="section"><a class="anchor-link left" href="#examples"><i class="icofont-laika">&#xef71;</i></a>Examples</h3>
         
-        <h4 id="laminar" class="section">Laminar<a class="anchor-link right" href="#laminar"><i class="icofont-laika">&#xef71;</i></a></h4>
+        <h4 id="laminar" class="section"><a class="anchor-link left" href="#laminar"><i class="icofont-laika">&#xef71;</i></a>Laminar</h4>
         <p>In laminar, it is simple to obtain the reference to a div.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.</span><span class="identifier">_</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
@@ -140,29 +143,25 @@
   </span><span class="keyword">val</span><span> </span><span class="identifier">newDiv</span><span> = </span><span class="identifier">div</span><span>(
     </span><span class="identifier">height</span><span> :=</span><span class="string-literal">&quot;40vmin&quot;</span><span>, </span><span class="identifier">width</span><span> := </span><span class="string-literal">&quot;100vmin&quot;</span><span>, </span><span class="identifier">idAttr</span><span> := </span><span class="string-literal">&quot;viz&quot;</span><span>,
     </span><span class="identifier">onMountCallback</span><span>{ </span><span class="identifier">nodeCtx</span><span> =&gt;      
-      </span><span class="type-name">BarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))(</span><span class="identifier">using</span><span> </span><span class="identifier">nodeCtx</span><span>.</span><span class="identifier">thisNode</span><span>.</span><span class="identifier">ref</span><span>)      
+      </span><span class="type-name">BarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))(</span><span class="keyword">using</span><span> </span><span class="identifier">nodeCtx</span><span>.</span><span class="identifier">thisNode</span><span>.</span><span class="identifier">ref</span><span>)      
     }
   )  </span></code></pre>
         
-        <h4 id="mdoc" class="section">MDoc<a class="anchor-link right" href="#mdoc"><i class="icofont-laika">&#xef71;</i></a></h4>
-        <p>In the below example, the &quot;node&quot; variable comes from mdoc (automagically appended to the right place in the html). It is the dom element provided by mdoc which is displayed for this code fence. We give it a size, and an identifier. The node of interest passed (as a given) when instantiating the chart. </p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">BarChart</span><span>
-</span><span class="identifier">node</span><span>.</span><span class="identifier">setAttribute</span><span>(</span><span class="string-literal">&quot;style&quot;</span><span>, </span><span class="string-literal">s&quot;width:50vmin;height:50vmin&quot;</span><span>)
-</span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">BarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))(</span><span class="identifier">using</span><span> </span><span class="identifier">node</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTarget</span><span>])</span></code></pre>
-        <p>You&#39;ll need to have either gone through the bundling process on the mdoc docs, or include this in build.sbt to suck down the javascript dependancies into the html.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>    </span><span class="identifier">mdocVariables</span><span> ++= </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;js-html-header&quot;</span><span> -&gt; </span><span class="string-literal">&quot;&quot;&quot;
-        &lt;script crossorigin type=&quot;text/javascript&quot; src=&quot;https://cdn.jsdelivr.net/npm/vega@5&quot;&gt;&lt;/script&gt;
-        &lt;script crossorigin type=&quot;text/javascript&quot; src=&quot;https://cdn.jsdelivr.net/npm/vega-lite@5&quot;&gt;&lt;/script&gt;
-        &lt;script crossorigin type=&quot;text/javascript&quot; src=&quot;https://cdn.jsdelivr.net/npm/vega-embed@6&quot;&gt;&lt;/script&gt;
-    &quot;&quot;&quot;</span></code></pre>
+        <h4 id="mdoc" class="section"><a class="anchor-link left" href="#mdoc"><i class="icofont-laika">&#xef71;</i></a>MDoc</h4>
+        <p>Is how this documentation works. Setup mdoc with scalajs bundler, and include vega in the bundle. Read the source of this library :-). </p>
         
-        <h3 id="laika-with-mdoc" class="section">Laika with mdoc<a class="anchor-link right" href="#laika-with-mdoc"><i class="icofont-laika">&#xef71;</i></a></h3>
+        <h3 id="laika-with-mdoc" class="section"><a class="anchor-link left" href="#laika-with-mdoc"><i class="icofont-laika">&#xef71;</i></a>Laika with mdoc</h3>
         <p>Which are a formiddable documentation team. You may need to also work with Laika docs it&#39;s <a href="https://planet42.github.io/Laika/0.18/02-running-laika/01-sbt-plugin.html">documentation</a> to; </p>
         <ol class="arabic">
           <li>disable auto linking (otherwise you&#39;ll end up with two sets of imports)</li>
           <li>enable raw content</li>
         </ol>
         <p>The github repo of this documentation is a successful example!</p>
+
+        <hr style="margin-top: 30px"/>
+        <footer style="font-size: 90%; text-align: center">
+          Dedav4s is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a> license.
+        </footer>
 
       </main>
 

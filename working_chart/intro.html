@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Laika 0.18.1 + Helium Theme" />
-    <title>Dedav4s</title>
+    <title>Styles</title>
     
       <meta name="author" content="Simon Parten"/>
     
@@ -18,10 +18,10 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.207/distr/fira_code.css">
     
-    <link rel="stylesheet" type="text/css" href="helium/icofont.min.css" />
-    <link rel="stylesheet" type="text/css" href="helium/laika-helium.css" />
-    <link rel="stylesheet" type="text/css" href="site/styles.css" />
-    <script src="helium/laika-helium.js"></script>
+    <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../site/styles.css" />
+    <script src="../helium/laika-helium.js"></script>
     
     
     <script> /* for avoiding page load transitions */ </script>
@@ -60,24 +60,24 @@
 
       <ul class="nav-list">
         <li class="level1 nav-header">Getting Sarted</li>
-        <li class="level2"><a href="gettingStarted/gettingStarted.html">Getting Started</a></li>
-        <li class="level2"><a href="gettingStarted/resources.html">Links</a></li>
+        <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+        <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
         <li class="level1 nav-header">Details</li>
-        <li class="level2"><a href="explanation/plotTargets.html">Plot Targets</a></li>
-        <li class="level2"><a href="explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
-        <li class="level2"><a href="explanation/customising.html">Customising an existing data structure</a></li>
-        <li class="level2"><a href="explanation/outFiles.html">Where do the temporary files live?</a></li>
+        <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+        <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
+        <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
         <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2"><a href="ScalaVersions/scalaVersions.html">Scala Versions</a></li>
-        <li class="level2"><a href="ScalaVersions/scalaJS.html">Scala JS</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
         <li class="level1 nav-header">Prior Art</li>
-        <li class="level2"><a href="priorArt/philosophy.html">Prior Art</a></li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
         <li class="level1 nav-header">Working With A Chart</li>
-        <li class="level2"><a href="working_chart/intro.html">Styles</a></li>
-        <li class="level2"><a href="working_chart/mutable.html">Mutable Style</a></li>
-        <li class="level2"><a href="working_chart/typesafe.html">The DSL</a></li>
-        <li class="level2"><a href="working_chart/mixed.html">Mixed typesafe / mutable</a></li>
-        <li class="level2"><a href="working_chart/workflow.html">Workflow</a></li>
+        <li class="level2 active"><a href="#">Styles</a></li>
+        <li class="level2"><a href="mutable.html">Mutable Style</a></li>
+        <li class="level2"><a href="typesafe.html">The DSL</a></li>
+        <li class="level2"><a href="mixed.html">Mixed typesafe / mutable</a></li>
+        <li class="level2"><a href="workflow.html">Workflow</a></li>
       </ul>
 
       <ul class="nav-list">
@@ -92,13 +92,9 @@
     <div id="container">
 
       <nav id="page-nav">
-        <p class="header"><a href="#">Dedav4s</a></p>
+        <p class="header"><a href="#">Styles</a></p>
 
         <ul class="nav-list">
-          <li class="level1"><a href="#elevator-pitch">Elevator Pitch</a></li>
-          <li class="level1"><a href="#background-information">Background Information</a></li>
-          <li class="level1"><a href="#the-important-links">The important links</a></li>
-          <li class="level1"><a href="#project-status">Project status</a></li>
         </ul>
 
         <p class="footer"></p>
@@ -106,45 +102,16 @@
 
       <main class="content">
 
-        <h1 id="dedav4s" class="title">Dedav4s</h1>
-        <p>Declarative data visualization for scala - a scala plotting concept. </p>
-        <p>It is written exclusively in scala 3. There are currently no plans to backport to scala 2.</p>
-        
-        <h2 id="elevator-pitch" class="section"><a class="anchor-link left" href="#elevator-pitch"><i class="icofont-laika">&#xef71;</i></a>Elevator Pitch</h2>
-        <img src="assets/dedav_intro.gif" width=90% height=90%/>
-        
-        <h1 id="background-information" class="section"><a class="anchor-link left" href="#background-information"><i class="icofont-laika">&#xef71;</i></a>Background Information</h1>
-        <p>This is a thin shim around <a href="https://vega.github.io/vega/">vega</a> and <a href="https://vega.github.io/vega-lite/">vega lite</a>. It&#39;s aims are:
-        1. To make exploratory analysis in a repl (or in a notebook) as easy as possible.
-        2. To make the barrier to publication (via scala js) as low as possible.
-        3. To wrap vega / lite in an intuitive way</p>
-        <p>It pays to have an understanding (or at least some idea of what bega / lite are), both Vega &amp; Vega-Lite. It may be worth taking a few minutes to orient yourself with this <a href="https://www.youtube.com/watch?v=9uaHRWj04D4">talk/demo</a> from the creators at the Interactive Data Lab (IDL) at University of Washington.</p>
-        <p>If you are interested in plotting in general, I think that you will not regret learning a declarative paradigm.</p>
-        
-        <h1 id="the-important-links" class="section"><a class="anchor-link left" href="#the-important-links"><i class="icofont-laika">&#xef71;</i></a>The important links</h1>
-        <p><a href="https://vega.github.io/vega/docs/">Vega documentation</a></p>
-        <p><a href="https://vega.github.io/vega-lite/docs/">Vega Lite documentation</a></p>
-        
-        <h1 id="project-status" class="section"><a class="anchor-link left" href="#project-status"><i class="icofont-laika">&#xef71;</i></a>Project status</h1>
-        <p>The project has achieved it&#39;s design goals. On the JVM it currently contains targets for:</p>
+        <h1 id="styles" class="title">Styles</h1>
+        <p>There are essentially three strategies for working with a chart</p>
         <ol class="arabic">
-          <li>repl</li>
-          <li>notebooks</li>
-          <li>websockets</li>
-          <li>gitpob</li>
+          <li>&quot;<a href="mutable.html">Mutable</a>&quot;</li>
+          <li><a href="typesafe.html">The DSL</a></li>
+          <li>a <a href="mixed.html">mix</a> of the two... </li>
         </ol>
-        <p>On Scala JS</p>
-        <ol class="arabic">
-          <li>a browser via scalajs</li>
-        </ol>
-        <p>The entire suite of vega examples it easily accessed via the library API. </p>
-        <p>Mutating or creating your own charts is then enabled via any of the three approaches below</p>
-        <ol class="arabic">
-          <li>A strongly typed DSL</li>
-          <li>&quot;mutably&quot;</li>
-          <li>a mix</li>
-        </ol>
-        <p>All of this is described in the documntation on the website. </p>
+        <p>The typesafe DSL is generated out of the vega <a href="https://github.com/vega/schema">JSON schema</a>. </p>
+        <p>I do not believe it to be 100% correct. About 95% correct. </p>
+        <p>For this reason, the &quot;mutable&quot; option is the ultimate fallback. Typesafe is pretty nice to have, though.</p>
 
         <hr style="margin-top: 30px"/>
         <footer style="font-size: 90%; text-align: center">
