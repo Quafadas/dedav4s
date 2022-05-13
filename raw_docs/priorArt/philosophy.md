@@ -42,6 +42,9 @@ When thinking about this, one has to ask, why? Typesafety is attractive because 
 
 In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn't have meaning without a scale - that's easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I'm not even sure you could say *before having the data available*.
 
-So I don't claim the DSL is perfect. It's as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close, for your use case.
+So I don't claim the DSL is perfect. It's as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close to typesafety, for your use case.
+
 ## Conclusion
-I think you will not refgret learning a declarative paradigm. The 10 minutes you'll spend learning this library (it's absurdly simple) are sunk cost. I propose that the hours you'll invest learning vega are a valuable addition to your study of software engineering. It's amazing how far you can go, and how much value you can deliver, just by pattern matching the vega examples.
+Nothing about the DSL, saves you from having to learn vega... 
+
+... but I think you will not regret learning a declarative paradigm. The 10 minutes spent learning this library (it's absurdly simple) are sunk cost. I believe you'll quickly earn those minutes back in lovely, publishable plots!

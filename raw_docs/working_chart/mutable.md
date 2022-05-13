@@ -8,7 +8,7 @@ As always... lean into vega;
 
 ![The Vega Editor](../assets/vegaEditor.png)
 
-Ultimately, our aim might be to plot a line chart with our own data, for example with this datastructure
+Ultimately, our aim might be to plot a line chart with our own data.
 
 ## Adding a title
 To start simple, let's add a title modifier. 
@@ -108,6 +108,10 @@ Generally, I find that the best "workflow", is to pump the data into the spec an
 In the first instance, this looks like quite a bit of ceremony. What's important to remember, is that you can compose the modifiers... and ultimately, end up with your own library of them!
 
 # Conclusion
+Reading this back the example is weirdly contrived. Mostly when I'm working with an existing datatype, it already has a JSON serialisation strategy in place. You ought to be able to imagine how one could easily pipe it into the chart. 
+
+I've found this style to be rather convenient in practise. 
+
 There's nothing that says 
 
 1. Your plot can't be a method defined on some Timeseries class itself. That's an obvious and trivial next step.
