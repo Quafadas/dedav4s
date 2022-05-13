@@ -189,7 +189,7 @@ lazy val docs = project
         )
         .site
         .topNavigationBar(
-          homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
+          homeLink = IconLink.internal(Root, HeliumIcon.home),
           navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github))
         )
         .site
