@@ -120,9 +120,9 @@ object PlotTargets:
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
   given almond: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
-      val kernel = summon[JupyterApi]
-      kernel.publish.display(
+    override def show(spec: String): Unit | os.Path =      
+      val kernel = summon[JupyterApi]      
+      kernel.publish.display(        
         DisplayData(
           data = Map(
             "application/vnd.vega.v5+json" -> spec

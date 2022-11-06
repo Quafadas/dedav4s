@@ -16,7 +16,7 @@ import laika.ast.*
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.1.2"
+val scalaV = "3.1.3"
 
 inThisBuild(
   List(
@@ -43,7 +43,6 @@ ThisBuild / developers := List(
 )
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
-
 ThisBuild / scalaVersion := scalaV
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
@@ -77,8 +76,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %%% "scalatags" % "0.11.1",
       "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
       //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
-      ("sh.almond" % "scala-kernel-api" % "0.11.2" % Provided)
-        .cross(CrossVersion.for3Use2_13With("", ".4"))
+      ("sh.almond" % "scala-kernel-api" % "0.13.0" % Provided)
+        .cross(CrossVersion.for3Use2_13With("", ".7"))
         .exclude("com.lihaoyi", "geny_2.13")
         .exclude("com.lihaoyi", "sourcecode_2.13")
         .exclude("com.lihaoyi", "fansi_2.13")
