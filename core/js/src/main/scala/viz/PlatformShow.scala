@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 quafadas
+ * Copyright 2023 quafadas
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import scala.scalajs.js.JSON
 //case class PlotTarget(in:html.Div, bundleStrategy: BundlerStrategy.Bund)
 //type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
 type PlotTarget = html.Div
-trait PlatformShow(implicit plotTarget: PlotTarget | html.Div) extends Spec:
+trait PlatformShow(using plotTarget: PlotTarget | html.Div) extends Spec:
   def show(inDiv: html.Div): Unit =
     val anId = inDiv.id
     val newId = if anId.isEmpty then
