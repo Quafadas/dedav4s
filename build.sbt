@@ -49,8 +49,8 @@ ThisBuild / githubWorkflowJobSetup ++= Seq(
   WorkflowStep.Use(
     UseRef.Public("actions", "setup-node", "v3"),
     name = Some("Setup NodeJS v18 LTS"),
-    params = Map("node-version" -> "18", "cache" -> "npm"),
-  ),
+    params = Map("node-version" -> "18", "cache" -> "npm")
+  )
 )
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
