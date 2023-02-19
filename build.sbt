@@ -130,15 +130,15 @@ lazy val jsdocs = project
     //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0",
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-time" % "1.0.0").cross(CrossVersion.for3Use2_13),
     scalaJSLinkerConfig ~= (_.withSourceMap(false)),
     Compile / npmDependencies ++= Seq(
-      "vega-typings" -> "0.22.2",
-      "vega-embed" -> "6.20.8",
-      "vega" -> "5.22.0",
-      "vega-lite" -> "5.2.0"
+      "vega-typings" -> "0.22.3",
+      "vega-embed" -> "6.21.3",
+      "vega" -> "5.22.1",
+      "vega-lite" -> "5.6.1"
     )
   )
   .dependsOn(core.js)
