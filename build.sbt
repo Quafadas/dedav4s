@@ -44,6 +44,15 @@ ThisBuild / developers := List(
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
+ThisBuild / githubWorkflowEnv := Map(
+  "GITHUB_TOKEN" -> "${{ secrets.GITHUB_TOKEN }}",
+  "NODE_OPTIONS" -> "--openssl-legacy-provider",
+  "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
+  "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
+  "SONATYPE_CREDENTIAL_HOST" -> "${{ secrets.SONATYPE_CREDENTIAL_HOST }}",
+  "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}",
+  "PGP_SECRET" -> "${{ secrets.PGP_SECRET }}"
+)
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))
