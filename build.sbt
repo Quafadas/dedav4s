@@ -44,14 +44,12 @@ ThisBuild / developers := List(
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
-ThisBuild / githubWorkflowEnv := Map(
-  "GITHUB_TOKEN" -> "${{ secrets.GITHUB_TOKEN }}",
-  "NODE_OPTIONS" -> "--openssl-legacy-provider",
-  "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
-  "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
-  "SONATYPE_CREDENTIAL_HOST" -> "${{ secrets.SONATYPE_CREDENTIAL_HOST }}",
-  "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}",
-  "PGP_SECRET" -> "${{ secrets.PGP_SECRET }}"
+ThisBuild / githubWorkflowJobSetup ++= Seq(
+  WorkflowStep.Use(
+    UseRef.Public("actions", "setup-node", "v3"),
+    name = Some("Setup NodeJS v18 LTS"),
+    params = Map("node-version" -> "18", "cache" -> "npm"),
+  ),
 )
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
