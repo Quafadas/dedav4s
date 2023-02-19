@@ -44,6 +44,7 @@ ThisBuild / developers := List(
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
+
 ThisBuild / githubWorkflowJobSetup ++= Seq(
   WorkflowStep.Use(
     UseRef.Public("actions", "setup-node", "v3"),
