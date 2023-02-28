@@ -523,6 +523,33 @@ case class Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite
     using PlotTarget
 ) extends FromUrl(SpecUrl.Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite)
 
-object BarChart extends viz.companions.AxisUtils {}
+object BarChart 
+  extends viz.companions.AxisUtils:
+
+  trait BarData
+
+  trait BarPlottable(val category: String, val amount: Double) extends BarData
+  trait MarkColour(val colour: String) extends BarData
+
+  val takeColourFromData : (ujson.Value => Unit) = spec => spec("marks")(0)("encode")("update")("fill") = ujson.Obj("field" -> "colour")
+
+  given enc[JsValue, T <: BarData](using upickleDefault: ReadWriter[T]): ReadWriter[T & BarData] =
+    readwriter[ujson.Value].bimap[T & BarData](
+      in =>
+        var toMerge: scala.collection.mutable.ArraySeq[ujson.Obj] = scala.collection.mutable.ArraySeq()
+        val vanilla = upickle.default.writeJs(in)(upickleDefault).obj
+
+        in match
+          case colorful: MarkColor =>
+            toMerge :+= ujson.Obj("colour" -> colorful.color)
+          case _ => ()
+
+        in match
+          case xyData: XYPlottable =>
+            toMerge :+= ujson.Obj("category" -> xyData.x, "amount" -> xyData.y)
+          case _ => ()
+        toMerge.fold[ujson.Obj](vanilla) { case (start, next) => start.value ++ next.value },
+      in => ??? //upickle.default.read[T & BarData](in)
+    )
 
 object PieChart extends viz.companions.AxisUtils {}
