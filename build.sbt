@@ -49,7 +49,7 @@ ThisBuild / githubWorkflowJobSetup ++= Seq(
   WorkflowStep.Use(
     UseRef.Public("actions", "setup-node", "v3"),
     name = Some("Setup NodeJS v16"),
-    params = Map("node-version" -> "16", "cache" -> "npm"),
+    params = Map("node-version" -> "16", "cache" -> "npm")
     //env = Map("NODE_OPTIONS" -> "--openssl-legacy-provider")
   )
 )
@@ -120,7 +120,6 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
      */
   )
-
 
 lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))
