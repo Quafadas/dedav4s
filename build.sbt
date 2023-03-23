@@ -16,7 +16,7 @@ import laika.ast.*
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.1.3"
+val scalaV = "3.2.2" // Really we want to tie this to almond, but almond is slow...
 
 inThisBuild(
   List(
@@ -81,10 +81,9 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     dependencyOverrides += "com.lihaoyi" %% "upickle" % "3.0.0-M2",
     dependencyOverrides += "com.lihaoyi" %% "geny" % "1.0.0",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.0.0-M2",
+      "com.lihaoyi" %%% "upickle" % "3.0.0",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
-      //"com.github.jupyter" % "jvm-repr" %  "0.4.0",
       ("sh.almond" % "scala-kernel-api" % "0.13.3" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".10"))
         .exclude("com.lihaoyi", "geny_2.13")
@@ -93,66 +92,49 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
         .exclude("com.lihaoyi", "os-lib_2.13")
         .exclude("com.lihaoyi", "pprint_2.13")
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-        .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.15.4"
+        .exclude("com.github.jupyter", "jvm-repr")
     )
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "os-lib" % "0.9.0",
-      ("com.lihaoyi" %% "cask" % "0.8.3").exclude("com.lihaoyi", "upickle").exclude("com.lihaoyi", "geny"),
-      "com.lihaoyi" %% "requests" % "0.8.0"
+      "com.lihaoyi" %% "cask" % "0.9.0",
+      "com.lihaoyi" %% "requests" % "0.8.0",
+      "org.jsoup" % "jsoup" % "1.15.4"
     )
   )
   .jsSettings(
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.4.0"
     )
-
-    /*stMinimize := Selection.AllExcept("vega-embed", "vega-typings"),
-    useYarn := true
-    stOutputPackage := "viz.vega",
-    Compile / npmDependencies ++= Seq(
-      "vega-typings" -> "0.22.2",
-      "vega-embed" -> "6.20.8",
-      //"vega" -> "5.22.0",
-      //"vega-lite" -> "5.2.0"
-    )
-     */
   )
 
-lazy val tests = crossProject(JVMPlatform, JSPlatform)
+  // Currently no JS tests, would be great to change that
+lazy val tests = crossProject(JVMPlatform, JSPlatform)  
   .in(file("tests"))
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
-  .settings(
-    name := "dedav-tests",
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test,
-    dependencyOverrides += "com.lihaoyi" %% "upickle" % "3.0.0-M2",
-    dependencyOverrides += "com.lihaoyi" %% "geny" % "1.0.0"
+  .settings(    
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
   )
+  .jvmSettings(name := "tests-jvm")
+  .jsSettings(name := "tests-js")
+  .enablePlugins(ScalaJSLinkerBundlerPlugin)
+
+  
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
-    //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
-    webpackBundlingMode := BundlingMode.LibraryOnly(),
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
-    libraryDependencies += ("org.scala-js" %%% "scalajs-java-time" % "1.0.0").cross(CrossVersion.for3Use2_13),
-    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
-    Compile / npmDependencies ++= Seq(
-      "vega-typings" -> "0.22.3",
-      "vega-embed" -> "6.21.3",
-      "vega" -> "5.22.1",
-      "vega-lite" -> "5.6.1"
-    )
+    libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13),
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
-  .enablePlugins(ScalaJSBundlerPlugin)
+  .enablePlugins(ScalaJSLinkerBundlerPlugin)
 
 lazy val unidocs = project
   .in(file("unidocs"))
@@ -167,26 +149,13 @@ lazy val docs = project
   .settings(
     mdocJS := Some(jsdocs),
     //mdocJSLibraries := webpack.in(jsdocs, Compile, fullOptJS).value,
-    mdocJSLibraries := (jsdocs / Compile / fullOptJS / webpack).value,
+    //mdocJSLibraries := (jsdocs / Compile / fullOptJS / webpack).value,
     //mdocOut := new File("docs"),
     dependencyOverrides += "com.lihaoyi" %% "upickle" % "3.0.0-M2",
     dependencyOverrides += "com.lihaoyi" %% "geny" % "1.0.0",
     mdocIn := new File("raw_docs"),
-    mdocVariables ++= Map(
-      "js-batch-mode" -> "true"
-      //"js-opt" -> "full",
-
-      /*       "js-html-header" ->
-        """
-<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script crossorigin type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-""" */
-    ),
     libraryDependencies ++= Seq(
-      ("org.scalanlp" %% "breeze" % "2.0")
-        .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-        .exclude("org.typelevel", "cats-kernel_2.13")
+      ("org.scalanlp" %% "breeze" % "2.1.0")
     ),
     //laikaTheme := Helium.defaults.build,
     laikaConfig ~= { _.withRawContent },

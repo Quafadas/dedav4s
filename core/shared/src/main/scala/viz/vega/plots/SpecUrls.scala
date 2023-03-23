@@ -19,8 +19,7 @@ package viz.vega.plots
 import viz.PlotTarget
 import viz.vega.Framework
 import viz.vega.Framework.*
-import collection.JavaConverters.*
-import org.jsoup.Jsoup
+import scala.jdk.CollectionConverters.*
 import ujson.Value
 import scala.collection.mutable.LinkedHashMap
 import viz.PlatformGetSpec
