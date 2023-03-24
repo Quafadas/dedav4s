@@ -16,7 +16,7 @@ To start simple, let's add a title modifier.
 I'm writing out the types here in the hopes of being helpful. It looks harder than it is... After you've done it twice it gets easy. REPL is your friend :-).
 
 ```scala mdoc:js
-import viz.vega.plots.LineChartLite
+import viz.vega.plots.{LineChartLite, given}
 import org.scalajs.dom.html.Div
 import viz.doc.makePlotTarget
 
@@ -25,13 +25,13 @@ val child : Div = makePlotTarget(node, 50)
 val addTitle : ujson.Value => Unit = 
     (spec:ujson.Value) => spec("title") = "A Timeseries"
 
-LineChartLite(
+/*LineChartLite(
     Seq(
         addTitle, 
         viz.Utils.fixDefaultDataUrl, 
         viz.Utils.fillDiv 
     )
-)(using child)
+)*/
 ```
 
 But there are a couple of things which are messy about our modification;
@@ -115,6 +115,6 @@ I've found this style to be rather convenient in practise.
 There's nothing that says 
 
 1. Your plot can't be a method defined on some Timeseries class itself. That's an obvious and trivial next step.
-1. You have to own the data structure - have a look at the extension methods. The homepage what works through an extension method defined on ```Numeric[Iterable]```
+1. You have to own the data structure - have a look at the extension methods. The homepage works through an extension method defined on ```Numeric[Iterable]```
 
 Which means you can "interface" plotting on datatypes of interest to you. I found this to be a powerful idea

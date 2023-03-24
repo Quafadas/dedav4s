@@ -56,7 +56,7 @@ ThisBuild / githubWorkflowJobSetup ++= Seq(
 )
 
 ThisBuild /  scalaJSLinkerConfig ~= (
-  _.withModuleKind(ModuleKind.ESModule),  
+  _.withModuleKind(ModuleKind.CommonJSModule),  
 )
 ThisBuild / scalaJSLinkerConfig ~= { _.withESFeatures(_.withESVersion(ES2020)) }
 

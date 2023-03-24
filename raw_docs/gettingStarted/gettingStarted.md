@@ -11,26 +11,21 @@ import $ivy.`io.github.quafadas::dedav4s:@VERSION@`
 Fire up an sbt console (or in a repl... )
 
 ```scala mdoc
+import viz.vega.plots.{BarChart, given}
+BarChart()
+```
+
+And now you have a `BarChart` object. But we can't see it, which sort of defies the point of plotting stuff. Now let's try this;
+```scala
 import viz.PlotTargets.desktopBrowser
-import viz.extensions.*
-import viz.vega.plots.BarChart
+BarChart()
 ```
-
-```scala mdoc:reset:invisible
-import viz.PlotTargets.doNothing
-import viz.extensions.*
-import viz.vega.plots.BarChart
-```
-
-```scala mdoc
-BarChart(List())
-```
-A side effect should open a browser window, that should look like the plot below the next code fence. 
+And a browser window should have popped up, with a bar chart in. It should very similar, to the chart plotted out of scala JS, below.
 
 This code fence uses scala JS. Observe how similar the code is to the code you just ran in the REPL. 
 
 ```scala mdoc:js
-import viz.vega.plots.BarChart
+import viz.vega.plots.{BarChart, given}
 import org.scalajs.dom.html.Div
 import viz.doc.makePlotTarget
 
@@ -46,7 +41,7 @@ BarChart(List(viz.Utils.fillDiv))
 ```
 
 ```scala mdoc:js:invisible
-import viz.vega.plots.BarChart
+import viz.vega.plots.{BarChart, given}
 import org.scalajs.dom.html.Div
 import viz.doc.makePlotTarget
 val child : Div = makePlotTarget(node, 50)

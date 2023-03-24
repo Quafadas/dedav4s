@@ -5,7 +5,7 @@ The "mutuable" approach uses `ujson.Value` to represent a chart. We could use a 
 
 ```scala mdoc:js
 import viz.dsl.vega.*
-import viz.vega.plots.BarChart
+import viz.vega.plots.{BarChart, given}
 import viz.dsl.Conversion.u
 import viz.doc.makePlotTarget
 
