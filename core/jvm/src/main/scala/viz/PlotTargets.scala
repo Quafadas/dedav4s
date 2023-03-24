@@ -40,8 +40,6 @@ case object Html extends Extension(".html")
 trait TempFileTarget(val ext: Extension) extends PlotTarget:
   def showWithTempFile(spec: String, path: os.Path): Unit
 
-
-  
 object PlotTargets extends SharedTargets:
 
   def openBrowserWindow(uri: java.net.URI): Unit =
@@ -75,7 +73,7 @@ object PlotTargets extends SharedTargets:
 
   lazy val port: Int = WebsocketVizServer.randomPort
 
-  given desktopBrowser: PlotTarget = new TempFileTarget(Html):    
+  given desktopBrowser: PlotTarget = new TempFileTarget(Html):
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       val theHtml = raw"""<!DOCTYPE html>
         <html>
@@ -112,7 +110,7 @@ object PlotTargets extends SharedTargets:
         </script>
         </body>
         </html> """
-      os.write.over(path, theHtml)  
+      os.write.over(path, theHtml)
       openBrowserWindow(path.toNIO.toUri())
 
   /*   given vsCodeNotebook: PlotTarget with
@@ -159,12 +157,11 @@ object PlotTargets extends SharedTargets:
 
   given pdf: PlotTarget = new TempFileTarget(Pdf):
     override def showWithTempFile(spec: String, path: os.Path): Unit =
-      val pngBytes = os.proc("vg2pdf").call(stdin = spec)      
+      val pngBytes = os.proc("vg2pdf").call(stdin = spec)
       pngBytes.exitCode match
         case 0 =>
           os.write.over(path, pngBytes.out.bytes)
         case _ => throw new Exception(pngBytes.err.text())
-
 
   given svg: PlotTarget = new TempFileTarget(Svg):
     override def showWithTempFile(spec: String, path: os.Path): Unit =

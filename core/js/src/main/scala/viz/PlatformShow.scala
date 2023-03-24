@@ -27,17 +27,17 @@ import scala.scalajs.js.JSON
 import viz.PlotTargets.doNothing
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec
-  //def show(): Unit = ???
-  //   val anId = inDiv.id
-  //   val newId = if anId.isEmpty then
-  //     val temp = java.util.UUID.randomUUID()
-  //     inDiv.setAttribute("id", temp.toString())
-  //   else anId
+//def show(): Unit = ???
+//   val anId = inDiv.id
+//   val newId = if anId.isEmpty then
+//     val temp = java.util.UUID.randomUUID()
+//     inDiv.setAttribute("id", temp.toString())
+//   else anId
 
-  //   val opts = viz.vega.facades.EmbedOptions
-  //   val parsed = JSON.parse(spec)
-  //   viz.vega.facades.VegaEmbed.embed(s"#$anId", parsed, opts)
-  //   ()
+//   val opts = viz.vega.facades.EmbedOptions
+//   val parsed = JSON.parse(spec)
+//   viz.vega.facades.VegaEmbed.embed(s"#$anId", parsed, opts)
+//   ()
 
-  // // when the class is instantiated, show the plot as a side effect...
-  // show(plotTarget)
+// // when the class is instantiated, show the plot as a side effect...
+// show(plotTarget)

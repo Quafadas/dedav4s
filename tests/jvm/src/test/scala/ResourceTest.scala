@@ -27,7 +27,7 @@ import scala.language.implicitConversions
 import io.circe.Json
 import io.circe.Encoder
 
-import viz.PlotTargets//import ujson.circe.CirceJson
+import viz.PlotTargets 
 /*
 case class PlotFromString(s:String, override val mods: Seq[ujson.Value => Unit] = List()) extends WithBaseSpec {
 

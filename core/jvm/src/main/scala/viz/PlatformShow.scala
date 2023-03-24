@@ -35,7 +35,7 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
     if pathIsSet then Some(conf.getString("dedavOutPath"))
     else None
 
-  lazy val tmpPath : Option[os.Path] =
+  lazy val tmpPath: Option[os.Path] =
     plotTarget match
       case ut: UnitTarget => None
       case t: TempFileTarget =>
@@ -44,14 +44,11 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
           case Some(path) =>
             Some(os.temp(dir = os.Path(path), suffix = suffix, prefix = "plot-"))
           case None =>
-            Some(os.temp(suffix = suffix, prefix = "plot-")  )
-    
-      
-  private val showMe = plotTarget match    
-    case ut: UnitTarget => 
-      ut.show(spec)
+            Some(os.temp(suffix = suffix, prefix = "plot-"))
+
+  private val showMe = plotTarget match
+    case ut: UnitTarget     => ut.show(spec)
     case ut: TempFileTarget => ut.showWithTempFile(spec, tmpPath.get)
-    case _ => ()
-    
-    
+    case _                  => ()
+
 // This is the line, which actually triggers plotting the chart

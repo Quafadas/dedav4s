@@ -16,6 +16,4 @@
 
 package viz
 
-object PlotTargets extends SharedTargets {  
-
-}
+object PlotTargets extends SharedTargets {}

@@ -59,7 +59,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .settings(
     tlFatalWarnings := false,
     scalacOptions ++= Seq(
-      "-Xmax-inlines:2000",      
+      "-Xmax-inlines:2000"
     ),
     libraryDependencies ++= Seq(
       "io.circe" %%% "circe-core" % "0.14.3",
@@ -110,19 +110,17 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-  // Currently no JS tests, would be great to change that
-lazy val tests = crossProject(JVMPlatform, JSPlatform)  
+// Currently no JS tests, would be great to change that
+lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
-  .settings(    
+  .settings(
     libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
   )
   .jvmSettings(name := "tests-jvm")
   .jsSettings(name := "tests-js")
   .jsEnablePlugins(ScalaJSLinkerBundlerPlugin)
-
-  
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
@@ -130,7 +128,7 @@ lazy val jsdocs = project
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
-    libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13),
+    libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
