@@ -106,7 +106,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jsSettings(
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.4.0"
+      "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+      ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13)
     )
   )
 

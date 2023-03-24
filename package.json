@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vega-embed": "^6.21.3"
+  }
+}

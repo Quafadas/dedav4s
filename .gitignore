@@ -12,3 +12,4 @@ project/metals.sbt
 .ipynb_checkpoints
 out
 docs/
+node_modules
