@@ -5,7 +5,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "vega-embed": "^6.21.3"
+    "vega-embed": "^6.21.3", 
+    "requirejs": "2.3.6"
   },
   "type": "module",
   "devDependencies": {

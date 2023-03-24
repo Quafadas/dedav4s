@@ -46,19 +46,9 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 
-ThisBuild / githubWorkflowJobSetup ++= Seq(
-  WorkflowStep.Use(
-    UseRef.Public("actions", "setup-node", "v3"),
-    name = Some("Setup NodeJS v16"),
-    params = Map("node-version" -> "16", "cache" -> "npm")
-    //env = Map("NODE_OPTIONS" -> "--openssl-legacy-provider")
-  )
-)
-
 ThisBuild /  scalaJSLinkerConfig ~= (
   _.withModuleKind(ModuleKind.CommonJSModule),  
 )
-ThisBuild / scalaJSLinkerConfig ~= { _.withESFeatures(_.withESVersion(ES2020)) }
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))

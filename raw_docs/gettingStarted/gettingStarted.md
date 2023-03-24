@@ -44,8 +44,9 @@ BarChart(List(viz.Utils.fillDiv))
 import viz.vega.plots.{BarChart, given}
 import org.scalajs.dom.html.Div
 import viz.doc.makePlotTarget
-val child : Div = makePlotTarget(node, 50)
-BarChart(List(viz.Utils.fillDiv))
+val inDiv : Div = makePlotTarget(node, 50)
+val chart = BarChart(List(viz.Utils.fillDiv))
+viz.doc.showChartJs(inDiv, chart)
 ```
 
 If you're curious about how that worked, then you're ready to go! Read on! 
