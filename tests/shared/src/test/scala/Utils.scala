@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import viz.PlotTargets 
+import viz.PlotTargets
 import viz.WithBaseSpec
 
 class CheckUtils extends munit.FunSuite:
