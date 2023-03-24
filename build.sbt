@@ -47,7 +47,7 @@ ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 
 ThisBuild /  scalaJSLinkerConfig ~= (
-  _.withModuleKind(ModuleKind.CommonJSModule),  
+  _.withModuleKind(ModuleKind.ESModule)
 )
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
@@ -142,6 +142,7 @@ lazy val docs = project
   .settings(
     mdocJS := Some(jsdocs),
     mdocIn := new File("raw_docs"),
+    mdocVariables += "js-opt" -> "fast",
     libraryDependencies ++= Seq(
       ("org.scalanlp" %% "breeze" % "2.1.0")
     ),
