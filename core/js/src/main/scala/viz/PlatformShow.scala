@@ -27,6 +27,7 @@ import scala.scalajs.js.JSON
 import viz.PlotTargets.doNothing
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
+  //val hi = "HI"
   def show(inDiv: html.Div): Unit = 
     val anId = inDiv.id
     val newId = if anId.isEmpty then

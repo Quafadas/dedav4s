@@ -12,6 +12,7 @@ import laika.ast.LengthUnit.*
 import laika.helium.config.Favicon
 import laika.helium.config.ImageLink
 import laika.ast.*
+import org.scalajs.linker.interface.ESVersion.*
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -54,6 +55,11 @@ ThisBuild / githubWorkflowJobSetup ++= Seq(
   )
 )
 
+ThisBuild /  scalaJSLinkerConfig ~= (
+  _.withModuleKind(ModuleKind.ESModule),  
+)
+ThisBuild / scalaJSLinkerConfig ~= { _.withESFeatures(_.withESVersion(ES2020)) }
+
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))
   .settings(
@@ -78,9 +84,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     scalacOptions ++= Seq(
       "-Xmax-inlines:2000",
       """-Wconf:cat=deprecation:s"""
-    ),
-    dependencyOverrides += "com.lihaoyi" %% "upickle" % "3.0.0-M2",
-    dependencyOverrides += "com.lihaoyi" %% "geny" % "1.0.0",
+    ),    
+    
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "3.0.0",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
@@ -120,8 +125,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
   )
   .jvmSettings(name := "tests-jvm")
-  .jsSettings(name := "tests-js")
-  .jsEnablePlugins(ScalaJSLinkerBundlerPlugin)
+  .jsSettings(name := "tests-js")  
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
@@ -133,8 +137,7 @@ lazy val jsdocs = project
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
-  .enablePlugins(NoPublishPlugin)
-  .enablePlugins(ScalaJSLinkerBundlerPlugin)
+  .enablePlugins(NoPublishPlugin)  
 
 lazy val unidocs = project
   .in(file("unidocs"))

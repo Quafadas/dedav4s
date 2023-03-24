@@ -1,5 +1,15 @@
 {
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",    
+    "serve": "vite preview"
+  },
   "dependencies": {
     "vega-embed": "^6.21.3"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@scala-js/vite-plugin-scalajs": "^1.0.0",
+    "vite": "^4.2.1"
   }
 }
