@@ -26,7 +26,8 @@ import viz.dsl.vega.*
 import scala.language.implicitConversions
 import io.circe.Json
 import io.circe.Encoder
-//import ujson.circe.CirceJson
+
+import viz.PlotTargets//import ujson.circe.CirceJson
 /*
 case class PlotFromString(s:String, override val mods: Seq[ujson.Value => Unit] = List()) extends WithBaseSpec {
 
@@ -66,5 +67,5 @@ class ResourceTest extends munit.FunSuite:
 
     val bc = viz.vega.plots.BarChart(dslMod)
     assert(bc.spec.contains("top"))
-    //Thread.sleep(2000)
+    Thread.sleep(2000)
   }

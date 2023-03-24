@@ -19,17 +19,18 @@ package viz.play
 import viz.vega.plots.*
 import viz.PlotTargets.desktopBrowser
 import viz.extensions.*
+import os.Path
 
 @main
 def Main(args: String*): Unit =
 
   val chart = (1 to 10).plotBarChart()
   println(chart)
-  println(chart.out)
+  //println(chart.out)
   val pie = (1 to 10).plotPieChart(using viz.PlotTargets.png)(List())
-  pie.out match
-    case p: os.Path => println(p)
-    case ()         => println("got unit")
+  // pie.out match
+  //   case p: os.Path => println(p)
+  //   case ()         => println("got unit")
 /*    (1 to 10).plotPieChart()
    List(1,5,3,15,7,8).plotLineChart()
    List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot()

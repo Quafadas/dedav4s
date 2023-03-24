@@ -22,19 +22,22 @@ import scala.scalajs.js.JSON
 
 //case class PlotTarget(in:html.Div, bundleStrategy: BundlerStrategy.Bund)
 //type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
-type PlotTarget = html.Div
-trait PlatformShow(using plotTarget: PlotTarget | html.Div) extends Spec:
-  def show(inDiv: html.Div): Unit =
-    val anId = inDiv.id
-    val newId = if anId.isEmpty then
-      val temp = java.util.UUID.randomUUID()
-      inDiv.setAttribute("id", temp.toString())
-    else anId
+//type PlotTarget = html.Div
 
-    val opts = viz.vega.facades.EmbedOptions
-    val parsed = JSON.parse(spec)
-    viz.vega.facades.VegaEmbed.embed(s"#$anId", parsed, opts)
-    ()
+import viz.PlotTargets.doNothing
 
-  // when the class is instantiated, show the plot as a side effect...
-  show(plotTarget)
+trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec
+  //def show(): Unit = ???
+  //   val anId = inDiv.id
+  //   val newId = if anId.isEmpty then
+  //     val temp = java.util.UUID.randomUUID()
+  //     inDiv.setAttribute("id", temp.toString())
+  //   else anId
+
+  //   val opts = viz.vega.facades.EmbedOptions
+  //   val parsed = JSON.parse(spec)
+  //   viz.vega.facades.VegaEmbed.embed(s"#$anId", parsed, opts)
+  //   ()
+
+  // // when the class is instantiated, show the plot as a side effect...
+  // show(plotTarget)

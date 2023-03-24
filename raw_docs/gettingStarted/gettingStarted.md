@@ -35,7 +35,7 @@ import org.scalajs.dom.html.Div
 import viz.doc.makePlotTarget
 
 val child : Div = makePlotTarget(node, 50)
-BarChart(List())(using child)
+BarChart(List())
 ```
 
 In fact, it's cross compiled from the same shared source code! That promise - explore in the REPL, publish in scala JS. I believe to be an attractive proposition.
@@ -50,7 +50,7 @@ import viz.vega.plots.BarChart
 import org.scalajs.dom.html.Div
 import viz.doc.makePlotTarget
 val child : Div = makePlotTarget(node, 50)
-BarChart(List(viz.Utils.fillDiv))(using child)
+BarChart(List(viz.Utils.fillDiv))
 ```
 
 If you're curious about how that worked, then you're ready to go! Read on! 

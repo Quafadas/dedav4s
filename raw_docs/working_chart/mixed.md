@@ -22,9 +22,7 @@ BarChart(
         viz.Utils.fillDiv,
         spec => spec("axes") = spec("axes").arr :+ newAxis.u
     )
-)(using makePlotTarget(node, 50))
-
-
+)
 ```
 
 ## Shortcuts

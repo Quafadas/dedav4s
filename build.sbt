@@ -59,7 +59,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .settings(
     tlFatalWarnings := false,
     scalacOptions ++= Seq(
-      "-Xmax-inlines:2000"
+      "-Xmax-inlines:2000",      
     ),
     libraryDependencies ++= Seq(
       "io.circe" %%% "circe-core" % "0.14.3",
@@ -76,7 +76,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     name := "dedav4s",
     description := "Declarative data viz for scala",
     scalacOptions ++= Seq(
-      "-Xmax-inlines:2000"
+      "-Xmax-inlines:2000",
+      """-Wconf:cat=deprecation:s"""
     ),
     dependencyOverrides += "com.lihaoyi" %% "upickle" % "3.0.0-M2",
     dependencyOverrides += "com.lihaoyi" %% "geny" % "1.0.0",
@@ -119,7 +120,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(name := "tests-jvm")
   .jsSettings(name := "tests-js")
-  .enablePlugins(ScalaJSLinkerBundlerPlugin)
+  .jsEnablePlugins(ScalaJSLinkerBundlerPlugin)
 
   
 
@@ -148,11 +149,6 @@ lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
     mdocJS := Some(jsdocs),
-    //mdocJSLibraries := webpack.in(jsdocs, Compile, fullOptJS).value,
-    //mdocJSLibraries := (jsdocs / Compile / fullOptJS / webpack).value,
-    //mdocOut := new File("docs"),
-    dependencyOverrides += "com.lihaoyi" %% "upickle" % "3.0.0-M2",
-    dependencyOverrides += "com.lihaoyi" %% "geny" % "1.0.0",
     mdocIn := new File("raw_docs"),
     libraryDependencies ++= Seq(
       ("org.scalanlp" %% "breeze" % "2.1.0")

@@ -16,15 +16,6 @@
 
 package viz
 
-import ujson.Value
-import viz.vega.plots.SpecUrl
-import java.net.URI
-import viz.vega.Framework
+object PlotTargets extends SharedTargets {  
 
-abstract class FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
-
-  override lazy val baseSpec = location.jsonSpec
-
-/*   def viewBaseSpec(f: Framework = Framework.Vega): Unit =
-    java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))
- */
+}

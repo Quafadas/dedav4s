@@ -16,15 +16,9 @@
 
 package viz
 
-import ujson.Value
-import viz.vega.plots.SpecUrl
-import java.net.URI
-import viz.vega.Framework
+class MySuite extends munit.FunSuite:
+  test("hello") {
+    //(1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
 
-abstract class FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
-
-  override lazy val baseSpec = location.jsonSpec
-
-/*   def viewBaseSpec(f: Framework = Framework.Vega): Unit =
-    java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))
- */
+    assertEquals(1, 1)
+  }

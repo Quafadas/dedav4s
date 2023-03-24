@@ -26,13 +26,23 @@ import java.nio.file.Files
 import viz.websockets.WebsocketVizServer
 import viz.websockets.WebsocketGitPodServer
 import scala.concurrent.Future
+import os.Path
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
-trait PlotTarget:
-  def show(spec: String): Unit | os.Path
+sealed trait Extension(val ext: String)
 
-object PlotTargets:
+case object Png extends Extension(".png")
+case object Svg extends Extension(".svg")
+case object Pdf extends Extension(".pdf")
+case object Html extends Extension(".html")
+
+trait TempFileTarget(val ext: Extension) extends PlotTarget:
+  def showWithTempFile(spec: String, path: os.Path): Unit
+
+
+  
+object PlotTargets extends SharedTargets:
 
   def openBrowserWindow(uri: java.net.URI): Unit =
     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
@@ -65,14 +75,8 @@ object PlotTargets:
 
   lazy val port: Int = WebsocketVizServer.randomPort
 
-  given doNothing: PlotTarget with
-    override def show(spec: String): Unit | os.Path = ()
-
-  given printlnTarget: PlotTarget with
-    override def show(spec: String): Unit | os.Path = println(spec)
-
-  given desktopBrowser: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
+  given desktopBrowser: PlotTarget = new TempFileTarget(Html):    
+    override def showWithTempFile(spec: String, path: os.Path): Unit =
       val theHtml = raw"""<!DOCTYPE html>
         <html>
         <head>
@@ -108,19 +112,14 @@ object PlotTargets:
         </script>
         </body>
         </html> """
-      val tempFi = outPath match
-        case Some(path) =>
-          os.temp(theHtml, dir = os.Path(path), suffix = ".html", prefix = "plot-")
-        case None =>
-          os.temp(theHtml, suffix = ".html", prefix = "plot-")
-      openBrowserWindow(tempFi.toNIO.toUri())
-      tempFi
+      os.write.over(path, theHtml)  
+      openBrowserWindow(path.toNIO.toUri())
 
   /*   given vsCodeNotebook: PlotTarget with
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
-  given almond: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
+  given almond: PlotTarget = new UnitTarget:
+    override def show(spec: String): Unit =
       val kernel = summon[JupyterApi]
       kernel.publish.display(
         DisplayData(
@@ -130,8 +129,8 @@ object PlotTargets:
         )
       )
 
-  given websocket: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
+  given websocket: UnitTarget = new UnitTarget:
+    override def show(spec: String): Unit =
       if WebsocketVizServer.firstTime then
         println(s"starting local server on $port")
         openBrowserWindow(java.net.URI(s"http://localhost:$port"))
@@ -139,8 +138,8 @@ object PlotTargets:
       requests.post(s"http://localhost:$port/viz", data = spec)
       ()
 
-  given gitpod: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
+  given gitpod: UnitTarget = new UnitTarget:
+    override def show(spec: String): Unit =
       if WebsocketGitPodServer.firstTime then
         println(s"starting local server on $port")
         println(s"Open a browser at https://${WebsocketGitPodServer.port}-${WebsocketGitPodServer.gitpod_address}")
@@ -150,38 +149,27 @@ object PlotTargets:
       else requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)
       ()
 
-  given png: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
+  given png: PlotTarget = new TempFileTarget(Png):
+    override def showWithTempFile(spec: String, path: os.Path): Unit =
       val pngBytes = os.proc("vg2png").call(stdin = spec)
       pngBytes.exitCode match
         case 0 =>
-          outPath match
-            case Some(path) =>
-              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix = ".png", prefix = "plot-")
-            case None =>
-              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix = ".png", prefix = "plot-")
+          os.write.over(path, pngBytes.out.bytes)
         case _ => throw new Exception(pngBytes.err.text())
 
-  given pdf: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
-      val pngBytes = os.proc("vg2pdf").call(stdin = spec)
+  given pdf: PlotTarget = new TempFileTarget(Pdf):
+    override def showWithTempFile(spec: String, path: os.Path): Unit =
+      val pngBytes = os.proc("vg2pdf").call(stdin = spec)      
       pngBytes.exitCode match
         case 0 =>
-          outPath match
-            case Some(path) =>
-              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix = ".html", prefix = "plot-")
-            case None =>
-              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix = ".pdf", prefix = "plot-")
+          os.write.over(path, pngBytes.out.bytes)
         case _ => throw new Exception(pngBytes.err.text())
 
-  given svg: PlotTarget with
-    override def show(spec: String): Unit | os.Path =
+
+  given svg: PlotTarget = new TempFileTarget(Svg):
+    override def showWithTempFile(spec: String, path: os.Path): Unit =
       val pngBytes = os.proc("vg2svg").call(stdin = spec)
       pngBytes.exitCode match
         case 0 =>
-          outPath match
-            case Some(path) =>
-              os.temp(pngBytes.out.bytes, dir = os.Path(path), deleteOnExit = false, suffix = ".html", prefix = "plot-")
-            case None =>
-              os.temp(pngBytes.out.bytes, deleteOnExit = false, suffix = ".svg", prefix = "plot-")
+          os.write.over(path, pngBytes.out.bytes)
         case _ => throw new Exception(pngBytes.err.text())

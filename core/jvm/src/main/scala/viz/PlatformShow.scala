@@ -17,9 +17,41 @@
 package viz
 
 import viz.PlotTarget
+import viz.TempFileTarget
+import viz.Png
+import viz.Html
+import viz.LowPriorityPlotTarget
 
-trait PlatformShow(using plotTarget: PlotTarget) extends Spec:
-  def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
+trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
+  //def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
 
-  // This is the line, which actually triggers plotting the chart
-  val out: Unit | os.Path = show
+  // lazy val tempPath : Option[os.Path] = plotTarget match
+  //   case t : TempFileTarget[A] => Some(t.tempPath(spec))
+  //   case _ => None
+
+  private lazy val conf = org.ekrich.config.ConfigFactory.load()
+  private lazy val outPath: Option[String] =
+    val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
+    if pathIsSet then Some(conf.getString("dedavOutPath"))
+    else None
+
+  lazy val tmpPath : Option[os.Path] =
+    plotTarget match
+      case ut: UnitTarget => None
+      case t: TempFileTarget =>
+        val suffix = t.ext.ext
+        outPath match
+          case Some(path) =>
+            Some(os.temp(dir = os.Path(path), suffix = suffix, prefix = "plot-"))
+          case None =>
+            Some(os.temp(suffix = suffix, prefix = "plot-")  )
+    
+      
+  private val showMe = plotTarget match    
+    case ut: UnitTarget => 
+      ut.show(spec)
+    case ut: TempFileTarget => ut.showWithTempFile(spec, tmpPath.get)
+    case _ => ()
+    
+    
+// This is the line, which actually triggers plotting the chart

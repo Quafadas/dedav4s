@@ -21,9 +21,12 @@ import viz.PlotTarget
 import viz.vega.plots.SpecUrl
 
 type JsonMod = Seq[ujson.Value => Unit]
+import viz.LowPriorityPlotTarget
+
+given doNothing : LowPriorityPlotTarget = viz.doNothing.doNothing
 
 // Vega
-case class BarChart(override val mods: JsonMod = List())(using PlotTarget) extends FromUrl(SpecUrl.BarChart)
+case class BarChart(override val mods: JsonMod = List())(using LowPriorityPlotTarget) extends FromUrl(SpecUrl.BarChart)
 case class StackedBarChart(override val mods: JsonMod = List())(using PlotTarget)
     extends FromUrl(SpecUrl.StackedBarChart)
 case class GroupedBarChart(override val mods: JsonMod = List())(using PlotTarget)

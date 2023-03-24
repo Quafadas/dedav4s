@@ -46,8 +46,6 @@ val theChart = VegaLiteDsl(
         )
     )
 )
-println("hi")
-theChart.plot(using child)
 ```
 
 if you were in a repl, the last line would be:
@@ -81,6 +79,6 @@ val someData : InlineDataset = Seq(
 asDsl.copy(
     data = Some(URLData(values = Some(someData))),
     width = Some("container")
-).plot(using makePlotTarget(node, 50))
+)
 
 ```

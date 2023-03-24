@@ -59,7 +59,7 @@ LineChartLite(
         viz.Utils.fixDefaultDataUrl,
         viz.Utils.fillDiv 
     )
-)(using child)
+)(using viz.PlotTargets.doNothing)
 ```
 
 At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
@@ -100,7 +100,7 @@ def addData(in: TimeSeries) = new (ujson.Value => Unit) {
         spec("data") = ujson.Obj("values" -> data)
         spec.obj.remove("transform")
 }
-LineChartLite(Seq(addTitleB("Now with data"), addData(ts),viz.Utils.fillDiv ))(using child)
+LineChartLite(Seq(addTitleB("Now with data"), addData(ts),viz.Utils.fillDiv ))(using viz.PlotTargets.doNothing)
 ```
 
 Generally, I find that the best "workflow", is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 
