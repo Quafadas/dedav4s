@@ -20,35 +20,29 @@ And now you have a `BarChart` object. But we can't see it, which sort of defies 
 import viz.PlotTargets.desktopBrowser
 BarChart()
 ```
-And a browser window should have popped up, with a bar chart in. It should very similar, to the chart plotted out of scala JS, below.
+And a browser window should have popped up, with a bar chart in. It should look very similar, to the chart plotted out of scala JS, below.
 
-This code fence uses scala JS. Observe how similar the code is to the code you just ran in the REPL. 
+This code fence uses scala JS. In scala JS, we construct charts with _exactly the same code_ as on the JVM. 
 
 ```scala mdoc:js
 import viz.vega.plots.{BarChart, given}
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
-
-val child : Div = makePlotTarget(node, 50)
-BarChart(List())
+viz.doc.showChartJs(BarChart(), node)
 ```
 
-In fact, it's cross compiled from the same shared source code! That promise - explore in the REPL, publish in scala JS. I believe to be an attractive proposition.
+Because it's cross compiled from the same shared source code! That promise - explore in the comfort of the JVM, publish in scala JS is one of the big concepts this library explores. 
 
 I like a big chart... let's see if we can fill the div.
-```scala
-BarChart(List(viz.Utils.fillDiv))
-```
 
-```scala mdoc:js:invisible
+```scala mdoc:js
 import viz.vega.plots.{BarChart, given}
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
-val inDiv : Div = makePlotTarget(node, 50)
-val chart = BarChart(List(viz.Utils.fillDiv))
-viz.doc.showChartJs(inDiv, chart)
+val chart = BarChart(
+  List(
+    viz.Utils.fillDiv
+  )
+)
+viz.doc.showChartJs(chart, node)
 ```
 
-If you're curious about how that worked, then you're ready to go! Read on! 
+If you're curious about how all worked, then you're ready to go! Read on! 
 
 See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../working_chart/workflow.md) for suggestions on how to use and extend the concepts.

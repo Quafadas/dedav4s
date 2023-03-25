@@ -26,10 +26,16 @@ import scala.scalajs.js.JSON
 import viz.WithBaseSpec
 
 object showChartJs:
-  def apply[C <: WithBaseSpec](node: Element, chart: C) =    
+  def apply[C <: WithBaseSpec]( chart: C, node: Element, width: Int = 50) = 
+    val child = dom.document.createElement("div")
+    val anId = "vega" + Random.alphanumeric.take(8).mkString("")
+    child.id = anId
+    child.setAttribute("style", s"width:${width}vmin;height:${width}vmin")
+    node.appendChild(child)
+    child.asInstanceOf[Div]
     val opts = viz.vega.facades.EmbedOptions        
-    val parsed = JSON.parse(chart.spec)    
-    viz.vega.facades.VegaEmbed.embed(s"#${node.id}",parsed , opts)
+    val parsed = JSON.parse(chart.spec)   
+    viz.vega.facades.VegaEmbed.embed(s"#${child.id}",parsed , opts)
     ()
     
 

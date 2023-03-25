@@ -46,9 +46,9 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 
-ThisBuild /  scalaJSLinkerConfig ~= (
-  _.withModuleKind(ModuleKind.ESModule)
-)
+// ThisBuild /  scalaJSLinkerConfig ~= (
+//   _.withModuleKind(ModuleKind.ESModule)
+// )
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))
