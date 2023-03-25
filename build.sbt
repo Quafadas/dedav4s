@@ -135,24 +135,14 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
 lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
-    //scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) },
-    webpackBundlingMode := BundlingMode.LibraryOnly(),
-    scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-time" % "1.0.0").cross(CrossVersion.for3Use2_13),
-    scalaJSLinkerConfig ~= (_.withSourceMap(false)),
-    Compile / npmDependencies ++= Seq(
-      "vega-typings" -> "0.22.3",
-      "vega-embed" -> "6.21.3",
-      "vega" -> "5.22.1",
-      "vega-lite" -> "5.6.1"
-    )
+    scalaJSLinkerConfig ~= (_.withSourceMap(false))
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
-  .enablePlugins(ScalaJSBundlerPlugin)
 
 lazy val unidocs = project
   .in(file("unidocs"))
@@ -166,8 +156,6 @@ lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
   .settings(
     mdocJS := Some(jsdocs),
-    //mdocJSLibraries := webpack.in(jsdocs, Compile, fullOptJS).value,
-    mdocJSLibraries := (jsdocs / Compile / fullOptJS / webpack).value,
     //mdocOut := new File("docs"),
     dependencyOverrides += "com.lihaoyi" %% "upickle" % "3.0.0-M2",
     dependencyOverrides += "com.lihaoyi" %% "geny" % "1.0.0",
