@@ -21,7 +21,7 @@ import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js.JSON
 
 @js.native
-@JSImport("vega-view", JSImport.Namespace)
+@JSImport("vega-view", JSImport.Namespace, "view.Vega")
 class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
 
   def runAsync(): Unit = js.native
