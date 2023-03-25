@@ -26,7 +26,7 @@ Good data visulaisation is hard. In terms of library authorship, there are two f
 
 It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise. 
 
-Unfortunately, this leaves us with a problem. Scala doesn't run in the browser...  ([a filthy lie](https://www.scala-js.org))... but most scala takes place on the JVM. My target is a repl / interactive JVM environment, and that introduces some challenges.
+Fortunately, scala has great JS support. If we can overcome bunding and generally getting libraries built in the right place, we can have our cake and eat it, too. 
 
 ## Good news
 There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let's provide a thin shim for one! 
@@ -44,7 +44,7 @@ In data visualisation, I suspect a genuinely typesafe DSL to be a very hard prob
 
 So I don't claim the DSL is perfect. It's as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close to typesafety, for your use case.
 
-## Conclusion
-Nothing about the DSL, saves you from having to learn vega... 
+## The Bad news
+Nothing about the DSL or help getting at the examples, saves you from having to learn at least some of vega itself... 
 
 ... but I think you will not regret learning a declarative paradigm. The 10 minutes spent learning this library (it's absurdly simple) are sunk cost. I believe you'll quickly earn those minutes back in lovely, publishable plots!

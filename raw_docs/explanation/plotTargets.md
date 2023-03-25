@@ -1,15 +1,4 @@
 # Plot Targets
-For this library, the first class citizen is a browser... 
-
-Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) PlotTarget which is in scope. 
-
-Those "given" targets, described below, are accessible at ```viz.PlotTargets.xxxxx```
-
-
-Many of these rely on writing temp files, and a ```java.awt.Desktop.browse()```, and an internet connection. If your environment does not have those capabilities, then you'll need to look elsewhere or take an advanced approach.
-
-
-The path of the temporary file is located in the "out" property of the case class, which is of type ```Unit | os.Path```. If the target creates a temporary file, you may "move it around" wherever you wish, using the path as a starting point.
 
 ## Desktop Browser
 Will open a new browser window in your desktop based browser, pointing to a temporary file. 
@@ -34,7 +23,7 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```scala mdoc:js:invisible
 viz.doc.showJsDocs("desktopBrowser", node, 0 )
 ```
-### How it works
+### How desktop browser works
 The library writes a (temporary) file, assuming that
 
     java.io.File.createTempFile() 
@@ -76,13 +65,6 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 
 Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.
 
-<strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3. So if you want this to work you'll currently need to roll your own almond kernel from source... Because you're extreme :-). 
-
-Also, the extension methods currently use athe ```viz.Utils.fillDiv``` method, which is not compatible with the way Jupyter sizes charts. So don't use those right now. 
-</strong>
-
-As scala 3 matures and moves through the ecosystem, I expect this to work smoothly. 
-
 ```scala
 import viz.PlotTargets.almond
 ```
@@ -96,7 +78,7 @@ viz.vega.plots.BarChart(
 ```
 
 ## VSCode 
-Use the almond target and a notebook... 
+Use the almond target and a `.ipynb`... 
 
 ## Gitpod
 
@@ -136,6 +118,8 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 To no ones surprise, does nothing! The implementation simply executes unit ```()```. I regret the CPU cycles :-). 
 
+Importantly, this is default behaviour - important when we reach scala JS.
+
 ## printlnTarget
 
 Formats and prints the final JSON spec to the console. 
@@ -169,8 +153,22 @@ import viz.PlotTargets.pdf
 $import viz.PlotTargets.pdf
 ````
 Markdown can't display this... but it works I promise.
+
 ### SVG
 ```scala
 import viz.PlotTargets.svg
 ````
 ![as svg](../assets/plot-15502123500232012865.svg)
+
+### How it works
+For this library, the first class citizen is a browser... 
+
+Every time an object is created which extends the "Spec" trait, it executes the ```newObject.show()``` side effect. That side effect requires context, provided through a [given](https://dotty.epfl.ch/docs/reference/contextual/givens.html) PlotTarget which is in scope. 
+
+Those "given" targets, described below, are accessible at ```viz.PlotTargets.xxxxx```
+
+
+Many of these rely on writing temp files, and a ```java.awt.Desktop.browse()```, and an internet connection. If your environment does not have those capabilities, then you'll need to look elsewhere or take an advanced approach.
+
+
+The path of the temporary file is located in the "out" property of the case class, which is of type ```Unit | os.Path```. If the target creates a temporary file, you may "move it around" wherever you wish, using the path as a starting point.

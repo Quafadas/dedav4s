@@ -1,8 +1,8 @@
 Anything vega can plot. This can plot. Unfortuntately, learning vega is hard work. 
 
-The concept is to start from an existing chart, and evolve it to what you want... this library hooks directly into vegas example library. 
+The concept is to start from an existing chart, and evolve it to what you want... this library hooks directly into vegas repository of example charts. 
 
-Here are some examples... of using vegas examples... In a repl, try tab completion on `viz.vega.plots.[tab]`. Compare the list of available charts, to the list of vega examples. It ought to be the same... 
+Here are some examples... of using vegas examples (!). In a repl, try tab completion on `viz.vega.plots.[tab]`. Compare the list of available charts, to the list of vega examples. It ought to be the same... 
 
 # Example Charts
 ## Vega

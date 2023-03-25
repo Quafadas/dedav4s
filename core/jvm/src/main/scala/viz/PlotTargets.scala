@@ -36,6 +36,7 @@ case object Png extends Extension(".png")
 case object Svg extends Extension(".svg")
 case object Pdf extends Extension(".pdf")
 case object Html extends Extension(".html")
+case object Txt extends Extension(".txt")
 
 trait TempFileTarget(val ext: Extension) extends PlotTarget:
   def showWithTempFile(spec: String, path: os.Path): Unit
@@ -146,6 +147,12 @@ object PlotTargets extends SharedTargets:
         )
       else requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)
       ()
+
+
+  given tempFileSpec: PlotTarget = new TempFileTarget(Txt):
+    override def showWithTempFile(spec: String, path: os.Path): Unit =
+      os.write.over(path, spec)
+        
 
   given png: PlotTarget = new TempFileTarget(Png):
     override def showWithTempFile(spec: String, path: os.Path): Unit =
