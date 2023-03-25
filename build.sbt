@@ -47,7 +47,7 @@ ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 
 ThisBuild /  scalaJSLinkerConfig ~= (
-  _.withModuleKind(ModuleKind.CommonJSModule),  
+  _.withModuleKind(ModuleKind.ESModule),  
 )
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
@@ -146,6 +146,7 @@ lazy val docs = project
       ("org.scalanlp" %% "breeze" % "2.1.0")
     ),
     //laikaTheme := Helium.defaults.build,
+    mdocVariables += "js-opt" -> "fast",
     laikaConfig ~= { _.withRawContent },
     tlSiteHeliumConfig := {
       Helium.defaults.site

@@ -83,5 +83,5 @@ trait EmbedOptions:
 object VegaEmbed:
 
   @js.native
-  @JSImport("vega-embed", JSImport.Default)
+  @JSImport("vega-embed", JSImport.Default, "vegaEmbed")
   def embed(clz: String, spec: js.Dynamic, opts: EmbedOptions): js.Promise[js.Dynamic] = js.native
