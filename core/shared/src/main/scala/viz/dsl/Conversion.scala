@@ -23,6 +23,7 @@ import io.circe.Encoder
 import viz.dsl.vega.VegaDsl
 import viz.PlatformShow
 import viz.dsl.vegaLite.VegaLiteDsl
+import viz.LowPriorityPlotTarget
 
 object Conversion:
   extension [T](moreJson: T)(using enc: Encoder[T])
@@ -30,7 +31,7 @@ object Conversion:
       val enc = summon[Encoder[T]]
       ujson.read(enc(moreJson).toString)
 
-case class DslSpec(in: VegaDsl | VegaLiteDsl)(using PlotTarget) extends PlatformShow:
+case class DslSpec(in: VegaDsl | VegaLiteDsl)(using LowPriorityPlotTarget) extends PlatformShow:
   override def spec =
     in match
       case v: VegaDsl      => v.asJson.deepDropNullValues.toString

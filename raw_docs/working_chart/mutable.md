@@ -17,21 +17,21 @@ I'm writing out the types here in the hopes of being helpful. It looks harder th
 
 ```scala mdoc:js
 import viz.vega.plots.{LineChartLite, given}
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
-
-val child : Div = makePlotTarget(node, 50)
 
 val addTitle : ujson.Value => Unit = 
     (spec:ujson.Value) => spec("title") = "A Timeseries"
 
-/*LineChartLite(
+viz.doc.showChartJs(
+  LineChartLite(
     Seq(
         addTitle, 
         viz.Utils.fixDefaultDataUrl, 
         viz.Utils.fillDiv 
     )
-)*/
+  ), 
+  node
+)
+
 ```
 
 But there are a couple of things which are messy about our modification;
@@ -43,23 +43,21 @@ Let's have another go. With a little more ceremony, we have something that looks
 ## Better title modifier
 
 ```scala mdoc:js
-import viz.vega.plots.LineChartLite
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
-
-val child : Div = makePlotTarget(node, 50)
+import viz.vega.plots.{LineChartLite, given}
 
 def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
     override def toString = s"set title to be $in"
     def apply(spec: ujson.Value) = spec("title") = in
  }
-LineChartLite(
-    Seq(
-        addTitleB("Much better"), 
-        viz.Utils.fixDefaultDataUrl,
-        viz.Utils.fillDiv 
-    )
-)(using viz.PlotTargets.doNothing)
+
+val chart = LineChartLite(
+      Seq(
+          addTitleB("Much better"), 
+          viz.Utils.fixDefaultDataUrl,
+          viz.Utils.fillDiv 
+      )
+  )
+viz.doc.showChartJs(chart, node)
 ```
 
 At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
@@ -67,11 +65,11 @@ At this point, i think it's clear how we're going to deal with piping in the dat
 ## Piping in the data
 
 ```scala mdoc:js
-import viz.vega.plots.LineChartLite
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
+import viz.vega.plots.{LineChartLite, given}
 import java.time.LocalDate
+
 case class TimeSeries(series: Seq[(LocalDate, Double)])
+
 val ts = TimeSeries(
         Seq(            
             (LocalDate.of(2021,1,1), 0.2), 
@@ -79,7 +77,6 @@ val ts = TimeSeries(
             (LocalDate.now(), 5.5), 
         )
     )
-val child : Div = makePlotTarget(node, 50)
 
 def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
     override def toString = s"set title to be $in"
@@ -100,21 +97,21 @@ def addData(in: TimeSeries) = new (ujson.Value => Unit) {
         spec("data") = ujson.Obj("values" -> data)
         spec.obj.remove("transform")
 }
-LineChartLite(Seq(addTitleB("Now with data"), addData(ts),viz.Utils.fillDiv ))(using viz.PlotTargets.doNothing)
+viz.doc.showChartJs(
+  LineChartLite(Seq(addTitleB("Now with data"), addData(ts),viz.Utils.fillDiv )), node
+)
 ```
 
 Generally, I find that the best "workflow", is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 
 
 In the first instance, this looks like quite a bit of ceremony. What's important to remember, is that you can compose the modifiers... and ultimately, end up with your own library of them!
 
+# Discussion
+The big advantage of the mutuable approach, is that you get trivial access to the entire vega API. It therefore represents the "ultimate fallback" option. 
+
+The big disadvantage, is that it the "developer experience", isn't great. The ceremony to get the json shapes in the right place, is rather tedious.
+
+Reading this back the example is weirdly contrived. Mostly when I'm working with an existing datatype, it already has a JSON serialisation strategy in place. It really ought to be possible to leverage that somehow ... 
+
 # Conclusion
-Reading this back the example is weirdly contrived. Mostly when I'm working with an existing datatype, it already has a JSON serialisation strategy in place. You ought to be able to imagine how one could easily pipe it into the chart. 
-
-I've found this style to be rather convenient in practise. 
-
-There's nothing that says 
-
-1. Your plot can't be a method defined on some Timeseries class itself. That's an obvious and trivial next step.
-1. You have to own the data structure - have a look at the extension methods. The homepage works through an extension method defined on ```Numeric[Iterable]```
-
-Which means you can "interface" plotting on datatypes of interest to you. I found this to be a powerful idea
+I've found this style to be rather convenient in practise for small mofications, adding axis titles, chart titles. It relies on a lot of prior knowledge of vega and wading through the specs, though. 

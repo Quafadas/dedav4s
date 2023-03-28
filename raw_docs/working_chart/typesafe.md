@@ -1,15 +1,15 @@
 # The DSL
 
-The DSL is generated via [quicktype](https://quicktype.io).
+The DSL is generated via [quicktype](https://quicktype.io), from the Vega Schema. 
+
+This is
 
 ```scala mdoc:js
 import viz.dsl.vegaLite.*
 import viz.dsl.DslPlot.*
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
+import viz.dsl.DslSpec
+import viz.PlotTargets.doNothing
 import io.circe._
-
-val child : Div = makePlotTarget(node, 50)
 
 val someData : InlineDataset = Seq(
     Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
@@ -27,6 +27,8 @@ val theChart = VegaLiteDsl(
             )
         )        
     ),
+    height = Some("container"), 
+    width = Some("container"),
     mark = Some("bar".asInstanceOf[AnyMark]),
     encoding = Some(
         EdEncoding(
@@ -46,25 +48,22 @@ val theChart = VegaLiteDsl(
         )
     )
 )
+viz.doc.showChartJs(DslSpec(theChart), node)
 ```
 
-if you were in a repl, the last line would be:
+That is... a lot of work though. Writing this out by hand would be formidably hard. Honestly, no one is going to do that. New plan... 
 
-```
-theChart.plot
-```
-
-That is... a lot of work though. Let's cheat.
+Cheat! We have a strongly typed representation of the schema, so why not, once again... start from the examples. 
 
 # Simpler strategy
 
-Parse the example spec from source... then copy the case class.
+And  then copy the case class.
 
 ```scala mdoc:js
 import viz.dsl.vegaLite.*
 import viz.dsl.DslPlot.*
-import org.scalajs.dom.html.Div
-import viz.doc.makePlotTarget
+import viz.dsl.DslSpec
+import viz.PlotTargets.doNothing
 import viz.vega.plots.*
 import io.circe._
 
@@ -76,9 +75,12 @@ val someData : InlineDataset = Seq(
     Map("a" -> Some(Json.fromString("embiggen")), "b" -> Some(Json.fromInt(5)))
 )
 
-asDsl.copy(
+val cheatingCanBeGood = asDsl.copy(
     data = Some(URLData(values = Some(someData))),
-    width = Some("container")
+    width = Some("container"), 
+    height = Some("container")
 )
+
+viz.doc.showChartJs(DslSpec(cheatingCanBeGood), node)
 
 ```

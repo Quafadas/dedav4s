@@ -30,8 +30,9 @@ import viz.vega.plots.DotPlot
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.ScatterPlot
 import viz.vega.plots.Regression
+import viz.LowPriorityPlotTarget
 
-extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
+extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
   def plotBarChart(mods: JsonMod = List()): BarChart =
     val labelToNotShow =
       for (number <- l)
@@ -77,7 +78,7 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: PlotTarget)
       List((spec: Value) => spec("data")(0)("values") = l.map(_.toDouble)) ++ mods
     )
 
-extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
+extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: LowPriorityPlotTarget)
   @targetName("plotBarChartWithLabels")
   def plotLineChart(mods: JsonMod): LineChart =
     val labelled =
@@ -125,7 +126,7 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: PlotTarget)
       ) ++ mods
     )
 
-extension [T: Numeric](l: Map[String, T])(using plotTarget: PlotTarget)
+extension [T: Numeric](l: Map[String, T])(using plotTarget: LowPriorityPlotTarget)
   @targetName("plotBarChartFromMapWithLabels")
   def plotBarChart(mods: JsonMod): BarChart = l.iterator.toSeq.plotBarChart(mods)
 
@@ -133,7 +134,7 @@ extension [T: Numeric](l: Map[String, T])(using plotTarget: PlotTarget)
 
   def plotPieChart(mods: JsonMod): PieChart = l.iterator.toSeq.plotPieChart(mods)
 
-extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)
+extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: LowPriorityPlotTarget)
   def plotScatter(mods: JsonMod = List()): ScatterPlot =
     val values = l.map { case (x, y) =>
       ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)

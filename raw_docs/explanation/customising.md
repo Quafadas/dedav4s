@@ -5,7 +5,7 @@ The key idea behind the library allows what are, to my mind some exciting extens
 import viz.PlotTargets.doNothing
 ```
 
-It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is, as far as I can tell the de facto standard for linear algebra in scala. 
+It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is a library for linear algebra in scala. 
 
 The below extension method would add line plotting functionality, to _all_ Breeze DenseVectors. What's cool? _You don't need to own either Breeze or dedav to make this work_. 
 

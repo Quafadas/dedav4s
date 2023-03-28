@@ -24,9 +24,10 @@ import org.scalajs.dom.Event
 import scala.scalajs.js
 import scala.scalajs.js.JSON
 import viz.WithBaseSpec
+import viz.Spec
 
 object showChartJs:
-  def apply[C <: WithBaseSpec]( chart: C, node: Element, width: Int = 50) = 
+  def apply[C <: Spec]( chart: C, node: Element, width: Int = 50) = 
     val child = dom.document.createElement("div")
     val anId = "vega" + Random.alphanumeric.take(8).mkString("")
     child.id = anId
