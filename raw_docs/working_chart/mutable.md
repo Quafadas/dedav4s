@@ -27,7 +27,7 @@ val chart = LineChartLite(
       viz.Utils.fillDiv 
   )
 )
-viz.doc.showChartJs(chart,node)
+viz.js.showChartJs(chart,node)
 ```
 
 But there are a couple of things which are messy about our modification;
@@ -53,7 +53,7 @@ val chart = LineChartLite(
           viz.Utils.fillDiv 
       )
   )
-viz.doc.showChartJs(chart, node)
+viz.js.showChartJs(chart, node)
 ```
 Here's what that would look like in JVM scala; 
 
@@ -103,7 +103,7 @@ def addData(in: TimeSeries) = new (ujson.Value => Unit) {
         spec.obj.remove("transform")
 }
 val chart = LineChartLite(Seq( addData(ts),viz.Utils.fillDiv ))
-viz.doc.showChartJs(chart, node)
+viz.js.showChartJs(chart, node)
 ```
 
 Generally, I find that the best "workflow", is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 

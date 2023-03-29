@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viz.doc
+package viz.js
 import org.scalajs.dom
 import org.scalajs.dom.html.Div
 import scala.util.Random
@@ -26,6 +26,14 @@ import scala.scalajs.js.JSON
 import viz.WithBaseSpec
 import viz.Spec
 
+
+/**
+  * This is a "show" implementation for JS. Importantly, it forces the div to have a well defined width and height on mount
+  * Otherwise vega chokes. This can be used as a starting pont for however you'd wish to integrate your own chart. 
+  * 
+  * It ought to get you started quickly. 
+  * 
+  */
 object showChartJs:
   def apply[C <: Spec]( chart: C, node: Element, width: Int = 50) = 
     val child = dom.document.createElement("div")

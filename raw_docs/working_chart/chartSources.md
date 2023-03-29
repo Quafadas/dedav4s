@@ -14,7 +14,7 @@ Someone was apparently crazy enough to implement pacman in vega. As "proof" that
 ```scala mdoc:js
 import viz.vega.plots.given
 
-viz.doc.showChartJs(viz.vega.plots.Pacman(), node)
+viz.js.showChartJs(viz.vega.plots.Pacman(), node)
 ```
 
 More seriously though, this library is targeted at "work". 

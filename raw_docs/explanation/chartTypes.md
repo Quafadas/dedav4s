@@ -12,10 +12,10 @@ https://vega.github.io/vega/examples/
 ```scala mdoc:js
 import viz.vega.plots.{BarChart,LineChart, PieChart, ScatterPlot, given}
 
-viz.doc.showChartJs(BarChart(List(viz.Utils.fillDiv)), node, 50)
-viz.doc.showChartJs(LineChart(List(viz.Utils.fillDiv)), node, 50)
-viz.doc.showChartJs(PieChart(List(viz.Utils.fillDiv)), node, 50)
-viz.doc.showChartJs(ScatterPlot(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(BarChart(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(LineChart(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(PieChart(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(ScatterPlot(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
 ```
 
 ## Vega-Lite
@@ -24,11 +24,11 @@ https://vega.github.io/vega-lite/examples/
 ```scala mdoc:js
 import viz.vega.plots.{SimpleBarChartLite, HistogramLite, ScatterplotLite, InteractiveScatterplotMatrixLite, given}
 
-viz.doc.showChartJs(SimpleBarChartLite(List(viz.Utils.fillDiv)), node, 50)
-viz.doc.showChartJs(HistogramLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
-viz.doc.showChartJs(ScatterplotLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(SimpleBarChartLite(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(HistogramLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(ScatterplotLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   InteractiveScatterplotMatrixLite(
       List( spec => spec("spec")("data")("url") = "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json" )
   ),

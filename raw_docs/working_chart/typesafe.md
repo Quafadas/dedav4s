@@ -48,7 +48,7 @@ val theChart = VegaLiteDsl(
         )
     )
 )
-viz.doc.showChartJs(DslSpec(theChart), node)
+viz.js.showChartJs(DslSpec(theChart), node)
 ```
 
 That is... a lot of work though. Writing this out by hand would be formidably hard. Honestly, no one is going to do that. New plan... 
@@ -81,7 +81,7 @@ val cheatingCanBeGood = asDsl.copy(
     height = Some("container")
 )
 
-viz.doc.showChartJs(DslSpec(cheatingCanBeGood), node)
+viz.js.showChartJs(DslSpec(cheatingCanBeGood), node)
 
 ```
 

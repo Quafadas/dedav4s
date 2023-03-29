@@ -27,7 +27,7 @@ This code fence uses scala JS. In scala JS, we construct charts with _exactly th
 ```scala mdoc:js
 import viz.vega.plots.{BarChart, given}
 val chart = BarChart()
-viz.doc.showChartJs(chart, node)
+viz.js.showChartJs(chart, node)
 ```
 
 It's cross compiled from the same shared source code! That promise - explore in the comfort of the JVM, publish in scala JS is one of the big concepts this library explores. 
@@ -41,7 +41,7 @@ val chart = BarChart(
     viz.Utils.fillDiv
   )
 )
-viz.doc.showChartJs(chart, node)
+viz.js.showChartJs(chart, node)
 ```
 So we've proven we can make a chart, and change it's behaviour. If all that worked in your repl, then you're ready to go! Read on! 
 

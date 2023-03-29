@@ -11,7 +11,7 @@ import viz.extensions.*
 import viz.PlotTargets.doNothing
 
 val chart = List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
-viz.doc.showChartJs(chart,node)
+viz.js.showChartJs(chart,node)
 ```
 
 ### Bar chart
@@ -19,7 +19,7 @@ viz.doc.showChartJs(chart,node)
 import viz.extensions.*
 import viz.PlotTargets.doNothing 
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   (1 to 5).plotBarChart( List(viz.Utils.fillDiv) ),
   node
 )
@@ -31,7 +31,7 @@ viz.doc.showChartJs(
 import viz.extensions.*
 import viz.PlotTargets.doNothing 
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   (1 to 5).plotPieChart(List(viz.Utils.fillDiv)),
   node
 )
@@ -42,7 +42,7 @@ viz.doc.showChartJs(
 import viz.extensions.*
 import viz.PlotTargets.doNothing 
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   (1 to 5).map(i => (scala.util.Random.nextString(5), i)).plotPieChart(List()),
   node
 )
@@ -54,7 +54,7 @@ viz.doc.showChartJs(
 import viz.extensions.*
 import viz.PlotTargets.doNothing 
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   List(
     "how much wood would a wood chuck chuck if a wood chuck could chuck wood", 
     "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"
@@ -68,7 +68,7 @@ viz.doc.showChartJs(
 import viz.extensions.*
 import viz.PlotTargets.doNothing 
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   List(1,5,3,15,7,8).plotLineChart(),
   node
 )
@@ -78,7 +78,7 @@ viz.doc.showChartJs(
 import viz.extensions.*
 import viz.PlotTargets.doNothing 
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   List(1,11,1,2,3,4,4,4,4,4,5,6,8,8,9,8).plotDotPlot(),
   node
 )
@@ -89,7 +89,7 @@ viz.doc.showChartJs(
 import viz.extensions.*
 import viz.PlotTargets.doNothing 
 
-viz.doc.showChartJs(
+viz.js.showChartJs(
   List((1.0,2.0),(3.0,4.0),(0.5 , 5.0),(3.14159, 1.0)).plotScatter(),
   node
 )

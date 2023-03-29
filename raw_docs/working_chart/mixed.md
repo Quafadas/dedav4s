@@ -7,7 +7,7 @@ The "mutuable" approach combines the previous two ideas.We could use a "typesafe
 import viz.dsl.vega.*
 import viz.vega.plots.{BarChart, given}
 import viz.dsl.Conversion.u
-import viz.doc.makePlotTarget
+import viz.js.makePlotTarget
 
 val axisOrient : TitleOrientEnum = "top"
 val newAxis : Axis= Axis(orient = axisOrient, scale = "xscale")
@@ -23,7 +23,7 @@ val chart = BarChart(
         spec => spec("axes") = spec("axes").arr :+ newAxis.u
     )
 )
-viz.doc.showChartJs(chart, node)
+viz.js.showChartJs(chart, node)
 ```
 
 Note that we get some typechecking.
@@ -60,7 +60,7 @@ You could then use either strategy to insert into a spec, depending on whether y
 import viz.dsl.vega.*
 import viz.vega.plots.{BarChart, given}
 import viz.dsl.Conversion.u
-import viz.doc.makePlotTarget
+import viz.js.makePlotTarget
 
 val copyPastedAxisFromExample = """{ "orient": "top", "scale": "xscale" }"""
 val parsedU = ujson.read(copyPastedAxisFromExample)
@@ -71,7 +71,7 @@ val chart = BarChart(
         spec => spec("axes") = parsedU // overwrites the entire exes property with our single weird top axis.
     )
 )
-viz.doc.showChartJs(chart, node)
+viz.js.showChartJs(chart, node)
 ```
 
 # Discussion
