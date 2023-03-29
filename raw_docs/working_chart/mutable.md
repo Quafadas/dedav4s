@@ -20,18 +20,14 @@ import viz.vega.plots.{LineChartLite, given}
 
 val addTitle : ujson.Value => Unit = 
     (spec:ujson.Value) => spec("title") = "A Timeseries"
-
-viz.doc.showChartJs(
-  LineChartLite(
-    Seq(
-        addTitle, 
-        viz.Utils.fixDefaultDataUrl, 
-        viz.Utils.fillDiv 
-    )
-  ), 
-  node
+val chart = LineChartLite(
+  Seq(
+      addTitle, 
+      viz.Utils.fixDefaultDataUrl, 
+      viz.Utils.fillDiv 
+  )
 )
-
+viz.doc.showChartJs(chart,node)
 ```
 
 But there are a couple of things which are messy about our modification;
@@ -59,8 +55,27 @@ val chart = LineChartLite(
   )
 viz.doc.showChartJs(chart, node)
 ```
+Here's what that would look like in JVM scala; 
 
-At this point, i think it's clear how we're going to deal with piping in the data - the same way as we injected a title
+```scala mdoc
+import viz.vega.plots.{LineChartLite, given}
+
+def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
+    override def toString = s"set title to be $in"
+    def apply(spec: ujson.Value) = spec("title") = in
+ }
+
+LineChartLite(
+  Seq(
+      addTitleB("A Timeseries"), 
+      viz.Utils.fixDefaultDataUrl, 
+      viz.Utils.fillDiv 
+  )
+)
+
+```
+
+At this point, i think we have a hint on a simple way to inject data - the same way as we injected a title
 
 ## Piping in the data
 
@@ -74,32 +89,21 @@ val ts = TimeSeries(
         Seq(            
             (LocalDate.of(2021,1,1), 0.2), 
             (LocalDate.of(2021,6,1), 20),
-            (LocalDate.now(), 5.5), 
+            (LocalDate.of(2021,12,31), 5.5), 
         )
     )
-
-def addTitleB(in:String): ujson.Value => Unit = new((ujson.Value => Unit)) {
-    override def toString = s"set title to be $in"
-    def apply(spec: ujson.Value) = spec("title") = in
- }
 
 def addData(in: TimeSeries) = new (ujson.Value => Unit) {
     override def toString = "pipe in data" 
     def apply(spec: ujson.Value) =    
-        val data = in.series.sortBy(_._1)
-            .map(
-                point => 
-                    ujson.Obj(
-                        "date" -> point._1.toString(), 
-                        "price" -> point._2
-                    )
-                )
+        val data = in.series.map(p => 
+          ujson.Obj("date" -> p._1.toString(),"price" ->p._2)
+        )
         spec("data") = ujson.Obj("values" -> data)
         spec.obj.remove("transform")
 }
-viz.doc.showChartJs(
-  LineChartLite(Seq(addTitleB("Now with data"), addData(ts),viz.Utils.fillDiv )), node
-)
+val chart = LineChartLite(Seq( addData(ts),viz.Utils.fillDiv ))
+viz.doc.showChartJs(chart, node)
 ```
 
 Generally, I find that the best "workflow", is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It's then easy to backport the modification into scala. 
@@ -107,11 +111,11 @@ Generally, I find that the best "workflow", is to pump the data into the spec an
 In the first instance, this looks like quite a bit of ceremony. What's important to remember, is that you can compose the modifiers... and ultimately, end up with your own library of them!
 
 # Discussion
-The big advantage of the mutuable approach, is that you get trivial access to the entire vega API. It therefore represents the "ultimate fallback" option. 
+The big advantage of the mutuable approach, is that you get instant access to the entire vega API, which is just JSON. It therefore represents the "ultimate fallback" option. 
 
-The big disadvantage, is that it the "developer experience", isn't great. The ceremony to get the json shapes in the right place, is rather tedious.
+The big disadvantage, is that it the "developer experience", isn't great. The ceremony to get the json shapes in the right place, is rather tedious, plus you don't get compile time hints if this are going to go wrong. 
 
 Reading this back the example is weirdly contrived. Mostly when I'm working with an existing datatype, it already has a JSON serialisation strategy in place. It really ought to be possible to leverage that somehow ... 
 
 # Conclusion
-I've found this style to be rather convenient in practise for small mofications, adding axis titles, chart titles. It relies on a lot of prior knowledge of vega and wading through the specs, though. 
+I've found this style to be rather convenient in practise for small mofications, adding axis titles, chart titles. 

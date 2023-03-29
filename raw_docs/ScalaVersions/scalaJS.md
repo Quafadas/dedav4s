@@ -6,13 +6,6 @@ What turns out to be really nice about scala JS support, is the seamless transit
 
 <mark>Gotcha : dedav ***does not include*** the underlying JS libraries out of it's box</mark>. 
 
-The ~~burden~~ freedom is left to the user to include vega embed in your bundling solution. The simplest package.json depedancies would be;
-
-```json
-"dependencies": {
-    "vega-embed" : "6.20.8"
-}
-```
 I may list out some toy examples on the github readme. Here's one... 
 [Mill, Scala Js, Snowpack, Laminar, Dedav](https://github.com/Quafadas/scalajs-snowpack-example)
 
@@ -25,14 +18,25 @@ We have two orthogonal problems
 ## Javascript libraries
 The example dependency is set out above. It _should_ work with _any_ bundling solution, or even by directly embedding the dependancies in the header of the html. Your choice.
 
+The ~~burden~~ freedom is left to you to get vega itself in scope. The simplest package.json depedancies would be;
+
+```json
+"dependencies": {
+    "vega-embed" : "6.20.8"
+}
+```
+
+You could also consider going sans-bundler via ESM modules or directly via a script tag in the header of your html - have a look at the source of this page for such an example.
+
 ## Scala JS UI frameworks
 It turns out, that scala JS Dom is simply a facade for the browser API. Dedav works, through providing a reference to a scala js dom Div element.
 
-Due to how fundamental the statement above is, we implicitly support _all_ UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div.  
+Due to how fundamental the statement above is, we implicitly support _all_ JS UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div.  
 
-### Examples
+## Integrations
+In flight!
 
-#### Laminar
+### Laminar
 In laminar, it is simple to obtain the reference to a div.
 
 ```scala
@@ -50,7 +54,10 @@ import viz.PlotTarget
   )  
 
 ```
-#### MDoc
+### Calico
+
+
+### MDoc
 Is how this documentation works. Setup mdoc with scalajs bundler, and include vega in the bundle. Read the source of this library :-). 
 
 ### Laika with mdoc

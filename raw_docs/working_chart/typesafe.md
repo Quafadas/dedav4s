@@ -2,7 +2,7 @@
 
 The DSL is generated via [quicktype](https://quicktype.io), from the Vega Schema. 
 
-This is
+This is a simple bar chart.
 
 ```scala mdoc:js
 import viz.dsl.vegaLite.*
@@ -57,7 +57,7 @@ Cheat! We have a strongly typed representation of the schema, so why not, once a
 
 # Simpler strategy
 
-And  then copy the case class.
+And seeing as we have a case class... copy...
 
 ```scala mdoc:js
 import viz.dsl.vegaLite.*
@@ -67,7 +67,7 @@ import viz.PlotTargets.doNothing
 import viz.vega.plots.*
 import io.circe._
 
-val teehee = SpecUrl.SimpleBarChartLite.toDsl()
+val teehee = SpecUrl.SimpleBarChartLite.toDsl() // Cunningly parse JSON here
 val asDsl = teehee.toOption.get.asInstanceOf[VegaLiteDsl]
 val someData : InlineDataset = Seq(
     Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
@@ -84,3 +84,31 @@ val cheatingCanBeGood = asDsl.copy(
 viz.doc.showChartJs(DslSpec(cheatingCanBeGood), node)
 
 ```
+
+To give an idea of the types, let's run this again in scala JVM
+
+```scala mdoc
+import viz.dsl.vegaLite.*
+import viz.dsl.DslPlot.*
+import viz.dsl.DslSpec
+import viz.PlotTargets.doNothing
+import viz.vega.plots.*
+import io.circe._
+
+val teehee = SpecUrl.SimpleBarChartLite.toDsl() // Cunningly parse JSON here
+val asDsl = teehee.toOption.get.asInstanceOf[VegaLiteDsl]
+val someData : InlineDataset = Seq(
+    Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
+    Map("a" -> Some(Json.fromString("Next")), "b" -> Some(Json.fromInt(25))),
+    Map("a" -> Some(Json.fromString("embiggen")), "b" -> Some(Json.fromInt(5)))
+)
+
+asDsl.copy(
+    data = Some(URLData(values = Some(someData))),
+    width = Some("container"), 
+    height = Some("container")
+)
+```
+
+# Discussion
+Typesafety is nice to have in the sense that it removes entire categories of "unplottable" states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden. 

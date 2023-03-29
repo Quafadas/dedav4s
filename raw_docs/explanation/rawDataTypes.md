@@ -10,10 +10,8 @@ We achieve this through scala 3's extension methods - have a look in the ```viz.
 import viz.extensions.*
 import viz.PlotTargets.doNothing
 
-viz.doc.showChartJs(
-  List(("A", 4),("B", 6),("C", -1)).plotBarChart(List()),
-  node
-)
+val chart = List(("A", 4),("B", 6),("C", -1)).plotBarChart(List())
+viz.doc.showChartJs(chart,node)
 ```
 
 ### Bar chart

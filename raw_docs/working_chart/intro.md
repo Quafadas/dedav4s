@@ -16,11 +16,11 @@ For this reason, the "mutable" option is the ultimate fallback. Typesafe is pret
 
 All charts are, in the end ... just a case class. For a given case class, the plot will _always_ be the same. Onen could argue that it is "functional" at that boundary. 
 
-Finally, because we're just producing a chart, there's nothing that says 
+Finally, because we're just producing a chart; 
 
-1. Your plot can't be produced via a method defined on some data class itself.
-1. You have to own the data structure - have a look at the extension methods. The homepage works through an extension method defined on ```Numeric[Iterable]```
+1. Your plot can be produced via a method defined directly on some data class itself
+1. You don't have to own the data structure - have a look at the extension methods. The homepage works through an extension method defined on ```Numeric[Iterable]```
 
+## Visualisation as JSON
 
-
-
+We can easily manipulate JSON objects using [ujson](https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html), and that gives us a lot of flexibility.
