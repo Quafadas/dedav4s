@@ -17,7 +17,7 @@ import org.scalajs.linker.interface.ESVersion.*
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.2.2" // Really we want to tie this to almond, but almond is slow...
+val scalaV = "3.2.2"
 
 inThisBuild(
   List(
@@ -34,7 +34,7 @@ inThisBuild(
 )
 
 ThisBuild / tlSitePublishBranch := Some("main")
-ThisBuild / tlBaseVersion := "0.8"
+ThisBuild / tlBaseVersion := "0.9"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / licenses := Seq(License.Apache2)
@@ -77,10 +77,10 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     ),    
     
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.0.0",
+      "com.lihaoyi" %%% "ujson" % "3.1.0",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
-      "org.ekrich" %%% "sconfig" % "1.4.4", // otherwise have to upgrade scala
-      ("sh.almond" % "scala-kernel-api" % "0.13.3" % Provided)
+      "org.ekrich" %%% "sconfig" % "1.5.0", // otherwise have to upgrade scala
+      ("sh.almond" % "scala-kernel-api" % "0.13.9" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".10"))
         .exclude("com.lihaoyi", "geny_2.13")
         .exclude("com.lihaoyi", "sourcecode_2.13")

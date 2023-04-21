@@ -10,7 +10,7 @@ import cats.syntax.functor._
 // If a union has a null in, then we'll need this too... 
 type NullValue = None.type
 
-case class Vega (
+case class VegaDsl (
     val axes : Option[Seq[Axis]] = None,
     val data : Option[Seq[Data]] = None,
     val encode : Option[VegaEncode] = None,

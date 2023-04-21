@@ -1,4 +1,4 @@
-package viz.vega.dsl.vegaLite
+package viz.dsl.vegaLite
 
 import scala.util.Try
 import io.circe.syntax._
@@ -14,7 +14,7 @@ type NullValue = None.type
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
  * specifications. (The json schema is generated from this type.)
  */
-case class VegaLiteDSL (
+case class VegaLiteDsl(
     /**
      * URL to [JSON schema](http://json-schema.org/) for a Vega-Lite specification. Unless you
      * have a reason to change this, use `https://vega.github.io/schema/vega-lite/v5.json`.
