@@ -25,6 +25,9 @@
     
     
     <script> /* for avoiding page load transitions */ </script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
 
   <body>
@@ -63,21 +66,22 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
         <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="chartTypes.html">Example Charts</a></li>
         <li class="level2 active"><a href="#">Plot Targets</a></li>
         <li class="level2"><a href="rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level2"><a href="customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
-        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
-        <li class="level1 nav-header">Prior Art</li>
-        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
         <li class="level1 nav-header">Working With A Chart</li>
         <li class="level2"><a href="../working_chart/intro.html">Styles</a></li>
         <li class="level2"><a href="../working_chart/mutable.html">Mutable Style</a></li>
         <li class="level2"><a href="../working_chart/typesafe.html">The DSL</a></li>
         <li class="level2"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
-        <li class="level2"><a href="../working_chart/workflow.html">Workflow</a></li>
+        <li class="level2"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
 
       <ul class="nav-list">
@@ -96,7 +100,7 @@
 
         <ul class="nav-list">
           <li class="level1"><a href="#desktop-browser">Desktop Browser</a></li>
-          <li class="level2"><a href="#how-it-works">How it works</a></li>
+          <li class="level2"><a href="#how-desktop-browser-works">How desktop browser works</a></li>
           <li class="level1"><a href="#websocket">Websocket</a></li>
           <li class="level1"><a href="#almond"><a href="https://www.almond.sh">Almond</a></a></li>
           <li class="level1"><a href="#vscode">VSCode</a></li>
@@ -106,6 +110,8 @@
           <li class="level1"><a href="#vega-cli-outputs">Vega CLI outputs</a></li>
           <li class="level2"><a href="#png">PNG</a></li>
           <li class="level2"><a href="#pdf">PDF</a></li>
+          <li class="level2"><a href="#svg">SVG</a></li>
+          <li class="level2"><a href="#how-it-works">How it works</a></li>
         </ul>
 
         <p class="footer"></p>
@@ -114,11 +120,6 @@
       <main class="content">
 
         <h1 id="plot-targets" class="title">Plot Targets</h1>
-        <p>For this library, the first class citizen is a browser... </p>
-        <p>Every time an object is created which extends the &quot;Spec&quot; trait, it executes the <code>newObject.show()</code> side effect. That side effect requires context, provided through a <a href="https://dotty.epfl.ch/docs/reference/contextual/givens.html">given</a> PlotTarget which is in scope. </p>
-        <p>Those &quot;given&quot; targets, described below, are accessible at <code>viz.PlotTargets.xxxxx</code></p>
-        <p>Many of these rely on writing temp files, and a <code>java.awt.Desktop.browse()</code>, and an internet connection. If your environment does not have those capabilities, then you&#39;ll need to look elsewhere or take an advanced approach.</p>
-        <p>The path of the temporary file is located in the &quot;out&quot; property of the case class, which is of type <code>Unit | os.Path</code>. If the target creates a temporary file, you may &quot;move it around&quot; wherever you wish, using the path as a starting point.</p>
         
         <h2 id="desktop-browser" class="section"><a class="anchor-link left" href="#desktop-browser"><i class="icofont-laika">&#xef71;</i></a>Desktop Browser</h2>
         <p>Will open a new browser window in your desktop based browser, pointing to a temporary file. </p>
@@ -128,7 +129,7 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
         
-        <h3 id="how-it-works" class="section"><a class="anchor-link left" href="#how-it-works"><i class="icofont-laika">&#xef71;</i></a>How it works</h3>
+        <h3 id="how-desktop-browser-works" class="section"><a class="anchor-link left" href="#how-desktop-browser-works"><i class="icofont-laika">&#xef71;</i></a>How desktop browser works</h3>
         <p>The library writes a (temporary) file, assuming that</p>
         <pre><code>java.io.File.createTempFile() </code></pre>
         <p>Is available. That temporary file assumes that you have an internet connection, and can resolve </p>
@@ -151,10 +152,6 @@
         <h2 id="almond" class="section"><a class="anchor-link left" href="#almond"><i class="icofont-laika">&#xef71;</i></a><a href="https://www.almond.sh">Almond</a></h2>
         <img src="../assets/almond.gif" width=90% height=90%/>
         <p>Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.</p>
-        <p><strong> GOTCHA : Right now, the current stable release for almond is scala 2.13.4. Dedav works with scala 3. So if you want this to work you&#39;ll currently need to roll your own almond kernel from source... Because you&#39;re extreme :-). </p>
-        <p>Also, the extension methods currently use athe <code>viz.Utils.fillDiv</code> method, which is not compatible with the way Jupyter sizes charts. So don&#39;t use those right now. 
-        </strong></p>
-        <p>As scala 3 matures and moves through the ecosystem, I expect this to work smoothly. </p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">almond</span></code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">BarChart</span><span>(
    </span><span class="type-name">List</span><span>(        
@@ -164,7 +161,7 @@
 )</span></code></pre>
         
         <h2 id="vscode" class="section"><a class="anchor-link left" href="#vscode"><i class="icofont-laika">&#xef71;</i></a>VSCode</h2>
-        <p>Use the almond target and a notebook... </p>
+        <p>Use the almond target and a <code>.ipynb</code>... </p>
         
         <h2 id="gitpod" class="section"><a class="anchor-link left" href="#gitpod"><i class="icofont-laika">&#xef71;</i></a>Gitpod</h2>
         <p>Gitpod support is kind of brittle and needs a little config. By default, dedav will attempt to contact port 48485 of a webserver it starts in the pod. It will detect the pod address through the gitpod <a href="https://www.gitpod.io/docs/environment-variables">environment variables</a>. </p>
@@ -190,6 +187,7 @@
 
 </span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
         <p>To no ones surprise, does nothing! The implementation simply executes unit <code>()</code>. I regret the CPU cycles :-). </p>
+        <p>Importantly, this is default behaviour - important when we reach scala JS.</p>
         
         <h2 id="printlntarget" class="section"><a class="anchor-link left" href="#printlntarget"><i class="icofont-laika">&#xef71;</i></a>printlnTarget</h2>
         <p>Formats and prints the final JSON spec to the console. </p>
@@ -353,7 +351,7 @@
 // }
 // res2: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.extensions$package$$$Lambda$16957/2135344128@127e5382
+//     viz.extensions.extensions$package$$$Lambda$14446/2113371243@72cf94d6
 //   )
 // )</span></code></pre>
         
@@ -369,13 +367,18 @@
         
         <h3 id="pdf" class="section"><a class="anchor-link left" href="#pdf"><i class="icofont-laika">&#xef71;</i></a>PDF</h3>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">$import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">pdf</span></code></pre>
-        <p>Markdown can&#39;t display this... but it works I promise.
-        ### SVG</p>
+        <p>Markdown can&#39;t display this... but it works I promise.</p>
+        
+        <h3 id="svg" class="section"><a class="anchor-link left" href="#svg"><i class="icofont-laika">&#xef71;</i></a>SVG</h3>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">svg</span></code></pre>
-        <p><img src="../assets/plot-15502123500232012865.svg" alt="as svg">
-        <script type="text/javascript" src="jsdocs-opt-library.js" defer></script>
-        <script type="text/javascript" src="jsdocs-opt-loader.js" defer></script>
-        <script type="text/javascript" src="plotTargets.md.js" defer></script>
+        <p><img src="../assets/plot-15502123500232012865.svg" alt="as svg"></p>
+        
+        <h3 id="how-it-works" class="section"><a class="anchor-link left" href="#how-it-works"><i class="icofont-laika">&#xef71;</i></a>How it works</h3>
+        <p>For this library, the first class citizen is a browser... </p>
+        <p>Every time an object is created which extends the &quot;Spec&quot; trait, it executes the <code>newObject.show()</code> side effect. That side effect requires context, provided through a <a href="https://dotty.epfl.ch/docs/reference/contextual/givens.html">given</a> PlotTarget which is in scope. </p>
+        <p>Those &quot;given&quot; targets, described below, are accessible at <code>viz.PlotTargets.xxxxx</code></p>
+        <p>Many of these rely on writing temp files, and a <code>java.awt.Desktop.browse()</code>, and an internet connection. If your environment does not have those capabilities, then you&#39;ll need to look elsewhere or take an advanced approach.</p>
+        <p>The path of the temporary file is located in the &quot;out&quot; property of the case class, which is of type <code>Unit | os.Path</code>. If the target creates a temporary file, you may &quot;move it around&quot; wherever you wish, using the path as a starting point.<script type="text/javascript" src="plotTargets.md.js" defer></script>
         <script type="text/javascript" src="mdoc.js" defer></script></p>
 
         <hr style="margin-top: 30px"/>

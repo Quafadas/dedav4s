@@ -25,6 +25,9 @@
     
     
     <script> /* for avoiding page load transitions */ </script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
 
   <body>
@@ -63,21 +66,22 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
         <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="../explanation/chartTypes.html">Example Charts</a></li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
         <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2"><a href="scalaVersions.html">Scala Versions</a></li>
-        <li class="level2 active"><a href="#">Scala JS</a></li>
-        <li class="level1 nav-header">Prior Art</li>
-        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
         <li class="level1 nav-header">Working With A Chart</li>
         <li class="level2"><a href="../working_chart/intro.html">Styles</a></li>
         <li class="level2"><a href="../working_chart/mutable.html">Mutable Style</a></li>
         <li class="level2"><a href="../working_chart/typesafe.html">The DSL</a></li>
         <li class="level2"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
-        <li class="level2"><a href="../working_chart/workflow.html">Workflow</a></li>
+        <li class="level2"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="scalaVersions.html">Scala Versions</a></li>
+        <li class="level2 active"><a href="#">Scala JS</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
 
       <ul class="nav-list">
@@ -98,6 +102,7 @@
           <li class="level1"><a href="#ecosystem-support">Ecosystem support</a></li>
           <li class="level2"><a href="#javascript-libraries">Javascript libraries</a></li>
           <li class="level2"><a href="#scala-js-ui-frameworks">Scala JS UI frameworks</a></li>
+          <li class="level2"><a href="#integrations">Integrations</a></li>
         </ul>
 
         <p class="footer"></p>
@@ -109,10 +114,6 @@
         <p>The charts in these documents, are display using scala JS :-).</p>
         <p>What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in it&#39;s rapid feedback and typsafe tooling, and subsequent publication into a browser with scala JS. It&#39;s the same code! There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent. </p>
         <p><mark>Gotcha : dedav <strong><em>does not include</em></strong> the underlying JS libraries out of it&#39;s box</mark>. </p>
-        <p>The <del>burden</del> freedom is left to the user to include vega embed in your bundling solution. The simplest package.json depedancies would be;</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="attribute-name">&quot;dependencies&quot;</span><span>: {
-    </span><span class="attribute-name">&quot;vega-embed&quot;</span><span> : </span><span class="string-literal">&quot;6.20.8&quot;</span><span>
-}</span></code></pre>
         <p>I may list out some toy examples on the github readme. Here&#39;s one... 
         <a href="https://github.com/Quafadas/scalajs-snowpack-example">Mill, Scala Js, Snowpack, Laminar, Dedav</a></p>
         
@@ -125,14 +126,20 @@
         
         <h2 id="javascript-libraries" class="section"><a class="anchor-link left" href="#javascript-libraries"><i class="icofont-laika">&#xef71;</i></a>Javascript libraries</h2>
         <p>The example dependency is set out above. It <em>should</em> work with <em>any</em> bundling solution, or even by directly embedding the dependancies in the header of the html. Your choice.</p>
+        <p>The <del>burden</del> freedom is left to you to get vega itself in scope. The simplest package.json depedancies would be;</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="attribute-name">&quot;dependencies&quot;</span><span>: {
+    </span><span class="attribute-name">&quot;vega-embed&quot;</span><span> : </span><span class="string-literal">&quot;6.20.8&quot;</span><span>
+}</span></code></pre>
+        <p>You could also consider going sans-bundler via ESM modules or directly via a script tag in the header of your html - have a look at the source of this page for such an example.</p>
         
         <h2 id="scala-js-ui-frameworks" class="section"><a class="anchor-link left" href="#scala-js-ui-frameworks"><i class="icofont-laika">&#xef71;</i></a>Scala JS UI frameworks</h2>
         <p>It turns out, that scala JS Dom is simply a facade for the browser API. Dedav works, through providing a reference to a scala js dom Div element.</p>
-        <p>Due to how fundamental the statement above is, we implicitly support <em>all</em> UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div.<br></p>
+        <p>Due to how fundamental the statement above is, we implicitly support <em>all</em> JS UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div.<br></p>
         
-        <h3 id="examples" class="section"><a class="anchor-link left" href="#examples"><i class="icofont-laika">&#xef71;</i></a>Examples</h3>
+        <h2 id="integrations" class="section"><a class="anchor-link left" href="#integrations"><i class="icofont-laika">&#xef71;</i></a>Integrations</h2>
+        <p>In flight!</p>
         
-        <h4 id="laminar" class="section"><a class="anchor-link left" href="#laminar"><i class="icofont-laika">&#xef71;</i></a>Laminar</h4>
+        <h3 id="laminar" class="section"><a class="anchor-link left" href="#laminar"><i class="icofont-laika">&#xef71;</i></a>Laminar</h3>
         <p>In laminar, it is simple to obtain the reference to a div.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.</span><span class="identifier">_</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
@@ -147,7 +154,9 @@
     }
   )  </span></code></pre>
         
-        <h4 id="mdoc" class="section"><a class="anchor-link left" href="#mdoc"><i class="icofont-laika">&#xef71;</i></a>MDoc</h4>
+        <h3 id="calico" class="section"><a class="anchor-link left" href="#calico"><i class="icofont-laika">&#xef71;</i></a>Calico</h3>
+        
+        <h3 id="mdoc" class="section"><a class="anchor-link left" href="#mdoc"><i class="icofont-laika">&#xef71;</i></a>MDoc</h3>
         <p>Is how this documentation works. Setup mdoc with scalajs bundler, and include vega in the bundle. Read the source of this library :-). </p>
         
         <h3 id="laika-with-mdoc" class="section"><a class="anchor-link left" href="#laika-with-mdoc"><i class="icofont-laika">&#xef71;</i></a>Laika with mdoc</h3>

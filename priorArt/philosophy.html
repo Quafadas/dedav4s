@@ -25,6 +25,9 @@
     
     
     <script> /* for avoiding page load transitions */ </script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
 
   <body>
@@ -63,21 +66,22 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
         <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="../explanation/chartTypes.html">Example Charts</a></li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
         <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
-        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
-        <li class="level1 nav-header">Prior Art</li>
-        <li class="level2 active"><a href="#">Prior Art</a></li>
         <li class="level1 nav-header">Working With A Chart</li>
         <li class="level2"><a href="../working_chart/intro.html">Styles</a></li>
         <li class="level2"><a href="../working_chart/mutable.html">Mutable Style</a></li>
         <li class="level2"><a href="../working_chart/typesafe.html">The DSL</a></li>
         <li class="level2"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
-        <li class="level2"><a href="../working_chart/workflow.html">Workflow</a></li>
+        <li class="level2"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2 active"><a href="#">Prior Art</a></li>
       </ul>
 
       <ul class="nav-list">
@@ -99,7 +103,7 @@
           <li class="level2"><a href="#from-first-principles">From first principles</a></li>
           <li class="level2"><a href="#good-news">Good news</a></li>
           <li class="level2"><a href="#what-of-typesafety">What of typesafety?</a></li>
-          <li class="level2"><a href="#conclusion">Conclusion</a></li>
+          <li class="level2"><a href="#the-bad-news">The Bad news</a></li>
         </ul>
 
         <p class="footer"></p>
@@ -132,7 +136,7 @@
           <li>Sharing</li>
         </ol>
         <p>It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise. </p>
-        <p>Unfortunately, this leaves us with a problem. Scala doesn&#39;t run in the browser...  (<a href="https://www.scala-js.org">a filthy lie</a>)... but most scala takes place on the JVM. My target is a repl / interactive JVM environment, and that introduces some challenges.</p>
+        <p>Fortunately, scala has great JS support. If we can overcome bunding and generally getting libraries built in the right place, we can have our cake and eat it, too. </p>
         
         <h2 id="good-news" class="section"><a class="anchor-link left" href="#good-news"><i class="icofont-laika">&#xef71;</i></a>Good news</h2>
         <p>There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let&#39;s provide a thin shim for one! </p>
@@ -145,8 +149,8 @@
         <p>In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>.</p>
         <p>So I don&#39;t claim the DSL is perfect. It&#39;s as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close to typesafety, for your use case.</p>
         
-        <h2 id="conclusion" class="section"><a class="anchor-link left" href="#conclusion"><i class="icofont-laika">&#xef71;</i></a>Conclusion</h2>
-        <p>Nothing about the DSL, saves you from having to learn vega... </p>
+        <h2 id="the-bad-news" class="section"><a class="anchor-link left" href="#the-bad-news"><i class="icofont-laika">&#xef71;</i></a>The Bad news</h2>
+        <p>Nothing about the DSL or help getting at the examples, saves you from having to learn at least some of vega itself... </p>
         <p>... but I think you will not regret learning a declarative paradigm. The 10 minutes spent learning this library (it&#39;s absurdly simple) are sunk cost. I believe you&#39;ll quickly earn those minutes back in lovely, publishable plots!</p>
 
         <hr style="margin-top: 30px"/>

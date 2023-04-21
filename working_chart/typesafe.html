@@ -25,6 +25,9 @@
     
     
     <script> /* for avoiding page load transitions */ </script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
 
   <body>
@@ -63,21 +66,22 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
         <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="../explanation/chartTypes.html">Example Charts</a></li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
         <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
-        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
-        <li class="level1 nav-header">Prior Art</li>
-        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
         <li class="level1 nav-header">Working With A Chart</li>
         <li class="level2"><a href="intro.html">Styles</a></li>
         <li class="level2"><a href="mutable.html">Mutable Style</a></li>
         <li class="level2 active"><a href="#">The DSL</a></li>
         <li class="level2"><a href="mixed.html">Mixed typesafe / mutable</a></li>
-        <li class="level2"><a href="workflow.html">Workflow</a></li>
+        <li class="level2"><a href="chartSources.html">Chart Sources</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
 
       <ul class="nav-list">
@@ -96,6 +100,7 @@
 
         <ul class="nav-list">
           <li class="level1"><a href="#simpler-strategy">Simpler strategy</a></li>
+          <li class="level1"><a href="#discussion">Discussion</a></li>
         </ul>
 
         <p class="footer"></p>
@@ -104,14 +109,13 @@
       <main class="content">
 
         <h1 id="the-dsl" class="title">The DSL</h1>
-        <p>The DSL is generated via <a href="https://quicktype.io">quicktype</a>.</p>
+        <p>The DSL is generated via <a href="https://quicktype.io">quicktype</a>, from the Vega Schema. </p>
+        <p>This is a simple bar chart.</p>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslPlot</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>.</span><span class="identifier">html</span><span>.</span><span class="type-name">Div</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">doc</span><span>.</span><span class="identifier">makePlotTarget</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslSpec</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">_</span><span>
-
-</span><span class="keyword">val</span><span> </span><span class="identifier">child</span><span> : </span><span class="type-name">Div</span><span> = </span><span class="identifier">makePlotTarget</span><span>(</span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
 
 </span><span class="keyword">val</span><span> </span><span class="identifier">someData</span><span> : </span><span class="type-name">InlineDataset</span><span> = </span><span class="type-name">Seq</span><span>(
     </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;A&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">20</span><span>))),
@@ -129,6 +133,8 @@
             )
         )        
     ),
+    </span><span class="identifier">height</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>), 
+    </span><span class="identifier">width</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>),
     </span><span class="identifier">mark</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;bar&quot;</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">AnyMark</span><span>]),
     </span><span class="identifier">encoding</span><span> = </span><span class="type-name">Some</span><span>(
         </span><span class="type-name">EdEncoding</span><span>(
@@ -148,19 +154,17 @@
         )
     )
 )
-</span><span class="identifier">println</span><span>(</span><span class="string-literal">&quot;hi&quot;</span><span>)
-</span><span class="identifier">theChart</span><span>.</span><span class="identifier">plot</span><span>(</span><span class="keyword">using</span><span> </span><span class="identifier">child</span><span>)</span></code></pre>
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">DslSpec</span><span>(</span><span class="identifier">theChart</span><span>), </span><span class="identifier">node</span><span>)</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
-        <p>if you were in a repl, the last line would be:</p>
-        <pre><code>theChart.plot</code></pre>
-        <p>That is... a lot of work though. Let&#39;s cheat.</p>
+        <p>That is... a lot of work though. Writing this out by hand would be formidably hard. Honestly, no one is going to do that. New plan... </p>
+        <p>Cheat! We have a strongly typed representation of the schema, so why not, once again... start from the examples. </p>
         
         <h1 id="simpler-strategy" class="section"><a class="anchor-link left" href="#simpler-strategy"><i class="icofont-laika">&#xef71;</i></a>Simpler strategy</h1>
-        <p>Parse the example spec from source... then copy the case class.</p>
+        <p>And seeing as we have a case class... copy...</p>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslPlot</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>.</span><span class="identifier">html</span><span>.</span><span class="type-name">Div</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">doc</span><span>.</span><span class="identifier">makePlotTarget</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslSpec</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">_</span><span>
 
@@ -172,14 +176,202 @@
     </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;embiggen&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">5</span><span>)))
 )
 
+</span><span class="keyword">val</span><span> </span><span class="identifier">cheatingCanBeGood</span><span> = </span><span class="identifier">asDsl</span><span>.</span><span class="identifier">copy</span><span>(
+    </span><span class="identifier">data</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="type-name">URLData</span><span>(</span><span class="identifier">values</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="identifier">someData</span><span>))),
+    </span><span class="identifier">width</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>), 
+    </span><span class="identifier">height</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>)
+)
+
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">DslSpec</span><span>(</span><span class="identifier">cheatingCanBeGood</span><span>), </span><span class="identifier">node</span><span>)</span></code></pre>
+        <div id="mdoc-html-run1" data-mdoc-js></div>
+        <p>To give an idea of the types, let&#39;s run this again in scala JVM</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslPlot</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslSpec</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">_</span><span>
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">teehee</span><span> = </span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">SimpleBarChartLite</span><span>.</span><span class="identifier">toDsl</span><span>() </span><span class="comment">// Cunningly parse JSON here
+// teehee: Either[Error, VegaLiteDsl | VegaDsl] = Right(
+//   value = VegaLiteDsl(
+//     $schema = Some(value = &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;),
+//     align = None,
+//     autosize = None,
+//     background = None,
+//     bounds = None,
+//     center = None,
+//     config = None,
+//     data = Some(
+//       value = URLData(
+//         format = None,
+//         name = None,
+//         url = None,
+//         values = Some(
+//           value = List(
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;A&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 28L)))
+//             ),
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;B&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 55L)))
+//             ),
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;C&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 43L)))
+//             ),
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;D&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 91L)))
+//             ),
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;E&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 81L)))
+//             ),
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;F&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 53L)))
+//             ),
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;G&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 19L)))
+//             ),
+//             Map(
+//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;H&quot;)),
+//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 87L)))
+//             ),
+//             Map(
+// ... // Cunningly parse JSON here
+</span><span class="keyword">val</span><span> </span><span class="identifier">asDsl</span><span> = </span><span class="identifier">teehee</span><span>.</span><span class="identifier">toOption</span><span>.</span><span class="identifier">get</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">VegaLiteDsl</span><span>]
+</span><span class="comment">// asDsl: VegaLiteDsl = VegaLiteDsl(
+//   $schema = Some(value = &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;),
+//   align = None,
+//   autosize = None,
+//   background = None,
+//   bounds = None,
+//   center = None,
+//   config = None,
+//   data = Some(
+//     value = URLData(
+//       format = None,
+//       name = None,
+//       url = None,
+//       values = Some(
+//         value = List(
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;A&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 28L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;B&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 55L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;C&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 43L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;D&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 91L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;E&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 81L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;F&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 53L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;G&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 19L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;H&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 87L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;I&quot;)),
+// ...
+</span><span class="keyword">val</span><span> </span><span class="identifier">someData</span><span> : </span><span class="type-name">InlineDataset</span><span> = </span><span class="type-name">Seq</span><span>(
+    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;A&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">20</span><span>))),
+    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;Next&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">25</span><span>))),
+    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;embiggen&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">5</span><span>)))
+)
+</span><span class="comment">// someData: Map[String, Option[Json]] | String | Seq[InlineDatasetElement] = List(
+//   Map(
+//     &quot;a&quot; -&gt; Some(value = JString(value = &quot;A&quot;)),
+//     &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 20L)))
+//   ),
+//   Map(
+//     &quot;a&quot; -&gt; Some(value = JString(value = &quot;Next&quot;)),
+//     &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 25L)))
+//   ),
+//   Map(
+//     &quot;a&quot; -&gt; Some(value = JString(value = &quot;embiggen&quot;)),
+//     &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 5L)))
+//   )
+// )
+</span><span>
 </span><span class="identifier">asDsl</span><span>.</span><span class="identifier">copy</span><span>(
     </span><span class="identifier">data</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="type-name">URLData</span><span>(</span><span class="identifier">values</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="identifier">someData</span><span>))),
-    </span><span class="identifier">width</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>)
-).</span><span class="identifier">plot</span><span>(</span><span class="keyword">using</span><span> </span><span class="identifier">makePlotTarget</span><span>(</span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>))</span></code></pre>
-        <div id="mdoc-html-run1" data-mdoc-js></div>
-        <p><script type="text/javascript" src="jsdocs-opt-library.js" defer></script>
-        <script type="text/javascript" src="jsdocs-opt-loader.js" defer></script>
-        <script type="text/javascript" src="typesafe.md.js" defer></script>
+    </span><span class="identifier">width</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>), 
+    </span><span class="identifier">height</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>)
+)
+</span><span class="comment">// res0: VegaLiteDsl = VegaLiteDsl(
+//   $schema = Some(value = &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;),
+//   align = None,
+//   autosize = None,
+//   background = None,
+//   bounds = None,
+//   center = None,
+//   config = None,
+//   data = Some(
+//     value = URLData(
+//       format = None,
+//       name = None,
+//       url = None,
+//       values = Some(
+//         value = List(
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;A&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 20L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;Next&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 25L)))
+//           ),
+//           Map(
+//             &quot;a&quot; -&gt; Some(value = JString(value = &quot;embiggen&quot;)),
+//             &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 5L)))
+//           )
+//         )
+//       ),
+//       sequence = None,
+//       sphere = None,
+//       graticule = None
+//     )
+//   ),
+//   datasets = None,
+//   description = Some(value = &quot;A simple bar chart with embedded data.&quot;),
+//   encoding = Some(
+//     value = EdEncoding(
+//       angle = None,
+//       color = None,
+//       column = None,
+//       description = None,
+//       detail = None,
+//       facet = None,
+//       fill = None,
+//       fillOpacity = None,
+//       href = None,
+//       key = None,
+//       latitude = None,
+// ...</span></code></pre>
+        
+        <h1 id="discussion" class="section"><a class="anchor-link left" href="#discussion"><i class="icofont-laika">&#xef71;</i></a>Discussion</h1>
+        <p>Typesafety is nice to have in the sense that it removes entire categories of &quot;unplottable&quot; states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden. <script type="text/javascript" src="typesafe.md.js" defer></script>
         <script type="text/javascript" src="mdoc.js" defer></script></p>
 
         <hr style="margin-top: 30px"/>

@@ -25,6 +25,9 @@
     
     
     <script> /* for avoiding page load transitions */ </script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
 
   <body>
@@ -63,21 +66,22 @@
         <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
         <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
         <li class="level1 nav-header">Details</li>
+        <li class="level2"><a href="../explanation/chartTypes.html">Example Charts</a></li>
         <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
         <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
         <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
         <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
-        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
-        <li class="level1 nav-header">Prior Art</li>
-        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
         <li class="level1 nav-header">Working With A Chart</li>
         <li class="level2"><a href="intro.html">Styles</a></li>
         <li class="level2"><a href="mutable.html">Mutable Style</a></li>
         <li class="level2"><a href="typesafe.html">The DSL</a></li>
         <li class="level2 active"><a href="#">Mixed typesafe / mutable</a></li>
-        <li class="level2"><a href="workflow.html">Workflow</a></li>
+        <li class="level2"><a href="chartSources.html">Chart Sources</a></li>
+        <li class="level1 nav-header">Scala Versions</li>
+        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
+        <li class="level1 nav-header">Prior Art</li>
+        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
       </ul>
 
       <ul class="nav-list">
@@ -97,6 +101,7 @@
         <ul class="nav-list">
           <li class="level1"><a href="#start-mutable-and-add-a-little-safety">Start mutable and add a little safety</a></li>
           <li class="level1"><a href="#shortcuts">Shortcuts</a></li>
+          <li class="level1"><a href="#discussion">Discussion</a></li>
         </ul>
 
         <p class="footer"></p>
@@ -107,28 +112,39 @@
         <h1 id="mixed-typesafe-mutable" class="title">Mixed typesafe / mutable</h1>
         
         <h2 id="start-mutable-and-add-a-little-safety" class="section"><a class="anchor-link left" href="#start-mutable-and-add-a-little-safety"><i class="icofont-laika">&#xef71;</i></a>Start mutable and add a little safety</h2>
-        <p>The &quot;mutuable&quot; approach uses <code>ujson.Value</code> to represent a chart. We could use a &quot;typesafe&quot; part of the DSL, to mutate the part we want... then turn into ujson.</p>
+        <p>The &quot;mutuable&quot; approach combines the previous two ideas.We could use a &quot;typesafe&quot; part of the DSL, to create the part we want, then pickle it to JSON and put it in our spec...</p>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">BarChart</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="keyword">given</span><span>}
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">Conversion</span><span>.</span><span class="identifier">u</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">doc</span><span>.</span><span class="identifier">makePlotTarget</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">makePlotTarget</span><span>
 
-</span><span class="keyword">val</span><span> </span><span class="identifier">axisOrient</span><span> : </span><span class="type-name">TitleOrientEnum</span><span> = </span><span class="string-literal">&quot;top&quot;</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">axisOrient</span><span> : </span><span class="type-name">TitleOrientEnum</span><span> = </span><span class="type-name">TitleOrientEnum</span><span>.</span><span class="identifier">top</span><span>
 </span><span class="keyword">val</span><span> </span><span class="identifier">newAxis</span><span> : </span><span class="type-name">Axis</span><span>= </span><span class="type-name">Axis</span><span>(</span><span class="identifier">orient</span><span> = </span><span class="identifier">axisOrient</span><span>, </span><span class="identifier">scale</span><span> = </span><span class="string-literal">&quot;xscale&quot;</span><span>)
 
 </span><span class="comment">// for demonstration purposes
 </span><span class="keyword">val</span><span> </span><span class="identifier">asUjson</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> = </span><span class="identifier">newAxis</span><span>.</span><span class="identifier">u</span><span>
-</span><span class="comment">// the .u is an hacky extension method to move from circe json to ujson.Value
+</span><span class="comment">// the .u is an hacky extension method to move from circe json to ujson.Value that woin&#39;t be neede in future.
 </span><span>
-</span><span class="type-name">BarChart</span><span>(
+</span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">BarChart</span><span>(
     </span><span class="type-name">List</span><span>(
         </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeXAxis</span><span>, 
         </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
         </span><span class="identifier">spec</span><span> =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;axes&quot;</span><span>) = </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;axes&quot;</span><span>).</span><span class="identifier">arr</span><span> :+ </span><span class="identifier">newAxis</span><span>.</span><span class="identifier">u</span><span>
     )
-)(</span><span class="keyword">using</span><span> </span><span class="identifier">makePlotTarget</span><span>(</span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>))
-</span></code></pre>
+)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">chart</span><span>, </span><span class="identifier">node</span><span>)</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
+        <p>Note that we get some typechecking.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.*
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">axisOrient</span><span> : </span><span class="type-name">TitleOrientEnum</span><span> = </span><span class="string-literal">&quot;Not an orientation&quot;</span><span> </span><span class="comment">// This can one of the TitleOrientEnum values... visit in IDE for help.
+</span><span>
+</span><span class="comment">// error:
+// Found:    (&quot;Not an orientation&quot; : String)
+// Required: viz.dsl.vega.TitleOrientEnum
+// val parsed :  Either[io.circe.Error, viz.dsl.vega.Axis] = decode[Axis](copyPastedAxisFromExample)
+//                                                          ^</span></code></pre>
+        <p>We can also take this to greater extremes, and in a sort of magpie style, parse more complex parts of the spec.</p>
         
         <h2 id="shortcuts" class="section"><a class="anchor-link left" href="#shortcuts"><i class="icofont-laika">&#xef71;</i></a>Shortcuts</h2>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.*
@@ -187,21 +203,36 @@
 //     maxExtent = None,
 //     minExtent = None,
 //     offset = None,
-//     orient = &quot;top&quot;,
+//     orient = top,
 //     position = None,
 //     scale = &quot;xscale&quot;,
 //     tickBand = None,
 // ...</span></code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">parsedU</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> = </span><span class="identifier">ujson</span><span>.</span><span class="identifier">read</span><span>(</span><span class="identifier">copyPastedAxisFromExample</span><span>)
 </span><span class="comment">// parsedU: Value = Obj(
-//   value = LinkedHashMap(
-//     &quot;orient&quot; -&gt; Str(value = &quot;top&quot;),
-//     &quot;scale&quot; -&gt; Str(value = &quot;xscale&quot;)
-//   )
+//   value = Map(&quot;orient&quot; -&gt; Str(value = &quot;top&quot;), &quot;scale&quot; -&gt; Str(value = &quot;xscale&quot;))
 // )</span></code></pre>
-        <p>You could then use either strategy to insert into a spec, depending on whether you&#39;re starting from the &quot;mutable&quot; or &quot;typesafe&quot; approach. <script type="text/javascript" src="jsdocs-opt-library.js" defer></script>
-        <script type="text/javascript" src="jsdocs-opt-loader.js" defer></script>
-        <script type="text/javascript" src="mixed.md.js" defer></script>
+        <p>You could then use either strategy to insert into a spec, depending on whether you&#39;re starting from the &quot;mutable&quot; or &quot;typesafe&quot; approach. </p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="keyword">given</span><span>}
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">Conversion</span><span>.</span><span class="identifier">u</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">makePlotTarget</span><span>
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">copyPastedAxisFromExample</span><span> = </span><span class="string-literal">&quot;&quot;&quot;{ &quot;orient&quot;: &quot;top&quot;, &quot;scale&quot;: &quot;xscale&quot; }&quot;&quot;&quot;</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">parsedU</span><span> = </span><span class="identifier">ujson</span><span>.</span><span class="identifier">read</span><span>(</span><span class="identifier">copyPastedAxisFromExample</span><span>)
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">BarChart</span><span>(
+    </span><span class="type-name">List</span><span>(        
+        </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
+        </span><span class="identifier">spec</span><span> =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;axes&quot;</span><span>) = </span><span class="identifier">parsedU</span><span> </span><span class="comment">// overwrites the entire exes property with our single weird top axis.
+</span><span>    )
+)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">chart</span><span>, </span><span class="identifier">node</span><span>)</span></code></pre>
+        <div id="mdoc-html-run1" data-mdoc-js></div>
+        
+        <h1 id="discussion" class="section"><a class="anchor-link left" href="#discussion"><i class="icofont-laika">&#xef71;</i></a>Discussion</h1>
+        <p>This is my clearly favoured strategy. Start with a chart which works, construct &quot;typesafe&quot; modifier for the parts I want to change, and apply them to the chart. I have found this to be effective. </p>
+        <p><script type="text/javascript" src="mixed.md.js" defer></script>
         <script type="text/javascript" src="mdoc.js" defer></script></p>
 
         <hr style="margin-top: 30px"/>
