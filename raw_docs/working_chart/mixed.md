@@ -9,7 +9,7 @@ import viz.vega.plots.{BarChart, given}
 import viz.dsl.Conversion.u
 import viz.js.makePlotTarget
 
-val axisOrient : TitleOrientEnum = "top"
+val axisOrient : TitleOrientEnum = TitleOrientEnum.top
 val newAxis : Axis= Axis(orient = axisOrient, scale = "xscale")
 
 // for demonstration purposes

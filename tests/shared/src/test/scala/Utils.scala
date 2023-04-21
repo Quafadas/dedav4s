@@ -48,6 +48,37 @@ class CheckUtils extends munit.FunSuite:
 
   }
 
+  /** Check that the trait gets added to the serialised json.
+    */
+  test("Bar plot data trait") {
+
+    import viz.vega.plots.BarChart.{*, given}
+    import upickle.default.{*, given}
+
+    def chooseColor(isScala: Boolean, bigBox: Boolean) =
+      (isScala, bigBox) match
+        case (true, _)     => "red"
+        case (false, true) => "green"
+        case _             => "steelblue"
+
+    case class QuicktypeTestResult(
+        language: String,
+        minutes: Int,
+        seconds: Int,
+        bigBox: Boolean = false,
+        isScala: Boolean = false
+    ) extends BarPlottable(category = language, amount = minutes * 60 + seconds)
+        with MarkColour(colour = chooseColor(isScala, bigBox))
+        derives ReadWriter
+
+    val d = QuicktypeTestResult("t", 2, 32)
+
+    val out = upickle.default.write(d)
+
+    assertEquals(out, """{"language":"t","minutes":2,"seconds":32,"bigBox":false,"isScala":false}""")
+
+  }
+end CheckUtils
 // test("check axis removal") {
 
 //   val specStart = SeriesScatter().jsonSpec

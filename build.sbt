@@ -105,7 +105,6 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-// Currently no JS tests, would be great to change that
 lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))
   .enablePlugins(NoPublishPlugin)
