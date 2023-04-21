@@ -45,4 +45,4 @@ viz.js.showChartJs(chart, node)
 ```
 So we've proven we can make a chart, and change it's behaviour. If all that worked in your repl, then you're ready to go! Read on! 
 
-See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../working_chart/workflow.md) for suggestions on how to use and extend the concepts.
+See the [plot targets](../explanation/plotTargets.md) to understand what happened, and the [examples](../explanation/chartTypes.md) for suggestions on how to use and extend the concepts.
