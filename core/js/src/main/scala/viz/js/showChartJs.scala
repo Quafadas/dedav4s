@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 quafadas
+ * Copyright 2023 quafadas
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,30 +26,26 @@ import scala.scalajs.js.JSON
 import viz.WithBaseSpec
 import viz.Spec
 
-
-/**
-  * This is a "show" implementation for JS. Importantly, it forces the div to have a well defined width and height on mount
-  * Otherwise vega chokes. This can be used as a starting pont for however you'd wish to integrate your own chart. 
-  * 
-  * It ought to get you started quickly. 
-  * 
+/** This is a "show" implementation for JS. Importantly, it forces the div to have a well defined width and height on
+  * mount Otherwise vega chokes. This can be used as a starting pont for however you'd wish to integrate your own chart.
+  *
+  * It ought to get you started quickly.
   */
 object showChartJs:
-  def apply[C <: Spec]( chart: C, node: Element, width: Int = 50) = 
+  def apply[C <: Spec](chart: C, node: Element, width: Int = 50) =
     val child = dom.document.createElement("div")
     val anId = "vega" + Random.alphanumeric.take(8).mkString("")
     child.id = anId
     child.setAttribute("style", s"width:${width}vmin;height:${width}vmin")
     node.appendChild(child)
     child.asInstanceOf[Div]
-    val opts = viz.vega.facades.EmbedOptions        
-    val parsed = JSON.parse(chart.spec)   
-    viz.vega.facades.VegaEmbed.embed(s"#${child.id}",parsed , opts)
+    val opts = viz.vega.facades.EmbedOptions
+    val parsed = JSON.parse(chart.spec)
+    viz.vega.facades.VegaEmbed.embed(s"#${child.id}", parsed, opts)
     ()
-    
 
 object makePlotTarget:
-  def apply(node: Element, width: Int = 50) : Div = 
+  def apply(node: Element, width: Int = 50): Div =
     val child = dom.document.createElement("div")
     val anId = "vega" + Random.alphanumeric.take(8).mkString("")
     child.id = anId

@@ -74,8 +74,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     scalacOptions ++= Seq(
       "-Xmax-inlines:2000",
       """-Wconf:cat=deprecation:s"""
-    ),    
-    
+    ),
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "3.1.0",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
@@ -115,7 +114,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
   )
   .jvmSettings(name := "tests-jvm")
-  .jsSettings(name := "tests-js")  
+  .jsSettings(name := "tests-js")
 
 lazy val jsdocs = project
   .in(file("jsdocs"))
@@ -127,7 +126,7 @@ lazy val jsdocs = project
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
-  .enablePlugins(NoPublishPlugin)  
+  .enablePlugins(NoPublishPlugin)
 
 lazy val unidocs = project
   .in(file("unidocs"))

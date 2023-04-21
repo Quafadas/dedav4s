@@ -28,7 +28,7 @@ import viz.PlotTargets.doNothing
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
   //val hi = "HI"
-  def show(inDiv: html.Div): Unit = 
+  def show(inDiv: html.Div): Unit =
     val anId = inDiv.id
     val newId = if anId.isEmpty then
       val temp = java.util.UUID.randomUUID()
@@ -41,6 +41,6 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends S
     ()
 
   // // when the class is instantiated, show the plot as a side effect...
-  plotTarget match 
+  plotTarget match
     case _: LowPriorityPlotTarget => ()
-    case h: html.Div => show(h)
+    case h: html.Div              => show(h)

@@ -68,13 +68,12 @@ class ResourceTest extends munit.FunSuite:
     assert(parseCirce.getOrElse(???).isInstanceOf[VegaLiteDsl])
   }
 
-
   test("DSL to mutuable conversion") {
     import viz.dsl.Conversion.u
 
     val dslMod: List[ujson.Value => Unit] = List(
       viz.Utils.removeXAxis,
-      (spec: ujson.Value) => spec("axes") = spec("axes").arr :+ Axis(scale = "xscale", orient = TitleOrientEnum.top ).u
+      (spec: ujson.Value) => spec("axes") = spec("axes").arr :+ Axis(scale = "xscale", orient = TitleOrientEnum.top).u
     )
 
     val bc = viz.vega.plots.BarChart(dslMod)
