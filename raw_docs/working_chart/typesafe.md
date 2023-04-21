@@ -67,7 +67,7 @@ import viz.PlotTargets.doNothing
 import viz.vega.plots.*
 import io.circe._
 
-val teehee = SpecUrl.SimpleBarChartLite.toDsl() // Cunningly parse JSON here
+val teehee = SpecUrl.SimpleBarChartLite.toDsl()
 val asDsl = teehee.toOption.get.asInstanceOf[VegaLiteDsl]
 val someData : InlineDataset = Seq(
     Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),

@@ -75,7 +75,7 @@ class CheckUtils extends munit.FunSuite:
 
     val out = upickle.default.write(d)
 
-    assertEquals(out, """{"language":"t","minutes":2,"seconds":32,"bigBox":false,"isScala":false}""")
+    assertEquals(out, """{"amount":152,"colour":"steelblue","seconds":32,"minutes":2,"language":"t","category":"t"}""")
 
   }
 end CheckUtils
