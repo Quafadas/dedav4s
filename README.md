@@ -16,12 +16,13 @@ This library works well enough for my needs. It's been "launched" to see if ther
 
 ## Generating the DSL 
 
-Clone quicktype, switch to the scala3 branch. 
+Clone quicktype `npm run build`... or paste into app.quicktype.io
+
 ```
-script/quicktype -o vega-lite.scala -t VegaLiteDsl -l scala3 --no-combine-classes -s schema --framework circe --src /Users/simon/Code/quicktype/quicktype/test/inputs/schema/vega-lite.schema --package viz.vega.dsl.vegaLite
+script/quicktype -o vega-lite.scala -t VegaLiteDsl -l scala3 --no-combine-classes -s schema --framework circe --src https://raw.githubusercontent.com/vega/schema/master/vega-lite/v5.7.1.json  --package viz.vega.dsl.vegaLite
 ```
 ```
-script/quicktype -o vega.scala -t Vega -l scala3 --no-combine-classes -s schema --package viz.dsl.vega --framework circe --src /Users/simon/Code/quicktype/quicktype/test/inputs/schema/vega.schema
+script/quicktype -o vega.scala -t Vega -l scala3 --no-combine-classes -s schema --package viz.dsl.vega --framework circe --src https://raw.githubusercontent.com/vega/schema/master/vega/v5.24.0.json
 ```
 
 Currently, there are some niggling problems which remain after generation; 
