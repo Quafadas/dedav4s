@@ -58,8 +58,8 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
       "-Xmax-inlines:2000"
     ),
     libraryDependencies ++= Seq(
-      "io.circe" %%% "circe-core" % "0.14.3",
-      "io.circe" %%% "circe-parser" % "0.14.3"
+      "io.circe" %%% "circe-core" % "0.14.5",
+      "io.circe" %%% "circe-parser" % "0.14.5"
     )
   )
 
@@ -77,7 +77,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     ),    
     
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "ujson" % "3.1.0",
+      "com.lihaoyi" %%% "upickle" % "3.1.0",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.5.0", // otherwise have to upgrade scala
       ("sh.almond" % "scala-kernel-api" % "0.13.9" % Provided)
