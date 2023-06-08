@@ -25,11 +25,15 @@ trait PlotTarget extends LowPriorityPlotTarget
 
 trait UnitTarget extends PlotTarget:
   def show(spec: String): Unit
+end UnitTarget
 
 trait SharedTargets:
 
   given doNothing: UnitTarget with
     override def show(spec: String): Unit = ()
+  end doNothing
 
   given printlnTarget: UnitTarget with
     override def show(spec: String): Unit = println(spec)
+  end printlnTarget
+end SharedTargets

@@ -32,4 +32,7 @@ abstract class WithBaseSpec(val mods: Seq[ujson.Value => Unit] = List())(using L
   override def spec: String =
     val temp = ujson.read(baseSpec.toString)
     for m <- mods do m(temp)
+    end for
     ujson.write(temp, 2)
+  end spec
+end WithBaseSpec

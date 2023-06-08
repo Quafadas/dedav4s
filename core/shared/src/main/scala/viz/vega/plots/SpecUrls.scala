@@ -28,23 +28,7 @@ import io.circe.parser.*
 import viz.dsl.vegaLite.*
 import viz.dsl.vega.*
 
-enum SpecUrl(val url: String, val f: Framework) extends PlatformGetSpec:
-  
-  def toDsl(): f.dslType.DslType =
-    //val spec : io.circe.Json = parse(this.jsonSpec.toString)
-    f match
-      case Framework.VegaLite =>
-        decode[VegaLiteDsl](this.jsonSpec.toString()).fold(
-          err => throw new Exception(err),
-          identity
-        )
-      case Framework.Vega =>
-        decode[VegaDsl](this.jsonSpec.toString()).fold(
-          err => throw new Exception(err),
-          identity
-        )
-    
-
+enum SpecUrl(override val url: String, override val f: Framework) extends PlatformGetSpec(url, f):
   // Vega
   case BarChart extends SpecUrl("https://vega.github.io/vega/examples/bar-chart.vg.json", Vega)
   case StackedBarChart extends SpecUrl("https://vega.github.io/vega/examples/stacked-bar-chart.vg.json", Vega)
@@ -133,7 +117,7 @@ enum SpecUrl(val url: String, val f: Framework) extends PlatformGetSpec:
   case Pacman extends SpecUrl("https://vega.github.io/vega/examples/pacman.vg.json", Vega)
   case Platformer extends SpecUrl("https://vega.github.io/vega/examples/platformer.vg.json", Vega)
 
-  //Vega lite
+  // Vega lite
   case SimpleBarChartLite extends SpecUrl("https://vega.github.io/vega-lite/examples/bar.html", VegaLite)
   case ResponsiveBarChartLite
       extends SpecUrl("https://vega.github.io/vega-lite/examples/bar_size_responsive.html", VegaLite)

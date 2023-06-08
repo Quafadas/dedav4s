@@ -22,9 +22,12 @@ import viz.PlotTarget
 
 case class SunburstDrag(override val mods: JsonMod = List())(using PlotTarget) extends FromResource:
   override lazy val path = "SunburstDrag.json"
+end SunburstDrag
 
 case class SimpleRegression(override val mods: JsonMod = List())(using PlotTarget) extends FromResource:
   override lazy val path = "SimpleRegression.json"
+end SimpleRegression
 
 case class SeriesScatter(override val mods: Seq[ujson.Value => Unit] = List())(using PlotTarget) extends FromResource:
   override lazy val path = "SeriesScatter.json"
+end SeriesScatter

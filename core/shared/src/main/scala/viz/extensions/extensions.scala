@@ -31,6 +31,7 @@ import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.ScatterPlot
 import viz.vega.plots.Regression
 import viz.LowPriorityPlotTarget
+//import viz.extensions.jvm.*
 
 extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
   def plotBarChart(mods: JsonMod = List()): BarChart =
@@ -42,11 +43,12 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
         )
     BarChart(
       List(
-        //viz.Utils.fillDiv,
+        // viz.Utils.fillDiv,
         (spec: Value) => spec("data")(0)("values") = labelToNotShow,
         viz.Utils.removeXAxis
       ) ++ mods
     )
+  end plotBarChart
 
   def plotPieChart(mods: JsonMod = List()): PieChart =
     val labelToNotShow =
@@ -57,10 +59,11 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
         )
     new PieChart(
       List(
-        //viz.Utils.fillDiv,
+        // viz.Utils.fillDiv,
         (spec: Value) => spec("data")(0)("values") = labelToNotShow
       ) ++ mods
     )
+  end plotPieChart
 
   def plotLineChart(mods: JsonMod = List()): LineChart =
     val labelToNotShow =
@@ -72,11 +75,13 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
     LineChart(
       List((spec: Value) => spec("data")(0)("values") = labelToNotShow) ++ mods
     )
+  end plotLineChart
 
   def plotDotPlot(mods: JsonMod = List()): DotPlot =
     new DotPlot(
       List((spec: Value) => spec("data")(0)("values") = l.map(_.toDouble)) ++ mods
     )
+end extension
 
 extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: LowPriorityPlotTarget)
   @targetName("plotBarChartWithLabels")
@@ -89,9 +94,10 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: LowPriorityPl
         )
     LineChart(
       List((spec: Value) => spec("data")(0)("values") = labelled
-      //viz.Utils.fillDiv
+      // viz.Utils.fillDiv
       ) ++ mods
     )
+  end plotLineChart
 
   @targetName("plotLineChartWithLabels")
   def plotBarChart(mods: JsonMod): BarChart =
@@ -103,9 +109,10 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: LowPriorityPl
         )
     BarChart(
       List((spec: Value) => spec("data")(0)("values") = labelled
-      //viz.Utils.fillDiv
+      // viz.Utils.fillDiv
       ) ++ mods
     )
+  end plotBarChart
 
   @targetName("plotPieChartWithLabels")
   def plotPieChart(mods: JsonMod): PieChart =
@@ -125,6 +132,8 @@ extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: LowPriorityPl
         (spec: Value) => spec("marks")(0)("encode")("update")("outerRadius") = ujson.Obj("signal" -> "height / 2")
       ) ++ mods
     )
+  end plotPieChart
+end extension
 
 extension [T: Numeric](l: Map[String, T])(using plotTarget: LowPriorityPlotTarget)
   @targetName("plotBarChartFromMapWithLabels")
@@ -133,6 +142,7 @@ extension [T: Numeric](l: Map[String, T])(using plotTarget: LowPriorityPlotTarge
   def plotLineChart(mods: JsonMod): LineChart = l.iterator.toSeq.plotLineChart(mods)
 
   def plotPieChart(mods: JsonMod): PieChart = l.iterator.toSeq.plotPieChart(mods)
+end extension
 
 extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: LowPriorityPlotTarget)
   def plotScatter(mods: JsonMod = List()): ScatterPlot =
@@ -143,19 +153,21 @@ extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: Lo
       List(
         (spec: Value) => spec("data") = ujson.Arr(ujson.Obj("name" -> "source", "values" -> values)),
         (spec: Value) =>
-          spec.obj.remove("legends"); (),
+          spec.obj.remove("legends"); ()
+        ,
         (spec: Value) => spec("axes")(0)("title") = "x",
         (spec: Value) => spec("axes")(1)("title") = "y",
         (spec: Value) => spec("marks")(0)("encode")("update")("x")("field") = "x",
         (spec: Value) => spec("scales")(0)("domain")("field") = "x",
         (spec: Value) => spec("scales")(1)("domain")("field") = "y",
         (spec: Value) =>
-          spec("scales").arr.dropRightInPlace(1); (),
+          spec("scales").arr.dropRightInPlace(1); ()
+        ,
         (spec: Value) => spec("marks")(0)("encode")("update")("y")("field") = "y",
         (spec: Value) => spec("marks")(0)("encode")("update")("stroke")("value") = "black",
         (spec: Value) => spec("marks")(0)("encode")("update")("size") = ujson.Obj("value" -> 12),
         (spec: Value) => spec("marks")(0)("encode")("update")("opacity") = ujson.Obj("value" -> 1)
-        //viz.Utils.fillDiv
+        // viz.Utils.fillDiv
       ) ++ mods
     )
 
@@ -168,6 +180,6 @@ extension (s: Seq[String])(using plotTarget: PlotTarget)
       List(
         (spec: Value) => spec("data")(0)("values").arr.clear(),
         (spec: Value) => spec("data")(0)("values") = s
-        //viz.Utils.fillDiv
+        // viz.Utils.fillDiv
       ) ++ mods
     )

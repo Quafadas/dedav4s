@@ -21,10 +21,7 @@ import viz.vega.Framework.*
 import collection.JavaConverters.*
 import org.jsoup.Jsoup
 
-trait PlatformGetSpec:
-
-  val f: Framework
-  val url: String
+trait PlatformGetSpec(val url: String, val f: Framework):
 
   lazy val jsonSpec: ujson.Value = f match
     case Vega => ujson.read(requests.get(url).text())

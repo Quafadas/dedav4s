@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viz.extensions.jvm
+package viz.extensions
 
 import viz.vega.plots.BarChart
 import viz.vega.plots.PieChart
@@ -40,3 +40,5 @@ extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: Pl
     SimpleRegression(
       List((spec: Value) => spec("data")(0)("values") = values) ++ mods
     )
+  end plotRegression
+end extension

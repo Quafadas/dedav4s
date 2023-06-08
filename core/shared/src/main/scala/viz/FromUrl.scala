@@ -20,11 +20,19 @@ import ujson.Value
 import viz.vega.plots.SpecUrl
 import java.net.URI
 import viz.vega.Framework
+import viz.dsl.vega.VegaDsl
+import io.circe.parser.decode
+import viz.dsl.*
+import viz.dsl.vegaLite.VegaLiteDsl
 
-abstract class FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
-
+trait FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
   override lazy val baseSpec = location.jsonSpec
+end FromUrl
 
-/*   def viewBaseSpec(f: Framework = Framework.Vega): Unit =
-    java.awt.Desktop.getDesktop.browse(URI(location.url.replace(f.ext, "")))
- */
+trait PlotHasVegaDsl(using LowPriorityPlotTarget) extends WithBaseSpec:
+  def toDsl(): VegaDsl = decode[VegaDsl](jsonSpec.toString()).fold(throw _, identity)
+end PlotHasVegaDsl
+
+trait PlotHasVegaLiteDsl(using LowPriorityPlotTarget) extends WithBaseSpec:
+  def toDsl(): VegaLiteDsl = decode[VegaLiteDsl](jsonSpec.toString()).fold(throw _, identity)
+end PlotHasVegaLiteDsl

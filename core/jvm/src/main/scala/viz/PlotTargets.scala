@@ -40,11 +40,12 @@ case object Txt extends Extension(".txt")
 
 trait TempFileTarget(val ext: Extension) extends PlotTarget:
   def showWithTempFile(spec: String, path: os.Path): Unit
+end TempFileTarget
 
 object PlotTargets extends SharedTargets:
 
   def openBrowserWindow(uri: java.net.URI): Unit =
-    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
+    if Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE) then
       Desktop.getDesktop().browse(uri)
     else
       /* Hail Mary...
@@ -71,6 +72,8 @@ object PlotTargets extends SharedTargets:
     val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
     if pathIsSet then Some(conf.getString("dedavOutPath"))
     else None
+    end if
+  end outPath
 
   lazy val port: Int = WebsocketVizServer.randomPort
 
@@ -113,6 +116,7 @@ object PlotTargets extends SharedTargets:
         </html> """
       os.write.over(path, theHtml)
       openBrowserWindow(path.toNIO.toUri())
+    end showWithTempFile
 
   /*   given vsCodeNotebook: PlotTarget with
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
@@ -127,6 +131,7 @@ object PlotTargets extends SharedTargets:
           )
         )
       )
+    end show
 
   given websocket: UnitTarget = new UnitTarget:
     override def show(spec: String): Unit =
@@ -134,8 +139,10 @@ object PlotTargets extends SharedTargets:
         println(s"starting local server on $port")
         openBrowserWindow(java.net.URI(s"http://localhost:$port"))
         Thread.sleep(1000) // give undertow a chance to start
+      end if
       requests.post(s"http://localhost:$port/viz", data = spec)
       ()
+    end show
 
   given gitpod: UnitTarget = new UnitTarget:
     override def show(spec: String): Unit =
@@ -146,7 +153,9 @@ object PlotTargets extends SharedTargets:
           "Your plot request was ignored because it appeared to be the first one and we needed to start a webserver. Try it again..."
         )
       else requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)
+      end if
       ()
+    end show
 
   given tempFileSpec: PlotTarget = new TempFileTarget(Txt):
     override def showWithTempFile(spec: String, path: os.Path): Unit =
@@ -159,6 +168,8 @@ object PlotTargets extends SharedTargets:
         case 0 =>
           os.write.over(path, pngBytes.out.bytes)
         case _ => throw new Exception(pngBytes.err.text())
+      end match
+    end showWithTempFile
 
   given pdf: PlotTarget = new TempFileTarget(Pdf):
     override def showWithTempFile(spec: String, path: os.Path): Unit =
@@ -167,6 +178,8 @@ object PlotTargets extends SharedTargets:
         case 0 =>
           os.write.over(path, pngBytes.out.bytes)
         case _ => throw new Exception(pngBytes.err.text())
+      end match
+    end showWithTempFile
 
   given svg: PlotTarget = new TempFileTarget(Svg):
     override def showWithTempFile(spec: String, path: os.Path): Unit =
@@ -175,3 +188,6 @@ object PlotTargets extends SharedTargets:
         case 0 =>
           os.write.over(path, pngBytes.out.bytes)
         case _ => throw new Exception(pngBytes.err.text())
+      end match
+    end showWithTempFile
+end PlotTargets

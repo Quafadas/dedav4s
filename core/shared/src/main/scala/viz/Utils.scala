@@ -25,12 +25,14 @@ object Utils:
     def apply(spec: Value) =
       val tmp = spec("axes").arr.filterNot(ax => ax("orient").str == "bottom")
       spec("axes") = tmp
+    end apply
 
   val removeYAxis = new ((Value => Unit)):
     override def toString = "remove Y axis"
     def apply(spec: Value) =
       val tmp = spec("axes").arr.filterNot(ax => ax("orient").str == "left")
       spec("axes") = tmp
+    end apply
 
   val fillDiv: ujson.Value => Unit =
     (spec: ujson.Value) =>
@@ -71,8 +73,10 @@ object Utils:
           val tmp = spec("signals").arr.filterNot(sig => sig("name").str == "height" || sig("name").str == "width")
           spec("signals") = tmp
         else spec("signals") = ujson.Arr()
+        end if
         spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
         spec("signals").arr.append(signalH).append(signalW)
+      end if
 
   val fixDefaultDataUrl: ujson.Value => Unit = new Function1[ujson.Value, Unit]:
     override def toString = "Fix default data url"
@@ -83,7 +87,11 @@ object Utils:
           spec("data")(0)("url") =
             "https://raw.githubusercontent.com/vega/vega/master/docs/" + spec("data")(0)("url").str
         case None => ()
+      end match
       test.objOpt match
         case Some(objd) =>
           spec("data")("url") = "https://raw.githubusercontent.com/vega/vega/master/docs/" + spec("data")("url").str
         case None => ()
+      end match
+    end apply
+end Utils

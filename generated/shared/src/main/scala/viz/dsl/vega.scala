@@ -73,6 +73,7 @@ case class AutosizeSignalRef(
 enum Contains:
   case content
   case padding
+end Contains
 given Decoder[Contains] = Decoder.decodeString.emapTry(x => Try(Contains.valueOf(x)))
 given Encoder[Contains] = Encoder.encodeString.contramap(_.toString())
 
@@ -82,6 +83,7 @@ enum AutosizeEnum:
   case `fit-y`
   case none
   case pad
+end AutosizeEnum
 given Decoder[AutosizeEnum] = Decoder.decodeString.emapTry(x => Try(AutosizeEnum.valueOf(x)))
 given Encoder[AutosizeEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -480,6 +482,7 @@ enum FormatTypeEnum:
   case number
   case time
   case utc
+end FormatTypeEnum
 given Decoder[FormatTypeEnum] = Decoder.decodeString.emapTry(x => Try(FormatTypeEnum.valueOf(x)))
 given Encoder[FormatTypeEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -524,6 +527,7 @@ enum LabelAlignEnum:
   case center
   case left
   case right
+end LabelAlignEnum
 given Decoder[LabelAlignEnum] = Decoder.decodeString.emapTry(x => Try(LabelAlignEnum.valueOf(x)))
 given Encoder[LabelAlignEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -571,6 +575,7 @@ enum Baseline:
   case `line-top`
   case middle
   case top
+end Baseline
 given Decoder[Baseline] = Decoder.decodeString.emapTry(x => Try(Baseline.valueOf(x)))
 given Encoder[Baseline] = Encoder.encodeString.contramap(_.toString())
 
@@ -657,6 +662,7 @@ enum FontWeight:
   case bolder
   case lighter
   case normal
+end FontWeight
 given Decoder[FontWeight] = Decoder.decodeString.emapTry(x => Try(FontWeight.valueOf(x)))
 given Encoder[FontWeight] = Encoder.encodeString.contramap(_.toString())
 
@@ -677,6 +683,7 @@ given Encoder[LabelOverlap] = Encoder.instance {
 enum LabelOverlapEnum:
   case greedy
   case parity
+end LabelOverlapEnum
 given Decoder[LabelOverlapEnum] = Decoder.decodeString.emapTry(x => Try(LabelOverlapEnum.valueOf(x)))
 given Encoder[LabelOverlapEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -697,6 +704,7 @@ enum TitleOrientEnum:
   case left
   case right
   case top
+end TitleOrientEnum
 given Decoder[TitleOrientEnum] = Decoder.decodeString.emapTry(x => Try(TitleOrientEnum.valueOf(x)))
 given Encoder[TitleOrientEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -715,6 +723,7 @@ given Encoder[TickBand] = Encoder.instance {
 enum TickBandEnum:
   case center
   case extent
+end TickBandEnum
 given Decoder[TickBandEnum] = Decoder.decodeString.emapTry(x => Try(TickBandEnum.valueOf(x)))
 given Encoder[TickBandEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -760,6 +769,7 @@ enum TickCountEnum:
   case second
   case week
   case year
+end TickCountEnum
 given Decoder[TickCountEnum] = Decoder.decodeString.emapTry(x => Try(TickCountEnum.valueOf(x)))
 given Encoder[TickCountEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -869,6 +879,7 @@ enum Anchor:
   case end
   case middle
   case start
+end Anchor
 given Decoder[Anchor] = Decoder.decodeString.emapTry(x => Try(Anchor.valueOf(x)))
 given Encoder[Anchor] = Encoder.encodeString.contramap(_.toString())
 
@@ -925,6 +936,7 @@ case class SignalRef(
 enum Filter:
   case exterior
   case interior
+end Filter
 given Decoder[Filter] = Decoder.decodeString.emapTry(x => Try(Filter.valueOf(x)))
 given Encoder[Filter] = Encoder.encodeString.contramap(_.toString())
 
@@ -947,6 +959,7 @@ case class ParseSignalRef(
 
 enum ParseEnum:
   case auto
+end ParseEnum
 given Decoder[ParseEnum] = Decoder.decodeString.emapTry(x => Try(ParseEnum.valueOf(x)))
 given Encoder[ParseEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1209,6 +1222,7 @@ enum Function:
   case mixture
   case normal
   case uniform
+end Function
 given Decoder[Function] = Decoder.decodeString.emapTry(x => Try(Function.valueOf(x)))
 given Encoder[Function] = Encoder.encodeString.contramap(_.toString())
 
@@ -1315,6 +1329,7 @@ enum ForceEnum:
   case nbody
   case x
   case y
+end ForceEnum
 given Decoder[ForceEnum] = Decoder.decodeString.emapTry(x => Try(ForceEnum.valueOf(x)))
 given Encoder[ForceEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1416,6 +1431,7 @@ enum OffsetEnum:
   case center
   case normalize
   case zero
+end OffsetEnum
 given Decoder[OffsetEnum] = Decoder.decodeString.emapTry(x => Try(OffsetEnum.valueOf(x)))
 given Encoder[OffsetEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1454,9 +1470,10 @@ enum PurpleOp:
   case stdevp
   case sum
   case valid
-  //case `values`
+  // case `values`
   case variance
   case variancep
+end PurpleOp
 given Decoder[PurpleOp] = Decoder.decodeString.emapTry(x => Try(PurpleOp.valueOf(x)))
 given Encoder[PurpleOp] = Encoder.encodeString.contramap(_.toString())
 
@@ -1518,9 +1535,10 @@ enum FluffyOp:
   case stdevp
   case sum
   case valid
-  //case `values`
+  // case `values`
   case variance
   case variancep
+end FluffyOp
 given Decoder[FluffyOp] = Decoder.decodeString.emapTry(x => Try(FluffyOp.valueOf(x)))
 given Encoder[FluffyOp] = Encoder.encodeString.contramap(_.toString())
 
@@ -1540,6 +1558,7 @@ enum PurpleOrient:
   case horizontal
   case radial
   case vertical
+end PurpleOrient
 given Decoder[PurpleOrient] = Decoder.decodeString.emapTry(x => Try(PurpleOrient.valueOf(x)))
 given Encoder[PurpleOrient] = Encoder.encodeString.contramap(_.toString())
 
@@ -1594,6 +1613,7 @@ given Encoder[ResolveUnion] = Encoder.instance {
 enum ResolveEnum:
   case independent
   case shared
+end ResolveEnum
 given Decoder[ResolveEnum] = Decoder.decodeString.emapTry(x => Try(ResolveEnum.valueOf(x)))
 given Encoder[ResolveEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1615,6 +1635,7 @@ enum ShapeEnum:
   case diagonal
   case line
   case orthogonal
+end ShapeEnum
 given Decoder[ShapeEnum] = Decoder.decodeString.emapTry(x => Try(ShapeEnum.valueOf(x)))
 given Encoder[ShapeEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1699,6 +1720,7 @@ given Encoder[SortOrder] = Encoder.instance {
 enum OrderEnum:
   case ascending
   case descending
+end OrderEnum
 given Decoder[OrderEnum] = Decoder.decodeString.emapTry(x => Try(OrderEnum.valueOf(x)))
 given Encoder[OrderEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1717,6 +1739,7 @@ given Encoder[TimezoneUnion] = Encoder.instance {
 enum TimezoneEnum:
   case local
   case utc
+end TimezoneEnum
 given Decoder[TimezoneEnum] = Decoder.decodeString.emapTry(x => Try(TimezoneEnum.valueOf(x)))
 given Encoder[TimezoneEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1736,6 +1759,7 @@ enum CaseEnum:
   case lower
   case mixed
   case upper
+end CaseEnum
 given Decoder[CaseEnum] = Decoder.decodeString.emapTry(x => Try(CaseEnum.valueOf(x)))
 given Encoder[CaseEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1791,6 +1815,7 @@ enum TransformType:
   case voronoi
   case window
   case wordcloud
+end TransformType
 given Decoder[TransformType] = Decoder.decodeString.emapTry(x => Try(TransformType.valueOf(x)))
 given Encoder[TransformType] = Encoder.encodeString.contramap(_.toString())
 
@@ -1842,6 +1867,7 @@ enum UnitEnum:
   case seconds
   case week
   case year
+end UnitEnum
 given Decoder[UnitEnum] = Decoder.decodeString.emapTry(x => Try(UnitEnum.valueOf(x)))
 given Encoder[UnitEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1931,6 +1957,7 @@ enum AlignEnum:
   case all
   case each
   case none
+end AlignEnum
 given Decoder[AlignEnum] = Decoder.decodeString.emapTry(x => Try(AlignEnum.valueOf(x)))
 given Encoder[AlignEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -1949,6 +1976,7 @@ given Encoder[BoundsUnion] = Encoder.instance {
 enum BoundsEnum:
   case flush
   case full
+end BoundsEnum
 given Decoder[BoundsEnum] = Decoder.decodeString.emapTry(x => Try(BoundsEnum.valueOf(x)))
 given Encoder[BoundsEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -2089,6 +2117,7 @@ given Encoder[PurpleColumn] = Encoder.instance {
 enum TitleAnchorEnum:
   case end
   case start
+end TitleAnchorEnum
 given Decoder[TitleAnchorEnum] = Decoder.decodeString.emapTry(x => Try(TitleAnchorEnum.valueOf(x)))
 given Encoder[TitleAnchorEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -2192,6 +2221,7 @@ case class Legend(
 enum Direction:
   case horizontal
   case vertical
+end Direction
 given Decoder[Direction] = Decoder.decodeString.emapTry(x => Try(Direction.valueOf(x)))
 given Encoder[Direction] = Encoder.encodeString.contramap(_.toString())
 
@@ -2235,6 +2265,7 @@ case class FriskySignalRef(
 enum LegendType:
   case gradient
   case symbol
+end LegendType
 given Decoder[LegendType] = Decoder.decodeString.emapTry(x => Try(LegendType.valueOf(x)))
 given Encoder[LegendType] = Encoder.encodeString.contramap(_.toString())
 
@@ -2260,6 +2291,7 @@ enum FluffyOrient:
   case top
   case `top-left`
   case `top-right`
+end FluffyOrient
 given Decoder[FluffyOrient] = Decoder.decodeString.emapTry(x => Try(FluffyOrient.valueOf(x)))
 given Encoder[FluffyOrient] = Encoder.encodeString.contramap(_.toString())
 
@@ -2707,6 +2739,7 @@ enum RangeEnum:
   case ramp
   case symbol
   case width
+end RangeEnum
 given Decoder[RangeEnum] = Decoder.decodeString.emapTry(x => Try(RangeEnum.valueOf(x)))
 given Encoder[RangeEnum] = Encoder.encodeString.contramap(_.toString())
 
@@ -2727,6 +2760,7 @@ enum ScaleType:
   case threshold
   case time
   case utc
+end ScaleType
 given Decoder[ScaleType] = Decoder.decodeString.emapTry(x => Try(ScaleType.valueOf(x)))
 given Encoder[ScaleType] = Encoder.encodeString.contramap(_.toString())
 
@@ -2850,6 +2884,7 @@ case class Expr(
 
 enum Push:
   case outer
+end Push
 given Decoder[Push] = Decoder.decodeString.emapTry(x => Try(Push.valueOf(x)))
 given Encoder[Push] = Encoder.encodeString.contramap(_.toString())
 
@@ -2930,6 +2965,7 @@ given Encoder[FrameUnion] = Encoder.instance {
 enum Frame:
   case bounds
   case group
+end Frame
 given Decoder[Frame] = Decoder.decodeString.emapTry(x => Try(Frame.valueOf(x)))
 given Encoder[Frame] = Encoder.encodeString.contramap(_.toString())
 
@@ -2951,6 +2987,7 @@ enum TentacledOrient:
   case none
   case right
   case top
+end TentacledOrient
 given Decoder[TentacledOrient] = Decoder.decodeString.emapTry(x => Try(TentacledOrient.valueOf(x)))
 given Encoder[TentacledOrient] = Encoder.encodeString.contramap(_.toString())
 
@@ -3091,6 +3128,7 @@ enum TransformMarkType:
   case voronoi
   case window
   case wordcloud
+end TransformMarkType
 given Decoder[TransformMarkType] = Decoder.decodeString.emapTry(x => Try(TransformMarkType.valueOf(x)))
 given Encoder[TransformMarkType] = Encoder.encodeString.contramap(_.toString())
 

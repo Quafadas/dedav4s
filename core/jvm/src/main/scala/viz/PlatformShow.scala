@@ -23,7 +23,7 @@ import viz.Html
 import viz.LowPriorityPlotTarget
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
-  //def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
+  // def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
 
   // lazy val tempPath : Option[os.Path] = plotTarget match
   //   case t : TempFileTarget[A] => Some(t.tempPath(spec))
@@ -34,6 +34,8 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
     val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
     if pathIsSet then Some(conf.getString("dedavOutPath"))
     else None
+    end if
+  end outPath
 
   lazy val tmpPath: Option[os.Path] =
     plotTarget match
@@ -45,10 +47,12 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
             Some(os.temp(dir = os.Path(path), suffix = suffix, prefix = "plot-"))
           case None =>
             Some(os.temp(suffix = suffix, prefix = "plot-"))
+        end match
 
   private val showMe = plotTarget match
     case ut: UnitTarget     => ut.show(spec)
     case ut: TempFileTarget => ut.showWithTempFile(spec, tmpPath.get)
     case _                  => ()
+end PlatformShow
 
 // This is the line, which actually triggers plotting the chart

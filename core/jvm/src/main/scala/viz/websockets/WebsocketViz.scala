@@ -38,11 +38,12 @@ object WebsocketVizServer extends cask.MainRoutes:
     8080 + scala.util.Random.nextInt(
       40000
     ) // hope this doesn't generate a port clash! Probably there is a good way to do this?
+  end randomPort
 
   override def port = randomPort
 
   def openBrowserWindow() =
-    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) then
+    if Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE) then
       Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
     else
       println(
@@ -58,7 +59,7 @@ object WebsocketVizServer extends cask.MainRoutes:
         script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5")
       ),
       body(
-        //h1("viz"),
+        // h1("viz"),
         div(id := "vis", height := "95vmin", width := "95vmin"),
         script(raw"""        
         let socket = new WebSocket('ws://localhost:$port/connect/viz');
@@ -104,6 +105,8 @@ object WebsocketVizServer extends cask.MainRoutes:
       case Some(value) =>
         WebSockets.sendTextBlocking(ujson.write(theBody), value)
         cask.Response("you should be looking at new viz")
+    end match
+  end recievedSpec
 
   @cask.websocket("/connect/:viz")
   def setup(viz: String): cask.WebsocketResult =
@@ -118,3 +121,5 @@ object WebsocketVizServer extends cask.MainRoutes:
                 case data => WebSockets.sendTextBlocking(viz + " " + data, channel)
         )
         channel.resumeReceives()
+      end onConnect
+end WebsocketVizServer

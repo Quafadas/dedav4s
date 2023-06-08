@@ -16,14 +16,13 @@
 
 package viz.vega
 
+import io.circe.parser.*
+
 import viz.dsl.vega.VegaDsl
 import viz.dsl.vegaLite.VegaLiteDsl
+import viz.PlatformGetSpec
 
-trait DslTypeT { type DslType}
-
-object VegaType extends DslTypeT { type DslType = VegaDsl }
-object VegaLiteType extends DslTypeT { type DslType = VegaLiteDsl }
-
-enum Framework(val stub: String, val ext: String, val dslType : DslType ):
-  case Vega extends Framework("https://vega.github.io/vega-lite/examples/", ".vg.json", VegaType)
-  case VegaLite extends Framework("https://vega.github.io/vega-lite/examples/", ".vl.json", VegaLiteType)
+enum Framework(val stub: String, val ext: String):
+  case Vega extends Framework("https://vega.github.io/vega-lite/examples/", ".vg.json")
+  case VegaLite extends Framework("https://vega.github.io/vega-lite/examples/", ".vl.json")
+end Framework

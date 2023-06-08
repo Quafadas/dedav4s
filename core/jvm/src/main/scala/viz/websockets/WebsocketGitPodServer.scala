@@ -36,12 +36,14 @@ object WebsocketGitPodServer extends cask.MainRoutes:
     firstTime = false
     val portIsConfigured: Boolean = conf.hasPath("gitpod_port")
     if portIsConfigured then conf.getInt("gitpod_port") else 48485
+    end if
+  end randomPort
 
   override def port = randomPort
   lazy val gitpod_address: String = s"${sys.env("GITPOD_WORKSPACE_ID")}.${sys.env("GITPOD_WORKSPACE_CLUSTER_HOST")}"
   lazy val gitpod_postTo: String = s"https://$port-$gitpod_address:443/viz"
 
-  //def openBrowserWindow() = Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
+  // def openBrowserWindow() = Desktop.getDesktop().browse(java.net.URI(s"http://localhost:$port"))
 
   @cask.get("/")
   def home() =
@@ -52,7 +54,7 @@ object WebsocketGitPodServer extends cask.MainRoutes:
         script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5")
       ),
       body(
-        //h1("viz"),
+        // h1("viz"),
         div(id := "vis", height := "95vmin", width := "95vmin"),
         script(raw"""        
         let socket = new WebSocket('wss://$port-$gitpod_address:443/connect/viz');
@@ -98,6 +100,8 @@ object WebsocketGitPodServer extends cask.MainRoutes:
       case Some(value) =>
         WebSockets.sendTextBlocking(ujson.write(theBody), value)
         cask.Response("you should be looking at new viz")
+    end match
+  end recievedSpec
 
   @cask.websocket("/connect/:viz")
   def setup(viz: String): cask.WebsocketResult =
@@ -112,3 +116,5 @@ object WebsocketGitPodServer extends cask.MainRoutes:
                 case data => WebSockets.sendTextBlocking(viz + " " + data, channel)
         )
         channel.resumeReceives()
+      end onConnect
+end WebsocketGitPodServer
