@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viz.extensions
+package viz.extensions.jvm
 
 import viz.vega.plots.BarChart
 import viz.vega.plots.PieChart
