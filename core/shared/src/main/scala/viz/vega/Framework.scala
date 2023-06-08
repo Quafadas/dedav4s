@@ -16,6 +16,14 @@
 
 package viz.vega
 
-enum Framework(val stub: String, val ext: String):
-  case Vega extends Framework("https://vega.github.io/vega-lite/examples/", ".vg.json")
-  case VegaLite extends Framework("https://vega.github.io/vega-lite/examples/", ".vl.json")
+import viz.dsl.vega.VegaDsl
+import viz.dsl.vegaLite.VegaLiteDsl
+
+trait DslTypeT { type DslType}
+
+object VegaType extends DslTypeT { type DslType = VegaDsl }
+object VegaLiteType extends DslTypeT { type DslType = VegaLiteDsl }
+
+enum Framework(val stub: String, val ext: String, val dslType : DslType ):
+  case Vega extends Framework("https://vega.github.io/vega-lite/examples/", ".vg.json", VegaType)
+  case VegaLite extends Framework("https://vega.github.io/vega-lite/examples/", ".vl.json", VegaLiteType)

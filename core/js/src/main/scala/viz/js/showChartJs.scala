@@ -43,6 +43,8 @@ object showChartJs:
     val parsed = JSON.parse(chart.spec)
     viz.vega.facades.VegaEmbed.embed(s"#${child.id}", parsed, opts)
     ()
+  end apply
+end showChartJs
 
 object makePlotTarget:
   def apply(node: Element, width: Int = 50): Div =
@@ -52,3 +54,5 @@ object makePlotTarget:
     child.setAttribute("style", s"width:${width}vmin;height:${width}vmin")
     node.appendChild(child)
     child.asInstanceOf[Div]
+  end apply
+end makePlotTarget

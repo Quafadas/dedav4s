@@ -33,3 +33,4 @@ class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
   def signal(s: String): js.Dynamic = js.native
 
   def addSignalListener(s: String, handler: js.Function2[String, js.Dynamic, js.Dynamic]): VegaView = js.native
+end VegaView

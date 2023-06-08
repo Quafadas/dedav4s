@@ -17,7 +17,7 @@ import org.scalajs.linker.interface.ESVersion.*
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.2.2"
+val scalaV = "3.3.0"
 
 inThisBuild(
   List(

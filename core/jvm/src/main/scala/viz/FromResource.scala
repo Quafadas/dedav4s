@@ -25,3 +25,4 @@ trait FromResource extends WithBaseSpec:
 
   override lazy val baseSpec =
     ujson.read(scala.io.Source.fromResource(path, classOf[FromUrl].getClassLoader).mkString(""))
+end FromResource

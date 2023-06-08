@@ -29,14 +29,21 @@ import viz.dsl.vegaLite.*
 import viz.dsl.vega.*
 
 enum SpecUrl(val url: String, val f: Framework) extends PlatformGetSpec:
-
-  def toDsl(): Either[io.circe.Error, VegaLiteDsl | VegaDsl] =
+  
+  def toDsl(): f.dslType.DslType =
     //val spec : io.circe.Json = parse(this.jsonSpec.toString)
     f match
       case Framework.VegaLite =>
-        decode[VegaLiteDsl](this.jsonSpec.toString())
+        decode[VegaLiteDsl](this.jsonSpec.toString()).fold(
+          err => throw new Exception(err),
+          identity
+        )
       case Framework.Vega =>
-        decode[VegaDsl](this.jsonSpec.toString())
+        decode[VegaDsl](this.jsonSpec.toString()).fold(
+          err => throw new Exception(err),
+          identity
+        )
+    
 
   // Vega
   case BarChart extends SpecUrl("https://vega.github.io/vega/examples/bar-chart.vg.json", Vega)

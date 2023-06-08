@@ -21,14 +21,12 @@ import viz.vega.Framework.*
 import org.scalajs.dom.XMLHttpRequest
 import org.scalajs.dom.Event
 import scala.scalajs.js
+import io.circe.parser.*
 
-trait PlatformGetSpec:
+trait PlatformGetSpec(val url: String, val f: Framework):
 
   import scala.concurrent.ExecutionContext.Implicits.global
   import scala.scalajs.js.Thenable.Implicits.*
-
-  val f: Framework
-  val url: String
 
   // I am aware this is naughty, but everything else is synchronous...
   lazy val jsonSpec: ujson.Value = f match
@@ -47,3 +45,4 @@ trait PlatformGetSpec:
       val virtualDoc = parser.parseFromString(text, org.scalajs.dom.MIMEType.`text/html`)
       val something = virtualDoc.querySelector(".example-spec")
       ujson.read(something.textContent)
+end PlatformGetSpec

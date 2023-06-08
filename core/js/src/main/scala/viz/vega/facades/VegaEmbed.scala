@@ -31,6 +31,7 @@ trait Actions:
   var `export`: js.UndefOr[Boolean] = js.undefined
 
   var source: js.UndefOr[Boolean] = js.undefined
+end Actions
 
 object EmbedOptions extends EmbedOptions()
 
@@ -79,9 +80,11 @@ trait EmbedOptions:
   ] = js.undefined
 
   var width: js.UndefOr[Double] = js.undefined
+end EmbedOptions
 
 object VegaEmbed:
 
   @js.native
   @JSImport("vega-embed", JSImport.Default, "vegaEmbed")
   def embed(clz: String, spec: js.Dynamic, opts: EmbedOptions): js.Promise[js.Dynamic] = js.native
+end VegaEmbed

@@ -27,7 +27,6 @@ import scala.scalajs.js.JSON
 import viz.PlotTargets.doNothing
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
-  //val hi = "HI"
   def show(inDiv: html.Div): Unit =
     val anId = inDiv.id
     val newId = if anId.isEmpty then
@@ -39,8 +38,11 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends S
     val parsed = JSON.parse(spec)
     viz.vega.facades.VegaEmbed.embed(s"#$anId", parsed, opts)
     ()
+  end show
 
   // // when the class is instantiated, show the plot as a side effect...
   plotTarget match
     case _: LowPriorityPlotTarget => ()
     case h: html.Div              => show(h)
+  end match
+end PlatformShow

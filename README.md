@@ -5,6 +5,8 @@ Declarative Data Viz 4 Scala - a thin shim around vega and vega lite. It is aime
 
 [Video](https://www.youtube.com/watch?v=_yhDhvYWPBk)
 
+[![javadoc](https://javadoc.io/badge2/io.github.quafadas/dedav4s_3/javadoc.svg)](https://javadoc.io/doc/io.github.quafadas/dedav4s_3)
+
 # Elevator pitch
 
 ![3 sec pitch](/raw_docs/assets/dedav_intro.gif)
