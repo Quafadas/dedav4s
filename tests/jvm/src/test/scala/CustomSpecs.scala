@@ -42,3 +42,4 @@ class CustomSpecs extends munit.FunSuite:
     SunburstDrag().spec
 
   }
+end CustomSpecs

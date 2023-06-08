@@ -30,3 +30,4 @@ trait PlatformGetSpec(val url: String, val f: Framework):
       val pre = page.select(".language-json")
       val code = pre.asScala.head.text
       ujson.read(code)
+end PlatformGetSpec

@@ -61,3 +61,4 @@ class ExtensionSuiteJVM extends munit.FunSuite:
     randomTuple_Int_Double.plotRegression()
 
   }
+end ExtensionSuiteJVM

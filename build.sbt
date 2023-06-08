@@ -144,7 +144,7 @@ lazy val docs = project
     libraryDependencies ++= Seq(
       ("org.scalanlp" %% "breeze" % "2.1.0")
     ),
-    //laikaTheme := Helium.defaults.build,
+    // laikaTheme := Helium.defaults.build,
     laikaConfig ~= { _.withRawContent },
     tlSiteHeliumConfig := {
       Helium.defaults.site

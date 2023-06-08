@@ -38,7 +38,7 @@ case class PlotFromString(s:String, override val mods: Seq[ujson.Value => Unit] 
  */
 class ResourceTest extends munit.FunSuite:
   test("Check the default library settings") {
-    //(1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
+    // (1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
     // This shouldn't crash
     lazy val conf = org.ekrich.config.ConfigFactory.load()
 
@@ -50,21 +50,21 @@ class ResourceTest extends munit.FunSuite:
 
   test("That the vega DSL correctly parses a simple spec") {
     val spec = Source.fromResource("BarChart.json").mkString
-    //println(spec)
+    // println(spec)
     val parseCirce = decode[VegaDsl](spec)
 
     assert(parseCirce.isRight)
-    //println(parseCirce.getOrElse(""))
+    // println(parseCirce.getOrElse(""))
     assert(parseCirce.getOrElse(???).isInstanceOf[VegaDsl])
   }
 
   test("That the vega lite DSL correctly parses a simple spec") {
     val spec = Source.fromResource("BarChartLite.json").mkString
-    //println(spec)
+    // println(spec)
     val parseCirce = decode[VegaLiteDsl](spec)
 
     assert(parseCirce.isRight)
-    //println(parseCirce.getOrElse(""))
+    // println(parseCirce.getOrElse(""))
     assert(parseCirce.getOrElse(???).isInstanceOf[VegaLiteDsl])
   }
 
@@ -80,3 +80,4 @@ class ResourceTest extends munit.FunSuite:
     assert(bc.spec.contains("top"))
     Thread.sleep(2000)
   }
+end ResourceTest

@@ -24,7 +24,8 @@ import viz.extensions.*
 import viz.PlotTargets
 class MySuite extends munit.FunSuite:
   test("hello") {
-    //(1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
+    // (1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
 
     assertEquals(1, 1)
   }
+end MySuite
