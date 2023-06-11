@@ -29,941 +29,949 @@ given doNothing: LowPriorityPlotTarget = viz.doNothing.doNothing
 
 // Vega
 case class BarChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.BarChart)
+    extends FromUrl(SpecUrl.BarChart)
+    with PlotHasVegaDsl
+
 case class StackedBarChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.StackedBarChart)
+    extends FromUrl(SpecUrl.StackedBarChart)
+    with PlotHasVegaDsl
 case class GroupedBarChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.GroupedBarChart)
+    extends FromUrl(SpecUrl.GroupedBarChart)
+    with PlotHasVegaDsl
 case class NestedBarChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.NestedBarChart)
+    extends FromUrl(SpecUrl.NestedBarChart)
+    with PlotHasVegaDsl
 case class PopulationPyramid(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.PopulationPyramid)
+    extends FromUrl(SpecUrl.PopulationPyramid)
+    with PlotHasVegaDsl
 case class LineChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.LineChart)
+    extends FromUrl(SpecUrl.LineChart)
+    with PlotHasVegaDsl
 case class AreaChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.AreaChart)
+    extends FromUrl(SpecUrl.AreaChart)
+    with PlotHasVegaDsl
 case class StackedAreaChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.StackedAreaChart)
+    extends FromUrl(SpecUrl.StackedAreaChart)
+    with PlotHasVegaDsl
 case class HorizonGraph(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.HorizonGraph)
+    extends FromUrl(SpecUrl.HorizonGraph)
+    with PlotHasVegaDsl
 case class JobVoyager(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.JobVoyager)
+    extends FromUrl(SpecUrl.JobVoyager)
+    with PlotHasVegaDsl
 case class PieChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.PieChart)
+    extends FromUrl(SpecUrl.PieChart)
+    with PlotHasVegaDsl
 case class DonutChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.DonutChart)
+    extends FromUrl(SpecUrl.DonutChart)
+    with PlotHasVegaDsl
 case class RadialPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.RadialPlot)
+    extends FromUrl(SpecUrl.RadialPlot)
+    with PlotHasVegaDsl
 case class RadarChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.RadarChart)
+    extends FromUrl(SpecUrl.RadarChart)
+    with PlotHasVegaDsl
 case class ScatterPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ScatterPlot)
+    extends FromUrl(SpecUrl.ScatterPlot)
+    with PlotHasVegaDsl
 case class ScatterPlotNullValues(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ScatterPlotNullValues)
+    extends FromUrl(SpecUrl.ScatterPlotNullValues)
+    with PlotHasVegaDsl
 case class ConnectedScatterPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ConnectedScatterPlot)
+    extends FromUrl(SpecUrl.ConnectedScatterPlot)
+    with PlotHasVegaDsl
 case class ErrorBars(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ErrorBars)
+    extends FromUrl(SpecUrl.ErrorBars)
+    with PlotHasVegaDsl
 case class BarleyTrellisPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.BarleyTrellisPlot)
+    extends FromUrl(SpecUrl.BarleyTrellisPlot)
+    with PlotHasVegaDsl
 case class Regression(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Regression)
+    extends FromUrl(SpecUrl.Regression)
+    with PlotHasVegaDsl
 case class LoessRegression(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.LoessRegression)
+    extends FromUrl(SpecUrl.LoessRegression)
+    with PlotHasVegaDsl
 case class LabeledScatterPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.LabeledScatterPlot)
+    extends FromUrl(SpecUrl.LabeledScatterPlot)
+    with PlotHasVegaDsl
 case class TopKPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.TopKPlot)
+    extends FromUrl(SpecUrl.TopKPlot)
+    with PlotHasVegaDsl
 case class TopKPlotWithOthers(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.TopKPlotWithOthers)
+    extends FromUrl(SpecUrl.TopKPlotWithOthers)
+    with PlotHasVegaDsl
 case class Histogram(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Histogram)
+    extends FromUrl(SpecUrl.Histogram)
+    with PlotHasVegaDsl
 case class HistogramNullValues(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.HistogramNullValues)
+    extends FromUrl(SpecUrl.HistogramNullValues)
+    with PlotHasVegaDsl
 case class DotPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.DotPlot)
+    extends FromUrl(SpecUrl.DotPlot)
+    with PlotHasVegaDsl
 case class ProbabilityDensity(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ProbabilityDensity)
+    extends FromUrl(SpecUrl.ProbabilityDensity)
+    with PlotHasVegaDsl
 case class BoxPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.BoxPlot)
+    extends FromUrl(SpecUrl.BoxPlot)
+    with PlotHasVegaDsl
 case class ViolinPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ViolinPlot)
+    extends FromUrl(SpecUrl.ViolinPlot)
+    with PlotHasVegaDsl
 case class BinnedScatterPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.BinnedScatterPlot)
+    extends FromUrl(SpecUrl.BinnedScatterPlot)
+    with PlotHasVegaDsl
 case class ContourPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ContourPlot)
+    extends FromUrl(SpecUrl.ContourPlot)
+    with PlotHasVegaDsl
 case class WheatPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.WheatPlot)
+    extends FromUrl(SpecUrl.WheatPlot)
+    with PlotHasVegaDsl
 case class QuantileQuantilePlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.QuantileQuantilePlot)
+    extends FromUrl(SpecUrl.QuantileQuantilePlot)
+    with PlotHasVegaDsl
 case class QuantileDotPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.QuantileDotPlot)
+    extends FromUrl(SpecUrl.QuantileDotPlot)
+    with PlotHasVegaDsl
 case class HypotheticalOutcomePlots(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.HypotheticalOutcomePlots)
+    extends FromUrl(SpecUrl.HypotheticalOutcomePlots)
+    with PlotHasVegaDsl
 case class TimeUnits(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.TimeUnits)
+    extends FromUrl(SpecUrl.TimeUnits)
+    with PlotHasVegaDsl
 case class CountyUnemployment(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.CountyUnemployment)
+    extends FromUrl(SpecUrl.CountyUnemployment)
+    with PlotHasVegaDsl
 case class DorlingCartogram(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.DorlingCartogram)
+    extends FromUrl(SpecUrl.DorlingCartogram)
+    with PlotHasVegaDsl
 case class WorldMap(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.WorldMap)
+    extends FromUrl(SpecUrl.WorldMap)
+    with PlotHasVegaDsl
 case class Earthquakes(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Earthquakes)
+    extends FromUrl(SpecUrl.Earthquakes)
+    with PlotHasVegaDsl
 case class Projections(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Projections)
+    extends FromUrl(SpecUrl.Projections)
+    with PlotHasVegaDsl
 case class ZoomableWorldMap(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ZoomableWorldMap)
+    extends FromUrl(SpecUrl.ZoomableWorldMap)
+    with PlotHasVegaDsl
 case class DistortionComparison(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.DistortionComparison)
+    extends FromUrl(SpecUrl.DistortionComparison)
+    with PlotHasVegaDsl
 case class VolcanoContours(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.VolcanoContours)
+    extends FromUrl(SpecUrl.VolcanoContours)
+    with PlotHasVegaDsl
 case class WindVectors(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.WindVectors)
+    extends FromUrl(SpecUrl.WindVectors)
+    with PlotHasVegaDsl
 case class AnnualPrecipitation(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.AnnualPrecipitation)
+    extends FromUrl(SpecUrl.AnnualPrecipitation)
+    with PlotHasVegaDsl
 case class TreeLayout(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.TreeLayout)
+    extends FromUrl(SpecUrl.TreeLayout)
+    with PlotHasVegaDsl
 case class RadialTreeLayout(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.RadialTreeLayout)
+    extends FromUrl(SpecUrl.RadialTreeLayout)
+    with PlotHasVegaDsl
 case class Treemap(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Treemap)
+    extends FromUrl(SpecUrl.Treemap)
+    with PlotHasVegaDsl
 case class CirclePacking(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.CirclePacking)
+    extends FromUrl(SpecUrl.CirclePacking)
+    with PlotHasVegaDsl
 case class Sunburst(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Sunburst)
+    extends FromUrl(SpecUrl.Sunburst)
+    with PlotHasVegaDsl
 case class EdgeBundling(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.EdgeBundling)
+    extends FromUrl(SpecUrl.EdgeBundling)
+    with PlotHasVegaDsl
 case class ForceDirectedLayout(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ForceDirectedLayout)
+    extends FromUrl(SpecUrl.ForceDirectedLayout)
+    with PlotHasVegaDsl
 case class ReorderableMatrix(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ReorderableMatrix)
+    extends FromUrl(SpecUrl.ReorderableMatrix)
+    with PlotHasVegaDsl
 case class ArcDiagram(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ArcDiagram)
+    extends FromUrl(SpecUrl.ArcDiagram)
+    with PlotHasVegaDsl
 case class AirportConnections(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.AirportConnections)
+    extends FromUrl(SpecUrl.AirportConnections)
+    with PlotHasVegaDsl
 case class Heatmap(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Heatmap)
+    extends FromUrl(SpecUrl.Heatmap)
+    with PlotHasVegaDsl
 case class DensityHeatmaps(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.DensityHeatmaps)
+    extends FromUrl(SpecUrl.DensityHeatmaps)
+    with PlotHasVegaDsl
 case class ParallelCoordinates(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ParallelCoordinates)
+    extends FromUrl(SpecUrl.ParallelCoordinates)
+    with PlotHasVegaDsl
 case class WordCloud(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.WordCloud)
+    extends FromUrl(SpecUrl.WordCloud)
+    with PlotHasVegaDsl
 case class BeeswarmPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.BeeswarmPlot)
+    extends FromUrl(SpecUrl.BeeswarmPlot)
+    with PlotHasVegaDsl
 case class CalendarView(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.CalendarView)
+    extends FromUrl(SpecUrl.CalendarView)
+    with PlotHasVegaDsl
 case class BudgetForecasts(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.BudgetForecasts)
+    extends FromUrl(SpecUrl.BudgetForecasts)
+    with PlotHasVegaDsl
 case class WheatAndWages(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.WheatAndWages)
+    extends FromUrl(SpecUrl.WheatAndWages)
+    with PlotHasVegaDsl
 case class FalkenseePopulation(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.FalkenseePopulation)
+    extends FromUrl(SpecUrl.FalkenseePopulation)
+    with PlotHasVegaDsl
 case class AnnualTemperature(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.AnnualTemperature)
+    extends FromUrl(SpecUrl.AnnualTemperature)
+    with PlotHasVegaDsl
 case class WeeklyTemperature(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.WeeklyTemperature)
+    extends FromUrl(SpecUrl.WeeklyTemperature)
+    with PlotHasVegaDsl
 case class FlightPassengers(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.FlightPassengers)
+    extends FromUrl(SpecUrl.FlightPassengers)
+    with PlotHasVegaDsl
 case class Timelines(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Timelines)
+    extends FromUrl(SpecUrl.Timelines)
+    with PlotHasVegaDsl
 case class UDistrictCuisine(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.UDistrictCuisine)
+    extends FromUrl(SpecUrl.UDistrictCuisine)
+    with PlotHasVegaDsl
 case class Clock(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Clock)
+    extends FromUrl(SpecUrl.Clock)
+    with PlotHasVegaDsl
 case class Watch(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Watch)
+    extends FromUrl(SpecUrl.Watch)
+    with PlotHasVegaDsl
 case class CrossfilterFlights(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.CrossfilterFlights)
+    extends FromUrl(SpecUrl.CrossfilterFlights)
+    with PlotHasVegaDsl
 case class OverviewPlusDetail(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.OverviewPlusDetail)
+    extends FromUrl(SpecUrl.OverviewPlusDetail)
+    with PlotHasVegaDsl
 case class BrushingScatterPlots(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.BrushingScatterPlots)
+    extends FromUrl(SpecUrl.BrushingScatterPlots)
+    with PlotHasVegaDsl
 case class ZoomableScatterPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ZoomableScatterPlot)
+    extends FromUrl(SpecUrl.ZoomableScatterPlot)
+    with PlotHasVegaDsl
 case class ZoomableBinnedPlot(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.ZoomableBinnedPlot)
+    extends FromUrl(SpecUrl.ZoomableBinnedPlot)
+    with PlotHasVegaDsl
 case class GlobalDevelopment(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.GlobalDevelopment)
+    extends FromUrl(SpecUrl.GlobalDevelopment)
+    with PlotHasVegaDsl
 case class InteractiveLegend(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.InteractiveLegend)
+    extends FromUrl(SpecUrl.InteractiveLegend)
+    with PlotHasVegaDsl
 case class StockIndexChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.StockIndexChart)
+    extends FromUrl(SpecUrl.StockIndexChart)
+    with PlotHasVegaDsl
 case class PiMonteCarlo(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.PiMonteCarlo)
+    extends FromUrl(SpecUrl.PiMonteCarlo)
+    with PlotHasVegaDsl
 case class Pacman(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Pacman)
+    extends FromUrl(SpecUrl.Pacman)
+    with PlotHasVegaDsl
 case class Platformer(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaDsl
-    with FromUrl(SpecUrl.Platformer)
+    extends FromUrl(SpecUrl.Platformer)
+    with PlotHasVegaDsl
 //Vega Lite
 
 case class SimpleBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.SimpleBarChartLite)
+    extends FromUrl(SpecUrl.SimpleBarChartLite)
+    with PlotHasVegaLiteDsl
+
 case class ResponsiveBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ResponsiveBarChartLite)
+    extends FromUrl(SpecUrl.ResponsiveBarChartLite)
+    with PlotHasVegaLiteDsl
+
 case class AggregateBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AggregateBarChartLite)
+    extends FromUrl(SpecUrl.AggregateBarChartLite)
+    with PlotHasVegaLiteDsl
+
 case class AggregateBarChart_SortedLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AggregateBarChart_SortedLite)
+) extends FromUrl(SpecUrl.AggregateBarChart_SortedLite)
+    with PlotHasVegaLiteDsl
 case class GroupedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.GroupedBarChartLite)
+    extends FromUrl(SpecUrl.GroupedBarChartLite)
+    with PlotHasVegaLiteDsl
+
 case class GroupedBarChart_MultipleMeasurewithRepeatLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.GroupedBarChart_MultipleMeasurewithRepeatLite)
+) extends FromUrl(SpecUrl.GroupedBarChart_MultipleMeasurewithRepeatLite)
+    with PlotHasVegaLiteDsl
 case class StackedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StackedBarChartLite)
+    extends FromUrl(SpecUrl.StackedBarChartLite)
+    with PlotHasVegaLiteDsl
+
 case class StackedBarChartwithRoundedCornersLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StackedBarChartwithRoundedCornersLite)
+) extends FromUrl(SpecUrl.StackedBarChartwithRoundedCornersLite)
+    with PlotHasVegaLiteDsl
+
 case class HorizontalStackedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HorizontalStackedBarChartLite)
+) extends FromUrl(SpecUrl.HorizontalStackedBarChartLite)
+    with PlotHasVegaLiteDsl
 case class Normalized_PercentageStackedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Normalized_PercentageStackedBarChartLite)
+) extends FromUrl(SpecUrl.Normalized_PercentageStackedBarChartLite)
+    with PlotHasVegaLiteDsl
 case class Normalized_PercentageStackedBarChartWithLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Normalized_PercentageStackedBarChartWithLabelsLite)
+) extends FromUrl(SpecUrl.Normalized_PercentageStackedBarChartWithLabelsLite)
+    with PlotHasVegaLiteDsl
 case class GanttChart_RangedBarMarksLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.GanttChart_RangedBarMarksLite)
+) extends FromUrl(SpecUrl.GanttChart_RangedBarMarksLite)
+    with PlotHasVegaLiteDsl
 case class ABarChartEncodingColorNamesintheDataLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ABarChartEncodingColorNamesintheDataLite)
+) extends FromUrl(SpecUrl.ABarChartEncodingColorNamesintheDataLite)
+    with PlotHasVegaLiteDsl
 case class LayeredBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeredBarChartLite)
+    extends FromUrl(SpecUrl.LayeredBarChartLite)
+    with PlotHasVegaLiteDsl
+
 case class DivergingStackedBarChart_PopulationPyramidLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DivergingStackedBarChart_PopulationPyramidLite)
+) extends FromUrl(SpecUrl.DivergingStackedBarChart_PopulationPyramidLite)
+    with PlotHasVegaLiteDsl
 case class DivergingStackedBarChart_withNeutralPartsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DivergingStackedBarChart_withNeutralPartsLite)
+) extends FromUrl(SpecUrl.DivergingStackedBarChart_withNeutralPartsLite)
+    with PlotHasVegaLiteDsl
 case class BarChartwithLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartwithLabelsLite)
+    extends FromUrl(SpecUrl.BarChartwithLabelsLite)
+    with PlotHasVegaLiteDsl
 case class BarChartwithLabelOverlaysLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartwithLabelOverlaysLite)
+) extends FromUrl(SpecUrl.BarChartwithLabelOverlaysLite)
+    with PlotHasVegaLiteDsl
 case class BarChartshowingInitialsofMonthNamesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartshowingInitialsofMonthNamesLite)
+) extends FromUrl(SpecUrl.BarChartshowingInitialsofMonthNamesLite)
+    with PlotHasVegaLiteDsl
 case class BarChartwithNegativeValuesandaZero_BaselineLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartwithNegativeValuesandaZero_BaselineLite)
+) extends FromUrl(SpecUrl.BarChartwithNegativeValuesandaZero_BaselineLite)
+    with PlotHasVegaLiteDsl
 case class HorizontalBarChartwithNegativeValuesandLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HorizontalBarChartwithNegativeValuesandLabelsLite)
+) extends FromUrl(SpecUrl.HorizontalBarChartwithNegativeValuesandLabelsLite)
+    with PlotHasVegaLiteDsl
 case class BarChartwithaSpacing_SavingY_AxisLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartwithaSpacing_SavingY_AxisLite)
+) extends FromUrl(SpecUrl.BarChartwithaSpacing_SavingY_AxisLite)
+    with PlotHasVegaLiteDsl
 case class HistogramLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HistogramLite)
+    extends FromUrl(SpecUrl.HistogramLite)
+    with PlotHasVegaLiteDsl
 case class Histogram_fromBinnedDataLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Histogram_fromBinnedDataLite)
+) extends FromUrl(SpecUrl.Histogram_fromBinnedDataLite)
+    with PlotHasVegaLiteDsl
 case class Log_scaledHistogramLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Log_scaledHistogramLite)
+    extends FromUrl(SpecUrl.Log_scaledHistogramLite)
+    with PlotHasVegaLiteDsl
 case class Non_linearHistogramLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Non_linearHistogramLite)
+    extends FromUrl(SpecUrl.Non_linearHistogramLite)
+    with PlotHasVegaLiteDsl
 case class RelativeFrequencyHistogramLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.RelativeFrequencyHistogramLite)
+) extends FromUrl(SpecUrl.RelativeFrequencyHistogramLite)
+    with PlotHasVegaLiteDsl
 case class DensityPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DensityPlotLite)
+    extends FromUrl(SpecUrl.DensityPlotLite)
+    with PlotHasVegaLiteDsl
 case class StackedDensityEstimatesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StackedDensityEstimatesLite)
+) extends FromUrl(SpecUrl.StackedDensityEstimatesLite)
+    with PlotHasVegaLiteDsl
 case class TwoDHistogramScatterplotLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TwoDHistogramScatterplotLite)
+) extends FromUrl(SpecUrl.TwoDHistogramScatterplotLite)
+    with PlotHasVegaLiteDsl
 case class TwoDHistogramHeatmapLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TwoDHistogramHeatmapLite)
+    extends FromUrl(SpecUrl.TwoDHistogramHeatmapLite)
+    with PlotHasVegaLiteDsl
 case class CumulativeFrequencyDistributionLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CumulativeFrequencyDistributionLite)
+) extends FromUrl(SpecUrl.CumulativeFrequencyDistributionLite)
+    with PlotHasVegaLiteDsl
 case class LayeredHistogramandCumulativeHistogramLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeredHistogramandCumulativeHistogramLite)
+) extends FromUrl(SpecUrl.LayeredHistogramandCumulativeHistogramLite)
+    with PlotHasVegaLiteDsl
 case class WilkinsonDotPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.WilkinsonDotPlotLite)
+    extends FromUrl(SpecUrl.WilkinsonDotPlotLite)
+    with PlotHasVegaLiteDsl
 case class IsotypeDotPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.IsotypeDotPlotLite)
+    extends FromUrl(SpecUrl.IsotypeDotPlotLite)
+    with PlotHasVegaLiteDsl
 case class IsotypeDotPlotwithEmojiLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.IsotypeDotPlotwithEmojiLite)
+) extends FromUrl(SpecUrl.IsotypeDotPlotwithEmojiLite)
+    with PlotHasVegaLiteDsl
 case class ScatterplotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ScatterplotLite)
+    extends FromUrl(SpecUrl.ScatterplotLite)
+    with PlotHasVegaLiteDsl
 case class OneDStripPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.OneDStripPlotLite)
+    extends FromUrl(SpecUrl.OneDStripPlotLite)
+    with PlotHasVegaLiteDsl
 case class StripPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StripPlotLite)
+    extends FromUrl(SpecUrl.StripPlotLite)
+    with PlotHasVegaLiteDsl
 case class ColoredScatterplotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ColoredScatterplotLite)
+    extends FromUrl(SpecUrl.ColoredScatterplotLite)
+    with PlotHasVegaLiteDsl
 case class TwoDHistogramScatterplot0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TwoDHistogramScatterplot0Lite)
+) extends FromUrl(SpecUrl.TwoDHistogramScatterplot0Lite)
+    with PlotHasVegaLiteDsl
 case class BubblePlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BubblePlotLite)
+    extends FromUrl(SpecUrl.BubblePlotLite)
+    with PlotHasVegaLiteDsl
 case class ScatterplotwithNullValuesinGreyLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ScatterplotwithNullValuesinGreyLite)
+) extends FromUrl(SpecUrl.ScatterplotwithNullValuesinGreyLite)
+    with PlotHasVegaLiteDsl
 case class ScatterplotwithFilledCirclesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ScatterplotwithFilledCirclesLite)
+) extends FromUrl(SpecUrl.ScatterplotwithFilledCirclesLite)
+    with PlotHasVegaLiteDsl
 case class BubblePlot_GapminderLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BubblePlot_GapminderLite)
+    extends FromUrl(SpecUrl.BubblePlot_GapminderLite)
+    with PlotHasVegaLiteDsl
 case class BubblePlot_NaturalDisastersLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BubblePlot_NaturalDisastersLite)
+) extends FromUrl(SpecUrl.BubblePlot_NaturalDisastersLite)
+    with PlotHasVegaLiteDsl
 case class ScatterPlotwithTextMarksLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ScatterPlotwithTextMarksLite)
+) extends FromUrl(SpecUrl.ScatterPlotwithTextMarksLite)
+    with PlotHasVegaLiteDsl
 case class Image_basedScatterPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Image_basedScatterPlotLite)
+    extends FromUrl(SpecUrl.Image_basedScatterPlotLite)
+    with PlotHasVegaLiteDsl
 case class StripplotwithcustomaxisticklabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StripplotwithcustomaxisticklabelsLite)
+) extends FromUrl(SpecUrl.StripplotwithcustomaxisticklabelsLite)
+    with PlotHasVegaLiteDsl
 case class DotPlotwithJitteringLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DotPlotwithJitteringLite)
+    extends FromUrl(SpecUrl.DotPlotwithJitteringLite)
+    with PlotHasVegaLiteDsl
 case class LineChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartLite)
+    extends FromUrl(SpecUrl.LineChartLite)
+    with PlotHasVegaLiteDsl
 case class LineChartwithPointMarkersLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithPointMarkersLite)
+) extends FromUrl(SpecUrl.LineChartwithPointMarkersLite)
+    with PlotHasVegaLiteDsl
 case class LineChartwithStrokedPointMarkersLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithStrokedPointMarkersLite)
+) extends FromUrl(SpecUrl.LineChartwithStrokedPointMarkersLite)
+    with PlotHasVegaLiteDsl
 case class MultiSeriesLineChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MultiSeriesLineChartLite)
+    extends FromUrl(SpecUrl.MultiSeriesLineChartLite)
+    with PlotHasVegaLiteDsl
 case class MultiSeriesLineChartwithRepeatOperatorLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MultiSeriesLineChartwithRepeatOperatorLite)
+) extends FromUrl(SpecUrl.MultiSeriesLineChartwithRepeatOperatorLite)
+    with PlotHasVegaLiteDsl
 case class MultiSeriesLineChartwithHaloStrokeLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MultiSeriesLineChartwithHaloStrokeLite)
+) extends FromUrl(SpecUrl.MultiSeriesLineChartwithHaloStrokeLite)
+    with PlotHasVegaLiteDsl
 case class SlopeGraphLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.SlopeGraphLite)
+    extends FromUrl(SpecUrl.SlopeGraphLite)
+    with PlotHasVegaLiteDsl
 case class StepChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StepChartLite)
+    extends FromUrl(SpecUrl.StepChartLite)
+    with PlotHasVegaLiteDsl
 case class LineChartwithMonotoneInterpolationLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithMonotoneInterpolationLite)
+) extends FromUrl(SpecUrl.LineChartwithMonotoneInterpolationLite)
+    with PlotHasVegaLiteDsl
 case class LineChartwithConditionalAxisPropertiesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithConditionalAxisPropertiesLite)
+) extends FromUrl(SpecUrl.LineChartwithConditionalAxisPropertiesLite)
+    with PlotHasVegaLiteDsl
 case class ConnectedScatterplot_LineswithCustomPathsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ConnectedScatterplot_LineswithCustomPathsLite)
+) extends FromUrl(SpecUrl.ConnectedScatterplot_LineswithCustomPathsLite)
+    with PlotHasVegaLiteDsl
 case class BumpChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BumpChartLite)
+    extends FromUrl(SpecUrl.BumpChartLite)
+    with PlotHasVegaLiteDsl
 case class LineChartwithVaryingSize_usingthetrailmarkLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithVaryingSize_usingthetrailmarkLite)
+) extends FromUrl(SpecUrl.LineChartwithVaryingSize_usingthetrailmarkLite)
+    with PlotHasVegaLiteDsl
 case class AcometchartshowingchangesbetweenbetweentwostatesLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AcometchartshowingchangesbetweenbetweentwostatesLite)
+) extends FromUrl(SpecUrl.AcometchartshowingchangesbetweenbetweentwostatesLite)
+    with PlotHasVegaLiteDsl
+
 case class LineChartwithMarkersandInvalidValuesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithMarkersandInvalidValuesLite)
+) extends FromUrl(SpecUrl.LineChartwithMarkersandInvalidValuesLite)
+    with PlotHasVegaLiteDsl
 case class CarbonDioxideintheAtmosphereLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CarbonDioxideintheAtmosphereLite)
+) extends FromUrl(SpecUrl.CarbonDioxideintheAtmosphereLite)
+    with PlotHasVegaLiteDsl
 case class LineChartsShowingRanksOverTimeLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartsShowingRanksOverTimeLite)
+) extends FromUrl(SpecUrl.LineChartsShowingRanksOverTimeLite)
+    with PlotHasVegaLiteDsl
 case class DrawingSineandCosineCurveswiththeSequenceGeneratorLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DrawingSineandCosineCurveswiththeSequenceGeneratorLite)
+) extends FromUrl(SpecUrl.DrawingSineandCosineCurveswiththeSequenceGeneratorLite)
+    with PlotHasVegaLiteDsl
+
 case class LinechartwithvaryingstrokedashLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LinechartwithvaryingstrokedashLite)
+) extends FromUrl(SpecUrl.LinechartwithvaryingstrokedashLite)
+    with PlotHasVegaLiteDsl
 case class LinechartwithadashedpartLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LinechartwithadashedpartLite)
+) extends FromUrl(SpecUrl.LinechartwithadashedpartLite)
+    with PlotHasVegaLiteDsl
 case class AreaChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AreaChartLite)
+    extends FromUrl(SpecUrl.AreaChartLite)
+    with PlotHasVegaLiteDsl
 case class AreaChartwithGradientLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AreaChartwithGradientLite)
+    extends FromUrl(SpecUrl.AreaChartwithGradientLite)
+    with PlotHasVegaLiteDsl
 case class AreaChartwithOverlayingLinesandPointMarkersLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AreaChartwithOverlayingLinesandPointMarkersLite)
+) extends FromUrl(SpecUrl.AreaChartwithOverlayingLinesandPointMarkersLite)
+    with PlotHasVegaLiteDsl
 case class StackedAreaChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StackedAreaChartLite)
+    extends FromUrl(SpecUrl.StackedAreaChartLite)
+    with PlotHasVegaLiteDsl
 case class NormalizedStackedAreaChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.NormalizedStackedAreaChartLite)
+) extends FromUrl(SpecUrl.NormalizedStackedAreaChartLite)
+    with PlotHasVegaLiteDsl
 case class StreamgraphLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.StreamgraphLite)
+    extends FromUrl(SpecUrl.StreamgraphLite)
+    with PlotHasVegaLiteDsl
 case class HorizonGraphLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HorizonGraphLite)
+    extends FromUrl(SpecUrl.HorizonGraphLite)
+    with PlotHasVegaLiteDsl
 case class TableHeatmapLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TableHeatmapLite)
+    extends FromUrl(SpecUrl.TableHeatmapLite)
+    with PlotHasVegaLiteDsl
 case class AnnualWeatherHeatmapLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AnnualWeatherHeatmapLite)
+    extends FromUrl(SpecUrl.AnnualWeatherHeatmapLite)
+    with PlotHasVegaLiteDsl
 case class TwoDHistogramHeatmap0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TwoDHistogramHeatmap0Lite)
+    extends FromUrl(SpecUrl.TwoDHistogramHeatmap0Lite)
+    with PlotHasVegaLiteDsl
 case class TableBubblePlot_GithubPunchCardLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TableBubblePlot_GithubPunchCardLite)
+) extends FromUrl(SpecUrl.TableBubblePlot_GithubPunchCardLite)
+    with PlotHasVegaLiteDsl
 case class HeatmapwithLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HeatmapwithLabelsLite)
+    extends FromUrl(SpecUrl.HeatmapwithLabelsLite)
+    with PlotHasVegaLiteDsl
 case class LasagnaPlot_DenseTime_SeriesHeatmapLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LasagnaPlot_DenseTime_SeriesHeatmapLite)
+) extends FromUrl(SpecUrl.LasagnaPlot_DenseTime_SeriesHeatmapLite)
+    with PlotHasVegaLiteDsl
 case class MosaicChartwithLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MosaicChartwithLabelsLite)
+    extends FromUrl(SpecUrl.MosaicChartwithLabelsLite)
+    with PlotHasVegaLiteDsl
 case class WindVectorMapLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.WindVectorMapLite)
+    extends FromUrl(SpecUrl.WindVectorMapLite)
+    with PlotHasVegaLiteDsl
 case class PieChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.PieChartLite)
+    extends FromUrl(SpecUrl.PieChartLite)
+    with PlotHasVegaLiteDsl
 case class DonutChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DonutChartLite)
+    extends FromUrl(SpecUrl.DonutChartLite)
+    with PlotHasVegaLiteDsl
 case class PieChartwithLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.PieChartwithLabelsLite)
+    extends FromUrl(SpecUrl.PieChartwithLabelsLite)
+    with PlotHasVegaLiteDsl
 case class RadialPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.RadialPlotLite)
+    extends FromUrl(SpecUrl.RadialPlotLite)
+    with PlotHasVegaLiteDsl
 case class PyramidPieChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.PyramidPieChartLite)
+    extends FromUrl(SpecUrl.PyramidPieChartLite)
+    with PlotHasVegaLiteDsl
 case class CalculatePercentageofTotalLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CalculatePercentageofTotalLite)
+) extends FromUrl(SpecUrl.CalculatePercentageofTotalLite)
+    with PlotHasVegaLiteDsl
 case class CalculateDifferencefromAverageLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CalculateDifferencefromAverageLite)
+) extends FromUrl(SpecUrl.CalculateDifferencefromAverageLite)
+    with PlotHasVegaLiteDsl
 case class CalculateDifferencefromAnnualAverageLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CalculateDifferencefromAnnualAverageLite)
+) extends FromUrl(SpecUrl.CalculateDifferencefromAnnualAverageLite)
+    with PlotHasVegaLiteDsl
 case class CalculateResidualsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CalculateResidualsLite)
+    extends FromUrl(SpecUrl.CalculateResidualsLite)
+    with PlotHasVegaLiteDsl
 case class LineChartsShowingRanksOverTime0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartsShowingRanksOverTime0Lite)
+) extends FromUrl(SpecUrl.LineChartsShowingRanksOverTime0Lite)
+    with PlotHasVegaLiteDsl
 case class WaterfallChartofMonthlyProfitandLossLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.WaterfallChartofMonthlyProfitandLossLite)
+) extends FromUrl(SpecUrl.WaterfallChartofMonthlyProfitandLossLite)
+    with PlotHasVegaLiteDsl
 case class FilteringTop_KItemsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.FilteringTop_KItemsLite)
+    extends FromUrl(SpecUrl.FilteringTop_KItemsLite)
+    with PlotHasVegaLiteDsl
 case class Top_KPlotwithOthersLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Top_KPlotwithOthersLite)
+    extends FromUrl(SpecUrl.Top_KPlotwithOthersLite)
+    with PlotHasVegaLiteDsl
 case class UsingthelookuptransformtocombinedataLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.UsingthelookuptransformtocombinedataLite)
+) extends FromUrl(SpecUrl.UsingthelookuptransformtocombinedataLite)
+    with PlotHasVegaLiteDsl
 case class CumulativeFrequencyDistribution0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CumulativeFrequencyDistribution0Lite)
+) extends FromUrl(SpecUrl.CumulativeFrequencyDistribution0Lite)
+    with PlotHasVegaLiteDsl
 case class LayeredHistogramandCumulativeHistogram0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeredHistogramandCumulativeHistogram0Lite)
+) extends FromUrl(SpecUrl.LayeredHistogramandCumulativeHistogram0Lite)
+    with PlotHasVegaLiteDsl
 case class ParallelCoordinatePlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ParallelCoordinatePlotLite)
+    extends FromUrl(SpecUrl.ParallelCoordinatePlotLite)
+    with PlotHasVegaLiteDsl
 case class BarChartShowingArgmaxValueLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartShowingArgmaxValueLite)
+) extends FromUrl(SpecUrl.BarChartShowingArgmaxValueLite)
+    with PlotHasVegaLiteDsl
 case class LayeringAveragesoverRawValuesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeringAveragesoverRawValuesLite)
+) extends FromUrl(SpecUrl.LayeringAveragesoverRawValuesLite)
+    with PlotHasVegaLiteDsl
 case class LayeringRollingAveragesoverRawValuesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeringRollingAveragesoverRawValuesLite)
+) extends FromUrl(SpecUrl.LayeringRollingAveragesoverRawValuesLite)
+    with PlotHasVegaLiteDsl
 case class LineCharttoShowBenchmarkingResultsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineCharttoShowBenchmarkingResultsLite)
+) extends FromUrl(SpecUrl.LineCharttoShowBenchmarkingResultsLite)
+    with PlotHasVegaLiteDsl
 case class Quantile_QuantilePlot_QQPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Quantile_QuantilePlot_QQPlotLite)
+) extends FromUrl(SpecUrl.Quantile_QuantilePlot_QQPlotLite)
+    with PlotHasVegaLiteDsl
 case class LinearRegressionLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LinearRegressionLite)
+    extends FromUrl(SpecUrl.LinearRegressionLite)
+    with PlotHasVegaLiteDsl
 case class LoessRegressionLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LoessRegressionLite)
+    extends FromUrl(SpecUrl.LoessRegressionLite)
+    with PlotHasVegaLiteDsl
 case class ErrorBarsShowingConfidenceIntervalLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ErrorBarsShowingConfidenceIntervalLite)
+) extends FromUrl(SpecUrl.ErrorBarsShowingConfidenceIntervalLite)
+    with PlotHasVegaLiteDsl
 case class ErrorBarsShowingStandardDeviationLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ErrorBarsShowingStandardDeviationLite)
+) extends FromUrl(SpecUrl.ErrorBarsShowingStandardDeviationLite)
+    with PlotHasVegaLiteDsl
 case class LineChartwithConfidenceIntervalBandLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithConfidenceIntervalBandLite)
+) extends FromUrl(SpecUrl.LineChartwithConfidenceIntervalBandLite)
+    with PlotHasVegaLiteDsl
 case class ScatterplotwithMeanandStandardDeviationOverlayLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ScatterplotwithMeanandStandardDeviationOverlayLite)
+) extends FromUrl(SpecUrl.ScatterplotwithMeanandStandardDeviationOverlayLite)
+    with PlotHasVegaLiteDsl
 case class BoxPlotwithMin_MaxWhiskersLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BoxPlotwithMin_MaxWhiskersLite)
+) extends FromUrl(SpecUrl.BoxPlotwithMin_MaxWhiskersLite)
+    with PlotHasVegaLiteDsl
 case class TukeyBoxPlot_One_5IQRLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TukeyBoxPlot_One_5IQRLite)
+    extends FromUrl(SpecUrl.TukeyBoxPlot_One_5IQRLite)
+    with PlotHasVegaLiteDsl
 case class BoxPlotwithPre_CalculatedSummariesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BoxPlotwithPre_CalculatedSummariesLite)
+) extends FromUrl(SpecUrl.BoxPlotwithPre_CalculatedSummariesLite)
+    with PlotHasVegaLiteDsl
 case class SimpleBarChartwithLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.SimpleBarChartwithLabelsLite)
+) extends FromUrl(SpecUrl.SimpleBarChartwithLabelsLite)
+    with PlotHasVegaLiteDsl
 case class SimpleBarChartwithLabelsandEmojisLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.SimpleBarChartwithLabelsandEmojisLite)
+) extends FromUrl(SpecUrl.SimpleBarChartwithLabelsandEmojisLite)
+    with PlotHasVegaLiteDsl
 case class LayeringtextoverheatmapLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeringtextoverheatmapLite)
+) extends FromUrl(SpecUrl.LayeringtextoverheatmapLite)
+    with PlotHasVegaLiteDsl
 case class CarbonDioxideintheAtmosphere0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CarbonDioxideintheAtmosphere0Lite)
+) extends FromUrl(SpecUrl.CarbonDioxideintheAtmosphere0Lite)
+    with PlotHasVegaLiteDsl
 case class BarChartHighlightingValuesbeyondaThresholdLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartHighlightingValuesbeyondaThresholdLite)
+) extends FromUrl(SpecUrl.BarChartHighlightingValuesbeyondaThresholdLite)
+    with PlotHasVegaLiteDsl
 case class MeanoverlayoverprecipitationchartLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MeanoverlayoverprecipitationchartLite)
+) extends FromUrl(SpecUrl.MeanoverlayoverprecipitationchartLite)
+    with PlotHasVegaLiteDsl
 case class HistogramwithaGlobalMeanOverlayLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HistogramwithaGlobalMeanOverlayLite)
+) extends FromUrl(SpecUrl.HistogramwithaGlobalMeanOverlayLite)
+    with PlotHasVegaLiteDsl
 case class LineChartwithHighlightedRectanglesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LineChartwithHighlightedRectanglesLite)
+) extends FromUrl(SpecUrl.LineChartwithHighlightedRectanglesLite)
+    with PlotHasVegaLiteDsl
 case class LayeringAveragesoverRawValues0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeringAveragesoverRawValues0Lite)
+) extends FromUrl(SpecUrl.LayeringAveragesoverRawValues0Lite)
+    with PlotHasVegaLiteDsl
 case class LayeringRollingAveragesoverRawValues0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeringRollingAveragesoverRawValues0Lite)
+) extends FromUrl(SpecUrl.LayeringRollingAveragesoverRawValues0Lite)
+    with PlotHasVegaLiteDsl
 case class DistributionsandMediansofLikertScaleRatingsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DistributionsandMediansofLikertScaleRatingsLite)
+) extends FromUrl(SpecUrl.DistributionsandMediansofLikertScaleRatingsLite)
+    with PlotHasVegaLiteDsl
 case class ComparativeLikertScaleRatingsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ComparativeLikertScaleRatingsLite)
+) extends FromUrl(SpecUrl.ComparativeLikertScaleRatingsLite)
+    with PlotHasVegaLiteDsl
 case class CandlestickChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CandlestickChartLite)
+    extends FromUrl(SpecUrl.CandlestickChartLite)
+    with PlotHasVegaLiteDsl
 case class RangedDotPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.RangedDotPlotLite)
+    extends FromUrl(SpecUrl.RangedDotPlotLite)
+    with PlotHasVegaLiteDsl
 case class BulletChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BulletChartLite)
+    extends FromUrl(SpecUrl.BulletChartLite)
+    with PlotHasVegaLiteDsl
 case class LayeredPlotwithDual_AxisLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LayeredPlotwithDual_AxisLite)
+) extends FromUrl(SpecUrl.LayeredPlotwithDual_AxisLite)
+    with PlotHasVegaLiteDsl
 case class HorizonGraph0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HorizonGraph0Lite)
+    extends FromUrl(SpecUrl.HorizonGraph0Lite)
+    with PlotHasVegaLiteDsl
 case class WeeklyWeatherPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.WeeklyWeatherPlotLite)
+    extends FromUrl(SpecUrl.WeeklyWeatherPlotLite)
+    with PlotHasVegaLiteDsl
 case class WheatandWagesExampleLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.WheatandWagesExampleLite)
+    extends FromUrl(SpecUrl.WheatandWagesExampleLite)
+    with PlotHasVegaLiteDsl
 case class TrellisBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TrellisBarChartLite)
+    extends FromUrl(SpecUrl.TrellisBarChartLite)
+    with PlotHasVegaLiteDsl
 case class TrellisStackedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TrellisStackedBarChartLite)
+    extends FromUrl(SpecUrl.TrellisStackedBarChartLite)
+    with PlotHasVegaLiteDsl
 case class TrellisScatterPlot_wrappedLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TrellisScatterPlot_wrappedLite)
+) extends FromUrl(SpecUrl.TrellisScatterPlot_wrappedLite)
+    with PlotHasVegaLiteDsl
 case class TrellisHistogramsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TrellisHistogramsLite)
+    extends FromUrl(SpecUrl.TrellisHistogramsLite)
+    with PlotHasVegaLiteDsl
 case class TrellisScatterPlotShowingAnscombesQuartetLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TrellisScatterPlotShowingAnscombesQuartetLite)
+) extends FromUrl(SpecUrl.TrellisScatterPlotShowingAnscombesQuartetLite)
+    with PlotHasVegaLiteDsl
 case class BeckersBarleyTrellisPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BeckersBarleyTrellisPlotLite)
+) extends FromUrl(SpecUrl.BeckersBarleyTrellisPlotLite)
+    with PlotHasVegaLiteDsl
 case class TrellisAreaLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TrellisAreaLite)
+    extends FromUrl(SpecUrl.TrellisAreaLite)
+    with PlotHasVegaLiteDsl
 case class TrellisAreaPlotShowingAnnualTemperaturesinSeattleLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.TrellisAreaPlotShowingAnnualTemperaturesinSeattleLite)
+) extends FromUrl(SpecUrl.TrellisAreaPlotShowingAnnualTemperaturesinSeattleLite)
+    with PlotHasVegaLiteDsl
 case class FacetedDensityPlotLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.FacetedDensityPlotLite)
+    extends FromUrl(SpecUrl.FacetedDensityPlotLite)
+    with PlotHasVegaLiteDsl
 case class CompactTrellisGridofBarChartsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CompactTrellisGridofBarChartsLite)
+) extends FromUrl(SpecUrl.CompactTrellisGridofBarChartsLite)
+    with PlotHasVegaLiteDsl
 case class RepeatandLayertoShowDifferentMovieMeasuresLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.RepeatandLayertoShowDifferentMovieMeasuresLite)
+) extends FromUrl(SpecUrl.RepeatandLayertoShowDifferentMovieMeasuresLite)
+    with PlotHasVegaLiteDsl
 case class VerticalConcatenationLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.VerticalConcatenationLite)
+    extends FromUrl(SpecUrl.VerticalConcatenationLite)
+    with PlotHasVegaLiteDsl
 case class HorizontallyRepeatedChartsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.HorizontallyRepeatedChartsLite)
+) extends FromUrl(SpecUrl.HorizontallyRepeatedChartsLite)
+    with PlotHasVegaLiteDsl
 case class InteractiveScatterplotMatrixLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.InteractiveScatterplotMatrixLite)
+) extends FromUrl(SpecUrl.InteractiveScatterplotMatrixLite)
+    with PlotHasVegaLiteDsl
 case class MarginalHistogramsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MarginalHistogramsLite)
+    extends FromUrl(SpecUrl.MarginalHistogramsLite)
+    with PlotHasVegaLiteDsl
 case class DiscretizingscalesLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.DiscretizingscalesLite)
+    extends FromUrl(SpecUrl.DiscretizingscalesLite)
+    with PlotHasVegaLiteDsl
 case class NestedViewConcatenationAlignedwithAxisminExtentLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.NestedViewConcatenationAlignedwithAxisminExtentLite)
+) extends FromUrl(SpecUrl.NestedViewConcatenationAlignedwithAxisminExtentLite)
+    with PlotHasVegaLiteDsl
 case class PopulationPyramidLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.PopulationPyramidLite)
+    extends FromUrl(SpecUrl.PopulationPyramidLite)
+    with PlotHasVegaLiteDsl
 case class ChoroplethofUnemploymentRateperCountyLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ChoroplethofUnemploymentRateperCountyLite)
+) extends FromUrl(SpecUrl.ChoroplethofUnemploymentRateperCountyLite)
+    with PlotHasVegaLiteDsl
 case class OneDotperZipcodeintheU_S_Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.OneDotperZipcodeintheU_S_Lite)
+) extends FromUrl(SpecUrl.OneDotperZipcodeintheU_S_Lite)
+    with PlotHasVegaLiteDsl
 case class OneDotperAirportintheU_S_OverlayedonGeoshapeLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.OneDotperAirportintheU_S_OverlayedonGeoshapeLite)
+) extends FromUrl(SpecUrl.OneDotperAirportintheU_S_OverlayedonGeoshapeLite)
+    with PlotHasVegaLiteDsl
 case class Rules_linesegmentsConnectingSEAtoeveryAirportReachableviaDirectFlightsLite(
     override val mods: Seq[ujson.Value => Unit] = List()
 )(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Rules_linesegmentsConnectingSEAtoeveryAirportReachableviaDirectFlightsLite)
+    extends FromUrl(SpecUrl.Rules_linesegmentsConnectingSEAtoeveryAirportReachableviaDirectFlightsLite)
+    with PlotHasVegaLiteDsl
 case class ThreeChoroplethsRepresentingDisjointDatafromtheSameTableLite(
     override val mods: Seq[ujson.Value => Unit] = List()
-)(using
-    PlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ThreeChoroplethsRepresentingDisjointDatafromtheSameTableLite)
+)(using LowPriorityPlotTarget)
+    extends FromUrl(SpecUrl.ThreeChoroplethsRepresentingDisjointDatafromtheSameTableLite)
+    with PlotHasVegaLiteDsl
 case class U_S_StateCapitalsOverlayedonaMapofU_S_Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.U_S_StateCapitalsOverlayedonaMapofU_S_Lite)
+) extends FromUrl(SpecUrl.U_S_StateCapitalsOverlayedonaMapofU_S_Lite)
+    with PlotHasVegaLiteDsl
 case class LinebetweenAirportsintheU_S_Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LinebetweenAirportsintheU_S_Lite)
+) extends FromUrl(SpecUrl.LinebetweenAirportsintheU_S_Lite)
+    with PlotHasVegaLiteDsl
 case class IncomeintheU_S_byStateFacetedoverIncomeBracketsLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.IncomeintheU_S_byStateFacetedoverIncomeBracketsLite)
+) extends FromUrl(SpecUrl.IncomeintheU_S_byStateFacetedoverIncomeBracketsLite)
+    with PlotHasVegaLiteDsl
 case class LondonTubeLinesLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.LondonTubeLinesLite)
+    extends FromUrl(SpecUrl.LondonTubeLinesLite)
+    with PlotHasVegaLiteDsl
 case class ProjectionexplorerLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ProjectionexplorerLite)
+    extends FromUrl(SpecUrl.ProjectionexplorerLite)
+    with PlotHasVegaLiteDsl
 case class BarChartwithHighlightingonHoverandSelectiononClickLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartwithHighlightingonHoverandSelectiononClickLite)
+) extends FromUrl(SpecUrl.BarChartwithHighlightingonHoverandSelectiononClickLite)
+    with PlotHasVegaLiteDsl
 case class InteractiveLegendLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.InteractiveLegendLite)
+    extends FromUrl(SpecUrl.InteractiveLegendLite)
+    with PlotHasVegaLiteDsl
 case class ScatterplotwithExternalLinksandTooltipsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ScatterplotwithExternalLinksandTooltipsLite)
+) extends FromUrl(SpecUrl.ScatterplotwithExternalLinksandTooltipsLite)
+    with PlotHasVegaLiteDsl
 case class RectangularBrushLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.RectangularBrushLite)
+    extends FromUrl(SpecUrl.RectangularBrushLite)
+    with PlotHasVegaLiteDsl
 case class AreaChartwithRectangularBrushLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.AreaChartwithRectangularBrushLite)
+) extends FromUrl(SpecUrl.AreaChartwithRectangularBrushLite)
+    with PlotHasVegaLiteDsl
 case class PaintbrushHighlightLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.PaintbrushHighlightLite)
+    extends FromUrl(SpecUrl.PaintbrushHighlightLite)
+    with PlotHasVegaLiteDsl
 case class ScatterplotPanZoomLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ScatterplotPanZoomLite)
+    extends FromUrl(SpecUrl.ScatterplotPanZoomLite)
+    with PlotHasVegaLiteDsl
 case class QueryWidgetsLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.QueryWidgetsLite)
+    extends FromUrl(SpecUrl.QueryWidgetsLite)
+    with PlotHasVegaLiteDsl
 case class InteractiveAverageLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.InteractiveAverageLite)
+    extends FromUrl(SpecUrl.InteractiveAverageLite)
+    with PlotHasVegaLiteDsl
 case class MultiSeriesLineChartwithInteractiveHighlightLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MultiSeriesLineChartwithInteractiveHighlightLite)
+) extends FromUrl(SpecUrl.MultiSeriesLineChartwithInteractiveHighlightLite)
+    with PlotHasVegaLiteDsl
 case class MultiSeriesLineChartwithLabelsLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MultiSeriesLineChartwithLabelsLite)
+) extends FromUrl(SpecUrl.MultiSeriesLineChartwithLabelsLite)
+    with PlotHasVegaLiteDsl
 case class MultiSeriesLineChartwithTooltipLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MultiSeriesLineChartwithTooltipLite)
+) extends FromUrl(SpecUrl.MultiSeriesLineChartwithTooltipLite)
+    with PlotHasVegaLiteDsl
 case class MultiSeriesLineChartwithTooltip0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.MultiSeriesLineChartwithTooltip0Lite)
+) extends FromUrl(SpecUrl.MultiSeriesLineChartwithTooltip0Lite)
+    with PlotHasVegaLiteDsl
 case class IsotypeGridLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.IsotypeGridLite)
+    extends FromUrl(SpecUrl.IsotypeGridLite)
+    with PlotHasVegaLiteDsl
 case class BrushingScatterPlottoshowdataonatableLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BrushingScatterPlottoshowdataonatableLite)
+) extends FromUrl(SpecUrl.BrushingScatterPlottoshowdataonatableLite)
+    with PlotHasVegaLiteDsl
 case class SelectableHeatmapLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.SelectableHeatmapLite)
+    extends FromUrl(SpecUrl.SelectableHeatmapLite)
+    with PlotHasVegaLiteDsl
 case class BarChartwithaMinimapLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.BarChartwithaMinimapLite)
+    extends FromUrl(SpecUrl.BarChartwithaMinimapLite)
+    with PlotHasVegaLiteDsl
 case class InteractiveIndexChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.InteractiveIndexChartLite)
+    extends FromUrl(SpecUrl.InteractiveIndexChartLite)
+    with PlotHasVegaLiteDsl
 case class Focus_Context_SmoothHistogramZoomingLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Focus_Context_SmoothHistogramZoomingLite)
+) extends FromUrl(SpecUrl.Focus_Context_SmoothHistogramZoomingLite)
+    with PlotHasVegaLiteDsl
 case class OverviewandDetailLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.OverviewandDetailLite)
+    extends FromUrl(SpecUrl.OverviewandDetailLite)
+    with PlotHasVegaLiteDsl
 case class CrossfilterLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.CrossfilterLite)
+    extends FromUrl(SpecUrl.CrossfilterLite)
+    with PlotHasVegaLiteDsl
 case class InteractiveScatterplotMatrix0Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.InteractiveScatterplotMatrix0Lite)
+) extends FromUrl(SpecUrl.InteractiveScatterplotMatrix0Lite)
+    with PlotHasVegaLiteDsl
 case class InteractiveDashboardwithCrossHighlightLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.InteractiveDashboardwithCrossHighlightLite)
+) extends FromUrl(SpecUrl.InteractiveDashboardwithCrossHighlightLite)
+    with PlotHasVegaLiteDsl
 case class SeattleWeatherExplorationLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.SeattleWeatherExplorationLite)
+) extends FromUrl(SpecUrl.SeattleWeatherExplorationLite)
+    with PlotHasVegaLiteDsl
 case class ConnectionsamongMajorU_S_Airports_Lite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.ConnectionsamongMajorU_S_Airports_Lite)
+) extends FromUrl(SpecUrl.ConnectionsamongMajorU_S_Airports_Lite)
+    with PlotHasVegaLiteDsl
 case class Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite(
     override val mods: Seq[ujson.Value => Unit] = List()
-)(using
-    LowPriorityPlotTarget
-) extends PlotHasVegaLiteDsl
-    with FromUrl(SpecUrl.Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite)
+)(using LowPriorityPlotTarget)
+    extends FromUrl(SpecUrl.Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite)
+    with PlotHasVegaLiteDsl
 
 object BarChart extends viz.companions.AxisUtils:
   import upickle.default.*

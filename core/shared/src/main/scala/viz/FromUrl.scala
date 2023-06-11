@@ -25,14 +25,14 @@ import io.circe.parser.decode
 import viz.dsl.*
 import viz.dsl.vegaLite.VegaLiteDsl
 
-trait FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
+abstract class FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
   override lazy val baseSpec = location.jsonSpec
 end FromUrl
 
 trait PlotHasVegaDsl(using LowPriorityPlotTarget) extends WithBaseSpec:
-  def toDsl(): VegaDsl = decode[VegaDsl](jsonSpec.toString()).fold(throw _, identity)
+  def toDsl(): VegaDsl = decode[VegaDsl](baseSpec.toString()).fold(throw _, identity)
 end PlotHasVegaDsl
 
 trait PlotHasVegaLiteDsl(using LowPriorityPlotTarget) extends WithBaseSpec:
-  def toDsl(): VegaLiteDsl = decode[VegaLiteDsl](jsonSpec.toString()).fold(throw _, identity)
+  def toDsl(): VegaLiteDsl = decode[VegaLiteDsl](baseSpec.toString()).fold(throw _, identity)
 end PlotHasVegaLiteDsl

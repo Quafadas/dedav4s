@@ -70,13 +70,14 @@ class ResourceTest extends munit.FunSuite:
 
   test("DSL to mutuable conversion") {
     import viz.dsl.Conversion.u
+    import viz.vega.plots.BarChart
 
     val dslMod: List[ujson.Value => Unit] = List(
       viz.Utils.removeXAxis,
       (spec: ujson.Value) => spec("axes") = spec("axes").arr :+ Axis(scale = "xscale", orient = TitleOrientEnum.top).u
     )
 
-    val bc = viz.vega.plots.BarChart(dslMod)
+    val bc = new BarChart(dslMod)
     assert(bc.spec.contains("top"))
     Thread.sleep(2000)
   }

@@ -31,6 +31,7 @@ import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.ScatterPlot
 import viz.vega.plots.Regression
 import viz.LowPriorityPlotTarget
+import cats.syntax.flatMap
 //import viz.extensions.jvm.*
 
 extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
@@ -82,6 +83,15 @@ extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
       List((spec: Value) => spec("data")(0)("values") = l.map(_.toDouble)) ++ mods
     )
 end extension
+
+def sequence[A](list: List[Option[A]]): Option[List[A]] =
+  list
+    .foldLeft(Option(List.newBuilder[A])): (acc, a) =>
+      acc.flatMap: xs =>
+        a.map: x =>
+          xs.addOne(x)
+    .map(_.result())
+end sequence
 
 extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: LowPriorityPlotTarget)
   @targetName("plotBarChartWithLabels")
