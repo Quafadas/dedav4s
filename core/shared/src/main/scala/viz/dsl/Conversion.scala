@@ -41,13 +41,13 @@ end DslSpec
 
 object DslPlot:
   extension (vega: VegaDsl)
-    def plot(using PlotTarget) =
+    def plot(using LowPriorityPlotTarget) =
       DslSpec(vega)
   extension (vega: VegaLiteDsl)
-    def plot(using PlotTarget) =
+    def plot(using LowPriorityPlotTarget) =
       DslSpec(vega)
 
   extension (vega: VegaDsl | VegaLiteDsl)
-    def plot(using PlotTarget) =
+    def plot(using LowPriorityPlotTarget) =
       DslSpec(vega)
 end DslPlot

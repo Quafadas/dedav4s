@@ -8,47 +8,48 @@ This is a simple bar chart.
 import viz.dsl.vegaLite.*
 import viz.dsl.DslPlot.*
 import viz.dsl.DslSpec
-import viz.PlotTargets.doNothing
+import viz.vega.plots.given
 import io.circe._
+import cats.syntax.option.*
 
-val someData : InlineDataset = Seq(
-    Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
-    Map("a" -> Some(Json.fromString("Next")), "b" -> Some(Json.fromInt(25))),
-    Map("a" -> Some(Json.fromString("embiggen")), "b" -> Some(Json.fromInt(5)))
-)
+  val someData: InlineDataset = Seq(
+    Map("x" -> Some(Json.fromString("A")), "y" -> Some(Json.fromInt(20))),
+    Map("x" -> Some(Json.fromString("Next")), "y" -> Some(Json.fromInt(25))),
+    Map("x" -> Some(Json.fromString("embiggen")), "y" -> Some(Json.fromInt(5)))
+  )
 
-val theChart = VegaLiteDsl(
+  val theChart = VegaLiteDsl(
     `$schema` = Some("https://vega.github.io/schema/vega-lite/v5.json"),
     description = Some("A simple bar chart that is kinda statically typed"),
     data = Some(
-        URLData(
-            values = Some(
-                someData
-            )
-        )        
+      URLData(
+        values = Some(
+          someData
+        )
+      )
     ),
-    height = Some("container"), 
+    height = Some("container"),
     width = Some("container"),
     mark = Some("bar".asInstanceOf[AnyMark]),
     encoding = Some(
-        EdEncoding(
-            x = Some(
-                XClass(
-                    field = Some("a".asInstanceOf[Field]), 
-                    `type` = Some("nominal".asInstanceOf[viz.dsl.vegaLite.Type]), 
-                    axis = Some(Axis(labelAngle = Some(45.asInstanceOf[LabelAngle]))),
-                )
-            ),
-            y = Some(
-                YClass(
-                    field = Some("b".asInstanceOf[Field]), 
-                    `type` = Some("quantitative".asInstanceOf[viz.dsl.vegaLite.Type]),                     
-                )
-            )
+      EdEncoding(
+        x = Some(
+          XClass(
+            field = Some("x"),
+            `type` = Some(Type.nominal),
+            axis = Some(Axis(labelAngle = 45.0.some))
+          )
+        ),
+        y = Some(
+          YClass(
+            field = Some("y"),
+            `type` = Some(Type.quantitative),
+          )
         )
+      )
     )
-)
-viz.js.showChartJs(DslSpec(theChart), node)
+  )
+viz.js.showChartJs(theChart.plot, node, 50)
 ```
 
 That is... a lot of work though. Writing this out by hand would be formidably hard. Honestly, no one is going to do that. New plan... 
@@ -57,31 +58,34 @@ Cheat! We have a strongly typed representation of the schema, so why not, once a
 
 # Simpler strategy
 
-And seeing as we have a case class... copy...
+And seeing as we have a case class... copy... this uses Vega instead of VegaLite.
 
 ```scala mdoc:js
-import viz.dsl.vegaLite.*
 import viz.dsl.DslPlot.*
 import viz.dsl.DslSpec
 import viz.PlotTargets.doNothing
 import viz.vega.plots.*
-import io.circe._
+import io.circe.syntax.*
+import io.circe.*
+import viz.dsl.vega.*
+import cats.syntax.option.*
 
-val teehee = SpecUrl.SimpleBarChartLite.toDsl()
-val asDsl = teehee.toOption.get.asInstanceOf[VegaLiteDsl]
-val someData : InlineDataset = Seq(
-    Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
-    Map("a" -> Some(Json.fromString("Next")), "b" -> Some(Json.fromInt(25))),
-    Map("a" -> Some(Json.fromString("embiggen")), "b" -> Some(Json.fromInt(5)))
-)
+val asDsl : VegaDsl = viz.vega.plots.BarChart().toDsl()
+case class BarPlotData(category: String, amount: Double) derives Encoder.AsObject, Decoder
+val myData = Data(
+    name = "table",
+    values = Seq(
+      BarPlotData("a", 28),
+      BarPlotData("b", 55),
+      BarPlotData("c", 43),
+    ).asJson.some
+  )
 
 val cheatingCanBeGood = asDsl.copy(
-    data = Some(URLData(values = Some(someData))),
-    width = Some("container"), 
-    height = Some("container")
+    data = Seq(myData).some
 )
 
-viz.js.showChartJs(DslSpec(cheatingCanBeGood), node)
+viz.js.showChartJs(DslSpec(cheatingCanBeGood), node, 50)
 
 ```
 
@@ -93,10 +97,10 @@ import viz.dsl.DslPlot.*
 import viz.dsl.DslSpec
 import viz.PlotTargets.doNothing
 import viz.vega.plots.*
-import io.circe._
+import io.circe.*
+import viz.dsl.vegaLite.*
 
-val teehee = SpecUrl.SimpleBarChartLite.toDsl() // Cunningly parse JSON here
-val asDsl = teehee.toOption.get.asInstanceOf[VegaLiteDsl]
+val asDsl : VegaLiteDsl = viz.vega.plots.SimpleBarChartLite().toDsl()
 val someData : InlineDataset = Seq(
     Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
     Map("a" -> Some(Json.fromString("Next")), "b" -> Some(Json.fromInt(25))),
@@ -112,3 +116,5 @@ asDsl.copy(
 
 # Discussion
 Typesafety is nice to have in the sense that it removes entire categories of "unplottable" states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden. 
+
+I'm on the fence about it's utility in this particular project.
