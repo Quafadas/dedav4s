@@ -114,75 +114,84 @@
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslPlot</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslSpec</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="keyword">given</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">_</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">syntax</span><span>.</span><span class="identifier">option</span><span>.*
 
-</span><span class="keyword">val</span><span> </span><span class="identifier">someData</span><span> : </span><span class="type-name">InlineDataset</span><span> = </span><span class="type-name">Seq</span><span>(
-    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;A&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">20</span><span>))),
-    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;Next&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">25</span><span>))),
-    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;embiggen&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">5</span><span>)))
-)
+  </span><span class="keyword">val</span><span> </span><span class="identifier">someData</span><span>: </span><span class="type-name">InlineDataset</span><span> = </span><span class="type-name">Seq</span><span>(
+    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;x&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;A&quot;</span><span>)), </span><span class="string-literal">&quot;y&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">20</span><span>))),
+    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;x&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;Next&quot;</span><span>)), </span><span class="string-literal">&quot;y&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">25</span><span>))),
+    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;x&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;embiggen&quot;</span><span>)), </span><span class="string-literal">&quot;y&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">5</span><span>)))
+  )
 
-</span><span class="keyword">val</span><span> </span><span class="identifier">theChart</span><span> = </span><span class="type-name">VegaLiteDsl</span><span>(
+  </span><span class="keyword">val</span><span> </span><span class="identifier">theChart</span><span> = </span><span class="type-name">VegaLiteDsl</span><span>(
     </span><span class="identifier">`$schema`</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;https://vega.github.io/schema/vega-lite/v5.json&quot;</span><span>),
     </span><span class="identifier">description</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;A simple bar chart that is kinda statically typed&quot;</span><span>),
     </span><span class="identifier">data</span><span> = </span><span class="type-name">Some</span><span>(
-        </span><span class="type-name">URLData</span><span>(
-            </span><span class="identifier">values</span><span> = </span><span class="type-name">Some</span><span>(
-                </span><span class="identifier">someData</span><span>
-            )
-        )        
+      </span><span class="type-name">URLData</span><span>(
+        </span><span class="identifier">values</span><span> = </span><span class="type-name">Some</span><span>(
+          </span><span class="identifier">someData</span><span>
+        )
+      )
     ),
-    </span><span class="identifier">height</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>), 
+    </span><span class="identifier">height</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>),
     </span><span class="identifier">width</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>),
     </span><span class="identifier">mark</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;bar&quot;</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">AnyMark</span><span>]),
     </span><span class="identifier">encoding</span><span> = </span><span class="type-name">Some</span><span>(
-        </span><span class="type-name">EdEncoding</span><span>(
-            </span><span class="identifier">x</span><span> = </span><span class="type-name">Some</span><span>(
-                </span><span class="type-name">XClass</span><span>(
-                    </span><span class="identifier">field</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">Field</span><span>]), 
-                    </span><span class="identifier">`type`</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;nominal&quot;</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.</span><span class="type-name">Type</span><span>]), 
-                    </span><span class="identifier">axis</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="type-name">Axis</span><span>(</span><span class="identifier">labelAngle</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="number-literal">45</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">LabelAngle</span><span>]))),
-                )
-            ),
-            </span><span class="identifier">y</span><span> = </span><span class="type-name">Some</span><span>(
-                </span><span class="type-name">YClass</span><span>(
-                    </span><span class="identifier">field</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;b&quot;</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">Field</span><span>]), 
-                    </span><span class="identifier">`type`</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;quantitative&quot;</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.</span><span class="type-name">Type</span><span>]),                     
-                )
-            )
+      </span><span class="type-name">EdEncoding</span><span>(
+        </span><span class="identifier">x</span><span> = </span><span class="type-name">Some</span><span>(
+          </span><span class="type-name">XClass</span><span>(
+            </span><span class="identifier">field</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;x&quot;</span><span>),
+            </span><span class="identifier">`type`</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="type-name">Type</span><span>.</span><span class="identifier">nominal</span><span>),
+            </span><span class="identifier">axis</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="type-name">Axis</span><span>(</span><span class="identifier">labelAngle</span><span> = </span><span class="number-literal">45.0</span><span>.</span><span class="identifier">some</span><span>))
+          )
+        ),
+        </span><span class="identifier">y</span><span> = </span><span class="type-name">Some</span><span>(
+          </span><span class="type-name">YClass</span><span>(
+            </span><span class="identifier">field</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;y&quot;</span><span>),
+            </span><span class="identifier">`type`</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="type-name">Type</span><span>.</span><span class="identifier">quantitative</span><span>),
+          )
         )
+      )
     )
-)
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">DslSpec</span><span>(</span><span class="identifier">theChart</span><span>), </span><span class="identifier">node</span><span>)</span></code></pre>
+  )
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">theChart</span><span>.</span><span class="identifier">plot</span><span>, </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
         <p>That is... a lot of work though. Writing this out by hand would be formidably hard. Honestly, no one is going to do that. New plan... </p>
         <p>Cheat! We have a strongly typed representation of the schema, so why not, once again... start from the examples. </p>
         
         <h1 id="simpler-strategy" class="section"><a class="anchor-link left" href="#simpler-strategy"><i class="icofont-laika">&#xef71;</i></a>Simpler strategy</h1>
-        <p>And seeing as we have a case class... copy...</p>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslPlot</span><span>.*
+        <p>And seeing as we have a case class... copy... this uses Vega instead of VegaLite.</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslPlot</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslSpec</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">_</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">syntax</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vega</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">syntax</span><span>.</span><span class="identifier">option</span><span>.*
 
-</span><span class="keyword">val</span><span> </span><span class="identifier">teehee</span><span> = </span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">SimpleBarChartLite</span><span>.</span><span class="identifier">toDsl</span><span>()
-</span><span class="keyword">val</span><span> </span><span class="identifier">asDsl</span><span> = </span><span class="identifier">teehee</span><span>.</span><span class="identifier">toOption</span><span>.</span><span class="identifier">get</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">VegaLiteDsl</span><span>]
-</span><span class="keyword">val</span><span> </span><span class="identifier">someData</span><span> : </span><span class="type-name">InlineDataset</span><span> = </span><span class="type-name">Seq</span><span>(
-    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;A&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">20</span><span>))),
-    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;Next&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">25</span><span>))),
-    </span><span class="type-name">Map</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromString</span><span>(</span><span class="string-literal">&quot;embiggen&quot;</span><span>)), </span><span class="string-literal">&quot;b&quot;</span><span> -&gt; </span><span class="type-name">Some</span><span>(</span><span class="type-name">Json</span><span>.</span><span class="identifier">fromInt</span><span>(</span><span class="number-literal">5</span><span>)))
-)
+</span><span class="comment">// Let&#39;s fetch the example... and parse it. 
+</span><span class="keyword">val</span><span> </span><span class="identifier">asDsl</span><span> : </span><span class="type-name">VegaDsl</span><span> = </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">BarChart</span><span>().</span><span class="identifier">toDsl</span><span>()
 
+</span><span class="comment">// We make up a case class that happens to have category and amount fields
+</span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">BarPlotData</span><span>(</span><span class="identifier">category</span><span>: </span><span class="type-name">String</span><span>, </span><span class="identifier">amount</span><span>: </span><span class="type-name">Double</span><span>) </span><span class="keyword">derives</span><span> </span><span class="type-name">Encoder</span><span>.</span><span class="type-name">AsObject</span><span>, </span><span class="type-name">Decoder</span><span>
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">myData</span><span> = </span><span class="type-name">Data</span><span>(
+    </span><span class="identifier">name</span><span> = </span><span class="string-literal">&quot;table&quot;</span><span>,
+    </span><span class="identifier">values</span><span> = </span><span class="type-name">Seq</span><span>(
+      </span><span class="type-name">BarPlotData</span><span>(</span><span class="string-literal">&quot;a&quot;</span><span>, </span><span class="number-literal">28</span><span>),
+      </span><span class="type-name">BarPlotData</span><span>(</span><span class="string-literal">&quot;b&quot;</span><span>, </span><span class="number-literal">55</span><span>),
+      </span><span class="type-name">BarPlotData</span><span>(</span><span class="string-literal">&quot;c&quot;</span><span>, </span><span class="number-literal">43</span><span>),
+    ).</span><span class="identifier">asJson</span><span>.</span><span class="identifier">some</span><span>
+  )
+
+</span><span class="comment">// And now, this plot is &quot;typesafe&quot;
 </span><span class="keyword">val</span><span> </span><span class="identifier">cheatingCanBeGood</span><span> = </span><span class="identifier">asDsl</span><span>.</span><span class="identifier">copy</span><span>(
-    </span><span class="identifier">data</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="type-name">URLData</span><span>(</span><span class="identifier">values</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="identifier">someData</span><span>))),
-    </span><span class="identifier">width</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>), 
-    </span><span class="identifier">height</span><span> = </span><span class="type-name">Some</span><span>(</span><span class="string-literal">&quot;container&quot;</span><span>)
+    </span><span class="identifier">data</span><span> = </span><span class="type-name">Seq</span><span>(</span><span class="identifier">myData</span><span>).</span><span class="identifier">some</span><span>
 )
 
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">DslSpec</span><span>(</span><span class="identifier">cheatingCanBeGood</span><span>), </span><span class="identifier">node</span><span>)</span></code></pre>
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">DslSpec</span><span>(</span><span class="identifier">cheatingCanBeGood</span><span>), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)</span></code></pre>
         <div id="mdoc-html-run1" data-mdoc-js></div>
         <p>To give an idea of the types, let&#39;s run this again in scala JVM</p>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.*
@@ -190,60 +199,10 @@
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="type-name">DslSpec</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">_</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">dsl</span><span>.</span><span class="identifier">vegaLite</span><span>.*
 
-</span><span class="keyword">val</span><span> </span><span class="identifier">teehee</span><span> = </span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">SimpleBarChartLite</span><span>.</span><span class="identifier">toDsl</span><span>() </span><span class="comment">// Cunningly parse JSON here
-// teehee: Either[Error, VegaLiteDsl | VegaDsl] = Right(
-//   value = VegaLiteDsl(
-//     $schema = Some(value = &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;),
-//     align = None,
-//     autosize = None,
-//     background = None,
-//     bounds = None,
-//     center = None,
-//     config = None,
-//     data = Some(
-//       value = URLData(
-//         format = None,
-//         name = None,
-//         url = None,
-//         values = Some(
-//           value = List(
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;A&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 28L)))
-//             ),
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;B&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 55L)))
-//             ),
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;C&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 43L)))
-//             ),
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;D&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 91L)))
-//             ),
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;E&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 81L)))
-//             ),
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;F&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 53L)))
-//             ),
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;G&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 19L)))
-//             ),
-//             Map(
-//               &quot;a&quot; -&gt; Some(value = JString(value = &quot;H&quot;)),
-//               &quot;b&quot; -&gt; Some(value = JNumber(value = JsonLong(value = 87L)))
-//             ),
-//             Map(
-// ... // Cunningly parse JSON here
-</span><span class="keyword">val</span><span> </span><span class="identifier">asDsl</span><span> = </span><span class="identifier">teehee</span><span>.</span><span class="identifier">toOption</span><span>.</span><span class="identifier">get</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="type-name">VegaLiteDsl</span><span>]
+</span><span class="keyword">val</span><span> </span><span class="identifier">asDsl</span><span> : </span><span class="type-name">VegaLiteDsl</span><span> = </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">SimpleBarChartLite</span><span>().</span><span class="identifier">toDsl</span><span>()
 </span><span class="comment">// asDsl: VegaLiteDsl = VegaLiteDsl(
 //   $schema = Some(value = &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;),
 //   align = None,
@@ -371,7 +330,8 @@
 // ...</span></code></pre>
         
         <h1 id="discussion" class="section"><a class="anchor-link left" href="#discussion"><i class="icofont-laika">&#xef71;</i></a>Discussion</h1>
-        <p>Typesafety is nice to have in the sense that it removes entire categories of &quot;unplottable&quot; states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden. <script type="text/javascript" src="typesafe.md.js" defer></script>
+        <p>Typesafety is nice to have in the sense that it removes entire categories of &quot;unplottable&quot; states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden. </p>
+        <p>I&#39;m on the fence about it&#39;s utility in this particular project.<script type="text/javascript" src="typesafe.md.js" defer></script>
         <script type="text/javascript" src="mdoc.js" defer></script></p>
 
         <hr style="margin-top: 30px"/>

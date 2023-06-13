@@ -1283,6 +1283,35 @@ function $m_jl_Math$() {
   };
   return $n_jl_Math$
 }
+/** @constructor */
+function $c_jl_System$Streams$() {
+  this.jl_System$Streams$__f_out = null;
+  this.jl_System$Streams$__f_err = null;
+  $n_jl_System$Streams$ = this;
+  this.jl_System$Streams$__f_out = new $c_jl_JSConsoleBasedPrintStream(false);
+  this.jl_System$Streams$__f_err = new $c_jl_JSConsoleBasedPrintStream(true)
+}
+$c_jl_System$Streams$.prototype = new $h_O();
+$c_jl_System$Streams$.prototype.constructor = $c_jl_System$Streams$;
+/** @constructor */
+function $h_jl_System$Streams$() {
+  /*<skip>*/
+}
+$h_jl_System$Streams$.prototype = $c_jl_System$Streams$.prototype;
+var $d_jl_System$Streams$ = new $TypeData().initClass({
+  jl_System$Streams$: 0
+}, false, "java.lang.System$Streams$", {
+  jl_System$Streams$: 1,
+  O: 1
+});
+$c_jl_System$Streams$.prototype.$classData = $d_jl_System$Streams$;
+var $n_jl_System$Streams$;
+function $m_jl_System$Streams$() {
+  if ((!$n_jl_System$Streams$)) {
+    $n_jl_System$Streams$ = new $c_jl_System$Streams$()
+  };
+  return $n_jl_System$Streams$
+}
 function $p_jl_System$SystemProperties$__loadSystemProperties__O($thiz) {
   var result = {};
   result["java.version"] = "1.8";
@@ -3612,6 +3641,28 @@ function $m_sr_Statics$PFMarker$() {
   };
   return $n_sr_Statics$PFMarker$
 }
+/** @constructor */
+function $c_s_util_DynamicVariable(init) {
+  this.s_util_DynamicVariable__f_v = null;
+  this.s_util_DynamicVariable__f_v = init
+}
+$c_s_util_DynamicVariable.prototype = new $h_O();
+$c_s_util_DynamicVariable.prototype.constructor = $c_s_util_DynamicVariable;
+/** @constructor */
+function $h_s_util_DynamicVariable() {
+  /*<skip>*/
+}
+$h_s_util_DynamicVariable.prototype = $c_s_util_DynamicVariable.prototype;
+$c_s_util_DynamicVariable.prototype.toString__T = (function() {
+  return (("DynamicVariable(" + this.s_util_DynamicVariable__f_v) + ")")
+});
+var $d_s_util_DynamicVariable = new $TypeData().initClass({
+  s_util_DynamicVariable: 0
+}, false, "scala.util.DynamicVariable", {
+  s_util_DynamicVariable: 1,
+  O: 1
+});
+$c_s_util_DynamicVariable.prototype.$classData = $d_s_util_DynamicVariable;
 function $f_s_util_control_NoStackTrace__fillInStackTrace__jl_Throwable($thiz) {
   var this$1 = $m_s_util_control_NoStackTrace$();
   if (this$1.s_util_control_NoStackTrace$__f__noSuppression) {
@@ -5196,6 +5247,10 @@ function $f_Lviz_PlatformGetSpec__jsonSpec__Lujson_Value($thiz) {
     var $$x1 = (this$1 === x1)
   };
   if ($$x1) {
+    var x$1 = ("Fetching Vega spec from " + $thiz.Lviz_vega_plots_SpecUrl__f_url);
+    var this$3 = $m_s_Console$();
+    var this$4 = $n(this$3.out__Ljava_io_PrintStream());
+    this$4.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x$1 + "\n"));
     var xhr = new XMLHttpRequest();
     xhr.open("GET", $thiz.Lviz_vega_plots_SpecUrl__f_url, false);
     xhr.send();
@@ -5207,8 +5262,8 @@ function $f_Lviz_PlatformGetSpec__jsonSpec__Lujson_Value($thiz) {
   if ((x$3 === null)) {
     var $$x3 = (x1 === null)
   } else {
-    var this$3 = $n(x$3);
-    var $$x3 = (this$3 === x1)
+    var this$6 = $n(x$3);
+    var $$x3 = (this$6 === x1)
   };
   if ($$x3) {
     var xhr$2 = new XMLHttpRequest();
@@ -7375,6 +7430,39 @@ function $m_s_Array$() {
     $n_s_Array$ = new $c_s_Array$()
   };
   return $n_s_Array$
+}
+/** @constructor */
+function $c_s_Console$() {
+  this.s_Console$__f_outVar = null;
+  $n_s_Console$ = this;
+  this.s_Console$__f_outVar = new $c_s_util_DynamicVariable($m_jl_System$Streams$().jl_System$Streams$__f_out);
+  new $c_s_util_DynamicVariable($m_jl_System$Streams$().jl_System$Streams$__f_err);
+  new $c_s_util_DynamicVariable(null)
+}
+$c_s_Console$.prototype = new $h_O();
+$c_s_Console$.prototype.constructor = $c_s_Console$;
+/** @constructor */
+function $h_s_Console$() {
+  /*<skip>*/
+}
+$h_s_Console$.prototype = $c_s_Console$.prototype;
+$c_s_Console$.prototype.out__Ljava_io_PrintStream = (function() {
+  return $as_Ljava_io_PrintStream($n(this.s_Console$__f_outVar).s_util_DynamicVariable__f_v)
+});
+var $d_s_Console$ = new $TypeData().initClass({
+  s_Console$: 0
+}, false, "scala.Console$", {
+  s_Console$: 1,
+  O: 1,
+  s_io_AnsiColor: 1
+});
+$c_s_Console$.prototype.$classData = $d_s_Console$;
+var $n_s_Console$;
+function $m_s_Console$() {
+  if ((!$n_s_Console$)) {
+    $n_s_Console$ = new $c_s_Console$()
+  };
+  return $n_s_Console$
 }
 /** @constructor */
 function $c_s_Option$() {
@@ -12592,6 +12680,17 @@ function $isArrayOf_Ljava_io_IOException(obj, depth) {
 function $asArrayOf_Ljava_io_IOException(obj, depth) {
   return (($isArrayOf_Ljava_io_IOException(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Ljava.io.IOException;", depth))
 }
+/** @constructor */
+function $c_Ljava_io_OutputStream() {
+  /*<skip>*/
+}
+$c_Ljava_io_OutputStream.prototype = new $h_O();
+$c_Ljava_io_OutputStream.prototype.constructor = $c_Ljava_io_OutputStream;
+/** @constructor */
+function $h_Ljava_io_OutputStream() {
+  /*<skip>*/
+}
+$h_Ljava_io_OutputStream.prototype = $c_Ljava_io_OutputStream.prototype;
 class $c_jl_AssertionError extends $c_jl_Error {
   constructor(detailMessage) {
     super();
@@ -14624,6 +14723,20 @@ $c_Lviz_FromUrl.prototype.baseSpec__Lujson_Value = (function() {
   };
   return this.Lviz_FromUrl__f_baseSpec$lzy1
 });
+function $ct_Ljava_io_FilterOutputStream__Ljava_io_OutputStream__($thiz, out) {
+  return $thiz
+}
+/** @constructor */
+function $c_Ljava_io_FilterOutputStream() {
+  /*<skip>*/
+}
+$c_Ljava_io_FilterOutputStream.prototype = new $h_Ljava_io_OutputStream();
+$c_Ljava_io_FilterOutputStream.prototype.constructor = $c_Ljava_io_FilterOutputStream;
+/** @constructor */
+function $h_Ljava_io_FilterOutputStream() {
+  /*<skip>*/
+}
+$h_Ljava_io_FilterOutputStream.prototype = $c_Ljava_io_FilterOutputStream.prototype;
 function $ct_Ljava_io_Writer__($thiz) {
   return $thiz
 }
@@ -14785,6 +14898,28 @@ var $d_jl_IndexOutOfBoundsException = new $TypeData().initClass({
   Ljava_io_Serializable: 1
 });
 $c_jl_IndexOutOfBoundsException.prototype.$classData = $d_jl_IndexOutOfBoundsException;
+/** @constructor */
+function $c_jl_JSConsoleBasedPrintStream$DummyOutputStream() {
+  /*<skip>*/
+}
+$c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype = new $h_Ljava_io_OutputStream();
+$c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype.constructor = $c_jl_JSConsoleBasedPrintStream$DummyOutputStream;
+/** @constructor */
+function $h_jl_JSConsoleBasedPrintStream$DummyOutputStream() {
+  /*<skip>*/
+}
+$h_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype = $c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype;
+var $d_jl_JSConsoleBasedPrintStream$DummyOutputStream = new $TypeData().initClass({
+  jl_JSConsoleBasedPrintStream$DummyOutputStream: 0
+}, false, "java.lang.JSConsoleBasedPrintStream$DummyOutputStream", {
+  jl_JSConsoleBasedPrintStream$DummyOutputStream: 1,
+  Ljava_io_OutputStream: 1,
+  O: 1,
+  Ljava_io_Closeable: 1,
+  jl_AutoCloseable: 1,
+  Ljava_io_Flushable: 1
+});
+$c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype.$classData = $d_jl_JSConsoleBasedPrintStream$DummyOutputStream;
 class $c_jl_NegativeArraySizeException extends $c_jl_RuntimeException {
   constructor() {
     super();
@@ -19405,6 +19540,37 @@ $c_Lviz_vega_plots_SpecUrl.prototype.jsonSpec__Lujson_Value = (function() {
 $c_Lviz_vega_plots_SpecUrl.prototype.productIterator__sc_Iterator = (function() {
   return new $c_s_Product$$anon$1(this)
 });
+function $ct_Ljava_io_PrintStream__Ljava_io_OutputStream__Z__Ljava_nio_charset_Charset__($thiz, _out, autoFlush, charset) {
+  $ct_Ljava_io_FilterOutputStream__Ljava_io_OutputStream__($thiz, _out);
+  return $thiz
+}
+/** @constructor */
+function $c_Ljava_io_PrintStream() {
+  /*<skip>*/
+}
+$c_Ljava_io_PrintStream.prototype = new $h_Ljava_io_FilterOutputStream();
+$c_Ljava_io_PrintStream.prototype.constructor = $c_Ljava_io_PrintStream;
+/** @constructor */
+function $h_Ljava_io_PrintStream() {
+  /*<skip>*/
+}
+$h_Ljava_io_PrintStream.prototype = $c_Ljava_io_PrintStream.prototype;
+$c_Ljava_io_PrintStream.prototype.append__jl_CharSequence__Ljava_io_PrintStream = (function(csq) {
+  this.print__T__V(((csq === null) ? "null" : $dp_toString__T($n(csq))));
+  return this
+});
+$c_Ljava_io_PrintStream.prototype.append__jl_CharSequence__jl_Appendable = (function(csq) {
+  return this.append__jl_CharSequence__Ljava_io_PrintStream(csq)
+});
+function $as_Ljava_io_PrintStream(obj) {
+  return (((obj instanceof $c_Ljava_io_PrintStream) || (obj === null)) ? obj : $throwClassCastException(obj, "java.io.PrintStream"))
+}
+function $isArrayOf_Ljava_io_PrintStream(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Ljava_io_PrintStream)))
+}
+function $asArrayOf_Ljava_io_PrintStream(obj, depth) {
+  return (($isArrayOf_Ljava_io_PrintStream(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Ljava.io.PrintStream;", depth))
+}
 /** @constructor */
 function $c_Ljava_nio_HeapCharBuffer(_capacity, _array0, _arrayOffset0, _initialPosition, _initialLimit, _readOnly) {
   this.Ljava_nio_Buffer__f__capacity = 0;
@@ -21204,6 +21370,76 @@ function $m_Lujson_Value$() {
   };
   return $n_Lujson_Value$
 }
+function $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V($thiz, line) {
+  if (($as_T((typeof console)) !== "undefined")) {
+    if (($thiz.jl_JSConsoleBasedPrintStream__f_isErr && $uZ((!(!console.error))))) {
+      console.error(line)
+    } else {
+      console.log(line)
+    }
+  }
+}
+/** @constructor */
+function $c_jl_JSConsoleBasedPrintStream(isErr) {
+  this.jl_JSConsoleBasedPrintStream__f_isErr = false;
+  this.jl_JSConsoleBasedPrintStream__f_buffer = null;
+  this.jl_JSConsoleBasedPrintStream__f_isErr = isErr;
+  var out = new $c_jl_JSConsoleBasedPrintStream$DummyOutputStream();
+  $ct_Ljava_io_PrintStream__Ljava_io_OutputStream__Z__Ljava_nio_charset_Charset__(this, out, false, null);
+  this.jl_JSConsoleBasedPrintStream__f_buffer = ""
+}
+$c_jl_JSConsoleBasedPrintStream.prototype = new $h_Ljava_io_PrintStream();
+$c_jl_JSConsoleBasedPrintStream.prototype.constructor = $c_jl_JSConsoleBasedPrintStream;
+/** @constructor */
+function $h_jl_JSConsoleBasedPrintStream() {
+  /*<skip>*/
+}
+$h_jl_JSConsoleBasedPrintStream.prototype = $c_jl_JSConsoleBasedPrintStream.prototype;
+$c_jl_JSConsoleBasedPrintStream.prototype.print__T__V = (function(s) {
+  this.java$lang$JSConsoleBasedPrintStream$$printString__T__V(((s === null) ? "null" : s))
+});
+$c_jl_JSConsoleBasedPrintStream.prototype.java$lang$JSConsoleBasedPrintStream$$printString__T__V = (function(s) {
+  var rest = s;
+  while ((rest !== "")) {
+    var this$1 = $n(rest);
+    var nlPos = $uI(this$1.indexOf("\n"));
+    if ((nlPos < 0)) {
+      this.jl_JSConsoleBasedPrintStream__f_buffer = (("" + this.jl_JSConsoleBasedPrintStream__f_buffer) + rest);
+      rest = ""
+    } else {
+      var $$x1 = this.jl_JSConsoleBasedPrintStream__f_buffer;
+      var this$2 = $n(rest);
+      if ((nlPos > this$2.length)) {
+        $charAt(this$2, nlPos)
+      };
+      if ((nlPos < 0)) {
+        $charAt(this$2, (-1))
+      };
+      $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V(this, (("" + $$x1) + $as_T(this$2.substring(0, nlPos))));
+      this.jl_JSConsoleBasedPrintStream__f_buffer = "";
+      var this$3 = $n(rest);
+      var beginIndex = ((1 + nlPos) | 0);
+      if (((beginIndex < 0) || (beginIndex > this$3.length))) {
+        $charAt(this$3, beginIndex)
+      };
+      rest = $as_T(this$3.substring(beginIndex))
+    }
+  }
+});
+var $d_jl_JSConsoleBasedPrintStream = new $TypeData().initClass({
+  jl_JSConsoleBasedPrintStream: 0
+}, false, "java.lang.JSConsoleBasedPrintStream", {
+  jl_JSConsoleBasedPrintStream: 1,
+  Ljava_io_PrintStream: 1,
+  Ljava_io_FilterOutputStream: 1,
+  Ljava_io_OutputStream: 1,
+  O: 1,
+  Ljava_io_Closeable: 1,
+  jl_AutoCloseable: 1,
+  Ljava_io_Flushable: 1,
+  jl_Appendable: 1
+});
+$c_jl_JSConsoleBasedPrintStream.prototype.$classData = $d_jl_JSConsoleBasedPrintStream;
 /** @constructor */
 function $c_Ljava_time_LocalDate(year, monthOfYear, dayOfMonth) {
   this.Ljava_time_LocalDate__f_year = 0;
@@ -21495,85 +21731,6 @@ $c_s_reflect_ManifestFactory$UnitManifest.prototype.runtimeClass__jl_Class = (fu
 $c_s_reflect_ManifestFactory$UnitManifest.prototype.newArray__I__O = (function(len) {
   return new ($d_jl_Void.getArrayOf().constr)(len)
 });
-/** @constructor */
-function $c_Lviz_vega_plots_LineChartLite(mods, x$2) {
-  this.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget = null;
-  this.Lviz_FromUrl__f_location = null;
-  this.Lviz_FromUrl__f_baseSpec$lzy1 = null;
-  this.Lviz_FromUrl__f_baseSpecbitmap$1 = false;
-  this.Lviz_vega_plots_LineChartLite__f_mods = null;
-  this.Lviz_vega_plots_LineChartLite__f_mods = mods;
-  $ct_Lviz_FromUrl__Lviz_vega_plots_SpecUrl__Lviz_LowPriorityPlotTarget__(this, $s_Lviz_vega_plots_SpecUrl$__LineChartLite__Lviz_vega_plots_SpecUrl(), x$2)
-}
-$c_Lviz_vega_plots_LineChartLite.prototype = new $h_Lviz_FromUrl();
-$c_Lviz_vega_plots_LineChartLite.prototype.constructor = $c_Lviz_vega_plots_LineChartLite;
-/** @constructor */
-function $h_Lviz_vega_plots_LineChartLite() {
-  /*<skip>*/
-}
-$h_Lviz_vega_plots_LineChartLite.prototype = $c_Lviz_vega_plots_LineChartLite.prototype;
-$c_Lviz_vega_plots_LineChartLite.prototype.productIterator__sc_Iterator = (function() {
-  return new $c_s_Product$$anon$1(this)
-});
-$c_Lviz_vega_plots_LineChartLite.prototype.hashCode__I = (function() {
-  var this$2 = $m_s_util_hashing_MurmurHash3$();
-  return this$2.productHash__s_Product__I__Z__I(this, (-889275714), false)
-});
-$c_Lviz_vega_plots_LineChartLite.prototype.equals__O__Z = (function(x$0) {
-  if ((this === x$0)) {
-    return true
-  } else if ((x$0 instanceof $c_Lviz_vega_plots_LineChartLite)) {
-    var x$0$2 = $as_Lviz_vega_plots_LineChartLite(x$0);
-    var x = this.Lviz_vega_plots_LineChartLite__f_mods;
-    var x$2 = $n(x$0$2).Lviz_vega_plots_LineChartLite__f_mods;
-    if (((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))) {
-      $n(x$0$2);
-      return true
-    } else {
-      return false
-    }
-  } else {
-    return false
-  }
-});
-$c_Lviz_vega_plots_LineChartLite.prototype.toString__T = (function() {
-  return $m_sr_ScalaRunTime$()._toString__s_Product__T(this)
-});
-$c_Lviz_vega_plots_LineChartLite.prototype.productArity__I = (function() {
-  return 1
-});
-$c_Lviz_vega_plots_LineChartLite.prototype.productPrefix__T = (function() {
-  return "LineChartLite"
-});
-$c_Lviz_vega_plots_LineChartLite.prototype.productElement__I__O = (function(n) {
-  if ((n === 0)) {
-    return this.Lviz_vega_plots_LineChartLite__f_mods
-  };
-  throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), ("" + n))
-});
-function $as_Lviz_vega_plots_LineChartLite(obj) {
-  return (((obj instanceof $c_Lviz_vega_plots_LineChartLite) || (obj === null)) ? obj : $throwClassCastException(obj, "viz.vega.plots.LineChartLite"))
-}
-function $isArrayOf_Lviz_vega_plots_LineChartLite(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lviz_vega_plots_LineChartLite)))
-}
-function $asArrayOf_Lviz_vega_plots_LineChartLite(obj, depth) {
-  return (($isArrayOf_Lviz_vega_plots_LineChartLite(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lviz.vega.plots.LineChartLite;", depth))
-}
-var $d_Lviz_vega_plots_LineChartLite = new $TypeData().initClass({
-  Lviz_vega_plots_LineChartLite: 0
-}, false, "viz.vega.plots.LineChartLite", {
-  Lviz_vega_plots_LineChartLite: 1,
-  Lviz_FromUrl: 1,
-  Lviz_WithBaseSpec: 1,
-  O: 1,
-  Lviz_Spec: 1,
-  Lviz_PlatformShow: 1,
-  s_Equals: 1,
-  s_Product: 1,
-  Ljava_io_Serializable: 1
-});
-$c_Lviz_vega_plots_LineChartLite.prototype.$classData = $d_Lviz_vega_plots_LineChartLite;
 /** @constructor */
 function $c_sc_AbstractView() {
   /*<skip>*/
@@ -22121,6 +22278,86 @@ function $m_s_reflect_ManifestFactory$UnitManifest$() {
   };
   return $n_s_reflect_ManifestFactory$UnitManifest$
 }
+/** @constructor */
+function $c_Lviz_vega_plots_LineChartLite(mods, x$2) {
+  this.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget = null;
+  this.Lviz_FromUrl__f_location = null;
+  this.Lviz_FromUrl__f_baseSpec$lzy1 = null;
+  this.Lviz_FromUrl__f_baseSpecbitmap$1 = false;
+  this.Lviz_vega_plots_LineChartLite__f_mods = null;
+  this.Lviz_vega_plots_LineChartLite__f_mods = mods;
+  $ct_Lviz_FromUrl__Lviz_vega_plots_SpecUrl__Lviz_LowPriorityPlotTarget__(this, $s_Lviz_vega_plots_SpecUrl$__LineChartLite__Lviz_vega_plots_SpecUrl(), x$2)
+}
+$c_Lviz_vega_plots_LineChartLite.prototype = new $h_Lviz_FromUrl();
+$c_Lviz_vega_plots_LineChartLite.prototype.constructor = $c_Lviz_vega_plots_LineChartLite;
+/** @constructor */
+function $h_Lviz_vega_plots_LineChartLite() {
+  /*<skip>*/
+}
+$h_Lviz_vega_plots_LineChartLite.prototype = $c_Lviz_vega_plots_LineChartLite.prototype;
+$c_Lviz_vega_plots_LineChartLite.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_s_Product$$anon$1(this)
+});
+$c_Lviz_vega_plots_LineChartLite.prototype.hashCode__I = (function() {
+  var this$2 = $m_s_util_hashing_MurmurHash3$();
+  return this$2.productHash__s_Product__I__Z__I(this, (-889275714), false)
+});
+$c_Lviz_vega_plots_LineChartLite.prototype.equals__O__Z = (function(x$0) {
+  if ((this === x$0)) {
+    return true
+  } else if ((x$0 instanceof $c_Lviz_vega_plots_LineChartLite)) {
+    var x$0$2 = $as_Lviz_vega_plots_LineChartLite(x$0);
+    var x = this.Lviz_vega_plots_LineChartLite__f_mods;
+    var x$2 = $n(x$0$2).Lviz_vega_plots_LineChartLite__f_mods;
+    if (((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))) {
+      $n(x$0$2);
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+});
+$c_Lviz_vega_plots_LineChartLite.prototype.toString__T = (function() {
+  return $m_sr_ScalaRunTime$()._toString__s_Product__T(this)
+});
+$c_Lviz_vega_plots_LineChartLite.prototype.productArity__I = (function() {
+  return 1
+});
+$c_Lviz_vega_plots_LineChartLite.prototype.productPrefix__T = (function() {
+  return "LineChartLite"
+});
+$c_Lviz_vega_plots_LineChartLite.prototype.productElement__I__O = (function(n) {
+  if ((n === 0)) {
+    return this.Lviz_vega_plots_LineChartLite__f_mods
+  };
+  throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), ("" + n))
+});
+function $as_Lviz_vega_plots_LineChartLite(obj) {
+  return (((obj instanceof $c_Lviz_vega_plots_LineChartLite) || (obj === null)) ? obj : $throwClassCastException(obj, "viz.vega.plots.LineChartLite"))
+}
+function $isArrayOf_Lviz_vega_plots_LineChartLite(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lviz_vega_plots_LineChartLite)))
+}
+function $asArrayOf_Lviz_vega_plots_LineChartLite(obj, depth) {
+  return (($isArrayOf_Lviz_vega_plots_LineChartLite(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lviz.vega.plots.LineChartLite;", depth))
+}
+var $d_Lviz_vega_plots_LineChartLite = new $TypeData().initClass({
+  Lviz_vega_plots_LineChartLite: 0
+}, false, "viz.vega.plots.LineChartLite", {
+  Lviz_vega_plots_LineChartLite: 1,
+  Lviz_FromUrl: 1,
+  Lviz_WithBaseSpec: 1,
+  O: 1,
+  Lviz_Spec: 1,
+  Lviz_PlatformShow: 1,
+  Lviz_PlotHasVegaLiteDsl: 1,
+  s_Equals: 1,
+  s_Product: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lviz_vega_plots_LineChartLite.prototype.$classData = $d_Lviz_vega_plots_LineChartLite;
 function $f_sc_Seq__equals__O__Z($thiz, o) {
   if (($thiz === o)) {
     return true
