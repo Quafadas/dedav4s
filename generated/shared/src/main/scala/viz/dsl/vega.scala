@@ -1914,7 +1914,6 @@ case class MarkEncode(
 ) derives Encoder.AsObject,
       Decoder
 
-
 case class EncodeEntry(
     val align: Option[AlignValue] = None,
     val angle: Option[NumberValue] = None,
@@ -1967,7 +1966,7 @@ case class EncodeEntry(
     val strokeDash: Option[ArrayValue] = None,
     val strokeDashOffset: Option[NumberValue] = None,
     val strokeForeground: Option[BooleanValue] = None,
-    //val strokeJoin: Option[StrokeJoinValue] = None,
+    // val strokeJoin: Option[StrokeJoinValue] = None,
     val strokeMiterLimit: Option[NumberValue] = None,
     val strokeOffset: Option[NumberValue] = None,
     val strokeOpacity: Option[NumberValue] = None,
@@ -2069,7 +2068,6 @@ case class LabelAlignClass(
 ) derives Encoder.AsObject,
       Decoder
 
-
 case class TickRoundClass(
     val scale: Option[Field] = None,
     val signal: Option[String] = None,
@@ -2085,7 +2083,6 @@ case class TickRoundClass(
 //   case enc0: TickRoundClass        => Encoder.AsObject[TickRoundClass].apply(enc0)
 //   case enc1: Seq[TickRoundElement] => Encoder.encodeSeq[TickRoundElement].apply(enc1)
 // }
-
 
 // given Encoder[StringValue] = Encoder.instance {
 //   case enc0: DomainCapClass        => Encoder.AsObject[DomainCapClass].apply(enc0)
@@ -2256,7 +2253,6 @@ case class StrokeCapValueClass(
 ) derives Encoder.AsObject,
       Decoder
 
-
 // given Encoder[ArrayValue] = Encoder.instance {
 //   case enc0: DomainDashClass        => Encoder.AsObject[DomainDashClass].apply(enc0)
 //   case enc1: Seq[DomainDashElement] => Encoder.encodeSeq[DomainDashElement].apply(enc1)
@@ -2273,7 +2269,6 @@ case class DomainDashElement(
     val offset: Option[Json] = None
 ) derives Encoder.AsObject,
       Decoder
-
 
 case class Layout(
     val align: Option[AlignUnion] = None,

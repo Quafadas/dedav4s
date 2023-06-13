@@ -53,11 +53,11 @@ class ResourceTest extends munit.FunSuite:
     val parseCirce = decode[VegaDsl](spec).fold(throw _, identity)
     val jsonFromCirce = parseCirce.asJson.deepDropNullValues
     val pureSpec = parse(spec).fold(throw _, identity)
-    assert(jsonFromCirce == pureSpec)    
+    assert(jsonFromCirce == pureSpec)
   }
 
   test("That the vega lite DSL correctly round trips a simple spec") {
-    val spec = Source.fromResource("BarChartLite.json").mkString    
+    val spec = Source.fromResource("BarChartLite.json").mkString
     val parseCirce = decode[VegaLiteDsl](spec).fold(throw _, identity)
     val jsonFromCirce = parseCirce.asJson.deepDropNullValues
     val pureSpec = parse(spec).fold(throw _, identity)
