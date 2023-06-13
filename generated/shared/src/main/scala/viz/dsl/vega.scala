@@ -1907,6 +1907,374 @@ case class IndecentSignalRef(
 
 case class VegaEncode() derives Encoder.AsObject, Decoder
 
+case class MarkEncode(
+    val enter: Option[EncodeEntry] = None,
+    val update: Option[EncodeEntry] = None,
+    val hover: Option[EncodeEntry] = None
+) derives Encoder.AsObject,
+      Decoder
+
+
+case class EncodeEntry(
+    val align: Option[AlignValue] = None,
+    val angle: Option[NumberValue] = None,
+    val aria: Option[BooleanValue] = None,
+    val ariaRole: Option[StringValue] = None,
+    val aspect: Option[BooleanValue] = None,
+    val ariaRoleDescription: Option[StringValue] = None,
+    val baseline: Option[BaselineValue] = None,
+    val blend: Option[BlendValue] = None,
+    val clip: Option[BooleanValue] = None,
+    val cornerRadius: Option[NumberValue] = None,
+    val cornerRadiusBottomLeft: Option[NumberValue] = None,
+    val cornerRadiusBottomRight: Option[NumberValue] = None,
+    val cornerRadiusTopLeft: Option[NumberValue] = None,
+    val cornerRadiusTopRight: Option[NumberValue] = None,
+    val cursor: Option[StringValue] = None,
+    val defined: Option[BooleanValue] = None,
+    val description: Option[StringValue] = None,
+    val dir: Option[StringValue] = None,
+    val dx: Option[NumberValue] = None,
+    val dy: Option[NumberValue] = None,
+    val ellipsis: Option[StringValue] = None,
+    val endAngle: Option[NumberValue] = None,
+    val fill: Option[ColorValue] = None,
+    val fillOpacity: Option[NumberValue] = None,
+    val font: Option[StringValue] = None,
+    val fontSize: Option[NumberValue] = None,
+    val fontStyle: Option[StringValue] = None,
+    val fontWeight: Option[FontWeightValue] = None,
+    val height: Option[NumberValue] = None,
+    val innerRadius: Option[NumberValue] = None,
+    val interpolate: Option[StringValue] = None,
+    val limit: Option[NumberValue] = None,
+    val lineBreak: Option[StringValue] = None,
+    val lineHeight: Option[NumberValue] = None,
+    val opacity: Option[NumberValue] = None,
+    val orient: Option[DirectionValue] = None,
+    val outerRadius: Option[NumberValue] = None,
+    val padAngle: Option[NumberValue] = None,
+    val path: Option[StringValue] = None,
+    val radius: Option[NumberValue] = None,
+    val scaleX: Option[NumberValue] = None,
+    val scaleY: Option[NumberValue] = None,
+    val shape: Option[StringValue] = None,
+    val size: Option[NumberValue] = None,
+    val smooth: Option[BooleanValue] = None,
+    val startAngle: Option[NumberValue] = None,
+    val stroke: Option[ColorValue] = None,
+    val strokeCap: Option[StrokeCapValue] = None,
+    val strokeDash: Option[ArrayValue] = None,
+    val strokeDashOffset: Option[NumberValue] = None,
+    val strokeForeground: Option[BooleanValue] = None,
+    //val strokeJoin: Option[StrokeJoinValue] = None,
+    val strokeMiterLimit: Option[NumberValue] = None,
+    val strokeOffset: Option[NumberValue] = None,
+    val strokeOpacity: Option[NumberValue] = None,
+    val strokeWidth: Option[NumberValue] = None,
+    val tension: Option[NumberValue] = None,
+    val text: Option[TextValue] = None,
+    val theta: Option[NumberValue] = None,
+    val tooltip: Option[Json] = None,
+    val url: Option[StringValue] = None,
+    val width: Option[NumberValue] = None,
+    val x: Option[NumberValue] = None,
+    val x2: Option[NumberValue] = None,
+    val xc: Option[NumberValue] = None,
+    val y: Option[NumberValue] = None,
+    val y2: Option[NumberValue] = None,
+    val yc: Option[NumberValue] = None,
+    val zindex: Option[NumberValue] = None
+) derives Encoder.AsObject,
+      Decoder
+
+type TextValue = TextValueClass | Seq[TextValueElement]
+given Decoder[TextValue] =
+  List[Decoder[TextValue]](
+    Decoder[TextValueClass].widen,
+    Decoder[Seq[TextValueElement]].widen
+  ).reduceLeft(_ or _)
+
+given Encoder[TextValue] = Encoder.instance {
+  case enc0: TextValueClass        => Encoder.AsObject[TextValueClass].apply(enc0)
+  case enc1: Seq[TextValueElement] => Encoder.encodeSeq[TextValueElement].apply(enc1)
+}
+
+case class TextValueElement(
+    val test: Option[String] = None,
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class TextValueClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+type StrokeJoinValue = StrokeJoinValueClass | Seq[StrokeJoinValueElement]
+given Decoder[StrokeJoinValue] =
+  List[Decoder[StrokeJoinValue]](
+    Decoder[StrokeJoinValueClass].widen,
+    Decoder[Seq[StrokeJoinValueElement]].widen
+  ).reduceLeft(_ or _)
+
+// given Encoder[AlignValue] = Encoder.instance {
+//   case enc0: LabelAlignClass        => Encoder.AsObject[LabelAlignClass].apply(enc0)
+//   case enc1: Seq[LabelAlignElement] => Encoder.encodeSeq[LabelAlignElement].apply(enc1)
+// }
+
+case class StrokeJoinValueElement(
+    val test: Option[String] = None,
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class StrokeJoinValueClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class LabelAlignClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+
+case class TickRoundClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+// given Encoder[BooleanValue] = Encoder.instance {
+//   case enc0: TickRoundClass        => Encoder.AsObject[TickRoundClass].apply(enc0)
+//   case enc1: Seq[TickRoundElement] => Encoder.encodeSeq[TickRoundElement].apply(enc1)
+// }
+
+
+// given Encoder[StringValue] = Encoder.instance {
+//   case enc0: DomainCapClass        => Encoder.AsObject[DomainCapClass].apply(enc0)
+//   case enc1: Seq[DomainCapElement] => Encoder.encodeSeq[DomainCapElement].apply(enc1)
+// }
+
+case class DomainCapClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class LabelBaselineClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+// given Encoder[BaselineValue] = Encoder.instance {
+//   case enc0: LabelBaselineClass        => Encoder.AsObject[LabelBaselineClass].apply(enc0)
+//   case enc1: Seq[LabelBaselineElement] => Encoder.encodeSeq[LabelBaselineElement].apply(enc1)
+// }
+
+type BlendValue = BlendValueClass | Seq[BlendValueElement]
+given Decoder[BlendValue] =
+  List[Decoder[BlendValue]](
+    Decoder[BlendValueClass].widen,
+    Decoder[Seq[BlendValueElement]].widen
+  ).reduceLeft(_ or _)
+
+given Encoder[BlendValue] = Encoder.instance {
+  case enc0: BlendValueClass        => Encoder.AsObject[BlendValueClass].apply(enc0)
+  case enc1: Seq[BlendValueElement] => Encoder.encodeSeq[BlendValueElement].apply(enc1)
+}
+
+case class BlendValueElement(
+    val test: Option[String] = None,
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class BlendValueClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class FluffyBaseColorValue(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None,
+    val count: Option[Double] = None,
+    val gradient: Option[Field] = None,
+    val start: Option[Seq[Double]] = None,
+    val stop: Option[Seq[Double]] = None,
+    val color: Option[Color] = None
+) derives Encoder.AsObject,
+      Decoder
+
+// given Encoder[FontWeightValue] = Encoder.instance {
+//   case enc0: LabelFontWeightClass        => Encoder.AsObject[LabelFontWeightClass].apply(enc0)
+//   case enc1: Seq[LabelFontWeightElement] => Encoder.encodeSeq[LabelFontWeightElement].apply(enc1)
+// }
+
+case class LabelFontWeightClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+type DirectionValue = DirectionValueClass | Seq[DirectionValueElement]
+given Decoder[DirectionValue] =
+  List[Decoder[DirectionValue]](
+    Decoder[DirectionValueClass].widen,
+    Decoder[Seq[DirectionValueElement]].widen
+  ).reduceLeft(_ or _)
+
+given Encoder[DirectionValue] = Encoder.instance {
+  case enc0: DirectionValueClass        => Encoder.AsObject[DirectionValueClass].apply(enc0)
+  case enc1: Seq[DirectionValueElement] => Encoder.encodeSeq[DirectionValueElement].apply(enc1)
+}
+
+case class DirectionValueElement(
+    val test: Option[String] = None,
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class DirectionValueClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+type StrokeCapValue = StrokeCapValueClass | Seq[StrokeCapValueElement]
+given Decoder[StrokeCapValue] =
+  List[Decoder[StrokeCapValue]](
+    Decoder[StrokeCapValueClass].widen,
+    Decoder[Seq[StrokeCapValueElement]].widen
+  ).reduceLeft(_ or _)
+
+given Encoder[StrokeCapValue] = Encoder.instance {
+  case enc0: StrokeCapValueClass        => Encoder.AsObject[StrokeCapValueClass].apply(enc0)
+  case enc1: Seq[StrokeCapValueElement] => Encoder.encodeSeq[StrokeCapValueElement].apply(enc1)
+}
+
+case class StrokeCapValueElement(
+    val test: Option[String] = None,
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+case class StrokeCapValueClass(
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+
+// given Encoder[ArrayValue] = Encoder.instance {
+//   case enc0: DomainDashClass        => Encoder.AsObject[DomainDashClass].apply(enc0)
+//   case enc1: Seq[DomainDashElement] => Encoder.encodeSeq[DomainDashElement].apply(enc1)
+// }
+
+case class DomainDashElement(
+    val test: Option[String] = None,
+    val scale: Option[Field] = None,
+    val signal: Option[String] = None,
+    val value: Option[Json] = None,
+    val field: Option[Field] = None,
+    val range: Option[Band] = None,
+    val band: Option[Json] = None,
+    val offset: Option[Json] = None
+) derives Encoder.AsObject,
+      Decoder
+
+
 case class Layout(
     val align: Option[AlignUnion] = None,
     val bounds: Option[BoundsUnion] = None,
@@ -2338,7 +2706,7 @@ case class Mark(
     val aria: Option[Boolean] = None,
     val clip: Option[Markclip] = None,
     val description: Option[String] = None,
-    val encode: Option[VegaEncode] = None,
+    val encode: Option[MarkEncode] = None,
     val interactive: Option[TickExtraUnion] = None,
     val key: Option[String] = None,
     val name: Option[String] = None,

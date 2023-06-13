@@ -50,22 +50,18 @@ class ResourceTest extends munit.FunSuite:
 
   test("That the vega DSL correctly parses a simple spec") {
     val spec = Source.fromResource("BarChart.json").mkString
-    // println(spec)
-    val parseCirce = decode[VegaDsl](spec)
-
-    assert(parseCirce.isRight)
-    // println(parseCirce.getOrElse(""))
-    assert(parseCirce.getOrElse(???).isInstanceOf[VegaDsl])
+    val parseCirce = decode[VegaDsl](spec).fold(throw _, identity)
+    val jsonFromCirce = parseCirce.asJson.deepDropNullValues
+    val pureSpec = parse(spec).fold(throw _, identity)
+    assert(jsonFromCirce == pureSpec)    
   }
 
-  test("That the vega lite DSL correctly parses a simple spec") {
-    val spec = Source.fromResource("BarChartLite.json").mkString
-    // println(spec)
-    val parseCirce = decode[VegaLiteDsl](spec)
-
-    assert(parseCirce.isRight)
-    // println(parseCirce.getOrElse(""))
-    assert(parseCirce.getOrElse(???).isInstanceOf[VegaLiteDsl])
+  test("That the vega lite DSL correctly round trips a simple spec") {
+    val spec = Source.fromResource("BarChartLite.json").mkString    
+    val parseCirce = decode[VegaLiteDsl](spec).fold(throw _, identity)
+    val jsonFromCirce = parseCirce.asJson.deepDropNullValues
+    val pureSpec = parse(spec).fold(throw _, identity)
+    assert(jsonFromCirce == pureSpec)
   }
 
   test("DSL to mutuable conversion") {

@@ -70,8 +70,12 @@ import io.circe.*
 import viz.dsl.vega.*
 import cats.syntax.option.*
 
+// Let's fetch the example... and parse it. 
 val asDsl : VegaDsl = viz.vega.plots.BarChart().toDsl()
+
+// We make up a case class that happens to have category and amount fields
 case class BarPlotData(category: String, amount: Double) derives Encoder.AsObject, Decoder
+
 val myData = Data(
     name = "table",
     values = Seq(
@@ -81,6 +85,7 @@ val myData = Data(
     ).asJson.some
   )
 
+// And now, this plot is "typesafe"
 val cheatingCanBeGood = asDsl.copy(
     data = Seq(myData).some
 )
