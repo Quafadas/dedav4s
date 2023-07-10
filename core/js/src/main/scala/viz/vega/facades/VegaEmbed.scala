@@ -21,17 +21,26 @@ import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js.JSON
 import scala.concurrent.Future
 import scala.concurrent.Promise
+import org.scalajs.dom.HTMLElement
 type Theme = "excel" | "ggplot2" | "quartz" | "vox" | "dark"
-trait Actions:
 
-  var compiled: js.UndefOr[Boolean] = js.undefined
+@js.native
+trait Actions extends js.Object:
 
-  var editor: js.UndefOr[Boolean] = js.undefined
+  var compiled: js.UndefOr[Boolean] = js.native
 
-  var `export`: js.UndefOr[Boolean] = js.undefined
+  var editor: js.UndefOr[Boolean] = js.native
 
-  var source: js.UndefOr[Boolean] = js.undefined
+  var `export`: js.UndefOr[Boolean | ExportAction ] = js.native
+
+  var source: js.UndefOr[Boolean] = js.native
 end Actions
+
+@js.native
+trait ExportAction extends js.Object {
+  var svg: js.UndefOr[Boolean] = js.native
+  var png: js.UndefOr[Boolean] = js.native
+}
 
 object EmbedOptions extends EmbedOptions()
 
@@ -82,9 +91,20 @@ trait EmbedOptions:
   var width: js.UndefOr[Double] = js.undefined
 end EmbedOptions
 
-object VegaEmbed:
+@js.native
+@JSImport("vega-embed", JSImport.Default)
+object VegaEmbed extends js.Object:
+  def apply(element: HTMLElement, spec: js.Object, options: EmbedOptions): js.Promise[EmbedResult] = js.native
 
-  @js.native
-  @JSImport("vega-embed", JSImport.Default, "vegaEmbed")
-  def embed(clz: String, spec: js.Dynamic, opts: EmbedOptions): js.Promise[js.Dynamic] = js.native
+  //def embedChart(element: HTMLElement, spec: viz.Spec , options: EmbedOptions): js.Promise[EmbedResult] = js.native
+  
+  def embed(clz: String, spec: js.Dynamic, opts: EmbedOptions): js.Promise[EmbedResult] = js.native
 end VegaEmbed
+
+@js.native
+trait EmbedResult extends js.Object {
+  val view: VegaView = js.native
+  val spec: js.Object = js.native
+  val vgSpec: js.Object = js.native
+  override def finalize(): Unit = js.native
+}

@@ -1,3 +1,4 @@
+import org.scalajs.linker.interface.ModuleSplitStyle
 import laika.helium.Helium
 import laika.helium.config.HeliumIcon
 import laika.helium.config.IconLink
@@ -13,6 +14,7 @@ import laika.helium.config.Favicon
 import laika.helium.config.ImageLink
 import laika.ast.*
 import org.scalajs.linker.interface.ESVersion.*
+import org.scalajs.linker.interface.ModuleSplitStyle
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -119,7 +121,12 @@ lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
     scalaJSUseMainModuleInitializer := true,
+    //scalaJSLinkerConfig ~= {
+      //_.withModuleKind(ModuleKind.ESModule)
+    //     .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("livechart")))
+    //},
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+    libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
