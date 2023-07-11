@@ -19,14 +19,19 @@ import viz.vega.plots.BarChart
 import viz.vega.facades.VegaView
 import viz.vega.facades.Helpers.*
 
-@main
-def LiveChart(): Unit =
-  renderOnDomContentLoaded(
-    dom.document.getElementById("app"),
-    // div()
-    chartExample.vegaView()
-  )
-end LiveChart
+// @main
+// def LiveChart(): Unit =
+//   renderOnDomContentLoaded(
+//     dom.document.getElementById("app"),
+//     // div()
+//     chartExample.vegaView()
+//   )
+// end LiveChart
+
+object calicoChart:
+
+
+end calicoChart
 
 def textIfObject(in: js.UndefOr[js.Dynamic]): String =
   if in == js.undefined then "undefined"

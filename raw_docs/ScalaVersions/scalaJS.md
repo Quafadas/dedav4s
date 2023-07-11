@@ -157,7 +157,8 @@ object chartExample:
       },
       chartDiv,
       p("You last clicked on : ", child.text <-- chartDataClickedBus.map(textIfObject)),
-      p("You last hovered on : ", child.text <-- aSignalBus.map(textIfObject))
+      p("You last hovered on : ", child.text <-- aSignalBus.map(textIfObject)),
+      p()
     )
   end apply
 end chartExample

@@ -107,6 +107,14 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
+lazy val calicoIntegration = project
+  .in(file("calico"))
+  .settings(
+    libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.1"
+  )
+  .dependsOn(core.js)
+  .enablePlugins(ScalaJSPlugin)
+
 lazy val laminarIntegration = project
   .in(file("laminar"))
   .settings(
@@ -138,7 +146,7 @@ lazy val jsdocs = project
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
-  .dependsOn(laminarIntegration, core.js)
+  .dependsOn(laminarIntegration, calicoIntegration, core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
 
