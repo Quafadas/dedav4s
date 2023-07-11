@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 quafadas
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package viz
 
 import scala.scalajs.js
@@ -33,7 +49,6 @@ object LaminarViz:
     val fromFct = (x: String, y: js.Dynamic) => callback(handler.apply(x, y))
     (hoverBus, fromFct)
   end signalBus
-
 
   /** Embed a chart in a div. This method is a good choice if you are not at all worried about performance (mostly you
     * won't be), you want to get started quickly, and you want things to "just work".

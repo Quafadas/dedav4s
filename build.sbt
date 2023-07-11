@@ -65,7 +65,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val root = tlCrossRootProject.aggregate(core, generated, unidocs, tests)
+lazy val root = tlCrossRootProject.aggregate(core, generated, laminarIntegration, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
@@ -107,7 +107,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val laminarIntegration = project.in(file("laminar"))
+lazy val laminarIntegration = project
+  .in(file("laminar"))
   .settings(
     libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0"
   )
@@ -119,7 +120,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test,
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
   )
   .jvmSettings(name := "tests-jvm")
   .jsSettings(name := "tests-js")

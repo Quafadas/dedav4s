@@ -31,16 +31,16 @@ trait Actions extends js.Object:
 
   var editor: js.UndefOr[Boolean] = js.native
 
-  var `export`: js.UndefOr[Boolean | ExportAction ] = js.native
+  var `export`: js.UndefOr[Boolean | ExportAction] = js.native
 
   var source: js.UndefOr[Boolean] = js.native
 end Actions
 
 @js.native
-trait ExportAction extends js.Object {
+trait ExportAction extends js.Object:
   var svg: js.UndefOr[Boolean] = js.native
   var png: js.UndefOr[Boolean] = js.native
-}
+end ExportAction
 
 object EmbedOptions extends EmbedOptions()
 
@@ -96,15 +96,15 @@ end EmbedOptions
 object VegaEmbed extends js.Object:
   def apply(element: HTMLElement, spec: js.Object, options: EmbedOptions): js.Promise[EmbedResult] = js.native
 
-  //def embedChart(element: HTMLElement, spec: viz.Spec , options: EmbedOptions): js.Promise[EmbedResult] = js.native
+  // def embedChart(element: HTMLElement, spec: viz.Spec , options: EmbedOptions): js.Promise[EmbedResult] = js.native
 
   def embed(clz: String, spec: js.Dynamic, opts: EmbedOptions): js.Promise[EmbedResult] = js.native
 end VegaEmbed
 
 @js.native
-trait EmbedResult extends js.Object {
+trait EmbedResult extends js.Object:
   val view: VegaView = js.native
   val spec: js.Object = js.native
   val vgSpec: js.Object = js.native
   override def finalize(): Unit = js.native
-}
+end EmbedResult
