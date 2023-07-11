@@ -92,12 +92,12 @@ trait EmbedOptions:
 end EmbedOptions
 
 @js.native
-@JSImport("vega-embed", JSImport.Default)
+@JSImport("vega-embed", JSImport.Default, "vegaEmbed")
 object VegaEmbed extends js.Object:
   def apply(element: HTMLElement, spec: js.Object, options: EmbedOptions): js.Promise[EmbedResult] = js.native
 
   //def embedChart(element: HTMLElement, spec: viz.Spec , options: EmbedOptions): js.Promise[EmbedResult] = js.native
-  
+
   def embed(clz: String, spec: js.Dynamic, opts: EmbedOptions): js.Promise[EmbedResult] = js.native
 end VegaEmbed
 

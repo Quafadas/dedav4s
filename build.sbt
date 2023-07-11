@@ -107,12 +107,19 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
+lazy val laminarIntegration = project.in(file("laminar"))
+  .settings(
+    libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0"
+  )
+  .dependsOn(core.js)
+  .enablePlugins(ScalaJSPlugin)
+
 lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test,
   )
   .jvmSettings(name := "tests-jvm")
   .jsSettings(name := "tests-js")
@@ -121,16 +128,16 @@ lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
     scalaJSUseMainModuleInitializer := true,
-    //scalaJSLinkerConfig ~= {
-      //_.withModuleKind(ModuleKind.ESModule)
-    //     .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("livechart")))
-    //},
+    // NOTE: Breaks Mdoc
+    // scalaJSLinkerConfig ~= {
+    //   _.withModuleKind(ModuleKind.NoModule)
+    //   //  .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("livechart")))
+    // },
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
-    libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
-  .dependsOn(core.js)
+  .dependsOn(laminarIntegration, core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
 
@@ -152,6 +159,7 @@ lazy val docs = project
       ("org.scalanlp" %% "breeze" % "2.1.0")
     ),
     // laikaTheme := Helium.defaults.build,
+    // NOTE: Needed for Javasriptin in Laika
     laikaConfig ~= { _.withRawContent },
     tlSiteHeliumConfig := {
       Helium.defaults.site
@@ -168,6 +176,7 @@ lazy val docs = project
           navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github))
         )
         .site
+        // NOTE: Needed for Javasriptin in Laika
         .autoLinkJS()
     }
   )
