@@ -28,11 +28,6 @@ import viz.vega.facades.Helpers.*
 //   )
 // end LiveChart
 
-object calicoChart:
-
-
-end calicoChart
-
 def textIfObject(in: js.UndefOr[js.Dynamic]): String =
   if in == js.undefined then "undefined"
   else JSON.stringify(in.get)
