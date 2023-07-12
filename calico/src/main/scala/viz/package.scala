@@ -85,20 +85,21 @@ object CalicoViz:
           val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
           dCheat.style.height = "40vmin"
           dCheat.style.width = "40vmin"
-          val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
+          val p: js.Promise[EmbedResult] =
+            viz.vega.facades.VegaEmbed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
           val pIop = IO.fromPromise(IO(p))
           (d, pIop.map(_.view))
         }
-      //case (Some(thisDiv), None) => ???
-        // This case doesn't work
-        // thisDiv.flatMap { (d: HtmlDivElement[IO]) =>
-        //   val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
-        //   dCheat.style.height = "40vmin"
-        //   dCheat.style.width = "40vmin"
-        //   val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
-        //   val pIop = IO.fromPromise[EmbedResult](IO(p)).toResource
-        //   pIop.map(_.view).map((d, _))
-        // }
+      // case (Some(thisDiv), None) => ???
+      // This case doesn't work
+      // thisDiv.flatMap { (d: HtmlDivElement[IO]) =>
+      //   val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+      //   dCheat.style.height = "40vmin"
+      //   dCheat.style.width = "40vmin"
+      //   val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
+      //   val pIop = IO.fromPromise[EmbedResult](IO(p)).toResource
+      //   pIop.map(_.view).map((d, _))
+      // }
       case _ => ???
       // case (Some(thisDiv), None) =>
       //   val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]

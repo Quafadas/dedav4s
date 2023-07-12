@@ -61,7 +61,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val root = tlCrossRootProject.aggregate(core, generated, laminarIntegration,calicoIntegration, unidocs, tests)
+lazy val root = tlCrossRootProject.aggregate(core, generated, laminarIntegration, calicoIntegration, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))

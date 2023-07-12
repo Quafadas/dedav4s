@@ -90,11 +90,11 @@ jobs:
 
       - name: Make target directories
         if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
-        run: mkdir -p target unidocs/target .js/target myproject-docs/target core/js/target laminar/target jsdocs/target core/jvm/target tests/js/target .jvm/target .native/target generated/js/target tests/jvm/target generated/jvm/target project/target
+        run: mkdir -p target unidocs/target .js/target myproject-docs/target core/js/target laminar/target jsdocs/target core/jvm/target tests/js/target .jvm/target .native/target generated/js/target tests/jvm/target generated/jvm/target calico/target project/target
 
       - name: Compress target directories
         if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
-        run: tar cf targets.tar target unidocs/target .js/target myproject-docs/target core/js/target laminar/target jsdocs/target core/jvm/target tests/js/target .jvm/target .native/target generated/js/target tests/jvm/target generated/jvm/target project/target
+        run: tar cf targets.tar target unidocs/target .js/target myproject-docs/target core/js/target laminar/target jsdocs/target core/jvm/target tests/js/target .jvm/target .native/target generated/js/target tests/jvm/target generated/jvm/target calico/target project/target
 
       - name: Upload target directories
         if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
