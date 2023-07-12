@@ -10543,6 +10543,7 @@ class $c_jl_Throwable extends Error {
   constructor() {
     super();
     this.jl_Throwable__f_s = null;
+    this.jl_Throwable__f_e = null;
     this.jl_Throwable__f_writableStackTrace = false;
     this.jl_Throwable__f_jsErrorForStackTrace = null;
     this.jl_Throwable__f_stackTrace = null

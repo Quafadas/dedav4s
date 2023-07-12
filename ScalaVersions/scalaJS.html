@@ -105,7 +105,7 @@
           <li class="level2"><a href="#calico">Calico</a></li>
           <li class="level2"><a href="#mdoc">MDoc</a></li>
           <li class="level2"><a href="#laika-with-mdoc">Laika with mdoc</a></li>
-          <li class="level1"><a href="#ecosystem-support">Ecosystem support</a></li>
+          <li class="level1"><a href="#conclusion">Conclusion</a></li>
           <li class="level2"><a href="#javascript-libraries">Javascript libraries</a></li>
         </ul>
 
@@ -115,21 +115,16 @@
       <main class="content">
 
         <h1 id="scala-js" class="title">Scala JS</h1>
-        <p>The charts in these documents, are display using scala JS :-).</p>
-        <p>What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in it&#39;s rapid feedback and typsafe tooling, and subsequent publication into a browser with scala JS. It&#39;s the same code! There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent.</p>
-        <p><mark>Gotcha : dedav <strong><em>does not include</em></strong> the underlying JS libraries out of it&#39;s box</mark>.</p>
-        <p>I may list out some toy examples on the github readme. Here&#39;s one...
-        <a href="https://github.com/Quafadas/scalajs-snowpack-example">Mill, Scala Js, Snowpack, Laminar, Dedav</a></p>
         
         <h2 id="scala-js-ui-frameworks" class="section"><a class="anchor-link left" href="#scala-js-ui-frameworks"><i class="icofont-laika">&#xef71;</i></a>Scala JS UI frameworks</h2>
         <p>It turns out, that scala JS Dom is simply a facade for the browser API. Dedav works, through providing a reference to a scala js dom Div element.</p>
-        <p>Due to how fundamental the statement above is, we implicitly support <em>all</em> JS UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div. However, some frameworks have a little more polish...</p>
+        <p>Due to how fundamental the statement above is, we implicitly support <em>all</em> JS UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div. However, as I use some frameworks myself, it&#39;s a little easier to get started ...</p>
         
         <h2 id="integrations" class="section"><a class="anchor-link left" href="#integrations"><i class="icofont-laika">&#xef71;</i></a>Integrations</h2>
         
         <h3 id="laminar" class="section"><a class="anchor-link left" href="#laminar"><i class="icofont-laika">&#xef71;</i></a>Laminar</h3>
         <p>See the <code>LaminarViz.simpleEmbed</code> function, to get started. It returns a div, which you can put, anywhere you want in your app. Here it&#39;s just added where it&#39;s constructed for the sake of simplicity.</p>
-        <p>The only constraint, is that it must have a well defined size and hieght.</p>
+        <p>The only constraint, is that the div must have a well defined size and height.</p>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.</span><span class="identifier">_</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
@@ -260,7 +255,8 @@
       },
       </span><span class="identifier">chartDiv</span><span>,
       </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;You last clicked on : &quot;</span><span>, </span><span class="identifier">child</span><span>.</span><span class="identifier">text</span><span> &lt;-- </span><span class="identifier">chartDataClickedBus</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">textIfObject</span><span>)),
-      </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;You last hovered on : &quot;</span><span>, </span><span class="identifier">child</span><span>.</span><span class="identifier">text</span><span> &lt;-- </span><span class="identifier">aSignalBus</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">textIfObject</span><span>))
+      </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;You last hovered on : &quot;</span><span>, </span><span class="identifier">child</span><span>.</span><span class="identifier">text</span><span> &lt;-- </span><span class="identifier">aSignalBus</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">textIfObject</span><span>)),
+      </span><span class="identifier">p</span><span>(),</span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>)
     )
   </span><span class="identifier">end</span><span> </span><span class="identifier">apply</span><span>
 </span><span class="identifier">end</span><span> </span><span class="identifier">chartExample</span></code></pre>
@@ -270,7 +266,69 @@
         <p>Finally, this sets out some low leverl building blocks. If you were to know they types of the things you wanted to plot, one could easily construct some higher level, more typesafe abstractions.</p>
         
         <h3 id="calico" class="section"><a class="anchor-link left" href="#calico"><i class="icofont-laika">&#xef71;</i></a>Calico</h3>
-        <p>Most peculiar</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">scala</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">js</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">scala</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">annotation</span><span>.*
+
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="keyword">given</span><span>}
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">html</span><span>.</span><span class="identifier">io</span><span>.{*, </span><span class="keyword">given</span><span>}
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">unsafe</span><span>.</span><span class="keyword">given</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">syntax</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.</span><span class="identifier">std</span><span>.</span><span class="type-name">Random</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.</span><span class="identifier">concurrent</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.</span><span class="identifier">dom</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">facades</span><span>.</span><span class="type-name">EmbedOptions</span><span>
+
+</span><span class="identifier">calicoChart</span><span>.</span><span class="identifier">renderInto</span><span>(</span><span class="identifier">node</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="identifier">fs2</span><span>.</span><span class="identifier">dom</span><span>.</span><span class="type-name">Node</span><span>[</span><span class="type-name">IO</span><span>]]).</span><span class="identifier">useForever</span><span>.</span><span class="identifier">unsafeRunAndForget</span><span>()
+
+</span><span class="keyword">def</span><span> </span><span class="declaration-name">calicoChart</span><span>: </span><span class="type-name">Resource</span><span>[</span><span class="type-name">IO</span><span>, </span><span class="type-name">HtmlElement</span><span>[</span><span class="type-name">IO</span><span>]] =
+  </span><span class="type-name">SignallingRef</span><span>[</span><span class="type-name">IO</span><span>]
+    .</span><span class="identifier">of</span><span>(</span><span class="type-name">List</span><span>(</span><span class="number-literal">2.4</span><span>, </span><span class="number-literal">3.4</span><span>, </span><span class="number-literal">5.1</span><span>, -</span><span class="number-literal">2.3</span><span>))
+    .</span><span class="identifier">product</span><span>(</span><span class="type-name">Channel</span><span>.</span><span class="identifier">unbounded</span><span>[</span><span class="type-name">IO</span><span>, </span><span class="type-name">Int</span><span>])
+    .</span><span class="identifier">toResource</span><span>
+    .</span><span class="identifier">flatMap</span><span> { (</span><span class="identifier">data</span><span>: </span><span class="type-name">SignallingRef</span><span>[</span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.</span><span class="type-name">IO</span><span>, </span><span class="type-name">List</span><span>[</span><span class="type-name">Double</span><span>]], </span><span class="identifier">diff</span><span>) =&gt;
+      </span><span class="identifier">div</span><span>(
+        </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;We want to make it as easy as possible, to build a chart&quot;</span><span>),
+        </span><span class="identifier">span</span><span>(</span><span class="string-literal">&quot;Here&#39;s a random data set: &quot;</span><span>),
+        </span><span class="identifier">data</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">in</span><span> =&gt; </span><span class="identifier">p</span><span>(</span><span class="identifier">in</span><span>.</span><span class="identifier">mkString</span><span>(</span><span class="string-literal">&quot;[&quot;</span><span>, </span><span class="string-literal">&quot;,&quot;</span><span>, </span><span class="string-literal">&quot;]&quot;</span><span>))),
+        </span><span class="identifier">button</span><span>(
+          </span><span class="string-literal">&quot;Add a random number&quot;</span><span>,
+          </span><span class="identifier">onClick</span><span> --&gt; (
+            </span><span class="identifier">_</span><span>.</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">_</span><span> =&gt;
+              </span><span class="type-name">Random</span><span>.</span><span class="identifier">scalaUtilRandom</span><span>[</span><span class="type-name">IO</span><span>].</span><span class="identifier">toResource</span><span>.</span><span class="identifier">use</span><span>(</span><span class="identifier">r</span><span> =&gt; </span><span class="identifier">r</span><span>.</span><span class="identifier">nextDouble</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span> * </span><span class="number-literal">5</span><span>))
+            ).</span><span class="identifier">foreach</span><span>(</span><span class="identifier">newD</span><span> =&gt;
+              </span><span class="keyword">val</span><span> </span><span class="identifier">d</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">get</span><span>
+              </span><span class="type-name">IO</span><span>.</span><span class="identifier">println</span><span>(</span><span class="identifier">newD</span><span>) &gt;&gt;
+                </span><span class="identifier">data</span><span>.</span><span class="identifier">update</span><span>(</span><span class="identifier">_</span><span> :+ </span><span class="identifier">newD</span><span>).</span><span class="identifier">void</span><span>
+            )
+          )
+        ),
+        </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>),
+        </span><span class="identifier">data</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
+          </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="type-name">BarChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">plotBarChart</span><span>(
+            </span><span class="type-name">List</span><span>(
+              </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
+              </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeYAxis</span><span>
+            )
+          )
+          </span><span class="keyword">val</span><span> </span><span class="identifier">chartDiv</span><span> = </span><span class="identifier">div</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>)
+          </span><span class="identifier">chartDiv</span><span>.</span><span class="identifier">flatMap</span><span>{ </span><span class="identifier">d</span><span> =&gt;
+            </span><span class="comment">// To my astonishment, this doesn&#39;t work...
+</span><span>            </span><span class="comment">/* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+            dCheat.style.height = &quot;40vmin&quot;
+            dCheat.style.width = &quot;40vmin&quot; */</span><span>
+            </span><span class="comment">// end yuck
+</span><span>
+            </span><span class="comment">// I had to set the div size down in here. Then it worked.
+</span><span>            </span><span class="identifier">viz</span><span>.</span><span class="type-name">CalicoViz</span><span>.</span><span class="identifier">viewEmbed</span><span>(</span><span class="identifier">barChart</span><span>, </span><span class="type-name">Some</span><span>(</span><span class="identifier">chartDiv</span><span>), </span><span class="type-name">Some</span><span>(</span><span class="type-name">EmbedOptions</span><span>)).</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span class="number-literal">._1</span><span>)
+          }
+        }
+      )
+    }</span></code></pre>
+        <div id="mdoc-html-run2" data-mdoc-js></div>
         
         <h3 id="mdoc" class="section"><a class="anchor-link left" href="#mdoc"><i class="icofont-laika">&#xef71;</i></a>MDoc</h3>
         <p>Is how this documentation works. Setup mdoc with scalajs bundler, and include vega in the bundle. Read the source of this library :-).</p>
@@ -291,12 +349,10 @@ tlSiteHeliumConfig := {
 }</code></pre>
         <p>The github repo of this documentation is a successful example!</p>
         
-        <h1 id="ecosystem-support" class="section"><a class="anchor-link left" href="#ecosystem-support"><i class="icofont-laika">&#xef71;</i></a>Ecosystem support</h1>
-        <p>We have two orthogonal problems</p>
-        <ol class="arabic">
-          <li>How to we obtain the javascript libraries?</li>
-          <li>How to support the bouquet of scala JS UI frameworks?</li>
-        </ol>
+        <h1 id="conclusion" class="section"><a class="anchor-link left" href="#conclusion"><i class="icofont-laika">&#xef71;</i></a>Conclusion</h1>
+        <p>The charts in these documents, are displayed using scala JS :-).</p>
+        <p>What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in it&#39;s rapid feedback and typsafe tooling, and subsequent publication into a browser with scala JS. It&#39;s the same code! There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent.</p>
+        <p><mark>Gotcha : dedav <strong><em>does not include</em></strong> the underlying JS libraries out of it&#39;s box</mark>.</p>
         
         <h2 id="javascript-libraries" class="section"><a class="anchor-link left" href="#javascript-libraries"><i class="icofont-laika">&#xef71;</i></a>Javascript libraries</h2>
         <p>The example dependency is set out above. It <em>should</em> work with <em>any</em> bundling solution, or even by directly embedding the dependancies in the header of the html. Your choice.</p>
