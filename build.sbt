@@ -48,10 +48,6 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 
-// ThisBuild /  scalaJSLinkerConfig ~= (
-//   _.withModuleKind(ModuleKind.ESModule)
-// )
-
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))
   .settings(
@@ -65,7 +61,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val root = tlCrossRootProject.aggregate(core, generated, laminarIntegration, unidocs, tests)
+lazy val root = tlCrossRootProject.aggregate(core, generated, laminarIntegration,calicoIntegration, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))

@@ -21,12 +21,21 @@ import scala.scalajs.js.annotation.*
 
 import org.scalajs.dom
 import scalajs.js.JSON
+import calico.*
+import calico.html.io.{*, given}
+import calico.unsafe.given
+import calico.syntax.*
+import cats.effect.*
+import fs2.*
+import fs2.concurrent.*
+import fs2.dom.*
 
 import viz.PlotTargets.doNothing
 import viz.extensions.*
 import viz.vega.facades.EmbedOptions
 import viz.vega.facades.VegaView
 import viz.vega.facades.EmbedResult
+import cats.effect.IO
 
 import viz.vega.facades.Helpers.*
 
@@ -63,40 +72,59 @@ object CalicoViz:
     * @param embedOpt
     *   \- optionally, the embed options you wish to use
     */
-  // def viewEmbed(
-  //     chart: Spec,
-  //     inDivOpt: Option[Div] = None,
-  //     embedOpt: Option[EmbedOptions] = None
-  // ): (Div, Signal[Option[VegaView]]) =
-  //   val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
+  def viewEmbed(
+      chart: Spec,
+      inDivOpt: Option[Resource[IO, HtmlDivElement[IO]]] = None,
+      embedOpt: Option[EmbedOptions] = None
+  ): Resource[IO, (HtmlDivElement[IO], IO[VegaView])] =
 
-  //   val (embeddedIn, embedResult) = (inDivOpt, embedOpt) match
-  //     case (Some(thisDiv), Some(opts)) =>
-  //       val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(thisDiv.ref, specObj, opts)
-  //       (thisDiv, p)
-  //     case (Some(thisDiv), None) =>
-  //       val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
-  //       val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(thisDiv.ref, specObj, EmbedOptions)
-  //       (thisDiv, p)
-  //     case (None, Some(opts)) =>
-  //       val newDiv = div(
-  //         width := "40vmin",
-  //         height := "40vmin"
-  //       )
-  //       val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(newDiv.ref, specObj, opts)
-  //       (newDiv, p)
-  //     case (None, None) =>
-  //       val newDiv = div(
-  //         width := "40vmin",
-  //         height := "40vmin"
-  //       )
-  //       val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(newDiv.ref, specObj, EmbedOptions)
-  //       (newDiv, p)
+    val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
+    val tmp = (inDivOpt, embedOpt) match
+      case (Some(thisDiv), Some(opts)) =>
+        thisDiv.map { (d: HtmlDivElement[IO]) =>
+          val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+          dCheat.style.height = "40vmin"
+          dCheat.style.width = "40vmin"
+          val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
+          val pIop = IO.fromPromise(IO(p))
+          (d, pIop.map(_.view))
+        }
+      //case (Some(thisDiv), None) => ???
+        // This case doesn't work
+        // thisDiv.flatMap { (d: HtmlDivElement[IO]) =>
+        //   val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+        //   dCheat.style.height = "40vmin"
+        //   dCheat.style.width = "40vmin"
+        //   val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
+        //   val pIop = IO.fromPromise[EmbedResult](IO(p)).toResource
+        //   pIop.map(_.view).map((d, _))
+        // }
+      case _ => ???
+      // case (Some(thisDiv), None) =>
+      //   val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
+      //   val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(thisDiv.ref, specObj, EmbedOptions)
+      //   (thisDiv, p)
+      // case (None, Some(opts)) =>
+      //   val newDiv = div(
+      //     width := "40vmin",
+      //     height := "40vmin"
+      //   )
+      //   val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(newDiv.ref, specObj, opts)
+      //   (newDiv, p)
+      // case (None, None) =>
+      //   val newDiv = div(
+      //     width := "40vmin",
+      //     height := "40vmin"
+      //   )
+      //   val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(newDiv.ref, specObj, EmbedOptions)
+      //   (newDiv, p)
+    tmp
 
-  //   val viewSignal: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(in => in.map(_.view))
-  //   // val viewSignal: Signal[Option[VegaView]] = Signal.fromValue(None)
+    // val viewSignal: IO[Option[VegaView]] = IO.fromPromise(embedResult).map(in => in.map(_.view))
+    // // val viewSignal: Signal[Option[VegaView]] = Signal.fromValue(None)
 
-  //   (embeddedIn, viewSignal)
+    // (embeddedIn, viewSignal)
+  end viewEmbed
   // end viewEmbed
 
   /** Embed a chart in a div. This method is a good choice if you are not at all worried about performance (mostly you

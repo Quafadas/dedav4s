@@ -1,18 +1,9 @@
 # Scala JS
 
-The charts in these documents, are display using scala JS :-).
-
-What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in it's rapid feedback and typsafe tooling, and subsequent publication into a browser with scala JS. It's the same code! There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent.
-
-<mark>Gotcha : dedav ***does not include*** the underlying JS libraries out of it's box</mark>.
-
-I may list out some toy examples on the github readme. Here's one...
-[Mill, Scala Js, Snowpack, Laminar, Dedav](https://github.com/Quafadas/scalajs-snowpack-example)
-
 ## Scala JS UI frameworks
 It turns out, that scala JS Dom is simply a facade for the browser API. Dedav works, through providing a reference to a scala js dom Div element.
 
-Due to how fundamental the statement above is, we implicitly support _all_ JS UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div. However, some frameworks have a little more polish...
+Due to how fundamental the statement above is, we implicitly support _all_ JS UI frameworks. It must be possible to coerce the DIV wrapper of your framework into a scala js dom Div. However, as I use some frameworks myself, it's a little easier to get started ...
 
 ## Integrations
 
@@ -20,7 +11,7 @@ Due to how fundamental the statement above is, we implicitly support _all_ JS UI
 
 See the `LaminarViz.simpleEmbed` function, to get started. It returns a div, which you can put, anywhere you want in your app. Here it's just added where it's constructed for the sake of simplicity.
 
-The only constraint, is that it must have a well defined size and hieght.
+The only constraint, is that the div must have a well defined size and height.
 
 ```scala mdoc:js
 import com.raquo.laminar.api.L._
@@ -158,7 +149,7 @@ object chartExample:
       chartDiv,
       p("You last clicked on : ", child.text <-- chartDataClickedBus.map(textIfObject)),
       p("You last hovered on : ", child.text <-- aSignalBus.map(textIfObject)),
-      p()
+      p(),p("")
     )
   end apply
 end chartExample
@@ -172,7 +163,71 @@ Finally, this sets out some low leverl building blocks. If you were to know they
 
 ### Calico
 
-Most peculiar
+```scala mdoc:js
+import scala.scalajs.js
+import scala.scalajs.js.annotation.*
+
+import viz.extensions.*
+import viz.vega.plots.{BarChart, given}
+import calico.*
+import calico.html.io.{*, given}
+import calico.unsafe.given
+import calico.syntax.*
+import cats.effect.*
+import cats.effect.std.Random
+import fs2.*
+import fs2.concurrent.*
+import fs2.dom.*
+import viz.vega.facades.EmbedOptions
+
+calicoChart.renderInto(node.asInstanceOf[fs2.dom.Node[IO]]).useForever.unsafeRunAndForget()
+
+def calicoChart: Resource[IO, HtmlElement[IO]] =
+  SignallingRef[IO]
+    .of(List(2.4, 3.4, 5.1, -2.3))
+    .product(Channel.unbounded[IO, Int])
+    .toResource
+    .flatMap { (data: SignallingRef[cats.effect.IO, List[Double]], diff) =>
+      div(
+        p("We want to make it as easy as possible, to build a chart"),
+        span("Here's a random data set: "),
+        data.map(in => p(in.mkString("[", ",", "]"))),
+        button(
+          "Add a random number",
+          onClick --> (
+            _.evalMap(_ =>
+              Random.scalaUtilRandom[IO].toResource.use(r => r.nextDouble.map(_ * 5))
+            ).foreach(newD =>
+              val d = data.get
+              IO.println(newD) >>
+                data.update(_ :+ newD).void
+            )
+          )
+        ),
+        p(""),
+        data.map { data =>
+          val barChart: BarChart = data.plotBarChart(
+            List(
+              viz.Utils.fillDiv,
+              viz.Utils.removeYAxis
+            )
+          )
+          val chartDiv = div("")
+          chartDiv.flatMap{ d =>
+            // To my astonishment, this doesn't work...
+            /* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+            dCheat.style.height = "40vmin"
+            dCheat.style.width = "40vmin" */
+            // end yuck
+
+            // I had to set the div size down in here. Then it worked.
+            viz.CalicoViz.viewEmbed(barChart, Some(chartDiv), Some(EmbedOptions)).map(_._1)
+          }
+        }
+      )
+    }
+
+```
 
 ### MDoc
 Is how this documentation works. Setup mdoc with scalajs bundler, and include vega in the bundle. Read the source of this library :-).
@@ -199,11 +254,14 @@ tlSiteHeliumConfig := {
 The github repo of this documentation is a successful example!
 
 
-# Ecosystem support
-We have two orthogonal problems
+# Conclusion
 
-1. How to we obtain the javascript libraries?
-2. How to support the bouquet of scala JS UI frameworks?
+The charts in these documents, are displayed using scala JS :-).
+
+What turns out to be really nice about scala JS support, is the seamless transition between exploration in a repl  on the JVM, luxuriating in it's rapid feedback and typsafe tooling, and subsequent publication into a browser with scala JS. It's the same code! There is a only a little more ceremony than with a repl - we need to decide the charts position in the document. i.e. find it a parent.
+
+<mark>Gotcha : dedav ***does not include*** the underlying JS libraries out of it's box</mark>.
+
 
 ## Javascript libraries
 The example dependency is set out above. It _should_ work with _any_ bundling solution, or even by directly embedding the dependancies in the header of the html. Your choice.
