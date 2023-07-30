@@ -61,7 +61,7 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val root = tlCrossRootProject.aggregate(core, generated, laminarIntegration, calicoIntegration, unidocs, tests)
+lazy val root = tlCrossRootProject.aggregate(core, generated, dedav_laminar, dedav_calico, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
@@ -103,7 +103,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val calicoIntegration = project
+lazy val dedav_calico = project
   .in(file("calico"))
   .settings(
     libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.1"
@@ -111,7 +111,7 @@ lazy val calicoIntegration = project
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
 
-lazy val laminarIntegration = project
+lazy val dedav_laminar = project
   .in(file("laminar"))
   .settings(
     libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0"
@@ -142,7 +142,7 @@ lazy val jsdocs = project
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
-  .dependsOn(laminarIntegration, calicoIntegration, core.js)
+  .dependsOn(dedav_laminar, dedav_laminar, core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
 
