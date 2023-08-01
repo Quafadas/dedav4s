@@ -93,7 +93,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %% "os-lib" % "0.9.1",
       "com.lihaoyi" %% "cask" % "0.9.1",
       "com.lihaoyi" %% "requests" % "0.8.0",
-      "org.jsoup" % "jsoup" % "1.15.4"
+      "org.jsoup" % "jsoup" % "1.16.1"
     )
   )
   .jsSettings(
