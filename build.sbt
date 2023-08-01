@@ -77,7 +77,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %%% "upickle" % "3.1.2",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.5.0", // otherwise have to upgrade scala
-      ("sh.almond" % "scala-kernel-api" % "0.13.9" % Provided)
+      ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".10"))
         .exclude("com.lihaoyi", "geny_2.13")
         .exclude("com.lihaoyi", "sourcecode_2.13")
