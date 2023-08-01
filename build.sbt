@@ -74,7 +74,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       """-Wconf:cat=deprecation:s"""
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.1.0",
+      "com.lihaoyi" %%% "upickle" % "3.1.2",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.5.0", // otherwise have to upgrade scala
       ("sh.almond" % "scala-kernel-api" % "0.13.9" % Provided)
