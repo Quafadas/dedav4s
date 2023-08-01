@@ -91,7 +91,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .jvmSettings(
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "os-lib" % "0.9.0",
-      "com.lihaoyi" %% "cask" % "0.9.0",
+      "com.lihaoyi" %% "cask" % "0.9.1",
       "com.lihaoyi" %% "requests" % "0.8.0",
       "org.jsoup" % "jsoup" % "1.15.4"
     )
