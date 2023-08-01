@@ -124,7 +124,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M8" % Test
   )
   .jvmSettings(name := "tests-jvm")
   .jsSettings(name := "tests-js")
