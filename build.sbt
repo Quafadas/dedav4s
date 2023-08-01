@@ -98,7 +98,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jsSettings(
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+      "org.scala-js" %%% "scalajs-dom" % "2.6.0",
       ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13)
     )
   )
@@ -138,7 +138,7 @@ lazy val jsdocs = project
     //   _.withModuleKind(ModuleKind.NoModule)
     //   //  .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("livechart")))
     // },
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.6.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
