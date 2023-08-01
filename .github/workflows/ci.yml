@@ -180,6 +180,22 @@ jobs:
       - name: Publish
         run: sbt tlCiRelease
 
+  validate-steward:
+    name: Validate Steward Config
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout current branch (fast)
+        uses: actions/checkout@v3
+
+      - uses: coursier/setup-action@v1
+        with:
+          apps: scala-steward
+
+      - run: scala-steward validate-repo-config .scala-steward.conf
+
   site:
     name: Generate Site
     strategy:
