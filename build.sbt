@@ -56,12 +56,12 @@ lazy val generated = crossProject(JVMPlatform, JSPlatform)
       "-Xmax-inlines:2000"
     ),
     libraryDependencies ++= Seq(
-      "io.circe" %%% "circe-core" % "0.14.5",
-      "io.circe" %%% "circe-parser" % "0.14.5"
+      "io.circe" %%% "circe-core" % "0.14.6",
+      "io.circe" %%% "circe-parser" % "0.14.6"
     )
   )
 
-lazy val root = tlCrossRootProject.aggregate(core, generated, laminarIntegration, calicoIntegration, unidocs, tests)
+lazy val root = tlCrossRootProject.aggregate(core, generated, dedav_laminar, dedav_calico, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
@@ -74,10 +74,10 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       """-Wconf:cat=deprecation:s"""
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.1.0",
+      "com.lihaoyi" %%% "upickle" % "3.1.3",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
-      "org.ekrich" %%% "sconfig" % "1.5.0", // otherwise have to upgrade scala
-      ("sh.almond" % "scala-kernel-api" % "0.13.9" % Provided)
+      "org.ekrich" %%% "sconfig" % "1.5.1",
+      ("sh.almond" % "scala-kernel-api" % "0.13.10" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".10"))
         .exclude("com.lihaoyi", "geny_2.13")
         .exclude("com.lihaoyi", "sourcecode_2.13")
@@ -90,20 +90,20 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.9.0",
-      "com.lihaoyi" %% "cask" % "0.9.0",
+      "com.lihaoyi" %% "os-lib" % "0.9.1",
+      "com.lihaoyi" %% "cask" % "0.9.1",
       "com.lihaoyi" %% "requests" % "0.8.0",
-      "org.jsoup" % "jsoup" % "1.15.4"
+      "org.jsoup" % "jsoup" % "1.16.1"
     )
   )
   .jsSettings(
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+      "org.scala-js" %%% "scalajs-dom" % "2.7.0",
       ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13)
     )
   )
 
-lazy val calicoIntegration = project
+lazy val dedav_calico = project
   .in(file("calico"))
   .settings(
     libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.1"
@@ -111,7 +111,7 @@ lazy val calicoIntegration = project
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
 
-lazy val laminarIntegration = project
+lazy val dedav_laminar = project
   .in(file("laminar"))
   .settings(
     libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0"
@@ -124,7 +124,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M10" % Test
   )
   .jvmSettings(name := "tests-jvm")
   .jsSettings(name := "tests-js")
@@ -142,7 +142,7 @@ lazy val jsdocs = project
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
-  .dependsOn(laminarIntegration, calicoIntegration, core.js)
+  .dependsOn(dedav_calico, dedav_laminar, core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
 
