@@ -44,7 +44,6 @@ class VegaModifier extends mdoc.PostModifier:
   obtained: $obtained"""
         )
         ""
-end VegaModifier
 
 def vegaEmbed1(inSpec: String, vizId: String) = s"""
 

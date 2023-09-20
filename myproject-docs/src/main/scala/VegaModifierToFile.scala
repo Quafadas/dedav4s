@@ -28,8 +28,8 @@ class VegaModifierToFile extends mdoc.PostModifier:
   def process(ctx: PostModifierContext): String =
     val relname = (ctx.info)
     val out = os.Path(ctx.outputFile.toNIO.getParent).toString.toLowerCase
-    // println(out)
-    // println(relname)
+    //println(out)
+    //println(relname)
     ctx.lastValue match
       case spec: viz.Spec =>
         os.write.over(os.Path(out) / os.up / "assets" / s"$relname.json", spec.spec)
@@ -49,6 +49,3 @@ class VegaModifierToFile extends mdoc.PostModifier:
   obtained: $obtained"""
         )
         ""
-    end match
-  end process
-end VegaModifierToFile

@@ -46,7 +46,7 @@ object chartExample:
   )
 
   def vegaView(): Div =
-    val (chartDiv: Div, viewOpt: Signal[Option[VegaView]]) = LaminarViz.viewEmbed(baseChart)
+    val (chartDiv : Div, viewOpt: Signal[Option[VegaView]]) = LaminarViz.viewEmbed(baseChart)
 
     div(
       viewOpt.map(_.map(vv =>

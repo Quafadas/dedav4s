@@ -74,10 +74,10 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       """-Wconf:cat=deprecation:s"""
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.1.2",
+      "com.lihaoyi" %%% "upickle" % "3.1.0",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.5.0", // otherwise have to upgrade scala
-      ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
+      ("sh.almond" % "scala-kernel-api" % "0.13.9" % Provided)
         .cross(CrossVersion.for3Use2_13With("", ".10"))
         .exclude("com.lihaoyi", "geny_2.13")
         .exclude("com.lihaoyi", "sourcecode_2.13")
@@ -90,15 +90,15 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.9.1",
-      "com.lihaoyi" %% "cask" % "0.9.1",
+      "com.lihaoyi" %% "os-lib" % "0.9.0",
+      "com.lihaoyi" %% "cask" % "0.9.0",
       "com.lihaoyi" %% "requests" % "0.8.0",
-      "org.jsoup" % "jsoup" % "1.16.1"
+      "org.jsoup" % "jsoup" % "1.15.4"
     )
   )
   .jsSettings(
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.6.0",
+      "org.scala-js" %%% "scalajs-dom" % "2.4.0",
       ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13)
     )
   )
@@ -124,7 +124,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M8" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
   )
   .jvmSettings(name := "tests-jvm")
   .jsSettings(name := "tests-js")
@@ -138,7 +138,7 @@ lazy val jsdocs = project
     //   _.withModuleKind(ModuleKind.NoModule)
     //   //  .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("livechart")))
     // },
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.6.0",
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
