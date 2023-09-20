@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "description": "A basic bar chart example, with value labels shown upon mouse hover.",
+  "description": "A basic bar chart example, with value labels shown upon pointer hover.",
   "width": 400,
   "height": 200,
   "padding": 5,
@@ -26,16 +26,14 @@
   "signals": [
     {
       "name": "tooltip",
-      "value": {
-        
-      },
+      "value": {},
       "on": [
         {
-          "events": "rect:mouseover",
+          "events": "rect:pointerover",
           "update": "datum"
         },
         {
-          "events": "rect:mouseout",
+          "events": "rect:pointerout",
           "update": "{}"
         }
       ]

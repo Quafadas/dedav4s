@@ -7700,15 +7700,14 @@ $c_Lujson_package$.prototype.read__Lujson_Readable__Z__Lujson_Value = (function(
       var $$x1 = f(arg1)
     } catch (e) {
       var $$x1;
-      var e$1 = e;
-      var e$2 = ((e$1 instanceof $c_jl_Throwable) ? e$1 : new $c_sjs_js_JavaScriptException(e$1));
+      var e$2 = ((e instanceof $c_jl_Throwable) ? e : new $c_sjs_js_JavaScriptException(e));
       var x2 = $m_s_util_control_NonFatal$().unapply__jl_Throwable__s_Option(e$2);
       if ((!$n(x2).isEmpty__Z())) {
         var x3 = $as_jl_Throwable($n(x2).get__O());
-        var this$5 = $n(wrapper.Lupickle_core_TraceVisitor$Wrapper__f_lastHasPath);
-        throw new $c_Lupickle_core_TraceVisitor$TraceException($f_Lupickle_core_TraceVisitor$HasPath__path__T(this$5), x3)
+        var this$4 = $n(wrapper.Lupickle_core_TraceVisitor$Wrapper__f_lastHasPath);
+        throw new $c_Lupickle_core_TraceVisitor$TraceException($f_Lupickle_core_TraceVisitor$HasPath__path__T(this$4), x3)
       };
-      throw e$2
+      throw ((e$2 instanceof $c_sjs_js_JavaScriptException) ? e$2.sjs_js_JavaScriptException__f_exception : $n(e$2))
     }
   };
   return $as_Lujson_Value($$x1)
@@ -9721,9 +9720,13 @@ $c_Lio_circe_JsonObject.prototype.toString__T = (function() {
 $c_Lio_circe_JsonObject.prototype.equals__O__Z = (function(that) {
   if ((that instanceof $c_Lio_circe_JsonObject)) {
     var that$2 = $as_Lio_circe_JsonObject(that);
-    var x = this.toMap__sci_Map();
-    var x$2 = $n(that$2).toMap__sci_Map();
-    return ((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))
+    if ((this.size__I() === $n(that$2).size__I())) {
+      var x = this.toMap__sci_Map();
+      var x$2 = $n(that$2).toMap__sci_Map();
+      return ((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))
+    } else {
+      return false
+    }
   } else {
     return false
   }
@@ -12040,14 +12043,13 @@ function $p_Lujson_CharParser__liftedTree1$1__Lupickle_core_ObjArrVisitor__I__O(
   try {
     return $n(stackHead$1).visitEnd__I__O(i$1)
   } catch (e) {
-    var e$1 = e;
-    var e$2 = ((e$1 instanceof $c_jl_Throwable) ? e$1 : new $c_sjs_js_JavaScriptException(e$1));
+    var e$2 = ((e instanceof $c_jl_Throwable) ? e : new $c_sjs_js_JavaScriptException(e));
     var \u03b411$ = new $c_Lujson_CharParser$$anon$1(i$1);
     if (\u03b411$.isDefinedAt__jl_Throwable__Z(e$2)) {
       var default$1 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
       return \u03b411$.applyOrElse__jl_Throwable__F1__O(e$2, default$1)
     } else {
-      throw e$2
+      throw ((e$2 instanceof $c_sjs_js_JavaScriptException) ? e$2.sjs_js_JavaScriptException__f_exception : $n(e$2))
     }
   }
 }
@@ -12142,8 +12144,7 @@ $c_Lujson_CharParser.prototype.die__I__T__E = (function(i, msg) {
   var arr = out.Lupickle_core_CharBuilder__f_arr;
   var length$1 = out.Lupickle_core_CharBuilder__f_length;
   var s = $n($$x4).format$extension__T__sci_Seq__T("%s got %s", $n($$x3).genericWrapArray__O__sci_ArraySeq(new $ac_O([msg, $m_jl_String$().new__AC__I__I__T(arr, 0, length$1)])));
-  var x = new $c_Lujson_ParseException(s, i);
-  throw x
+  throw new $c_Lujson_ParseException(s, i)
 });
 $c_Lujson_CharParser.prototype.parseNum__I__Lupickle_core_ObjArrVisitor__Lupickle_core_Visitor__I = (function(i, ctxt, facade) {
   var j = i;
@@ -12371,14 +12372,13 @@ $c_Lujson_CharParser.prototype.parseTopLevel__I__Lupickle_core_Visitor__T2 = (fu
   try {
     return this.parseTopLevel0__I__Lupickle_core_Visitor__T2(i, facade)
   } catch (e) {
-    var e$1 = e;
-    var e$2 = ((e$1 instanceof $c_jl_Throwable) ? e$1 : new $c_sjs_js_JavaScriptException(e$1));
+    var e$2 = ((e instanceof $c_jl_Throwable) ? e : new $c_sjs_js_JavaScriptException(e));
     var \u03b42$ = new $c_Lujson_CharParser$$anon$1(i);
     if (\u03b42$.isDefinedAt__jl_Throwable__Z(e$2)) {
       var default$1 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
       return $as_T2(\u03b42$.applyOrElse__jl_Throwable__F1__O(e$2, default$1))
     } else {
-      throw e$2
+      throw ((e$2 instanceof $c_sjs_js_JavaScriptException) ? e$2.sjs_js_JavaScriptException__f_exception : $n(e$2))
     }
   }
 });
@@ -12470,8 +12470,7 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
             try {
               var nextJ = this.parseStringKey__I__Lupickle_core_ObjArrVisitor__I(i$tailLocal2, stackHead$tailLocal1)
             } catch (e) {
-              var e$1 = e;
-              var e$2 = ((e$1 instanceof $c_jl_Throwable) ? e$1 : new $c_sjs_js_JavaScriptException(e$1));
+              var e$2 = ((e instanceof $c_jl_Throwable) ? e : new $c_sjs_js_JavaScriptException(e));
               var j = i$tailLocal2;
               var \u03b43$ = new $c_Lujson_CharParser$$anon$1(j);
               if (\u03b43$.isDefinedAt__jl_Throwable__Z(e$2)) {
@@ -12479,7 +12478,7 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
                 var nextJ = $uI(\u03b43$.applyOrElse__jl_Throwable__F1__O(e$2, default$1))
               } else {
                 var nextJ;
-                throw e$2
+                throw ((e$2 instanceof $c_sjs_js_JavaScriptException) ? e$2.sjs_js_JavaScriptException__f_exception : $n(e$2))
               }
             };
             state$tailLocal1 = 3;
@@ -12491,16 +12490,15 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
             try {
               var nextJ$2 = this.parseStringValue__I__Lupickle_core_ObjArrVisitor__I(i$tailLocal2, stackHead$tailLocal1)
             } catch (e$3) {
-              var e$4 = e$3;
-              var e$4$1 = ((e$4 instanceof $c_jl_Throwable) ? e$4 : new $c_sjs_js_JavaScriptException(e$4));
+              var e$4 = ((e$3 instanceof $c_jl_Throwable) ? e$3 : new $c_sjs_js_JavaScriptException(e$3));
               var j$1 = i$tailLocal2;
               var \u03b44$ = new $c_Lujson_CharParser$$anon$1(j$1);
-              if (\u03b44$.isDefinedAt__jl_Throwable__Z(e$4$1)) {
+              if (\u03b44$.isDefinedAt__jl_Throwable__Z(e$4)) {
                 var default$2 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
-                var nextJ$2 = $uI(\u03b44$.applyOrElse__jl_Throwable__F1__O(e$4$1, default$2))
+                var nextJ$2 = $uI(\u03b44$.applyOrElse__jl_Throwable__F1__O(e$4, default$2))
               } else {
                 var nextJ$2;
-                throw e$4$1
+                throw ((e$4 instanceof $c_sjs_js_JavaScriptException) ? e$4.sjs_js_JavaScriptException__f_exception : $n(e$4))
               }
             };
             var state$tailLocal1$tmp2 = this.collectionEndFor__Lupickle_core_ObjArrVisitor__I(stackHead$tailLocal1);
@@ -12530,22 +12528,21 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
         try {
           var ctx = $n($n(stackHead$tailLocal1).subVisitor__Lupickle_core_Visitor()).visitArray__I__I__Lupickle_core_ArrVisitor((-1), i$tailLocal2)
         } catch (e$5) {
-          var e$6 = e$5;
-          var e$6$1 = ((e$6 instanceof $c_jl_Throwable) ? e$6 : new $c_sjs_js_JavaScriptException(e$6));
+          var e$6 = ((e$5 instanceof $c_jl_Throwable) ? e$5 : new $c_sjs_js_JavaScriptException(e$5));
           var j$2 = i$tailLocal2;
           var \u03b45$ = new $c_Lujson_CharParser$$anon$1(j$2);
-          if (\u03b45$.isDefinedAt__jl_Throwable__Z(e$6$1)) {
+          if (\u03b45$.isDefinedAt__jl_Throwable__Z(e$6)) {
             var default$3 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
-            var ctx = $as_Lupickle_core_ArrVisitor(\u03b45$.applyOrElse__jl_Throwable__F1__O(e$6$1, default$3))
+            var ctx = $as_Lupickle_core_ArrVisitor(\u03b45$.applyOrElse__jl_Throwable__F1__O(e$6, default$3))
           } else {
             var ctx;
-            throw e$6$1
+            throw ((e$6 instanceof $c_sjs_js_JavaScriptException) ? e$6.sjs_js_JavaScriptException__f_exception : $n(e$6))
           }
         };
         var i$tailLocal2$tmp4 = ((1 + i$tailLocal2) | 0);
-        var this$4 = $n(stackTail$tailLocal1);
+        var this$1 = $n(stackTail$tailLocal1);
         var elem = stackHead$tailLocal1;
-        var stackTail$tailLocal1$tmp1 = new $c_sci_$colon$colon(elem, this$4);
+        var stackTail$tailLocal1$tmp1 = new $c_sci_$colon$colon(elem, this$1);
         state$tailLocal1 = 6;
         i$tailLocal2 = i$tailLocal2$tmp4;
         stackHead$tailLocal1 = ctx;
@@ -12557,22 +12554,21 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
         try {
           var ctx$2 = $n($n(stackHead$tailLocal1).subVisitor__Lupickle_core_Visitor()).visitObject__I__Z__I__Lupickle_core_ObjVisitor((-1), true, i$tailLocal2)
         } catch (e$7) {
-          var e$8 = e$7;
-          var e$8$1 = ((e$8 instanceof $c_jl_Throwable) ? e$8 : new $c_sjs_js_JavaScriptException(e$8));
+          var e$8 = ((e$7 instanceof $c_jl_Throwable) ? e$7 : new $c_sjs_js_JavaScriptException(e$7));
           var j$3 = i$tailLocal2;
           var \u03b46$ = new $c_Lujson_CharParser$$anon$1(j$3);
-          if (\u03b46$.isDefinedAt__jl_Throwable__Z(e$8$1)) {
+          if (\u03b46$.isDefinedAt__jl_Throwable__Z(e$8)) {
             var default$4 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
-            var ctx$2 = $as_Lupickle_core_ObjVisitor(\u03b46$.applyOrElse__jl_Throwable__F1__O(e$8$1, default$4))
+            var ctx$2 = $as_Lupickle_core_ObjVisitor(\u03b46$.applyOrElse__jl_Throwable__F1__O(e$8, default$4))
           } else {
             var ctx$2;
-            throw e$8$1
+            throw ((e$8 instanceof $c_sjs_js_JavaScriptException) ? e$8.sjs_js_JavaScriptException__f_exception : $n(e$8))
           }
         };
         var i$tailLocal2$tmp5 = ((1 + i$tailLocal2) | 0);
-        var this$6 = $n(stackTail$tailLocal1);
+        var this$2 = $n(stackTail$tailLocal1);
         var elem$1 = stackHead$tailLocal1;
-        var stackTail$tailLocal1$tmp2 = new $c_sci_$colon$colon(elem$1, this$6);
+        var stackTail$tailLocal1$tmp2 = new $c_sci_$colon$colon(elem$1, this$2);
         state$tailLocal1 = 7;
         i$tailLocal2 = i$tailLocal2$tmp5;
         stackHead$tailLocal1 = ctx$2;
@@ -12594,16 +12590,15 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
         try {
           var ctx$3 = this.parseNum__I__Lupickle_core_ObjArrVisitor__Lupickle_core_Visitor__I(i$tailLocal2, $n(stackHead$tailLocal1).narrow__Lupickle_core_ObjArrVisitor(), $n(stackHead$tailLocal1).subVisitor__Lupickle_core_Visitor())
         } catch (e$9) {
-          var e$10 = e$9;
-          var e$10$1 = ((e$10 instanceof $c_jl_Throwable) ? e$10 : new $c_sjs_js_JavaScriptException(e$10));
+          var e$10 = ((e$9 instanceof $c_jl_Throwable) ? e$9 : new $c_sjs_js_JavaScriptException(e$9));
           var j$4 = i$tailLocal2;
           var \u03b47$ = new $c_Lujson_CharParser$$anon$1(j$4);
-          if (\u03b47$.isDefinedAt__jl_Throwable__Z(e$10$1)) {
+          if (\u03b47$.isDefinedAt__jl_Throwable__Z(e$10)) {
             var default$5 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
-            var ctx$3 = $uI(\u03b47$.applyOrElse__jl_Throwable__F1__O(e$10$1, default$5))
+            var ctx$3 = $uI(\u03b47$.applyOrElse__jl_Throwable__F1__O(e$10, default$5))
           } else {
             var ctx$3;
-            throw e$10$1
+            throw ((e$10 instanceof $c_sjs_js_JavaScriptException) ? e$10.sjs_js_JavaScriptException__f_exception : $n(e$10))
           }
         };
         var state$tailLocal1$tmp6 = this.collectionEndFor__Lupickle_core_ObjArrVisitor__I(stackHead$tailLocal1);
@@ -12616,15 +12611,14 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
         try {
           $n($n(stackHead$tailLocal1).narrow__Lupickle_core_ObjArrVisitor()).visitValue__O__I__V(this.parseTrue__I__Lupickle_core_Visitor__O(i$tailLocal2, $n(stackHead$tailLocal1).subVisitor__Lupickle_core_Visitor()), i$tailLocal2)
         } catch (e$11) {
-          var e$12 = e$11;
-          var e$12$1 = ((e$12 instanceof $c_jl_Throwable) ? e$12 : new $c_sjs_js_JavaScriptException(e$12));
+          var e$12 = ((e$11 instanceof $c_jl_Throwable) ? e$11 : new $c_sjs_js_JavaScriptException(e$11));
           var j$5 = i$tailLocal2;
           var \u03b48$ = new $c_Lujson_CharParser$$anon$1(j$5);
-          if (\u03b48$.isDefinedAt__jl_Throwable__Z(e$12$1)) {
+          if (\u03b48$.isDefinedAt__jl_Throwable__Z(e$12)) {
             var default$6 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
-            \u03b48$.applyOrElse__jl_Throwable__F1__O(e$12$1, default$6)
+            \u03b48$.applyOrElse__jl_Throwable__F1__O(e$12, default$6)
           } else {
-            throw e$12$1
+            throw ((e$12 instanceof $c_sjs_js_JavaScriptException) ? e$12.sjs_js_JavaScriptException__f_exception : $n(e$12))
           }
         };
         var state$tailLocal1$tmp7 = this.collectionEndFor__Lupickle_core_ObjArrVisitor__I(stackHead$tailLocal1);
@@ -12638,15 +12632,14 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
         try {
           $n($n(stackHead$tailLocal1).narrow__Lupickle_core_ObjArrVisitor()).visitValue__O__I__V(this.parseFalse__I__Lupickle_core_Visitor__O(i$tailLocal2, $n(stackHead$tailLocal1).subVisitor__Lupickle_core_Visitor()), i$tailLocal2)
         } catch (e$13) {
-          var e$14 = e$13;
-          var e$14$1 = ((e$14 instanceof $c_jl_Throwable) ? e$14 : new $c_sjs_js_JavaScriptException(e$14));
+          var e$14 = ((e$13 instanceof $c_jl_Throwable) ? e$13 : new $c_sjs_js_JavaScriptException(e$13));
           var j$6 = i$tailLocal2;
           var \u03b49$ = new $c_Lujson_CharParser$$anon$1(j$6);
-          if (\u03b49$.isDefinedAt__jl_Throwable__Z(e$14$1)) {
+          if (\u03b49$.isDefinedAt__jl_Throwable__Z(e$14)) {
             var default$7 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
-            \u03b49$.applyOrElse__jl_Throwable__F1__O(e$14$1, default$7)
+            \u03b49$.applyOrElse__jl_Throwable__F1__O(e$14, default$7)
           } else {
-            throw e$14$1
+            throw ((e$14 instanceof $c_sjs_js_JavaScriptException) ? e$14.sjs_js_JavaScriptException__f_exception : $n(e$14))
           }
         };
         var state$tailLocal1$tmp8 = this.collectionEndFor__Lupickle_core_ObjArrVisitor__I(stackHead$tailLocal1);
@@ -12660,15 +12653,14 @@ $c_Lujson_CharParser.prototype.parseNested__I__I__Lupickle_core_ObjArrVisitor__s
         try {
           $n($n(stackHead$tailLocal1).narrow__Lupickle_core_ObjArrVisitor()).visitValue__O__I__V(this.parseNull__I__Lupickle_core_Visitor__O(i$tailLocal2, $n(stackHead$tailLocal1).subVisitor__Lupickle_core_Visitor()), i$tailLocal2)
         } catch (e$15) {
-          var e$16 = e$15;
-          var e$16$1 = ((e$16 instanceof $c_jl_Throwable) ? e$16 : new $c_sjs_js_JavaScriptException(e$16));
+          var e$16 = ((e$15 instanceof $c_jl_Throwable) ? e$15 : new $c_sjs_js_JavaScriptException(e$15));
           var j$7 = i$tailLocal2;
           var \u03b410$ = new $c_Lujson_CharParser$$anon$1(j$7);
-          if (\u03b410$.isDefinedAt__jl_Throwable__Z(e$16$1)) {
+          if (\u03b410$.isDefinedAt__jl_Throwable__Z(e$16)) {
             var default$8 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
-            \u03b410$.applyOrElse__jl_Throwable__F1__O(e$16$1, default$8)
+            \u03b410$.applyOrElse__jl_Throwable__F1__O(e$16, default$8)
           } else {
-            throw e$16$1
+            throw ((e$16 instanceof $c_sjs_js_JavaScriptException) ? e$16.sjs_js_JavaScriptException__f_exception : $n(e$16))
           }
         };
         var state$tailLocal1$tmp9 = this.collectionEndFor__Lupickle_core_ObjArrVisitor__I(stackHead$tailLocal1);
@@ -12831,14 +12823,13 @@ $c_Lujson_CharParser.prototype.tryCloseCollection__Lupickle_core_ObjArrVisitor__
     try {
       $n(ctxt2).visitValue__O__I__V($n(stackHead).visitEnd__I__O(i), i)
     } catch (e) {
-      var e$1 = e;
-      var e$2 = ((e$1 instanceof $c_jl_Throwable) ? e$1 : new $c_sjs_js_JavaScriptException(e$1));
+      var e$2 = ((e instanceof $c_jl_Throwable) ? e : new $c_sjs_js_JavaScriptException(e));
       var \u03b412$ = new $c_Lujson_CharParser$$anon$1(i);
       if (\u03b412$.isDefinedAt__jl_Throwable__Z(e$2)) {
         var default$1 = $m_s_PartialFunction$().s_PartialFunction$__f_empty_pf;
         \u03b412$.applyOrElse__jl_Throwable__F1__O(e$2, default$1)
       } else {
-        throw e$2
+        throw ((e$2 instanceof $c_sjs_js_JavaScriptException) ? e$2.sjs_js_JavaScriptException__f_exception : $n(e$2))
       }
     };
     return $m_s_None$()
@@ -14453,10 +14444,13 @@ function $m_Lio_circe_Encoder$AsObject$() {
   };
   return $n_Lio_circe_Encoder$AsObject$
 }
-function $p_Lio_circe_Json$__arrayEq__sci_Seq__sci_Seq__Z($thiz, x, y) {
+function $p_Lio_circe_Json$__arrayEq__sci_Vector__sci_Vector__Z($thiz, x, y) {
+  if (($n(x).length__I() !== $n(y).length__I())) {
+    return false
+  };
   var it0 = $n(x).iterator__sc_Iterator();
   var it1 = $n(y).iterator__sc_Iterator();
-  while (($n(it0).hasNext__Z() && $n(it1).hasNext__Z())) {
+  while ($n(it0).hasNext__Z()) {
     var this$1 = $n($m_Lio_circe_Json$().Lio_circe_Json$__f_eqJson);
     var x$1 = $n(it0).next__O();
     var y$1 = $n(it1).next__O();
@@ -14464,7 +14458,7 @@ function $p_Lio_circe_Json$__arrayEq__sci_Seq__sci_Seq__Z($thiz, x, y) {
       return false
     }
   };
-  return ($n(it0).hasNext__Z() === $n(it1).hasNext__Z())
+  return true
 }
 /** @constructor */
 function $c_Lio_circe_Json$() {
@@ -14533,7 +14527,7 @@ function $c_Lio_circe_Json$() {
         var x$1$11 = $as_Lio_circe_Json$JArray(x$2$1);
         var this$24 = $n(x$1$11);
         var x111 = this$24.Lio_circe_Json$JArray__f_value;
-        return $p_Lio_circe_Json$__arrayEq__sci_Seq__sci_Seq__Z(this, x114, x111)
+        return $p_Lio_circe_Json$__arrayEq__sci_Vector__sci_Vector__Z(this, x114, x111)
       }
     };
     return ($n(x$1$1).isNull__Z() && $n(x$2$1).isNull__Z())
@@ -14783,6 +14777,9 @@ function $h_Lio_circe_JsonObject$MapAndVectorJsonObject() {
   /*<skip>*/
 }
 $h_Lio_circe_JsonObject$MapAndVectorJsonObject.prototype = $c_Lio_circe_JsonObject$MapAndVectorJsonObject.prototype;
+$c_Lio_circe_JsonObject$MapAndVectorJsonObject.prototype.size__I = (function() {
+  return $n(this.Lio_circe_JsonObject$MapAndVectorJsonObject__f_fields).size__I()
+});
 $c_Lio_circe_JsonObject$MapAndVectorJsonObject.prototype.toMap__sci_Map = (function() {
   return this.Lio_circe_JsonObject$MapAndVectorJsonObject__f_fields
 });
@@ -17470,6 +17467,7 @@ function $ct_Lujson_BaseCharRenderer__Ljava_io_Writer__I__Z__($thiz, out, indent
   $thiz.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = 0;
   $thiz.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$visitingKey = false;
   $thiz.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
+  $thiz.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = false;
   $thiz.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$quoteBuffered = false;
   return $thiz
 }
@@ -17483,6 +17481,7 @@ function $c_Lujson_BaseCharRenderer() {
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = 0;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$visitingKey = false;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
+  this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = false;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$quoteBuffered = false
 }
 $c_Lujson_BaseCharRenderer.prototype = new $h_O();
@@ -17501,7 +17500,10 @@ $c_Lujson_BaseCharRenderer.prototype.flushCharBuilder__V = (function() {
 $c_Lujson_BaseCharRenderer.prototype.flushBuffer__V = (function() {
   if (this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered) {
     this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
-    $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).append__C__V(44);
+    $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).append__C__V(44)
+  };
+  if (this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered) {
+    this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = false;
     this.renderIndent__V()
   };
   if (this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$quoteBuffered) {
@@ -17621,7 +17623,7 @@ function $c_Lujson_BaseCharRenderer$$anon$1(outer) {
   $n(outer).flushBuffer__V();
   $n($n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).append__C__V(91);
   $n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = ((1 + $n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth) | 0);
-  $n(outer).renderIndent__V()
+  $n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = true
 }
 $c_Lujson_BaseCharRenderer$$anon$1.prototype = new $h_O();
 $c_Lujson_BaseCharRenderer$$anon$1.prototype.constructor = $c_Lujson_BaseCharRenderer$$anon$1;
@@ -17641,12 +17643,16 @@ $c_Lujson_BaseCharRenderer$$anon$1.prototype.subVisitor__Lupickle_core_Visitor =
 });
 $c_Lujson_BaseCharRenderer$$anon$1.prototype.visitValue__Ljava_io_Writer__I__V = (function(v, index) {
   $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).flushBuffer__V();
-  $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = true
+  $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = true;
+  $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = true
 });
 $c_Lujson_BaseCharRenderer$$anon$1.prototype.visitEnd__I__Ljava_io_Writer = (function(index) {
-  $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
   $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = (((-1) + $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth) | 0);
-  $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).renderIndent__V();
+  if (($n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered && $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered)) {
+    $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).renderIndent__V()
+  };
+  $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
+  $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = false;
   $n($n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).append__C__V(93);
   $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).flushCharBuilder__V();
   return $n(this.Lujson_BaseCharRenderer$$anon$1__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$out
@@ -17676,7 +17682,7 @@ function $c_Lujson_BaseCharRenderer$$anon$2(outer) {
   $n(outer).flushBuffer__V();
   $n($n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).append__C__V(123);
   $n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = ((1 + $n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth) | 0);
-  $n(outer).renderIndent__V()
+  $n(outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = true
 }
 $c_Lujson_BaseCharRenderer$$anon$2.prototype = new $h_O();
 $c_Lujson_BaseCharRenderer$$anon$2.prototype.constructor = $c_Lujson_BaseCharRenderer$$anon$2;
@@ -17705,12 +17711,16 @@ $c_Lujson_BaseCharRenderer$$anon$2.prototype.visitKeyValue__O__V = (function(s) 
   }
 });
 $c_Lujson_BaseCharRenderer$$anon$2.prototype.visitValue__Ljava_io_Writer__I__V = (function(v, index) {
-  $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = true
+  $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = true;
+  $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = true
 });
 $c_Lujson_BaseCharRenderer$$anon$2.prototype.visitEnd__I__Ljava_io_Writer = (function(index) {
-  $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
   $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = (((-1) + $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth) | 0);
-  $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).renderIndent__V();
+  if (($n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered && $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered)) {
+    $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).renderIndent__V()
+  };
+  $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
+  $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = false;
   $n($n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).append__C__V(125);
   $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).flushCharBuilder__V();
   return $n(this.Lujson_BaseCharRenderer$$anon$2__f_$outer).Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$out
@@ -17835,8 +17845,7 @@ function $f_Lujson_Value__str__T($thiz) {
     var x4 = this$2.Lujson_Str__f_value;
     return x4
   } else {
-    var x = new $c_Lujson_Value$InvalidData($thiz, "Expected ujson.Str");
-    throw x
+    throw new $c_Lujson_Value$InvalidData($thiz, "Expected ujson.Str")
   }
 }
 function $f_Lujson_Value__obj__Lupickle_core_LinkedHashMap($thiz) {
@@ -17846,8 +17855,7 @@ function $f_Lujson_Value__obj__Lupickle_core_LinkedHashMap($thiz) {
     var x12 = this$2.Lujson_Obj__f_value;
     return x12
   } else {
-    var x = new $c_Lujson_Value$InvalidData($thiz, "Expected ujson.Obj");
-    throw x
+    throw new $c_Lujson_Value$InvalidData($thiz, "Expected ujson.Obj")
   }
 }
 function $f_Lujson_Value__objOpt__s_Option($thiz) {
@@ -17867,8 +17875,7 @@ function $f_Lujson_Value__arr__scm_ArrayBuffer($thiz) {
     var x20 = this$2.Lujson_Arr__f_value;
     return x20
   } else {
-    var x = new $c_Lujson_Value$InvalidData($thiz, "Expected ujson.Arr");
-    throw x
+    throw new $c_Lujson_Value$InvalidData($thiz, "Expected ujson.Arr")
   }
 }
 function $f_Lujson_Value__arrOpt__s_Option($thiz) {
@@ -36006,6 +36013,7 @@ function $c_Lujson_Renderer(out, indent, escapeUnicode) {
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = 0;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$visitingKey = false;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
+  this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = false;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$quoteBuffered = false;
   this.Lujson_Renderer__f_out = null;
   this.Lujson_Renderer__f_indent = 0;
@@ -36199,6 +36207,7 @@ function $c_Lujson_StringRenderer(indent, escapeUnicode) {
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$depth = 0;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$visitingKey = false;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$commaBuffered = false;
+  this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$indentBuffered = false;
   this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$quoteBuffered = false;
   this.Lujson_StringRenderer__f_indent = 0;
   this.Lujson_StringRenderer__f_escapeUnicode = false;
@@ -36358,7 +36367,7 @@ $c_Lujson_Value$.prototype.visitJsonableObject__I__I__Lupickle_core_ObjVisitor =
   })), new $c_Lupickle_core_compat_LinkedHashMapCompat$$anon$1())
 });
 $c_Lujson_Value$.prototype.visitFloat64StringParts__jl_CharSequence__I__I__I__Lujson_Value = (function(s, decIndex, expIndex, index) {
-  if (((decIndex !== (-1)) || (expIndex !== (-1)))) {
+  if ((((decIndex !== (-1)) || (expIndex !== (-1))) || ($dp_length__I($n(s)) >= 19))) {
     $m_sc_StringOps$();
     var x = $dp_toString__T($n(s));
     var value = $m_jl_Double$().parseDouble__T__D(x)

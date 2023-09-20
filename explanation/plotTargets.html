@@ -197,7 +197,7 @@
 </span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())
 </span><span class="comment">// {
 //   &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega/v5.json&quot;,
-//   &quot;description&quot;: &quot;A basic bar chart example, with value labels shown upon mouse hover.&quot;,
+//   &quot;description&quot;: &quot;A basic bar chart example, with value labels shown upon pointer hover.&quot;,
 //   &quot;width&quot;: 400,
 //   &quot;height&quot;: 200,
 //   &quot;padding&quot;: 5,
@@ -223,16 +223,14 @@
 //   &quot;signals&quot;: [
 //     {
 //       &quot;name&quot;: &quot;tooltip&quot;,
-//       &quot;value&quot;: {
-//         
-//       },
+//       &quot;value&quot;: {},
 //       &quot;on&quot;: [
 //         {
-//           &quot;events&quot;: &quot;rect:mouseover&quot;,
+//           &quot;events&quot;: &quot;rect:pointerover&quot;,
 //           &quot;update&quot;: &quot;datum&quot;
 //         },
 //         {
-//           &quot;events&quot;: &quot;rect:mouseout&quot;,
+//           &quot;events&quot;: &quot;rect:pointerout&quot;,
 //           &quot;update&quot;: &quot;{}&quot;
 //         }
 //       ]
@@ -350,7 +348,7 @@
 //   ]
 // }
 // res2: BarChart = BarChart(
-//   mods = List(viz.extensions.package$$$Lambda$15609/2119250188@1ddae10a)
+//   mods = List(viz.extensions.package$$$Lambda$15543/1933090126@38214a40)
 // )</span></code></pre>
         
         <h2 id="vega-cli-outputs" class="section"><a class="anchor-link left" href="#vega-cli-outputs"><i class="icofont-laika">&#xef71;</i></a>Vega CLI outputs</h2>
