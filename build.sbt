@@ -19,7 +19,7 @@ import org.scalajs.linker.interface.ModuleSplitStyle
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.3.0"
+val scalaV = "3.3.1"
 
 inThisBuild(
   List(
