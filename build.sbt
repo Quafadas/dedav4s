@@ -172,8 +172,7 @@ lazy val docs = project
           title = Some("Dedav4s"),
           language = Some("en"),
           description = Some("Declarative data visualisation for scala"),
-          authors = Seq("Simon Parten"),
-          date = Some(Instant.now)
+          authors = Seq("Simon Parten")
         )
         .site
         .topNavigationBar(
