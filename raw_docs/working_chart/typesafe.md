@@ -1,13 +1,12 @@
 # The DSL
 
-The DSL is generated via [quicktype](https://quicktype.io), from the Vega Schema. 
+The DSL is generated via [quicktype](https://quicktype.io), from the Vega Schema.
 
 This is a simple bar chart.
 
 ```scala mdoc:js
 import viz.dsl.vegaLite.*
 import viz.dsl.DslPlot.*
-import viz.dsl.DslSpec
 import viz.vega.plots.given
 import io.circe._
 import cats.syntax.option.*
@@ -52,16 +51,15 @@ import cats.syntax.option.*
 viz.js.showChartJs(theChart.plot, node, 50)
 ```
 
-That is... a lot of work though. Writing this out by hand would be formidably hard. Honestly, no one is going to do that. New plan... 
+That is... a lot of work though. Writing this out by hand would be formidably hard. Honestly, no one is going to do that. New plan...
 
-Cheat! We have a strongly typed representation of the schema, so why not, once again... start from the examples. 
+Cheat! We have a strongly typed representation of the schema, so why not, once again... start from the examples.
 
 # Simpler strategy
 
 And seeing as we have a case class... copy... this uses Vega instead of VegaLite.
 
 ```scala mdoc:js
-import viz.dsl.DslPlot.*
 import viz.dsl.DslSpec
 import viz.PlotTargets.doNothing
 import viz.vega.plots.*
@@ -70,7 +68,7 @@ import io.circe.*
 import viz.dsl.vega.*
 import cats.syntax.option.*
 
-// Let's fetch the example... and parse it. 
+// Let's fetch the example... and parse it.
 val asDsl : VegaDsl = viz.vega.plots.BarChart().toDsl()
 
 // We make up a case class that happens to have category and amount fields
@@ -98,12 +96,9 @@ To give an idea of the types, let's run this again in scala JVM
 
 ```scala mdoc
 import viz.dsl.vegaLite.*
-import viz.dsl.DslPlot.*
-import viz.dsl.DslSpec
 import viz.PlotTargets.doNothing
 import viz.vega.plots.*
 import io.circe.*
-import viz.dsl.vegaLite.*
 
 val asDsl : VegaLiteDsl = viz.vega.plots.SimpleBarChartLite().toDsl()
 val someData : InlineDataset = Seq(
@@ -114,12 +109,12 @@ val someData : InlineDataset = Seq(
 
 asDsl.copy(
     data = Some(URLData(values = Some(someData))),
-    width = Some("container"), 
+    width = Some("container"),
     height = Some("container")
 )
 ```
 
 # Discussion
-Typesafety is nice to have in the sense that it removes entire categories of "unplottable" states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden. 
+Typesafety is nice to have in the sense that it removes entire categories of "unplottable" states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden.
 
 I'm on the fence about it's utility in this particular project.

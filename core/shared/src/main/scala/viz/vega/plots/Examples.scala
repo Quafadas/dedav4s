@@ -17,8 +17,6 @@
 package viz.vega.plots
 
 import viz.FromUrl
-import viz.PlotTarget
-import viz.vega.plots.SpecUrl
 import viz.PlotHasVegaDsl
 
 type JsonMod = Seq[ujson.Value => Unit]

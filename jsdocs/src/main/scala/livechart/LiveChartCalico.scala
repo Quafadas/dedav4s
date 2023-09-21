@@ -8,7 +8,6 @@ import viz.extensions.*
 import viz.vega.plots.{BarChart, given}
 import calico.*
 import calico.html.io.{*, given}
-import calico.unsafe.given
 import calico.syntax.*
 import cats.effect.*
 import cats.effect.std.Random

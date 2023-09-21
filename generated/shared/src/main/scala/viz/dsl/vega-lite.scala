@@ -17,7 +17,6 @@
 package viz.dsl.vegaLite
 
 import scala.util.Try
-import io.circe.syntax.*
 import io.circe.*
 import cats.syntax.functor.*
 

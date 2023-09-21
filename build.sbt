@@ -1,20 +1,13 @@
-import org.scalajs.linker.interface.ModuleSplitStyle
 import laika.helium.Helium
-import laika.helium.config.HeliumIcon
-import laika.helium.config.IconLink
-import laika.ast.Path.Root
-import laika.theme.config.Color
-import java.time.Instant
+import laika.helium.config.*
 import laika.markdown.github.GitHubFlavor
 import laika.parse.code.SyntaxHighlighting
-import com.typesafe.tools.mima.core.*
-import org.typelevel.sbt.site.*
+import laika.ast.Path.Root
+import laika.theme.config.Color
 import laika.ast.LengthUnit.*
-import laika.helium.config.Favicon
-import laika.helium.config.ImageLink
 import laika.ast.*
-import org.scalajs.linker.interface.ESVersion.*
-import org.scalajs.linker.interface.ModuleSplitStyle
+
+import java.time.OffsetDateTime
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -29,11 +22,7 @@ inThisBuild(
   )
 )
 
-inThisBuild(
-  mimaBinaryIssueFilters ++= Seq(
-    ProblemFilters.exclude[Problem]("viz.*")
-  )
-)
+ThisBuild / tlVersionIntroduced := Map("3" -> "1.0.0") // disable mima for now
 
 ThisBuild / tlSitePublishBranch := Some("main")
 ThisBuild / tlBaseVersion := "0.9"
@@ -133,11 +122,6 @@ lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
     scalaJSUseMainModuleInitializer := true,
-    // NOTE: Breaks Mdoc
-    // scalaJSLinkerConfig ~= {
-    //   _.withModuleKind(ModuleKind.NoModule)
-    //   //  .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("livechart")))
-    // },
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
@@ -166,22 +150,41 @@ lazy val docs = project
     // laikaTheme := Helium.defaults.build,
     // NOTE: Needed for Javasriptin in Laika
     laikaConfig ~= { _.withRawContent },
-    tlSiteHeliumConfig := {
+    laikaExtensions := Seq(
+      GitHubFlavor, SyntaxHighlighting
+    ),
+    tlSiteHelium := {
       Helium.defaults.site
         .metadata(
           title = Some("Dedav4s"),
           language = Some("en"),
           description = Some("Declarative data visualisation for scala"),
-          authors = Seq("Simon Parten")
+          authors = Seq("Simon Parten"),
+          datePublished = Some(OffsetDateTime.now)
         )
         .site
         .topNavigationBar(
-          homeLink = IconLink.internal(Root, HeliumIcon.home),
-          navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github))
+          homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
+          navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
+
+        )
+      Helium.defaults.site
+        .externalJS(
+          url = "https://cdn.jsdelivr.net/npm/vega@5"
+        ).site
+        .externalJS(
+           url = "https://cdn.jsdelivr.net/npm/vega-lite@5"
+        ).site
+        .externalJS(
+           url = "https://cdn.jsdelivr.net/npm/vega-embed@6"
         )
         .site
-        // NOTE: Needed for Javasriptin in Laika
         .autoLinkJS()
+        //.site
+        // NOTE: Needed for Javasriptin in Laika
+        //.internalJS(Root)
+      // .site
+      // .internalCSS(Root)
     }
   )
   .dependsOn(core.jvm)

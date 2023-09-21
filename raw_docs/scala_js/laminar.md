@@ -81,7 +81,6 @@ Inside the apply method we:
 import com.raquo.laminar.api.L.*
 
 import org.scalajs.dom
-import viz.extensions.*
 import viz.Utils
 import viz.LaminarViz
 import viz.vega.facades.VegaView

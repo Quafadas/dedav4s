@@ -3,8 +3,6 @@
 I did this to prove to myself, that it was possible, and to learn something about calico. Calico worked great, I'm not 100% sure about my integration with it - YMMW, but it follows (as closely as I could tell ) a reactive model which also works nicely with vegas event streams.
 
 ```scala mdoc:js
-import scala.scalajs.js
-import scala.scalajs.js.annotation.*
 
 import viz.extensions.*
 import viz.vega.plots.{BarChart, given}
@@ -26,7 +24,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
     .of(List(2.4, 3.4, 5.1, -2.3))
     .product(Channel.unbounded[IO, Int])
     .toResource
-    .flatMap { (data: SignallingRef[cats.effect.IO, List[Double]], diff) =>
+    .flatMap { (data: SignallingRef[cats.effect.IO, List[Double]], _) =>
       div(
         p("We want to make it as easy as possible, to build a chart"),
         span("Here's a random data set: "),
@@ -37,7 +35,6 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
             _.evalMap(_ =>
               Random.scalaUtilRandom[IO].toResource.use(r => r.nextDouble.map(_ * 5))
             ).foreach(newD =>
-              val d = data.get
               IO.println(newD) >>
                 data.update(_ :+ newD).void
             )

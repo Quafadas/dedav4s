@@ -18,7 +18,7 @@
     @:for(helium.webFonts)
       <link rel="stylesheet" href="${_}">
     @:@
-    @:linkCSS { paths = ${helium.site.includeCSS} }
+    <!-- @:linkCSS { paths = ${helium.site.includeCSS} } -->
     @:linkJS { paths = ${helium.site.includeJS} }
     @:heliumInitVersions
     @:heliumInitPreview(container)
@@ -55,13 +55,11 @@
 
       <a class="icon-link" href="index.html"><i class="icofont-laika" title="Home"></i></a>
 
-      ${?helium.topBar.links}
+
 
     </header>
 
     <nav id="sidebar">
-
-      ${?helium.topBar.phoneLinks}
 
       @:navigationTree {
         entries = [

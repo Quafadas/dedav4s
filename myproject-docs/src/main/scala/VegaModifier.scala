@@ -16,8 +16,6 @@
 
 package viz.mdoc
 
-import java.nio.file.Files
-import java.nio.file.Paths
 import mdoc.*
 import scala.meta.inputs.Position
 import scala.util.Random
