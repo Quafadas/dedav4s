@@ -35,9 +35,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
         button(
           "Add a random number",
           onClick --> (
-            _.evalMap(_ =>
-              Random.scalaUtilRandom[IO].toResource.use(r => r.nextDouble.map(_ * 5))
-            ).foreach(newD =>
+            _.evalMap(_ => Random.scalaUtilRandom[IO].toResource.use(r => r.nextDouble.map(_ * 5))).foreach(newD =>
               val d = data.get
               IO.println(newD) >>
                 data.update(_ :+ newD).void
@@ -53,7 +51,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
             )
           )
           val chartDiv = div("")
-          chartDiv.flatMap{ d =>
+          chartDiv.flatMap { d =>
             // To my astonishment, this doesn't work...
             /* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
             dCheat.style.height = "40vmin"
