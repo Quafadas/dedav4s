@@ -49,7 +49,7 @@ class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
   // def data(s: String, j: js.Dynamic): Unit = js.native
 
   // Most likely, a js.Array[js.Object]
-  def data(s: String, data: js.UndefOr[js.Array[js.Dynamic]]): Unit = js.native
+  def data(s: String, data: js.UndefOr[js.Any]): Unit = js.native
   def data(s: String): Unit = js.native
 
   // Insert only
