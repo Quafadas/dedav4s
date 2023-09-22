@@ -79,7 +79,7 @@ object Helpers:
     def safeAddSignalListener(
         forSignal: String,
         handler: (x: String, y: js.Dynamic) => Unit
-    ): Unit =
+    ): VegaView =
       val signals = getSignals()
       assert(
         signals.contains(forSignal),
@@ -93,7 +93,7 @@ object Helpers:
       js.Object.keys(tmp.signals.asInstanceOf[js.Object]).toList
     end getSignals
 
-    def printSignalEventHandler(forSignal: String): Unit =
+    def printSignalEventHandler(forSignal: String): VegaView =
       val signals = getSignals()
       assert(
         signals.contains(forSignal),
@@ -107,7 +107,7 @@ object Helpers:
       vv.addSignalListener(forSignal, handler)
     end printSignalEventHandler
 
-    def getSignalEventHandler(forSignal: String): Unit =
+    def getSignalEventHandler(forSignal: String): VegaView =
       val signals = getSignals()
       assert(
         signals.contains(forSignal),
@@ -117,7 +117,7 @@ object Helpers:
       vv.addSignalListener(forSignal, handler)
     end getSignalEventHandler
 
-    def printEventHandler(forEvent: String = "click"): Unit =
+    def printEventHandler(forEvent: String = "click"): VegaView =
 
       val getCircularReplacer: js.Function0[js.Function2[String, js.Any, js.Any]] = () =>
         val seen = new js.Set[js.Object]()

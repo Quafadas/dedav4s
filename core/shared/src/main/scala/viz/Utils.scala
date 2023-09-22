@@ -63,9 +63,9 @@ object Utils:
                   }
                 ]
           }
-          
+
         """)
-      if spec("$schema").str.contains("lite") then
+      val _ = if spec("$schema").str.contains("lite") then
         spec("width") = "container"
         spec("height") = "container"
       else
@@ -76,7 +76,8 @@ object Utils:
         end if
         spec("autosize") = ujson.Obj("type" -> "fit", "resize" -> true, "contains" -> "padding")
         spec("signals").arr.append(signalH).append(signalW)
-      end if
+      ()
+  end fillDiv
 
   val fixDefaultDataUrl: ujson.Value => Unit = new Function1[ujson.Value, Unit]:
     override def toString = "Fix default data url"
