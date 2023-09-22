@@ -4408,7 +4408,6 @@ $c_Lmdocjs$.prototype.run0__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   var values = $m_s_None$();
   var zindex = $m_s_None$();
   var newAxis = new $c_Lviz_dsl_vega_Axis(aria, bandPosition, description, domain, domainCap, domainColor, domainDash, domainDashOffset, domainOpacity, domainWidth, encode, format, formatType, grid, gridCap, gridColor, gridDash, gridDashOffset, gridOpacity, gridScale, gridWidth, labelAlign, labelAngle, labelBaseline, labelBound, labelColor, labelFlush, labelFlushOffset, labelFont, labelFontSize, labelFontStyle, labelFontWeight, labelLimit, labelLineHeight, labelOffset, labelOpacity, labelOverlap, labelPadding, labels, labelSeparation, maxExtent, minExtent, offset, axisOrient, position, "xscale", tickBand, tickCap, tickColor, tickCount, tickDash, tickDashOffset, tickExtra, tickMinStep, tickOffset, tickOpacity, tickRound, ticks, tickSize, tickWidth, title, titleAlign, titleAnchor, titleAngle, titleBaseline, titleColor, titleFont, titleFontSize, titleFontStyle, titleFontWeight, titleLimit, titleLineHeight, titleOpacity, titlePadding, titleX, titleY, translate, values, zindex);
-  $m_Lviz_dsl_Conversion$().u__O__Lio_circe_Encoder__Lujson_Value(newAxis, $m_Lviz_dsl_vega_Axis$().derived$AsObject__Lio_circe_Encoder$AsObject());
   $m_Lviz_vega_plots_BarChart$();
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_F1.getArrayOf().constr)([$m_Lviz_Utils$().Lviz_Utils$__f_removeXAxis, $m_Lviz_Utils$().Lviz_Utils$__f_fillDiv, new $c_sjsr_AnonFunction1(((spec) => {
@@ -8481,7 +8480,7 @@ function $c_Lviz_Utils$() {
     var this$7 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$6));
     $f_scm_MapOps__remove__O__s_Option(this$7, "autosize");
     var signalW = $m_Lujson_package$().read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer("\n          {\n                \"name\": \"width\",\n                \"init\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n              }\n              ", $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
-    var signalH = $m_Lujson_package$().read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer("\n          {\n                \"name\": \"height\",\n                \"init\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n          }\n          \n        ", $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
+    var signalH = $m_Lujson_package$().read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer("\n          {\n                \"name\": \"height\",\n                \"init\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n          }\n\n        ", $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
     var this$11 = $n(spec$1);
     var s = new $c_Lujson_Value$Selector$StringSelector("$schema");
     var this$12 = $n(s.apply__Lujson_Value__Lujson_Value(this$11));
@@ -8635,7 +8634,7 @@ function $h_Lviz_doNothing_DoNothing$package$() {
 $h_Lviz_doNothing_DoNothing$package$.prototype = $c_Lviz_doNothing_DoNothing$package$.prototype;
 $c_Lviz_doNothing_DoNothing$package$.prototype.doNothing__Lviz_LowPriorityPlotTarget = (function() {
   if ((!this.Lviz_doNothing_DoNothing$package$__f_doNothingbitmap$1)) {
-    this.Lviz_doNothing_DoNothing$package$__f_doNothing$lzy1 = new $c_Lviz_doNothing_DoNothing$package$$anon$1();
+    this.Lviz_doNothing_DoNothing$package$__f_doNothing$lzy1 = new $c_Lviz_doNothing_DoNothing$package$$anon$1(this);
     this.Lviz_doNothing_DoNothing$package$__f_doNothingbitmap$1 = true
   };
   return this.Lviz_doNothing_DoNothing$package$__f_doNothing$lzy1
@@ -10545,11 +10544,7 @@ function $ct_jl_Throwable__T__jl_Throwable__Z__Z__($thiz, s, e, enableSuppressio
 class $c_jl_Throwable extends Error {
   constructor() {
     super();
-    this.jl_Throwable__f_s = null;
-    this.jl_Throwable__f_e = null;
-    this.jl_Throwable__f_writableStackTrace = false;
-    this.jl_Throwable__f_jsErrorForStackTrace = null;
-    this.jl_Throwable__f_stackTrace = null
+    this.jl_Throwable__f_s = null
   };
   getMessage__T() {
     return this.jl_Throwable__f_s
@@ -13376,15 +13371,15 @@ var $d_Lupickle_core_compat_LinkedHashMapCompat$$anon$1 = new $TypeData().initCl
 });
 $c_Lupickle_core_compat_LinkedHashMapCompat$$anon$1.prototype.$classData = $d_Lupickle_core_compat_LinkedHashMapCompat$$anon$1;
 function $f_Lviz_PlatformShow__$init$__V($thiz) {
-  var x1 = $thiz.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget;
-  if ($is_Lviz_LowPriorityPlotTarget(x1)) {
+  var x2 = $thiz.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget;
+  if ($is_Lviz_LowPriorityPlotTarget(x2)) {
     return (void 0)
   };
-  if ($uZ((x1 instanceof HTMLDivElement))) {
-    $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, x1);
+  if ($uZ((x2 instanceof HTMLDivElement))) {
+    $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, x2);
     return (void 0)
   };
-  throw new $c_s_MatchError(x1)
+  throw new $c_s_MatchError(x2)
 }
 function $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, inDiv) {
   var anId = $as_T(inDiv.id);
@@ -13517,11 +13512,11 @@ $c_Lviz_Utils$$anon$3.prototype.apply__Lujson_Value__V = (function(spec) {
   var this$2 = $n(spec);
   var s = new $c_Lujson_Value$Selector$StringSelector("data");
   var test = s.apply__Lujson_Value__Lujson_Value(this$2);
-  matchResult1: {
+  matchResult2: {
     var this$3 = $n(test);
-    var x1 = $f_Lujson_Value__arrOpt__s_Option(this$3);
-    if ((x1 instanceof $c_s_Some)) {
-      $as_scm_ArrayBuffer($n($as_s_Some(x1)).s_Some__f_value);
+    var x2 = $f_Lujson_Value__arrOpt__s_Option(this$3);
+    if ((x2 instanceof $c_s_Some)) {
+      $as_scm_ArrayBuffer($n($as_s_Some(x2)).s_Some__f_value);
       var this$5 = $n(spec);
       var s$1 = new $c_Lujson_Value$Selector$StringSelector("data");
       var this$7 = $n(s$1.apply__Lujson_Value__Lujson_Value(this$5));
@@ -13538,19 +13533,19 @@ $c_Lviz_Utils$$anon$3.prototype.apply__Lujson_Value__V = (function(spec) {
       var s$6 = ("https://raw.githubusercontent.com/vega/vega/master/docs/" + $f_Lujson_Value__str__T(this$15));
       var v = new $c_Lujson_Str(s$6);
       s$7.update__Lujson_Value__Lujson_Value__V(this$18, v);
-      break matchResult1
+      break matchResult2
     };
     var x = $m_s_None$();
-    if ((x === x1)) {
-      break matchResult1
+    if ((x === x2)) {
+      break matchResult2
     };
-    throw new $c_s_MatchError(x1)
+    throw new $c_s_MatchError(x2)
   };
-  matchResult2: {
+  matchResult3: {
     var this$19 = $n(test);
-    var x4 = $f_Lujson_Value__objOpt__s_Option(this$19);
-    if ((x4 instanceof $c_s_Some)) {
-      $as_Lupickle_core_LinkedHashMap($n($as_s_Some(x4)).s_Some__f_value);
+    var x5 = $f_Lujson_Value__objOpt__s_Option(this$19);
+    if ((x5 instanceof $c_s_Some)) {
+      $as_Lupickle_core_LinkedHashMap($n($as_s_Some(x5)).s_Some__f_value);
       var this$21 = $n(spec);
       var s$8 = new $c_Lujson_Value$Selector$StringSelector("data");
       var this$30 = $n(s$8.apply__Lujson_Value__Lujson_Value(this$21));
@@ -13563,13 +13558,13 @@ $c_Lviz_Utils$$anon$3.prototype.apply__Lujson_Value__V = (function(spec) {
       var s$11 = ("https://raw.githubusercontent.com/vega/vega/master/docs/" + $f_Lujson_Value__str__T(this$27));
       var v$1 = new $c_Lujson_Str(s$11);
       s$12.update__Lujson_Value__Lujson_Value__V(this$30, v$1);
-      break matchResult2
+      break matchResult3
     };
     var x$3 = $m_s_None$();
-    if ((x$3 === x4)) {
-      break matchResult2
+    if ((x$3 === x5)) {
+      break matchResult3
     };
-    throw new $c_s_MatchError(x4)
+    throw new $c_s_MatchError(x5)
   }
 });
 $c_Lviz_Utils$$anon$3.prototype.apply__O__O = (function(v1) {
@@ -13584,8 +13579,10 @@ var $d_Lviz_Utils$$anon$3 = new $TypeData().initClass({
 });
 $c_Lviz_Utils$$anon$3.prototype.$classData = $d_Lviz_Utils$$anon$3;
 /** @constructor */
-function $c_Lviz_doNothing_DoNothing$package$$anon$1() {
-  /*<skip>*/
+function $c_Lviz_doNothing_DoNothing$package$$anon$1(outer) {
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  }
 }
 $c_Lviz_doNothing_DoNothing$package$$anon$1.prototype = new $h_O();
 $c_Lviz_doNothing_DoNothing$package$$anon$1.prototype.constructor = $c_Lviz_doNothing_DoNothing$package$$anon$1;
@@ -13666,9 +13663,6 @@ function $h_Lviz_vega_plots_BarChart$() {
   /*<skip>*/
 }
 $h_Lviz_vega_plots_BarChart$.prototype = $c_Lviz_vega_plots_BarChart$.prototype;
-$c_Lviz_vega_plots_BarChart$.prototype.toString__T = (function() {
-  return "BarChart"
-});
 var $d_Lviz_vega_plots_BarChart$ = new $TypeData().initClass({
   Lviz_vega_plots_BarChart$: 0
 }, false, "viz.vega.plots.BarChart$", {
@@ -18051,7 +18045,7 @@ $c_Lviz_dsl_vega_AlignValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_AlignValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_AlignValue$__f_derived$AsObjectbitmap$19)) {
-    this.Lviz_dsl_vega_AlignValue$__f_derived$AsObject$lzy19 = new $c_Lviz_dsl_vega_AlignValue$$anon$58();
+    this.Lviz_dsl_vega_AlignValue$__f_derived$AsObject$lzy19 = new $c_Lviz_dsl_vega_AlignValue$$anon$58(this);
     this.Lviz_dsl_vega_AlignValue$__f_derived$AsObjectbitmap$19 = true
   };
   return this.Lviz_dsl_vega_AlignValue$__f_derived$AsObject$lzy19
@@ -18089,7 +18083,7 @@ $c_Lviz_dsl_vega_AnchorValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_AnchorValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_AnchorValue$__f_derived$AsObjectbitmap$28)) {
-    this.Lviz_dsl_vega_AnchorValue$__f_derived$AsObject$lzy28 = new $c_Lviz_dsl_vega_AnchorValue$$anon$92();
+    this.Lviz_dsl_vega_AnchorValue$__f_derived$AsObject$lzy28 = new $c_Lviz_dsl_vega_AnchorValue$$anon$92(this);
     this.Lviz_dsl_vega_AnchorValue$__f_derived$AsObjectbitmap$28 = true
   };
   return this.Lviz_dsl_vega_AnchorValue$__f_derived$AsObject$lzy28
@@ -18127,7 +18121,7 @@ $c_Lviz_dsl_vega_ArrayValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_ArrayValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_ArrayValue$__f_derived$AsObjectbitmap$13)) {
-    this.Lviz_dsl_vega_ArrayValue$__f_derived$AsObject$lzy13 = new $c_Lviz_dsl_vega_ArrayValue$$anon$39();
+    this.Lviz_dsl_vega_ArrayValue$__f_derived$AsObject$lzy13 = new $c_Lviz_dsl_vega_ArrayValue$$anon$39(this);
     this.Lviz_dsl_vega_ArrayValue$__f_derived$AsObjectbitmap$13 = true
   };
   return this.Lviz_dsl_vega_ArrayValue$__f_derived$AsObject$lzy13
@@ -18165,7 +18159,7 @@ $c_Lviz_dsl_vega_AxeEncode$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_AxeEncode$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_AxeEncode$__f_derived$AsObjectbitmap$14)) {
-    this.Lviz_dsl_vega_AxeEncode$__f_derived$AsObject$lzy14 = new $c_Lviz_dsl_vega_AxeEncode$$anon$42();
+    this.Lviz_dsl_vega_AxeEncode$__f_derived$AsObject$lzy14 = new $c_Lviz_dsl_vega_AxeEncode$$anon$42(this);
     this.Lviz_dsl_vega_AxeEncode$__f_derived$AsObjectbitmap$14 = true
   };
   return this.Lviz_dsl_vega_AxeEncode$__f_derived$AsObject$lzy14
@@ -18203,7 +18197,7 @@ $c_Lviz_dsl_vega_Axis$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_Axis$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_Axis$__f_derived$AsObjectbitmap$3)) {
-    this.Lviz_dsl_vega_Axis$__f_derived$AsObject$lzy3 = new $c_Lviz_dsl_vega_Axis$$anon$9();
+    this.Lviz_dsl_vega_Axis$__f_derived$AsObject$lzy3 = new $c_Lviz_dsl_vega_Axis$$anon$9(this);
     this.Lviz_dsl_vega_Axis$__f_derived$AsObjectbitmap$3 = true
   };
   return this.Lviz_dsl_vega_Axis$__f_derived$AsObject$lzy3
@@ -18241,7 +18235,7 @@ $c_Lviz_dsl_vega_BandPositionClass$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_BandPositionClass$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_BandPositionClass$__f_derived$AsObjectbitmap$4)) {
-    this.Lviz_dsl_vega_BandPositionClass$__f_derived$AsObject$lzy4 = new $c_Lviz_dsl_vega_BandPositionClass$$anon$12();
+    this.Lviz_dsl_vega_BandPositionClass$__f_derived$AsObject$lzy4 = new $c_Lviz_dsl_vega_BandPositionClass$$anon$12(this);
     this.Lviz_dsl_vega_BandPositionClass$__f_derived$AsObjectbitmap$4 = true
   };
   return this.Lviz_dsl_vega_BandPositionClass$__f_derived$AsObject$lzy4
@@ -18279,7 +18273,7 @@ $c_Lviz_dsl_vega_BandPositionElement$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_BandPositionElement$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_BandPositionElement$__f_derived$AsObjectbitmap$5)) {
-    this.Lviz_dsl_vega_BandPositionElement$__f_derived$AsObject$lzy5 = new $c_Lviz_dsl_vega_BandPositionElement$$anon$15();
+    this.Lviz_dsl_vega_BandPositionElement$__f_derived$AsObject$lzy5 = new $c_Lviz_dsl_vega_BandPositionElement$$anon$15(this);
     this.Lviz_dsl_vega_BandPositionElement$__f_derived$AsObjectbitmap$5 = true
   };
   return this.Lviz_dsl_vega_BandPositionElement$__f_derived$AsObject$lzy5
@@ -18317,7 +18311,7 @@ $c_Lviz_dsl_vega_BaseColorValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_BaseColorValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_BaseColorValue$__f_derived$AsObjectbitmap$9)) {
-    this.Lviz_dsl_vega_BaseColorValue$__f_derived$AsObject$lzy9 = new $c_Lviz_dsl_vega_BaseColorValue$$anon$27();
+    this.Lviz_dsl_vega_BaseColorValue$__f_derived$AsObject$lzy9 = new $c_Lviz_dsl_vega_BaseColorValue$$anon$27(this);
     this.Lviz_dsl_vega_BaseColorValue$__f_derived$AsObjectbitmap$9 = true
   };
   return this.Lviz_dsl_vega_BaseColorValue$__f_derived$AsObject$lzy9
@@ -18355,7 +18349,7 @@ $c_Lviz_dsl_vega_BaselineValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_BaselineValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_BaselineValue$__f_derived$AsObjectbitmap$21)) {
-    this.Lviz_dsl_vega_BaselineValue$__f_derived$AsObject$lzy21 = new $c_Lviz_dsl_vega_BaselineValue$$anon$65();
+    this.Lviz_dsl_vega_BaselineValue$__f_derived$AsObject$lzy21 = new $c_Lviz_dsl_vega_BaselineValue$$anon$65(this);
     this.Lviz_dsl_vega_BaselineValue$__f_derived$AsObjectbitmap$21 = true
   };
   return this.Lviz_dsl_vega_BaselineValue$__f_derived$AsObject$lzy21
@@ -18393,7 +18387,7 @@ $c_Lviz_dsl_vega_BooleanValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_BooleanValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_BooleanValue$__f_derived$AsObjectbitmap$26)) {
-    this.Lviz_dsl_vega_BooleanValue$__f_derived$AsObject$lzy26 = new $c_Lviz_dsl_vega_BooleanValue$$anon$86();
+    this.Lviz_dsl_vega_BooleanValue$__f_derived$AsObject$lzy26 = new $c_Lviz_dsl_vega_BooleanValue$$anon$86(this);
     this.Lviz_dsl_vega_BooleanValue$__f_derived$AsObjectbitmap$26 = true
   };
   return this.Lviz_dsl_vega_BooleanValue$__f_derived$AsObject$lzy26
@@ -18431,7 +18425,7 @@ $c_Lviz_dsl_vega_Color$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_Color$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_Color$__f_derived$AsObjectbitmap$10)) {
-    this.Lviz_dsl_vega_Color$__f_derived$AsObject$lzy10 = new $c_Lviz_dsl_vega_Color$$anon$30();
+    this.Lviz_dsl_vega_Color$__f_derived$AsObject$lzy10 = new $c_Lviz_dsl_vega_Color$$anon$30(this);
     this.Lviz_dsl_vega_Color$__f_derived$AsObjectbitmap$10 = true
   };
   return this.Lviz_dsl_vega_Color$__f_derived$AsObject$lzy10
@@ -18469,7 +18463,7 @@ $c_Lviz_dsl_vega_DomainCapElement$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_DomainCapElement$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_DomainCapElement$__f_derived$AsObjectbitmap$7)) {
-    this.Lviz_dsl_vega_DomainCapElement$__f_derived$AsObject$lzy7 = new $c_Lviz_dsl_vega_DomainCapElement$$anon$21();
+    this.Lviz_dsl_vega_DomainCapElement$__f_derived$AsObject$lzy7 = new $c_Lviz_dsl_vega_DomainCapElement$$anon$21(this);
     this.Lviz_dsl_vega_DomainCapElement$__f_derived$AsObjectbitmap$7 = true
   };
   return this.Lviz_dsl_vega_DomainCapElement$__f_derived$AsObject$lzy7
@@ -18507,7 +18501,7 @@ $c_Lviz_dsl_vega_DomainDashClass$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_DomainDashClass$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_DomainDashClass$__f_derived$AsObjectbitmap$12)) {
-    this.Lviz_dsl_vega_DomainDashClass$__f_derived$AsObject$lzy12 = new $c_Lviz_dsl_vega_DomainDashClass$$anon$36();
+    this.Lviz_dsl_vega_DomainDashClass$__f_derived$AsObject$lzy12 = new $c_Lviz_dsl_vega_DomainDashClass$$anon$36(this);
     this.Lviz_dsl_vega_DomainDashClass$__f_derived$AsObjectbitmap$12 = true
   };
   return this.Lviz_dsl_vega_DomainDashClass$__f_derived$AsObject$lzy12
@@ -18545,7 +18539,7 @@ $c_Lviz_dsl_vega_FluffySignalRef$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_FluffySignalRef$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_FluffySignalRef$__f_derived$AsObjectbitmap$16)) {
-    this.Lviz_dsl_vega_FluffySignalRef$__f_derived$AsObject$lzy16 = new $c_Lviz_dsl_vega_FluffySignalRef$$anon$48();
+    this.Lviz_dsl_vega_FluffySignalRef$__f_derived$AsObject$lzy16 = new $c_Lviz_dsl_vega_FluffySignalRef$$anon$48(this);
     this.Lviz_dsl_vega_FluffySignalRef$__f_derived$AsObjectbitmap$16 = true
   };
   return this.Lviz_dsl_vega_FluffySignalRef$__f_derived$AsObject$lzy16
@@ -18583,7 +18577,7 @@ $c_Lviz_dsl_vega_FontWeightValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_FontWeightValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_FontWeightValue$__f_derived$AsObjectbitmap$23)) {
-    this.Lviz_dsl_vega_FontWeightValue$__f_derived$AsObject$lzy23 = new $c_Lviz_dsl_vega_FontWeightValue$$anon$72();
+    this.Lviz_dsl_vega_FontWeightValue$__f_derived$AsObject$lzy23 = new $c_Lviz_dsl_vega_FontWeightValue$$anon$72(this);
     this.Lviz_dsl_vega_FontWeightValue$__f_derived$AsObjectbitmap$23 = true
   };
   return this.Lviz_dsl_vega_FontWeightValue$__f_derived$AsObject$lzy23
@@ -18621,7 +18615,7 @@ $c_Lviz_dsl_vega_FormatTypeSignalRef$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_FormatTypeSignalRef$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_FormatTypeSignalRef$__f_derived$AsObjectbitmap$17)) {
-    this.Lviz_dsl_vega_FormatTypeSignalRef$__f_derived$AsObject$lzy17 = new $c_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51();
+    this.Lviz_dsl_vega_FormatTypeSignalRef$__f_derived$AsObject$lzy17 = new $c_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51(this);
     this.Lviz_dsl_vega_FormatTypeSignalRef$__f_derived$AsObjectbitmap$17 = true
   };
   return this.Lviz_dsl_vega_FormatTypeSignalRef$__f_derived$AsObject$lzy17
@@ -18659,7 +18653,7 @@ $c_Lviz_dsl_vega_GuideEncode$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_GuideEncode$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_GuideEncode$__f_derived$AsObjectbitmap$15)) {
-    this.Lviz_dsl_vega_GuideEncode$__f_derived$AsObject$lzy15 = new $c_Lviz_dsl_vega_GuideEncode$$anon$45();
+    this.Lviz_dsl_vega_GuideEncode$__f_derived$AsObject$lzy15 = new $c_Lviz_dsl_vega_GuideEncode$$anon$45(this);
     this.Lviz_dsl_vega_GuideEncode$__f_derived$AsObjectbitmap$15 = true
   };
   return this.Lviz_dsl_vega_GuideEncode$__f_derived$AsObject$lzy15
@@ -18697,7 +18691,7 @@ $c_Lviz_dsl_vega_LabelAlignElement$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_LabelAlignElement$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_LabelAlignElement$__f_derived$AsObjectbitmap$18)) {
-    this.Lviz_dsl_vega_LabelAlignElement$__f_derived$AsObject$lzy18 = new $c_Lviz_dsl_vega_LabelAlignElement$$anon$55();
+    this.Lviz_dsl_vega_LabelAlignElement$__f_derived$AsObject$lzy18 = new $c_Lviz_dsl_vega_LabelAlignElement$$anon$55(this);
     this.Lviz_dsl_vega_LabelAlignElement$__f_derived$AsObjectbitmap$18 = true
   };
   return this.Lviz_dsl_vega_LabelAlignElement$__f_derived$AsObject$lzy18
@@ -18735,7 +18729,7 @@ $c_Lviz_dsl_vega_LabelBaselineElement$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_LabelBaselineElement$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_LabelBaselineElement$__f_derived$AsObjectbitmap$20)) {
-    this.Lviz_dsl_vega_LabelBaselineElement$__f_derived$AsObject$lzy20 = new $c_Lviz_dsl_vega_LabelBaselineElement$$anon$62();
+    this.Lviz_dsl_vega_LabelBaselineElement$__f_derived$AsObject$lzy20 = new $c_Lviz_dsl_vega_LabelBaselineElement$$anon$62(this);
     this.Lviz_dsl_vega_LabelBaselineElement$__f_derived$AsObjectbitmap$20 = true
   };
   return this.Lviz_dsl_vega_LabelBaselineElement$__f_derived$AsObject$lzy20
@@ -18773,7 +18767,7 @@ $c_Lviz_dsl_vega_LabelFontWeightElement$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_LabelFontWeightElement$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_LabelFontWeightElement$__f_derived$AsObjectbitmap$22)) {
-    this.Lviz_dsl_vega_LabelFontWeightElement$__f_derived$AsObject$lzy22 = new $c_Lviz_dsl_vega_LabelFontWeightElement$$anon$69();
+    this.Lviz_dsl_vega_LabelFontWeightElement$__f_derived$AsObject$lzy22 = new $c_Lviz_dsl_vega_LabelFontWeightElement$$anon$69(this);
     this.Lviz_dsl_vega_LabelFontWeightElement$__f_derived$AsObjectbitmap$22 = true
   };
   return this.Lviz_dsl_vega_LabelFontWeightElement$__f_derived$AsObject$lzy22
@@ -18811,7 +18805,7 @@ $c_Lviz_dsl_vega_PurpleBaseColorValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_PurpleBaseColorValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_PurpleBaseColorValue$__f_derived$AsObjectbitmap$11)) {
-    this.Lviz_dsl_vega_PurpleBaseColorValue$__f_derived$AsObject$lzy11 = new $c_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33();
+    this.Lviz_dsl_vega_PurpleBaseColorValue$__f_derived$AsObject$lzy11 = new $c_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33(this);
     this.Lviz_dsl_vega_PurpleBaseColorValue$__f_derived$AsObjectbitmap$11 = true
   };
   return this.Lviz_dsl_vega_PurpleBaseColorValue$__f_derived$AsObject$lzy11
@@ -18849,7 +18843,7 @@ $c_Lviz_dsl_vega_PurpleSignalRef$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_PurpleSignalRef$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_PurpleSignalRef$__f_derived$AsObjectbitmap$6)) {
-    this.Lviz_dsl_vega_PurpleSignalRef$__f_derived$AsObject$lzy6 = new $c_Lviz_dsl_vega_PurpleSignalRef$$anon$18();
+    this.Lviz_dsl_vega_PurpleSignalRef$__f_derived$AsObject$lzy6 = new $c_Lviz_dsl_vega_PurpleSignalRef$$anon$18(this);
     this.Lviz_dsl_vega_PurpleSignalRef$__f_derived$AsObjectbitmap$6 = true
   };
   return this.Lviz_dsl_vega_PurpleSignalRef$__f_derived$AsObject$lzy6
@@ -18887,7 +18881,7 @@ $c_Lviz_dsl_vega_StringValue$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_StringValue$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_StringValue$__f_derived$AsObjectbitmap$8)) {
-    this.Lviz_dsl_vega_StringValue$__f_derived$AsObject$lzy8 = new $c_Lviz_dsl_vega_StringValue$$anon$24();
+    this.Lviz_dsl_vega_StringValue$__f_derived$AsObject$lzy8 = new $c_Lviz_dsl_vega_StringValue$$anon$24(this);
     this.Lviz_dsl_vega_StringValue$__f_derived$AsObjectbitmap$8 = true
   };
   return this.Lviz_dsl_vega_StringValue$__f_derived$AsObject$lzy8
@@ -18925,7 +18919,7 @@ $c_Lviz_dsl_vega_TickCountSignalRef$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_TickCountSignalRef$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_TickCountSignalRef$__f_derived$AsObjectbitmap$24)) {
-    this.Lviz_dsl_vega_TickCountSignalRef$__f_derived$AsObject$lzy24 = new $c_Lviz_dsl_vega_TickCountSignalRef$$anon$79();
+    this.Lviz_dsl_vega_TickCountSignalRef$__f_derived$AsObject$lzy24 = new $c_Lviz_dsl_vega_TickCountSignalRef$$anon$79(this);
     this.Lviz_dsl_vega_TickCountSignalRef$__f_derived$AsObjectbitmap$24 = true
   };
   return this.Lviz_dsl_vega_TickCountSignalRef$__f_derived$AsObject$lzy24
@@ -18963,7 +18957,7 @@ $c_Lviz_dsl_vega_TickRoundElement$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_TickRoundElement$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_TickRoundElement$__f_derived$AsObjectbitmap$25)) {
-    this.Lviz_dsl_vega_TickRoundElement$__f_derived$AsObject$lzy25 = new $c_Lviz_dsl_vega_TickRoundElement$$anon$83();
+    this.Lviz_dsl_vega_TickRoundElement$__f_derived$AsObject$lzy25 = new $c_Lviz_dsl_vega_TickRoundElement$$anon$83(this);
     this.Lviz_dsl_vega_TickRoundElement$__f_derived$AsObjectbitmap$25 = true
   };
   return this.Lviz_dsl_vega_TickRoundElement$__f_derived$AsObject$lzy25
@@ -19001,7 +18995,7 @@ $c_Lviz_dsl_vega_TitleAnchorElement$.prototype.toString__T = (function() {
 });
 $c_Lviz_dsl_vega_TitleAnchorElement$.prototype.derived$AsObject__Lio_circe_Encoder$AsObject = (function() {
   if ((!this.Lviz_dsl_vega_TitleAnchorElement$__f_derived$AsObjectbitmap$27)) {
-    this.Lviz_dsl_vega_TitleAnchorElement$__f_derived$AsObject$lzy27 = new $c_Lviz_dsl_vega_TitleAnchorElement$$anon$89();
+    this.Lviz_dsl_vega_TitleAnchorElement$__f_derived$AsObject$lzy27 = new $c_Lviz_dsl_vega_TitleAnchorElement$$anon$89(this);
     this.Lviz_dsl_vega_TitleAnchorElement$__f_derived$AsObjectbitmap$27 = true
   };
   return this.Lviz_dsl_vega_TitleAnchorElement$__f_derived$AsObject$lzy27
@@ -19041,10 +19035,10 @@ function $s_Lviz_dsl_vega_TitleOrientEnum$__top__Lviz_dsl_vega_TitleOrientEnum()
 /** @constructor */
 function $c_Lviz_dsl_vega_TitleOrientEnum$() {
   $n_Lviz_dsl_vega_TitleOrientEnum$ = this;
-  $t_Lviz_dsl_vega_TitleOrientEnum$__bottom = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(0, "bottom");
-  $t_Lviz_dsl_vega_TitleOrientEnum$__left = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(1, "left");
-  $t_Lviz_dsl_vega_TitleOrientEnum$__right = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(2, "right");
-  $t_Lviz_dsl_vega_TitleOrientEnum$__top = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(3, "top");
+  $t_Lviz_dsl_vega_TitleOrientEnum$__bottom = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(0, "bottom", this);
+  $t_Lviz_dsl_vega_TitleOrientEnum$__left = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(1, "left", this);
+  $t_Lviz_dsl_vega_TitleOrientEnum$__right = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(2, "right", this);
+  $t_Lviz_dsl_vega_TitleOrientEnum$__top = new $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(3, "top", this);
   $s_Lviz_dsl_vega_TitleOrientEnum$__bottom__Lviz_dsl_vega_TitleOrientEnum();
   $s_Lviz_dsl_vega_TitleOrientEnum$__left__Lviz_dsl_vega_TitleOrientEnum();
   $s_Lviz_dsl_vega_TitleOrientEnum$__right__Lviz_dsl_vega_TitleOrientEnum();
@@ -36420,12 +36414,15 @@ function $m_Lujson_Value$() {
   return $n_Lujson_Value$
 }
 /** @constructor */
-function $c_Lviz_dsl_vega_AlignValue$$anon$58() {
+function $c_Lviz_dsl_vega_AlignValue$$anon$58(outer) {
   this.Lviz_dsl_vega_AlignValue$$anon$58__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_AlignValue$$anon$58__f_elemLabels$lzy37 = null;
   this.Lviz_dsl_vega_AlignValue$$anon$58__f_elemLabelsbitmap$37 = false;
   this.Lviz_dsl_vega_AlignValue$$anon$58__f_elemEncoders$lzy19 = null;
   this.Lviz_dsl_vega_AlignValue$$anon$58__f_elemEncodersbitmap$19 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_AlignValue$$anon$58__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_AlignValue$$anon$58.prototype = new $h_O();
@@ -36508,12 +36505,15 @@ var $d_Lviz_dsl_vega_AlignValue$$anon$58 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_AlignValue$$anon$58.prototype.$classData = $d_Lviz_dsl_vega_AlignValue$$anon$58;
 /** @constructor */
-function $c_Lviz_dsl_vega_AnchorValue$$anon$92() {
+function $c_Lviz_dsl_vega_AnchorValue$$anon$92(outer) {
   this.Lviz_dsl_vega_AnchorValue$$anon$92__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_AnchorValue$$anon$92__f_elemLabels$lzy55 = null;
   this.Lviz_dsl_vega_AnchorValue$$anon$92__f_elemLabelsbitmap$55 = false;
   this.Lviz_dsl_vega_AnchorValue$$anon$92__f_elemEncoders$lzy28 = null;
   this.Lviz_dsl_vega_AnchorValue$$anon$92__f_elemEncodersbitmap$28 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_AnchorValue$$anon$92__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_AnchorValue$$anon$92.prototype = new $h_O();
@@ -36596,12 +36596,15 @@ var $d_Lviz_dsl_vega_AnchorValue$$anon$92 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_AnchorValue$$anon$92.prototype.$classData = $d_Lviz_dsl_vega_AnchorValue$$anon$92;
 /** @constructor */
-function $c_Lviz_dsl_vega_ArrayValue$$anon$39() {
+function $c_Lviz_dsl_vega_ArrayValue$$anon$39(outer) {
   this.Lviz_dsl_vega_ArrayValue$$anon$39__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_ArrayValue$$anon$39__f_elemLabels$lzy25 = null;
   this.Lviz_dsl_vega_ArrayValue$$anon$39__f_elemLabelsbitmap$25 = false;
   this.Lviz_dsl_vega_ArrayValue$$anon$39__f_elemEncoders$lzy13 = null;
   this.Lviz_dsl_vega_ArrayValue$$anon$39__f_elemEncodersbitmap$13 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_ArrayValue$$anon$39__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_ArrayValue$$anon$39.prototype = new $h_O();
@@ -36684,12 +36687,15 @@ var $d_Lviz_dsl_vega_ArrayValue$$anon$39 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_ArrayValue$$anon$39.prototype.$classData = $d_Lviz_dsl_vega_ArrayValue$$anon$39;
 /** @constructor */
-function $c_Lviz_dsl_vega_AxeEncode$$anon$42() {
+function $c_Lviz_dsl_vega_AxeEncode$$anon$42(outer) {
   this.Lviz_dsl_vega_AxeEncode$$anon$42__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_AxeEncode$$anon$42__f_elemLabels$lzy27 = null;
   this.Lviz_dsl_vega_AxeEncode$$anon$42__f_elemLabelsbitmap$27 = false;
   this.Lviz_dsl_vega_AxeEncode$$anon$42__f_elemEncoders$lzy14 = null;
   this.Lviz_dsl_vega_AxeEncode$$anon$42__f_elemEncodersbitmap$14 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_AxeEncode$$anon$42__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_AxeEncode$$anon$42.prototype = new $h_O();
@@ -36767,12 +36773,15 @@ var $d_Lviz_dsl_vega_AxeEncode$$anon$42 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_AxeEncode$$anon$42.prototype.$classData = $d_Lviz_dsl_vega_AxeEncode$$anon$42;
 /** @constructor */
-function $c_Lviz_dsl_vega_Axis$$anon$9() {
+function $c_Lviz_dsl_vega_Axis$$anon$9(outer) {
   this.Lviz_dsl_vega_Axis$$anon$9__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_Axis$$anon$9__f_elemLabels$lzy5 = null;
   this.Lviz_dsl_vega_Axis$$anon$9__f_elemLabelsbitmap$5 = false;
   this.Lviz_dsl_vega_Axis$$anon$9__f_elemEncoders$lzy3 = null;
   this.Lviz_dsl_vega_Axis$$anon$9__f_elemEncodersbitmap$3 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_Axis$$anon$9__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_Axis$$anon$9.prototype = new $h_O();
@@ -37211,12 +37220,15 @@ var $d_Lviz_dsl_vega_Axis$$anon$9 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_Axis$$anon$9.prototype.$classData = $d_Lviz_dsl_vega_Axis$$anon$9;
 /** @constructor */
-function $c_Lviz_dsl_vega_BandPositionClass$$anon$12() {
+function $c_Lviz_dsl_vega_BandPositionClass$$anon$12(outer) {
   this.Lviz_dsl_vega_BandPositionClass$$anon$12__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_BandPositionClass$$anon$12__f_elemLabels$lzy7 = null;
   this.Lviz_dsl_vega_BandPositionClass$$anon$12__f_elemLabelsbitmap$7 = false;
   this.Lviz_dsl_vega_BandPositionClass$$anon$12__f_elemEncoders$lzy4 = null;
   this.Lviz_dsl_vega_BandPositionClass$$anon$12__f_elemEncodersbitmap$4 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_BandPositionClass$$anon$12__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_BandPositionClass$$anon$12.prototype = new $h_O();
@@ -37319,12 +37331,15 @@ var $d_Lviz_dsl_vega_BandPositionClass$$anon$12 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_BandPositionClass$$anon$12.prototype.$classData = $d_Lviz_dsl_vega_BandPositionClass$$anon$12;
 /** @constructor */
-function $c_Lviz_dsl_vega_BandPositionElement$$anon$15() {
+function $c_Lviz_dsl_vega_BandPositionElement$$anon$15(outer) {
   this.Lviz_dsl_vega_BandPositionElement$$anon$15__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_BandPositionElement$$anon$15__f_elemLabels$lzy9 = null;
   this.Lviz_dsl_vega_BandPositionElement$$anon$15__f_elemLabelsbitmap$9 = false;
   this.Lviz_dsl_vega_BandPositionElement$$anon$15__f_elemEncoders$lzy5 = null;
   this.Lviz_dsl_vega_BandPositionElement$$anon$15__f_elemEncodersbitmap$5 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_BandPositionElement$$anon$15__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_BandPositionElement$$anon$15.prototype = new $h_O();
@@ -37432,12 +37447,15 @@ var $d_Lviz_dsl_vega_BandPositionElement$$anon$15 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_BandPositionElement$$anon$15.prototype.$classData = $d_Lviz_dsl_vega_BandPositionElement$$anon$15;
 /** @constructor */
-function $c_Lviz_dsl_vega_BaseColorValue$$anon$27() {
+function $c_Lviz_dsl_vega_BaseColorValue$$anon$27(outer) {
   this.Lviz_dsl_vega_BaseColorValue$$anon$27__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_BaseColorValue$$anon$27__f_elemLabels$lzy17 = null;
   this.Lviz_dsl_vega_BaseColorValue$$anon$27__f_elemLabelsbitmap$17 = false;
   this.Lviz_dsl_vega_BaseColorValue$$anon$27__f_elemEncoders$lzy9 = null;
   this.Lviz_dsl_vega_BaseColorValue$$anon$27__f_elemEncodersbitmap$9 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_BaseColorValue$$anon$27__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_BaseColorValue$$anon$27.prototype = new $h_O();
@@ -37554,12 +37572,15 @@ var $d_Lviz_dsl_vega_BaseColorValue$$anon$27 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_BaseColorValue$$anon$27.prototype.$classData = $d_Lviz_dsl_vega_BaseColorValue$$anon$27;
 /** @constructor */
-function $c_Lviz_dsl_vega_BaselineValue$$anon$65() {
+function $c_Lviz_dsl_vega_BaselineValue$$anon$65(outer) {
   this.Lviz_dsl_vega_BaselineValue$$anon$65__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_BaselineValue$$anon$65__f_elemLabels$lzy41 = null;
   this.Lviz_dsl_vega_BaselineValue$$anon$65__f_elemLabelsbitmap$41 = false;
   this.Lviz_dsl_vega_BaselineValue$$anon$65__f_elemEncoders$lzy21 = null;
   this.Lviz_dsl_vega_BaselineValue$$anon$65__f_elemEncodersbitmap$21 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_BaselineValue$$anon$65__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_BaselineValue$$anon$65.prototype = new $h_O();
@@ -37642,12 +37663,15 @@ var $d_Lviz_dsl_vega_BaselineValue$$anon$65 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_BaselineValue$$anon$65.prototype.$classData = $d_Lviz_dsl_vega_BaselineValue$$anon$65;
 /** @constructor */
-function $c_Lviz_dsl_vega_BooleanValue$$anon$86() {
+function $c_Lviz_dsl_vega_BooleanValue$$anon$86(outer) {
   this.Lviz_dsl_vega_BooleanValue$$anon$86__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_BooleanValue$$anon$86__f_elemLabels$lzy51 = null;
   this.Lviz_dsl_vega_BooleanValue$$anon$86__f_elemLabelsbitmap$51 = false;
   this.Lviz_dsl_vega_BooleanValue$$anon$86__f_elemEncoders$lzy26 = null;
   this.Lviz_dsl_vega_BooleanValue$$anon$86__f_elemEncodersbitmap$26 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_BooleanValue$$anon$86__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_BooleanValue$$anon$86.prototype = new $h_O();
@@ -37730,12 +37754,15 @@ var $d_Lviz_dsl_vega_BooleanValue$$anon$86 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_BooleanValue$$anon$86.prototype.$classData = $d_Lviz_dsl_vega_BooleanValue$$anon$86;
 /** @constructor */
-function $c_Lviz_dsl_vega_Color$$anon$30() {
+function $c_Lviz_dsl_vega_Color$$anon$30(outer) {
   this.Lviz_dsl_vega_Color$$anon$30__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_Color$$anon$30__f_elemLabels$lzy19 = null;
   this.Lviz_dsl_vega_Color$$anon$30__f_elemLabelsbitmap$19 = false;
   this.Lviz_dsl_vega_Color$$anon$30__f_elemEncoders$lzy10 = null;
   this.Lviz_dsl_vega_Color$$anon$30__f_elemEncodersbitmap$10 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_Color$$anon$30__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_Color$$anon$30.prototype = new $h_O();
@@ -37823,12 +37850,15 @@ var $d_Lviz_dsl_vega_Color$$anon$30 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_Color$$anon$30.prototype.$classData = $d_Lviz_dsl_vega_Color$$anon$30;
 /** @constructor */
-function $c_Lviz_dsl_vega_DomainCapElement$$anon$21() {
+function $c_Lviz_dsl_vega_DomainCapElement$$anon$21(outer) {
   this.Lviz_dsl_vega_DomainCapElement$$anon$21__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_DomainCapElement$$anon$21__f_elemLabels$lzy13 = null;
   this.Lviz_dsl_vega_DomainCapElement$$anon$21__f_elemLabelsbitmap$13 = false;
   this.Lviz_dsl_vega_DomainCapElement$$anon$21__f_elemEncoders$lzy7 = null;
   this.Lviz_dsl_vega_DomainCapElement$$anon$21__f_elemEncodersbitmap$7 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_DomainCapElement$$anon$21__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_DomainCapElement$$anon$21.prototype = new $h_O();
@@ -37916,12 +37946,15 @@ var $d_Lviz_dsl_vega_DomainCapElement$$anon$21 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_DomainCapElement$$anon$21.prototype.$classData = $d_Lviz_dsl_vega_DomainCapElement$$anon$21;
 /** @constructor */
-function $c_Lviz_dsl_vega_DomainDashClass$$anon$36() {
+function $c_Lviz_dsl_vega_DomainDashClass$$anon$36(outer) {
   this.Lviz_dsl_vega_DomainDashClass$$anon$36__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_DomainDashClass$$anon$36__f_elemLabels$lzy23 = null;
   this.Lviz_dsl_vega_DomainDashClass$$anon$36__f_elemLabelsbitmap$23 = false;
   this.Lviz_dsl_vega_DomainDashClass$$anon$36__f_elemEncoders$lzy12 = null;
   this.Lviz_dsl_vega_DomainDashClass$$anon$36__f_elemEncodersbitmap$12 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_DomainDashClass$$anon$36__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_DomainDashClass$$anon$36.prototype = new $h_O();
@@ -38009,12 +38042,15 @@ var $d_Lviz_dsl_vega_DomainDashClass$$anon$36 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_DomainDashClass$$anon$36.prototype.$classData = $d_Lviz_dsl_vega_DomainDashClass$$anon$36;
 /** @constructor */
-function $c_Lviz_dsl_vega_FluffySignalRef$$anon$48() {
+function $c_Lviz_dsl_vega_FluffySignalRef$$anon$48(outer) {
   this.Lviz_dsl_vega_FluffySignalRef$$anon$48__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_FluffySignalRef$$anon$48__f_elemLabels$lzy31 = null;
   this.Lviz_dsl_vega_FluffySignalRef$$anon$48__f_elemLabelsbitmap$31 = false;
   this.Lviz_dsl_vega_FluffySignalRef$$anon$48__f_elemEncoders$lzy16 = null;
   this.Lviz_dsl_vega_FluffySignalRef$$anon$48__f_elemEncodersbitmap$16 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_FluffySignalRef$$anon$48__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_FluffySignalRef$$anon$48.prototype = new $h_O();
@@ -38117,12 +38153,15 @@ var $d_Lviz_dsl_vega_FluffySignalRef$$anon$48 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_FluffySignalRef$$anon$48.prototype.$classData = $d_Lviz_dsl_vega_FluffySignalRef$$anon$48;
 /** @constructor */
-function $c_Lviz_dsl_vega_FontWeightValue$$anon$72() {
+function $c_Lviz_dsl_vega_FontWeightValue$$anon$72(outer) {
   this.Lviz_dsl_vega_FontWeightValue$$anon$72__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_FontWeightValue$$anon$72__f_elemLabels$lzy45 = null;
   this.Lviz_dsl_vega_FontWeightValue$$anon$72__f_elemLabelsbitmap$45 = false;
   this.Lviz_dsl_vega_FontWeightValue$$anon$72__f_elemEncoders$lzy23 = null;
   this.Lviz_dsl_vega_FontWeightValue$$anon$72__f_elemEncodersbitmap$23 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_FontWeightValue$$anon$72__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_FontWeightValue$$anon$72.prototype = new $h_O();
@@ -38205,12 +38244,15 @@ var $d_Lviz_dsl_vega_FontWeightValue$$anon$72 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_FontWeightValue$$anon$72.prototype.$classData = $d_Lviz_dsl_vega_FontWeightValue$$anon$72;
 /** @constructor */
-function $c_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51() {
+function $c_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51(outer) {
   this.Lviz_dsl_vega_FormatTypeSignalRef$$anon$51__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_FormatTypeSignalRef$$anon$51__f_elemLabels$lzy33 = null;
   this.Lviz_dsl_vega_FormatTypeSignalRef$$anon$51__f_elemLabelsbitmap$33 = false;
   this.Lviz_dsl_vega_FormatTypeSignalRef$$anon$51__f_elemEncoders$lzy17 = null;
   this.Lviz_dsl_vega_FormatTypeSignalRef$$anon$51__f_elemEncodersbitmap$17 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_FormatTypeSignalRef$$anon$51__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51.prototype = new $h_O();
@@ -38261,12 +38303,15 @@ var $d_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51.prototype.$classData = $d_Lviz_dsl_vega_FormatTypeSignalRef$$anon$51;
 /** @constructor */
-function $c_Lviz_dsl_vega_GuideEncode$$anon$45() {
+function $c_Lviz_dsl_vega_GuideEncode$$anon$45(outer) {
   this.Lviz_dsl_vega_GuideEncode$$anon$45__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_GuideEncode$$anon$45__f_elemLabels$lzy29 = null;
   this.Lviz_dsl_vega_GuideEncode$$anon$45__f_elemLabelsbitmap$29 = false;
   this.Lviz_dsl_vega_GuideEncode$$anon$45__f_elemEncoders$lzy15 = null;
   this.Lviz_dsl_vega_GuideEncode$$anon$45__f_elemEncodersbitmap$15 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_GuideEncode$$anon$45__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_GuideEncode$$anon$45.prototype = new $h_O();
@@ -38329,12 +38374,15 @@ var $d_Lviz_dsl_vega_GuideEncode$$anon$45 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_GuideEncode$$anon$45.prototype.$classData = $d_Lviz_dsl_vega_GuideEncode$$anon$45;
 /** @constructor */
-function $c_Lviz_dsl_vega_LabelAlignElement$$anon$55() {
+function $c_Lviz_dsl_vega_LabelAlignElement$$anon$55(outer) {
   this.Lviz_dsl_vega_LabelAlignElement$$anon$55__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_LabelAlignElement$$anon$55__f_elemLabels$lzy35 = null;
   this.Lviz_dsl_vega_LabelAlignElement$$anon$55__f_elemLabelsbitmap$35 = false;
   this.Lviz_dsl_vega_LabelAlignElement$$anon$55__f_elemEncoders$lzy18 = null;
   this.Lviz_dsl_vega_LabelAlignElement$$anon$55__f_elemEncodersbitmap$18 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_LabelAlignElement$$anon$55__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_LabelAlignElement$$anon$55.prototype = new $h_O();
@@ -38422,12 +38470,15 @@ var $d_Lviz_dsl_vega_LabelAlignElement$$anon$55 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_LabelAlignElement$$anon$55.prototype.$classData = $d_Lviz_dsl_vega_LabelAlignElement$$anon$55;
 /** @constructor */
-function $c_Lviz_dsl_vega_LabelBaselineElement$$anon$62() {
+function $c_Lviz_dsl_vega_LabelBaselineElement$$anon$62(outer) {
   this.Lviz_dsl_vega_LabelBaselineElement$$anon$62__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_LabelBaselineElement$$anon$62__f_elemLabels$lzy39 = null;
   this.Lviz_dsl_vega_LabelBaselineElement$$anon$62__f_elemLabelsbitmap$39 = false;
   this.Lviz_dsl_vega_LabelBaselineElement$$anon$62__f_elemEncoders$lzy20 = null;
   this.Lviz_dsl_vega_LabelBaselineElement$$anon$62__f_elemEncodersbitmap$20 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_LabelBaselineElement$$anon$62__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_LabelBaselineElement$$anon$62.prototype = new $h_O();
@@ -38515,12 +38566,15 @@ var $d_Lviz_dsl_vega_LabelBaselineElement$$anon$62 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_LabelBaselineElement$$anon$62.prototype.$classData = $d_Lviz_dsl_vega_LabelBaselineElement$$anon$62;
 /** @constructor */
-function $c_Lviz_dsl_vega_LabelFontWeightElement$$anon$69() {
+function $c_Lviz_dsl_vega_LabelFontWeightElement$$anon$69(outer) {
   this.Lviz_dsl_vega_LabelFontWeightElement$$anon$69__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_LabelFontWeightElement$$anon$69__f_elemLabels$lzy43 = null;
   this.Lviz_dsl_vega_LabelFontWeightElement$$anon$69__f_elemLabelsbitmap$43 = false;
   this.Lviz_dsl_vega_LabelFontWeightElement$$anon$69__f_elemEncoders$lzy22 = null;
   this.Lviz_dsl_vega_LabelFontWeightElement$$anon$69__f_elemEncodersbitmap$22 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_LabelFontWeightElement$$anon$69__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_LabelFontWeightElement$$anon$69.prototype = new $h_O();
@@ -38608,12 +38662,15 @@ var $d_Lviz_dsl_vega_LabelFontWeightElement$$anon$69 = new $TypeData().initClass
 });
 $c_Lviz_dsl_vega_LabelFontWeightElement$$anon$69.prototype.$classData = $d_Lviz_dsl_vega_LabelFontWeightElement$$anon$69;
 /** @constructor */
-function $c_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33() {
+function $c_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33(outer) {
   this.Lviz_dsl_vega_PurpleBaseColorValue$$anon$33__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_PurpleBaseColorValue$$anon$33__f_elemLabels$lzy21 = null;
   this.Lviz_dsl_vega_PurpleBaseColorValue$$anon$33__f_elemLabelsbitmap$21 = false;
   this.Lviz_dsl_vega_PurpleBaseColorValue$$anon$33__f_elemEncoders$lzy11 = null;
   this.Lviz_dsl_vega_PurpleBaseColorValue$$anon$33__f_elemEncodersbitmap$11 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_PurpleBaseColorValue$$anon$33__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33.prototype = new $h_O();
@@ -38725,12 +38782,15 @@ var $d_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33.prototype.$classData = $d_Lviz_dsl_vega_PurpleBaseColorValue$$anon$33;
 /** @constructor */
-function $c_Lviz_dsl_vega_PurpleSignalRef$$anon$18() {
+function $c_Lviz_dsl_vega_PurpleSignalRef$$anon$18(outer) {
   this.Lviz_dsl_vega_PurpleSignalRef$$anon$18__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_PurpleSignalRef$$anon$18__f_elemLabels$lzy11 = null;
   this.Lviz_dsl_vega_PurpleSignalRef$$anon$18__f_elemLabelsbitmap$11 = false;
   this.Lviz_dsl_vega_PurpleSignalRef$$anon$18__f_elemEncoders$lzy6 = null;
   this.Lviz_dsl_vega_PurpleSignalRef$$anon$18__f_elemEncodersbitmap$6 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_PurpleSignalRef$$anon$18__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_PurpleSignalRef$$anon$18.prototype = new $h_O();
@@ -38803,12 +38863,15 @@ var $d_Lviz_dsl_vega_PurpleSignalRef$$anon$18 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_PurpleSignalRef$$anon$18.prototype.$classData = $d_Lviz_dsl_vega_PurpleSignalRef$$anon$18;
 /** @constructor */
-function $c_Lviz_dsl_vega_StringValue$$anon$24() {
+function $c_Lviz_dsl_vega_StringValue$$anon$24(outer) {
   this.Lviz_dsl_vega_StringValue$$anon$24__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_StringValue$$anon$24__f_elemLabels$lzy15 = null;
   this.Lviz_dsl_vega_StringValue$$anon$24__f_elemLabelsbitmap$15 = false;
   this.Lviz_dsl_vega_StringValue$$anon$24__f_elemEncoders$lzy8 = null;
   this.Lviz_dsl_vega_StringValue$$anon$24__f_elemEncodersbitmap$8 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_StringValue$$anon$24__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_StringValue$$anon$24.prototype = new $h_O();
@@ -38891,12 +38954,15 @@ var $d_Lviz_dsl_vega_StringValue$$anon$24 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_StringValue$$anon$24.prototype.$classData = $d_Lviz_dsl_vega_StringValue$$anon$24;
 /** @constructor */
-function $c_Lviz_dsl_vega_TickCountSignalRef$$anon$79() {
+function $c_Lviz_dsl_vega_TickCountSignalRef$$anon$79(outer) {
   this.Lviz_dsl_vega_TickCountSignalRef$$anon$79__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_TickCountSignalRef$$anon$79__f_elemLabels$lzy47 = null;
   this.Lviz_dsl_vega_TickCountSignalRef$$anon$79__f_elemLabelsbitmap$47 = false;
   this.Lviz_dsl_vega_TickCountSignalRef$$anon$79__f_elemEncoders$lzy24 = null;
   this.Lviz_dsl_vega_TickCountSignalRef$$anon$79__f_elemEncodersbitmap$24 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_TickCountSignalRef$$anon$79__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_TickCountSignalRef$$anon$79.prototype = new $h_O();
@@ -38959,12 +39025,15 @@ var $d_Lviz_dsl_vega_TickCountSignalRef$$anon$79 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_TickCountSignalRef$$anon$79.prototype.$classData = $d_Lviz_dsl_vega_TickCountSignalRef$$anon$79;
 /** @constructor */
-function $c_Lviz_dsl_vega_TickRoundElement$$anon$83() {
+function $c_Lviz_dsl_vega_TickRoundElement$$anon$83(outer) {
   this.Lviz_dsl_vega_TickRoundElement$$anon$83__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_TickRoundElement$$anon$83__f_elemLabels$lzy49 = null;
   this.Lviz_dsl_vega_TickRoundElement$$anon$83__f_elemLabelsbitmap$49 = false;
   this.Lviz_dsl_vega_TickRoundElement$$anon$83__f_elemEncoders$lzy25 = null;
   this.Lviz_dsl_vega_TickRoundElement$$anon$83__f_elemEncodersbitmap$25 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_TickRoundElement$$anon$83__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_TickRoundElement$$anon$83.prototype = new $h_O();
@@ -39052,12 +39121,15 @@ var $d_Lviz_dsl_vega_TickRoundElement$$anon$83 = new $TypeData().initClass({
 });
 $c_Lviz_dsl_vega_TickRoundElement$$anon$83.prototype.$classData = $d_Lviz_dsl_vega_TickRoundElement$$anon$83;
 /** @constructor */
-function $c_Lviz_dsl_vega_TitleAnchorElement$$anon$89() {
+function $c_Lviz_dsl_vega_TitleAnchorElement$$anon$89(outer) {
   this.Lviz_dsl_vega_TitleAnchorElement$$anon$89__f_io$circe$derivation$ConfiguredEncoder$$conf = null;
   this.Lviz_dsl_vega_TitleAnchorElement$$anon$89__f_elemLabels$lzy53 = null;
   this.Lviz_dsl_vega_TitleAnchorElement$$anon$89__f_elemLabelsbitmap$53 = false;
   this.Lviz_dsl_vega_TitleAnchorElement$$anon$89__f_elemEncoders$lzy27 = null;
   this.Lviz_dsl_vega_TitleAnchorElement$$anon$89__f_elemEncodersbitmap$27 = false;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  };
   this.Lviz_dsl_vega_TitleAnchorElement$$anon$89__f_io$circe$derivation$ConfiguredEncoder$$conf = $m_Lio_circe_derivation_Configuration$().Lio_circe_derivation_Configuration$__f_default
 }
 $c_Lviz_dsl_vega_TitleAnchorElement$$anon$89.prototype = new $h_O();
@@ -40775,9 +40847,12 @@ function $m_Lujson_Null$() {
   return $n_Lujson_Null$
 }
 /** @constructor */
-function $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(_$ordinal$46, \u03b4name$46) {
+function $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77(_$ordinal$46, \u03b4name$46, outer) {
   this.Lviz_dsl_vega_TitleOrientEnum$$anon$77__f_$name$8 = null;
-  this.Lviz_dsl_vega_TitleOrientEnum$$anon$77__f_$name$8 = \u03b4name$46
+  this.Lviz_dsl_vega_TitleOrientEnum$$anon$77__f_$name$8 = \u03b4name$46;
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  }
 }
 $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77.prototype = new $h_Lviz_dsl_vega_TitleOrientEnum();
 $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77.prototype.constructor = $c_Lviz_dsl_vega_TitleOrientEnum$$anon$77;

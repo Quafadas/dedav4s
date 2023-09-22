@@ -5122,7 +5122,7 @@ function $h_Lviz_doNothing_DoNothing$package$() {
 $h_Lviz_doNothing_DoNothing$package$.prototype = $c_Lviz_doNothing_DoNothing$package$.prototype;
 $c_Lviz_doNothing_DoNothing$package$.prototype.doNothing__Lviz_LowPriorityPlotTarget = (function() {
   if ((!this.Lviz_doNothing_DoNothing$package$__f_doNothingbitmap$1)) {
-    this.Lviz_doNothing_DoNothing$package$__f_doNothing$lzy1 = new $c_Lviz_doNothing_DoNothing$package$$anon$1();
+    this.Lviz_doNothing_DoNothing$package$__f_doNothing$lzy1 = new $c_Lviz_doNothing_DoNothing$package$$anon$1(this);
     this.Lviz_doNothing_DoNothing$package$__f_doNothingbitmap$1 = true
   };
   return this.Lviz_doNothing_DoNothing$package$__f_doNothing$lzy1
@@ -5681,11 +5681,7 @@ function $ct_jl_Throwable__T__jl_Throwable__Z__Z__($thiz, s, e, enableSuppressio
 class $c_jl_Throwable extends Error {
   constructor() {
     super();
-    this.jl_Throwable__f_s = null;
-    this.jl_Throwable__f_e = null;
-    this.jl_Throwable__f_writableStackTrace = false;
-    this.jl_Throwable__f_jsErrorForStackTrace = null;
-    this.jl_Throwable__f_stackTrace = null
+    this.jl_Throwable__f_s = null
   };
   getMessage__T() {
     return this.jl_Throwable__f_s
@@ -7874,15 +7870,15 @@ var $d_Lupickle_core_compat_LinkedHashMapCompat$$anon$1 = new $TypeData().initCl
 });
 $c_Lupickle_core_compat_LinkedHashMapCompat$$anon$1.prototype.$classData = $d_Lupickle_core_compat_LinkedHashMapCompat$$anon$1;
 function $f_Lviz_PlatformShow__$init$__V($thiz) {
-  var x1 = $thiz.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget;
-  if ($is_Lviz_LowPriorityPlotTarget(x1)) {
+  var x2 = $thiz.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget;
+  if ($is_Lviz_LowPriorityPlotTarget(x2)) {
     return (void 0)
   };
-  if ($uZ((x1 instanceof HTMLDivElement))) {
-    $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, x1);
+  if ($uZ((x2 instanceof HTMLDivElement))) {
+    $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, x2);
     return (void 0)
   };
-  throw new $c_s_MatchError(x1)
+  throw new $c_s_MatchError(x2)
 }
 function $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, inDiv) {
   var anId = $as_T(inDiv.id);
@@ -7896,8 +7892,10 @@ function $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, i
   vegaEmbed.embed(("#" + anId), parsed, opts)
 }
 /** @constructor */
-function $c_Lviz_doNothing_DoNothing$package$$anon$1() {
-  /*<skip>*/
+function $c_Lviz_doNothing_DoNothing$package$$anon$1(outer) {
+  if ((outer === null)) {
+    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException())
+  }
 }
 $c_Lviz_doNothing_DoNothing$package$$anon$1.prototype = new $h_O();
 $c_Lviz_doNothing_DoNothing$package$$anon$1.prototype.constructor = $c_Lviz_doNothing_DoNothing$package$$anon$1;

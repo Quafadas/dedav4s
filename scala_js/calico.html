@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Calico</title>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+  
+  <script src="../helium/laika-helium.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">Getting Sarted</li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
+    <li class="level1 nav-header">Details</li>
+    <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
+    <li class="level1 nav-header">Working With A Chart</li>
+    <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+    <li class="level1 nav-header">Prior Art</li>
+    <li class="level2 nav-leaf"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="scalaJS.html">Introduction</a></li>
+    <li class="level2 nav-leaf"><a href="laminar.html">Laminar</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Calico</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Calico</a></p>
+
+  <ul class="nav-list">
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="calico" class="title">Calico</h1>
+        <p>I did this to prove to myself, that it was possible, and to learn something about calico. Calico worked great, I&#39;m not 100% sure about my integration with it - YMMW, but it follows (as closely as I could tell ) a reactive model which also works nicely with vegas event streams.</p>
+        <pre><code class="nohighlight"><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="identifier">given</span><span>}
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">html</span><span>.</span><span class="identifier">io</span><span>.{*, </span><span class="identifier">given</span><span>}
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">unsafe</span><span>.</span><span class="identifier">given</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">syntax</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.</span><span class="identifier">std</span><span>.</span><span class="type-name">Random</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.</span><span class="identifier">concurrent</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.</span><span class="identifier">dom</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">facades</span><span>.</span><span class="type-name">EmbedOptions</span><span>
+
+</span><span class="identifier">calicoChart</span><span>.</span><span class="identifier">renderInto</span><span>(</span><span class="identifier">node</span><span>.</span><span class="identifier">asInstanceOf</span><span>[</span><span class="identifier">fs2</span><span>.</span><span class="identifier">dom</span><span>.</span><span class="type-name">Node</span><span>[</span><span class="type-name">IO</span><span>]]).</span><span class="identifier">useForever</span><span>.</span><span class="identifier">unsafeRunAndForget</span><span>()
+
+</span><span class="keyword">def</span><span> </span><span class="declaration-name">calicoChart</span><span>: </span><span class="type-name">Resource</span><span>[</span><span class="type-name">IO</span><span>, </span><span class="type-name">HtmlElement</span><span>[</span><span class="type-name">IO</span><span>]] =
+  </span><span class="type-name">SignallingRef</span><span>[</span><span class="type-name">IO</span><span>]
+    .</span><span class="identifier">of</span><span>(</span><span class="type-name">List</span><span>(</span><span class="number-literal">2.4</span><span>, </span><span class="number-literal">3.4</span><span>, </span><span class="number-literal">5.1</span><span>, -</span><span class="number-literal">2.3</span><span>))
+    .</span><span class="identifier">product</span><span>(</span><span class="type-name">Channel</span><span>.</span><span class="identifier">unbounded</span><span>[</span><span class="type-name">IO</span><span>, </span><span class="type-name">Int</span><span>])
+    .</span><span class="identifier">toResource</span><span>
+    .</span><span class="identifier">flatMap</span><span> { (</span><span class="identifier">data</span><span>: </span><span class="type-name">SignallingRef</span><span>[</span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.</span><span class="type-name">IO</span><span>, </span><span class="type-name">List</span><span>[</span><span class="type-name">Double</span><span>]], </span><span class="identifier">_</span><span>) =&gt;
+      </span><span class="identifier">div</span><span>(
+        </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;We want to make it as easy as possible, to build a chart&quot;</span><span>),
+        </span><span class="identifier">span</span><span>(</span><span class="string-literal">&quot;Here&#39;s a random data set: &quot;</span><span>),
+        </span><span class="identifier">data</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">in</span><span> =&gt; </span><span class="identifier">p</span><span>(</span><span class="identifier">in</span><span>.</span><span class="identifier">mkString</span><span>(</span><span class="string-literal">&quot;[&quot;</span><span>, </span><span class="string-literal">&quot;,&quot;</span><span>, </span><span class="string-literal">&quot;]&quot;</span><span>))),
+        </span><span class="identifier">button</span><span>(
+          </span><span class="string-literal">&quot;Add a random number&quot;</span><span>,
+          </span><span class="identifier">onClick</span><span> --&gt; (
+            </span><span class="identifier">_</span><span>.</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">_</span><span> =&gt;
+              </span><span class="type-name">Random</span><span>.</span><span class="identifier">scalaUtilRandom</span><span>[</span><span class="type-name">IO</span><span>].</span><span class="identifier">toResource</span><span>.</span><span class="identifier">use</span><span>(</span><span class="identifier">r</span><span> =&gt; </span><span class="identifier">r</span><span>.</span><span class="identifier">nextDouble</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span> * </span><span class="number-literal">5</span><span>))
+            ).</span><span class="identifier">foreach</span><span>(</span><span class="identifier">newD</span><span> =&gt;
+              </span><span class="type-name">IO</span><span>.</span><span class="identifier">println</span><span>(</span><span class="identifier">newD</span><span>) &gt;&gt;
+                </span><span class="identifier">data</span><span>.</span><span class="identifier">update</span><span>(</span><span class="identifier">_</span><span> :+ </span><span class="identifier">newD</span><span>).</span><span class="identifier">void</span><span>
+            )
+          )
+        ),
+        </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>),
+        </span><span class="identifier">data</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
+          </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="type-name">BarChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">plotBarChart</span><span>(
+            </span><span class="type-name">List</span><span>(
+              </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
+              </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeYAxis</span><span>
+            )
+          )
+          </span><span class="keyword">val</span><span> </span><span class="identifier">chartDiv</span><span> = </span><span class="identifier">div</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>)
+          </span><span class="identifier">chartDiv</span><span>.</span><span class="identifier">flatMap</span><span>{ </span><span class="identifier">d</span><span> =&gt;
+            </span><span class="comment">// To my astonishment, this doesn&#39;t work...
+</span><span>            </span><span class="comment">/* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+            dCheat.style.height = &quot;40vmin&quot;
+            dCheat.style.width = &quot;40vmin&quot; */</span><span>
+            </span><span class="comment">// end yuck
+</span><span>
+            </span><span class="comment">// I had to set the div size down in here. Then it worked.
+</span><span>            </span><span class="identifier">viz</span><span>.</span><span class="type-name">CalicoViz</span><span>.</span><span class="identifier">viewEmbed</span><span>(</span><span class="identifier">barChart</span><span>, </span><span class="type-name">Some</span><span>(</span><span class="identifier">chartDiv</span><span>), </span><span class="type-name">Some</span><span>(</span><span class="type-name">EmbedOptions</span><span>)).</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span class="number-literal">._1</span><span>)
+          }
+        }
+      )
+    }</span></code></pre>
+        <div id="mdoc-html-run0" data-mdoc-js></div>
+        <p><script type="text/javascript" src="calico.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script></p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

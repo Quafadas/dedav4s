@@ -1,146 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Laika 0.18.1 + Helium Theme" />
-    <title>Mutable Style</title>
-    
-      <meta name="author" content="Simon Parten"/>
-    
-    
-      <meta name="description" content="Declarative data visualisation for scala"/>
-    
-    
-    
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
-    
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.207/distr/fira_code.css">
-    
-    <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Mutable Style</title>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
-    <link rel="stylesheet" type="text/css" href="../site/styles.css" />
-    <script src="../helium/laika-helium.js"></script>
-    
-    
-    <script> /* for avoiding page load transitions */ </script>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  
+  <script src="../helium/laika-helium.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-  </head>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
 
   <body>
 
-    <header id="top-bar">
+    <header id="top-bar" class="light-default dark-default">
 
-      <div class="row">
-        <a id="nav-icon">
-          <i class="icofont-laika" title="Navigation">&#xefa2;</i>
-        </a>
-        
-      </div>
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
 
-      <a class="icon-link" href="index.html"><i class="icofont-laika" title="Home"></i></a>
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
 
-      <span class="row links"><a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-  <g class="svg-shape">
-    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
-  </g>
-</svg></span></a></span>
+  <div class="row links">
+    
+  </div>  
 
-    </header>
-
+</header>
+    
     <nav id="sidebar">
 
-      <div class="row">
-        <a class="icon-link" href="https://github.com/Quafadas/dedav4s"><span title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-  <g class="svg-shape">
-    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
-  </g>
-</svg></span></a>
-      </div>
+  <div class="row">
+    
+  </div>
 
-      <ul class="nav-list">
-        <li class="level1 nav-header">Getting Sarted</li>
-        <li class="level2"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-        <li class="level2"><a href="../gettingStarted/resources.html">Links</a></li>
-        <li class="level1 nav-header">Details</li>
-        <li class="level2"><a href="../explanation/chartTypes.html">Example Charts</a></li>
-        <li class="level2"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
-        <li class="level2"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
-        <li class="level2"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
-        <li class="level2"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
-        <li class="level1 nav-header">Working With A Chart</li>
-        <li class="level2"><a href="intro.html">Styles</a></li>
-        <li class="level2 active"><a href="#">Mutable Style</a></li>
-        <li class="level2"><a href="typesafe.html">The DSL</a></li>
-        <li class="level2"><a href="mixed.html">Mixed typesafe / mutable</a></li>
-        <li class="level2"><a href="chartSources.html">Chart Sources</a></li>
-        <li class="level1 nav-header">Scala Versions</li>
-        <li class="level2"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
-        <li class="level2"><a href="../ScalaVersions/scalaJS.html">Scala JS</a></li>
-        <li class="level1 nav-header">Prior Art</li>
-        <li class="level2"><a href="../priorArt/philosophy.html">Prior Art</a></li>
-      </ul>
+  <ul class="nav-list">
+    <li class="level1 nav-header">Getting Sarted</li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
+    <li class="level1 nav-header">Details</li>
+    <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
+    <li class="level1 nav-header">Working With A Chart</li>
+    <li class="level2 nav-leaf"><a href="intro.html">Styles</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Mutable Style</a></li>
+    <li class="level2 nav-leaf"><a href="typesafe.html">The DSL</a></li>
+    <li class="level2 nav-leaf"><a href="mixed.html">Mixed typesafe / mutable</a></li>
+    <li class="level2 nav-leaf"><a href="chartSources.html">Chart Sources</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+    <li class="level1 nav-header">Prior Art</li>
+    <li class="level2 nav-leaf"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../scala_js/scalaJS.html">Introduction</a></li>
+    <li class="level2 nav-leaf"><a href="../scala_js/laminar.html">Laminar</a></li>
+    <li class="level2 nav-leaf"><a href="../scala_js/calico.html">Calico</a></li>
+  </ul>
 
-      <ul class="nav-list">
-        <li class="level1 nav-header">Related Projects</li>
-        
-          <li class="level2"><a href="https://typelevel.org/cats/">cats</a></li>
-        
-      </ul>
-
-    </nav>
+</nav>
 
     <div id="container">
 
-      <nav id="page-nav">
-        <p class="header"><a href="#">Mutable Style</a></p>
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Mutable Style</a></p>
 
-        <ul class="nav-list">
-          <li class="level1"><a href="#adding-a-title">Adding a title</a></li>
-          <li class="level1"><a href="#better-title-modifier">Better title modifier</a></li>
-          <li class="level1"><a href="#piping-in-the-data">Piping in the data</a></li>
-          <li class="level1"><a href="#discussion">Discussion</a></li>
-          <li class="level1"><a href="#conclusion">Conclusion</a></li>
-        </ul>
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#adding-a-title">Adding a title</a></li>
+    <li class="level1 nav-leaf"><a href="#better-title-modifier">Better title modifier</a></li>
+    <li class="level1 nav-leaf"><a href="#piping-in-the-data">Piping in the data</a></li>
+    <li class="level1 nav-leaf"><a href="#discussion">Discussion</a></li>
+    <li class="level1 nav-leaf"><a href="#conclusion">Conclusion</a></li>
+  </ul>
 
-        <p class="footer"></p>
-      </nav>
+  <p class="footer"></p>
+</nav>
+
 
       <main class="content">
 
         <h1 id="mutable-style" class="title">Mutable Style</h1>
-        <p>Our aim here is to start from some working example. Usually an example vega chart. </p>
-        <p>We&#39;ll want to manipulate the underlaying JSON specification, to get what we want. To this we&#39;ll take a bunch of <code>Seq[ujson.Value =&gt; Unit]</code>, and feed them to the example chart. In the example below, a vega-lite example line chart. </p>
+        <p>Our aim here is to start from some working example. Usually an example vega chart.</p>
+        <p>We&#39;ll want to manipulate the underlaying JSON specification, to get what we want. To this we&#39;ll take a bunch of <code>Seq[ujson.Value =&gt; Unit]</code>, and feed them to the example chart. In the example below, a vega-lite example line chart.</p>
         <p>As always... lean into vega;</p>
         <p><img src="../assets/vegaEditor.png" alt="The Vega Editor"></p>
         <p>Ultimately, our aim might be to plot a line chart with our own data.</p>
         
-        <h2 id="adding-a-title" class="section"><a class="anchor-link left" href="#adding-a-title"><i class="icofont-laika">&#xef71;</i></a>Adding a title</h2>
-        <p>To start simple, let&#39;s add a title modifier. </p>
+        <h2 id="adding-a-title" class="section"><a class="anchor-link left" href="#adding-a-title"><i class="icofont-laika link">&#xef71;</i></a>Adding a title</h2>
+        <p>To start simple, let&#39;s add a title modifier.</p>
         <p>I&#39;m writing out the types here in the hopes of being helpful. It looks harder than it is... After you&#39;ve done it twice it gets easy. REPL is your friend :-).</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="keyword">given</span><span>}
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="identifier">given</span><span>}
 
-</span><span class="keyword">val</span><span> </span><span class="identifier">addTitle</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> = 
+</span><span class="keyword">val</span><span> </span><span class="identifier">addTitle</span><span> : </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> =
     (</span><span class="identifier">spec</span><span>:</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span>) =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;title&quot;</span><span>) = </span><span class="string-literal">&quot;A Timeseries&quot;</span><span>
 </span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">LineChartLite</span><span>(
   </span><span class="type-name">Seq</span><span>(
-      </span><span class="identifier">addTitle</span><span>, 
-      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>, 
-      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span> 
+      </span><span class="identifier">addTitle</span><span>,
+      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>,
+      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>
   )
 )
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">chart</span><span>,</span><span class="identifier">node</span><span>)</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
         <p>But there are a couple of things which are messy about our modification;
         1. We&#39;ve hardcoded the title
-        2. the anonymous function display is very anonymous. </p>
+        2. the anonymous function display is very anonymous.</p>
         <p>Let&#39;s have another go. With a little more ceremony, we have something that looks easier afterwards.</p>
         
-        <h2 id="better-title-modifier" class="section"><a class="anchor-link left" href="#better-title-modifier"><i class="icofont-laika">&#xef71;</i></a>Better title modifier</h2>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="keyword">given</span><span>}
+        <h2 id="better-title-modifier" class="section"><a class="anchor-link left" href="#better-title-modifier"><i class="icofont-laika link">&#xef71;</i></a>Better title modifier</h2>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="identifier">given</span><span>}
 
 </span><span class="keyword">def</span><span> </span><span class="declaration-name">addTitleB</span><span>(</span><span class="identifier">in</span><span>:</span><span class="type-name">String</span><span>): </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> = </span><span class="keyword">new</span><span>((</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span>)) {
     </span><span class="keyword">override</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">toString</span><span> = </span><span class="string-literal">s&quot;set title to be </span><span class="substitution">$in</span><span class="string-literal">&quot;</span><span>
@@ -149,15 +142,15 @@
 
 </span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">LineChartLite</span><span>(
       </span><span class="type-name">Seq</span><span>(
-          </span><span class="identifier">addTitleB</span><span>(</span><span class="string-literal">&quot;Much better&quot;</span><span>), 
+          </span><span class="identifier">addTitleB</span><span>(</span><span class="string-literal">&quot;Much better&quot;</span><span>),
           </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>,
-          </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span> 
+          </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>
       )
   )
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">chart</span><span>, </span><span class="identifier">node</span><span>)</span></code></pre>
         <div id="mdoc-html-run1" data-mdoc-js></div>
-        <p>Here&#39;s what that would look like in JVM scala; </p>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="keyword">given</span><span>}
+        <p>Here&#39;s what that would look like in JVM scala;</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="identifier">given</span><span>}
 
 </span><span class="keyword">def</span><span> </span><span class="declaration-name">addTitleB</span><span>(</span><span class="identifier">in</span><span>:</span><span class="type-name">String</span><span>): </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> = </span><span class="keyword">new</span><span>((</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span>)) {
     </span><span class="keyword">override</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">toString</span><span> = </span><span class="string-literal">s&quot;set title to be </span><span class="substitution">$in</span><span class="string-literal">&quot;</span><span>
@@ -166,66 +159,70 @@
 
 </span><span class="type-name">LineChartLite</span><span>(
   </span><span class="type-name">Seq</span><span>(
-      </span><span class="identifier">addTitleB</span><span>(</span><span class="string-literal">&quot;A Timeseries&quot;</span><span>), 
-      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>, 
-      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span> 
+      </span><span class="identifier">addTitleB</span><span>(</span><span class="string-literal">&quot;A Timeseries&quot;</span><span>),
+      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>,
+      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>
   )
 )
 </span><span class="comment">// res0: LineChartLite = LineChartLite(
 //   mods = List(
 //     set title to be A Timeseries,
 //     Fix default data url,
-//     viz.Utils$$$Lambda$15348/1774673242@314abe6f
+//     viz.Utils$$$Lambda$14753/1360349853@46bc5be9
 //   )
 // )</span></code></pre>
         <p>At this point, i think we have a hint on a simple way to inject data - the same way as we injected a title</p>
         
-        <h2 id="piping-in-the-data" class="section"><a class="anchor-link left" href="#piping-in-the-data"><i class="icofont-laika">&#xef71;</i></a>Piping in the data</h2>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="keyword">given</span><span>}
+        <h2 id="piping-in-the-data" class="section"><a class="anchor-link left" href="#piping-in-the-data"><i class="icofont-laika link">&#xef71;</i></a>Piping in the data</h2>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">LineChartLite</span><span>, </span><span class="identifier">given</span><span>}
 </span><span class="keyword">import</span><span> </span><span class="identifier">java</span><span>.</span><span class="identifier">time</span><span>.</span><span class="type-name">LocalDate</span><span>
 
 </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">TimeSeries</span><span>(</span><span class="identifier">series</span><span>: </span><span class="type-name">Seq</span><span>[(</span><span class="type-name">LocalDate</span><span>, </span><span class="type-name">Double</span><span>)])
 
 </span><span class="keyword">val</span><span> </span><span class="identifier">ts</span><span> = </span><span class="type-name">TimeSeries</span><span>(
-        </span><span class="type-name">Seq</span><span>(            
-            (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">of</span><span>(</span><span class="number-literal">2021</span><span>,</span><span class="number-literal">1</span><span>,</span><span class="number-literal">1</span><span>), </span><span class="number-literal">0.2</span><span>), 
+        </span><span class="type-name">Seq</span><span>(
+            (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">of</span><span>(</span><span class="number-literal">2021</span><span>,</span><span class="number-literal">1</span><span>,</span><span class="number-literal">1</span><span>), </span><span class="number-literal">0.2</span><span>),
             (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">of</span><span>(</span><span class="number-literal">2021</span><span>,</span><span class="number-literal">6</span><span>,</span><span class="number-literal">1</span><span>), </span><span class="number-literal">20</span><span>),
-            (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">of</span><span>(</span><span class="number-literal">2021</span><span>,</span><span class="number-literal">12</span><span>,</span><span class="number-literal">31</span><span>), </span><span class="number-literal">5.5</span><span>), 
+            (</span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">of</span><span>(</span><span class="number-literal">2021</span><span>,</span><span class="number-literal">12</span><span>,</span><span class="number-literal">31</span><span>), </span><span class="number-literal">5.5</span><span>),
         )
     )
 
 </span><span class="keyword">def</span><span> </span><span class="declaration-name">addData</span><span>(</span><span class="identifier">in</span><span>: </span><span class="type-name">TimeSeries</span><span>) = </span><span class="keyword">new</span><span> (</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span>) {
-    </span><span class="keyword">override</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">toString</span><span> = </span><span class="string-literal">&quot;pipe in data&quot;</span><span> 
-    </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(</span><span class="identifier">spec</span><span>: </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span>) =    
-        </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="identifier">in</span><span>.</span><span class="identifier">series</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">p</span><span> =&gt; 
+    </span><span class="keyword">override</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">toString</span><span> = </span><span class="string-literal">&quot;pipe in data&quot;</span><span>
+    </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(</span><span class="identifier">spec</span><span>: </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span>) =
+        </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="identifier">in</span><span>.</span><span class="identifier">series</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">p</span><span> =&gt;
           </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Obj</span><span>(</span><span class="string-literal">&quot;date&quot;</span><span> -&gt; </span><span class="identifier">p</span><span class="number-literal">._1</span><span>.</span><span class="identifier">toString</span><span>(),</span><span class="string-literal">&quot;price&quot;</span><span> -&gt;</span><span class="identifier">p</span><span class="number-literal">._2</span><span>)
         )
         </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;data&quot;</span><span>) = </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Obj</span><span>(</span><span class="string-literal">&quot;values&quot;</span><span> -&gt; </span><span class="identifier">data</span><span>)
-        </span><span class="identifier">spec</span><span>.</span><span class="identifier">obj</span><span>.</span><span class="identifier">remove</span><span>(</span><span class="string-literal">&quot;transform&quot;</span><span>)
+        </span><span class="keyword">val</span><span> </span><span class="identifier">_</span><span> = </span><span class="identifier">spec</span><span>.</span><span class="identifier">obj</span><span>.</span><span class="identifier">remove</span><span>(</span><span class="string-literal">&quot;transform&quot;</span><span>)
+        ()
 }
 </span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">LineChartLite</span><span>(</span><span class="type-name">Seq</span><span>( </span><span class="identifier">addData</span><span>(</span><span class="identifier">ts</span><span>),</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span> ))
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">chart</span><span>, </span><span class="identifier">node</span><span>)</span></code></pre>
         <div id="mdoc-html-run2" data-mdoc-js></div>
-        <p>Generally, I find that the best &quot;workflow&quot;, is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It&#39;s then easy to backport the modification into scala. </p>
+        <p>Generally, I find that the best &quot;workflow&quot;, is to pump the data into the spec and plot it. It usually shows up blank. Open it up in the vega editor and fix it. It&#39;s then easy to backport the modification into scala.</p>
         <p>In the first instance, this looks like quite a bit of ceremony. What&#39;s important to remember, is that you can compose the modifiers... and ultimately, end up with your own library of them!</p>
         
-        <h1 id="discussion" class="section"><a class="anchor-link left" href="#discussion"><i class="icofont-laika">&#xef71;</i></a>Discussion</h1>
-        <p>The big advantage of the mutuable approach, is that you get instant access to the entire vega API, which is just JSON. It therefore represents the &quot;ultimate fallback&quot; option. </p>
-        <p>The big disadvantage, is that it the &quot;developer experience&quot;, isn&#39;t great. The ceremony to get the json shapes in the right place, is rather tedious, plus you don&#39;t get compile time hints if this are going to go wrong. </p>
-        <p>Reading this back the example is weirdly contrived. Mostly when I&#39;m working with an existing datatype, it already has a JSON serialisation strategy in place. It really ought to be possible to leverage that somehow ... </p>
+        <h1 id="discussion" class="section"><a class="anchor-link left" href="#discussion"><i class="icofont-laika link">&#xef71;</i></a>Discussion</h1>
+        <p>The big advantage of the mutuable approach, is that you get instant access to the entire vega API, which is just JSON. It therefore represents the &quot;ultimate fallback&quot; option.</p>
+        <p>The big disadvantage, is that it the &quot;developer experience&quot;, isn&#39;t great. The ceremony to get the json shapes in the right place, is rather tedious, plus you don&#39;t get compile time hints if this are going to go wrong.</p>
+        <p>Reading this back the example is weirdly contrived. Mostly when I&#39;m working with an existing datatype, it already has a JSON serialisation strategy in place. It really ought to be possible to leverage that somehow ...</p>
         
-        <h1 id="conclusion" class="section"><a class="anchor-link left" href="#conclusion"><i class="icofont-laika">&#xef71;</i></a>Conclusion</h1>
-        <p>I&#39;ve found this style to be rather convenient in practise for small mofications, adding axis titles, chart titles. <script type="text/javascript" src="mutable.md.js" defer></script>
+        <h1 id="conclusion" class="section"><a class="anchor-link left" href="#conclusion"><i class="icofont-laika link">&#xef71;</i></a>Conclusion</h1>
+        <p>I&#39;ve found this style to be rather convenient in practise for small mofications, adding axis titles, chart titles.<script type="text/javascript" src="mutable.md.js" defer></script>
         <script type="text/javascript" src="mdoc.js" defer></script></p>
 
-        <hr style="margin-top: 30px"/>
-        <footer style="font-size: 90%; text-align: center">
-          Dedav4s is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a> license.
-        </footer>
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
 
       </main>
 
     </div>
 
   </body>
+
 </html>

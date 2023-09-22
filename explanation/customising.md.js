@@ -2306,11 +2306,7 @@ function $ct_jl_Throwable__T__jl_Throwable__Z__Z__($thiz, s, e, enableSuppressio
 class $c_jl_Throwable extends Error {
   constructor() {
     super();
-    this.jl_Throwable__f_s = null;
-    this.jl_Throwable__f_e = null;
-    this.jl_Throwable__f_writableStackTrace = false;
-    this.jl_Throwable__f_jsErrorForStackTrace = null;
-    this.jl_Throwable__f_stackTrace = null
+    this.jl_Throwable__f_s = null
   };
   getMessage__T() {
     return this.jl_Throwable__f_s

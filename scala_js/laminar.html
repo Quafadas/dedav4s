@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Laminar</title>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+  
+  <script src="../helium/laika-helium.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">Getting Sarted</li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
+    <li class="level1 nav-header">Details</li>
+    <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
+    <li class="level1 nav-header">Working With A Chart</li>
+    <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+    <li class="level1 nav-header">Prior Art</li>
+    <li class="level2 nav-leaf"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="scalaJS.html">Introduction</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Laminar</a></li>
+    <li class="level2 nav-leaf"><a href="calico.html">Calico</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Laminar</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#simple-strategy">Simple strategy</a></li>
+    <li class="level1 nav-leaf"><a href="#using-vegas-view-class">Using vegas <code>View</code> class</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="laminar" class="title">Laminar</h1>
+        <p>See the <code>LaminarViz.simpleEmbed</code> function, to get started. It returns a <code>div</code>, which you can put, anywhere you want in your app.</p>
+        <blockquote>The div <em>must</em> have a well defined size and height.</blockquote>
+        <p>If div height and width are not well defined, this will usually result in an error in the console. The chart will not render.</p>
+        
+        <h2 id="simple-strategy" class="section"><a class="anchor-link left" href="#simple-strategy"><i class="icofont-laika link">&#xef71;</i></a>Simple strategy</h2>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.</span><span class="identifier">_</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">LaminarViz</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="identifier">given</span><span>}
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">appContainer</span><span> = </span><span class="identifier">dom</span><span>.</span><span class="identifier">document</span><span>.</span><span class="identifier">querySelector</span><span>(</span><span class="string-literal">s&quot;#</span><span class="substitution">${node.id}</span><span class="string-literal">&quot;</span><span>)
+</span><span class="identifier">node</span><span>.</span><span class="identifier">setAttribute</span><span>(</span><span class="string-literal">&quot;style&quot;</span><span>, </span><span class="string-literal">s&quot;width:50vmin;height:50vmin&quot;</span><span>)
+</span><span class="identifier">renderOnDomContentLoaded</span><span>(</span><span class="identifier">appContainer</span><span>, </span><span class="identifier">chartExample</span><span>())
+
+</span><span class="keyword">object</span><span> </span><span class="identifier">chartExample</span><span>:
+  </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="type-name">Var</span><span>(</span><span class="type-name">List</span><span>(</span><span class="number-literal">2.4</span><span>, </span><span class="number-literal">3.4</span><span>, </span><span class="number-literal">5.1</span><span>, -</span><span class="number-literal">2.3</span><span>))
+  </span><span class="keyword">val</span><span> </span><span class="identifier">chartDiv</span><span> = </span><span class="identifier">div</span><span>(
+    </span><span class="identifier">width</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
+    </span><span class="identifier">height</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
+  )
+
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(): </span><span class="type-name">Div</span><span> =
+    </span><span class="identifier">div</span><span>(
+      </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;We want to make it as easy as possible, to build a chart and get our data into it.&quot;</span><span>),
+      </span><span class="identifier">span</span><span>(</span><span class="string-literal">&quot;Here&#39;s a random data set: &quot;</span><span>),
+      </span><span class="identifier">child</span><span>.</span><span class="identifier">text</span><span> &lt;-- </span><span class="identifier">data</span><span>.</span><span class="identifier">signal</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
+        </span><span class="identifier">data</span><span>.</span><span class="identifier">mkString</span><span>(</span><span class="string-literal">&quot;[&quot;</span><span>, </span><span class="string-literal">&quot;,&quot;</span><span>, </span><span class="string-literal">&quot;]&quot;</span><span>)
+      },
+      </span><span class="identifier">p</span><span>(),
+      </span><span class="identifier">button</span><span>(
+        </span><span class="string-literal">&quot;Add a random number&quot;</span><span>,
+        </span><span class="identifier">onClick</span><span> --&gt; {</span><span class="identifier">_</span><span>=&gt;</span><span class="identifier">data</span><span>.</span><span class="identifier">update</span><span>{</span><span class="identifier">data</span><span> =&gt;</span><span class="identifier">data</span><span> :+ </span><span class="identifier">scala</span><span>.</span><span class="identifier">util</span><span>.</span><span class="type-name">Random</span><span>.</span><span class="identifier">nextDouble</span><span>() * </span><span class="number-literal">5</span><span>}}),
+      </span><span class="identifier">p</span><span>(),
+      </span><span class="identifier">child</span><span> &lt;-- </span><span class="identifier">data</span><span>.</span><span class="identifier">signal</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
+        </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="type-name">BarChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
+        </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">simpleEmbed</span><span>(</span><span class="identifier">barChart</span><span>, </span><span class="type-name">Some</span><span>(</span><span class="identifier">chartDiv</span><span>))
+      },
+      </span><span class="identifier">p</span><span>()
+    )
+  </span><span class="identifier">end</span><span> </span><span class="identifier">apply</span><span>
+</span><span class="identifier">end</span><span> </span><span class="identifier">chartExample</span></code></pre>
+        <div id="mdoc-html-run0" data-mdoc-js></div>
+        <p>This works quickly and easily, but it has some downsides.</p>
+        <ul>
+          <li>Replot the whole chart, on every render.</li>
+          <li>No interaction. The chart assumes, that the last thing you want to do with it, is get it on the screen.</li>
+        </ul>
+        
+        <h2 id="using-vegas-view-class" class="section"><a class="anchor-link left" href="#using-vegas-view-class"><i class="icofont-laika link">&#xef71;</i></a>Using vegas <code>View</code> class</h2>
+        <p>It turns out, we can do a whole lot better, using <code>vega.View</code>. In the following example, At the expense of a little complexity, our chart is now</p>
+        <ul>
+          <li>interactive</li>
+          <li>performant</li>
+        </ul>
+        <p>Inside the apply method we:</p>
+        <ul>
+          <li>Instantiate the chart, and obtain both a div, and the <code>View</code> object.</li>
+          <li>We then use the <code>View</code> object to add a signal listener, and a click listener, which return data from the chart into Laminar <code>Vars</code>.</li>
+          <li>
+            When the button is clicked
+            <ul>
+              <li>We update the data via standard laminar observer.</li>
+              <li>
+                The data <code>Var</code> has an observed registered, which pipes the data directly into the chart object - this does <em>not</em> involve reinstantiating the chart. Rather, it plugs into vegas eventstream - which is performant.
+                <pre><code>view.data(&quot;table&quot;, dataJs)
+view.runAsync() // Don&#39;t forget this or nothing happens :-)</code></pre>
+                <p>-</p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.*
+
+</span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">LaminarViz</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">facades</span><span>.</span><span class="type-name">VegaView</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">facades</span><span>.</span><span class="type-name">Helpers</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">scala</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">js</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">js</span><span>.</span><span class="type-name">JSConverters</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">scala</span><span>.</span><span class="identifier">util</span><span>.</span><span class="type-name">Random</span><span>
+
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="identifier">given</span><span>}
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">appContainer</span><span> = </span><span class="identifier">dom</span><span>.</span><span class="identifier">document</span><span>.</span><span class="identifier">querySelector</span><span>(</span><span class="string-literal">s&quot;#</span><span class="substitution">${node.id}</span><span class="string-literal">&quot;</span><span>)
+</span><span class="identifier">node</span><span>.</span><span class="identifier">setAttribute</span><span>(</span><span class="string-literal">&quot;style&quot;</span><span>, </span><span class="string-literal">s&quot;width:50vmin;height:50vmin&quot;</span><span>)
+</span><span class="identifier">renderOnDomContentLoaded</span><span>(</span><span class="identifier">appContainer</span><span>, </span><span class="identifier">chartExample</span><span>())
+
+</span><span class="keyword">def</span><span> </span><span class="declaration-name">textIfObject</span><span>(</span><span class="identifier">in</span><span>: </span><span class="identifier">js</span><span>.</span><span class="type-name">UndefOr</span><span>[</span><span class="identifier">js</span><span>.</span><span class="type-name">Dynamic</span><span>]): </span><span class="type-name">String</span><span> =
+  </span><span class="keyword">if</span><span> </span><span class="identifier">in</span><span> == </span><span class="identifier">js</span><span>.</span><span class="identifier">undefined</span><span> </span><span class="identifier">then</span><span> </span><span class="string-literal">&quot;undefined&quot;</span><span>
+  </span><span class="keyword">else</span><span> </span><span class="identifier">js</span><span>.</span><span class="type-name">JSON</span><span>.</span><span class="identifier">stringify</span><span>(</span><span class="identifier">in</span><span>.</span><span class="identifier">get</span><span>)
+
+
+</span><span class="keyword">object</span><span> </span><span class="identifier">chartExample</span><span>:
+  </span><span class="keyword">val</span><span> (</span><span class="identifier">chartDataClickedBus</span><span>, </span><span class="identifier">chartClickCallback</span><span>) = </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">dataClickBus</span><span>
+  </span><span class="keyword">val</span><span> (</span><span class="identifier">aSignalBus</span><span>, </span><span class="identifier">signalCallback</span><span>) = </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">signalBus</span><span>
+  </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="type-name">Var</span><span>(</span><span class="type-name">List</span><span>(</span><span class="number-literal">2.4</span><span>, </span><span class="number-literal">3.4</span><span>, </span><span class="number-literal">5.1</span><span>, -</span><span class="number-literal">2.3</span><span>))
+  </span><span class="keyword">val</span><span> </span><span class="identifier">baseChart</span><span> = </span><span class="type-name">BarChart</span><span>(
+    </span><span class="type-name">List</span><span>(
+      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
+      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeXAxis</span><span>,
+      </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeYAxis</span><span>
+    )
+  )
+  </span><span class="keyword">val</span><span> </span><span class="identifier">setDivSize</span><span> = </span><span class="identifier">div</span><span>(
+    </span><span class="identifier">width</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
+    </span><span class="identifier">height</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
+  )
+
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(): </span><span class="type-name">Div</span><span> =
+    </span><span class="keyword">val</span><span> (</span><span class="identifier">chartDiv</span><span> : </span><span class="type-name">Div</span><span>, </span><span class="identifier">viewOpt</span><span>: </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Option</span><span>[</span><span class="type-name">VegaView</span><span>]]) =
+      </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">viewEmbed</span><span>(</span><span class="identifier">baseChart</span><span>, </span><span class="type-name">Some</span><span>(</span><span class="identifier">setDivSize</span><span>))
+
+    </span><span class="identifier">div</span><span>(
+      </span><span class="identifier">viewOpt</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">vv</span><span> =&gt;
+        </span><span class="identifier">vv</span><span>.</span><span class="identifier">safeAddSignalListener</span><span>(</span><span class="string-literal">&quot;tooltip&quot;</span><span>, </span><span class="identifier">signalCallback</span><span>)
+        </span><span class="identifier">vv</span><span>.</span><span class="identifier">addEventListener</span><span>(</span><span class="string-literal">&quot;click&quot;</span><span>, </span><span class="identifier">chartClickCallback</span><span>)
+        </span><span class="comment">// vv.addEventListener(&quot;click&quot;, dataPrintOnlyClickHandler)
+</span><span>        </span><span class="comment">// vv.printState()
+</span><span>      )) --&gt; </span><span class="type-name">Observer</span><span>(</span><span class="identifier">_</span><span> =&gt; ()),
+      </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;We also want to find a way, to interact with the chart&quot;</span><span>),
+      </span><span class="identifier">span</span><span>(</span><span class="string-literal">&quot;Here&#39;s a random data set: &quot;</span><span>),
+      </span><span class="identifier">child</span><span>.</span><span class="identifier">text</span><span> &lt;-- </span><span class="identifier">data</span><span>.</span><span class="identifier">signal</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
+        </span><span class="identifier">data</span><span>.</span><span class="identifier">mkString</span><span>(</span><span class="string-literal">&quot;[&quot;</span><span>, </span><span class="string-literal">&quot;,&quot;</span><span>, </span><span class="string-literal">&quot;]&quot;</span><span>)
+      },
+      </span><span class="identifier">p</span><span>(
+        </span><span class="identifier">button</span><span>(
+          </span><span class="string-literal">&quot;Add a random number&quot;</span><span>,
+          </span><span class="identifier">onClick</span><span> --&gt; { </span><span class="identifier">_</span><span> =&gt;
+            </span><span class="identifier">data</span><span>.</span><span class="identifier">update</span><span> { </span><span class="identifier">data</span><span> =&gt;
+              </span><span class="identifier">data</span><span> :+ </span><span class="identifier">scala</span><span>.</span><span class="identifier">util</span><span>.</span><span class="type-name">Random</span><span>.</span><span class="identifier">nextDouble</span><span>() * </span><span class="number-literal">5</span><span>
+            }
+          }
+        )
+      ),
+      </span><span class="identifier">data</span><span>.</span><span class="identifier">signal</span><span>.</span><span class="identifier">combineWith</span><span>(</span><span class="identifier">viewOpt</span><span>) --&gt; </span><span class="type-name">Observer</span><span> {
+        (</span><span class="identifier">in</span><span>: (</span><span class="type-name">List</span><span>[</span><span class="type-name">Double</span><span>], </span><span class="type-name">Option</span><span>[</span><span class="type-name">VegaView</span><span>])) =&gt;
+        </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="identifier">in</span><span class="number-literal">._1</span><span>
+        </span><span class="keyword">val</span><span> </span><span class="identifier">theView</span><span> = </span><span class="identifier">in</span><span class="number-literal">._2</span><span>
+        </span><span class="identifier">theView</span><span>.</span><span class="identifier">foreach</span><span> { </span><span class="identifier">view</span><span> =&gt;
+          </span><span class="keyword">val</span><span> </span><span class="identifier">dataJs</span><span>: </span><span class="identifier">scala</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">js</span><span>.</span><span class="type-name">Array</span><span>[</span><span class="identifier">js</span><span>.</span><span class="type-name">Object</span><span>] = </span><span class="identifier">data</span><span>
+            .</span><span class="identifier">map</span><span>(</span><span class="identifier">d</span><span> =&gt;
+              </span><span class="identifier">js</span><span>.</span><span class="type-name">Dynamic</span><span>.</span><span class="identifier">literal</span><span>(
+                </span><span class="identifier">category</span><span> = </span><span class="type-name">Random</span><span>.</span><span class="identifier">alphanumeric</span><span>.</span><span class="identifier">take</span><span>(</span><span class="number-literal">8</span><span>).</span><span class="identifier">mkString</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>),
+                </span><span class="identifier">amount</span><span> = </span><span class="identifier">d</span><span>
+              )
+            )
+            .</span><span class="identifier">toJSArray</span><span>
+          </span><span class="identifier">view</span><span>.</span><span class="identifier">data</span><span>(</span><span class="string-literal">&quot;table&quot;</span><span>, </span><span class="identifier">dataJs</span><span>)
+          </span><span class="identifier">view</span><span>.</span><span class="identifier">runAsync</span><span>() </span><span class="comment">// Don&#39;t forget this or nothing happens :-)
+</span><span>        }
+
+      },
+      </span><span class="identifier">chartDiv</span><span>,
+      </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;You last clicked on : &quot;</span><span>, </span><span class="identifier">child</span><span>.</span><span class="identifier">text</span><span> &lt;-- </span><span class="identifier">chartDataClickedBus</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">textIfObject</span><span>)),
+      </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;You last hovered on : &quot;</span><span>, </span><span class="identifier">child</span><span>.</span><span class="identifier">text</span><span> &lt;-- </span><span class="identifier">aSignalBus</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">textIfObject</span><span>)),
+      </span><span class="identifier">p</span><span>(),</span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>)
+    )
+  </span><span class="identifier">end</span><span> </span><span class="identifier">apply</span><span>
+</span><span class="identifier">end</span><span> </span><span class="identifier">chartExample</span></code></pre>
+        <div id="mdoc-html-run1" data-mdoc-js></div>
+        <p>To use it - hover over, and / or click the chart items, and you&#39;ll see the data printed out. So we have &quot;bi-directional&quot; communication with the chart.</p>
+        <p>Further, the chart itself, is &quot;updated&quot;, rather than thrown away and replotted every time.</p>
+        <p>This sets out some low level building blocks. A motivated developer could establish reliable, typesafe communication with the chart. Due to how close Laminars reactive paradigm is to vegas event stream - they play startling nicely together.</p>
+        <p><script type="text/javascript" src="laminar.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script></p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
