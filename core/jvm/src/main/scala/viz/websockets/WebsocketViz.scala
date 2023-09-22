@@ -21,7 +21,6 @@ import io.undertow.websockets.core.{AbstractReceiveListener, BufferedTextMessage
 import io.undertow.websockets.spi.WebSocketHttpExchange
 import scalatags.Text.all.*
 import java.awt.Desktop
-import io.undertow.websockets.core.WebSocketUtils
 import scala.concurrent.Future
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
@@ -61,7 +60,7 @@ object WebsocketVizServer extends cask.MainRoutes:
       body(
         // h1("viz"),
         div(id := "vis", height := "95vmin", width := "95vmin"),
-        script(raw"""        
+        script(raw"""
         let socket = new WebSocket('ws://localhost:$port/connect/viz');
         socket.onopen = function(e) {
           document.getElementById('vis').innerHTML = 'connected and waiting'
@@ -90,7 +89,7 @@ object WebsocketVizServer extends cask.MainRoutes:
         socket.onerror = function(error) {
           console.error(`[error] $${error.message}`);
         };
-        
+
         """)
       )
     )

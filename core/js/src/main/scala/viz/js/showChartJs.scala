@@ -19,11 +19,8 @@ import org.scalajs.dom
 import org.scalajs.dom.html.Div
 import scala.util.Random
 import org.scalajs.dom.Element
-import org.scalajs.dom.XMLHttpRequest
-import org.scalajs.dom.Event
 import scala.scalajs.js
 import scala.scalajs.js.JSON
-import viz.WithBaseSpec
 import viz.Spec
 
 /** This is a "show" implementation for JS. Importantly, it forces the div to have a well defined width and height on

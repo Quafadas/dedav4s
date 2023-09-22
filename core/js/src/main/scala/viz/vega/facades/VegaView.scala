@@ -35,6 +35,7 @@ end Options
   * @param config
   */
 @js.native
+@annotation.nowarn("msg=unused explicit parameter")
 @JSImport("vega-view", JSImport.Namespace, "vega.View")
 class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
 

@@ -16,10 +16,7 @@
 
 package viz
 
-import ujson.Value
 import viz.vega.plots.SpecUrl
-import java.net.URI
-import viz.vega.Framework
 import viz.dsl.vega.VegaDsl
 import io.circe.parser.decode
 import viz.dsl.*

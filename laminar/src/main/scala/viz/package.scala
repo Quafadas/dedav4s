@@ -17,23 +17,14 @@
 package viz
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.*
 import com.raquo.laminar.api.L.*
-
-import org.scalajs.dom
 import scalajs.js.JSON
 
-import viz.PlotTargets.doNothing
-import viz.extensions.*
 import viz.vega.facades.EmbedOptions
 import viz.vega.facades.VegaView
 import viz.vega.facades.EmbedResult
 
 import viz.vega.facades.Helpers.*
-
-import viz.Spec
-
-import viz.vega.plots.BarChart
 
 object LaminarViz:
 

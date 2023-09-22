@@ -17,7 +17,6 @@
 package viz.dsl
 
 import scala.language.implicitConversions
-import viz.PlotTarget
 import io.circe.syntax.*
 import io.circe.Encoder
 import viz.dsl.vega.VegaDsl

@@ -18,7 +18,6 @@ package viz
 
 import viz.vega.plots.BarChart
 import viz.vega.plots.PieChart
-import viz.PlotTarget
 import scala.util.Random
 import scala.annotation.targetName
 import viz.vega.plots.WordCloud
@@ -29,9 +28,6 @@ import viz.vega.plots.LineChart
 import viz.vega.plots.DotPlot
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.ScatterPlot
-import viz.vega.plots.Regression
-import viz.LowPriorityPlotTarget
-import cats.syntax.flatMap
 //import viz.extensions.jvm.*
 
 package object extensions:

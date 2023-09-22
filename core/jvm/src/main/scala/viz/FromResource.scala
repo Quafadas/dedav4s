@@ -16,9 +16,6 @@
 
 package viz
 
-import ujson.Value
-import java.net.URI
-
 trait FromResource extends WithBaseSpec:
 
   lazy val path: String = ???

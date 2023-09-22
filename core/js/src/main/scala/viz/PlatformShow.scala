@@ -16,7 +16,6 @@
 
 package viz
 
-import viz.PlotTarget
 import org.scalajs.dom.html
 import scala.scalajs.js.JSON
 
@@ -24,12 +23,10 @@ import scala.scalajs.js.JSON
 //type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
 //type PlotTarget = html.Div
 
-import viz.PlotTargets.doNothing
-
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
   def show(inDiv: html.Div): Unit =
     val anId = inDiv.id
-    val newId = if anId.isEmpty then
+    val _ = if anId.isEmpty then
       val temp = java.util.UUID.randomUUID()
       inDiv.setAttribute("id", temp.toString())
     else anId

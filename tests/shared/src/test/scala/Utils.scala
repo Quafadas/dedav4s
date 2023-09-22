@@ -22,7 +22,7 @@ class CheckUtils extends munit.FunSuite:
   import viz.PlotTargets.doNothing
 
   test("spec with existing height signal, gets overriten") {
-    val specStart = ujson.read("""{  
+    val specStart = ujson.read("""{
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "signals": [
     {
@@ -54,7 +54,7 @@ class CheckUtils extends munit.FunSuite:
   test("Bar plot data trait") {
 
     import viz.vega.plots.BarChart.{*, given}
-    import upickle.default.{*, given}
+    import upickle.default.{*}
 
     def chooseColor(isScala: Boolean, bigBox: Boolean) =
       (isScala, bigBox) match

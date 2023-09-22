@@ -20,8 +20,6 @@ import io.undertow.websockets.WebSocketConnectionCallback
 import io.undertow.websockets.core.{AbstractReceiveListener, BufferedTextMessage, WebSocketChannel, WebSockets}
 import io.undertow.websockets.spi.WebSocketHttpExchange
 import scalatags.Text.all.*
-import java.awt.Desktop
-import io.undertow.websockets.core.WebSocketUtils
 import scala.concurrent.Future
 
 object WebsocketGitPodServer extends cask.MainRoutes:
@@ -56,7 +54,7 @@ object WebsocketGitPodServer extends cask.MainRoutes:
       body(
         // h1("viz"),
         div(id := "vis", height := "95vmin", width := "95vmin"),
-        script(raw"""        
+        script(raw"""
         let socket = new WebSocket('wss://$port-$gitpod_address:443/connect/viz');
         socket.onopen = function(e) {
           document.getElementById('vis').innerHTML = 'connected and waiting'
@@ -85,7 +83,7 @@ object WebsocketGitPodServer extends cask.MainRoutes:
         socket.onerror = function(error) {
           console.error(`[error] $${error.message}`);
         };
-        
+
         """)
       )
     )

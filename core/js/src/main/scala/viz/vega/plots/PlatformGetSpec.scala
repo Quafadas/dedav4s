@@ -19,14 +19,8 @@ package viz
 import viz.vega.Framework
 import viz.vega.Framework.*
 import org.scalajs.dom.XMLHttpRequest
-import org.scalajs.dom.Event
-import scala.scalajs.js
-import io.circe.parser.*
 
 trait PlatformGetSpec(val url: String, val f: Framework):
-
-  import scala.concurrent.ExecutionContext.Implicits.global
-  import scala.scalajs.js.Thenable.Implicits.*
 
   // I am aware this is naughty, but everything else is synchronous...
   lazy val jsonSpec: ujson.Value = f match

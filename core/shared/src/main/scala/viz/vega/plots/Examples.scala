@@ -1005,7 +1005,7 @@ object BarChart extends viz.companions.AxisUtils:
         end match
         toMerge.fold[Obj](vanilla) { case (start, next) => start.value ++ next.value }
       ,
-      in => ??? // upickle.default.read[T & BarData](in)
+      _ => ??? // upickle.default.read[T & BarData](in)
     )
 end BarChart
 

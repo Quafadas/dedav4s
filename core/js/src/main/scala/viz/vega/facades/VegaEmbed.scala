@@ -18,10 +18,8 @@ package viz.vega.facades
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
-import scala.scalajs.js.JSON
-import scala.concurrent.Future
-import scala.concurrent.Promise
 import org.scalajs.dom.HTMLElement
+
 type Theme = "excel" | "ggplot2" | "quartz" | "vox" | "dark"
 
 @js.native

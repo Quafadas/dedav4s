@@ -16,16 +16,12 @@
 
 package viz
 
-import java.io.{File, PrintWriter}
 import java.awt.Desktop
 import almond.api.JupyterApi
 import almond.interpreter.api.DisplayData
 import almond.api.JupyterAPIHolder.value
-import java.nio.file.Paths
-import java.nio.file.Files
 import viz.websockets.WebsocketVizServer
 import viz.websockets.WebsocketGitPodServer
-import scala.concurrent.Future
 import os.Path
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
@@ -65,7 +61,8 @@ object PlotTargets extends SharedTargets:
         PR welcome :-) ...
        */
       val runtime = java.lang.Runtime.getRuntime()
-      runtime.exec(Array[String](s"""xdg-open $uri]"""))
+      val _ = runtime.exec(Array[String](s"""xdg-open $uri]"""))
+      ()
 
   lazy val conf = org.ekrich.config.ConfigFactory.load()
   lazy val outPath: Option[String] =
@@ -96,11 +93,11 @@ object PlotTargets extends SharedTargets:
             }
         </style>
         </head>
-        <body>            
+        <body>
             <div id="vis"></div>
 
         <script type="text/javascript">
-        const spec = ${spec};  
+        const spec = ${spec};
          vegaEmbed('#vis', spec, {
             renderer: "canvas", // renderer (canvas or svg)
             container: "#vis", // parent DOM container

@@ -17,31 +17,19 @@
 package viz
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.*
 
 import org.scalajs.dom
 import scalajs.js.JSON
 import calico.*
-import calico.html.io.{*, given}
-import calico.unsafe.given
-import calico.syntax.*
+import calico.html.io.{*}
 import cats.effect.*
 import fs2.*
-import fs2.concurrent.*
 import fs2.dom.*
 
-import viz.PlotTargets.doNothing
-import viz.extensions.*
 import viz.vega.facades.EmbedOptions
 import viz.vega.facades.VegaView
 import viz.vega.facades.EmbedResult
 import cats.effect.IO
-
-import viz.vega.facades.Helpers.*
-
-import viz.Spec
-
-import viz.vega.plots.BarChart
 
 object CalicoViz:
 

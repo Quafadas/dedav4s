@@ -16,17 +16,9 @@
 
 package viz.vega.plots
 
-import viz.PlotTarget
 import viz.vega.Framework
 import viz.vega.Framework.*
-import scala.jdk.CollectionConverters.*
-import ujson.Value
-import scala.collection.mutable.LinkedHashMap
 import viz.PlatformGetSpec
-import io.circe.*
-import io.circe.parser.*
-import viz.dsl.vegaLite.*
-import viz.dsl.vega.*
 
 enum SpecUrl(override val url: String, override val f: Framework) extends PlatformGetSpec(url, f):
   // Vega

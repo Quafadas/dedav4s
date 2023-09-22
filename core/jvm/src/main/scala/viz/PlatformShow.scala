@@ -16,11 +16,6 @@
 
 package viz
 
-import viz.PlotTarget
-import viz.TempFileTarget
-import viz.Png
-import viz.Html
-import viz.LowPriorityPlotTarget
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
   // def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
@@ -49,10 +44,10 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
             Some(os.temp(suffix = suffix, prefix = "plot-"))
         end match
 
-  private val showMe = plotTarget match
-    case ut: UnitTarget     => ut.show(spec)
-    case ut: TempFileTarget => ut.showWithTempFile(spec, tmpPath.get)
-    case _                  => ()
+  // private val showMe = plotTarget match
+  //   case ut: UnitTarget     => ut.show(spec)
+  //   case ut: TempFileTarget => ut.showWithTempFile(spec, tmpPath.get)
+  //   case _                  => ()
 end PlatformShow
 
 // This is the line, which actually triggers plotting the chart

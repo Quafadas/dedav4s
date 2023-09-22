@@ -16,8 +16,6 @@
 
 package viz
 
-import scala.util.NotGiven
-
 trait LowPriorityPlotTarget
 
 trait PlotTarget extends LowPriorityPlotTarget
