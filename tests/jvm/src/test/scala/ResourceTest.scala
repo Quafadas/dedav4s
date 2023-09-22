@@ -17,17 +17,12 @@
 package viz
 // import viz.PlotTargets.websocket // for local testing
 import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
-import scala.util.Random
-import viz.extensions.*
 import scala.io.Source
 import io.circe.parser.*
 import io.circe.syntax.*
 import viz.dsl.vega.*
 import scala.language.implicitConversions
-import io.circe.Json
-import io.circe.Encoder
 
-import viz.PlotTargets
 import viz.dsl.vegaLite.VegaLiteDsl
 /*
 case class PlotFromString(s:String, override val mods: Seq[ujson.Value => Unit] = List()) extends WithBaseSpec {

@@ -1,14 +1,9 @@
 package livechart
 
-import scala.scalajs.js
-import scala.scalajs.js.annotation.*
-//import scala.util.Random
-
 import viz.extensions.*
 import viz.vega.plots.{BarChart, given}
 import calico.*
 import calico.html.io.{*, given}
-import calico.syntax.*
 import cats.effect.*
 import cats.effect.std.Random
 import fs2.*
@@ -26,7 +21,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
     .of(List(2.4, 3.4, 5.1, -2.3))
     .product(Channel.unbounded[IO, Int])
     .toResource
-    .flatMap { (data: SignallingRef[cats.effect.IO, List[Double]], diff) =>
+    .flatMap { (data: SignallingRef[cats.effect.IO, List[Double]], _) =>
       div(
         p("We want to make it as easy as possible, to build a chart"),
         span("Here's a random data set: "),
@@ -35,7 +30,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
           "Add a random number",
           onClick --> (
             _.evalMap(_ => Random.scalaUtilRandom[IO].toResource.use(r => r.nextDouble.map(_ * 5))).foreach(newD =>
-              val d = data.get
+              // val d = data.get
               IO.println(newD) >>
                 data.update(_ :+ newD).void
             )

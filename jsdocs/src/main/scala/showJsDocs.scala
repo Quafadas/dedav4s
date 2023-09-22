@@ -16,11 +16,9 @@
 
 package viz.doc
 import org.scalajs.dom
-import org.scalajs.dom.html.Div
 import scala.util.Random
 import org.scalajs.dom.Element
 import org.scalajs.dom.XMLHttpRequest
-import org.scalajs.dom.Event
 import scala.scalajs.js
 import scala.scalajs.js.JSON
 object showJsDocs:
