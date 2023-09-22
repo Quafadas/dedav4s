@@ -19,6 +19,9 @@ package viz.vega.facades
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js.JSON
+import coursierapi.shaded.scala.concurrent.Promise
+import org.scalajs.dom.URL
+import org.scalajs.dom.Element
 
 @js.native
 trait Options extends js.Object:
@@ -30,6 +33,8 @@ trait Options extends js.Object:
 end Options
 
 /** https://vega.github.io/vega/docs/api/view/
+  *
+  * https://vega.github.io/vega/docs/api/view/#data-and-scales
   *
   * @param parsedSpec
   * @param config
@@ -44,7 +49,17 @@ class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
   // def data(s: String, j: js.Dynamic): Unit = js.native
 
   // Most likely, a js.Array[js.Object]
-  def data(s: String, j: js.UndefOr[js.Any]): Unit = js.native
+  def data(s: String, data: js.Dynamic): Unit = js.native
+  def data(s: String): Unit = js.native
+
+  def toImageUrl(tpe: String, scale: js.UndefOr[Double] = 1) : Promise[URL] = js.native
+
+  // Resolves to an SVG string
+  def toSVG(scale: js.UndefOr[Double] = 1) : Promise[String] = js.native
+
+  def container(): Element = js.native
+
+  def origin(): js.Array[Double] = js.native
 
   def signal(s: String, j: js.Dynamic): js.Dynamic = js.native
 
