@@ -16,7 +16,6 @@
 
 package viz
 
-
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
   // def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
 
@@ -43,7 +42,6 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
           case None =>
             Some(os.temp(suffix = suffix, prefix = "plot-"))
         end match
-
   // private val showMe = plotTarget match
   //   case ut: UnitTarget     => ut.show(spec)
   //   case ut: TempFileTarget => ut.showWithTempFile(spec, tmpPath.get)

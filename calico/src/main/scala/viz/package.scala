@@ -21,7 +21,7 @@ import scala.scalajs.js
 import org.scalajs.dom
 import scalajs.js.JSON
 import calico.*
-import calico.html.io.{*}
+import calico.html.io.*
 import cats.effect.*
 import fs2.*
 import fs2.dom.*

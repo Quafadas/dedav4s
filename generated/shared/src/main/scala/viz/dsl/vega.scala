@@ -1444,7 +1444,7 @@ given Decoder[TransformOp] =
   ).reduceLeft(_ or _)
 
 given Encoder[TransformOp] = Encoder.instance {
-  case s: String        => Encoder.encodeString(s)
+  case s: String                 => Encoder.encodeString(s)
   case enc0: PurpleOp            => summon[Encoder[PurpleOp]].apply(enc0)
   case enc1: FormatTypeSignalRef => Encoder.AsObject[FormatTypeSignalRef].apply(enc1)
 }

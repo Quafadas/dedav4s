@@ -54,7 +54,7 @@ class CheckUtils extends munit.FunSuite:
   test("Bar plot data trait") {
 
     import viz.vega.plots.BarChart.{*, given}
-    import upickle.default.{*}
+    import upickle.default.*
 
     def chooseColor(isScala: Boolean, bigBox: Boolean) =
       (isScala, bigBox) match

@@ -151,7 +151,8 @@ lazy val docs = project
     // NOTE: Needed for Javasriptin in Laika
     laikaConfig ~= { _.withRawContent },
     laikaExtensions := Seq(
-      GitHubFlavor, SyntaxHighlighting
+      GitHubFlavor,
+      SyntaxHighlighting
     ),
     tlSiteHelium := {
       Helium.defaults.site
@@ -165,24 +166,25 @@ lazy val docs = project
         .site
         .topNavigationBar(
           homeLink = IconLink.internal(Root / "README.md", HeliumIcon.home),
-          navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github)),
-
+          navLinks = Seq(IconLink.external("https://github.com/Quafadas/dedav4s", HeliumIcon.github))
         )
       Helium.defaults.site
         .externalJS(
           url = "https://cdn.jsdelivr.net/npm/vega@5"
-        ).site
+        )
+        .site
         .externalJS(
-           url = "https://cdn.jsdelivr.net/npm/vega-lite@5"
-        ).site
+          url = "https://cdn.jsdelivr.net/npm/vega-lite@5"
+        )
+        .site
         .externalJS(
-           url = "https://cdn.jsdelivr.net/npm/vega-embed@6"
+          url = "https://cdn.jsdelivr.net/npm/vega-embed@6"
         )
         .site
         .autoLinkJS()
-        //.site
-        // NOTE: Needed for Javasriptin in Laika
-        //.internalJS(Root)
+      // .site
+      // NOTE: Needed for Javasriptin in Laika
+      // .internalJS(Root)
       // .site
       // .internalCSS(Root)
     }
