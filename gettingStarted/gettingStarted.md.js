@@ -5,7 +5,7 @@ var $linkingInfo = Object.freeze({
   "esVersion": 6,
   "assumingES6": true,
   "productionMode": false,
-  "linkerVersion": "1.13.0",
+  "linkerVersion": "1.14.0",
   "fileLevelThis": this
 });
 var $getOwnPropertyDescriptors = (Object.getOwnPropertyDescriptors || (() => {
@@ -6310,7 +6310,7 @@ $c_ju_UUID$.prototype.randomUUID__ju_UUID = (function() {
   var i2 = (16384 | ((-61441) & (((($n(buffer).get(4) << 24) | ((255 & $n(buffer).get(5)) << 16)) | ((255 & $n(buffer).get(6)) << 8)) | (255 & $n(buffer).get(7)))));
   var i3 = ((-2147483648) | (1073741823 & (((($n(buffer).get(8) << 24) | ((255 & $n(buffer).get(9)) << 16)) | ((255 & $n(buffer).get(10)) << 8)) | (255 & $n(buffer).get(11)))));
   var i4 = (((($n(buffer).get(12) << 24) | ((255 & $n(buffer).get(13)) << 16)) | ((255 & $n(buffer).get(14)) << 8)) | (255 & $n(buffer).get(15)));
-  return new $c_ju_UUID(i1, i2, i3, i4, null, null)
+  return new $c_ju_UUID(i1, i2, i3, i4)
 });
 var $d_ju_UUID$ = new $TypeData().initClass({
   ju_UUID$: 0
@@ -8736,15 +8736,15 @@ var $d_ju_LinkedHashMap$NodeIterator = new $TypeData().initClass({
 });
 $c_ju_LinkedHashMap$NodeIterator.prototype.$classData = $d_ju_LinkedHashMap$NodeIterator;
 /** @constructor */
-function $c_ju_UUID(i1, i2, i3, i4, l1, l2) {
-  this.ju_UUID__f_i1 = 0;
-  this.ju_UUID__f_i2 = 0;
-  this.ju_UUID__f_i3 = 0;
-  this.ju_UUID__f_i4 = 0;
-  this.ju_UUID__f_i1 = i1;
-  this.ju_UUID__f_i2 = i2;
-  this.ju_UUID__f_i3 = i3;
-  this.ju_UUID__f_i4 = i4
+function $c_ju_UUID(i1, i2, i3, i4) {
+  this.ju_UUID__f_java$util$UUID$$i1 = 0;
+  this.ju_UUID__f_java$util$UUID$$i2 = 0;
+  this.ju_UUID__f_java$util$UUID$$i3 = 0;
+  this.ju_UUID__f_java$util$UUID$$i4 = 0;
+  this.ju_UUID__f_java$util$UUID$$i1 = i1;
+  this.ju_UUID__f_java$util$UUID$$i2 = i2;
+  this.ju_UUID__f_java$util$UUID$$i3 = i3;
+  this.ju_UUID__f_java$util$UUID$$i4 = i4
 }
 $c_ju_UUID.prototype = new $h_O();
 $c_ju_UUID.prototype.constructor = $c_ju_UUID;
@@ -8754,7 +8754,7 @@ function $h_ju_UUID() {
 }
 $h_ju_UUID.prototype = $c_ju_UUID.prototype;
 $c_ju_UUID.prototype.toString__T = (function() {
-  var i = this.ju_UUID__f_i1;
+  var i = this.ju_UUID__f_java$util$UUID$$i1;
   var s = $as_T($uD((i >>> 0.0)).toString(16));
   var this$2 = $n(s);
   var beginIndex = this$2.length;
@@ -8762,7 +8762,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
     $charAt("00000000", beginIndex)
   };
   var $$x5 = $as_T("00000000".substring(beginIndex));
-  var i$1 = ((this.ju_UUID__f_i2 >>> 16) | 0);
+  var i$1 = ((this.ju_UUID__f_java$util$UUID$$i2 >>> 16) | 0);
   var s$1 = $as_T($uD((i$1 >>> 0.0)).toString(16));
   var this$4 = $n(s$1);
   var beginIndex$1 = this$4.length;
@@ -8770,7 +8770,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
     $charAt("0000", beginIndex$1)
   };
   var $$x4 = $as_T("0000".substring(beginIndex$1));
-  var i$2 = (65535 & this.ju_UUID__f_i2);
+  var i$2 = (65535 & this.ju_UUID__f_java$util$UUID$$i2);
   var s$2 = $as_T($uD((i$2 >>> 0.0)).toString(16));
   var this$6 = $n(s$2);
   var beginIndex$2 = this$6.length;
@@ -8778,7 +8778,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
     $charAt("0000", beginIndex$2)
   };
   var $$x3 = $as_T("0000".substring(beginIndex$2));
-  var i$3 = ((this.ju_UUID__f_i3 >>> 16) | 0);
+  var i$3 = ((this.ju_UUID__f_java$util$UUID$$i3 >>> 16) | 0);
   var s$3 = $as_T($uD((i$3 >>> 0.0)).toString(16));
   var this$8 = $n(s$3);
   var beginIndex$3 = this$8.length;
@@ -8786,7 +8786,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
     $charAt("0000", beginIndex$3)
   };
   var $$x2 = $as_T("0000".substring(beginIndex$3));
-  var i$4 = (65535 & this.ju_UUID__f_i3);
+  var i$4 = (65535 & this.ju_UUID__f_java$util$UUID$$i3);
   var s$4 = $as_T($uD((i$4 >>> 0.0)).toString(16));
   var this$10 = $n(s$4);
   var beginIndex$4 = this$10.length;
@@ -8794,7 +8794,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
     $charAt("0000", beginIndex$4)
   };
   var $$x1 = $as_T("0000".substring(beginIndex$4));
-  var i$5 = this.ju_UUID__f_i4;
+  var i$5 = this.ju_UUID__f_java$util$UUID$$i4;
   var s$5 = $as_T($uD((i$5 >>> 0.0)).toString(16));
   var this$12 = $n(s$5);
   var beginIndex$5 = this$12.length;
@@ -8804,12 +8804,12 @@ $c_ju_UUID.prototype.toString__T = (function() {
   return ((((((((((("" + $$x5) + s) + "-") + (("" + $$x4) + s$1)) + "-") + (("" + $$x3) + s$2)) + "-") + (("" + $$x2) + s$3)) + "-") + (("" + $$x1) + s$4)) + (("" + $as_T("00000000".substring(beginIndex$5))) + s$5))
 });
 $c_ju_UUID.prototype.hashCode__I = (function() {
-  return (((this.ju_UUID__f_i1 ^ this.ju_UUID__f_i2) ^ this.ju_UUID__f_i3) ^ this.ju_UUID__f_i4)
+  return (((this.ju_UUID__f_java$util$UUID$$i1 ^ this.ju_UUID__f_java$util$UUID$$i2) ^ this.ju_UUID__f_java$util$UUID$$i3) ^ this.ju_UUID__f_java$util$UUID$$i4)
 });
 $c_ju_UUID.prototype.equals__O__Z = (function(that) {
   if ((that instanceof $c_ju_UUID)) {
     var x2 = $as_ju_UUID(that);
-    return ((((this.ju_UUID__f_i1 === $n(x2).ju_UUID__f_i1) && (this.ju_UUID__f_i2 === $n(x2).ju_UUID__f_i2)) && (this.ju_UUID__f_i3 === $n(x2).ju_UUID__f_i3)) && (this.ju_UUID__f_i4 === $n(x2).ju_UUID__f_i4))
+    return ((((this.ju_UUID__f_java$util$UUID$$i1 === $n(x2).ju_UUID__f_java$util$UUID$$i1) && (this.ju_UUID__f_java$util$UUID$$i2 === $n(x2).ju_UUID__f_java$util$UUID$$i2)) && (this.ju_UUID__f_java$util$UUID$$i3 === $n(x2).ju_UUID__f_java$util$UUID$$i3)) && (this.ju_UUID__f_java$util$UUID$$i4 === $n(x2).ju_UUID__f_java$util$UUID$$i4))
   } else {
     return false
   }
@@ -15180,261 +15180,6 @@ function $m_sci_List$() {
   };
   return $n_sci_List$
 }
-function $p_sci_NewVectorIterator__advanceSlice__V($thiz) {
-  if (($thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 <= $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1)) {
-    $n($m_sc_Iterator$().sc_Iterator$__f_scala$collection$Iterator$$_empty).next__O()
-  };
-  $thiz.sci_NewVectorIterator__f_sliceIdx = ((1 + $thiz.sci_NewVectorIterator__f_sliceIdx) | 0);
-  var slice = $n($thiz.sci_NewVectorIterator__f_v).vectorSlice__I__AO($thiz.sci_NewVectorIterator__f_sliceIdx);
-  while (($n(slice).u.length === 0)) {
-    $thiz.sci_NewVectorIterator__f_sliceIdx = ((1 + $thiz.sci_NewVectorIterator__f_sliceIdx) | 0);
-    slice = $n($thiz.sci_NewVectorIterator__f_v).vectorSlice__I__AO($thiz.sci_NewVectorIterator__f_sliceIdx)
-  };
-  $thiz.sci_NewVectorIterator__f_sliceStart = $thiz.sci_NewVectorIterator__f_sliceEnd;
-  var count = $thiz.sci_NewVectorIterator__f_sliceCount;
-  var idx = $thiz.sci_NewVectorIterator__f_sliceIdx;
-  var c = ((count / 2) | 0);
-  var a = ((idx - c) | 0);
-  $thiz.sci_NewVectorIterator__f_sliceDim = ((((1 + c) | 0) - ((a < 0) ? ((-a) | 0) : a)) | 0);
-  var x1 = $thiz.sci_NewVectorIterator__f_sliceDim;
-  switch (x1) {
-    case 1: {
-      $thiz.sci_NewVectorIterator__f_a1 = slice;
-      break
-    }
-    case 2: {
-      $thiz.sci_NewVectorIterator__f_a2 = $asArrayOf_O(slice, 2);
-      break
-    }
-    case 3: {
-      $thiz.sci_NewVectorIterator__f_a3 = $asArrayOf_O(slice, 3);
-      break
-    }
-    case 4: {
-      $thiz.sci_NewVectorIterator__f_a4 = $asArrayOf_O(slice, 4);
-      break
-    }
-    case 5: {
-      $thiz.sci_NewVectorIterator__f_a5 = $asArrayOf_O(slice, 5);
-      break
-    }
-    case 6: {
-      $thiz.sci_NewVectorIterator__f_a6 = $asArrayOf_O(slice, 6);
-      break
-    }
-    default: {
-      throw new $c_s_MatchError(x1)
-    }
-  };
-  $thiz.sci_NewVectorIterator__f_sliceEnd = (($thiz.sci_NewVectorIterator__f_sliceStart + Math.imul($n(slice).u.length, (1 << Math.imul(5, (((-1) + $thiz.sci_NewVectorIterator__f_sliceDim) | 0))))) | 0);
-  if (($thiz.sci_NewVectorIterator__f_sliceEnd > $thiz.sci_NewVectorIterator__f_totalLength)) {
-    $thiz.sci_NewVectorIterator__f_sliceEnd = $thiz.sci_NewVectorIterator__f_totalLength
-  };
-  if (($thiz.sci_NewVectorIterator__f_sliceDim > 1)) {
-    $thiz.sci_NewVectorIterator__f_oldPos = (((-1) + (1 << Math.imul(5, $thiz.sci_NewVectorIterator__f_sliceDim))) | 0)
-  }
-}
-function $p_sci_NewVectorIterator__advance__V($thiz) {
-  var pos = (((($thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 - $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1) | 0) + $thiz.sci_NewVectorIterator__f_totalLength) | 0);
-  if ((pos === $thiz.sci_NewVectorIterator__f_sliceEnd)) {
-    $p_sci_NewVectorIterator__advanceSlice__V($thiz)
-  };
-  if (($thiz.sci_NewVectorIterator__f_sliceDim > 1)) {
-    var io = ((pos - $thiz.sci_NewVectorIterator__f_sliceStart) | 0);
-    var xor = ($thiz.sci_NewVectorIterator__f_oldPos ^ io);
-    $p_sci_NewVectorIterator__advanceA__I__I__V($thiz, io, xor);
-    $thiz.sci_NewVectorIterator__f_oldPos = io
-  };
-  $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = (($thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 - $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
-  var a = $n($thiz.sci_NewVectorIterator__f_a1).u.length;
-  var b = $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1;
-  $thiz.sci_NewVectorIterator__f_a1len = ((a < b) ? a : b);
-  $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0
-}
-function $p_sci_NewVectorIterator__advanceA__I__I__V($thiz, io, xor) {
-  if ((xor < 1024)) {
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
-  } else if ((xor < 32768)) {
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
-  } else if ((xor < 1048576)) {
-    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get(0);
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
-  } else if ((xor < 33554432)) {
-    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get((31 & ((io >>> 20) | 0)));
-    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get(0);
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get(0);
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
-  } else {
-    $thiz.sci_NewVectorIterator__f_a5 = $n($thiz.sci_NewVectorIterator__f_a6).get(((io >>> 25) | 0));
-    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get(0);
-    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get(0);
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get(0);
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
-  }
-}
-function $p_sci_NewVectorIterator__setA__I__I__V($thiz, io, xor) {
-  if ((xor < 1024)) {
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
-  } else if ((xor < 32768)) {
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
-  } else if ((xor < 1048576)) {
-    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
-  } else if ((xor < 33554432)) {
-    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get((31 & ((io >>> 20) | 0)));
-    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
-  } else {
-    $thiz.sci_NewVectorIterator__f_a5 = $n($thiz.sci_NewVectorIterator__f_a6).get(((io >>> 25) | 0));
-    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get((31 & ((io >>> 20) | 0)));
-    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
-    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
-    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
-  }
-}
-/** @constructor */
-function $c_sci_NewVectorIterator(v, totalLength, sliceCount) {
-  this.sci_NewVectorIterator__f_v = null;
-  this.sci_NewVectorIterator__f_totalLength = 0;
-  this.sci_NewVectorIterator__f_sliceCount = 0;
-  this.sci_NewVectorIterator__f_a1 = null;
-  this.sci_NewVectorIterator__f_a2 = null;
-  this.sci_NewVectorIterator__f_a3 = null;
-  this.sci_NewVectorIterator__f_a4 = null;
-  this.sci_NewVectorIterator__f_a5 = null;
-  this.sci_NewVectorIterator__f_a6 = null;
-  this.sci_NewVectorIterator__f_a1len = 0;
-  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0;
-  this.sci_NewVectorIterator__f_oldPos = 0;
-  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = 0;
-  this.sci_NewVectorIterator__f_sliceIdx = 0;
-  this.sci_NewVectorIterator__f_sliceDim = 0;
-  this.sci_NewVectorIterator__f_sliceStart = 0;
-  this.sci_NewVectorIterator__f_sliceEnd = 0;
-  this.sci_NewVectorIterator__f_v = v;
-  this.sci_NewVectorIterator__f_totalLength = totalLength;
-  this.sci_NewVectorIterator__f_sliceCount = sliceCount;
-  this.sci_NewVectorIterator__f_a1 = $n(v).sci_Vector__f_prefix1;
-  this.sci_NewVectorIterator__f_a1len = $n(this.sci_NewVectorIterator__f_a1).u.length;
-  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0;
-  this.sci_NewVectorIterator__f_oldPos = 0;
-  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = this.sci_NewVectorIterator__f_totalLength;
-  this.sci_NewVectorIterator__f_sliceIdx = 0;
-  this.sci_NewVectorIterator__f_sliceDim = 1;
-  this.sci_NewVectorIterator__f_sliceStart = 0;
-  this.sci_NewVectorIterator__f_sliceEnd = this.sci_NewVectorIterator__f_a1len
-}
-$c_sci_NewVectorIterator.prototype = new $h_O();
-$c_sci_NewVectorIterator.prototype.constructor = $c_sci_NewVectorIterator;
-/** @constructor */
-function $h_sci_NewVectorIterator() {
-  /*<skip>*/
-}
-$h_sci_NewVectorIterator.prototype = $c_sci_NewVectorIterator.prototype;
-$c_sci_NewVectorIterator.prototype.iterator__sc_Iterator = (function() {
-  return this
-});
-$c_sci_NewVectorIterator.prototype.concat__F0__sc_Iterator = (function(xs) {
-  return $f_sc_Iterator__concat__F0__sc_Iterator(this, xs)
-});
-$c_sci_NewVectorIterator.prototype.toString__T = (function() {
-  return "<iterator>"
-});
-$c_sci_NewVectorIterator.prototype.addString__scm_StringBuilder__T__T__T__scm_StringBuilder = (function(b, start, sep, end) {
-  return $f_sc_IterableOnceOps__addString__scm_StringBuilder__T__T__T__scm_StringBuilder(this, b, start, sep, end)
-});
-$c_sci_NewVectorIterator.prototype.toArray__s_reflect_ClassTag__O = (function(evidence$2) {
-  return $f_sc_IterableOnceOps__toArray__s_reflect_ClassTag__O(this, evidence$2)
-});
-$c_sci_NewVectorIterator.prototype.knownSize__I = (function() {
-  return ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0)
-});
-$c_sci_NewVectorIterator.prototype.hasNext__Z = (function() {
-  return (this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 > this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1)
-});
-$c_sci_NewVectorIterator.prototype.next__O = (function() {
-  if ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 === this.sci_NewVectorIterator__f_a1len)) {
-    $p_sci_NewVectorIterator__advance__V(this)
-  };
-  var r = $n(this.sci_NewVectorIterator__f_a1).get(this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1);
-  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = ((1 + this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
-  return r
-});
-$c_sci_NewVectorIterator.prototype.drop__I__sc_Iterator = (function(n) {
-  if ((n > 0)) {
-    var oldpos = ((((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1) | 0) + this.sci_NewVectorIterator__f_totalLength) | 0);
-    var a = ((oldpos + n) | 0);
-    var b = this.sci_NewVectorIterator__f_totalLength;
-    var newpos = ((a < b) ? a : b);
-    if ((newpos === this.sci_NewVectorIterator__f_totalLength)) {
-      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0;
-      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = 0;
-      this.sci_NewVectorIterator__f_a1len = 0
-    } else {
-      while ((newpos >= this.sci_NewVectorIterator__f_sliceEnd)) {
-        $p_sci_NewVectorIterator__advanceSlice__V(this)
-      };
-      var io = ((newpos - this.sci_NewVectorIterator__f_sliceStart) | 0);
-      if ((this.sci_NewVectorIterator__f_sliceDim > 1)) {
-        var xor = (this.sci_NewVectorIterator__f_oldPos ^ io);
-        $p_sci_NewVectorIterator__setA__I__I__V(this, io, xor);
-        this.sci_NewVectorIterator__f_oldPos = io
-      };
-      this.sci_NewVectorIterator__f_a1len = $n(this.sci_NewVectorIterator__f_a1).u.length;
-      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = (31 & io);
-      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 + ((this.sci_NewVectorIterator__f_totalLength - newpos) | 0)) | 0);
-      if ((this.sci_NewVectorIterator__f_a1len > this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1)) {
-        this.sci_NewVectorIterator__f_a1len = this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1
-      }
-    }
-  };
-  return this
-});
-$c_sci_NewVectorIterator.prototype.copyToArray__O__I__I__I = (function(xs, start, len) {
-  var xsLen = $m_jl_reflect_Array$().getLength__O__I(xs);
-  var srcLen = ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
-  var x = ((len < srcLen) ? len : srcLen);
-  var y = ((xsLen - start) | 0);
-  var x$1 = ((x < y) ? x : y);
-  var total = ((x$1 > 0) ? x$1 : 0);
-  var copied = 0;
-  var isBoxed = (xs instanceof $ac_O);
-  while ((copied < total)) {
-    if ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 === this.sci_NewVectorIterator__f_a1len)) {
-      $p_sci_NewVectorIterator__advance__V(this)
-    };
-    var a = ((total - copied) | 0);
-    var b = (($n(this.sci_NewVectorIterator__f_a1).u.length - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
-    var count = ((a < b) ? a : b);
-    if (isBoxed) {
-      var src = this.sci_NewVectorIterator__f_a1;
-      var srcPos = this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1;
-      var destPos = ((start + copied) | 0);
-      $systemArraycopyFull($n(src), srcPos, $n(xs), destPos, count)
-    } else {
-      $m_s_Array$().copy__O__I__O__I__I__V(this.sci_NewVectorIterator__f_a1, this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1, xs, ((start + copied) | 0), count)
-    };
-    this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 + count) | 0);
-    copied = ((copied + count) | 0)
-  };
-  return total
-});
-var $d_sci_NewVectorIterator = new $TypeData().initClass({
-  sci_NewVectorIterator: 0
-}, false, "scala.collection.immutable.NewVectorIterator", {
-  sci_NewVectorIterator: 1,
-  O: 1,
-  sc_Iterator: 1,
-  sc_IterableOnce: 1,
-  sc_IterableOnceOps: 1,
-  jl_Cloneable: 1
-});
-$c_sci_NewVectorIterator.prototype.$classData = $d_sci_NewVectorIterator;
 /** @constructor */
 function $c_sci_Seq$() {
   this.sc_SeqFactory$Delegate__f_delegate = null;
@@ -18262,6 +18007,247 @@ function $isArrayOf_sci_Iterable(obj, depth) {
 function $asArrayOf_sci_Iterable(obj, depth) {
   return (($isArrayOf_sci_Iterable(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.immutable.Iterable;", depth))
 }
+function $p_sci_NewVectorIterator__advanceSlice__V($thiz) {
+  if (($thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 <= $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1)) {
+    $n($m_sc_Iterator$().sc_Iterator$__f_scala$collection$Iterator$$_empty).next__O()
+  };
+  $thiz.sci_NewVectorIterator__f_sliceIdx = ((1 + $thiz.sci_NewVectorIterator__f_sliceIdx) | 0);
+  var slice = $n($thiz.sci_NewVectorIterator__f_v).vectorSlice__I__AO($thiz.sci_NewVectorIterator__f_sliceIdx);
+  while (($n(slice).u.length === 0)) {
+    $thiz.sci_NewVectorIterator__f_sliceIdx = ((1 + $thiz.sci_NewVectorIterator__f_sliceIdx) | 0);
+    slice = $n($thiz.sci_NewVectorIterator__f_v).vectorSlice__I__AO($thiz.sci_NewVectorIterator__f_sliceIdx)
+  };
+  $thiz.sci_NewVectorIterator__f_sliceStart = $thiz.sci_NewVectorIterator__f_sliceEnd;
+  var count = $thiz.sci_NewVectorIterator__f_sliceCount;
+  var idx = $thiz.sci_NewVectorIterator__f_sliceIdx;
+  var c = ((count / 2) | 0);
+  var a = ((idx - c) | 0);
+  $thiz.sci_NewVectorIterator__f_sliceDim = ((((1 + c) | 0) - ((a < 0) ? ((-a) | 0) : a)) | 0);
+  var x1 = $thiz.sci_NewVectorIterator__f_sliceDim;
+  switch (x1) {
+    case 1: {
+      $thiz.sci_NewVectorIterator__f_a1 = slice;
+      break
+    }
+    case 2: {
+      $thiz.sci_NewVectorIterator__f_a2 = $asArrayOf_O(slice, 2);
+      break
+    }
+    case 3: {
+      $thiz.sci_NewVectorIterator__f_a3 = $asArrayOf_O(slice, 3);
+      break
+    }
+    case 4: {
+      $thiz.sci_NewVectorIterator__f_a4 = $asArrayOf_O(slice, 4);
+      break
+    }
+    case 5: {
+      $thiz.sci_NewVectorIterator__f_a5 = $asArrayOf_O(slice, 5);
+      break
+    }
+    case 6: {
+      $thiz.sci_NewVectorIterator__f_a6 = $asArrayOf_O(slice, 6);
+      break
+    }
+    default: {
+      throw new $c_s_MatchError(x1)
+    }
+  };
+  $thiz.sci_NewVectorIterator__f_sliceEnd = (($thiz.sci_NewVectorIterator__f_sliceStart + Math.imul($n(slice).u.length, (1 << Math.imul(5, (((-1) + $thiz.sci_NewVectorIterator__f_sliceDim) | 0))))) | 0);
+  if (($thiz.sci_NewVectorIterator__f_sliceEnd > $thiz.sci_NewVectorIterator__f_totalLength)) {
+    $thiz.sci_NewVectorIterator__f_sliceEnd = $thiz.sci_NewVectorIterator__f_totalLength
+  };
+  if (($thiz.sci_NewVectorIterator__f_sliceDim > 1)) {
+    $thiz.sci_NewVectorIterator__f_oldPos = (((-1) + (1 << Math.imul(5, $thiz.sci_NewVectorIterator__f_sliceDim))) | 0)
+  }
+}
+function $p_sci_NewVectorIterator__advance__V($thiz) {
+  var pos = (((($thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 - $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1) | 0) + $thiz.sci_NewVectorIterator__f_totalLength) | 0);
+  if ((pos === $thiz.sci_NewVectorIterator__f_sliceEnd)) {
+    $p_sci_NewVectorIterator__advanceSlice__V($thiz)
+  };
+  if (($thiz.sci_NewVectorIterator__f_sliceDim > 1)) {
+    var io = ((pos - $thiz.sci_NewVectorIterator__f_sliceStart) | 0);
+    var xor = ($thiz.sci_NewVectorIterator__f_oldPos ^ io);
+    $p_sci_NewVectorIterator__advanceA__I__I__V($thiz, io, xor);
+    $thiz.sci_NewVectorIterator__f_oldPos = io
+  };
+  $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = (($thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 - $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
+  var a = $n($thiz.sci_NewVectorIterator__f_a1).u.length;
+  var b = $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1;
+  $thiz.sci_NewVectorIterator__f_a1len = ((a < b) ? a : b);
+  $thiz.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0
+}
+function $p_sci_NewVectorIterator__advanceA__I__I__V($thiz, io, xor) {
+  if ((xor < 1024)) {
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
+  } else if ((xor < 32768)) {
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
+  } else if ((xor < 1048576)) {
+    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get(0);
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
+  } else if ((xor < 33554432)) {
+    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get((31 & ((io >>> 20) | 0)));
+    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get(0);
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get(0);
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
+  } else {
+    $thiz.sci_NewVectorIterator__f_a5 = $n($thiz.sci_NewVectorIterator__f_a6).get(((io >>> 25) | 0));
+    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get(0);
+    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get(0);
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get(0);
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get(0)
+  }
+}
+function $p_sci_NewVectorIterator__setA__I__I__V($thiz, io, xor) {
+  if ((xor < 1024)) {
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
+  } else if ((xor < 32768)) {
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
+  } else if ((xor < 1048576)) {
+    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
+  } else if ((xor < 33554432)) {
+    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get((31 & ((io >>> 20) | 0)));
+    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
+  } else {
+    $thiz.sci_NewVectorIterator__f_a5 = $n($thiz.sci_NewVectorIterator__f_a6).get(((io >>> 25) | 0));
+    $thiz.sci_NewVectorIterator__f_a4 = $n($thiz.sci_NewVectorIterator__f_a5).get((31 & ((io >>> 20) | 0)));
+    $thiz.sci_NewVectorIterator__f_a3 = $n($thiz.sci_NewVectorIterator__f_a4).get((31 & ((io >>> 15) | 0)));
+    $thiz.sci_NewVectorIterator__f_a2 = $n($thiz.sci_NewVectorIterator__f_a3).get((31 & ((io >>> 10) | 0)));
+    $thiz.sci_NewVectorIterator__f_a1 = $n($thiz.sci_NewVectorIterator__f_a2).get((31 & ((io >>> 5) | 0)))
+  }
+}
+/** @constructor */
+function $c_sci_NewVectorIterator(v, totalLength, sliceCount) {
+  this.sci_NewVectorIterator__f_v = null;
+  this.sci_NewVectorIterator__f_totalLength = 0;
+  this.sci_NewVectorIterator__f_sliceCount = 0;
+  this.sci_NewVectorIterator__f_a1 = null;
+  this.sci_NewVectorIterator__f_a2 = null;
+  this.sci_NewVectorIterator__f_a3 = null;
+  this.sci_NewVectorIterator__f_a4 = null;
+  this.sci_NewVectorIterator__f_a5 = null;
+  this.sci_NewVectorIterator__f_a6 = null;
+  this.sci_NewVectorIterator__f_a1len = 0;
+  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0;
+  this.sci_NewVectorIterator__f_oldPos = 0;
+  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = 0;
+  this.sci_NewVectorIterator__f_sliceIdx = 0;
+  this.sci_NewVectorIterator__f_sliceDim = 0;
+  this.sci_NewVectorIterator__f_sliceStart = 0;
+  this.sci_NewVectorIterator__f_sliceEnd = 0;
+  this.sci_NewVectorIterator__f_v = v;
+  this.sci_NewVectorIterator__f_totalLength = totalLength;
+  this.sci_NewVectorIterator__f_sliceCount = sliceCount;
+  this.sci_NewVectorIterator__f_a1 = $n(v).sci_Vector__f_prefix1;
+  this.sci_NewVectorIterator__f_a1len = $n(this.sci_NewVectorIterator__f_a1).u.length;
+  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0;
+  this.sci_NewVectorIterator__f_oldPos = 0;
+  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = this.sci_NewVectorIterator__f_totalLength;
+  this.sci_NewVectorIterator__f_sliceIdx = 0;
+  this.sci_NewVectorIterator__f_sliceDim = 1;
+  this.sci_NewVectorIterator__f_sliceStart = 0;
+  this.sci_NewVectorIterator__f_sliceEnd = this.sci_NewVectorIterator__f_a1len
+}
+$c_sci_NewVectorIterator.prototype = new $h_sc_AbstractIterator();
+$c_sci_NewVectorIterator.prototype.constructor = $c_sci_NewVectorIterator;
+/** @constructor */
+function $h_sci_NewVectorIterator() {
+  /*<skip>*/
+}
+$h_sci_NewVectorIterator.prototype = $c_sci_NewVectorIterator.prototype;
+$c_sci_NewVectorIterator.prototype.knownSize__I = (function() {
+  return ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0)
+});
+$c_sci_NewVectorIterator.prototype.hasNext__Z = (function() {
+  return (this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 > this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1)
+});
+$c_sci_NewVectorIterator.prototype.next__O = (function() {
+  if ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 === this.sci_NewVectorIterator__f_a1len)) {
+    $p_sci_NewVectorIterator__advance__V(this)
+  };
+  var r = $n(this.sci_NewVectorIterator__f_a1).get(this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1);
+  this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = ((1 + this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
+  return r
+});
+$c_sci_NewVectorIterator.prototype.drop__I__sc_Iterator = (function(n) {
+  if ((n > 0)) {
+    var oldpos = ((((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1) | 0) + this.sci_NewVectorIterator__f_totalLength) | 0);
+    var a = ((oldpos + n) | 0);
+    var b = this.sci_NewVectorIterator__f_totalLength;
+    var newpos = ((a < b) ? a : b);
+    if ((newpos === this.sci_NewVectorIterator__f_totalLength)) {
+      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = 0;
+      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = 0;
+      this.sci_NewVectorIterator__f_a1len = 0
+    } else {
+      while ((newpos >= this.sci_NewVectorIterator__f_sliceEnd)) {
+        $p_sci_NewVectorIterator__advanceSlice__V(this)
+      };
+      var io = ((newpos - this.sci_NewVectorIterator__f_sliceStart) | 0);
+      if ((this.sci_NewVectorIterator__f_sliceDim > 1)) {
+        var xor = (this.sci_NewVectorIterator__f_oldPos ^ io);
+        $p_sci_NewVectorIterator__setA__I__I__V(this, io, xor);
+        this.sci_NewVectorIterator__f_oldPos = io
+      };
+      this.sci_NewVectorIterator__f_a1len = $n(this.sci_NewVectorIterator__f_a1).u.length;
+      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = (31 & io);
+      this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 = ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 + ((this.sci_NewVectorIterator__f_totalLength - newpos) | 0)) | 0);
+      if ((this.sci_NewVectorIterator__f_a1len > this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1)) {
+        this.sci_NewVectorIterator__f_a1len = this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1
+      }
+    }
+  };
+  return this
+});
+$c_sci_NewVectorIterator.prototype.copyToArray__O__I__I__I = (function(xs, start, len) {
+  var xsLen = $m_jl_reflect_Array$().getLength__O__I(xs);
+  var srcLen = ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$len1 - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
+  var x = ((len < srcLen) ? len : srcLen);
+  var y = ((xsLen - start) | 0);
+  var x$1 = ((x < y) ? x : y);
+  var total = ((x$1 > 0) ? x$1 : 0);
+  var copied = 0;
+  var isBoxed = (xs instanceof $ac_O);
+  while ((copied < total)) {
+    if ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 === this.sci_NewVectorIterator__f_a1len)) {
+      $p_sci_NewVectorIterator__advance__V(this)
+    };
+    var a = ((total - copied) | 0);
+    var b = (($n(this.sci_NewVectorIterator__f_a1).u.length - this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1) | 0);
+    var count = ((a < b) ? a : b);
+    if (isBoxed) {
+      var src = this.sci_NewVectorIterator__f_a1;
+      var srcPos = this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1;
+      var destPos = ((start + copied) | 0);
+      $systemArraycopyFull($n(src), srcPos, $n(xs), destPos, count)
+    } else {
+      $m_s_Array$().copy__O__I__O__I__I__V(this.sci_NewVectorIterator__f_a1, this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1, xs, ((start + copied) | 0), count)
+    };
+    this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 = ((this.sci_NewVectorIterator__f_scala$collection$immutable$NewVectorIterator$$i1 + count) | 0);
+    copied = ((copied + count) | 0)
+  };
+  return total
+});
+var $d_sci_NewVectorIterator = new $TypeData().initClass({
+  sci_NewVectorIterator: 0
+}, false, "scala.collection.immutable.NewVectorIterator", {
+  sci_NewVectorIterator: 1,
+  sc_AbstractIterator: 1,
+  O: 1,
+  sc_Iterator: 1,
+  sc_IterableOnce: 1,
+  sc_IterableOnceOps: 1,
+  jl_Cloneable: 1
+});
+$c_sci_NewVectorIterator.prototype.$classData = $d_sci_NewVectorIterator;
 /** @constructor */
 function $c_s_reflect_ClassTag$GenericClassTag(runtimeClass) {
   this.s_reflect_ClassTag$GenericClassTag__f_runtimeClass = null;
@@ -34142,7 +34128,7 @@ function $p_sci_LazyList__addStringNoForce__jl_StringBuilder__T__T__T__jl_String
   };
   var this$25 = $n(b);
   this$25.jl_StringBuilder__f_java$lang$StringBuilder$$content = (("" + this$25.jl_StringBuilder__f_java$lang$StringBuilder$$content) + end);
-  return this$25
+  return b
 }
 /** @constructor */
 function $c_sci_LazyList(lazyState) {
@@ -34190,7 +34176,7 @@ $c_sci_LazyList.prototype.isEmpty__Z = (function() {
   return (this.scala$collection$immutable$LazyList$$state__sci_LazyList$State() === $m_sci_LazyList$State$Empty$())
 });
 $c_sci_LazyList.prototype.knownSize__I = (function() {
-  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? 0 : (-1))
+  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && (this.scala$collection$immutable$LazyList$$state__sci_LazyList$State() === $m_sci_LazyList$State$Empty$())) ? 0 : (-1))
 });
 $c_sci_LazyList.prototype.head__O = (function() {
   return $n(this.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).head__O()
@@ -34222,7 +34208,7 @@ $c_sci_LazyList.prototype.force__sci_LazyList = (function() {
   return this
 });
 $c_sci_LazyList.prototype.iterator__sc_Iterator = (function() {
-  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? $m_sc_Iterator$().sc_Iterator$__f_scala$collection$Iterator$$_empty : new $c_sci_LazyList$LazyIterator(this))
+  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && (this.scala$collection$immutable$LazyList$$state__sci_LazyList$State() === $m_sci_LazyList$State$Empty$())) ? $m_sc_Iterator$().sc_Iterator$__f_scala$collection$Iterator$$_empty : new $c_sci_LazyList$LazyIterator(this))
 });
 $c_sci_LazyList.prototype.foreach__F1__V = (function(f) {
   var _$this = this;
@@ -34238,13 +34224,45 @@ $c_sci_LazyList.prototype.className__T = (function() {
   return "LazyList"
 });
 $c_sci_LazyList.prototype.map__F1__sci_LazyList = (function(f) {
-  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? $m_sci_LazyList$().sci_LazyList$__f__empty : $p_sci_LazyList__mapImpl__F1__sci_LazyList(this, f))
+  if ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && (this.scala$collection$immutable$LazyList$$state__sci_LazyList$State() === $m_sci_LazyList$State$Empty$()))) {
+    return $m_sci_LazyList$().sci_LazyList$__f__empty
+  } else {
+    $m_sci_LazyList$();
+    var state = new $c_sjsr_AnonFunction0((() => {
+      if (this.isEmpty__Z()) {
+        return $m_sci_LazyList$State$Empty$()
+      } else {
+        $m_sci_LazyList$();
+        var hd = $n(f).apply__O__O($n(this.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).head__O());
+        var tl = $p_sci_LazyList__mapImpl__F1__sci_LazyList($n($n(this.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).tail__sci_LazyList()), f);
+        return new $c_sci_LazyList$State$Cons(hd, tl)
+      }
+    }));
+    return new $c_sci_LazyList(state)
+  }
 });
 $c_sci_LazyList.prototype.drop__I__sci_LazyList = (function(n) {
-  return ((n <= 0) ? this : ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? $m_sci_LazyList$().sci_LazyList$__f__empty : $m_sci_LazyList$().scala$collection$immutable$LazyList$$dropImpl__sci_LazyList__I__sci_LazyList(this, n)))
+  return ((n <= 0) ? this : ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && (this.scala$collection$immutable$LazyList$$state__sci_LazyList$State() === $m_sci_LazyList$State$Empty$())) ? $m_sci_LazyList$().sci_LazyList$__f__empty : $m_sci_LazyList$().scala$collection$immutable$LazyList$$dropImpl__sci_LazyList__I__sci_LazyList(this, n)))
 });
 $c_sci_LazyList.prototype.take__I__sci_LazyList = (function(n) {
-  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? $m_sci_LazyList$().sci_LazyList$__f__empty : $p_sci_LazyList__takeImpl__I__sci_LazyList(this, n))
+  if ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && (this.scala$collection$immutable$LazyList$$state__sci_LazyList$State() === $m_sci_LazyList$State$Empty$()))) {
+    return $m_sci_LazyList$().sci_LazyList$__f__empty
+  } else if ((n <= 0)) {
+    return $m_sci_LazyList$().sci_LazyList$__f__empty
+  } else {
+    $m_sci_LazyList$();
+    var state = new $c_sjsr_AnonFunction0((() => {
+      if (this.isEmpty__Z()) {
+        return $m_sci_LazyList$State$Empty$()
+      } else {
+        $m_sci_LazyList$();
+        var hd = $n(this.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).head__O();
+        var tl = $p_sci_LazyList__takeImpl__I__sci_LazyList($n($n(this.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).tail__sci_LazyList()), (((-1) + n) | 0));
+        return new $c_sci_LazyList$State$Cons(hd, tl)
+      }
+    }));
+    return new $c_sci_LazyList(state)
+  }
 });
 $c_sci_LazyList.prototype.addString__scm_StringBuilder__T__T__T__scm_StringBuilder = (function(sb, start, sep, end) {
   this.force__sci_LazyList();
