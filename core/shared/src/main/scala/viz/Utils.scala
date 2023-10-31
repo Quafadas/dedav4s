@@ -40,7 +40,7 @@ object Utils:
       spec.obj.remove("width")
       spec.obj.remove("autosize")
       val signalW = ujson.read("""
-          {
+              {
                 "name": "width",
                 "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
                 "on": [
@@ -50,7 +50,7 @@ object Utils:
                   }
                 ]
               }
-              """)
+              """.trim)
 
       val signalH = ujson.read("""
           {
@@ -64,7 +64,7 @@ object Utils:
                 ]
           }
 
-        """)
+        """.trim)
       val _ = if spec("$schema").str.contains("lite") then
         spec("width") = "container"
         spec("height") = "container"

@@ -19,7 +19,7 @@ package viz.vega.facades
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js.JSON
-import coursierapi.shaded.scala.concurrent.Promise
+import scala.scalajs.js.Promise
 import org.scalajs.dom.URL
 import org.scalajs.dom.Element
 

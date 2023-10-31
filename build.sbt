@@ -16,9 +16,7 @@ val scalaV = "3.3.1"
 
 inThisBuild(
   List(
-    scalaVersion := scalaV,
-    semanticdbEnabled := true,
-    semanticdbVersion := scalafixSemanticdb.revision
+    scalaVersion := scalaV
   )
 )
 
@@ -39,6 +37,7 @@ ThisBuild / scalaVersion := scalaV
 
 lazy val generated = crossProject(JVMPlatform, JSPlatform)
   .in(file("generated"))
+  .dependsOn(core)
   .settings(
     tlFatalWarnings := false,
     scalacOptions ++= Seq(
@@ -54,7 +53,6 @@ lazy val root = tlCrossRootProject.aggregate(core, generated, dedav_laminar, ded
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
-  .dependsOn(generated)
   .settings(
     name := "dedav4s",
     description := "Declarative data viz for scala",
@@ -66,15 +64,15 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %%% "upickle" % "3.1.3",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.5.1",
-      ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
-        .cross(CrossVersion.for3Use2_13With("", ".10"))
-        .exclude("com.lihaoyi", "geny_2.13")
-        .exclude("com.lihaoyi", "sourcecode_2.13")
-        .exclude("com.lihaoyi", "fansi_2.13")
-        .exclude("com.lihaoyi", "os-lib_2.13")
-        .exclude("com.lihaoyi", "pprint_2.13")
-        .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-        .exclude("com.github.jupyter", "jvm-repr")
+      // ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
+      //   .cross(CrossVersion.for3Use2_13With("", ".10"))
+      //   .exclude("com.lihaoyi", "geny_2.13")
+      //   .exclude("com.lihaoyi", "sourcecode_2.13")
+      //   .exclude("com.lihaoyi", "fansi_2.13")
+      //   .exclude("com.lihaoyi", "os-lib_2.13")
+      //   .exclude("com.lihaoyi", "pprint_2.13")
+      //   .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
+      //   .exclude("com.github.jupyter", "jvm-repr")
     )
   )
   .jvmSettings(
@@ -82,6 +80,11 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %% "os-lib" % "0.9.1",
       "com.lihaoyi" %% "cask" % "0.9.1",
       "com.lihaoyi" %% "requests" % "0.8.0",
+      ("sh.almond" %% "scala-kernel-api" % "0.14.0-RC14" % Provided)
+        .cross( CrossVersion.full)
+        .exclude("com.lihaoyi", "geny_2.13")
+        .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
+        .exclude("com.lihaoyi", "os-lib_2.13"),
       "org.jsoup" % "jsoup" % "1.16.1"
     )
   )
@@ -111,7 +114,7 @@ lazy val dedav_laminar = project
 lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))
   .enablePlugins(NoPublishPlugin)
-  .dependsOn(core)
+  .dependsOn(core, generated)
   .settings(
     libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M10" % Test
   )

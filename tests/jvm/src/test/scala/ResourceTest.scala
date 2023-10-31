@@ -18,8 +18,8 @@ package viz
 // import viz.PlotTargets.websocket // for local testing
 import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
 import scala.io.Source
-import io.circe.parser.*
-import io.circe.syntax.*
+import _root_.io.circe.parser.*
+import _root_.io.circe.syntax.*
 import viz.dsl.vega.*
 import scala.language.implicitConversions
 
