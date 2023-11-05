@@ -69,7 +69,7 @@ import viz.dsl.vega.*
 import cats.syntax.option.*
 
 // Let's fetch the example... and parse it.
-val asDsl : VegaDsl = viz.vega.plots.BarChart().toDsl()
+val asDsl : VegaDsl = io.circe.parser.decode[VegaDsl](viz.vega.plots.BarChart().spec).fold(throw _, identity)
 
 // We make up a case class that happens to have category and amount fields
 case class BarPlotData(category: String, amount: Double) derives Encoder.AsObject, Decoder
@@ -100,7 +100,8 @@ import viz.PlotTargets.doNothing
 import viz.vega.plots.*
 import io.circe.*
 
-val asDsl : VegaLiteDsl = viz.vega.plots.SimpleBarChartLite().toDsl()
+val asDsl : VegaLiteDsl = io.circe.parser.decode[VegaLiteDsl](viz.vega.plots.SimpleBarChartLite().spec).fold(throw _, identity)
+
 val someData : InlineDataset = Seq(
     Map("a" -> Some(Json.fromString("A")), "b" -> Some(Json.fromInt(20))),
     Map("a" -> Some(Json.fromString("Next")), "b" -> Some(Json.fromInt(25))),
@@ -115,6 +116,10 @@ asDsl.copy(
 ```
 
 # Discussion
-Typesafety is nice to have in the sense that it removes entire categories of "unplottable" states. However, many charts that typecheck, will not make sense. Given the flexibility of the vega schema, typesafety has a high mental burden.
+Typesafety is nice to have in the sense that it removes entire categories of "unplottable" states.
 
-I'm on the fence about it's utility in this particular project.
+However, many charts that typecheck, will not b _visually correct_. Given the flexibility of the vega schema, typesafety has a high mental burden and imposes an terrific maintenance and legibility burden.
+
+My view has evolved to be that plotting is a domain similar to CSS - in which it is the _visual_ outcome which matters.
+
+Typesafety not only doesn't help, it actively impedes the experience by imposing a heavy mental burden surrounding the "types". I do not recommend this approach. It is seperated into a module, which is essentially "deprecated" and unmaintained.

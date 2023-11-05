@@ -6,6 +6,8 @@ import laika.ast.Path.Root
 import laika.theme.config.Color
 import laika.ast.LengthUnit.*
 import laika.ast.*
+import com.typesafe.tools.mima.core.Problem
+import com.typesafe.tools.mima.core.ProblemFilters
 
 import java.time.OffsetDateTime
 
@@ -17,6 +19,11 @@ val scalaV = "3.3.1"
 inThisBuild(
   List(
     scalaVersion := scalaV
+  )
+)
+inThisBuild(
+  mimaBinaryIssueFilters ++= Seq(
+    ProblemFilters.exclude[Problem]("viz.dsl.*") // don't maintain the DSL
   )
 )
 
@@ -35,20 +42,6 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 
-lazy val generated = crossProject(JVMPlatform, JSPlatform)
-  .in(file("generated"))
-  .dependsOn(core)
-  .settings(
-    tlFatalWarnings := false,
-    scalacOptions ++= Seq(
-      "-Xmax-inlines:2000"
-    ),
-    libraryDependencies ++= Seq(
-      "io.circe" %%% "circe-core" % "0.14.6",
-      "io.circe" %%% "circe-parser" % "0.14.6"
-    )
-  )
-
 lazy val root = tlCrossRootProject.aggregate(core, generated, dedav_laminar, dedav_calico, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
@@ -63,7 +56,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "3.1.3",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
-      "org.ekrich" %%% "sconfig" % "1.5.1",
+      "org.ekrich" %%% "sconfig" % "1.5.1"
       // ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
       //   .cross(CrossVersion.for3Use2_13With("", ".10"))
       //   .exclude("com.lihaoyi", "geny_2.13")
@@ -81,10 +74,11 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %% "cask" % "0.9.1",
       "com.lihaoyi" %% "requests" % "0.8.0",
       ("sh.almond" %% "scala-kernel-api" % "0.14.0-RC14" % Provided)
-        .cross( CrossVersion.full)
+        .cross(CrossVersion.full)
         .exclude("com.lihaoyi", "geny_2.13")
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-        .exclude("com.lihaoyi", "os-lib_2.13"),
+        .exclude("com.lihaoyi", "os-lib_2.13")
+        .exclude("com.github.jupyter", "jvm-repr"),
       "org.jsoup" % "jsoup" % "1.16.1"
     )
   )
@@ -95,8 +89,23 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
+lazy val generated = crossProject(JVMPlatform, JSPlatform)
+  .in(file("generated"))
+  .dependsOn(core)
+  .settings(
+    tlFatalWarnings := false,
+    scalacOptions ++= Seq(
+      "-Xmax-inlines:2000"
+    ),
+    libraryDependencies ++= Seq(
+      "io.circe" %%% "circe-core" % "0.14.6",
+      "io.circe" %%% "circe-parser" % "0.14.6"
+    )
+  )
+
 lazy val dedav_calico = project
   .in(file("calico"))
+  .dependsOn(generated.jvm)
   .settings(
     libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.1"
   )
@@ -129,7 +138,7 @@ lazy val jsdocs = project
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
-  .dependsOn(dedav_calico, dedav_laminar, core.js)
+  .dependsOn(dedav_calico, dedav_laminar, generated.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
 
@@ -143,6 +152,7 @@ lazy val unidocs = project
 
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
+  .dependsOn(generated.jvm)
   .settings(
     mdocJS := Some(jsdocs),
     mdocIn := new File("raw_docs"),
@@ -192,6 +202,5 @@ lazy val docs = project
       // .internalCSS(Root)
     }
   )
-  .dependsOn(core.jvm)
   .enablePlugins(TypelevelSitePlugin)
   .enablePlugins(NoPublishPlugin)
