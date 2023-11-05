@@ -18570,6 +18570,85 @@ $c_s_reflect_ManifestFactory$PhantomManifest.prototype.hashCode__I = (function()
   return this.s_reflect_ManifestFactory$PhantomManifest__f_hashCode
 });
 /** @constructor */
+function $c_Lviz_vega_plots_Pacman(mods, x$2) {
+  this.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget = null;
+  this.Lviz_FromUrl__f_location = null;
+  this.Lviz_FromUrl__f_baseSpec$lzy1 = null;
+  this.Lviz_FromUrl__f_baseSpecbitmap$1 = false;
+  this.Lviz_vega_plots_Pacman__f_mods = null;
+  this.Lviz_vega_plots_Pacman__f_mods = mods;
+  $ct_Lviz_FromUrl__Lviz_vega_plots_SpecUrl__Lviz_LowPriorityPlotTarget__(this, $s_Lviz_vega_plots_SpecUrl$__Pacman__Lviz_vega_plots_SpecUrl(), x$2)
+}
+$c_Lviz_vega_plots_Pacman.prototype = new $h_Lviz_FromUrl();
+$c_Lviz_vega_plots_Pacman.prototype.constructor = $c_Lviz_vega_plots_Pacman;
+/** @constructor */
+function $h_Lviz_vega_plots_Pacman() {
+  /*<skip>*/
+}
+$h_Lviz_vega_plots_Pacman.prototype = $c_Lviz_vega_plots_Pacman.prototype;
+$c_Lviz_vega_plots_Pacman.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_s_Product$$anon$1(this)
+});
+$c_Lviz_vega_plots_Pacman.prototype.hashCode__I = (function() {
+  var this$2 = $m_s_util_hashing_MurmurHash3$();
+  return this$2.productHash__s_Product__I__Z__I(this, (-889275714), false)
+});
+$c_Lviz_vega_plots_Pacman.prototype.equals__O__Z = (function(x$0) {
+  if ((this === x$0)) {
+    return true
+  } else if ((x$0 instanceof $c_Lviz_vega_plots_Pacman)) {
+    var x$0$2 = $as_Lviz_vega_plots_Pacman(x$0);
+    var x = this.Lviz_vega_plots_Pacman__f_mods;
+    var x$2 = $n(x$0$2).Lviz_vega_plots_Pacman__f_mods;
+    if (((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))) {
+      $n(x$0$2);
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+});
+$c_Lviz_vega_plots_Pacman.prototype.toString__T = (function() {
+  return $m_sr_ScalaRunTime$()._toString__s_Product__T(this)
+});
+$c_Lviz_vega_plots_Pacman.prototype.productArity__I = (function() {
+  return 1
+});
+$c_Lviz_vega_plots_Pacman.prototype.productPrefix__T = (function() {
+  return "Pacman"
+});
+$c_Lviz_vega_plots_Pacman.prototype.productElement__I__O = (function(n) {
+  if ((n === 0)) {
+    return this.Lviz_vega_plots_Pacman__f_mods
+  };
+  throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), ("" + n))
+});
+function $as_Lviz_vega_plots_Pacman(obj) {
+  return (((obj instanceof $c_Lviz_vega_plots_Pacman) || (obj === null)) ? obj : $throwClassCastException(obj, "viz.vega.plots.Pacman"))
+}
+function $isArrayOf_Lviz_vega_plots_Pacman(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lviz_vega_plots_Pacman)))
+}
+function $asArrayOf_Lviz_vega_plots_Pacman(obj, depth) {
+  return (($isArrayOf_Lviz_vega_plots_Pacman(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lviz.vega.plots.Pacman;", depth))
+}
+var $d_Lviz_vega_plots_Pacman = new $TypeData().initClass({
+  Lviz_vega_plots_Pacman: 0
+}, false, "viz.vega.plots.Pacman", {
+  Lviz_vega_plots_Pacman: 1,
+  Lviz_FromUrl: 1,
+  Lviz_WithBaseSpec: 1,
+  O: 1,
+  Lviz_Spec: 1,
+  Lviz_PlatformShow: 1,
+  s_Equals: 1,
+  s_Product: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lviz_vega_plots_Pacman.prototype.$classData = $d_Lviz_vega_plots_Pacman;
+/** @constructor */
 function $c_sc_AbstractView() {
   /*<skip>*/
 }
@@ -18669,86 +18748,6 @@ function $m_s_reflect_ManifestFactory$ObjectManifest$() {
   };
   return $n_s_reflect_ManifestFactory$ObjectManifest$
 }
-/** @constructor */
-function $c_Lviz_vega_plots_Pacman(mods, x$2) {
-  this.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget = null;
-  this.Lviz_FromUrl__f_location = null;
-  this.Lviz_FromUrl__f_baseSpec$lzy1 = null;
-  this.Lviz_FromUrl__f_baseSpecbitmap$1 = false;
-  this.Lviz_vega_plots_Pacman__f_mods = null;
-  this.Lviz_vega_plots_Pacman__f_mods = mods;
-  $ct_Lviz_FromUrl__Lviz_vega_plots_SpecUrl__Lviz_LowPriorityPlotTarget__(this, $s_Lviz_vega_plots_SpecUrl$__Pacman__Lviz_vega_plots_SpecUrl(), x$2)
-}
-$c_Lviz_vega_plots_Pacman.prototype = new $h_Lviz_FromUrl();
-$c_Lviz_vega_plots_Pacman.prototype.constructor = $c_Lviz_vega_plots_Pacman;
-/** @constructor */
-function $h_Lviz_vega_plots_Pacman() {
-  /*<skip>*/
-}
-$h_Lviz_vega_plots_Pacman.prototype = $c_Lviz_vega_plots_Pacman.prototype;
-$c_Lviz_vega_plots_Pacman.prototype.productIterator__sc_Iterator = (function() {
-  return new $c_s_Product$$anon$1(this)
-});
-$c_Lviz_vega_plots_Pacman.prototype.hashCode__I = (function() {
-  var this$2 = $m_s_util_hashing_MurmurHash3$();
-  return this$2.productHash__s_Product__I__Z__I(this, (-889275714), false)
-});
-$c_Lviz_vega_plots_Pacman.prototype.equals__O__Z = (function(x$0) {
-  if ((this === x$0)) {
-    return true
-  } else if ((x$0 instanceof $c_Lviz_vega_plots_Pacman)) {
-    var x$0$2 = $as_Lviz_vega_plots_Pacman(x$0);
-    var x = this.Lviz_vega_plots_Pacman__f_mods;
-    var x$2 = $n(x$0$2).Lviz_vega_plots_Pacman__f_mods;
-    if (((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))) {
-      $n(x$0$2);
-      return true
-    } else {
-      return false
-    }
-  } else {
-    return false
-  }
-});
-$c_Lviz_vega_plots_Pacman.prototype.toString__T = (function() {
-  return $m_sr_ScalaRunTime$()._toString__s_Product__T(this)
-});
-$c_Lviz_vega_plots_Pacman.prototype.productArity__I = (function() {
-  return 1
-});
-$c_Lviz_vega_plots_Pacman.prototype.productPrefix__T = (function() {
-  return "Pacman"
-});
-$c_Lviz_vega_plots_Pacman.prototype.productElement__I__O = (function(n) {
-  if ((n === 0)) {
-    return this.Lviz_vega_plots_Pacman__f_mods
-  };
-  throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), ("" + n))
-});
-function $as_Lviz_vega_plots_Pacman(obj) {
-  return (((obj instanceof $c_Lviz_vega_plots_Pacman) || (obj === null)) ? obj : $throwClassCastException(obj, "viz.vega.plots.Pacman"))
-}
-function $isArrayOf_Lviz_vega_plots_Pacman(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lviz_vega_plots_Pacman)))
-}
-function $asArrayOf_Lviz_vega_plots_Pacman(obj, depth) {
-  return (($isArrayOf_Lviz_vega_plots_Pacman(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lviz.vega.plots.Pacman;", depth))
-}
-var $d_Lviz_vega_plots_Pacman = new $TypeData().initClass({
-  Lviz_vega_plots_Pacman: 0
-}, false, "viz.vega.plots.Pacman", {
-  Lviz_vega_plots_Pacman: 1,
-  Lviz_FromUrl: 1,
-  Lviz_WithBaseSpec: 1,
-  O: 1,
-  Lviz_Spec: 1,
-  Lviz_PlatformShow: 1,
-  Lviz_PlotHasVegaDsl: 1,
-  s_Equals: 1,
-  s_Product: 1,
-  Ljava_io_Serializable: 1
-});
-$c_Lviz_vega_plots_Pacman.prototype.$classData = $d_Lviz_vega_plots_Pacman;
 function $f_sc_Seq__equals__O__Z($thiz, o) {
   if (($thiz === o)) {
     return true

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Gotcha</title>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
+  
+  <script src="../helium/laika-helium.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">Getting Sarted</li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
+    <li class="level1 nav-header">Details</li>
+    <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
+    <li class="level1 nav-header">Working With A Chart</li>
+    <li class="level2 nav-leaf"><a href="intro.html">Styles</a></li>
+    <li class="level2 nav-leaf"><a href="mutable.html">Mutable Style</a></li>
+    <li class="level2 nav-leaf"><a href="typesafe.html">The DSL</a></li>
+    <li class="level2 nav-leaf"><a href="mixed.html">Mixed typesafe / mutable</a></li>
+    <li class="level2 nav-leaf"><a href="chartSources.html">Chart Sources</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Gotcha</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+    <li class="level1 nav-header">Prior Art</li>
+    <li class="level2 nav-leaf"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../scala_js/scalaJS.html">Introduction</a></li>
+    <li class="level2 nav-leaf"><a href="../scala_js/laminar.html">Laminar</a></li>
+    <li class="level2 nav-leaf"><a href="../scala_js/calico.html">Calico</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Gotcha</a></p>
+
+  <ul class="nav-list">
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="gotcha" class="title">Gotcha</h1>
+        <p>When working with ujson, it is inevitable, that some string is going to get formatted with line breaks on certain platforms, something like this. ujson mnay crash with a cryptic warning</p>
+        <pre><code class="nohighlight"><span class="identifier">ujson</span><span>.</span><span class="identifier">read</span><span>(</span><span class="string-literal">&quot;&quot;&quot;
+
+{
+                &quot;name&quot;: &quot;width&quot;,
+                &quot;init&quot;: &quot;isFinite(containerSize()[0]) ? containerSize()[0] : 200&quot;,
+                &quot;on&quot;: [
+                  {
+                    &quot;update&quot;: &quot;isFinite(containerSize()[0]) ? containerSize()[0] : 200&quot;,
+                    &quot;events&quot;: &quot;window:resize&quot;
+                  }
+                ]
+              }
+
+              &quot;&quot;&quot;</span><span>
+)</span></code></pre>
+        <p>Such problems are infuriatingly hard to debug. The simple solution, is to trim all strings in advance of feeding them to <code>ujson</code>.</p>
+        <pre><code class="nohighlight"><span class="identifier">ujson</span><span>.</span><span class="identifier">read</span><span>(</span><span class="string-literal">&quot;&quot;&quot;
+              {
+                &quot;name&quot;: &quot;width&quot;,
+                &quot;init&quot;: &quot;isFinite(containerSize()[0]) ? containerSize()[0] : 200&quot;,
+                &quot;on&quot;: [
+                  {
+                    &quot;update&quot;: &quot;isFinite(containerSize()[0]) ? containerSize()[0] : 200&quot;,
+                    &quot;events&quot;: &quot;window:resize&quot;
+                  }
+                ]
+              }
+              &quot;&quot;&quot;</span><span>.</span><span class="identifier">trim</span><span>
+)
+</span><span class="comment">// res0: Value = Obj(
+//   value = Map(
+//     &quot;name&quot; -&gt; Str(value = &quot;width&quot;),
+//     &quot;init&quot; -&gt; Str(value = &quot;isFinite(containerSize()[0]) ? containerSize()[0] : 200&quot;),
+//     &quot;on&quot; -&gt; Arr(
+//       value = ArrayBuffer(
+//         Obj(
+//           value = Map(
+//             &quot;update&quot; -&gt; Str(value = &quot;isFinite(containerSize()[0]) ? containerSize()[0] : 200&quot;),
+//             &quot;events&quot; -&gt; Str(value = &quot;window:resize&quot;)
+//           )
+//         )
+//       )
+//     )
+//   )
+// )</span></code></pre>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

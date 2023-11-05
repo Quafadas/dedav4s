@@ -72,6 +72,7 @@
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
     <li class="level1 nav-header">Prior Art</li>
@@ -110,7 +111,7 @@
 </span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">BarChart</span><span>()
 </span><span class="comment">// chart: BarChart = BarChart(mods = List())
 </span><span class="identifier">chart</span><span>.</span><span class="identifier">tmpPath</span><span>
-</span><span class="comment">// res0: Option[Path] = Some(value = /tmp/plot-2758438972815041404.txt)</span></code></pre>
+</span><span class="comment">// res0: Option[Path] = Some(value = /tmp/plot-4996988090490271155.txt)</span></code></pre>
         <p>It&#39;s location is in the <code>tmpPath</code> field of your chart. You could take advantage of the excellent <code>os</code> library and knowledge of the path of the file, to subsequently move it around. For example if you wish to automate producing a presentation via a script.</p>
 
         

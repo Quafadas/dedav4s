@@ -281,6 +281,13 @@ function $dp_toCharArray__AC(instance) {
 function $dp_toString__T(instance) {
   return ((instance === (void 0)) ? "undefined" : instance.toString())
 }
+function $dp_trim__T(instance) {
+  if (((typeof instance) === "string")) {
+    return $f_T__trim__T(instance)
+  } else {
+    return instance.trim__T()
+  }
+}
 function $intDiv(arg0, arg1) {
   if ((arg1 === 0)) {
     throw new $c_jl_ArithmeticException("/ by zero")
@@ -5158,29 +5165,33 @@ function $c_Lviz_Utils$() {
     var this$6 = $n(spec$1);
     var this$7 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$6));
     $f_scm_MapOps__remove__O__s_Option(this$7, "autosize");
-    var signalW = $m_Lujson_package$().read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer("\n          {\n                \"name\": \"width\",\n                \"init\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n              }\n              ", $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
-    var signalH = $m_Lujson_package$().read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer("\n          {\n                \"name\": \"height\",\n                \"init\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n          }\n\n        ", $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
+    var $$x1 = $m_Lujson_package$();
+    var s = $f_T__trim__T("\n              {\n                \"name\": \"width\",\n                \"init\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n              }\n              ");
+    var signalW = $n($$x1).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
+    var $$x2 = $m_Lujson_package$();
+    var s$1 = $f_T__trim__T("\n          {\n                \"name\": \"height\",\n                \"init\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n          }\n\n        ");
+    var signalH = $n($$x2).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s$1, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
     var this$11 = $n(spec$1);
-    var s = new $c_Lujson_Value$Selector$StringSelector("$schema");
-    var this$12 = $n(s.apply__Lujson_Value__Lujson_Value(this$11));
+    var s$2 = new $c_Lujson_Value$Selector$StringSelector("$schema");
+    var this$12 = $n(s$2.apply__Lujson_Value__Lujson_Value(this$11));
     var this$13 = $n($f_Lujson_Value__str__T(this$12));
     if (($uI(this$13.indexOf("lite")) !== (-1))) {
       var this$17 = $n(spec$1);
-      var s$1 = new $c_Lujson_Value$Selector$StringSelector("width");
+      var s$3 = new $c_Lujson_Value$Selector$StringSelector("width");
       var v = new $c_Lujson_Str("container");
-      s$1.update__Lujson_Value__Lujson_Value__V(this$17, v);
+      s$3.update__Lujson_Value__Lujson_Value__V(this$17, v);
       var this$21 = $n(spec$1);
-      var s$2 = new $c_Lujson_Value$Selector$StringSelector("height");
+      var s$4 = new $c_Lujson_Value$Selector$StringSelector("height");
       var v$1 = new $c_Lujson_Str("container");
-      s$2.update__Lujson_Value__Lujson_Value__V(this$21, v$1)
+      s$4.update__Lujson_Value__Lujson_Value__V(this$21, v$1)
     } else {
       var this$22 = $n(spec$1);
       var this$23 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$22));
       var this$24 = new $c_sc_MapOps$KeySet(this$23);
       if ($n($m_sci_Seq$().from__sc_IterableOnce__sci_Seq(this$24)).contains__O__Z("signals")) {
         var this$26 = $n(spec$1);
-        var s$3 = new $c_Lujson_Value$Selector$StringSelector("signals");
-        var this$27 = $n(s$3.apply__Lujson_Value__Lujson_Value(this$26));
+        var s$5 = new $c_Lujson_Value$Selector$StringSelector("signals");
+        var this$27 = $n(s$5.apply__Lujson_Value__Lujson_Value(this$26));
         var this$28 = $n($f_Lujson_Value__arr__scm_ArrayBuffer(this$27));
         $m_scm_ArrayBuffer$();
         var b = new $c_scm_ArrayBuffer$$anon$1();
@@ -5189,40 +5200,40 @@ function $c_Lviz_Utils$() {
           var elem = $n(it).next__O();
           var sig = $as_Lujson_Value(elem);
           var this$31 = $n(sig);
-          var s$4 = new $c_Lujson_Value$Selector$StringSelector("name");
-          var this$32 = $n(s$4.apply__Lujson_Value__Lujson_Value(this$31));
+          var s$6 = new $c_Lujson_Value$Selector$StringSelector("name");
+          var this$32 = $n(s$6.apply__Lujson_Value__Lujson_Value(this$31));
           if (($f_Lujson_Value__str__T(this$32) === "height")) {
-            var $$x1 = true
+            var $$x3 = true
           } else {
             var this$34 = $n(sig);
-            var s$5 = new $c_Lujson_Value$Selector$StringSelector("name");
-            var this$35 = $n(s$5.apply__Lujson_Value__Lujson_Value(this$34));
-            var $$x1 = ($f_Lujson_Value__str__T(this$35) === "width")
+            var s$7 = new $c_Lujson_Value$Selector$StringSelector("name");
+            var this$35 = $n(s$7.apply__Lujson_Value__Lujson_Value(this$34));
+            var $$x3 = ($f_Lujson_Value__str__T(this$35) === "width")
           };
-          if (($$x1 !== true)) {
+          if (($$x3 !== true)) {
             b.addOne__O__scm_GrowableBuilder(elem)
           }
         };
         var tmp = $as_scm_ArrayBuffer(b.scm_GrowableBuilder__f_elems);
         var this$39 = $n(spec$1);
-        var s$6 = new $c_Lujson_Value$Selector$StringSelector("signals");
-        var $$x2 = $m_Lujson_Value$();
+        var s$8 = new $c_Lujson_Value$Selector$StringSelector("signals");
+        var $$x4 = $m_Lujson_Value$();
         var this$38 = $m_s_$less$colon$less$();
-        var v$2 = $n($$x2).JsonableSeq__sc_IterableOnce__F1__Lujson_Arr(tmp, this$38.s_$less$colon$less$__f_singleton);
-        s$6.update__Lujson_Value__Lujson_Value__V(this$39, v$2)
+        var v$2 = $n($$x4).JsonableSeq__sc_IterableOnce__F1__Lujson_Arr(tmp, this$38.s_$less$colon$less$__f_singleton);
+        s$8.update__Lujson_Value__Lujson_Value__V(this$39, v$2)
       } else {
         var this$41 = $n(spec$1);
-        var s$7 = new $c_Lujson_Value$Selector$StringSelector("signals");
+        var s$9 = new $c_Lujson_Value$Selector$StringSelector("signals");
         var v$3 = $m_Lujson_Arr$().apply__sci_Seq__Lujson_Arr($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lujson_Value.getArrayOf().constr)([])));
-        s$7.update__Lujson_Value__Lujson_Value__V(this$41, v$3)
+        s$9.update__Lujson_Value__Lujson_Value__V(this$41, v$3)
       };
       var this$57 = $n(spec$1);
-      var s$8 = new $c_Lujson_Value$Selector$StringSelector("autosize");
-      var $$x4 = $m_sr_ScalaRunTime$();
+      var s$10 = new $c_Lujson_Value$Selector$StringSelector("autosize");
+      var $$x6 = $m_sr_ScalaRunTime$();
       var y = $m_Lujson_Value$().JsonableBoolean__Z__Lujson_Bool(true);
-      var $$x3 = new $c_T2("resize", y);
+      var $$x5 = new $c_T2("resize", y);
       var y$1 = new $c_Lujson_Str("padding");
-      var items = $n($$x4).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$$x3, new $c_T2("contains", y$1)]));
+      var items = $n($$x6).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$$x5, new $c_T2("contains", y$1)]));
       var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
       map.put__O__O__s_Option("type", new $c_Lujson_Str("fit"));
       var this$55 = $n(items);
@@ -5233,10 +5244,10 @@ function $c_Lviz_Utils$() {
         map.put__O__O__s_Option($n(i).T2__f__1, $n(i).T2__f__2)
       };
       var v$4 = new $c_Lujson_Obj(map);
-      s$8.update__Lujson_Value__Lujson_Value__V(this$57, v$4);
+      s$10.update__Lujson_Value__Lujson_Value__V(this$57, v$4);
       var this$59 = $n(spec$1);
-      var s$9 = new $c_Lujson_Value$Selector$StringSelector("signals");
-      var this$60 = $n(s$9.apply__Lujson_Value__Lujson_Value(this$59));
+      var s$11 = new $c_Lujson_Value$Selector$StringSelector("signals");
+      var this$60 = $n(s$11.apply__Lujson_Value__Lujson_Value(this$59));
       var this$61 = $n($f_Lujson_Value__arr__scm_ArrayBuffer(this$60));
       var this$62 = $n(this$61.addOne__O__scm_ArrayBuffer(signalH));
       this$62.addOne__O__scm_ArrayBuffer(signalW)
@@ -17103,6 +17114,52 @@ function $f_T__toCharArray__AC($thiz) {
   };
   return result
 }
+function $f_T__trim__T($thiz) {
+  var len = $thiz.length;
+  var start = 0;
+  while (true) {
+    if ((start !== len)) {
+      var index = start;
+      var $$x1 = ($charAt($thiz, index) <= 32)
+    } else {
+      var $$x1 = false
+    };
+    if ($$x1) {
+      start = ((1 + start) | 0)
+    } else {
+      break
+    }
+  };
+  if ((start === len)) {
+    return ""
+  } else {
+    var end = len;
+    while (true) {
+      var index$1 = (((-1) + end) | 0);
+      if (($charAt($thiz, index$1) <= 32)) {
+        end = (((-1) + end) | 0)
+      } else {
+        break
+      }
+    };
+    if (((start === 0) && (end === len))) {
+      return $thiz
+    } else {
+      var beginIndex = start;
+      var endIndex = end;
+      if ((beginIndex < 0)) {
+        $charAt($thiz, beginIndex)
+      };
+      if ((endIndex > $thiz.length)) {
+        $charAt($thiz, endIndex)
+      };
+      if ((endIndex < beginIndex)) {
+        $charAt($thiz, (-1))
+      };
+      return $as_T($thiz.substring(beginIndex, endIndex))
+    }
+  }
+}
 function $f_T__toString__T($thiz) {
   return $thiz
 }
@@ -20633,6 +20690,85 @@ $c_s_reflect_ManifestFactory$UnitManifest.prototype.newArray__I__O = (function(l
   return new ($d_jl_Void.getArrayOf().constr)(len)
 });
 /** @constructor */
+function $c_Lviz_vega_plots_BarChart(mods, x$2) {
+  this.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget = null;
+  this.Lviz_FromUrl__f_location = null;
+  this.Lviz_FromUrl__f_baseSpec$lzy1 = null;
+  this.Lviz_FromUrl__f_baseSpecbitmap$1 = false;
+  this.Lviz_vega_plots_BarChart__f_mods = null;
+  this.Lviz_vega_plots_BarChart__f_mods = mods;
+  $ct_Lviz_FromUrl__Lviz_vega_plots_SpecUrl__Lviz_LowPriorityPlotTarget__(this, $s_Lviz_vega_plots_SpecUrl$__BarChart__Lviz_vega_plots_SpecUrl(), x$2)
+}
+$c_Lviz_vega_plots_BarChart.prototype = new $h_Lviz_FromUrl();
+$c_Lviz_vega_plots_BarChart.prototype.constructor = $c_Lviz_vega_plots_BarChart;
+/** @constructor */
+function $h_Lviz_vega_plots_BarChart() {
+  /*<skip>*/
+}
+$h_Lviz_vega_plots_BarChart.prototype = $c_Lviz_vega_plots_BarChart.prototype;
+$c_Lviz_vega_plots_BarChart.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_s_Product$$anon$1(this)
+});
+$c_Lviz_vega_plots_BarChart.prototype.hashCode__I = (function() {
+  var this$2 = $m_s_util_hashing_MurmurHash3$();
+  return this$2.productHash__s_Product__I__Z__I(this, (-889275714), false)
+});
+$c_Lviz_vega_plots_BarChart.prototype.equals__O__Z = (function(x$0) {
+  if ((this === x$0)) {
+    return true
+  } else if ((x$0 instanceof $c_Lviz_vega_plots_BarChart)) {
+    var x$0$2 = $as_Lviz_vega_plots_BarChart(x$0);
+    var x = this.Lviz_vega_plots_BarChart__f_mods;
+    var x$2 = $n(x$0$2).Lviz_vega_plots_BarChart__f_mods;
+    if (((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))) {
+      $n(x$0$2);
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+});
+$c_Lviz_vega_plots_BarChart.prototype.toString__T = (function() {
+  return $m_sr_ScalaRunTime$()._toString__s_Product__T(this)
+});
+$c_Lviz_vega_plots_BarChart.prototype.productArity__I = (function() {
+  return 1
+});
+$c_Lviz_vega_plots_BarChart.prototype.productPrefix__T = (function() {
+  return "BarChart"
+});
+$c_Lviz_vega_plots_BarChart.prototype.productElement__I__O = (function(n) {
+  if ((n === 0)) {
+    return this.Lviz_vega_plots_BarChart__f_mods
+  };
+  throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), ("" + n))
+});
+function $as_Lviz_vega_plots_BarChart(obj) {
+  return (((obj instanceof $c_Lviz_vega_plots_BarChart) || (obj === null)) ? obj : $throwClassCastException(obj, "viz.vega.plots.BarChart"))
+}
+function $isArrayOf_Lviz_vega_plots_BarChart(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lviz_vega_plots_BarChart)))
+}
+function $asArrayOf_Lviz_vega_plots_BarChart(obj, depth) {
+  return (($isArrayOf_Lviz_vega_plots_BarChart(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lviz.vega.plots.BarChart;", depth))
+}
+var $d_Lviz_vega_plots_BarChart = new $TypeData().initClass({
+  Lviz_vega_plots_BarChart: 0
+}, false, "viz.vega.plots.BarChart", {
+  Lviz_vega_plots_BarChart: 1,
+  Lviz_FromUrl: 1,
+  Lviz_WithBaseSpec: 1,
+  O: 1,
+  Lviz_Spec: 1,
+  Lviz_PlatformShow: 1,
+  s_Equals: 1,
+  s_Product: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lviz_vega_plots_BarChart.prototype.$classData = $d_Lviz_vega_plots_BarChart;
+/** @constructor */
 function $c_sc_AbstractView() {
   /*<skip>*/
 }
@@ -21179,86 +21315,6 @@ function $m_s_reflect_ManifestFactory$UnitManifest$() {
   };
   return $n_s_reflect_ManifestFactory$UnitManifest$
 }
-/** @constructor */
-function $c_Lviz_vega_plots_BarChart(mods, x$2) {
-  this.Lviz_WithBaseSpec__f_viz$PlatformShow$$plotTarget = null;
-  this.Lviz_FromUrl__f_location = null;
-  this.Lviz_FromUrl__f_baseSpec$lzy1 = null;
-  this.Lviz_FromUrl__f_baseSpecbitmap$1 = false;
-  this.Lviz_vega_plots_BarChart__f_mods = null;
-  this.Lviz_vega_plots_BarChart__f_mods = mods;
-  $ct_Lviz_FromUrl__Lviz_vega_plots_SpecUrl__Lviz_LowPriorityPlotTarget__(this, $s_Lviz_vega_plots_SpecUrl$__BarChart__Lviz_vega_plots_SpecUrl(), x$2)
-}
-$c_Lviz_vega_plots_BarChart.prototype = new $h_Lviz_FromUrl();
-$c_Lviz_vega_plots_BarChart.prototype.constructor = $c_Lviz_vega_plots_BarChart;
-/** @constructor */
-function $h_Lviz_vega_plots_BarChart() {
-  /*<skip>*/
-}
-$h_Lviz_vega_plots_BarChart.prototype = $c_Lviz_vega_plots_BarChart.prototype;
-$c_Lviz_vega_plots_BarChart.prototype.productIterator__sc_Iterator = (function() {
-  return new $c_s_Product$$anon$1(this)
-});
-$c_Lviz_vega_plots_BarChart.prototype.hashCode__I = (function() {
-  var this$2 = $m_s_util_hashing_MurmurHash3$();
-  return this$2.productHash__s_Product__I__Z__I(this, (-889275714), false)
-});
-$c_Lviz_vega_plots_BarChart.prototype.equals__O__Z = (function(x$0) {
-  if ((this === x$0)) {
-    return true
-  } else if ((x$0 instanceof $c_Lviz_vega_plots_BarChart)) {
-    var x$0$2 = $as_Lviz_vega_plots_BarChart(x$0);
-    var x = this.Lviz_vega_plots_BarChart__f_mods;
-    var x$2 = $n(x$0$2).Lviz_vega_plots_BarChart__f_mods;
-    if (((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))) {
-      $n(x$0$2);
-      return true
-    } else {
-      return false
-    }
-  } else {
-    return false
-  }
-});
-$c_Lviz_vega_plots_BarChart.prototype.toString__T = (function() {
-  return $m_sr_ScalaRunTime$()._toString__s_Product__T(this)
-});
-$c_Lviz_vega_plots_BarChart.prototype.productArity__I = (function() {
-  return 1
-});
-$c_Lviz_vega_plots_BarChart.prototype.productPrefix__T = (function() {
-  return "BarChart"
-});
-$c_Lviz_vega_plots_BarChart.prototype.productElement__I__O = (function(n) {
-  if ((n === 0)) {
-    return this.Lviz_vega_plots_BarChart__f_mods
-  };
-  throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), ("" + n))
-});
-function $as_Lviz_vega_plots_BarChart(obj) {
-  return (((obj instanceof $c_Lviz_vega_plots_BarChart) || (obj === null)) ? obj : $throwClassCastException(obj, "viz.vega.plots.BarChart"))
-}
-function $isArrayOf_Lviz_vega_plots_BarChart(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lviz_vega_plots_BarChart)))
-}
-function $asArrayOf_Lviz_vega_plots_BarChart(obj, depth) {
-  return (($isArrayOf_Lviz_vega_plots_BarChart(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lviz.vega.plots.BarChart;", depth))
-}
-var $d_Lviz_vega_plots_BarChart = new $TypeData().initClass({
-  Lviz_vega_plots_BarChart: 0
-}, false, "viz.vega.plots.BarChart", {
-  Lviz_vega_plots_BarChart: 1,
-  Lviz_FromUrl: 1,
-  Lviz_WithBaseSpec: 1,
-  O: 1,
-  Lviz_Spec: 1,
-  Lviz_PlatformShow: 1,
-  Lviz_PlotHasVegaDsl: 1,
-  s_Equals: 1,
-  s_Product: 1,
-  Ljava_io_Serializable: 1
-});
-$c_Lviz_vega_plots_BarChart.prototype.$classData = $d_Lviz_vega_plots_BarChart;
 function $f_sc_Seq__equals__O__Z($thiz, o) {
   if (($thiz === o)) {
     return true
