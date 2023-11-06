@@ -26,7 +26,6 @@ type JsonMod = Seq[ujson.Value => Unit]
 case class BarChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.BarChart)
 
-
 case class StackedBarChart(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.StackedBarChart)
 
@@ -281,14 +280,11 @@ case class Platformer(override val mods: Seq[ujson.Value => Unit] = List())(usin
 case class SimpleBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.SimpleBarChartLite)
 
-
 case class ResponsiveBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.ResponsiveBarChartLite)
 
-
 case class AggregateBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.AggregateBarChartLite)
-
 
 case class AggregateBarChart_SortedLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
@@ -297,7 +293,6 @@ case class AggregateBarChart_SortedLite(override val mods: Seq[ujson.Value => Un
 case class GroupedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.GroupedBarChartLite)
 
-
 case class GroupedBarChart_MultipleMeasurewithRepeatLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.GroupedBarChart_MultipleMeasurewithRepeatLite)
@@ -305,11 +300,9 @@ case class GroupedBarChart_MultipleMeasurewithRepeatLite(override val mods: Seq[
 case class StackedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.StackedBarChartLite)
 
-
 case class StackedBarChartwithRoundedCornersLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.StackedBarChartwithRoundedCornersLite)
-
 
 case class HorizontalStackedBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
@@ -333,7 +326,6 @@ case class ABarChartEncodingColorNamesintheDataLite(override val mods: Seq[ujson
 
 case class LayeredBarChartLite(override val mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.LayeredBarChartLite)
-
 
 case class DivergingStackedBarChart_PopulationPyramidLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
@@ -514,7 +506,6 @@ case class AcometchartshowingchangesbetweenbetweentwostatesLite(override val mod
     using LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.AcometchartshowingchangesbetweenbetweentwostatesLite)
 
-
 case class LineChartwithMarkersandInvalidValuesLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.LineChartwithMarkersandInvalidValuesLite)
@@ -530,7 +521,6 @@ case class LineChartsShowingRanksOverTimeLite(override val mods: Seq[ujson.Value
 case class DrawingSineandCosineCurveswiththeSequenceGeneratorLite(override val mods: Seq[ujson.Value => Unit] = List())(
     using LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.DrawingSineandCosineCurveswiththeSequenceGeneratorLite)
-
 
 case class LinechartwithvaryingstrokedashLite(override val mods: Seq[ujson.Value => Unit] = List())(using
     LowPriorityPlotTarget
@@ -966,7 +956,6 @@ case class Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite
     override val mods: Seq[ujson.Value => Unit] = List()
 )(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.Aninteractivescatterplotofglobalhealthstatisticsbycountryandyear_Lite)
-
 
 object BarChart extends viz.companions.AxisUtils:
   import upickle.default.*
