@@ -1,4 +1,4 @@
-addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.5.3")
+addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.5.4")
 addSbtPlugin("org.typelevel" % "sbt-typelevel-site" % "0.5.3")
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.14.0")
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.4")
