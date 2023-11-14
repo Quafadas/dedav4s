@@ -70,7 +70,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.9.1",
+      "com.lihaoyi" %% "os-lib" % "0.9.2",
       "com.lihaoyi" %% "cask" % "0.9.1",
       "com.lihaoyi" %% "requests" % "0.8.0",
       ("sh.almond" %% "scala-kernel-api" % "0.14.0-RC14" % Provided)
@@ -79,12 +79,12 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         .exclude("com.lihaoyi", "os-lib_2.13")
         .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.16.1"
+      "org.jsoup" % "jsoup" % "1.16.2"
     )
   )
   .jsSettings(
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.7.0",
+      "org.scala-js" %%% "scalajs-dom" % "2.8.0",
       ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13)
     )
   )
