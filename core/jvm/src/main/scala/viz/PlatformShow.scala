@@ -20,7 +20,7 @@ type VizReturn = Unit | os.Path
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
 
-  //def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
+  // def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
 
   // lazy val tempPath : Option[os.Path] = plotTarget match
   //   case t : TempFileTarget[A] => Some(t.tempPath(spec))

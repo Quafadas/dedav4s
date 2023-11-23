@@ -41,10 +41,11 @@ end TempFileTarget
 object PlotTargets extends SharedTargets:
 
   def outPathRoot: Option[String] =
-      val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
-      if pathIsSet then Some(conf.getString("dedavOutPath"))
-      else None
-      end if
+    val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
+    if pathIsSet then Some(conf.getString("dedavOutPath"))
+    else None
+    end if
+  end outPathRoot
 
   def openBrowserWindow(uri: java.net.URI): Unit =
     println(s"opening browser window at $uri")
@@ -70,6 +71,7 @@ object PlotTargets extends SharedTargets:
       val runtime = java.lang.Runtime.getRuntime()
       val _ = runtime.exec(Array[String](s"""xdg-open $uri]"""))
       ()
+    end if
   end openBrowserWindow
 
   lazy val conf = org.ekrich.config.ConfigFactory.load()
@@ -91,6 +93,7 @@ object PlotTargets extends SharedTargets:
           os.temp(suffix = ".html", prefix = "plot-")
       showWithTempFile(spec, tmpPath)
       tmpPath
+    end show
 
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       println("showing plot in browser")
@@ -181,6 +184,7 @@ object PlotTargets extends SharedTargets:
           os.temp(suffix = ".txt", prefix = "plot-")
       showWithTempFile(spec, tmpPath)
       tmpPath
+    end show
 
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       os.write.over(path, spec)
@@ -195,6 +199,7 @@ object PlotTargets extends SharedTargets:
           os.temp(suffix = ".png", prefix = "plot-")
       showWithTempFile(spec, tmpPath)
       tmpPath
+    end show
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       val pngBytes = os.proc("vg2png").call(stdin = spec)
       pngBytes.exitCode match
