@@ -16,36 +16,29 @@
 
 package viz
 
+type VizReturn = Unit | os.Path
+
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
-  // def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
+
+  //def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
 
   // lazy val tempPath : Option[os.Path] = plotTarget match
   //   case t : TempFileTarget[A] => Some(t.tempPath(spec))
   //   case _ => None
 
-  private lazy val conf = org.ekrich.config.ConfigFactory.load()
-  private lazy val outPath: Option[String] =
-    val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
-    if pathIsSet then Some(conf.getString("dedavOutPath"))
-    else None
-    end if
-  end outPath
+  // private lazy val conf = org.ekrich.config.ConfigFactory.load()
+  // private lazy val outPath: Option[String] =
+  //   val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
+  //   if pathIsSet then Some(conf.getString("dedavOutPath"))
+  //   else None
+  //   end if
+  // end outPath
 
-  lazy val tmpPath: Option[os.Path] =
-    plotTarget match
-      case ut: UnitTarget => None
-      case t: TempFileTarget =>
-        val suffix = t.ext.ext
-        outPath match
-          case Some(path) =>
-            Some(os.temp(dir = os.Path(path), suffix = suffix, prefix = "plot-"))
-          case None =>
-            Some(os.temp(suffix = suffix, prefix = "plot-"))
-        end match
-  // private val showMe = plotTarget match
-  //   case ut: UnitTarget     => ut.show(spec)
-  //   case ut: TempFileTarget => ut.showWithTempFile(spec, tmpPath.get)
-  //   case _                  => ()
+  val tmpPath: Option[os.Path] = plotTarget.show(spec) match
+    case () => None
+    case path =>
+      Some(path.asInstanceOf[os.Path])
+
 end PlatformShow
 
 // This is the line, which actually triggers plotting the chart

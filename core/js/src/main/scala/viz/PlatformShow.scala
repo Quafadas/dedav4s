@@ -19,9 +19,7 @@ package viz
 import org.scalajs.dom.html
 import scala.scalajs.js.JSON
 
-//case class PlotTarget(in:html.Div, bundleStrategy: BundlerStrategy.Bund)
-//type PlotTarget = html.Div | Tuple2[html.Div, BundleStrategy]
-//type PlotTarget = html.Div
+type VizReturn = Unit
 
 trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
   def show(inDiv: html.Div): Unit =

@@ -16,7 +16,10 @@
 
 package viz
 
-trait LowPriorityPlotTarget
+//type VizReturn
+
+trait LowPriorityPlotTarget :
+  def show(spec: String): VizReturn
 
 trait PlotTarget extends LowPriorityPlotTarget
 //def show(spec: String): Unit

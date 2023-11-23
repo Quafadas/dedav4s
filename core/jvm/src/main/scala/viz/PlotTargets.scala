@@ -40,7 +40,14 @@ end TempFileTarget
 
 object PlotTargets extends SharedTargets:
 
+  def outPathRoot: Option[String] =
+      val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
+      if pathIsSet then Some(conf.getString("dedavOutPath"))
+      else None
+      end if
+
   def openBrowserWindow(uri: java.net.URI): Unit =
+    println(s"opening browser window at $uri")
     if Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE) then
       Desktop.getDesktop().browse(uri)
     else
@@ -63,6 +70,7 @@ object PlotTargets extends SharedTargets:
       val runtime = java.lang.Runtime.getRuntime()
       val _ = runtime.exec(Array[String](s"""xdg-open $uri]"""))
       ()
+  end openBrowserWindow
 
   lazy val conf = org.ekrich.config.ConfigFactory.load()
   lazy val outPath: Option[String] =
@@ -75,7 +83,17 @@ object PlotTargets extends SharedTargets:
   lazy val port: Int = WebsocketVizServer.randomPort
 
   given desktopBrowser: PlotTarget = new TempFileTarget(Html):
+    def show(spec: String): VizReturn =
+      val tmpPath = outPath match
+        case Some(path) =>
+          os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
+        case None =>
+          os.temp(suffix = ".html", prefix = "plot-")
+      showWithTempFile(spec, tmpPath)
+      tmpPath
+
     override def showWithTempFile(spec: String, path: os.Path): Unit =
+      println("showing plot in browser")
       val theHtml = raw"""<!DOCTYPE html>
         <html>
         <head>
@@ -155,10 +173,28 @@ object PlotTargets extends SharedTargets:
     end show
 
   given tempFileSpec: PlotTarget = new TempFileTarget(Txt):
+    def show(spec: String): viz.VizReturn =
+      val tmpPath = outPath match
+        case Some(path) =>
+          os.temp(dir = os.Path(path), suffix = ".txt", prefix = "plot-")
+        case None =>
+          os.temp(suffix = ".txt", prefix = "plot-")
+      showWithTempFile(spec, tmpPath)
+      tmpPath
+
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       os.write.over(path, spec)
 
   given png: PlotTarget = new TempFileTarget(Png):
+
+    def show(spec: String): viz.VizReturn =
+      val tmpPath = outPath match
+        case Some(path) =>
+          os.temp(dir = os.Path(path), suffix = ".png", prefix = "plot-")
+        case None =>
+          os.temp(suffix = ".png", prefix = "plot-")
+      showWithTempFile(spec, tmpPath)
+      tmpPath
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       val pngBytes = os.proc("vg2png").call(stdin = spec)
       pngBytes.exitCode match
@@ -168,23 +204,23 @@ object PlotTargets extends SharedTargets:
       end match
     end showWithTempFile
 
-  given pdf: PlotTarget = new TempFileTarget(Pdf):
-    override def showWithTempFile(spec: String, path: os.Path): Unit =
-      val pngBytes = os.proc("vg2pdf").call(stdin = spec)
-      pngBytes.exitCode match
-        case 0 =>
-          os.write.over(path, pngBytes.out.bytes)
-        case _ => throw new Exception(pngBytes.err.text())
-      end match
-    end showWithTempFile
+  // given pdf: PlotTarget = new TempFileTarget(Pdf):
+  //   override def showWithTempFile(spec: String, path: os.Path): Unit =
+  //     val pngBytes = os.proc("vg2pdf").call(stdin = spec)
+  //     pngBytes.exitCode match
+  //       case 0 =>
+  //         os.write.over(path, pngBytes.out.bytes)
+  //       case _ => throw new Exception(pngBytes.err.text())
+  //     end match
+  //   end showWithTempFile
 
-  given svg: PlotTarget = new TempFileTarget(Svg):
-    override def showWithTempFile(spec: String, path: os.Path): Unit =
-      val pngBytes = os.proc("vg2svg").call(stdin = spec)
-      pngBytes.exitCode match
-        case 0 =>
-          os.write.over(path, pngBytes.out.bytes)
-        case _ => throw new Exception(pngBytes.err.text())
-      end match
-    end showWithTempFile
+  // given svg: PlotTarget = new TempFileTarget(Svg):
+  //   override def showWithTempFile(spec: String, path: os.Path): Unit =
+  //     val pngBytes = os.proc("vg2svg").call(stdin = spec)
+  //     pngBytes.exitCode match
+  //       case 0 =>
+  //         os.write.over(path, pngBytes.out.bytes)
+  //       case _ => throw new Exception(pngBytes.err.text())
+  //     end match
+  //   end showWithTempFile
 end PlotTargets
