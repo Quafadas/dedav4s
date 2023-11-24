@@ -34,9 +34,8 @@ package object extensions:
 
   extension (specIn: ujson.Value)(using plotTarget: LowPriorityPlotTarget)
     def plot(mods: Seq[ujson.Value => Unit] = List()): WithBaseSpec =
-      new WithBaseSpec(mods) {
+      new WithBaseSpec(mods):
         override lazy val baseSpec: ujson.Value = specIn
-      }
 
   extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
     def plotBarChart(mods: JsonMod = List()): BarChart =

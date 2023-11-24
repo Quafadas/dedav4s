@@ -33,6 +33,8 @@ object plotFromFile:
     println("read file")
     new WithBaseSpec(mods):
       override lazy val baseSpec: ujson.Value = ujson.read(os.read(path))
+    end new
+  end apply
 end plotFromFile
 
 extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)
