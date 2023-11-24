@@ -23,6 +23,17 @@ import ujson.Value
 import viz.vega.plots.JsonMod
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.SimpleRegression
+import viz.LowPriorityPlotTarget
+import viz.WithBaseSpec
+
+object plotFromFile:
+  def apply(path: os.Path, mods: Seq[ujson.Value => Unit] = List())(using
+      plotTarget: LowPriorityPlotTarget
+  ): WithBaseSpec =
+    println("read file")
+    new WithBaseSpec(mods):
+      override lazy val baseSpec: ujson.Value = ujson.read(os.read(path))
+end plotFromFile
 
 extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)
   def plotRegression(mods: JsonMod = List()): SimpleRegression =

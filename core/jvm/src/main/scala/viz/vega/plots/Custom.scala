@@ -20,6 +20,10 @@ import viz.FromResource
 
 import viz.PlotTarget
 
+case class Sankey(override val mods: JsonMod = List())(using PlotTarget) extends FromResource:
+  override lazy val path = "Sankey.json"
+end Sankey
+
 case class SunburstDrag(override val mods: JsonMod = List())(using PlotTarget) extends FromResource:
   override lazy val path = "SunburstDrag.json"
 end SunburstDrag
