@@ -8917,8 +8917,19 @@ $c_Lviz_LaminarViz$.prototype.viewEmbed__Lviz_Spec__s_Option__s_Option__T2 = (fu
       return new $c_s_Some(arg1.view)
     }
   }));
-  var viewSignal = new $c_Lcom_raquo_airstream_misc_MapSignal(this$10, project, $m_s_None$());
-  return new $c_T2(embeddedIn, viewSignal)
+  var view = new $c_Lcom_raquo_airstream_misc_MapSignal(this$10, project, $m_s_None$());
+  embedResult.then(((in$2$1) => {
+    var this$12 = $n(embeddedIn);
+    var $$x1 = $m_sr_ScalaRunTime$();
+    var this$11 = $n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L);
+    var fn = new $c_sjsr_AnonFunction1(((_$2) => {
+      $as_Lcom_raquo_laminar_nodes_ReactiveHtmlElement(_$2);
+      in$2$1.view.finalize()
+    }));
+    var mods = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcom_raquo_laminar_modifiers_Modifier.getArrayOf().constr)([$f_Lcom_raquo_laminar_api_Laminar__onUnmountCallback__F1__Lcom_raquo_laminar_modifiers_Modifier(this$11, fn)]));
+    return $f_Lcom_raquo_laminar_nodes_ReactiveElement__amend__sci_Seq__Lcom_raquo_laminar_nodes_ReactiveElement(this$12, mods)
+  }));
+  return new $c_T2(embeddedIn, view)
 });
 $c_Lviz_LaminarViz$.prototype.simpleEmbed__Lviz_Spec__s_Option__s_Option__Lcom_raquo_laminar_nodes_ReactiveHtmlElement = (function(chart, inDivOpt, embedOpt) {
   return $as_Lcom_raquo_laminar_nodes_ReactiveHtmlElement($n(this.viewEmbed__Lviz_Spec__s_Option__s_Option__T2(chart, inDivOpt, embedOpt))._1__O())
@@ -20380,6 +20391,23 @@ function $f_Lcom_raquo_laminar_nodes_ReactiveElement__indexOfEventListener__Lcom
     return (found ? ix : (-1))
   }
 }
+function $f_Lcom_raquo_laminar_nodes_ReactiveElement__amend__sci_Seq__Lcom_raquo_laminar_nodes_ReactiveElement($thiz, mods) {
+  var this$1 = $m_Lcom_raquo_airstream_core_Transaction$onStart$();
+  this$1.Lcom_raquo_airstream_core_Transaction$onStart$__f_level = ((1 + this$1.Lcom_raquo_airstream_core_Transaction$onStart$__f_level) | 0);
+  try {
+    $n(mods).foreach__F1__V(new $c_sjsr_AnonFunction1(((mod) => {
+      var mod$1 = $as_Lcom_raquo_laminar_modifiers_Modifier(mod);
+      $n(mod$1).apply__Lcom_raquo_laminar_nodes_ReactiveElement__V($thiz)
+    })));
+    var result = $thiz
+  } finally {
+    this$1.Lcom_raquo_airstream_core_Transaction$onStart$__f_level = (((-1) + this$1.Lcom_raquo_airstream_core_Transaction$onStart$__f_level) | 0);
+    if ((this$1.Lcom_raquo_airstream_core_Transaction$onStart$__f_level === 0)) {
+      $p_Lcom_raquo_airstream_core_Transaction$onStart$__resolve__V(this$1)
+    }
+  };
+  return result
+}
 function $f_Lcom_raquo_laminar_nodes_ReactiveElement__willSetParent__s_Option__V($thiz, maybeNextParent) {
   if ($p_Lcom_raquo_laminar_nodes_ReactiveElement__isUnmounting__s_Option__s_Option__Z($thiz, $thiz.Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_com$raquo$laminar$nodes$ChildNode$$_maybeParent, maybeNextParent)) {
     $p_Lcom_raquo_laminar_nodes_ReactiveElement__setPilotSubscriptionOwner__s_Option__V($thiz, maybeNextParent)
@@ -31126,6 +31154,23 @@ function $f_Lcom_raquo_laminar_api_Laminar__onMountCallback__F1__Lcom_raquo_lami
     $m_Lcom_raquo_airstream_ownership_DynamicSubscription$().subscribeCallback__Lcom_raquo_airstream_ownership_DynamicOwner__F1__Z__Lcom_raquo_airstream_ownership_DynamicSubscription($n(element$1).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_dynamicOwner, new $c_sjsr_AnonFunction1(((owner) => {
       var owner$1 = $as_Lcom_raquo_airstream_ownership_Owner(owner);
       activate.apply__O__O(new $c_Lcom_raquo_laminar_lifecycle_MountContext(element$1, owner$1))
+    })), false)
+  }));
+  return new $c_Lcom_raquo_laminar_modifiers_Modifier$$anon$2(f)
+}
+function $f_Lcom_raquo_laminar_api_Laminar__onUnmountCallback__F1__Lcom_raquo_laminar_modifiers_Modifier($thiz, fn) {
+  $n($thiz.Lcom_raquo_laminar_api_package$$anon$1__f_Modifier);
+  var f = new $c_sjsr_AnonFunction1(((element) => {
+    var element$1 = $as_Lcom_raquo_laminar_nodes_ReactiveElement(element);
+    var subscribe = new $c_sjsr_AnonFunction1(((c) => {
+      var c$1 = $as_Lcom_raquo_laminar_lifecycle_MountContext(c);
+      return new $c_Lcom_raquo_airstream_ownership_Subscription($n(c$1).Lcom_raquo_laminar_lifecycle_MountContext__f_owner, new $c_sjsr_AnonFunction0((() => {
+        $n(fn).apply__O__O(element$1)
+      })))
+    }));
+    $m_Lcom_raquo_airstream_ownership_DynamicSubscription$().unsafe__Lcom_raquo_airstream_ownership_DynamicOwner__F1__Z__Lcom_raquo_airstream_ownership_DynamicSubscription($n(element$1).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_dynamicOwner, new $c_sjsr_AnonFunction1(((owner) => {
+      var owner$1 = $as_Lcom_raquo_airstream_ownership_Owner(owner);
+      return $as_Lcom_raquo_airstream_ownership_Subscription(subscribe.apply__O__O(new $c_Lcom_raquo_laminar_lifecycle_MountContext(element$1, owner$1)))
     })), false)
   }));
   return new $c_Lcom_raquo_laminar_modifiers_Modifier$$anon$2(f)
