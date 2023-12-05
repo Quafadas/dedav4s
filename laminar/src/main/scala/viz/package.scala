@@ -60,6 +60,9 @@ object LaminarViz:
       inDivOpt: Option[Div] = None,
       embedOpt: Option[EmbedOptions] = None
   ): (Div, Signal[Option[VegaView]]) =
+
+
+
     val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
 
     val (embeddedIn, embedResult) = (inDivOpt, embedOpt) match
@@ -85,10 +88,18 @@ object LaminarViz:
         val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(newDiv.ref, specObj, EmbedOptions)
         (newDiv, p)
 
-    val viewSignal: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(in => in.map(_.view))
-    // val viewSignal: Signal[Option[VegaView]] = Signal.fromValue(None)
 
-    (embeddedIn, viewSignal)
+    val view : Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(in => in.map(_.view))
+
+
+    embedResult.`then`(in =>
+      embeddedIn.amend(
+        onUnmountCallback(_ =>
+          in.view.finalize()
+        )
+      )
+    )
+    (embeddedIn, view)
   end viewEmbed
 
   /** Embed a chart in a div. This method is a good choice if you are not at all worried about performance (mostly you
