@@ -18,13 +18,12 @@
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
   
-  <link rel="stylesheet" type="text/css" href="../helium/icofont.min.css" />
-    <link rel="stylesheet" type="text/css" href="../helium/laika-helium.css" />
-  
-  <script src="../helium/laika-helium.js"></script>
+  <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="../helium/site/laika-helium.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -123,30 +122,30 @@
         <p>Or use scalably typed and generate a typesafe facade for your scala JS library of choice.</p>
         
         <h1 id="why-this-library" class="section"><a class="anchor-link left" href="#why-this-library"><i class="icofont-laika link">&#xef71;</i></a>Why this library?</h1>
-        <p>I like scala. I&#39;ve found it to be a wonderful experience, with, to my mind a weakness - data visualisation. I certainly feel I put in a solid &quot;best effort&quot; to find an existing library, and struggled with them. Also... this was fun.</p>
+        <p>I like scala. I&#39;ve found it to be a wonderful experience, with, to my mind a weakness - anything which needs to be visually correct. I certainly feel I put in a solid &quot;best effort&quot; to find an existing library, and struggled with them. Also... this was fun.</p>
         
         <h2 id="from-first-principles" class="section"><a class="anchor-link left" href="#from-first-principles"><i class="icofont-laika link">&#xef71;</i></a>From first principles</h2>
-        <p>Good data visulaisation is hard. In terms of library authorship, there are two formidable problems one must overcome in order for such a library to be viable. </p>
+        <p>Good data visulaisation is hard. In terms of library authorship, there are two formidable problems one must overcome in order for such a library to be viable.</p>
         <ol class="arabic">
           <li>Drawing on screen</li>
           <li>Sharing</li>
         </ol>
-        <p>It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise. </p>
-        <p>Fortunately, scala has great JS support. If we can overcome bunding and generally getting libraries built in the right place, we can have our cake and eat it, too. </p>
+        <p>It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise.</p>
+        <p>Fortunately, scala has great JS support. If we can overcome bunding and generally getting libraries built in the right place, we can have our cake and eat it, too.</p>
         
         <h2 id="good-news" class="section"><a class="anchor-link left" href="#good-news"><i class="icofont-laika link">&#xef71;</i></a>Good news</h2>
-        <p>There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let&#39;s provide a thin shim for one! </p>
+        <p>There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let&#39;s provide a thin shim for one!</p>
         <p>Vega/lite let&#39;s us square the scala / browser circle. We need only a tiny amount of javascript to shim vega embed and host the libraries. The actual visualisation definition is a JSON object. Scala already has good tools for manipulating JSON objects, if we can create the right object, we just need to pipe it into a page template as a string!</p>
         <p>It turns out, that vega/lite even publish schema. If we had a way to generate scala case classes from schema... we&#39;d have a convienient, typesafe DSL!</p>
         
         <h2 id="what-of-typesafety" class="section"><a class="anchor-link left" href="#what-of-typesafety"><i class="icofont-laika link">&#xef71;</i></a>What of typesafety?</h2>
-        <p>Many of the libraries above set out to define a typesafe DSL. Do we need one? </p>
+        <p>Many of the libraries above set out to define a typesafe DSL. Do we need one?</p>
         <p>When thinking about this, one has to ask, why? Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost.</p>
         <p>In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>.</p>
         <p>So I don&#39;t claim the DSL is perfect. It&#39;s as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close to typesafety, for your use case.</p>
         
         <h2 id="the-bad-news" class="section"><a class="anchor-link left" href="#the-bad-news"><i class="icofont-laika link">&#xef71;</i></a>The Bad news</h2>
-        <p>Nothing about the DSL or help getting at the examples, saves you from having to learn at least some of vega itself... </p>
+        <p>Nothing about the DSL or help getting at the examples, saves you from having to learn at least some of vega itself...</p>
         <p>... but I think you will not regret learning a declarative paradigm. The 10 minutes spent learning this library (it&#39;s absurdly simple) are sunk cost. I believe you&#39;ll quickly earn those minutes back in lovely, publishable plots!</p>
 
         
