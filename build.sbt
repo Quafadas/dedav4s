@@ -1,7 +1,7 @@
 import laika.helium.Helium
 import laika.helium.config.*
-import laika.markdown.github.GitHubFlavor
-import laika.parse.code.SyntaxHighlighting
+import laika.config.SyntaxHighlighting
+import laika.format.Markdown
 import laika.ast.Path.Root
 import laika.theme.config.Color
 import laika.ast.LengthUnit.*
@@ -162,9 +162,13 @@ lazy val docs = project
     ),
     // laikaTheme := Helium.defaults.build,
     // NOTE: Needed for Javasriptin in Laika
-    laikaConfig ~= { _.withRawContent },
+    // laikaIncludeAPI := true,
+    laikaConfig ~= {
+      _.withRawContent
+
+    },
     laikaExtensions := Seq(
-      GitHubFlavor,
+      Markdown.GitHubFlavor,
       SyntaxHighlighting
     ),
     tlSiteHelium := {
@@ -193,13 +197,6 @@ lazy val docs = project
         .externalJS(
           url = "https://cdn.jsdelivr.net/npm/vega-embed@6"
         )
-        .site
-        .autoLinkJS()
-      // .site
-      // NOTE: Needed for Javasriptin in Laika
-      // .internalJS(Root)
-      // .site
-      // .internalCSS(Root)
     }
   )
   .enablePlugins(TypelevelSitePlugin)
