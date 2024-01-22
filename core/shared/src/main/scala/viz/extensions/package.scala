@@ -16,21 +16,61 @@
 
 package viz
 
-import viz.vega.plots.BarChart
-import viz.vega.plots.PieChart
 import scala.util.Random
 import scala.annotation.targetName
 import viz.vega.plots.WordCloud
 import ujson.Value
 
-import viz.vega.plots.JsonMod
-import viz.vega.plots.LineChart
-import viz.vega.plots.DotPlot
 import math.Numeric.Implicits.infixNumericOps
-import viz.vega.plots.ScatterPlot
+import viz.vega.plots.*
+import reflect.Selectable.reflectiveSelectable
+import upickle.default.Writer
 //import viz.extensions.jvm.*
 
 package object extensions:
+
+  extension [D <: BarPlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
+    def plotBarChart(mods: JsonMod) =
+      BarChart(
+        List(
+          (spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)
+        ) ++ mods
+      )
+    end plotBarChart
+
+  extension [D <: PiePlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
+    def plotPieChart(mods: JsonMod) =
+      PieChart(
+        List(
+          (spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)
+        ) ++ mods
+      )
+    end plotPieChart
+
+  extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget)
+    def plotBarChart(fct: A => BarPlotDataEntry)(mods: JsonMod) =
+      val chartData = data.map(d =>
+        val tmp = fct(d)
+        ujson.Obj("category" -> tmp.category, "amount" -> tmp.amount)
+      )
+      BarChart(
+        List(
+          (spec: Value) => spec("data")(0)("values") = chartData
+        ) ++ mods
+      )
+    end plotBarChart
+
+    def plotPieChart(fct: A => PiePlotDataEntry)(mods: JsonMod) =
+      val chartData = data.map(d =>
+        val tmp = fct(d)
+        ujson.Obj("id" -> tmp.id, "field" -> tmp.field)
+      )
+      PieChart(
+        List(
+          (spec: Value) => spec("data")(0)("values") = chartData
+        ) ++ mods
+      )
+    end plotPieChart
 
   extension (specIn: ujson.Value)(using plotTarget: LowPriorityPlotTarget)
     def plot(mods: Seq[ujson.Value => Unit] = List()): WithBaseSpec =

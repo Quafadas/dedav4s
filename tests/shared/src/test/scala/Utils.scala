@@ -38,11 +38,8 @@ class CheckUtils extends munit.FunSuite:
       override lazy val baseSpec = baseSpecIn
     end TestSpec
 
-    println("bah")
     val out = TestSpec(specStart, List(viz.Utils.fillDiv))
-    println("bahM")
     val ouSpec = out.jsonSpec
-    println("bah2")
 
     val numberSignals = ouSpec("signals").arr.length
     assertEquals(numberSignals, 3) // Should have added width, replaced height

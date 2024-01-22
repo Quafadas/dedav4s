@@ -30,7 +30,7 @@ class ExtensionSuiteJVM extends munit.FunSuite:
     val randomTuple_String_Int: IndexedSeq[(String, Int)] = (0 to 5).map(i => (Random.nextString(5), i))
     val randomMap_String_Int: Map[String, Int] = randomTuple_String_Int.toMap
 
-    List(1, 2, 3, 4).plotBarChart()
+    List(1, 2, 3, 4).plotBarChart
     Thread.sleep(sleepLenth)
     randomMap_String_Int.plotBarChart(List())
     Thread.sleep(sleepLenth)
