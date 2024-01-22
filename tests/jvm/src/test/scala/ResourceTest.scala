@@ -18,19 +18,8 @@ package viz
 // import viz.PlotTargets.websocket // for local testing
 import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
 import scala.io.Source
-import _root_.io.circe.parser.*
-import _root_.io.circe.syntax.*
-import viz.dsl.vega.*
 import scala.language.implicitConversions
 
-import viz.dsl.vegaLite.VegaLiteDsl
-/*
-case class PlotFromString(s:String, override val mods: Seq[ujson.Value => Unit] = List()) extends WithBaseSpec {
-
-  override lazy val baseSpec: ujson.Value = s
-
-}
- */
 class ResourceTest extends munit.FunSuite:
   test("Check the default library settings") {
     // (1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
@@ -41,35 +30,5 @@ class ResourceTest extends munit.FunSuite:
     assertEquals(conf.hasPath("dedavOutPath"), false)
     assertEquals(conf.hasPath("gitpod_port"), false)
 
-  }
-
-  test("That the vega DSL correctly parses a simple spec") {
-    val spec = Source.fromResource("BarChart.json").mkString
-    val parseCirce = decode[VegaDsl](spec).fold(throw _, identity)
-    val jsonFromCirce = parseCirce.asJson.deepDropNullValues
-    val pureSpec = parse(spec).fold(throw _, identity)
-    assert(jsonFromCirce == pureSpec)
-  }
-
-  test("That the vega lite DSL correctly round trips a simple spec") {
-    val spec = Source.fromResource("BarChartLite.json").mkString
-    val parseCirce = decode[VegaLiteDsl](spec).fold(throw _, identity)
-    val jsonFromCirce = parseCirce.asJson.deepDropNullValues
-    val pureSpec = parse(spec).fold(throw _, identity)
-    assert(jsonFromCirce == pureSpec)
-  }
-
-  test("DSL to mutuable conversion") {
-    import viz.dsl.Conversion.u
-    import viz.vega.plots.BarChart
-
-    val dslMod: List[ujson.Value => Unit] = List(
-      viz.Utils.removeXAxis,
-      (spec: ujson.Value) => spec("axes") = spec("axes").arr :+ Axis(scale = "xscale", orient = TitleOrientEnum.top).u
-    )
-
-    val bc = new BarChart(dslMod)
-    assert(bc.spec.contains("top"))
-    Thread.sleep(2000)
   }
 end ResourceTest

@@ -15,11 +15,16 @@
  */
 
 package viz
+import org.scalajs.dom
 
 class MySuite extends munit.FunSuite:
-  test("hello") {
-    // (1 to 5).map(i => (scala.util.Random.nextString(5), 1)).plotPieChart(List())
-
-    assertEquals(1, 1)
+  test("Createing an element") {
+    val h1 = dom.document.createElement("h1")
+    h1.textContent = "Hello World"
+    dom.document.body.appendChild(h1)
+    val h1s = dom.document.getElementsByTagName("h1")
+    assertEquals(h1s.length, 1)
+    assertEquals(h1s.item(0).textContent,"Hello World")
   }
+
 end MySuite
