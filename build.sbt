@@ -42,7 +42,7 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 
-lazy val root = tlCrossRootProject.aggregate(core, generated, dedav_laminar, dedav_calico, unidocs, tests)
+lazy val root = tlCrossRootProject.aggregate(core, dedav_laminar, dedav_calico, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
@@ -89,23 +89,23 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val generated = crossProject(JVMPlatform, JSPlatform)
-  .in(file("generated"))
-  .dependsOn(core)
-  .settings(
-    tlFatalWarnings := false,
-    scalacOptions ++= Seq(
-      "-Xmax-inlines:2000"
-    ),
-    libraryDependencies ++= Seq(
-      "io.circe" %%% "circe-core" % "0.14.6",
-      "io.circe" %%% "circe-parser" % "0.14.6"
-    )
-  )
+// lazy val generated = crossProject(JVMPlatform, JSPlatform)
+//   .in(file("generated"))
+//   .dependsOn(core)
+//   .settings(
+//     tlFatalWarnings := false,
+//     scalacOptions ++= Seq(
+//       "-Xmax-inlines:2000"
+//     ),
+//     libraryDependencies ++= Seq(
+//       "io.circe" %%% "circe-core" % "0.14.6",
+//       "io.circe" %%% "circe-parser" % "0.14.6"
+//     )
+//   )
 
 lazy val dedav_calico = project
   .in(file("calico"))
-  .dependsOn(generated.jvm)
+  .dependsOn(core.jvm)
   .settings(
     libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.1"
   )
@@ -123,11 +123,16 @@ lazy val dedav_laminar = project
 lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .in(file("tests"))
   .enablePlugins(NoPublishPlugin)
-  .dependsOn(core, generated)
+  .dependsOn(core)
   .settings(
     libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M10" % Test
   )
-  .jvmSettings(name := "tests-jvm")
+  .jvmSettings(
+    name := "tests-jvm",
+    // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
+    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.41.0" % Test,
+    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.41.0" % Test,
+  )
   .jsSettings(name := "tests-js")
 
 lazy val jsdocs = project
@@ -138,7 +143,7 @@ lazy val jsdocs = project
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
   )
-  .dependsOn(dedav_calico, dedav_laminar, generated.js)
+  .dependsOn(dedav_calico, dedav_laminar, core.js)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(NoPublishPlugin)
 
@@ -147,12 +152,12 @@ lazy val unidocs = project
   .enablePlugins(TypelevelUnidocPlugin) // also enables the ScalaUnidocPlugin
   .settings(
     name := "dedav4s-docs",
-    ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(core.jvm, generated.jvm)
+    ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(core.jvm)
   )
 
 lazy val docs = project
   .in(file("myproject-docs")) // important: it must not be docs/
-  .dependsOn(generated.jvm)
+  .dependsOn(core.jvm)
   .settings(
     mdocJS := Some(jsdocs),
     mdocIn := new File("raw_docs"),
