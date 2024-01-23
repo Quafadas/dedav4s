@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("*")
 public class DriverJar extends Driver {
     private static final String PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD";
     private static final String SELENIUM_REMOTE_URL = "SELENIUM_REMOTE_URL";
@@ -180,6 +181,7 @@ public class DriverJar extends Driver {
             toPath.toFile().deleteOnExit();
             return new URI("jar:" + toPath.toUri() + JAR_URL_SEPARATOR + parts[2]);
         } catch (IOException e) {
+            fs.close();
             throw new RuntimeException("Failed to extract driver's nested .jar from " + jarUri + "; full uri: " + uri, e);
         }
     }
