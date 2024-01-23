@@ -5082,8 +5082,8 @@ $c_Lmdocjs$chartExample$2$.prototype.apply__Lcom_raquo_laminar_nodes_ReactiveHtm
   var this$16 = $n($n(this.Lmdocjs$chartExample$2$__f_data).Lcom_raquo_airstream_state_SourceVar__f_signal);
   var project$1 = new $c_sjsr_AnonFunction1(((data$2$1) => {
     var data$4 = $as_sci_List(data$2$1);
-    var $$x2 = $m_Lviz_extensions_package$();
-    var $$x1 = $m_Lviz_vega_plots_Examples$package$().doNothing__Lviz_LowPriorityPlotTarget();
+    var $$x2 = $m_Lviz_extensions_package$RawIterables$();
+    var $$x1 = $m_Lviz_vega_plots_package$package$().doNothing__Lviz_LowPriorityPlotTarget();
     $n($m_s_package$().s_package$__f_List);
     var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_F1.getArrayOf().constr)([$m_Lviz_Utils$().Lviz_Utils$__f_fillDiv]));
     var barChart = $n($$x2).plotBarChart__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_BarChart(data$4, $$x1, $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems), $m_s_math_Numeric$DoubleIsFractional$());
@@ -5157,7 +5157,7 @@ function $c_Lmdocjs$chartExample$4$() {
   $n($m_s_package$().s_package$__f_List);
   var elems$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_F1.getArrayOf().constr)([$m_Lviz_Utils$().Lviz_Utils$__f_fillDiv, $m_Lviz_Utils$().Lviz_Utils$__f_removeXAxis, $m_Lviz_Utils$().Lviz_Utils$__f_removeYAxis]));
   var mods = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems$1);
-  var x$2 = $m_Lviz_vega_plots_Examples$package$().doNothing__Lviz_LowPriorityPlotTarget();
+  var x$2 = $m_Lviz_vega_plots_package$package$().doNothing__Lviz_LowPriorityPlotTarget();
   this.Lmdocjs$chartExample$4$__f_baseChart = new $c_Lviz_vega_plots_BarChart(mods, x$2);
   this.Lmdocjs$chartExample$4$__f_setDivSize = $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).div__Lcom_raquo_laminar_tags_HtmlTag()).apply__sci_Seq__Lcom_raquo_laminar_nodes_ReactiveHtmlElement($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lcom_raquo_laminar_modifiers_Modifier.getArrayOf().constr)([$n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).width__Lcom_raquo_laminar_keys_StyleProp()).$colon$eq__O__Lcom_raquo_laminar_modifiers_KeySetter("40vmin"), $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).height__Lcom_raquo_laminar_keys_StyleProp()).$colon$eq__O__Lcom_raquo_laminar_modifiers_KeySetter("40vmin")])))
 }
@@ -9200,22 +9200,22 @@ function $m_Lviz_doNothing_DoNothing$package$() {
   return $n_Lviz_doNothing_DoNothing$package$
 }
 /** @constructor */
-function $c_Lviz_extensions_package$() {
+function $c_Lviz_extensions_package$RawIterables$() {
   /*<skip>*/
 }
-$c_Lviz_extensions_package$.prototype = new $h_O();
-$c_Lviz_extensions_package$.prototype.constructor = $c_Lviz_extensions_package$;
+$c_Lviz_extensions_package$RawIterables$.prototype = new $h_O();
+$c_Lviz_extensions_package$RawIterables$.prototype.constructor = $c_Lviz_extensions_package$RawIterables$;
 /** @constructor */
-function $h_Lviz_extensions_package$() {
+function $h_Lviz_extensions_package$RawIterables$() {
   /*<skip>*/
 }
-$h_Lviz_extensions_package$.prototype = $c_Lviz_extensions_package$.prototype;
-$c_Lviz_extensions_package$.prototype.plotBarChart__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_BarChart = (function(l, plotTarget, mods, evidence$1) {
+$h_Lviz_extensions_package$RawIterables$.prototype = $c_Lviz_extensions_package$RawIterables$.prototype;
+$c_Lviz_extensions_package$RawIterables$.prototype.plotBarChart__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_BarChart = (function(l, plotTarget, mods, evidence$2) {
   var labelToNotShow = $as_sc_Iterable($n(l).map__F1__O(new $c_sjsr_AnonFunction1(((number) => {
     var this$3 = $n($n($m_s_util_Random$().alphanumeric__sci_LazyList()).take__I__sci_LazyList(8));
     var y = $f_sc_IterableOnceOps__mkString__T__T__T__T(this$3, "", "", "");
     var $$x1 = $m_sr_ScalaRunTime$();
-    var i = new $c_s_math_Numeric$NumericOps(evidence$1, number).toDouble__D();
+    var i = new $c_s_math_Numeric$NumericOps(evidence$2, number).toDouble__D();
     var y$1 = new $c_Lujson_Num(i);
     var items = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("amount", y$1)]));
     var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -9249,19 +9249,19 @@ $c_Lviz_extensions_package$.prototype.plotBarChart__sc_Iterable__Lviz_LowPriorit
   var mods$1 = this$26.appendedAll__sc_IterableOnce__sci_List(mods);
   return new $c_Lviz_vega_plots_BarChart(mods$1, plotTarget)
 });
-var $d_Lviz_extensions_package$ = new $TypeData().initClass({
-  Lviz_extensions_package$: 0
-}, false, "viz.extensions.package$", {
-  Lviz_extensions_package$: 1,
+var $d_Lviz_extensions_package$RawIterables$ = new $TypeData().initClass({
+  Lviz_extensions_package$RawIterables$: 0
+}, false, "viz.extensions.package$RawIterables$", {
+  Lviz_extensions_package$RawIterables$: 1,
   O: 1
 });
-$c_Lviz_extensions_package$.prototype.$classData = $d_Lviz_extensions_package$;
-var $n_Lviz_extensions_package$;
-function $m_Lviz_extensions_package$() {
-  if ((!$n_Lviz_extensions_package$)) {
-    $n_Lviz_extensions_package$ = new $c_Lviz_extensions_package$()
+$c_Lviz_extensions_package$RawIterables$.prototype.$classData = $d_Lviz_extensions_package$RawIterables$;
+var $n_Lviz_extensions_package$RawIterables$;
+function $m_Lviz_extensions_package$RawIterables$() {
+  if ((!$n_Lviz_extensions_package$RawIterables$)) {
+    $n_Lviz_extensions_package$RawIterables$ = new $c_Lviz_extensions_package$RawIterables$()
   };
-  return $n_Lviz_extensions_package$
+  return $n_Lviz_extensions_package$RawIterables$
 }
 function $f_Lviz_vega_facades_EmbedOptions__$init$__V($thiz) {
   /*<skip>*/
@@ -9320,37 +9320,37 @@ function $m_Lviz_vega_facades_Helpers$() {
   return $n_Lviz_vega_facades_Helpers$
 }
 /** @constructor */
-function $c_Lviz_vega_plots_Examples$package$() {
-  this.Lviz_vega_plots_Examples$package$__f_doNothing$lzy1 = null;
-  this.Lviz_vega_plots_Examples$package$__f_doNothingbitmap$1 = false
+function $c_Lviz_vega_plots_package$package$() {
+  this.Lviz_vega_plots_package$package$__f_doNothing$lzy1 = null;
+  this.Lviz_vega_plots_package$package$__f_doNothingbitmap$1 = false
 }
-$c_Lviz_vega_plots_Examples$package$.prototype = new $h_O();
-$c_Lviz_vega_plots_Examples$package$.prototype.constructor = $c_Lviz_vega_plots_Examples$package$;
+$c_Lviz_vega_plots_package$package$.prototype = new $h_O();
+$c_Lviz_vega_plots_package$package$.prototype.constructor = $c_Lviz_vega_plots_package$package$;
 /** @constructor */
-function $h_Lviz_vega_plots_Examples$package$() {
+function $h_Lviz_vega_plots_package$package$() {
   /*<skip>*/
 }
-$h_Lviz_vega_plots_Examples$package$.prototype = $c_Lviz_vega_plots_Examples$package$.prototype;
-$c_Lviz_vega_plots_Examples$package$.prototype.doNothing__Lviz_LowPriorityPlotTarget = (function() {
-  if ((!this.Lviz_vega_plots_Examples$package$__f_doNothingbitmap$1)) {
-    this.Lviz_vega_plots_Examples$package$__f_doNothing$lzy1 = $m_Lviz_doNothing_DoNothing$package$().doNothing__Lviz_LowPriorityPlotTarget();
-    this.Lviz_vega_plots_Examples$package$__f_doNothingbitmap$1 = true
+$h_Lviz_vega_plots_package$package$.prototype = $c_Lviz_vega_plots_package$package$.prototype;
+$c_Lviz_vega_plots_package$package$.prototype.doNothing__Lviz_LowPriorityPlotTarget = (function() {
+  if ((!this.Lviz_vega_plots_package$package$__f_doNothingbitmap$1)) {
+    this.Lviz_vega_plots_package$package$__f_doNothing$lzy1 = $m_Lviz_doNothing_DoNothing$package$().doNothing__Lviz_LowPriorityPlotTarget();
+    this.Lviz_vega_plots_package$package$__f_doNothingbitmap$1 = true
   };
-  return this.Lviz_vega_plots_Examples$package$__f_doNothing$lzy1
+  return this.Lviz_vega_plots_package$package$__f_doNothing$lzy1
 });
-var $d_Lviz_vega_plots_Examples$package$ = new $TypeData().initClass({
-  Lviz_vega_plots_Examples$package$: 0
-}, false, "viz.vega.plots.Examples$package$", {
-  Lviz_vega_plots_Examples$package$: 1,
+var $d_Lviz_vega_plots_package$package$ = new $TypeData().initClass({
+  Lviz_vega_plots_package$package$: 0
+}, false, "viz.vega.plots.package$package$", {
+  Lviz_vega_plots_package$package$: 1,
   O: 1
 });
-$c_Lviz_vega_plots_Examples$package$.prototype.$classData = $d_Lviz_vega_plots_Examples$package$;
-var $n_Lviz_vega_plots_Examples$package$;
-function $m_Lviz_vega_plots_Examples$package$() {
-  if ((!$n_Lviz_vega_plots_Examples$package$)) {
-    $n_Lviz_vega_plots_Examples$package$ = new $c_Lviz_vega_plots_Examples$package$()
+$c_Lviz_vega_plots_package$package$.prototype.$classData = $d_Lviz_vega_plots_package$package$;
+var $n_Lviz_vega_plots_package$package$;
+function $m_Lviz_vega_plots_package$package$() {
+  if ((!$n_Lviz_vega_plots_package$package$)) {
+    $n_Lviz_vega_plots_package$package$ = new $c_Lviz_vega_plots_package$package$()
   };
-  return $n_Lviz_vega_plots_Examples$package$
+  return $n_Lviz_vega_plots_package$package$
 }
 /** @constructor */
 function $c_Lapp_tulz_tuplez_Composition\uff3fPri0$$anon$1() {

@@ -2123,7 +2123,7 @@ function $h_Lmdocjs$() {
 }
 $h_Lmdocjs$.prototype = $c_Lmdocjs$.prototype;
 $c_Lmdocjs$.prototype.run0__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
-  var $$x3 = $m_Lviz_extensions_package$();
+  var $$x3 = $m_Lviz_extensions_package$RawIterables$();
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("A", 4), new $c_T2("B", 6), new $c_T2("C", (-1))]));
   var $$x2 = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems);
@@ -2139,7 +2139,7 @@ $c_Lmdocjs$.prototype.run1__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_F1.getArrayOf().constr)([$m_Lviz_Utils$().Lviz_Utils$__f_fillDiv]));
   var mods = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems);
-  var evidence$1 = $m_s_math_Numeric$IntIsIntegral$();
+  var evidence$2 = $m_s_math_Numeric$IntIsIntegral$();
   var b = $m_sci_IndexedSeq$().newBuilder__scm_Builder();
   var it = new $c_sci_RangeIterator(1, 1, 5, false);
   while (it.sci_RangeIterator__f__hasNext) {
@@ -2148,7 +2148,7 @@ $c_Lmdocjs$.prototype.run1__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
     var this$7 = $n($n($m_s_util_Random$().alphanumeric__sci_LazyList()).take__I__sci_LazyList(8));
     var y = $f_sc_IterableOnceOps__mkString__T__T__T__T(this$7, "", "", "");
     var $$x1 = $m_sr_ScalaRunTime$();
-    var i = new $c_s_math_Numeric$NumericOps(evidence$1, arg1).toDouble__D();
+    var i = new $c_s_math_Numeric$NumericOps(evidence$2, arg1).toDouble__D();
     var y$1 = new $c_Lujson_Num(i);
     var items = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("amount", y$1)]));
     var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -2190,7 +2190,7 @@ $c_Lmdocjs$.prototype.run2__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_F1.getArrayOf().constr)([$m_Lviz_Utils$().Lviz_Utils$__f_fillDiv]));
   var mods = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems);
-  var evidence$2 = $m_s_math_Numeric$IntIsIntegral$();
+  var evidence$3 = $m_s_math_Numeric$IntIsIntegral$();
   var b = $m_sci_IndexedSeq$().newBuilder__scm_Builder();
   var it = new $c_sci_RangeIterator(1, 1, 5, false);
   while (it.sci_RangeIterator__f__hasNext) {
@@ -2199,7 +2199,7 @@ $c_Lmdocjs$.prototype.run2__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
     var this$7 = $n($n($m_s_util_Random$().alphanumeric__sci_LazyList()).take__I__sci_LazyList(8));
     var y = $f_sc_IterableOnceOps__mkString__T__T__T__T(this$7, "", "", "");
     var $$x1 = $m_sr_ScalaRunTime$();
-    var i = new $c_s_math_Numeric$NumericOps(evidence$2, arg1).toDouble__D();
+    var i = new $c_s_math_Numeric$NumericOps(evidence$3, arg1).toDouble__D();
     var y$1 = new $c_Lujson_Num(i);
     var items = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("field", y$1)]));
     var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -2235,7 +2235,7 @@ $c_Lmdocjs$.prototype.run2__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
 });
 $c_Lmdocjs$.prototype.run3__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   var $$x4 = $m_Lviz_js_showChartJs$();
-  var $$x3 = $m_Lviz_extensions_package$();
+  var $$x3 = $m_Lviz_extensions_package$RawIterables$();
   var b = $m_sci_IndexedSeq$().newBuilder__scm_Builder();
   var it = new $c_sci_RangeIterator(1, 1, 5, false);
   while (it.sci_RangeIterator__f__hasNext) {
@@ -2256,28 +2256,28 @@ $c_Lmdocjs$.prototype.run4__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T.getArrayOf().constr)(["how much wood would a wood chuck chuck if a wood chuck could chuck wood", "a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood"]));
   var s$1 = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems);
-  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$().plotWordcloud__sci_Seq__Lviz_PlotTarget__sci_Seq__Lviz_vega_plots_WordCloud(s$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$().plotWordcloud$default$3__sci_Seq__Lviz_PlotTarget__sci_Seq(s$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$())), node, 50)
+  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$RawIterables$().plotWordcloud__sci_Seq__Lviz_PlotTarget__sci_Seq__Lviz_vega_plots_WordCloud(s$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$RawIterables$().plotWordcloud$default$3__sci_Seq__Lviz_PlotTarget__sci_Seq(s$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$())), node, 50)
 });
 $c_Lmdocjs$.prototype.run5__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   var $$x1 = $m_Lviz_js_showChartJs$();
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapIntArray__AI__sci_ArraySeq(new $ac_I(new Int32Array([1, 5, 3, 15, 7, 8])));
   var l$1 = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems);
-  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$().plotLineChart__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_LineChart(l$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$().plotLineChart$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq(l$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$()), $m_s_math_Numeric$IntIsIntegral$()), node, 50)
+  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$RawIterables$().plotLineChart__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_LineChart(l$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$RawIterables$().plotLineChart$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq(l$1, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$()), $m_s_math_Numeric$IntIsIntegral$()), node, 50)
 });
 $c_Lmdocjs$.prototype.run6__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   var $$x1 = $m_Lviz_js_showChartJs$();
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapIntArray__AI__sci_ArraySeq(new $ac_I(new Int32Array([1, 11, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 8, 8, 9, 8])));
   var l$2 = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems);
-  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$().plotDotPlot__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_DotPlot(l$2, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$().plotDotPlot$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq(l$2, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$()), $m_s_math_Numeric$IntIsIntegral$()), node, 50)
+  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$RawIterables$().plotDotPlot__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_DotPlot(l$2, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$RawIterables$().plotDotPlot$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq(l$2, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$()), $m_s_math_Numeric$IntIsIntegral$()), node, 50)
 });
 $c_Lmdocjs$.prototype.run7__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   var $$x1 = $m_Lviz_js_showChartJs$();
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2(1.0, 2.0), new $c_T2(3.0, 4.0), new $c_T2(0.5, 5.0), new $c_T2(3.14159, 1.0)]));
   var l$3 = $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems);
-  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$().plotScatter__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__s_math_Numeric__Lviz_vega_plots_ScatterPlot(l$3, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$().plotScatter$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq(l$3, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$()), $m_s_math_Numeric$DoubleIsFractional$(), $m_s_math_Numeric$DoubleIsFractional$()), node, 50)
+  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V($m_Lviz_extensions_package$RawIterables$().plotScatter__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__s_math_Numeric__Lviz_vega_plots_ScatterPlot(l$3, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$(), $m_Lviz_extensions_package$RawIterables$().plotScatter$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq(l$3, $m_Lviz_PlotTargets$().doNothing__Lviz_SharedTargets$doNothing$()), $m_s_math_Numeric$DoubleIsFractional$(), $m_s_math_Numeric$DoubleIsFractional$()), node, 50)
 });
 var $d_Lmdocjs$ = new $TypeData().initClass({
   Lmdocjs$: 0
@@ -5743,17 +5743,17 @@ function $f_Lviz_companions_AxisUtils__$init$__V($thiz) {
   $thiz.viz$companions$AxisUtils$_setter_$removeYAxis_$eq__F1__V($m_Lviz_Utils$().Lviz_Utils$__f_removeYAxis)
 }
 /** @constructor */
-function $c_Lviz_extensions_package$() {
+function $c_Lviz_extensions_package$RawIterables$() {
   /*<skip>*/
 }
-$c_Lviz_extensions_package$.prototype = new $h_O();
-$c_Lviz_extensions_package$.prototype.constructor = $c_Lviz_extensions_package$;
+$c_Lviz_extensions_package$RawIterables$.prototype = new $h_O();
+$c_Lviz_extensions_package$RawIterables$.prototype.constructor = $c_Lviz_extensions_package$RawIterables$;
 /** @constructor */
-function $h_Lviz_extensions_package$() {
+function $h_Lviz_extensions_package$RawIterables$() {
   /*<skip>*/
 }
-$h_Lviz_extensions_package$.prototype = $c_Lviz_extensions_package$.prototype;
-$c_Lviz_extensions_package$.prototype.plotLineChart__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_LineChart = (function(l, plotTarget, mods, evidence$3) {
+$h_Lviz_extensions_package$RawIterables$.prototype = $c_Lviz_extensions_package$RawIterables$.prototype;
+$c_Lviz_extensions_package$RawIterables$.prototype.plotLineChart__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_LineChart = (function(l, plotTarget, mods, evidence$4) {
   var labelToNotShow = $as_sc_Iterable($n($n($as_sc_IterableOps($n(l).zipWithIndex__O())).withFilter__F1__sc_WithFilter(new $c_sjsr_AnonFunction1(((x$1) => {
     var x$1$1 = $as_T2(x$1);
     return ((x$1$1 !== null) && ($n(x$1$1)._1__O(), $uI($n(x$1$1)._2__O()), true))
@@ -5763,7 +5763,7 @@ $c_Lviz_extensions_package$.prototype.plotLineChart__sc_Iterable__Lviz_LowPriori
       var number$1 = $n(x$1$3)._1__O();
       var i$1 = $uI($n(x$1$3)._2__O());
       var $$x1 = $m_sr_ScalaRunTime$();
-      var i$2 = new $c_s_math_Numeric$NumericOps(evidence$3, number$1).toDouble__D();
+      var i$2 = new $c_s_math_Numeric$NumericOps(evidence$4, number$1).toDouble__D();
       var y = new $c_Lujson_Num(i$2);
       var items = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("y", y)]));
       var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -5797,12 +5797,12 @@ $c_Lviz_extensions_package$.prototype.plotLineChart__sc_Iterable__Lviz_LowPriori
   var mods$1 = this$23.appendedAll__sc_IterableOnce__sci_List(mods);
   return new $c_Lviz_vega_plots_LineChart(mods$1, plotTarget)
 });
-$c_Lviz_extensions_package$.prototype.plotLineChart$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq = (function(l, plotTarget) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotLineChart$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq = (function(l, plotTarget) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().genericWrapArray__O__sci_ArraySeq(new ($d_sr_Nothing$.getArrayOf().constr)([]));
   return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems)
 });
-$c_Lviz_extensions_package$.prototype.plotDotPlot__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_DotPlot = (function(l, plotTarget, mods, evidence$4) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotDotPlot__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_DotPlot = (function(l, plotTarget, mods, evidence$5) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_F1.getArrayOf().constr)([new $c_sjsr_AnonFunction1(((spec) => {
     var spec$1 = $as_Lujson_Value(spec);
@@ -5812,7 +5812,7 @@ $c_Lviz_extensions_package$.prototype.plotDotPlot__sc_Iterable__Lviz_LowPriority
     var s$1 = new $c_Lujson_Value$Selector$IntSelector(0);
     var this$10 = $n(s$1.apply__Lujson_Value__Lujson_Value(this$5));
     var s$2 = new $c_Lujson_Value$Selector$StringSelector("values");
-    var v = $m_Lujson_Value$().JsonableSeq__sc_IterableOnce__F1__Lujson_Arr($as_sc_IterableOnce($n(l).map__F1__O(new $c_sjsr_AnonFunction1(((_$1) => new $c_s_math_Numeric$NumericOps(evidence$4, _$1).toDouble__D())))), new $c_sjsr_AnonFunction1(((i) => {
+    var v = $m_Lujson_Value$().JsonableSeq__sc_IterableOnce__F1__Lujson_Arr($as_sc_IterableOnce($n(l).map__F1__O(new $c_sjsr_AnonFunction1(((_$1) => new $c_s_math_Numeric$NumericOps(evidence$5, _$1).toDouble__D())))), new $c_sjsr_AnonFunction1(((i) => {
       var i$1 = $uD(i);
       return new $c_Lujson_Num(i$1)
     })));
@@ -5821,12 +5821,12 @@ $c_Lviz_extensions_package$.prototype.plotDotPlot__sc_Iterable__Lviz_LowPriority
   var this$12 = $n($m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems));
   return new $c_Lviz_vega_plots_DotPlot(this$12.appendedAll__sc_IterableOnce__sci_List(mods), plotTarget)
 });
-$c_Lviz_extensions_package$.prototype.plotDotPlot$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq = (function(l, plotTarget) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotDotPlot$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq = (function(l, plotTarget) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().genericWrapArray__O__sci_ArraySeq(new ($d_sr_Nothing$.getArrayOf().constr)([]));
   return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems)
 });
-$c_Lviz_extensions_package$.prototype.plotLineChartWithLabels__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_BarChart = (function(l, plotTarget, mods, evidence$6) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotLineChartWithLabels__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_BarChart = (function(l, plotTarget, mods, evidence$7) {
   var labelled = $as_sc_Iterable($n($n(l).withFilter__F1__sc_WithFilter(new $c_sjsr_AnonFunction1(((x$1) => {
     var x$1$1 = $as_T2(x$1);
     return ((x$1$1 !== null) && ($as_T($n(x$1$1)._1__O()), $n(x$1$1)._2__O(), true))
@@ -5836,7 +5836,7 @@ $c_Lviz_extensions_package$.prototype.plotLineChartWithLabels__sc_Iterable__Lviz
       var label$1 = $as_T($n(x$1$3)._1__O());
       var number$1 = $n(x$1$3)._2__O();
       var $$x1 = $m_sr_ScalaRunTime$();
-      var i = new $c_s_math_Numeric$NumericOps(evidence$6, number$1).toDouble__D();
+      var i = new $c_s_math_Numeric$NumericOps(evidence$7, number$1).toDouble__D();
       var y = new $c_Lujson_Num(i);
       var items = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("amount", y)]));
       var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -5872,7 +5872,7 @@ $c_Lviz_extensions_package$.prototype.plotLineChartWithLabels__sc_Iterable__Lviz
   var mods$1 = this$26.appendedAll__sc_IterableOnce__sci_List(mods);
   return new $c_Lviz_vega_plots_BarChart(mods$1, plotTarget)
 });
-$c_Lviz_extensions_package$.prototype.plotPieChartWithLabels__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_PieChart = (function(l, plotTarget, mods, evidence$7) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotPieChartWithLabels__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__Lviz_vega_plots_PieChart = (function(l, plotTarget, mods, evidence$8) {
   var labelled = $as_sc_Iterable($n($n(l).withFilter__F1__sc_WithFilter(new $c_sjsr_AnonFunction1(((x$1) => {
     var x$1$1 = $as_T2(x$1);
     return ((x$1$1 !== null) && ($as_T($n(x$1$1)._1__O()), $n(x$1$1)._2__O(), true))
@@ -5882,7 +5882,7 @@ $c_Lviz_extensions_package$.prototype.plotPieChartWithLabels__sc_Iterable__Lviz_
       var label$1 = $as_T($n(x$1$3)._1__O());
       var number$1 = $n(x$1$3)._2__O();
       var $$x1 = $m_sr_ScalaRunTime$();
-      var i = new $c_s_math_Numeric$NumericOps(evidence$7, number$1).toDouble__D();
+      var i = new $c_s_math_Numeric$NumericOps(evidence$8, number$1).toDouble__D();
       var y = new $c_Lujson_Num(i);
       var items = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("field", y)]));
       var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -5998,15 +5998,15 @@ $c_Lviz_extensions_package$.prototype.plotPieChartWithLabels__sc_Iterable__Lviz_
   var mods$1 = this$80.appendedAll__sc_IterableOnce__sci_List(mods);
   return new $c_Lviz_vega_plots_PieChart(mods$1, plotTarget)
 });
-$c_Lviz_extensions_package$.prototype.plotScatter__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__s_math_Numeric__Lviz_vega_plots_ScatterPlot = (function(l, plotTarget, mods, evidence$11, evidence$12) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotScatter__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq__s_math_Numeric__s_math_Numeric__Lviz_vega_plots_ScatterPlot = (function(l, plotTarget, mods, evidence$12, evidence$13) {
   var values = $as_sc_Iterable($n(l).map__F1__O(new $c_sjsr_AnonFunction1(((x$1) => {
     var x$1$1 = $as_T2(x$1);
     if ((x$1$1 !== null)) {
       var x = $n(x$1$1)._1__O();
       var y = $n(x$1$1)._2__O();
-      var y$1 = new $c_s_math_Numeric$NumericOps(evidence$11, x).toDouble__D();
+      var y$1 = new $c_s_math_Numeric$NumericOps(evidence$12, x).toDouble__D();
       var $$x1 = $m_sr_ScalaRunTime$();
-      var i = new $c_s_math_Numeric$NumericOps(evidence$12, y).toDouble__D();
+      var i = new $c_s_math_Numeric$NumericOps(evidence$13, y).toDouble__D();
       var y$2 = new $c_Lujson_Num(i);
       var items = $n($$x1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("y", y$2)]));
       var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -6202,12 +6202,12 @@ $c_Lviz_extensions_package$.prototype.plotScatter__sc_Iterable__Lviz_LowPriority
   var mods$1 = this$147.appendedAll__sc_IterableOnce__sci_List(mods);
   return new $c_Lviz_vega_plots_ScatterPlot(mods$1, plotTarget)
 });
-$c_Lviz_extensions_package$.prototype.plotScatter$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq = (function(l, plotTarget) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotScatter$default$3__sc_Iterable__Lviz_LowPriorityPlotTarget__sci_Seq = (function(l, plotTarget) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().genericWrapArray__O__sci_ArraySeq(new ($d_sr_Nothing$.getArrayOf().constr)([]));
   return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems)
 });
-$c_Lviz_extensions_package$.prototype.plotWordcloud__sci_Seq__Lviz_PlotTarget__sci_Seq__Lviz_vega_plots_WordCloud = (function(s, plotTarget, mods) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotWordcloud__sci_Seq__Lviz_PlotTarget__sci_Seq__Lviz_vega_plots_WordCloud = (function(s, plotTarget, mods) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_F1.getArrayOf().constr)([new $c_sjsr_AnonFunction1(((spec) => {
     var spec$1 = $as_Lujson_Value(spec);
@@ -6239,24 +6239,24 @@ $c_Lviz_extensions_package$.prototype.plotWordcloud__sci_Seq__Lviz_PlotTarget__s
   var mods$1 = this$20.appendedAll__sc_IterableOnce__sci_List(mods);
   return new $c_Lviz_vega_plots_WordCloud(mods$1, plotTarget)
 });
-$c_Lviz_extensions_package$.prototype.plotWordcloud$default$3__sci_Seq__Lviz_PlotTarget__sci_Seq = (function(s, plotTarget) {
+$c_Lviz_extensions_package$RawIterables$.prototype.plotWordcloud$default$3__sci_Seq__Lviz_PlotTarget__sci_Seq = (function(s, plotTarget) {
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().genericWrapArray__O__sci_ArraySeq(new ($d_sr_Nothing$.getArrayOf().constr)([]));
   return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems)
 });
-var $d_Lviz_extensions_package$ = new $TypeData().initClass({
-  Lviz_extensions_package$: 0
-}, false, "viz.extensions.package$", {
-  Lviz_extensions_package$: 1,
+var $d_Lviz_extensions_package$RawIterables$ = new $TypeData().initClass({
+  Lviz_extensions_package$RawIterables$: 0
+}, false, "viz.extensions.package$RawIterables$", {
+  Lviz_extensions_package$RawIterables$: 1,
   O: 1
 });
-$c_Lviz_extensions_package$.prototype.$classData = $d_Lviz_extensions_package$;
-var $n_Lviz_extensions_package$;
-function $m_Lviz_extensions_package$() {
-  if ((!$n_Lviz_extensions_package$)) {
-    $n_Lviz_extensions_package$ = new $c_Lviz_extensions_package$()
+$c_Lviz_extensions_package$RawIterables$.prototype.$classData = $d_Lviz_extensions_package$RawIterables$;
+var $n_Lviz_extensions_package$RawIterables$;
+function $m_Lviz_extensions_package$RawIterables$() {
+  if ((!$n_Lviz_extensions_package$RawIterables$)) {
+    $n_Lviz_extensions_package$RawIterables$ = new $c_Lviz_extensions_package$RawIterables$()
   };
-  return $n_Lviz_extensions_package$
+  return $n_Lviz_extensions_package$RawIterables$
 }
 /** @constructor */
 function $c_Lviz_js_showChartJs$() {

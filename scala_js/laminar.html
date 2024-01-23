@@ -61,15 +61,15 @@
     <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
@@ -109,7 +109,7 @@
         <h2 id="simple-strategy" class="section"><a class="anchor-link left" href="#simple-strategy"><i class="icofont-laika link">&#xef71;</i></a>Simple strategy</h2>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.</span><span class="identifier">_</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">LaminarViz</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="identifier">given</span><span>}

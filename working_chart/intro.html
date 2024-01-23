@@ -61,15 +61,15 @@
     <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 active nav-leaf"><a href="#">Styles</a></li>
     <li class="level2 nav-leaf"><a href="mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="mixed.html">Mixed typesafe / mutable</a></li>
     <li class="level2 nav-leaf"><a href="chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
@@ -102,23 +102,10 @@
       <main class="content">
 
         <h1 id="styles" class="title">Styles</h1>
-        <p>There are essentially three strategies for working with a chart</p>
-        <ol class="arabic">
-          <li><a href="mutable.html">Mutable</a></li>
-          <li><a href="typesafe.html">The DSL</a></li>
-          <li>a <a href="mixed.html">mix</a> of the two...</li>
-        </ol>
-        <p>The typesafe DSL is generated out of the vega <a href="https://github.com/vega/schema">JSON schema</a>.</p>
-        <p>I do not believe it to be 100% correct. About 95% correct.</p>
-        <p>For this reason, the &quot;mutable&quot; option is the ultimate fallback. Typesafe is pretty nice to have, though.</p>
+        <p>The library has evolved, currently, I believe the most productive engagement to be using the excellent <a href="https://tarao.orezdnu.org/record4s/">records4s</a> as easy way to express sub-parts of vega specs.</p>
         
         <h2 id="design-note" class="section"><a class="anchor-link left" href="#design-note"><i class="icofont-laika link">&#xef71;</i></a>Design&nbsp;Note</h2>
-        <p>All charts are, in the end ... just a case class. For a given case class, the plot will <em>always</em> be the same. Onen could argue that it is &quot;functional&quot; at that boundary.</p>
-        <p>Finally, because we&#39;re just producing a chart;</p>
-        <ol class="arabic">
-          <li>Your plot can be produced via a method defined directly on some data class itself</li>
-          <li>You don&#39;t have to own the data structure - have a look at the extension methods. The homepage works through an extension method defined on <code>Numeric[Iterable]</code></li>
-        </ol>
+        <p>All charts are, in the end ... just a case class. For a given case class, the plot will <em>always</em> be the same. Onen could argue that it is &quot;functional&quot; at that boundary. This therefore opens the potential for abstraction over charts, and in particular for unit testing strategies which have a high degree of confidence.</p>
         
         <h2 id="visualisation-as-json" class="section"><a class="anchor-link left" href="#visualisation-as-json"><i class="icofont-laika link">&#xef71;</i></a>Visualisation as JSON</h2>
         <p>We can easily manipulate JSON objects using <a href="https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html">ujson</a>, and that gives us a lot of flexibility.</p>

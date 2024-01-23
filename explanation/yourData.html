@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Your Data</title>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">Getting Sarted</li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
+    <li class="level1 nav-header">Details</li>
+    <li class="level2 nav-leaf"><a href="chartTypes.html">Example Charts</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Your Data</a></li>
+    <li class="level2 nav-leaf"><a href="plotTargets.html">Plot Targets</a></li>
+    <li class="level2 nav-leaf"><a href="rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
+    <li class="level2 nav-leaf"><a href="customising.html">Customising an existing data structure</a></li>
+    <li class="level2 nav-leaf"><a href="outFiles.html">Where do the temporary files live?</a></li>
+    <li class="level1 nav-header">Working With A Chart</li>
+    <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
+    <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
+    <li class="level1 nav-header">Prior Art</li>
+    <li class="level2 nav-leaf"><a href="../priorArt/philosophy.html">Prior Art</a></li>
+    <li class="level1 nav-header">Scala Versions</li>
+    <li class="level2 nav-leaf"><a href="../scala_js/scalaJS.html">Introduction</a></li>
+    <li class="level2 nav-leaf"><a href="../scala_js/laminar.html">Laminar</a></li>
+    <li class="level2 nav-leaf"><a href="../scala_js/calico.html">Calico</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Your Data</a></p>
+
+  <ul class="nav-list">
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="your-data" class="title">Your Data</h1>
+        <p>My experience has been, that I don&#39;t usually know the structure of the data, that I&#39;m going to plot much in advance of wanting to see a plot. In advance, I know know little more than it&#39;s probably a <code>Seq[A]</code>. Plotting is a visual problem, which all the typesafety in the world, won&#39;t help you with.</p>
+        <p>Instead, the aim is plot it - stat. Then evolve.</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">github</span><span>.</span><span class="identifier">tarao</span><span>.</span><span class="identifier">record4s</span><span>.%
+
+</span><span class="comment">// We don&#39;t know this in advance, but we have a Seq of it, and we want a bar chart.
+</span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">MyData</span><span>(</span><span class="identifier">badlyNamed</span><span>:</span><span class="type-name">Double</span><span>, </span><span class="identifier">namely</span><span>:</span><span class="type-name">String</span><span>, </span><span class="identifier">otherData</span><span>: </span><span class="type-name">Option</span><span>[(</span><span class="type-name">Int</span><span>,</span><span class="type-name">Int</span><span>)], </span><span class="identifier">extraneous</span><span>: </span><span class="type-name">String</span><span>)
+
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">toPlot</span><span> = </span><span class="type-name">Seq</span><span>(
+  </span><span class="type-name">MyData</span><span>(</span><span class="number-literal">1.0</span><span>, </span><span class="string-literal">&quot;A&quot;</span><span>, </span><span class="type-name">Some</span><span>((</span><span class="number-literal">1</span><span>,</span><span class="number-literal">2</span><span>)), </span><span class="string-literal">&quot;foo&quot;</span><span>),
+  </span><span class="type-name">MyData</span><span>(</span><span class="number-literal">2.0</span><span>, </span><span class="string-literal">&quot;B&quot;</span><span>, </span><span class="type-name">None</span><span>, </span><span class="string-literal">&quot;bar&quot;</span><span>),
+)
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">plot</span><span> = </span><span class="identifier">toPlot</span><span>.</span><span class="identifier">plotBarChartR</span><span>(</span><span class="identifier">x</span><span> =&gt;
+    %(</span><span class="identifier">amount</span><span> = </span><span class="identifier">x</span><span>.</span><span class="identifier">badlyNamed</span><span>, </span><span class="identifier">category</span><span> = </span><span class="identifier">x</span><span>.</span><span class="identifier">namely</span><span>)
+  )(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
+
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">plot</span><span>, </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)</span></code></pre>
+        <div id="mdoc-html-run0" data-mdoc-js></div>
+        <p><script type="text/javascript" src="yourData.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script></p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

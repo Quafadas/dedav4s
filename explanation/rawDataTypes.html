@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>"Raw" Data & Extension Methods</title>
+  <title>"RawIterables" Extension Methods</title>
   
   
   <meta name="description" content="docs"/>
@@ -61,15 +61,15 @@
     <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="chartTypes.html">Example Charts</a></li>
+    <li class="level2 nav-leaf"><a href="yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="plotTargets.html">Plot Targets</a></li>
-    <li class="level2 active nav-leaf"><a href="#">&quot;Raw&quot; Data &amp; Extension Methods</a></li>
+    <li class="level2 active nav-leaf"><a href="#">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mixed.html">Mixed typesafe / mutable</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
@@ -88,7 +88,7 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">&quot;Raw&quot; Data &amp; Extension Methods</a></p>
+  <p class="header"><a href="#">&quot;RawIterables&quot; Extension Methods</a></p>
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#labelled-bar-chart">Labelled bar chart</a></li>
@@ -107,12 +107,13 @@
 
       <main class="content">
 
-        <h1 id="raw-data-extension-methods" class="title">&quot;Raw&quot; Data &amp; Extension Methods</h1>
-        <p>The idea here, is that &quot;raw datatypes&quot; have some unambiguous visualisation which is relatively common to want to plot. Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website, and come from a simple datastructure. We want to be able to plot these as quickly as possible. </p>
-        <p>We achieve this through scala 3&#39;s extension methods - have a look in the <code>viz.extensions</code> package for ideas. </p>
+        <h1 id="rawiterables-extension-methods" class="title">&quot;RawIterables&quot; Extension Methods</h1>
+        <p>For convienience, sometimes I can easily get &quot;raw datatypes&quot; which I just wan to plot quickly an with minimum ceremoney.</p>
+        <p>Pie charts, bar charts and the like, which are always going to look very similar to the examples on the vega website, and come from a simple datastructure. We want to be able to plot these as quickly as possible.</p>
+        <p>We achieve this through scala 3&#39;s extension methods - have a look in the <code>viz.extensions.RawIterables.*</code> package for ideas. Feel free to contribute more or create your own - it&#39;s quick enough.</p>
         
         <h3 id="labelled-bar-chart" class="section"><a class="anchor-link left" href="#labelled-bar-chart"><i class="icofont-laika link">&#xef71;</i></a>Labelled bar chart</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>, </span><span class="number-literal">4</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>, </span><span class="number-literal">6</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>, -</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())
@@ -120,8 +121,8 @@
         <div id="mdoc-html-run0" data-mdoc-js></div>
         
         <h3 id="bar-chart" class="section"><a class="anchor-link left" href="#bar-chart"><i class="icofont-laika link">&#xef71;</i></a>Bar chart</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span> 
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
   (</span><span class="number-literal">1</span><span> </span><span class="identifier">to</span><span> </span><span class="number-literal">5</span><span>).</span><span class="identifier">plotBarChart</span><span>( </span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>) ),
@@ -130,8 +131,8 @@
         <div id="mdoc-html-run1" data-mdoc-js></div>
         
         <h3 id="pie-chart" class="section"><a class="anchor-link left" href="#pie-chart"><i class="icofont-laika link">&#xef71;</i></a>Pie chart</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span> 
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
   (</span><span class="number-literal">1</span><span> </span><span class="identifier">to</span><span> </span><span class="number-literal">5</span><span>).</span><span class="identifier">plotPieChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)),
@@ -140,8 +141,8 @@
         <div id="mdoc-html-run2" data-mdoc-js></div>
         
         <h3 id="pie-chart-with-labels" class="section"><a class="anchor-link left" href="#pie-chart-with-labels"><i class="icofont-laika link">&#xef71;</i></a>Pie chart with labels...</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span> 
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
   (</span><span class="number-literal">1</span><span> </span><span class="identifier">to</span><span> </span><span class="number-literal">5</span><span>).</span><span class="identifier">map</span><span>(</span><span class="identifier">i</span><span> =&gt; (</span><span class="identifier">scala</span><span>.</span><span class="identifier">util</span><span>.</span><span class="type-name">Random</span><span>.</span><span class="identifier">nextString</span><span>(</span><span class="number-literal">5</span><span>), </span><span class="identifier">i</span><span>)).</span><span class="identifier">plotPieChart</span><span>(</span><span class="type-name">List</span><span>()),
@@ -151,21 +152,21 @@
         <div id="mdoc-html-run3" data-mdoc-js></div>
         
         <h3 id="word-cloud" class="section"><a class="anchor-link left" href="#word-cloud"><i class="icofont-laika link">&#xef71;</i></a>Word cloud</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span> 
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
   </span><span class="type-name">List</span><span>(
-    </span><span class="string-literal">&quot;how much wood would a wood chuck chuck if a wood chuck could chuck wood&quot;</span><span>, 
+    </span><span class="string-literal">&quot;how much wood would a wood chuck chuck if a wood chuck could chuck wood&quot;</span><span>,
     </span><span class="string-literal">&quot;a wood chuck would chuck as much wood as a wood chuck could chuck if a wood chuck could chuck wood&quot;</span><span>
-  ).</span><span class="identifier">plotWordcloud</span><span>(), 
+  ).</span><span class="identifier">plotWordcloud</span><span>(),
   </span><span class="identifier">node</span><span>
 )</span></code></pre>
         <div id="mdoc-html-run4" data-mdoc-js></div>
         
         <h3 id="line-chart" class="section"><a class="anchor-link left" href="#line-chart"><i class="icofont-laika link">&#xef71;</i></a>Line Chart</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span> 
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
   </span><span class="type-name">List</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">5</span><span>,</span><span class="number-literal">3</span><span>,</span><span class="number-literal">15</span><span>,</span><span class="number-literal">7</span><span>,</span><span class="number-literal">8</span><span>).</span><span class="identifier">plotLineChart</span><span>(),
@@ -174,8 +175,8 @@
         <div id="mdoc-html-run5" data-mdoc-js></div>
         
         <h3 id="dot-plot" class="section"><a class="anchor-link left" href="#dot-plot"><i class="icofont-laika link">&#xef71;</i></a>Dot Plot</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span> 
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
   </span><span class="type-name">List</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">11</span><span>,</span><span class="number-literal">1</span><span>,</span><span class="number-literal">2</span><span>,</span><span class="number-literal">3</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">4</span><span>,</span><span class="number-literal">5</span><span>,</span><span class="number-literal">6</span><span>,</span><span class="number-literal">8</span><span>,</span><span class="number-literal">8</span><span>,</span><span class="number-literal">9</span><span>,</span><span class="number-literal">8</span><span>).</span><span class="identifier">plotDotPlot</span><span>(),
@@ -184,8 +185,8 @@
         <div id="mdoc-html-run6" data-mdoc-js></div>
         
         <h3 id="scatter-plot" class="section"><a class="anchor-link left" href="#scatter-plot"><i class="icofont-laika link">&#xef71;</i></a>Scatter Plot</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span> 
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">doNothing</span><span>
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
   </span><span class="type-name">List</span><span>((</span><span class="number-literal">1.0</span><span>,</span><span class="number-literal">2.0</span><span>),(</span><span class="number-literal">3.0</span><span>,</span><span class="number-literal">4.0</span><span>),(</span><span class="number-literal">0.5</span><span> , </span><span class="number-literal">5.0</span><span>),(</span><span class="number-literal">3.14159</span><span>, </span><span class="number-literal">1.0</span><span>)).</span><span class="identifier">plotScatter</span><span>(),

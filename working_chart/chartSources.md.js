@@ -2100,7 +2100,7 @@ $h_Lmdocjs$.prototype = $c_Lmdocjs$.prototype;
 $c_Lmdocjs$.prototype.run0__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
   var $$x1 = $m_Lviz_js_showChartJs$();
   var mods = $m_Lviz_vega_plots_Pacman$().$lessinit$greater$default$1__sci_Seq();
-  var x$2 = $m_Lviz_vega_plots_Examples$package$().doNothing__Lviz_LowPriorityPlotTarget();
+  var x$2 = $m_Lviz_vega_plots_package$package$().doNothing__Lviz_LowPriorityPlotTarget();
   $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V(new $c_Lviz_vega_plots_Pacman(mods, x$2), node, 50)
 });
 var $d_Lmdocjs$ = new $TypeData().initClass({
@@ -5181,39 +5181,6 @@ function $f_Lviz_vega_facades_EmbedOptions__$init$__V($thiz) {
   /*<skip>*/
 }
 /** @constructor */
-function $c_Lviz_vega_plots_Examples$package$() {
-  this.Lviz_vega_plots_Examples$package$__f_doNothing$lzy1 = null;
-  this.Lviz_vega_plots_Examples$package$__f_doNothingbitmap$1 = false
-}
-$c_Lviz_vega_plots_Examples$package$.prototype = new $h_O();
-$c_Lviz_vega_plots_Examples$package$.prototype.constructor = $c_Lviz_vega_plots_Examples$package$;
-/** @constructor */
-function $h_Lviz_vega_plots_Examples$package$() {
-  /*<skip>*/
-}
-$h_Lviz_vega_plots_Examples$package$.prototype = $c_Lviz_vega_plots_Examples$package$.prototype;
-$c_Lviz_vega_plots_Examples$package$.prototype.doNothing__Lviz_LowPriorityPlotTarget = (function() {
-  if ((!this.Lviz_vega_plots_Examples$package$__f_doNothingbitmap$1)) {
-    this.Lviz_vega_plots_Examples$package$__f_doNothing$lzy1 = $m_Lviz_doNothing_DoNothing$package$().doNothing__Lviz_LowPriorityPlotTarget();
-    this.Lviz_vega_plots_Examples$package$__f_doNothingbitmap$1 = true
-  };
-  return this.Lviz_vega_plots_Examples$package$__f_doNothing$lzy1
-});
-var $d_Lviz_vega_plots_Examples$package$ = new $TypeData().initClass({
-  Lviz_vega_plots_Examples$package$: 0
-}, false, "viz.vega.plots.Examples$package$", {
-  Lviz_vega_plots_Examples$package$: 1,
-  O: 1
-});
-$c_Lviz_vega_plots_Examples$package$.prototype.$classData = $d_Lviz_vega_plots_Examples$package$;
-var $n_Lviz_vega_plots_Examples$package$;
-function $m_Lviz_vega_plots_Examples$package$() {
-  if ((!$n_Lviz_vega_plots_Examples$package$)) {
-    $n_Lviz_vega_plots_Examples$package$ = new $c_Lviz_vega_plots_Examples$package$()
-  };
-  return $n_Lviz_vega_plots_Examples$package$
-}
-/** @constructor */
 function $c_Lviz_vega_plots_Pacman$() {
   /*<skip>*/
 }
@@ -5245,6 +5212,39 @@ function $m_Lviz_vega_plots_Pacman$() {
     $n_Lviz_vega_plots_Pacman$ = new $c_Lviz_vega_plots_Pacman$()
   };
   return $n_Lviz_vega_plots_Pacman$
+}
+/** @constructor */
+function $c_Lviz_vega_plots_package$package$() {
+  this.Lviz_vega_plots_package$package$__f_doNothing$lzy1 = null;
+  this.Lviz_vega_plots_package$package$__f_doNothingbitmap$1 = false
+}
+$c_Lviz_vega_plots_package$package$.prototype = new $h_O();
+$c_Lviz_vega_plots_package$package$.prototype.constructor = $c_Lviz_vega_plots_package$package$;
+/** @constructor */
+function $h_Lviz_vega_plots_package$package$() {
+  /*<skip>*/
+}
+$h_Lviz_vega_plots_package$package$.prototype = $c_Lviz_vega_plots_package$package$.prototype;
+$c_Lviz_vega_plots_package$package$.prototype.doNothing__Lviz_LowPriorityPlotTarget = (function() {
+  if ((!this.Lviz_vega_plots_package$package$__f_doNothingbitmap$1)) {
+    this.Lviz_vega_plots_package$package$__f_doNothing$lzy1 = $m_Lviz_doNothing_DoNothing$package$().doNothing__Lviz_LowPriorityPlotTarget();
+    this.Lviz_vega_plots_package$package$__f_doNothingbitmap$1 = true
+  };
+  return this.Lviz_vega_plots_package$package$__f_doNothing$lzy1
+});
+var $d_Lviz_vega_plots_package$package$ = new $TypeData().initClass({
+  Lviz_vega_plots_package$package$: 0
+}, false, "viz.vega.plots.package$package$", {
+  Lviz_vega_plots_package$package$: 1,
+  O: 1
+});
+$c_Lviz_vega_plots_package$package$.prototype.$classData = $d_Lviz_vega_plots_package$package$;
+var $n_Lviz_vega_plots_package$package$;
+function $m_Lviz_vega_plots_package$package$() {
+  if ((!$n_Lviz_vega_plots_package$package$)) {
+    $n_Lviz_vega_plots_package$package$ = new $c_Lviz_vega_plots_package$package$()
+  };
+  return $n_Lviz_vega_plots_package$package$
 }
 function $p_jl_Character$__nonASCIIZeroDigitCodePoints$lzycompute__AI($thiz) {
   if (((((32 & $thiz.jl_Character$__f_bitmap$0) << 24) >> 24) === 0)) {
