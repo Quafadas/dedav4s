@@ -5,10 +5,8 @@ My experience has been, that I don't usually know the structure of the data, tha
 Instead, the aim is plot it - stat. Then evolve.
 
 ```scala mdoc:js
-import upickle.default.writeJs
 import viz.extensions.*
 import viz.PlotTargets.doNothing
-import com.github.tarao.record4s.upickle.Record.readWriter
 import com.github.tarao.record4s.%
 
 // We don't know this in advance, but we have a Seq of it, and we want a bar chart.
