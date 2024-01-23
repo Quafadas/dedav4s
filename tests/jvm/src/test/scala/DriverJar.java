@@ -175,7 +175,7 @@ public class DriverJar extends Driver {
         if (parts.length != 3) {
             return uri;
         }
-        String innerJar = String.join(JAR_URL_SEPARATOR, parts[0], parts[ ]);
+        String innerJar = String.join(JAR_URL_SEPARATOR, parts[0], parts[1]);
         URI jarUri = new URI(innerJar);
 
 
