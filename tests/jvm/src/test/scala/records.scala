@@ -26,8 +26,6 @@ import upickle.default.writeJs
 import com.github.tarao.record4s.upickle.Record.readWriter
 import scala.annotation.nowarn
 import RecordsExtensions.plot
-import viz.vega.plots.BarPlotDataEntry
-
 
 class RecordsTest extends munit.FunSuite:
 
@@ -81,20 +79,18 @@ class RecordsTest extends munit.FunSuite:
 
   test("custom datatypes") {
     import viz.extensions.*
-    case class MyData(badlyNamed:Double, namely:String, otherData: Option[(Int,Int)], extraneous: String)
+    case class MyData(badlyNamed: Double, namely: String, otherData: Option[(Int, Int)], extraneous: String)
 
     val toPlot = Seq(
-      MyData(1.0, "A", Some((1,2)), "foo"),
-      MyData(2.0, "B", None, "bar"),
+      MyData(1.0, "A", Some((1, 2)), "foo"),
+      MyData(2.0, "B", None, "bar")
     )
 
-    val _ = toPlot.plotBarChartR(x =>
-        %(amount = x.badlyNamed, category = x.namely)
-      )(List(viz.Utils.fillDiv))
+    val _ = toPlot.plotBarChartR(x => %(amount = x.badlyNamed, category = x.namely))(List(viz.Utils.fillDiv))
 
-      assertThat(page.locator("svg.marks")).isVisible()
-      assertThat(page.locator("g.mark-rect > path")).hasCount(2)
-    }
+    assertThat(page.locator("svg.marks")).isVisible()
+    assertThat(page.locator("g.mark-rect > path")).hasCount(2)
+  }
 
   override def afterAll(): Unit = super.afterAll()
 

@@ -61,7 +61,7 @@ package object extensions:
 
   extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget)
     @targetName("recordPlotBarChart")
-    def plotBarChartR(fct: A => % { val amount : Double ; val category : String} )(mods: JsonMod) =
+    def plotBarChartR(fct: A => % { val amount: Double; val category: String })(mods: JsonMod) =
       val chartData = data.map(d =>
         val tmp = fct(d)
         ujson.Obj("category" -> tmp.category, "amount" -> tmp.amount)
