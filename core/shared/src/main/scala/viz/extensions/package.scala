@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 quafadas
+ * Copyright 2024 quafadas
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,25 +27,23 @@ import reflect.Selectable.reflectiveSelectable
 import upickle.default.Writer
 //import viz.extensions.jvm.*
 
-package object  extensions:
+package object extensions:
 
   extension [D <: BarPlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
     def plotBarChart(mods: JsonMod) =
       BarChart(
-        List(
-          (spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)
-        ) ++ mods
+        List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
       )
     end plotBarChart
+  end extension
 
   extension [D <: PiePlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
     def plotPieChart(mods: JsonMod) =
       PieChart(
-        List(
-          (spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)
-        ) ++ mods
+        List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
       )
     end plotPieChart
+  end extension
 
   extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget)
     def plotBarChart(fct: A => BarPlotDataEntry)(mods: JsonMod) =
@@ -54,9 +52,7 @@ package object  extensions:
         ujson.Obj("category" -> tmp.category, "amount" -> tmp.amount)
       )
       BarChart(
-        List(
-          (spec: Value) => spec("data")(0)("values") = chartData
-        ) ++ mods
+        List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
       )
     end plotBarChart
 
@@ -66,11 +62,10 @@ package object  extensions:
         ujson.Obj("id" -> tmp.id, "field" -> tmp.field)
       )
       PieChart(
-        List(
-          (spec: Value) => spec("data")(0)("values") = chartData
-        ) ++ mods
+        List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
       )
     end plotPieChart
+  end extension
 
   extension (specIn: ujson.Value)(using plotTarget: LowPriorityPlotTarget)
     def plot(mods: Seq[ujson.Value => Unit] = List()): WithBaseSpec =

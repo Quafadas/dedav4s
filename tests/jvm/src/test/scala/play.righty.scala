@@ -1,15 +1,25 @@
+/*
+ * Copyright 2024 quafadas
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package viz
 // import viz.PlotTargets.websocket // for local testing
 
 import viz.extensions.*
 import com.microsoft.playwright.*;
-import cask.*
 import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
-import scala.concurrent.Future
-import java.util.function.Consumer
-import java.util.function.Predicate
-import com.microsoft.playwright.Page.WaitForWebSocketOptions
-import scala.concurrent.Await
 import viz.PlotTargets.tempHtmlFile
 
 class PlaywrightTest extends munit.FunSuite:
@@ -50,12 +60,10 @@ class PlaywrightTest extends munit.FunSuite:
   }
 
   test("title") {
-    case class BarD(amount: Double, category: String, extra:String)
+    case class BarD(amount: Double, category: String, extra: String)
     val aSeq = (1 to 5)
     val tmp = aSeq.plotBarChart(i => BarD(i, i.toString(), "hi"))(
-      List(
-        (spec: ujson.Value) => spec("title") = ujson.Obj("text" -> "my title"),
-      )
+      List((spec: ujson.Value) => spec("title") = ujson.Obj("text" -> "my title"))
     )
     tmp.tmpPath match
       case Some(path) =>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 quafadas
+ * Copyright 2024 quafadas
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -120,7 +120,7 @@ object PlotTargets extends SharedTargets:
         </body>
         </html>"""
 
-  given tempHtmlFile : PlotTarget = new TempFileTarget(Html):
+  given tempHtmlFile: PlotTarget = new TempFileTarget(Html):
     def show(spec: String): VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
@@ -130,14 +130,13 @@ object PlotTargets extends SharedTargets:
       showWithTempFile(spec, tmpPath)
       tmpPath
     end show
-
 
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       val theHtml = tempFileHtml(spec)
       os.write.over(path, theHtml)
     end showWithTempFile
 
-  given desktopBrowser : PlotTarget = new TempFileTarget(Html):
+  given desktopBrowser: PlotTarget = new TempFileTarget(Html):
 
     def show(spec: String): VizReturn =
       val tmpPath = outPath match
@@ -148,7 +147,6 @@ object PlotTargets extends SharedTargets:
       showWithTempFile(spec, tmpPath)
       tmpPath
     end show
-
 
     override def showWithTempFile(spec: String, path: os.Path): Unit =
       val theHtml = tempFileHtml(spec)
