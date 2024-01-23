@@ -1,59 +1,73 @@
 package viz
 // import viz.PlotTargets.websocket // for local testing
-import viz.PlotTargets.websocket
-import viz.websockets.WebsocketVizServer
+
+import viz.extensions.*
 import com.microsoft.playwright.*;
-import scala.util.Try
-import scala.util.Success
-import scala.util.Failure
-import java.nio.file.FileSystemAlreadyExistsException
-import java.nio.file.Paths
+import cask.*
+import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
+import scala.concurrent.Future
+import java.util.function.Consumer
+import java.util.function.Predicate
+import com.microsoft.playwright.Page.WaitForWebSocketOptions
+import scala.concurrent.Await
+import viz.PlotTargets.tempHtmlFile
 
 class PlaywrightTest extends munit.FunSuite:
 
-  var port: Int = _
   var pw: Playwright = _
-
-  def makePw : Playwright = {
-    Try(Playwright.create()) match
-      case Success(p) => p
-      case Failure(e) =>
-        e match
-            case _: FileSystemAlreadyExistsException =>
-              println("Playwright already exists")
-              Thread.sleep(5000)
-              makePw
-            case rm: RuntimeException if rm.getMessage() == "Failed to create driver" =>
-              println("Runtime exception, failed to make driver")
-              Thread.sleep(5000)
-              makePw
-  }
+  var browser: Browser = _
+  var page: Page = _
 
   override def beforeAll(): Unit =
-    val env = new java.util.HashMap[String, String]();
-    env.put("PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD", "1");
-    val createOptions = new Playwright.CreateOptions();
-    createOptions.setEnv(env);
-    port = WebsocketVizServer.randomPort
-    val a = Playwright.create(createOptions).chromium().launch(
-      new BrowserType.LaunchOptions()
-        .setExecutablePath(Paths.get("Path/to/browser.exe"))
-        .setHeadless(false)
-        .setChromiumSandbox(true));
 
-        // context = browser.newContext(
-        //   new Browser.NewContextOptions()
-        // .setViewportSize(1800, 1080)
-    // )
+    System.setProperty("playwright.driver.impl", "jsnev.DriverJar")
+    pw = Playwright.create()
+    browser = pw.chromium().launch();
+    page = browser.newPage();
   end beforeAll
 
-  test("Check the default library settings") {
-
-    lazy val conf = org.ekrich.config.ConfigFactory.load()
-
-    // by default, these are not set
-    assertEquals(conf.hasPath("dedavOutPath"), false)
-    assertEquals(conf.hasPath("gitpod_port"), false)
-
+  test("can plot pie chart") {
+    case class PieD(field: Double, id: String)
+    val aSeq = (1 to 5)
+    val tmp = aSeq.plotPieChart(i => PieD(i, i.toString()))(
+      List(
+        (spec: ujson.Value) => spec("height") = 500,
+        (spec: ujson.Value) => spec("width") = 500
+      )
+    )
+    tmp.tmpPath match
+      case Some(path) =>
+        println(path)
+        val _ = page.navigate(s"file://$path")
+      case None =>
+        println("no path")
+    end match
+    val _ = page.waitForSelector("div#vis")
+    assertThat(page.locator("div#vis")).isVisible()
+    assertThat(page.locator("svg.marks")).isVisible()
+    assertThat(page.locator("svg.marks")).hasAttribute("height", "500")
+    assertThat(page.locator("svg.marks")).hasAttribute("width", "500")
   }
+
+  test("title") {
+    case class BarD(amount: Double, category: String, extra:String)
+    val aSeq = (1 to 5)
+    val tmp = aSeq.plotBarChart(i => BarD(i, i.toString(), "hi"))(
+      List(
+        (spec: ujson.Value) => spec("title") = ujson.Obj("text" -> "my title"),
+      )
+    )
+    tmp.tmpPath match
+      case Some(path) =>
+        println(path)
+        val _ = page.navigate(s"file://$path")
+      case None =>
+        println("no path")
+    end match
+    val _ = page.waitForSelector("div#vis")
+    assertThat(page.locator("svg.marks")).isVisible()
+  }
+
+  override def afterAll(): Unit = super.afterAll()
+
 end PlaywrightTest

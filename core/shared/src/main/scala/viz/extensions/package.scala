@@ -27,7 +27,7 @@ import reflect.Selectable.reflectiveSelectable
 import upickle.default.Writer
 //import viz.extensions.jvm.*
 
-package object extensions:
+package object  extensions:
 
   extension [D <: BarPlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
     def plotBarChart(mods: JsonMod) =

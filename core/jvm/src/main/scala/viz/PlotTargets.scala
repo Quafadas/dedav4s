@@ -84,20 +84,7 @@ object PlotTargets extends SharedTargets:
 
   lazy val port: Int = WebsocketVizServer.randomPort
 
-  given desktopBrowser: PlotTarget = new TempFileTarget(Html):
-    def show(spec: String): VizReturn =
-      val tmpPath = outPath match
-        case Some(path) =>
-          os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
-        case None =>
-          os.temp(suffix = ".html", prefix = "plot-")
-      showWithTempFile(spec, tmpPath)
-      tmpPath
-    end show
-
-    override def showWithTempFile(spec: String, path: os.Path): Unit =
-      println("showing plot in browser")
-      val theHtml = raw"""<!DOCTYPE html>
+  private def tempFileHtml(spec: String): String = raw"""<!DOCTYPE html>
         <html>
         <head>
         <meta charset="utf-8" />
@@ -120,7 +107,7 @@ object PlotTargets extends SharedTargets:
         <script type="text/javascript">
         const spec = ${spec};
          vegaEmbed('#vis', spec, {
-            renderer: "canvas", // renderer (canvas or svg)
+            renderer: "svg", // renderer (canvas or svg)
             container: "#vis", // parent DOM container
             hover: true, // enable hover processing
             actions: {
@@ -131,7 +118,40 @@ object PlotTargets extends SharedTargets:
         })
         </script>
         </body>
-        </html> """
+        </html>"""
+
+  given tempHtmlFile : PlotTarget = new TempFileTarget(Html):
+    def show(spec: String): VizReturn =
+      val tmpPath = outPath match
+        case Some(path) =>
+          os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
+        case None =>
+          os.temp(suffix = ".html", prefix = "plot-")
+      showWithTempFile(spec, tmpPath)
+      tmpPath
+    end show
+
+
+    override def showWithTempFile(spec: String, path: os.Path): Unit =
+      val theHtml = tempFileHtml(spec)
+      os.write.over(path, theHtml)
+    end showWithTempFile
+
+  given desktopBrowser : PlotTarget = new TempFileTarget(Html):
+
+    def show(spec: String): VizReturn =
+      val tmpPath = outPath match
+        case Some(path) =>
+          os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
+        case None =>
+          os.temp(suffix = ".html", prefix = "plot-")
+      showWithTempFile(spec, tmpPath)
+      tmpPath
+    end show
+
+
+    override def showWithTempFile(spec: String, path: os.Path): Unit =
+      val theHtml = tempFileHtml(spec)
       os.write.over(path, theHtml)
       openBrowserWindow(path.toNIO.toUri())
     end showWithTempFile

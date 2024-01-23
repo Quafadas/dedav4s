@@ -56,7 +56,9 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "3.1.3",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
-      "org.ekrich" %%% "sconfig" % "1.5.1"
+      "org.ekrich" %%% "sconfig" % "1.5.1",
+      "com.github.tarao" %%% "record4s" % "0.11.0",
+      "com.github.tarao" %%% "record4s-upickle" % "0.11.0"
       // ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
       //   .cross(CrossVersion.for3Use2_13With("", ".10"))
       //   .exclude("com.lihaoyi", "geny_2.13")

@@ -25,10 +25,13 @@ import scala.concurrent.Future
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
-object WebsocketVizServer extends cask.MainRoutes:
+object WebsocketVizServer extends WebsocketVizServer
+
+trait WebsocketVizServer extends cask.MainRoutes:
 
   var firstTime: Boolean = true
   lazy val randomPort: Int =
+    println("Generating random port and starting server")
     Future {
       initialize()
       main(Array())
