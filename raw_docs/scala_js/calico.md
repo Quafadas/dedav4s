@@ -4,7 +4,7 @@ I did this to prove to myself, that it was possible, and to learn something abou
 
 ```scala mdoc:js
 
-import viz.extensions.*
+import viz.extensions.RawIterables.*
 import viz.vega.plots.{BarChart, given}
 import calico.*
 import calico.html.io.{*, given}

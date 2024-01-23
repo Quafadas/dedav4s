@@ -11,7 +11,7 @@ If div height and width are not well defined, this will usually result in an err
 ```scala mdoc:js
 import com.raquo.laminar.api.L._
 import org.scalajs.dom
-import viz.extensions.*
+import viz.extensions.RawIterables.*
 import viz.Utils
 import viz.LaminarViz
 import viz.vega.plots.{BarChart, given}
