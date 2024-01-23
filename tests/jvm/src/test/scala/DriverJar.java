@@ -125,10 +125,12 @@ public class DriverJar extends Driver {
         return classloader.getResource("driver/" + platformDir()).toURI();
     }
 
+
     void extractDriverToTempDir() throws URISyntaxException, IOException {
         URI originalUri = getDriverResourceURI();
         URI uri = maybeExtractNestedJar(originalUri);
 
+        @SuppressWarnings("resource")
         // Create zip filesystem if loading from jar.
         try (FileSystem fileSystem = "jar".equals(uri.getScheme()) ? initFileSystem(uri) : null) {
             Path srcRoot = Paths.get(uri);
@@ -163,6 +165,7 @@ public class DriverJar extends Driver {
         }
     }
 
+
     private URI maybeExtractNestedJar(final URI uri) throws URISyntaxException {
         if (!"jar".equals(uri.getScheme())) {
             return uri;
@@ -174,6 +177,8 @@ public class DriverJar extends Driver {
         }
         String innerJar = String.join(JAR_URL_SEPARATOR, parts[0], parts[1]);
         URI jarUri = new URI(innerJar);
+
+        @SuppressWarnings("resource")
         try (FileSystem fs = FileSystems.newFileSystem(jarUri, Collections.emptyMap())) {
             Path fromPath = Paths.get(jarUri);
             Path toPath = driverTempDir.resolve(fromPath.getFileName().toString());
@@ -181,7 +186,7 @@ public class DriverJar extends Driver {
             toPath.toFile().deleteOnExit();
             return new URI("jar:" + toPath.toUri() + JAR_URL_SEPARATOR + parts[2]);
         } catch (IOException e) {
-            fs.close();
+            //fs.close();
             throw new RuntimeException("Failed to extract driver's nested .jar from " + jarUri + "; full uri: " + uri, e);
         }
     }
