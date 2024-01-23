@@ -130,9 +130,9 @@ public class DriverJar extends Driver {
         URI originalUri = getDriverResourceURI();
         URI uri = maybeExtractNestedJar(originalUri);
 
-        @SuppressWarnings("resource")
+
         // Create zip filesystem if loading from jar.
-        try (FileSystem fileSystem = "jar".equals(uri.getScheme()) ? initFileSystem(uri) : null) {
+        try (@SuppressWarnings("resource") FileSystem fileSystem = "jar".equals(uri.getScheme()) ? initFileSystem(uri) : null) {
             Path srcRoot = Paths.get(uri);
             // jar file system's .relativize gives wrong results when used with
             // spring-boot-maven-plugin, convert to the default filesystem to
@@ -175,11 +175,11 @@ public class DriverJar extends Driver {
         if (parts.length != 3) {
             return uri;
         }
-        String innerJar = String.join(JAR_URL_SEPARATOR, parts[0], parts[1]);
+        String innerJar = String.join(JAR_URL_SEPARATOR, parts[0], parts[ ]);
         URI jarUri = new URI(innerJar);
 
-        @SuppressWarnings("resource")
-        try (FileSystem fs = FileSystems.newFileSystem(jarUri, Collections.emptyMap())) {
+
+        try (@SuppressWarnings("resource") FileSystem fs = FileSystems.newFileSystem(jarUri, Collections.emptyMap())) {
             Path fromPath = Paths.get(jarUri);
             Path toPath = driverTempDir.resolve(fromPath.getFileName().toString());
             Files.copy(fromPath, toPath);
