@@ -54,7 +54,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       """-Wconf:cat=deprecation:s"""
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.1.3",
+      "com.lihaoyi" %%% "upickle" % "3.1.4",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.5.1",
       "com.github.tarao" %%% "record4s" % "0.11.2",
