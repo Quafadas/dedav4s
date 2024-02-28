@@ -87,6 +87,7 @@ object Helpers:
       val tmp = item.datum
       if tmp == js.undefined then println("No data found")
       else println(JSON.stringify(tmp))
+      end if
 
   val dataClickHandler: js.Function2[js.Dynamic, js.Dynamic, js.UndefOr[js.Dynamic]] =
     (event: js.Dynamic, item: js.Dynamic) => item.datum

@@ -54,11 +54,11 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       """-Wconf:cat=deprecation:s"""
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.1.3",
+      "com.lihaoyi" %%% "upickle" % "3.1.4",
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
-      "org.ekrich" %%% "sconfig" % "1.5.1",
-      "com.github.tarao" %%% "record4s" % "0.11.0",
-      "com.github.tarao" %%% "record4s-upickle" % "0.11.0"
+      "org.ekrich" %%% "sconfig" % "1.6.0",
+      "com.github.tarao" %%% "record4s" % "0.11.2",
+      "com.github.tarao" %%% "record4s-upickle" % "0.11.2"
       // ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
       //   .cross(CrossVersion.for3Use2_13With("", ".10"))
       //   .exclude("com.lihaoyi", "geny_2.13")
@@ -72,8 +72,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.9.2",
-      "com.lihaoyi" %% "cask" % "0.9.1",
+      "com.lihaoyi" %% "os-lib" % "0.9.3",
+      "com.lihaoyi" %% "cask" % "0.9.2",
       "com.lihaoyi" %% "requests" % "0.8.0",
       ("sh.almond" %% "scala-kernel-api" % "0.14.0-RC14" % Provided)
         .cross(CrossVersion.full)
@@ -81,7 +81,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
         .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         .exclude("com.lihaoyi", "os-lib_2.13")
         .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.16.2"
+      "org.jsoup" % "jsoup" % "1.17.2"
     )
   )
   .jsSettings(
@@ -109,7 +109,7 @@ lazy val dedav_calico = project
   .in(file("calico"))
   .dependsOn(core.jvm)
   .settings(
-    libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.1"
+    libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.2"
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
@@ -127,13 +127,13 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M10" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M11" % Test
   )
   .jvmSettings(
     name := "tests-jvm",
     // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
-    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.41.0" % Test,
-    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.41.0" % Test
+    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.41.2" % Test,
+    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.41.2" % Test
   )
   .jsSettings(name := "tests-js")
 

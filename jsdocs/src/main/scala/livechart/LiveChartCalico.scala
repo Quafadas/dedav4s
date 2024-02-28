@@ -39,9 +39,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
         ),
         p(""),
         data.map { data =>
-          val barChart: BarChart = data.plotBarChart(d =>
-              %(category = d.toString(), amount = d)
-            )(
+          val barChart: BarChart = data.plotBarChart(d => %(category = d.toString(), amount = d))(
             List(
               viz.Utils.fillDiv,
               viz.Utils.removeYAxis
