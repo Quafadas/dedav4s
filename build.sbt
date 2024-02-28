@@ -58,7 +58,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %%% "scalatags" % "0.12.0",
       "org.ekrich" %%% "sconfig" % "1.5.1",
       "com.github.tarao" %%% "record4s" % "0.11.2",
-      "com.github.tarao" %%% "record4s-upickle" % "0.11.0"
+      "com.github.tarao" %%% "record4s-upickle" % "0.11.2"
       // ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
       //   .cross(CrossVersion.for3Use2_13With("", ".10"))
       //   .exclude("com.lihaoyi", "geny_2.13")
