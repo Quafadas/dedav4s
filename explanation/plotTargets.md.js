@@ -5,7 +5,7 @@ var $linkingInfo = Object.freeze({
   "esVersion": 6,
   "assumingES6": true,
   "productionMode": false,
-  "linkerVersion": "1.14.0",
+  "linkerVersion": "1.15.0",
   "fileLevelThis": this
 });
 var $getOwnPropertyDescriptors = (Object.getOwnPropertyDescriptors || (() => {
@@ -58,7 +58,7 @@ function $throwArrayCastException(arg0, arg1, arg2) {
   };
   $throwClassCastException(arg0, arg1)
 }
-function $throwArrayIndexOutOfBoundsException(arg0) {
+function $throwArrayIndexOutOFBoundsException(arg0) {
   throw new $c_Lorg_scalajs_linker_runtime_UndefinedBehaviorError(new $c_jl_ArrayIndexOutOfBoundsException(((arg0 === null) ? null : ("" + arg0))))
 }
 function $throwArrayStoreException(arg0) {
@@ -269,7 +269,7 @@ function $superSet(arg0, arg1, arg2, arg3) {
 }
 function $arraycopyCheckBounds(arg0, arg1, arg2, arg3, arg4) {
   if ((((((arg1 < 0) || (arg3 < 0)) || (arg4 < 0)) || (arg1 > ((arg0 - arg4) | 0))) || (arg3 > ((arg2 - arg4) | 0)))) {
-    $throwArrayIndexOutOfBoundsException(null)
+    $throwArrayIndexOutOFBoundsException(null)
   }
 }
 function $arraycopyGeneric(arg0, arg1, arg2, arg3, arg4) {
@@ -441,13 +441,13 @@ $ac_O.prototype = new $h_O();
 $ac_O.prototype.constructor = $ac_O;
 $ac_O.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_O.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -478,13 +478,13 @@ $ac_Z.prototype = new $h_O();
 $ac_Z.prototype.constructor = $ac_Z;
 $ac_Z.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_Z.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -508,13 +508,13 @@ $ac_C.prototype = new $h_O();
 $ac_C.prototype.constructor = $ac_C;
 $ac_C.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_C.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -539,13 +539,13 @@ $ac_B.prototype = new $h_O();
 $ac_B.prototype.constructor = $ac_B;
 $ac_B.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_B.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -570,13 +570,13 @@ $ac_S.prototype = new $h_O();
 $ac_S.prototype.constructor = $ac_S;
 $ac_S.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_S.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -601,13 +601,13 @@ $ac_I.prototype = new $h_O();
 $ac_I.prototype.constructor = $ac_I;
 $ac_I.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_I.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -635,13 +635,13 @@ $ac_J.prototype = new $h_O();
 $ac_J.prototype.constructor = $ac_J;
 $ac_J.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_J.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -665,13 +665,13 @@ $ac_F.prototype = new $h_O();
 $ac_F.prototype.constructor = $ac_F;
 $ac_F.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_F.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -696,13 +696,13 @@ $ac_D.prototype = new $h_O();
 $ac_D.prototype.constructor = $ac_D;
 $ac_D.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_D.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -796,7 +796,7 @@ $TypeData.prototype.initArray = (function(componentData) {
   ArrayClass.prototype.constructor = ArrayClass;
   ArrayClass.prototype.set = (function(i, v) {
     if (((i < 0) || (i >= this.u.length))) {
-      $throwArrayIndexOutOfBoundsException(i)
+      $throwArrayIndexOutOFBoundsException(i)
     };
     if ((((v !== null) && (!componentData.isJSType)) && (!componentData.isInstance(v)))) {
       $throwArrayStoreException(v)
@@ -1530,9 +1530,9 @@ $c_RTLong$.prototype.org$scalajs$linker$runtime$RuntimeLong$$toString__I__I__T =
 $c_RTLong$.prototype.org$scalajs$linker$runtime$RuntimeLong$$toDouble__I__I__D = (function(lo, hi) {
   if ((hi < 0)) {
     var x = ((lo !== 0) ? (~hi) : ((-hi) | 0));
-    var $$x1 = $uD((x >>> 0.0));
+    var $x_1 = $uD((x >>> 0.0));
     var x$1 = ((-lo) | 0);
-    return (-((4.294967296E9 * $$x1) + $uD((x$1 >>> 0.0))))
+    return (-((4.294967296E9 * $x_1) + $uD((x$1 >>> 0.0))))
   } else {
     return ((4.294967296E9 * hi) + $uD((lo >>> 0.0)))
   }
@@ -1987,9 +1987,9 @@ $c_s_util_hashing_MurmurHash3.prototype.productHash__s_Product__I__Z__I = (funct
     };
     var i = 0;
     while ((i < arr)) {
-      var $$x1 = h;
+      var $x_1 = h;
       var x$1 = $n(x).productElement__I__O(i);
-      h = this.mix__I__I__I($$x1, $m_sr_Statics$().anyHash__O__I(x$1));
+      h = this.mix__I__I__I($x_1, $m_sr_Statics$().anyHash__O__I(x$1));
       i = ((1 + i) | 0)
     };
     return this.finalizeHash__I__I__I(h, arr)
@@ -2040,9 +2040,9 @@ $c_s_util_hashing_MurmurHash3.prototype.orderedHash__sc_IterableOnce__I__I = (fu
       h = this.mix__I__I__I(h, hash);
       i = ((1 + i) | 0);
       while ($n(it).hasNext__Z()) {
-        var $$x1 = h;
+        var $x_1 = h;
         var x$1 = $n(it).next__O();
-        h = this.mix__I__I__I($$x1, $m_sr_Statics$().anyHash__O__I(x$1));
+        h = this.mix__I__I__I($x_1, $m_sr_Statics$().anyHash__O__I(x$1));
         i = ((1 + i) | 0)
       };
       return this.finalizeHash__I__I__I(h, i)
@@ -2064,9 +2064,9 @@ $c_s_util_hashing_MurmurHash3.prototype.indexedSeqHash__sc_IndexedSeq__I__I = (f
       break
     }
     case 1: {
-      var $$x1 = h;
+      var $x_1 = h;
       var x = $n(a).apply__I__O(0);
-      return this.finalizeHash__I__I__I(this.mix__I__I__I($$x1, $m_sr_Statics$().anyHash__O__I(x)), 1);
+      return this.finalizeHash__I__I__I(this.mix__I__I__I($x_1, $m_sr_Statics$().anyHash__O__I(x)), 1);
       break
     }
     default: {
@@ -2086,9 +2086,9 @@ $c_s_util_hashing_MurmurHash3.prototype.indexedSeqHash__sc_IndexedSeq__I__I = (f
           h = this.mix__I__I__I(h, hash);
           i = ((1 + i) | 0);
           while ((i < l)) {
-            var $$x2 = h;
+            var $x_2 = h;
             var x$4 = $n(a).apply__I__O(i);
-            h = this.mix__I__I__I($$x2, $m_sr_Statics$().anyHash__O__I(x$4));
+            h = this.mix__I__I__I($x_2, $m_sr_Statics$().anyHash__O__I(x$4));
             i = ((1 + i) | 0)
           };
           return this.finalizeHash__I__I__I(h, l)
@@ -2245,17 +2245,17 @@ $c_jl_Integer$.prototype.parseInt__T__I__I = (function(s, radix) {
   var negative = (firstChar === 45);
   var maxAbsValue = (negative ? 2.147483648E9 : 2.147483647E9);
   var i = ((negative || (firstChar === 43)) ? 1 : 0);
-  var $$x1 = i;
+  var $x_1 = i;
   var this$3 = $n(s);
-  if (($$x1 >= this$3.length)) {
+  if (($x_1 >= this$3.length)) {
     $p_jl_Integer$__fail$1__T__E(this, s)
   };
   var result = 0.0;
   while ((i !== len)) {
-    var $$x2 = $m_jl_Character$();
+    var $x_2 = $m_jl_Character$();
     var this$4 = $n(s);
     var index = i;
-    var digit = $n($$x2).digitWithValidRadix__I__I__I($charAt(this$4, index), radix);
+    var digit = $n($x_2).digitWithValidRadix__I__I__I($charAt(this$4, index), radix);
     result = ((result * radix) + digit);
     if (((digit === (-1)) || (result > maxAbsValue))) {
       $p_jl_Integer$__fail$1__T__E(this, s)
@@ -2312,8 +2312,8 @@ class $c_jl_Throwable extends Error {
     return this.jl_Throwable__f_s
   };
   fillInStackTrace__jl_Throwable() {
-    var $$x1 = this;
-    var reference = (false ? $$x1.sjs_js_JavaScriptException__f_exception : $n($$x1));
+    var $x_1 = this;
+    var reference = (false ? $x_1.sjs_js_JavaScriptException__f_exception : $n($x_1));
     var identifyingString = Object.prototype.toString.call(reference);
     if ((identifyingString !== "[object Error]")) {
       if ((Error.captureStackTrace === (void 0))) {
@@ -3855,9 +3855,9 @@ var $d_jl_Integer = new $TypeData().initClass({
   jl_constant_ConstantDesc: 1
 }, (void 0), (void 0), ((x) => $isInt(x)));
 function $f_jl_Long__hashCode__I($thiz) {
-  var $$x1 = $thiz.RTLong__f_lo;
+  var $x_1 = $thiz.RTLong__f_lo;
   var hi = $thiz.RTLong__f_hi;
-  return ($$x1 ^ hi)
+  return ($x_1 ^ hi)
 }
 function $f_jl_Long__toString__T($thiz) {
   return $m_RTLong$().org$scalajs$linker$runtime$RuntimeLong$$toString__I__I__T($thiz.RTLong__f_lo, $thiz.RTLong__f_hi)
@@ -3905,9 +3905,9 @@ function $f_T__hashCode__I($thiz) {
   var mul = 1;
   var i = (((-1) + $thiz.length) | 0);
   while ((i >= 0)) {
-    var $$x1 = res;
+    var $x_1 = res;
     var index = i;
-    res = (($$x1 + Math.imul($charAt($thiz, index), mul)) | 0);
+    res = (($x_1 + Math.imul($charAt($thiz, index), mul)) | 0);
     mul = Math.imul(31, mul);
     i = (((-1) + i) | 0)
   };
@@ -4247,7 +4247,7 @@ $c_jl_JSConsoleBasedPrintStream.prototype.java$lang$JSConsoleBasedPrintStream$$p
       this.jl_JSConsoleBasedPrintStream__f_buffer = (("" + this.jl_JSConsoleBasedPrintStream__f_buffer) + rest);
       rest = ""
     } else {
-      var $$x1 = this.jl_JSConsoleBasedPrintStream__f_buffer;
+      var $x_1 = this.jl_JSConsoleBasedPrintStream__f_buffer;
       var this$2 = $n(rest);
       if ((nlPos > this$2.length)) {
         $charAt(this$2, nlPos)
@@ -4255,7 +4255,7 @@ $c_jl_JSConsoleBasedPrintStream.prototype.java$lang$JSConsoleBasedPrintStream$$p
       if ((nlPos < 0)) {
         $charAt(this$2, (-1))
       };
-      $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V(this, (("" + $$x1) + $as_T(this$2.substring(0, nlPos))));
+      $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V(this, (("" + $x_1) + $as_T(this$2.substring(0, nlPos))));
       this.jl_JSConsoleBasedPrintStream__f_buffer = "";
       var this$3 = $n(rest);
       var beginIndex = ((1 + nlPos) | 0);

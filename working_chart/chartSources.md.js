@@ -5,7 +5,7 @@ var $linkingInfo = Object.freeze({
   "esVersion": 6,
   "assumingES6": true,
   "productionMode": false,
-  "linkerVersion": "1.14.0",
+  "linkerVersion": "1.15.0",
   "fileLevelThis": this
 });
 var $getOwnPropertyDescriptors = (Object.getOwnPropertyDescriptors || (() => {
@@ -58,7 +58,7 @@ function $throwArrayCastException(arg0, arg1, arg2) {
   };
   $throwClassCastException(arg0, arg1)
 }
-function $throwArrayIndexOutOfBoundsException(arg0) {
+function $throwArrayIndexOutOFBoundsException(arg0) {
   throw new $c_Lorg_scalajs_linker_runtime_UndefinedBehaviorError(new $c_jl_ArrayIndexOutOfBoundsException(((arg0 === null) ? null : ("" + arg0))))
 }
 function $throwArrayStoreException(arg0) {
@@ -338,7 +338,7 @@ function $superSet(arg0, arg1, arg2, arg3) {
 }
 function $arraycopyCheckBounds(arg0, arg1, arg2, arg3, arg4) {
   if ((((((arg1 < 0) || (arg3 < 0)) || (arg4 < 0)) || (arg1 > ((arg0 - arg4) | 0))) || (arg3 > ((arg2 - arg4) | 0)))) {
-    $throwArrayIndexOutOfBoundsException(null)
+    $throwArrayIndexOutOFBoundsException(null)
   }
 }
 function $arraycopyGeneric(arg0, arg1, arg2, arg3, arg4) {
@@ -516,13 +516,13 @@ $ac_O.prototype = new $h_O();
 $ac_O.prototype.constructor = $ac_O;
 $ac_O.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_O.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -553,13 +553,13 @@ $ac_Z.prototype = new $h_O();
 $ac_Z.prototype.constructor = $ac_Z;
 $ac_Z.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_Z.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -583,13 +583,13 @@ $ac_C.prototype = new $h_O();
 $ac_C.prototype.constructor = $ac_C;
 $ac_C.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_C.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -614,13 +614,13 @@ $ac_B.prototype = new $h_O();
 $ac_B.prototype.constructor = $ac_B;
 $ac_B.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_B.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -645,13 +645,13 @@ $ac_S.prototype = new $h_O();
 $ac_S.prototype.constructor = $ac_S;
 $ac_S.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_S.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -676,13 +676,13 @@ $ac_I.prototype = new $h_O();
 $ac_I.prototype.constructor = $ac_I;
 $ac_I.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_I.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -710,13 +710,13 @@ $ac_J.prototype = new $h_O();
 $ac_J.prototype.constructor = $ac_J;
 $ac_J.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_J.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -740,13 +740,13 @@ $ac_F.prototype = new $h_O();
 $ac_F.prototype.constructor = $ac_F;
 $ac_F.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_F.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -771,13 +771,13 @@ $ac_D.prototype = new $h_O();
 $ac_D.prototype.constructor = $ac_D;
 $ac_D.prototype.get = (function(i) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   return this.u[i]
 });
 $ac_D.prototype.set = (function(i, v) {
   if (((i < 0) || (i >= this.u.length))) {
-    $throwArrayIndexOutOfBoundsException(i)
+    $throwArrayIndexOutOFBoundsException(i)
   };
   this.u[i] = v
 });
@@ -871,7 +871,7 @@ $TypeData.prototype.initArray = (function(componentData) {
   ArrayClass.prototype.constructor = ArrayClass;
   ArrayClass.prototype.set = (function(i, v) {
     if (((i < 0) || (i >= this.u.length))) {
-      $throwArrayIndexOutOfBoundsException(i)
+      $throwArrayIndexOutOFBoundsException(i)
     };
     if ((((v !== null) && (!componentData.isJSType)) && (!componentData.isInstance(v)))) {
       $throwArrayStoreException(v)
@@ -1769,7 +1769,7 @@ $c_ju_Formatter$.prototype.java$util$Formatter$$strOfZeros__I__T = (function(cou
       result = (result + "00000000000000000000");
       remaining = (((-20) + remaining) | 0)
     };
-    var $$x1 = result;
+    var $x_1 = result;
     var endIndex = remaining;
     if ((endIndex > 20)) {
       $charAt("00000000000000000000", endIndex)
@@ -1777,7 +1777,7 @@ $c_ju_Formatter$.prototype.java$util$Formatter$$strOfZeros__I__T = (function(cou
     if ((endIndex < 0)) {
       $charAt("00000000000000000000", (-1))
     };
-    return (("" + $$x1) + $as_T("00000000000000000000".substring(0, endIndex)))
+    return (("" + $x_1) + $as_T("00000000000000000000".substring(0, endIndex)))
   }
 });
 $c_ju_Formatter$.prototype.java$util$Formatter$$numberToDecimal__D__ju_Formatter$Decimal = (function(x) {
@@ -1792,13 +1792,13 @@ $c_ju_Formatter$.prototype.java$util$Formatter$$numberToDecimal__D__ju_Formatter
     if ((ePos < 0)) {
       var e = 0
     } else {
-      var $$x2 = parseInt;
+      var $x_2 = parseInt;
       var beginIndex = ((1 + ePos) | 0);
       if (((beginIndex < 0) || (beginIndex > s.length))) {
         $charAt(s, beginIndex)
       };
-      var $$x1 = $$x2($as_T(s.substring(beginIndex)));
-      var e = $uI($$x1)
+      var $x_1 = $x_2($as_T(s.substring(beginIndex)));
+      var e = $uI($x_1)
     };
     var significandEnd = ((ePos < 0) ? s.length : ePos);
     var dotPos = $f_T__indexOf__I__I(s, 46);
@@ -1819,7 +1819,7 @@ $c_ju_Formatter$.prototype.java$util$Formatter$$numberToDecimal__D__ju_Formatter
       if ((dotPos < 0)) {
         $charAt(s, (-1))
       };
-      var $$x3 = $as_T(s.substring(0, dotPos));
+      var $x_3 = $as_T(s.substring(0, dotPos));
       var beginIndex$1 = ((1 + dotPos) | 0);
       if ((beginIndex$1 < 0)) {
         $charAt(s, beginIndex$1)
@@ -1830,17 +1830,17 @@ $c_ju_Formatter$.prototype.java$util$Formatter$$numberToDecimal__D__ju_Formatter
       if ((significandEnd < beginIndex$1)) {
         $charAt(s, (-1))
       };
-      var digits = (("" + $$x3) + $as_T(s.substring(beginIndex$1, significandEnd)));
+      var digits = (("" + $x_3) + $as_T(s.substring(beginIndex$1, significandEnd)));
       var digitsLen = digits.length;
       var i = 0;
       while (true) {
         if ((i < digitsLen)) {
           var index = i;
-          var $$x4 = ($charAt(digits, index) === 48)
+          var $x_4 = ($charAt(digits, index) === 48)
         } else {
-          var $$x4 = false
+          var $x_4 = false
         };
-        if ($$x4) {
+        if ($x_4) {
           i = ((1 + i) | 0)
         } else {
           break
@@ -1906,7 +1906,7 @@ function $p_ju_Formatter$Decimal__roundAtPos__I__ju_Formatter$Decimal($thiz, rou
         var negative$1 = $thiz.ju_Formatter$Decimal__f_negative;
         return new $c_ju_Formatter$Decimal(negative$1, "0", 0)
       } else {
-        var $$x1 = $thiz.ju_Formatter$Decimal__f_negative;
+        var $x_1 = $thiz.ju_Formatter$Decimal__f_negative;
         var this$5 = $n(digits);
         if ((roundingPos > this$5.length)) {
           $charAt(this$5, roundingPos)
@@ -1914,7 +1914,7 @@ function $p_ju_Formatter$Decimal__roundAtPos__I__ju_Formatter$Decimal($thiz, rou
         if ((roundingPos < 0)) {
           $charAt(this$5, (-1))
         };
-        return new $c_ju_Formatter$Decimal($$x1, $as_T(this$5.substring(0, roundingPos)), (($thiz.ju_Formatter$Decimal__f_scale - ((digitsLen - roundingPos) | 0)) | 0))
+        return new $c_ju_Formatter$Decimal($x_1, $as_T(this$5.substring(0, roundingPos)), (($thiz.ju_Formatter$Decimal__f_scale - ((digitsLen - roundingPos) | 0)) | 0))
       }
     } else {
       var lastNonNinePos = (((-1) + roundingPos) | 0);
@@ -1922,11 +1922,11 @@ function $p_ju_Formatter$Decimal__roundAtPos__I__ju_Formatter$Decimal($thiz, rou
         if ((lastNonNinePos >= 0)) {
           var this$6 = $n(digits);
           var index = lastNonNinePos;
-          var $$x2 = ($charAt(this$6, index) === 57)
+          var $x_2 = ($charAt(this$6, index) === 57)
         } else {
-          var $$x2 = false
+          var $x_2 = false
         };
-        if ($$x2) {
+        if ($x_2) {
           lastNonNinePos = (((-1) + lastNonNinePos) | 0)
         } else {
           break
@@ -1943,10 +1943,10 @@ function $p_ju_Formatter$Decimal__roundAtPos__I__ju_Formatter$Decimal($thiz, rou
         if ((endIndex < 0)) {
           $charAt(this$7, (-1))
         };
-        var $$x3 = $as_T(this$7.substring(0, endIndex));
+        var $x_3 = $as_T(this$7.substring(0, endIndex));
         var this$8 = $n(digits);
         var index$1 = lastNonNinePos;
-        var newUnscaledValue = (("" + $$x3) + $bC((65535 & ((1 + $charAt(this$8, index$1)) | 0))))
+        var newUnscaledValue = (("" + $x_3) + $bC((65535 & ((1 + $charAt(this$8, index$1)) | 0))))
       };
       var pos = ((1 + lastNonNinePos) | 0);
       var newScale = (($thiz.ju_Formatter$Decimal__f_scale - ((digitsLen - pos) | 0)) | 0);
@@ -2098,10 +2098,10 @@ function $h_Lmdocjs$() {
 }
 $h_Lmdocjs$.prototype = $c_Lmdocjs$.prototype;
 $c_Lmdocjs$.prototype.run0__Lorg_scalajs_dom_HTMLElement__V = (function(node) {
-  var $$x1 = $m_Lviz_js_showChartJs$();
+  var $x_1 = $m_Lviz_js_showChartJs$();
   var mods = $m_Lviz_vega_plots_Pacman$().$lessinit$greater$default$1__sci_Seq();
   var x$2 = $m_Lviz_vega_plots_package$package$().doNothing__Lviz_LowPriorityPlotTarget();
-  $n($$x1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V(new $c_Lviz_vega_plots_Pacman(mods, x$2), node, 50)
+  $n($x_1).apply__Lviz_Spec__Lorg_scalajs_dom_Element__I__V(new $c_Lviz_vega_plots_Pacman(mods, x$2), node, 50)
 });
 var $d_Lmdocjs$ = new $TypeData().initClass({
   Lmdocjs$: 0
@@ -2469,9 +2469,9 @@ $c_RTLong$.prototype.org$scalajs$linker$runtime$RuntimeLong$$toString__I__I__T =
 $c_RTLong$.prototype.org$scalajs$linker$runtime$RuntimeLong$$toDouble__I__I__D = (function(lo, hi) {
   if ((hi < 0)) {
     var x = ((lo !== 0) ? (~hi) : ((-hi) | 0));
-    var $$x1 = $uD((x >>> 0.0));
+    var $x_1 = $uD((x >>> 0.0));
     var x$1 = ((-lo) | 0);
-    return (-((4.294967296E9 * $$x1) + $uD((x$1 >>> 0.0))))
+    return (-((4.294967296E9 * $x_1) + $uD((x$1 >>> 0.0))))
   } else {
     return ((4.294967296E9 * hi) + $uD((lo >>> 0.0)))
   }
@@ -3557,9 +3557,9 @@ $c_s_util_hashing_MurmurHash3.prototype.productHash__s_Product__I__Z__I = (funct
     };
     var i = 0;
     while ((i < arr)) {
-      var $$x1 = h;
+      var $x_1 = h;
       var x$1 = $n(x).productElement__I__O(i);
-      h = this.mix__I__I__I($$x1, $m_sr_Statics$().anyHash__O__I(x$1));
+      h = this.mix__I__I__I($x_1, $m_sr_Statics$().anyHash__O__I(x$1));
       i = ((1 + i) | 0)
     };
     return this.finalizeHash__I__I__I(h, arr)
@@ -3610,9 +3610,9 @@ $c_s_util_hashing_MurmurHash3.prototype.orderedHash__sc_IterableOnce__I__I = (fu
       h = this.mix__I__I__I(h, hash);
       i = ((1 + i) | 0);
       while ($n(it).hasNext__Z()) {
-        var $$x1 = h;
+        var $x_1 = h;
         var x$1 = $n(it).next__O();
-        h = this.mix__I__I__I($$x1, $m_sr_Statics$().anyHash__O__I(x$1));
+        h = this.mix__I__I__I($x_1, $m_sr_Statics$().anyHash__O__I(x$1));
         i = ((1 + i) | 0)
       };
       return this.finalizeHash__I__I__I(h, i)
@@ -3631,9 +3631,9 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash__O__I__I = (function(a, seed) 
       break
     }
     case 1: {
-      var $$x1 = h;
+      var $x_1 = h;
       var x = $m_sr_ScalaRunTime$().array_apply__O__I__O(a, 0);
-      return this.finalizeHash__I__I__I(this.mix__I__I__I($$x1, $m_sr_Statics$().anyHash__O__I(x)), 1);
+      return this.finalizeHash__I__I__I(this.mix__I__I__I($x_1, $m_sr_Statics$().anyHash__O__I(x)), 1);
       break
     }
     default: {
@@ -3653,9 +3653,9 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash__O__I__I = (function(a, seed) 
           h = this.mix__I__I__I(h, hash);
           i = ((1 + i) | 0);
           while ((i < l)) {
-            var $$x2 = h;
+            var $x_2 = h;
             var x$4 = $m_sr_ScalaRunTime$().array_apply__O__I__O(a, i);
-            h = this.mix__I__I__I($$x2, $m_sr_Statics$().anyHash__O__I(x$4));
+            h = this.mix__I__I__I($x_2, $m_sr_Statics$().anyHash__O__I(x$4));
             i = ((1 + i) | 0)
           };
           return this.finalizeHash__I__I__I(h, l)
@@ -3679,9 +3679,9 @@ $c_s_util_hashing_MurmurHash3.prototype.indexedSeqHash__sc_IndexedSeq__I__I = (f
       break
     }
     case 1: {
-      var $$x1 = h;
+      var $x_1 = h;
       var x = $n(a).apply__I__O(0);
-      return this.finalizeHash__I__I__I(this.mix__I__I__I($$x1, $m_sr_Statics$().anyHash__O__I(x)), 1);
+      return this.finalizeHash__I__I__I(this.mix__I__I__I($x_1, $m_sr_Statics$().anyHash__O__I(x)), 1);
       break
     }
     default: {
@@ -3701,9 +3701,9 @@ $c_s_util_hashing_MurmurHash3.prototype.indexedSeqHash__sc_IndexedSeq__I__I = (f
           h = this.mix__I__I__I(h, hash);
           i = ((1 + i) | 0);
           while ((i < l)) {
-            var $$x2 = h;
+            var $x_2 = h;
             var x$4 = $n(a).apply__I__O(i);
-            h = this.mix__I__I__I($$x2, $m_sr_Statics$().anyHash__O__I(x$4));
+            h = this.mix__I__I__I($x_2, $m_sr_Statics$().anyHash__O__I(x$4));
             i = ((1 + i) | 0)
           };
           return this.finalizeHash__I__I__I(h, l)
@@ -3876,9 +3876,9 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash$mDc$sp__AD__I__I = (function(a
       break
     }
     case 1: {
-      var $$x1 = h;
+      var $x_1 = h;
       var dv = $n(a).get(0);
-      return this.finalizeHash__I__I__I(this.mix__I__I__I($$x1, $m_sr_Statics$().doubleHash__D__I(dv)), 1);
+      return this.finalizeHash__I__I__I(this.mix__I__I__I($x_1, $m_sr_Statics$().doubleHash__D__I(dv)), 1);
       break
     }
     default: {
@@ -3898,9 +3898,9 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash$mDc$sp__AD__I__I = (function(a
           h = this.mix__I__I__I(h, hash);
           i = ((1 + i) | 0);
           while ((i < l)) {
-            var $$x2 = h;
+            var $x_2 = h;
             var dv$4 = $n(a).get(i);
-            h = this.mix__I__I__I($$x2, $m_sr_Statics$().doubleHash__D__I(dv$4));
+            h = this.mix__I__I__I($x_2, $m_sr_Statics$().doubleHash__D__I(dv$4));
             i = ((1 + i) | 0)
           };
           return this.finalizeHash__I__I__I(h, l)
@@ -3921,10 +3921,10 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash$mFc$sp__AF__I__I = (function(a
       break
     }
     case 1: {
-      var $$x1 = h;
+      var $x_1 = h;
       var fv = $n(a).get(0);
       var this$1 = $m_sr_Statics$();
-      return this.finalizeHash__I__I__I(this.mix__I__I__I($$x1, this$1.doubleHash__D__I(fv)), 1);
+      return this.finalizeHash__I__I__I(this.mix__I__I__I($x_1, this$1.doubleHash__D__I(fv)), 1);
       break
     }
     default: {
@@ -3947,10 +3947,10 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash$mFc$sp__AF__I__I = (function(a
           h = this.mix__I__I__I(h, hash);
           i = ((1 + i) | 0);
           while ((i < l)) {
-            var $$x2 = h;
+            var $x_2 = h;
             var fv$4 = $n(a).get(i);
             var this$5 = $m_sr_Statics$();
-            h = this.mix__I__I__I($$x2, this$5.doubleHash__D__I(fv$4));
+            h = this.mix__I__I__I($x_2, this$5.doubleHash__D__I(fv$4));
             i = ((1 + i) | 0)
           };
           return this.finalizeHash__I__I__I(h, l)
@@ -4009,11 +4009,11 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash$mJc$sp__AJ__I__I = (function(a
       break
     }
     case 1: {
-      var $$x1 = h;
+      var $x_1 = h;
       var t = $n(a).get(0);
       var lo = t.RTLong__f_lo;
       var hi = t.RTLong__f_hi;
-      return this.finalizeHash__I__I__I(this.mix__I__I__I($$x1, $m_sr_Statics$().longHash__J__I(new $c_RTLong(lo, hi))), 1);
+      return this.finalizeHash__I__I__I(this.mix__I__I__I($x_1, $m_sr_Statics$().longHash__J__I(new $c_RTLong(lo, hi))), 1);
       break
     }
     default: {
@@ -4039,11 +4039,11 @@ $c_s_util_hashing_MurmurHash3.prototype.arrayHash$mJc$sp__AJ__I__I = (function(a
           h = this.mix__I__I__I(h, hash);
           i = ((1 + i) | 0);
           while ((i < l)) {
-            var $$x2 = h;
+            var $x_2 = h;
             var t$4 = $n(a).get(i);
             var lo$4 = t$4.RTLong__f_lo;
             var hi$4 = t$4.RTLong__f_hi;
-            h = this.mix__I__I__I($$x2, $m_sr_Statics$().longHash__J__I(new $c_RTLong(lo$4, hi$4)));
+            h = this.mix__I__I__I($x_2, $m_sr_Statics$().longHash__J__I(new $c_RTLong(lo$4, hi$4)));
             i = ((1 + i) | 0)
           };
           return this.finalizeHash__I__I__I(h, l)
@@ -4268,11 +4268,11 @@ $c_Lujson_MathUtilsChar$.prototype.toString__AC__I__T__I = (function(bytes, inde
   var len = this$1.length;
   var i = 0;
   while ((i < len)) {
-    var $$x2 = $n(bytes);
-    var $$x1 = i;
+    var $x_2 = $n(bytes);
+    var $x_1 = i;
     var this$2 = $n(s);
     var index$1 = i;
-    $$x2.set(((index + $$x1) | 0), $charAt(this$2, index$1));
+    $x_2.set(((index + $x_1) | 0), $charAt(this$2, index$1));
     i = ((1 + i) | 0)
   };
   return len
@@ -4309,14 +4309,14 @@ $c_Lujson_package$.prototype.read__Lujson_Readable__Z__Lujson_Value = (function(
     return $as_Lujson_Value(($m_Lujson_package$(), $n(s).transform__Lupickle_core_Visitor__O(_$1$1)))
   });
   if ((!trace)) {
-    var $$x1 = f(v)
+    var $x_1 = f(v)
   } else {
     var wrapper = new $c_Lupickle_core_TraceVisitor$Wrapper();
     try {
       var arg1 = $ct_Lupickle_core_TraceVisitor__Lupickle_core_Visitor__Lupickle_core_TraceVisitor$HasPath__Lupickle_core_TraceVisitor$Wrapper__(new $c_Lupickle_core_TraceVisitor(), v, $m_Lupickle_core_TraceVisitor$RootHasPath$(), wrapper);
-      var $$x1 = f(arg1)
+      var $x_1 = f(arg1)
     } catch (e) {
-      var $$x1;
+      var $x_1;
       var e$2 = ((e instanceof $c_jl_Throwable) ? e : new $c_sjs_js_JavaScriptException(e));
       var x2 = $m_s_util_control_NonFatal$().unapply__jl_Throwable__s_Option(e$2);
       if ((!$n(x2).isEmpty__Z())) {
@@ -4327,7 +4327,7 @@ $c_Lujson_package$.prototype.read__Lujson_Readable__Z__Lujson_Value = (function(
       throw ((e$2 instanceof $c_sjs_js_JavaScriptException) ? e$2.sjs_js_JavaScriptException__f_exception : $n(e$2))
     }
   };
-  return $as_Lujson_Value($$x1)
+  return $as_Lujson_Value($x_1)
 });
 $c_Lujson_package$.prototype.write__Lujson_Value__I__Z__T = (function(t, indent, escapeUnicode) {
   var writer = new $c_Ljava_io_StringWriter();
@@ -4463,14 +4463,14 @@ function $p_Lupickle_core_CharUtils$__appendSimpleStringSection0__AC__I__I__I__j
       if ((!(!(!((!(!((c2 < 32) | (c2 === 34)))) | (c2 === 92)))))) {
         $n(arr).set(((((arrOffset + i) | 0) - i0) | 0), c2);
         i = ((1 + i) | 0);
-        var $$x1 = true
+        var $x_1 = true
       } else {
-        var $$x1 = false
+        var $x_1 = false
       }
     } else {
-      var $$x1 = false
+      var $x_1 = false
     };
-    if ($$x1) {
+    if ($x_1) {
       /*<skip>*/
     } else {
       break
@@ -4486,14 +4486,14 @@ function $p_Lupickle_core_CharUtils$__appendSimpleStringSectionNoUnicode0__AC__I
       if ((!((((c2 < 32) || (c2 > 127)) || (c2 === 34)) || (c2 === 92)))) {
         $n(arr).set(((((arrOffset + i) | 0) - i0) | 0), c2);
         i = ((1 + i) | 0);
-        var $$x1 = true
+        var $x_1 = true
       } else {
-        var $$x1 = false
+        var $x_1 = false
       }
     } else {
-      var $$x1 = false
+      var $x_1 = false
     };
-    if ($$x1) {
+    if ($x_1) {
       /*<skip>*/
     } else {
       break
@@ -4652,10 +4652,10 @@ $c_Lupickle_core_CharUtils$.prototype.parseIntegralNum__AC__I__I__I__I__J = (fun
       var this$8 = $m_RTLong$();
       var lo$3 = this$8.divideImpl__I__I__I__I__I(this$7__lo, this$7__hi, 10, 0);
       var hi$7 = this$8.RTLong$__f_org$scalajs$linker$runtime$RuntimeLong$$hiReturn;
-      var $$x1__lo = lo$3;
-      var $$x1__hi = hi$7;
-      value$2__lo = $$x1__lo;
-      value$2__hi = $$x1__hi;
+      var $x_1__lo = lo$3;
+      var $x_1__hi = hi$7;
+      value$2__lo = $x_1__lo;
+      value$2__hi = $x_1__hi;
       i$2 = (((-1) + i$2) | 0)
     };
     if (($n(arr).get(arrOffset) === 45)) {
@@ -4694,10 +4694,10 @@ $c_Lupickle_core_CharUtils$.prototype.parseLong__AC__I__I__J = (function(cs0, st
   var i = 0;
   var end = ((end0 - start0) | 0);
   if (($n(cs).get(0) === 45)) {
-    var $$x1__lo = 1;
-    var $$x1__hi = 0;
-    inverseSign__lo = $$x1__lo;
-    inverseSign__hi = $$x1__hi;
+    var $x_1__lo = 1;
+    var $x_1__hi = 0;
+    inverseSign__lo = $x_1__lo;
+    inverseSign__hi = $x_1__hi;
     i = ((1 + i) | 0)
   };
   var size = ((end - i) | 0);
@@ -4724,10 +4724,10 @@ $c_Lupickle_core_CharUtils$.prototype.parseLong__AC__I__I__J = (function(cs0, st
     var hi$1 = (digit >> 31);
     var lo$1 = ((lo - digit) | 0);
     var hi$2 = ((((-2147483648) ^ lo$1) > ((-2147483648) ^ lo)) ? (((-1) + ((hi - hi$1) | 0)) | 0) : ((hi - hi$1) | 0));
-    var $$x2__lo = lo$1;
-    var $$x2__hi = hi$2;
-    inverseSum__lo = $$x2__lo;
-    inverseSum__hi = $$x2__hi;
+    var $x_2__lo = lo$1;
+    var $x_2__hi = hi$2;
+    inverseSum__lo = $x_2__lo;
+    inverseSum__hi = $x_2__hi;
     i = ((1 + i) | 0)
   };
   if ((size === 19)) {
@@ -4735,7 +4735,7 @@ $c_Lupickle_core_CharUtils$.prototype.parseLong__AC__I__I__J = (function(cs0, st
     var this$6__hi = inverseSum__hi;
     var ahi = this$6__hi;
     if ((ahi >= 0)) {
-      var $$x3 = true
+      var $x_3 = true
     } else {
       var this$7__lo = inverseSum__lo;
       var this$7__hi = inverseSum__hi;
@@ -4743,15 +4743,15 @@ $c_Lupickle_core_CharUtils$.prototype.parseLong__AC__I__I__J = (function(cs0, st
         var this$8__lo = inverseSign__lo;
         var this$8__hi = inverseSign__hi;
         var ahi$1 = this$8__hi;
-        var $$x3 = (ahi$1 < 0)
+        var $x_3 = (ahi$1 < 0)
       } else {
-        var $$x3 = false
+        var $x_3 = false
       }
     }
   } else {
-    var $$x3 = false
+    var $x_3 = false
   };
-  if ($$x3) {
+  if ($x_3) {
     var this$9 = $m_jl_String$();
     throw new $c_jl_NumberFormatException(this$9.new__AC__I__I__T(cs, 0, $n(cs).u.length))
   };
@@ -4932,10 +4932,10 @@ function $m_Lupickle_core_RenderUtils$() {
   return $n_Lupickle_core_RenderUtils$
 }
 function $p_Lupickle_core_TraceVisitor$HasPath__components__sci_List($thiz) {
-  var $$x1 = $thiz.parent__s_Option();
+  var $x_1 = $thiz.parent__s_Option();
   $n($m_s_package$().s_package$__f_List);
   var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lupickle_core_TraceVisitor$HasPath.getArrayOf().constr)([$thiz]));
-  return $p_Lupickle_core_TraceVisitor$HasPath__listPath$1__s_Option__sci_List__sci_List($thiz, $$x1, $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems))
+  return $p_Lupickle_core_TraceVisitor$HasPath__listPath$1__s_Option__sci_List__sci_List($thiz, $x_1, $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems))
 }
 function $f_Lupickle_core_TraceVisitor$HasPath__path__T($thiz) {
   var this$2 = $n($n($p_Lupickle_core_TraceVisitor$HasPath__components__sci_List($thiz)).iterator__sc_Iterator());
@@ -5040,12 +5040,12 @@ function $f_Lviz_PlatformGetSpec__jsonSpec__Lujson_Value($thiz) {
   var x1 = $thiz.Lviz_vega_plots_SpecUrl__f_f;
   var x = $s_Lviz_vega_Framework$__Vega__Lviz_vega_Framework();
   if ((x === null)) {
-    var $$x1 = (x1 === null)
+    var $x_1 = (x1 === null)
   } else {
     var this$1 = $n(x);
-    var $$x1 = (this$1 === x1)
+    var $x_1 = (this$1 === x1)
   };
-  if ($$x1) {
+  if ($x_1) {
     var x$1 = ("Fetching Vega spec from " + $thiz.Lviz_vega_plots_SpecUrl__f_url);
     var this$3 = $m_s_Console$();
     var this$4 = $n(this$3.out__Ljava_io_PrintStream());
@@ -5053,18 +5053,18 @@ function $f_Lviz_PlatformGetSpec__jsonSpec__Lujson_Value($thiz) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", $thiz.Lviz_vega_plots_SpecUrl__f_url, false);
     xhr.send();
-    var $$x2 = $m_Lujson_package$();
+    var $x_2 = $m_Lujson_package$();
     var s = $as_T(xhr.responseText);
-    return $n($$x2).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false))
+    return $n($x_2).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false))
   };
   var x$3 = $s_Lviz_vega_Framework$__VegaLite__Lviz_vega_Framework();
   if ((x$3 === null)) {
-    var $$x3 = (x1 === null)
+    var $x_3 = (x1 === null)
   } else {
     var this$6 = $n(x$3);
-    var $$x3 = (this$6 === x1)
+    var $x_3 = (this$6 === x1)
   };
-  if ($$x3) {
+  if ($x_3) {
     var xhr$2 = new XMLHttpRequest();
     xhr$2.open("GET", $thiz.Lviz_vega_plots_SpecUrl__f_url, false);
     xhr$2.send();
@@ -5072,9 +5072,9 @@ function $f_Lviz_PlatformGetSpec__jsonSpec__Lujson_Value($thiz) {
     var parser = new DOMParser();
     var virtualDoc = parser.parseFromString(text, $m_Lorg_scalajs_dom_MIMEType$package$MIMEType$().Lorg_scalajs_dom_MIMEType$package$MIMEType$__f_text$divhtml);
     var something = virtualDoc.querySelector(".example-spec");
-    var $$x4 = $m_Lujson_package$();
+    var $x_4 = $m_Lujson_package$();
     var s$1 = $as_T(something.textContent);
-    return $n($$x4).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s$1, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false))
+    return $n($x_4).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s$1, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false))
   };
   throw new $c_s_MatchError(x1)
 }
@@ -5369,10 +5369,10 @@ $h_jl_Double$.prototype = $c_jl_Double$.prototype;
 $c_jl_Double$.prototype.parseDouble__T__D = (function(s) {
   var groups = $p_jl_Double$__doubleStrPat__O(this).exec(s);
   if ((groups !== null)) {
-    var $$x2 = parseFloat;
+    var $x_2 = parseFloat;
     var x = groups[1];
-    var $$x1 = $$x2($as_T(x));
-    return $uD($$x1)
+    var $x_1 = $x_2($as_T(x));
+    return $uD($x_1)
   } else {
     return $p_jl_Double$__parseDoubleSlowPath__T__D(this, s)
   }
@@ -5385,11 +5385,11 @@ $c_jl_Double$.prototype.parseHexDoubleImpl__T__T__T__I__D = (function(integralPa
   while (true) {
     if ((i !== mantissaStr0.length)) {
       var index = i;
-      var $$x1 = ($charAt(mantissaStr0, index) === 48)
+      var $x_1 = ($charAt(mantissaStr0, index) === 48)
     } else {
-      var $$x1 = false
+      var $x_1 = false
     };
-    if ($$x1) {
+    if ($x_1) {
       i = ((1 + i) | 0)
     } else {
       break
@@ -5491,17 +5491,17 @@ $c_jl_Integer$.prototype.parseInt__T__I__I = (function(s, radix) {
   var negative = (firstChar === 45);
   var maxAbsValue = (negative ? 2.147483648E9 : 2.147483647E9);
   var i = ((negative || (firstChar === 43)) ? 1 : 0);
-  var $$x1 = i;
+  var $x_1 = i;
   var this$3 = $n(s);
-  if (($$x1 >= this$3.length)) {
+  if (($x_1 >= this$3.length)) {
     $p_jl_Integer$__fail$1__T__E(this, s)
   };
   var result = 0.0;
   while ((i !== len)) {
-    var $$x2 = $m_jl_Character$();
+    var $x_2 = $m_jl_Character$();
     var this$4 = $n(s);
     var index = i;
-    var digit = $n($$x2).digitWithValidRadix__I__I__I($charAt(this$4, index), radix);
+    var digit = $n($x_2).digitWithValidRadix__I__I__I($charAt(this$4, index), radix);
     result = ((result * radix) + digit);
     if (((digit === (-1)) || (result > maxAbsValue))) {
       $p_jl_Integer$__fail$1__T__E(this, s)
@@ -5544,14 +5544,14 @@ function $h_jl_Long$() {
 $h_jl_Long$.prototype = $c_jl_Long$.prototype;
 $c_jl_Long$.prototype.java$lang$Long$$toHexString__I__I__T = (function(lo, hi) {
   if ((hi !== 0)) {
-    var $$x1 = $as_T($uD((hi >>> 0.0)).toString(16));
+    var $x_1 = $as_T($uD((hi >>> 0.0)).toString(16));
     var s = $as_T($uD((lo >>> 0.0)).toString(16));
     var this$3 = $n(s);
     var beginIndex = this$3.length;
     if (((beginIndex < 0) || (beginIndex > 8))) {
       $charAt("00000000", beginIndex)
     };
-    return ($$x1 + (("" + $as_T("00000000".substring(beginIndex))) + s))
+    return ($x_1 + (("" + $as_T("00000000".substring(beginIndex))) + s))
   } else {
     return $as_T($uD((lo >>> 0.0)).toString(16))
   }
@@ -5561,30 +5561,30 @@ $c_jl_Long$.prototype.java$lang$Long$$toOctalString__I__I__T = (function(lo, hi)
   var mp = (1073741823 & ((((lo >>> 30) | 0) + (hi << 2)) | 0));
   var hp = ((hi >>> 28) | 0);
   if ((hp !== 0)) {
-    var $$x2 = $as_T($uD((hp >>> 0.0)).toString(8));
+    var $x_2 = $as_T($uD((hp >>> 0.0)).toString(8));
     var s = $as_T($uD((mp >>> 0.0)).toString(8));
     var this$3 = $n(s);
     var beginIndex = this$3.length;
     if (((beginIndex < 0) || (beginIndex > 10))) {
       $charAt("0000000000", beginIndex)
     };
-    var $$x1 = $as_T("0000000000".substring(beginIndex));
+    var $x_1 = $as_T("0000000000".substring(beginIndex));
     var s$1 = $as_T($uD((lp >>> 0.0)).toString(8));
     var this$5 = $n(s$1);
     var beginIndex$1 = this$5.length;
     if (((beginIndex$1 < 0) || (beginIndex$1 > 10))) {
       $charAt("0000000000", beginIndex$1)
     };
-    return (($$x2 + (("" + $$x1) + s)) + (("" + $as_T("0000000000".substring(beginIndex$1))) + s$1))
+    return (($x_2 + (("" + $x_1) + s)) + (("" + $as_T("0000000000".substring(beginIndex$1))) + s$1))
   } else if ((mp !== 0)) {
-    var $$x3 = $as_T($uD((mp >>> 0.0)).toString(8));
+    var $x_3 = $as_T($uD((mp >>> 0.0)).toString(8));
     var s$2 = $as_T($uD((lp >>> 0.0)).toString(8));
     var this$8 = $n(s$2);
     var beginIndex$2 = this$8.length;
     if (((beginIndex$2 < 0) || (beginIndex$2 > 10))) {
       $charAt("0000000000", beginIndex$2)
     };
-    return ($$x3 + (("" + $as_T("0000000000".substring(beginIndex$2))) + s$2))
+    return ($x_3 + (("" + $as_T("0000000000".substring(beginIndex$2))) + s$2))
   } else {
     return $as_T($uD((lp >>> 0.0)).toString(8))
   }
@@ -5646,9 +5646,9 @@ $c_jl_String$.prototype.new__AC__I__I__T = (function(value, offset, count) {
   var result = "";
   var i = offset;
   while ((i !== end)) {
-    var $$x1 = result;
+    var $x_1 = result;
     var this$1 = $n(value).get(i);
-    result = (("" + $$x1) + $as_T(String.fromCharCode(this$1)));
+    result = (("" + $x_1) + $as_T(String.fromCharCode(this$1)));
     i = ((1 + i) | 0)
   };
   return result
@@ -5687,8 +5687,8 @@ class $c_jl_Throwable extends Error {
     return this.jl_Throwable__f_s
   };
   fillInStackTrace__jl_Throwable() {
-    var $$x1 = this;
-    var reference = (($$x1 instanceof $c_sjs_js_JavaScriptException) ? $$x1.sjs_js_JavaScriptException__f_exception : $n($$x1));
+    var $x_1 = this;
+    var reference = (($x_1 instanceof $c_sjs_js_JavaScriptException) ? $x_1.sjs_js_JavaScriptException__f_exception : $n($x_1));
     var identifyingString = Object.prototype.toString.call(reference);
     if ((identifyingString !== "[object Error]")) {
       if ((Error.captureStackTrace === (void 0))) {
@@ -5733,16 +5733,16 @@ function $asArrayOf_jl_Throwable(obj, depth) {
 function $p_Ljava_security_SecureRandom$__getRandomValuesFun$lzycompute__sjs_js_Function1($thiz) {
   if ((!$thiz.Ljava_security_SecureRandom$__f_bitmap$0)) {
     if ((($as_T((typeof crypto)) !== "undefined") && ($as_T((typeof crypto.getRandomValues)) === "function"))) {
-      var $$x1 = ((arg1$2) => {
+      var $x_1 = ((arg1$2) => {
         $m_Ljava_security_SecureRandom$().java$security$SecureRandom$$$anonfun$getRandomValuesFun$1__sjs_js_typedarray_ArrayBufferView__V(arg1$2)
       })
     } else {
       if (($as_T((typeof require)) !== "function")) {
         $p_Ljava_security_SecureRandom$__notSupported__E($thiz)
       };
-      var $$x1 = $p_Ljava_security_SecureRandom$__liftedTree1$1__sjs_js_Function1($thiz)
+      var $x_1 = $p_Ljava_security_SecureRandom$__liftedTree1$1__sjs_js_Function1($thiz)
     };
-    $thiz.Ljava_security_SecureRandom$__f_java$security$SecureRandom$$getRandomValuesFun = $$x1;
+    $thiz.Ljava_security_SecureRandom$__f_java$security$SecureRandom$$getRandomValuesFun = $x_1;
     $thiz.Ljava_security_SecureRandom$__f_bitmap$0 = true
   };
   return $thiz.Ljava_security_SecureRandom$__f_java$security$SecureRandom$$getRandomValuesFun
@@ -5826,13 +5826,13 @@ $c_ju_AbstractMap.prototype.equals__O__Z = (function(o) {
           var this$10 = $n(item);
           var b = this$10.ju_HashMap$Node__f_value;
           if ((!((a === null) ? (b === null) : $dp_equals__O__Z($n(a), b)))) {
-            var $$x1 = true;
+            var $x_1 = true;
             break _return
           }
         };
-        var $$x1 = false
+        var $x_1 = false
       };
-      return (!$$x1)
+      return (!$x_1)
     } else {
       return false
     }
@@ -5864,11 +5864,11 @@ $c_ju_AbstractMap.prototype.toString__T = (function() {
     } else {
       result = (result + ", ")
     };
-    var $$x2 = result;
+    var $x_2 = result;
     var this$1 = $n(entry);
-    var $$x1 = this$1.ju_HashMap$Node__f_key;
+    var $x_1 = this$1.ju_HashMap$Node__f_key;
     var this$2 = $n(entry);
-    result = (((("" + $$x2) + $$x1) + "=") + this$2.ju_HashMap$Node__f_value)
+    result = (((("" + $x_2) + $x_1) + "=") + this$2.ju_HashMap$Node__f_value)
   };
   return (result + "}")
 });
@@ -6195,11 +6195,11 @@ $c_s_Array$.prototype.copy__O__I__O__I__I__V = (function(src, srcPos, dest, dest
   var srcClass = $objectGetClass(this$1);
   if ($n(srcClass).isArray__Z()) {
     var this$2 = $n(dest);
-    var $$x1 = $n($objectGetClass(this$2)).isAssignableFrom__jl_Class__Z(srcClass)
+    var $x_1 = $n($objectGetClass(this$2)).isAssignableFrom__jl_Class__Z(srcClass)
   } else {
-    var $$x1 = false
+    var $x_1 = false
   };
-  if ($$x1) {
+  if ($x_1) {
     $systemArraycopyFull($n(src), srcPos, $n(dest), destPos, length)
   } else {
     $p_s_Array$__slowcopy__O__I__O__I__I__V(this, src, srcPos, dest, destPos, length)
@@ -6675,8 +6675,8 @@ $c_Lujson_CharParser.prototype.parse__Lupickle_core_Visitor__O = (function(facad
 });
 $c_Lujson_CharParser.prototype.die__I__T__E = (function(i, msg) {
   var out = new $c_Lupickle_core_CharBuilder(32);
-  var $$x2 = $m_Lupickle_core_RenderUtils$();
-  var $$x1 = new $c_Lupickle_core_CharBuilder(32);
+  var $x_2 = $m_Lupickle_core_RenderUtils$();
+  var $x_1 = new $c_Lupickle_core_CharBuilder(32);
   $n(this.Lujson_CharParser__f_charOps);
   var c = this.getCharSafe__I__C(i);
   var array = new $ac_C(new Uint16Array([(65535 & c)]));
@@ -6688,12 +6688,12 @@ $c_Lujson_CharParser.prototype.die__I__T__E = (function(i, msg) {
   if (((length < 0) || (length > capacity))) {
     throw $ct_jl_IndexOutOfBoundsException__(new $c_jl_IndexOutOfBoundsException())
   };
-  $n($$x2).escapeChar__Lupickle_core_CharBuilder__Lupickle_core_CharBuilder__jl_CharSequence__Z__Z__Lupickle_core_CharBuilder($$x1, out, new $c_Ljava_nio_HeapCharBuffer(capacity, array, 0, 0, length, false), false, true);
-  var $$x4 = $m_sc_StringOps$();
-  var $$x3 = $m_sr_ScalaRunTime$();
+  $n($x_2).escapeChar__Lupickle_core_CharBuilder__Lupickle_core_CharBuilder__jl_CharSequence__Z__Z__Lupickle_core_CharBuilder($x_1, out, new $c_Ljava_nio_HeapCharBuffer(capacity, array, 0, 0, length, false), false, true);
+  var $x_4 = $m_sc_StringOps$();
+  var $x_3 = $m_sr_ScalaRunTime$();
   var arr = out.Lupickle_core_CharBuilder__f_arr;
   var length$1 = out.Lupickle_core_CharBuilder__f_length;
-  var s = $n($$x4).format$extension__T__sci_Seq__T("%s got %s", $n($$x3).genericWrapArray__O__sci_ArraySeq(new $ac_O([msg, $m_jl_String$().new__AC__I__I__T(arr, 0, length$1)])));
+  var s = $n($x_4).format$extension__T__sci_Seq__T("%s got %s", $n($x_3).genericWrapArray__O__sci_ArraySeq(new $ac_O([msg, $m_jl_String$().new__AC__I__I__T(arr, 0, length$1)])));
   throw new $c_Lujson_ParseException(s, i)
 });
 $c_Lujson_CharParser.prototype.parseNum__I__Lupickle_core_ObjArrVisitor__Lupickle_core_Visitor__I = (function(i, ctxt, facade) {
@@ -6852,17 +6852,17 @@ $c_Lujson_CharParser.prototype.parseTrue__I__Lupickle_core_Visitor__O = (functio
   var i$1 = ((1 + i) | 0);
   if (($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$1) === 114)) {
     var i$2 = ((2 + i) | 0);
-    var $$x2 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$2) === 117)
+    var $x_2 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$2) === 117)
   } else {
-    var $$x2 = false
+    var $x_2 = false
   };
-  if ($$x2) {
+  if ($x_2) {
     var i$3 = ((3 + i) | 0);
-    var $$x1 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$3) === 101)
+    var $x_1 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$3) === 101)
   } else {
-    var $$x1 = false
+    var $x_1 = false
   };
-  if ($$x1) {
+  if ($x_1) {
     return $n(facade).visitTrue__I__O(i)
   } else {
     this.die__I__T__E(i, "expected true")
@@ -6874,23 +6874,23 @@ $c_Lujson_CharParser.prototype.parseFalse__I__Lupickle_core_Visitor__O = (functi
   var i$1 = ((1 + i) | 0);
   if (($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$1) === 97)) {
     var i$2 = ((2 + i) | 0);
-    var $$x3 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$2) === 108)
+    var $x_3 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$2) === 108)
   } else {
-    var $$x3 = false
+    var $x_3 = false
   };
-  if ($$x3) {
+  if ($x_3) {
     var i$3 = ((3 + i) | 0);
-    var $$x2 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$3) === 115)
+    var $x_2 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$3) === 115)
   } else {
-    var $$x2 = false
+    var $x_2 = false
   };
-  if ($$x2) {
+  if ($x_2) {
     var i$4 = ((4 + i) | 0);
-    var $$x1 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$4) === 101)
+    var $x_1 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$4) === 101)
   } else {
-    var $$x1 = false
+    var $x_1 = false
   };
-  if ($$x1) {
+  if ($x_1) {
     return $n(facade).visitFalse__I__O(i)
   } else {
     this.die__I__T__E(i, "expected false")
@@ -6902,17 +6902,17 @@ $c_Lujson_CharParser.prototype.parseNull__I__Lupickle_core_Visitor__O = (functio
   var i$1 = ((1 + i) | 0);
   if (($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$1) === 117)) {
     var i$2 = ((2 + i) | 0);
-    var $$x2 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$2) === 108)
+    var $x_2 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$2) === 108)
   } else {
-    var $$x2 = false
+    var $x_2 = false
   };
-  if ($$x2) {
+  if ($x_2) {
     var i$3 = ((3 + i) | 0);
-    var $$x1 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$3) === 108)
+    var $x_1 = ($f_Lupickle_core_BufferingCharParser__getCharUnsafe__I__C(this, i$3) === 108)
   } else {
-    var $$x1 = false
+    var $x_1 = false
   };
-  if ($$x1) {
+  if ($x_1) {
     return $n(facade).visitNull__I__O(i)
   } else {
     this.die__I__T__E(i, "expected null")
@@ -7584,18 +7584,18 @@ $c_Lujson_CharParser.prototype.parseStringTopLevel__I__Lupickle_core_Visitor__T2
   var i$1 = ((1 + i) | 0);
   var k = this.parseStringSimple__I__I__I(i$1, 0);
   if ((k >= 0)) {
-    var $$x1 = $n(facade);
+    var $x_1 = $n(facade);
     var start = ((1 + i) | 0);
     var length = (((-2) + ((k - i) | 0)) | 0);
-    var res = $n($$x1).visitString__jl_CharSequence__I__O($f_Lupickle_core_BufferingCharParser__unsafeCharSeqForRange__I__I__Lupickle_core_WrapCharArrayCharSeq(this, start, length), i);
+    var res = $n($x_1).visitString__jl_CharSequence__I__O($f_Lupickle_core_BufferingCharParser__unsafeCharSeqForRange__I__I__Lupickle_core_WrapCharArrayCharSeq(this, start, length), i);
     return new $c_T2(res, k)
   } else {
     var k2 = this.parseStringToOutputBuilder__I__I__I(i, k);
-    var $$x2 = $n(facade);
+    var $x_2 = $n(facade);
     var this$2 = $n(this.Lujson_CharParser__f_outputBuilder);
     var arr = this$2.Lupickle_core_CharBuilder__f_arr;
     var length$1 = this$2.Lupickle_core_CharBuilder__f_length;
-    var res$2 = $n($$x2).visitString__jl_CharSequence__I__O($m_jl_String$().new__AC__I__I__T(arr, 0, length$1), i);
+    var res$2 = $n($x_2).visitString__jl_CharSequence__I__O($m_jl_String$().new__AC__I__I__T(arr, 0, length$1), i);
     return new $c_T2(res$2, k2)
   }
 });
@@ -8074,13 +8074,13 @@ $c_ju_AbstractCollection.prototype.containsAll__ju_Collection__Z = (function(c) 
     while ($n(_\uff3fself).hasNext__Z()) {
       var x$2 = $n(_\uff3fself).next__O();
       if ((!this.contains__O__Z(x$2))) {
-        var $$x1 = true;
+        var $x_1 = true;
         break _return
       }
     };
-    var $$x1 = false
+    var $x_1 = false
   };
-  return (!$$x1)
+  return (!$x_1)
 });
 $c_ju_AbstractCollection.prototype.toString__T = (function() {
   var _\uff3fself = this.iterator__ju_Iterator();
@@ -8208,7 +8208,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
   if (((beginIndex < 0) || (beginIndex > 8))) {
     $charAt("00000000", beginIndex)
   };
-  var $$x5 = $as_T("00000000".substring(beginIndex));
+  var $x_5 = $as_T("00000000".substring(beginIndex));
   var i$1 = ((this.ju_UUID__f_java$util$UUID$$i2 >>> 16) | 0);
   var s$1 = $as_T($uD((i$1 >>> 0.0)).toString(16));
   var this$4 = $n(s$1);
@@ -8216,7 +8216,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
   if (((beginIndex$1 < 0) || (beginIndex$1 > 4))) {
     $charAt("0000", beginIndex$1)
   };
-  var $$x4 = $as_T("0000".substring(beginIndex$1));
+  var $x_4 = $as_T("0000".substring(beginIndex$1));
   var i$2 = (65535 & this.ju_UUID__f_java$util$UUID$$i2);
   var s$2 = $as_T($uD((i$2 >>> 0.0)).toString(16));
   var this$6 = $n(s$2);
@@ -8224,7 +8224,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
   if (((beginIndex$2 < 0) || (beginIndex$2 > 4))) {
     $charAt("0000", beginIndex$2)
   };
-  var $$x3 = $as_T("0000".substring(beginIndex$2));
+  var $x_3 = $as_T("0000".substring(beginIndex$2));
   var i$3 = ((this.ju_UUID__f_java$util$UUID$$i3 >>> 16) | 0);
   var s$3 = $as_T($uD((i$3 >>> 0.0)).toString(16));
   var this$8 = $n(s$3);
@@ -8232,7 +8232,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
   if (((beginIndex$3 < 0) || (beginIndex$3 > 4))) {
     $charAt("0000", beginIndex$3)
   };
-  var $$x2 = $as_T("0000".substring(beginIndex$3));
+  var $x_2 = $as_T("0000".substring(beginIndex$3));
   var i$4 = (65535 & this.ju_UUID__f_java$util$UUID$$i3);
   var s$4 = $as_T($uD((i$4 >>> 0.0)).toString(16));
   var this$10 = $n(s$4);
@@ -8240,7 +8240,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
   if (((beginIndex$4 < 0) || (beginIndex$4 > 4))) {
     $charAt("0000", beginIndex$4)
   };
-  var $$x1 = $as_T("0000".substring(beginIndex$4));
+  var $x_1 = $as_T("0000".substring(beginIndex$4));
   var i$5 = this.ju_UUID__f_java$util$UUID$$i4;
   var s$5 = $as_T($uD((i$5 >>> 0.0)).toString(16));
   var this$12 = $n(s$5);
@@ -8248,7 +8248,7 @@ $c_ju_UUID.prototype.toString__T = (function() {
   if (((beginIndex$5 < 0) || (beginIndex$5 > 8))) {
     $charAt("00000000", beginIndex$5)
   };
-  return ((((((((((("" + $$x5) + s) + "-") + (("" + $$x4) + s$1)) + "-") + (("" + $$x3) + s$2)) + "-") + (("" + $$x2) + s$3)) + "-") + (("" + $$x1) + s$4)) + (("" + $as_T("00000000".substring(beginIndex$5))) + s$5))
+  return ((((((((((("" + $x_5) + s) + "-") + (("" + $x_4) + s$1)) + "-") + (("" + $x_3) + s$2)) + "-") + (("" + $x_2) + s$3)) + "-") + (("" + $x_1) + s$4)) + (("" + $as_T("00000000".substring(beginIndex$5))) + s$5))
 });
 $c_ju_UUID.prototype.hashCode__I = (function() {
   return (((this.ju_UUID__f_java$util$UUID$$i1 ^ this.ju_UUID__f_java$util$UUID$$i2) ^ this.ju_UUID__f_java$util$UUID$$i3) ^ this.ju_UUID__f_java$util$UUID$$i4)
@@ -8885,11 +8885,11 @@ $c_Lujson_BaseCharRenderer.prototype.visitFloat64__D__I__Ljava_io_Writer = (func
         $m_Lujson_BaseCharRenderer$().ujson$BaseCharRenderer$$$appendKnownAsciiString__Lupickle_core_CharBuilder__jl_CharSequence__V(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder, $m_RTLong$().org$scalajs$linker$runtime$RuntimeLong$$toString__I__I__T(lo, hi))
       } else {
         $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).ensureLength__I__V(24);
-        var $$x2 = $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder);
-        var $$x1 = $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).Lupickle_core_CharBuilder__f_length;
+        var $x_2 = $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder);
+        var $x_1 = $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).Lupickle_core_CharBuilder__f_length;
         var bytes = $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).Lupickle_core_CharBuilder__f_arr;
         var index$1 = $n(this.Lujson_BaseCharRenderer__f_ujson$BaseCharRenderer$$charBuilder).Lupickle_core_CharBuilder__f_length;
-        $$x2.Lupickle_core_CharBuilder__f_length = (($$x1 + $m_Lujson_MathUtilsChar$().toString__AC__I__T__I(bytes, index$1, ("" + d))) | 0)
+        $x_2.Lupickle_core_CharBuilder__f_length = (($x_1 + $m_Lujson_MathUtilsChar$().toString__AC__I__T__I(bytes, index$1, ("" + d))) | 0)
       };
       this.flushCharBuilder__V()
     }
@@ -9290,10 +9290,10 @@ function $h_Lviz_WithBaseSpec() {
 }
 $h_Lviz_WithBaseSpec.prototype = $c_Lviz_WithBaseSpec.prototype;
 $c_Lviz_WithBaseSpec.prototype.spec__T = (function() {
-  var $$x1 = $m_Lujson_package$();
+  var $x_1 = $m_Lujson_package$();
   var this$1 = $n(this.baseSpec__Lujson_Value());
   var s = $f_Lujson_Value__render__I__Z__T(this$1, (-1), false);
-  var temp = $n($$x1).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
+  var temp = $n($x_1).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
   $n(this.Lviz_vega_plots_Pacman__f_mods).foreach__F1__V(new $c_sjsr_AnonFunction1(((m) => {
     var m$1 = $as_F1(m);
     $n(m$1).apply__O__O(temp)
@@ -11840,11 +11840,11 @@ function $p_ju_Formatter__formatHexFloatingPoint__I__I__I__D__V($thiz, flags, wi
     while (true) {
       if ((len > minLength)) {
         var index = (((-1) + len) | 0);
-        var $$x1 = ($charAt(padded, index) === 48)
+        var $x_1 = ($charAt(padded, index) === 48)
       } else {
-        var $$x1 = false
+        var $x_1 = false
       };
-      if ($$x1) {
+      if ($x_1) {
         len = (((-1) + len) | 0)
       } else {
         break
@@ -11866,12 +11866,12 @@ function $p_ju_Formatter__formatHexFloatingPoint__I__I__I__D__V($thiz, flags, wi
 }
 function $p_ju_Formatter__formatNonNumericString__ju_Formatter$LocaleInfo__I__I__I__T__V($thiz, localeInfo, flags, width, precision, str) {
   if ((precision < 0)) {
-    var $$x1 = true
+    var $x_1 = true
   } else {
     var this$1 = $n(str);
-    var $$x1 = (precision >= this$1.length)
+    var $x_1 = (precision >= this$1.length)
   };
-  if ($$x1) {
+  if ($x_1) {
     var truncatedStr = str
   } else {
     var this$2 = $n(str);
@@ -11947,11 +11947,11 @@ function $p_ju_Formatter__insertGroupingCommas__ju_Formatter$LocaleInfo__T__T($t
       var this$2 = $n(s);
       var index$1 = index;
       var c = $charAt(this$2, index$1);
-      var $$x1 = ((c >= 48) && (c <= 57))
+      var $x_1 = ((c >= 48) && (c <= 57))
     } else {
-      var $$x1 = false
+      var $x_1 = false
     };
-    if ($$x1) {
+    if ($x_1) {
       index = ((1 + index) | 0)
     } else {
       break
@@ -13255,11 +13255,11 @@ $c_ju_HashMap.prototype.java$util$HashMap$$findNode0__O__I__I__ju_HashMap$Node =
     } else {
       if ((hash === $n(node).ju_HashMap$Node__f_hash)) {
         var b = $n(node).ju_HashMap$Node__f_key;
-        var $$x1 = ((key === null) ? (b === null) : $dp_equals__O__Z($n(key), b))
+        var $x_1 = ((key === null) ? (b === null) : $dp_equals__O__Z($n(key), b))
       } else {
-        var $$x1 = false
+        var $x_1 = false
       };
-      if ($$x1) {
+      if ($x_1) {
         return node
       } else if ((hash < $n(node).ju_HashMap$Node__f_hash)) {
         return null
@@ -13286,11 +13286,11 @@ $c_ju_HashMap.prototype.java$util$HashMap$$put0__O__O__I__Z__O = (function(key, 
     while (((n !== null) && ($n(n).ju_HashMap$Node__f_hash <= hash))) {
       if (($n(n).ju_HashMap$Node__f_hash === hash)) {
         var b = $n(n).ju_HashMap$Node__f_key;
-        var $$x1 = ((key === null) ? (b === null) : $dp_equals__O__Z($n(key), b))
+        var $x_1 = ((key === null) ? (b === null) : $dp_equals__O__Z($n(key), b))
       } else {
-        var $$x1 = false
+        var $x_1 = false
       };
-      if ($$x1) {
+      if ($x_1) {
         this.nodeWasAccessed__ju_HashMap$Node__V(n);
         var old = $n(n).ju_HashMap$Node__f_value;
         if (((!ifAbsent) || (old === null))) {
@@ -14053,11 +14053,11 @@ function $p_sc_LinearSeqOps__linearSeqEq$1__sc_LinearSeq__sc_LinearSeq__Z($thiz,
       var this$1 = $n(a);
       if ((!this$1.isEmpty__Z())) {
         var this$2 = $n(b);
-        var $$x1 = (!this$2.isEmpty__Z())
+        var $x_1 = (!this$2.isEmpty__Z())
       } else {
-        var $$x1 = false
+        var $x_1 = false
       };
-      if (($$x1 && $m_sr_BoxesRunTime$().equals__O__O__Z($n(a).head__O(), $n(b).head__O()))) {
+      if (($x_1 && $m_sr_BoxesRunTime$().equals__O__O__Z($n(a).head__O(), $n(b).head__O()))) {
         var temp$a = $as_sc_LinearSeq($n(a).tail__O());
         var temp$b = $as_sc_LinearSeq($n(b).tail__O());
         a = temp$a;
@@ -15021,15 +15021,15 @@ $c_Lujson_Readable$fromTransformer.prototype.equals__O__Z = (function(x$0) {
       var x$1 = this.Lujson_Readable$fromTransformer__f_w;
       var x$2 = $n(x$0$2).Lujson_Readable$fromTransformer__f_w;
       if ((x$1 === null)) {
-        var $$x1 = (x$2 === null)
+        var $x_1 = (x$2 === null)
       } else {
         var this$1 = $n(x$1);
-        var $$x1 = (this$1 === x$2)
+        var $x_1 = (this$1 === x$2)
       }
     } else {
-      var $$x1 = false
+      var $x_1 = false
     };
-    if ($$x1) {
+    if ($x_1) {
       $n(x$0$2);
       return true
     } else {
@@ -15271,9 +15271,9 @@ function $f_jl_Long__equals__O__Z($thiz, that) {
   }
 }
 function $f_jl_Long__hashCode__I($thiz) {
-  var $$x1 = $thiz.RTLong__f_lo;
+  var $x_1 = $thiz.RTLong__f_lo;
   var hi = $thiz.RTLong__f_hi;
-  return ($$x1 ^ hi)
+  return ($x_1 ^ hi)
 }
 function $f_jl_Long__toString__T($thiz) {
   return $m_RTLong$().org$scalajs$linker$runtime$RuntimeLong$$toString__I__I__T($thiz.RTLong__f_lo, $thiz.RTLong__f_hi)
@@ -15327,9 +15327,9 @@ function $f_T__hashCode__I($thiz) {
   var mul = 1;
   var i = (((-1) + $thiz.length) | 0);
   while ((i >= 0)) {
-    var $$x1 = res;
+    var $x_1 = res;
     var index = i;
-    res = (($$x1 + Math.imul($charAt($thiz, index), mul)) | 0);
+    res = (($x_1 + Math.imul($charAt($thiz, index), mul)) | 0);
     mul = Math.imul(31, mul);
     i = (((-1) + i) | 0)
   };
@@ -15345,10 +15345,10 @@ function $f_T__getChars__I__I__AC__I__V($thiz, srcBegin, srcEnd, dst, dstBegin) 
   var offset = ((dstBegin - srcBegin) | 0);
   var i = srcBegin;
   while ((i < srcEnd)) {
-    var $$x2 = $n(dst);
-    var $$x1 = i;
+    var $x_2 = $n(dst);
+    var $x_1 = i;
     var index = i;
-    $$x2.set((($$x1 + offset) | 0), $charAt($thiz, index));
+    $x_2.set((($x_1 + offset) | 0), $charAt($thiz, index));
     i = ((1 + i) | 0)
   }
 }
@@ -15373,10 +15373,10 @@ function $f_T__toCharArray__AC($thiz) {
   var result = new $ac_C(len);
   var i = 0;
   while ((i < len)) {
-    var $$x2 = $n(result);
-    var $$x1 = i;
+    var $x_2 = $n(result);
+    var $x_1 = i;
     var index = i;
-    $$x2.set($$x1, $charAt($thiz, index));
+    $x_2.set($x_1, $charAt($thiz, index));
     i = ((1 + i) | 0)
   };
   return result
@@ -15502,11 +15502,11 @@ $c_Ljava_nio_CharBuffer.prototype.hashCode__I = (function() {
   var h = (-182887236);
   var i = start;
   while ((i !== end)) {
-    var $$x2 = $m_ju_internal_MurmurHash3$();
-    var $$x1 = h;
+    var $x_2 = $m_ju_internal_MurmurHash3$();
+    var $x_1 = h;
     var index = i;
     var this$3 = this.load__I__C(index);
-    h = $n($$x2).mix__I__I__I($$x1, this$3);
+    h = $n($x_2).mix__I__I__I($x_1, this$3);
     i = ((1 + i) | 0)
   };
   return $m_ju_internal_MurmurHash3$().finalizeHash__I__I__I(h, ((end - start) | 0))
@@ -15968,9 +15968,9 @@ $c_sc_ArrayOps$ArrayIterator.prototype.hasNext__Z = (function() {
   return (this.sc_ArrayOps$ArrayIterator__f_scala$collection$ArrayOps$ArrayIterator$$pos < this.sc_ArrayOps$ArrayIterator__f_len)
 });
 $c_sc_ArrayOps$ArrayIterator.prototype.next__O = (function() {
-  var $$x1 = this.sc_ArrayOps$ArrayIterator__f_scala$collection$ArrayOps$ArrayIterator$$pos;
+  var $x_1 = this.sc_ArrayOps$ArrayIterator__f_scala$collection$ArrayOps$ArrayIterator$$pos;
   var xs = this.sc_ArrayOps$ArrayIterator__f_xs;
-  if (($$x1 >= $m_jl_reflect_Array$().getLength__O__I(xs))) {
+  if (($x_1 >= $m_jl_reflect_Array$().getLength__O__I(xs))) {
     $n($m_sc_Iterator$().sc_Iterator$__f_scala$collection$Iterator$$_empty).next__O()
   };
   var r = $m_sr_ScalaRunTime$().array_apply__O__I__O(this.sc_ArrayOps$ArrayIterator__f_xs, this.sc_ArrayOps$ArrayIterator__f_scala$collection$ArrayOps$ArrayIterator$$pos);
@@ -15981,12 +15981,12 @@ $c_sc_ArrayOps$ArrayIterator.prototype.drop__I__sc_Iterator = (function(n) {
   if ((n > 0)) {
     var newPos = ((this.sc_ArrayOps$ArrayIterator__f_scala$collection$ArrayOps$ArrayIterator$$pos + n) | 0);
     if ((newPos < 0)) {
-      var $$x1 = this.sc_ArrayOps$ArrayIterator__f_len
+      var $x_1 = this.sc_ArrayOps$ArrayIterator__f_len
     } else {
       var a = this.sc_ArrayOps$ArrayIterator__f_len;
-      var $$x1 = ((a < newPos) ? a : newPos)
+      var $x_1 = ((a < newPos) ? a : newPos)
     };
-    this.sc_ArrayOps$ArrayIterator__f_scala$collection$ArrayOps$ArrayIterator$$pos = $$x1
+    this.sc_ArrayOps$ArrayIterator__f_scala$collection$ArrayOps$ArrayIterator$$pos = $x_1
   };
   return this
 });
@@ -16187,9 +16187,9 @@ $c_sci_ArraySeq$.prototype.newBuilder__s_reflect_ClassTag__scm_Builder = (functi
   var this$4 = new $c_scm_ArrayBuffer$$anon$1();
   var f = new $c_sjsr_AnonFunction1(((b$2) => {
     var b = $as_scm_ArrayBuffer(b$2);
-    var $$x1 = $m_sci_ArraySeq$();
+    var $x_1 = $m_sci_ArraySeq$();
     var this$3 = $n(b);
-    return $n($$x1).unsafeWrapArray__O__sci_ArraySeq($f_sc_IterableOnceOps__toArray__s_reflect_ClassTag__O(this$3, evidence$2))
+    return $n($x_1).unsafeWrapArray__O__sci_ArraySeq($f_sc_IterableOnceOps__toArray__s_reflect_ClassTag__O(this$3, evidence$2))
   }));
   return new $c_scm_Builder$$anon$1(this$4, f)
 });
@@ -16600,11 +16600,11 @@ class $c_Lupickle_core_AbortException extends $c_jl_Exception {
       if (((((this.Lupickle_core_AbortException__f_index === $n(x$0$2).Lupickle_core_AbortException__f_index) && (this.Lupickle_core_AbortException__f_line === $n(x$0$2).Lupickle_core_AbortException__f_line)) && (this.Lupickle_core_AbortException__f_col === $n(x$0$2).Lupickle_core_AbortException__f_col)) && (this.Lupickle_core_AbortException__f_clue === $n(x$0$2).Lupickle_core_AbortException__f_clue))) {
         var x = this.Lupickle_core_AbortException__f_cause;
         var x$2 = $n(x$0$2).Lupickle_core_AbortException__f_cause;
-        var $$x1 = ((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))
+        var $x_1 = ((x === null) ? (x$2 === null) : $n(x).equals__O__Z(x$2))
       } else {
-        var $$x1 = false
+        var $x_1 = false
       };
-      if ($$x1) {
+      if ($x_1) {
         $n(x$0$2);
         return true
       } else {
@@ -17705,12 +17705,12 @@ $c_Lujson_Arr.prototype.equals__O__Z = (function(x$0) {
     var x = this.Lujson_Arr__f_value;
     var x$2 = $n(x$0$2).Lujson_Arr__f_value;
     if ((x === null)) {
-      var $$x1 = (x$2 === null)
+      var $x_1 = (x$2 === null)
     } else {
       var this$1 = $n(x);
-      var $$x1 = $f_sc_Seq__equals__O__Z(this$1, x$2)
+      var $x_1 = $f_sc_Seq__equals__O__Z(this$1, x$2)
     };
-    if ($$x1) {
+    if ($x_1) {
       $n(x$0$2);
       return true
     } else {
@@ -17923,12 +17923,12 @@ $c_Lujson_Obj.prototype.equals__O__Z = (function(x$0) {
     var x = this.Lujson_Obj__f_value;
     var x$2 = $n(x$0$2).Lujson_Obj__f_value;
     if ((x === null)) {
-      var $$x1 = (x$2 === null)
+      var $x_1 = (x$2 === null)
     } else {
       var this$1 = $n(x);
-      var $$x1 = $f_sc_Map__equals__O__Z(this$1, x$2)
+      var $x_1 = $f_sc_Map__equals__O__Z(this$1, x$2)
     };
-    if ($$x1) {
+    if ($x_1) {
       $n(x$0$2);
       return true
     } else {
@@ -18105,15 +18105,15 @@ $c_Lujson_Renderer.prototype.equals__O__Z = (function(x$0) {
       var x = this.Lujson_Renderer__f_out;
       var x$2 = $n(x$0$2).Lujson_Renderer__f_out;
       if ((x === null)) {
-        var $$x1 = (x$2 === null)
+        var $x_1 = (x$2 === null)
       } else {
         var this$1 = $n(x);
-        var $$x1 = (this$1 === x$2)
+        var $x_1 = (this$1 === x$2)
       }
     } else {
-      var $$x1 = false
+      var $x_1 = false
     };
-    if ($$x1) {
+    if ($x_1) {
       $n(x$0$2);
       return true
     } else {
@@ -18388,12 +18388,12 @@ $c_Lujson_Value$.prototype.transform__Lujson_Value__Lupickle_core_Visitor__O = (
   throw new $c_s_MatchError(j)
 });
 $c_Lujson_Value$.prototype.visitArray__I__I__Lupickle_core_ArrVisitor = (function(length, index) {
-  var $$x1 = new $c_sjsr_AnonFunction1(((xs) => {
+  var $x_1 = new $c_sjsr_AnonFunction1(((xs) => {
     var xs$1 = $as_scm_ArrayBuffer(xs);
     return new $c_Lujson_Arr(xs$1)
   }));
   var this$3 = $m_scm_ArrayBuffer$();
-  return new $c_Lujson_AstTransformer$AstArrVisitor(this, $$x1, new $c_sc_IterableFactory$ToFactory(this$3))
+  return new $c_Lujson_AstTransformer$AstArrVisitor(this, $x_1, new $c_sc_IterableFactory$ToFactory(this$3))
 });
 $c_Lujson_Value$.prototype.visitJsonableObject__I__I__Lupickle_core_ObjVisitor = (function(length, index) {
   return new $c_Lujson_AstTransformer$AstObjVisitor(this, new $c_sjsr_AnonFunction1(((xs) => {
@@ -18491,7 +18491,7 @@ $c_jl_JSConsoleBasedPrintStream.prototype.java$lang$JSConsoleBasedPrintStream$$p
       this.jl_JSConsoleBasedPrintStream__f_buffer = (("" + this.jl_JSConsoleBasedPrintStream__f_buffer) + rest);
       rest = ""
     } else {
-      var $$x1 = this.jl_JSConsoleBasedPrintStream__f_buffer;
+      var $x_1 = this.jl_JSConsoleBasedPrintStream__f_buffer;
       var this$2 = $n(rest);
       if ((nlPos > this$2.length)) {
         $charAt(this$2, nlPos)
@@ -18499,7 +18499,7 @@ $c_jl_JSConsoleBasedPrintStream.prototype.java$lang$JSConsoleBasedPrintStream$$p
       if ((nlPos < 0)) {
         $charAt(this$2, (-1))
       };
-      $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V(this, (("" + $$x1) + $as_T(this$2.substring(0, nlPos))));
+      $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V(this, (("" + $x_1) + $as_T(this$2.substring(0, nlPos))));
       this.jl_JSConsoleBasedPrintStream__f_buffer = "";
       var this$3 = $n(rest);
       var beginIndex = ((1 + nlPos) | 0);
@@ -31587,9 +31587,9 @@ $c_sci_LazyList.prototype.iterator__sc_Iterator = (function() {
 $c_sci_LazyList.prototype.foreach__F1__V = (function(f) {
   var _$this = this;
   while ((!$n(_$this).isEmpty__Z())) {
-    var $$x1 = $n(f);
+    var $x_1 = $n(f);
     var this$1 = $n(_$this);
-    $n($$x1).apply__O__O($n(this$1.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).head__O());
+    $n($x_1).apply__O__O($n(this$1.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).head__O());
     var this$2 = $n(_$this);
     _$this = $n(this$2.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).tail__sci_LazyList()
   }
@@ -31759,12 +31759,12 @@ $c_Lupickle_core_LinkedHashMap.prototype.upickle$core$LinkedHashMap$$_put__O__O_
   };
   var this$1 = $n(this.Lupickle_core_LinkedHashMap__f_upickle$core$LinkedHashMap$$underlying);
   if ((key === null)) {
-    var $$x1 = 0
+    var $x_1 = 0
   } else {
     var originalHash = $dp_hashCode__I($n(key));
-    var $$x1 = (originalHash ^ ((originalHash >>> 16) | 0))
+    var $x_1 = (originalHash ^ ((originalHash >>> 16) | 0))
   };
-  return this$1.java$util$HashMap$$put0__O__O__I__Z__O(key, value, $$x1, false)
+  return this$1.java$util$HashMap$$put0__O__O__I__Z__O(key, value, $x_1, false)
 });
 $c_Lupickle_core_LinkedHashMap.prototype.addOne__T2__Lupickle_core_LinkedHashMap = (function(elem) {
   this.upickle$core$LinkedHashMap$$_put__O__O__O($n(elem).T2__f__1, $n(elem).T2__f__2);
@@ -31776,9 +31776,9 @@ $c_Lupickle_core_LinkedHashMap.prototype.iterator__sc_Iterator = (function() {
   return new $c_Lupickle_core_LinkedHashMap$$anon$1(it, this)
 });
 $c_Lupickle_core_LinkedHashMap.prototype.get__O__s_Option = (function(key) {
-  var $$x1 = $m_s_Option$();
+  var $x_1 = $m_s_Option$();
   var this$1 = $n(this.Lupickle_core_LinkedHashMap__f_upickle$core$LinkedHashMap$$underlying);
-  return $n($$x1).apply__O__s_Option($p_ju_HashMap__getOrDefaultImpl__O__O__O(this$1, key, null))
+  return $n($x_1).apply__O__s_Option($p_ju_HashMap__getOrDefaultImpl__O__O__O(this$1, key, null))
 });
 $c_Lupickle_core_LinkedHashMap.prototype.addOne__O__scm_Growable = (function(elem) {
   return this.addOne__T2__Lupickle_core_LinkedHashMap($as_T2(elem))
@@ -31944,11 +31944,11 @@ $c_sci_Vector.prototype.foreach__F1__V = (function(f) {
   var c = this.vectorSliceCount__I();
   var i = 0;
   while ((i < c)) {
-    var $$x1 = $m_sci_VectorStatics$();
+    var $x_1 = $m_sci_VectorStatics$();
     var idx = i;
     var c$1 = ((c / 2) | 0);
     var a = ((idx - c$1) | 0);
-    $n($$x1).foreachRec__I__AO__F1__V((((-1) + ((((1 + c$1) | 0) - ((a < 0) ? ((-a) | 0) : a)) | 0)) | 0), this.vectorSlice__I__AO(i), f);
+    $n($x_1).foreachRec__I__AO__F1__V((((-1) + ((((1 + c$1) | 0) - ((a < 0) ? ((-a) | 0) : a)) | 0)) | 0), this.vectorSlice__I__AO(i), f);
     i = ((1 + i) | 0)
   }
 });
@@ -32001,9 +32001,9 @@ $c_scm_ArraySeq.prototype.equals__O__Z = (function(other) {
   if ((other instanceof $c_scm_ArraySeq)) {
     var x2 = $as_scm_ArraySeq(other);
     var xs = this.array__O();
-    var $$x1 = $m_jl_reflect_Array$().getLength__O__I(xs);
+    var $x_1 = $m_jl_reflect_Array$().getLength__O__I(xs);
     var xs$1 = $n(x2).array__O();
-    if (($$x1 !== $m_jl_reflect_Array$().getLength__O__I(xs$1))) {
+    if (($x_1 !== $m_jl_reflect_Array$().getLength__O__I(xs$1))) {
       return false
     }
   };
@@ -34652,15 +34652,15 @@ $c_scm_ArrayBuffer.prototype.knownSize__I = (function() {
   return this.scm_ArrayBuffer__f_size0
 });
 $c_scm_ArrayBuffer.prototype.ensureAdditionalSize__I__V = (function(n) {
-  var $$x3 = $m_scm_ArrayBuffer$();
-  var $$x2 = this.scm_ArrayBuffer__f_array;
-  var $$x1 = this.scm_ArrayBuffer__f_size0;
+  var $x_3 = $m_scm_ArrayBuffer$();
+  var $x_2 = this.scm_ArrayBuffer__f_array;
+  var $x_1 = this.scm_ArrayBuffer__f_size0;
   var value = this.scm_ArrayBuffer__f_size0;
   var hi = (value >> 31);
   var hi$1 = (n >> 31);
   var lo = ((value + n) | 0);
   var hi$2 = ((((-2147483648) ^ lo) < ((-2147483648) ^ value)) ? ((1 + ((hi + hi$1) | 0)) | 0) : ((hi + hi$1) | 0));
-  this.scm_ArrayBuffer__f_array = $n($$x3).scala$collection$mutable$ArrayBuffer$$ensureSize__AO__I__J__AO($$x2, $$x1, new $c_RTLong(lo, hi$2))
+  this.scm_ArrayBuffer__f_array = $n($x_3).scala$collection$mutable$ArrayBuffer$$ensureSize__AO__I__J__AO($x_2, $x_1, new $c_RTLong(lo, hi$2))
 });
 $c_scm_ArrayBuffer.prototype.apply__I__O = (function(n) {
   var hi = ((1 + n) | 0);
