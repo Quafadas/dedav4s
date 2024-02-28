@@ -109,7 +109,7 @@ lazy val dedav_calico = project
   .in(file("calico"))
   .dependsOn(core.jvm)
   .settings(
-    libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.1"
+    libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.2"
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
