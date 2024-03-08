@@ -1,6 +1,9 @@
+libraryDependencies += "io.github.gmkumar2005" %% "scala-js-env-playwright" % "0.1.11"
+
 addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.6.7")
 addSbtPlugin("org.typelevel" % "sbt-typelevel-site" % "0.6.7")
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.15.0")
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.4")
+addSbtPlugin("com.armanbilge" % "sbt-scalajs-importmap" % "0.1.1")
 //addSbtPlugin("com.mayreh" % "sbt-thank-you-stars" % "0.2")
 //addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "1.0.0-beta41")

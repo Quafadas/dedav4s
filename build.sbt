@@ -8,8 +8,22 @@ import laika.ast.LengthUnit.*
 import laika.ast.*
 import com.typesafe.tools.mima.core.Problem
 import com.typesafe.tools.mima.core.ProblemFilters
+import org.scalajs.linker.interface.ModuleSplitStyle
 
 import java.time.OffsetDateTime
+
+ThisBuild / githubWorkflowBuildPreamble ++= Seq(
+  WorkflowStep.Use(
+    UseRef.Public("actions", "setup-node", "v3"),
+    name = Some("Setup NodeJS v18 LTS"),
+    params = Map("node-version" -> "18", "cache" -> "npm"),
+    cond = Some("matrix.project == 'rootJS'")
+  ),
+  WorkflowStep.Run(
+    List("npm install"),
+    cond = Some("matrix.project == 'rootJS'")
+  )
+)
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
@@ -135,7 +149,21 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.41.2" % Test,
     libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.41.2" % Test
   )
-  .jsSettings(name := "tests-js")
+  .jsSettings(
+    name := "tests-js",
+    scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.ESModule),
+    },
+    scalaJSLinkerConfig ~= {
+      _.withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("viz")))
+    },
+    scalaJSImportMap := { (rawImport: String) =>
+      if (rawImport.startsWith("@vega/npm/vega-embed@6/+esm")) {"node_modules/vega-embed/build/vega-embed.js"}
+      else if (rawImport.startsWith("@vega/npm/vega-view@5/+esm")) {"node_modules/vega-view/build/vega-view.js"}
+      else rawImport
+    }
+  )
+  .jsEnablePlugins(ScalaJSImportMapPlugin)
 
 lazy val jsdocs = project
   .in(file("jsdocs"))

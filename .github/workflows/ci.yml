@@ -52,6 +52,16 @@ jobs:
         if: matrix.java == 'temurin@8' && steps.setup-java-temurin-8.outputs.cache-hit == 'false'
         run: sbt +update
 
+      - name: Setup NodeJS v18 LTS
+        if: matrix.project == 'rootJS'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+
+      - if: matrix.project == 'rootJS'
+        run: npm install
+
       - name: Check that workflows are up to date
         run: sbt githubWorkflowCheck
 
