@@ -74,7 +74,7 @@ object CalicoViz:
           dCheat.style.height = "40vmin"
           dCheat.style.width = "40vmin"
           val p: js.Promise[EmbedResult] =
-            viz.vega.facades.VegaEmbed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
+            viz.vega.facades.embed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
           val pIop = IO.fromPromise(IO(p))
           (d, pIop.map(_.view))
         }

@@ -1,6 +1,6 @@
 # Introduction
 
-<mark> dedav ***does not include*** the underlying JS libraries out of it's box</mark>. You'll need to include them through a bundling mechansim, or as `script`s in the page header, depending on your build setup.
+<mark> dedav ***does not include*** the underlying JS libraries out of it's box</mark>. You'll need to include them through a bundling mechansim, `script`s in the page header, or remapping to ESModules at link time, depending on your build setup.
 
 ## Does it support my Scala JS UI framework?
 It turns out, that scala JS Dom is simply a facade for the browser API. Dedav works, through providing a reference to a dom `div` element.
@@ -79,4 +79,14 @@ Which should bring in it's transitive dependancies. You could also consider goin
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
+```
+
+## ES Module Map
+
+```json
+{
+  "imports": {
+    "@vega/npm/": "https://cdn.jsdelivr.net/npm/"
+  }
+}
 ```

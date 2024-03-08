@@ -36,7 +36,7 @@ Currently, there are some niggling problems which remain after generation;
 ```json
 {
   "imports": {
-    "@vega/npm": "https://cdn.jsdelivr.net/npm/"
+    "@vega/npm/": "https://cdn.jsdelivr.net/npm/"
   }
 }
 ```

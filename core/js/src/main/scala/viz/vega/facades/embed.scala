@@ -40,64 +40,43 @@ trait ExportAction extends js.Object:
   var png: js.UndefOr[Boolean] = js.native
 end ExportAction
 
-object EmbedOptions extends EmbedOptions()
-
-trait EmbedOptions:
-
-  var actions: js.UndefOr[Boolean | Actions] = true
-
-  var ast: js.UndefOr[Boolean] = js.undefined
-
-  var bind: js.UndefOr[String] = js.undefined
-
-  var config: js.UndefOr[Any] = js.undefined
-
-  var defaultStyle: js.UndefOr[Boolean | String] = js.undefined
-
-  var downloadFileName: js.UndefOr[String] = js.undefined
-
-  var editorUrl: js.UndefOr[String] = js.undefined
-
-  var height: js.UndefOr[Double] = js.undefined
-
-  var hover: js.UndefOr[Boolean] = true
-
+class EmbedOptions(
+  var actions: js.UndefOr[Boolean | Actions] = true,
+  var ast: js.UndefOr[Boolean] = js.undefined,
+  var bind: js.UndefOr[String] = js.undefined,
+  var config: js.UndefOr[Any] = js.undefined,
+  var defaultStyle: js.UndefOr[Boolean | String] = js.undefined,
+  var downloadFileName: js.UndefOr[String] = js.undefined,
+  var editorUrl: js.UndefOr[String] = js.undefined,
+  var height: js.UndefOr[Double] = js.undefined,
+  var hover: js.UndefOr[Boolean] = true,
   var loader: js.UndefOr[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Loader */ Any
-  ] = js.undefined
-
-  var logLevel: js.UndefOr[Double] = js.undefined
-
-  var mode: js.UndefOr[String] = js.undefined
-
-  var padding: js.UndefOr[Double] = js.undefined
-
-  var scaleFactor: js.UndefOr[Double] = js.undefined
-
-  var sourceFooter: js.UndefOr[String] = js.undefined
-
-  var sourceHeader: js.UndefOr[String] = js.undefined
-
-  var theme: js.UndefOr[Theme] = js.undefined
-
-  var tooltip: js.UndefOr[Any] = js.undefined
-
+  ] = js.undefined,
+  var logLevel: js.UndefOr[Double] = js.undefined,
+  var mode: js.UndefOr[String] = js.undefined,
+  var padding: js.UndefOr[Double] = js.undefined,
+  var scaleFactor: js.UndefOr[Double] = js.undefined,
+  var sourceFooter: js.UndefOr[String] = js.undefined,
+  var sourceHeader: js.UndefOr[String] = js.undefined,
+  var theme: js.UndefOr[Theme] = js.undefined,
+  var tooltip: js.UndefOr[Any] = js.undefined,
   var viewClass: js.UndefOr[
     /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof View */ Any
-  ] = js.undefined
-
+  ] = js.undefined,
   var width: js.UndefOr[Double] = js.undefined
-end EmbedOptions
+) extends js.Object
+
 
 @js.native
-@JSImport("@vega/npm/vega-embed@6/+esm", JSImport.Namespace, "vegaEmbed")
-object VegaEmbed extends js.Object:
+@JSImport("@vega/npm/vega-embed@6/+esm", JSImport.Default)
+object embed extends js.Object:
   def apply(element: HTMLElement, spec: js.Object, options: EmbedOptions): js.Promise[EmbedResult] = js.native
 
   // def embedChart(element: HTMLElement, spec: viz.Spec , options: EmbedOptions): js.Promise[EmbedResult] = js.native
 
   def embed(clz: String, spec: js.Dynamic, opts: EmbedOptions): js.Promise[EmbedResult] = js.native
-end VegaEmbed
+end embed
 
 @js.native
 trait EmbedResult extends js.Object:

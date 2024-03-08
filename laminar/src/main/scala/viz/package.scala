@@ -65,25 +65,25 @@ object LaminarViz:
 
     val (embeddedIn, embedResult) = (inDivOpt, embedOpt) match
       case (Some(thisDiv), Some(opts)) =>
-        val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(thisDiv.ref, specObj, opts)
+        val p: js.Promise[EmbedResult] = viz.vega.facades.embed(thisDiv.ref, specObj, opts)
         (thisDiv, p)
       case (Some(thisDiv), None) =>
         val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
-        val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(thisDiv.ref, specObj, EmbedOptions)
+        val p: js.Promise[EmbedResult] = viz.vega.facades.embed(thisDiv.ref, specObj, EmbedOptions())
         (thisDiv, p)
       case (None, Some(opts)) =>
         val newDiv = div(
           width := "40vmin",
           height := "40vmin"
         )
-        val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(newDiv.ref, specObj, opts)
+        val p: js.Promise[EmbedResult] = viz.vega.facades.embed(newDiv.ref, specObj, opts)
         (newDiv, p)
       case (None, None) =>
         val newDiv = div(
           width := "40vmin",
           height := "40vmin"
         )
-        val p: js.Promise[EmbedResult] = viz.vega.facades.VegaEmbed(newDiv.ref, specObj, EmbedOptions)
+        val p: js.Promise[EmbedResult] = viz.vega.facades.embed(newDiv.ref, specObj, EmbedOptions())
         (newDiv, p)
 
     val view: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(in => in.map(_.view))

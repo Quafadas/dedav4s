@@ -29,9 +29,9 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends S
       inDiv.setAttribute("id", temp.toString())
     else anId
 
-    val opts = viz.vega.facades.EmbedOptions
+    val opts = viz.vega.facades.EmbedOptions()
     val parsed = JSON.parse(spec)
-    viz.vega.facades.VegaEmbed.embed(s"#$anId", parsed, opts)
+    viz.vega.facades.embed.embed(s"#$anId", parsed, opts)
     ()
   end show
 
