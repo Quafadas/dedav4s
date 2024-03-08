@@ -8867,7 +8867,7 @@ $c_Lviz_LaminarViz$.prototype.viewEmbed__Lviz_Spec__s_Option__s_Option__T2 = (fu
     if ((x18 instanceof $c_s_Some)) {
       var x23 = $as_Lcom_raquo_laminar_nodes_ReactiveHtmlElement($n($as_s_Some(x18)).s_Some__f_value);
       if ((x19 instanceof $c_s_Some)) {
-        var opts = $as_Lviz_vega_facades_EmbedOptions($n($as_s_Some(x19)).s_Some__f_value);
+        var opts = $n($as_s_Some(x19)).s_Some__f_value;
         var p = vegaEmbed($n(x23).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_ref, specObj, opts);
         var \u03b43$___1 = x23;
         var \u03b43$___2 = p;
@@ -8876,7 +8876,7 @@ $c_Lviz_LaminarViz$.prototype.viewEmbed__Lviz_Spec__s_Option__s_Option__T2 = (fu
       var x = $m_s_None$();
       if ((x === x19)) {
         var specObj$2 = JSON.parse($n(chart).spec__T());
-        var p$2 = vegaEmbed($n(x23).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_ref, specObj$2, $m_Lviz_vega_facades_EmbedOptions$());
+        var p$2 = vegaEmbed($n(x23).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_ref, specObj$2, new ($a_Lviz_vega_facades_EmbedOptions())());
         var \u03b43$___1 = x23;
         var \u03b43$___2 = p$2;
         break matchResult3
@@ -8885,7 +8885,7 @@ $c_Lviz_LaminarViz$.prototype.viewEmbed__Lviz_Spec__s_Option__s_Option__T2 = (fu
     var x$3 = $m_s_None$();
     if ((x$3 === x18)) {
       if ((x19 instanceof $c_s_Some)) {
-        var opts$2 = $as_Lviz_vega_facades_EmbedOptions($n($as_s_Some(x19)).s_Some__f_value);
+        var opts$2 = $n($as_s_Some(x19)).s_Some__f_value;
         var newDiv = $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).div__Lcom_raquo_laminar_tags_HtmlTag()).apply__sci_Seq__Lcom_raquo_laminar_nodes_ReactiveHtmlElement($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lcom_raquo_laminar_modifiers_Modifier.getArrayOf().constr)([$n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).width__Lcom_raquo_laminar_keys_StyleProp()).$colon$eq__O__Lcom_raquo_laminar_modifiers_KeySetter("40vmin"), $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).height__Lcom_raquo_laminar_keys_StyleProp()).$colon$eq__O__Lcom_raquo_laminar_modifiers_KeySetter("40vmin")])));
         var p$3 = vegaEmbed($n(newDiv).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_ref, specObj, opts$2);
         var \u03b43$___1 = newDiv;
@@ -8895,7 +8895,7 @@ $c_Lviz_LaminarViz$.prototype.viewEmbed__Lviz_Spec__s_Option__s_Option__T2 = (fu
       var x$5 = $m_s_None$();
       if ((x$5 === x19)) {
         var newDiv$2 = $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).div__Lcom_raquo_laminar_tags_HtmlTag()).apply__sci_Seq__Lcom_raquo_laminar_nodes_ReactiveHtmlElement($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lcom_raquo_laminar_modifiers_Modifier.getArrayOf().constr)([$n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).width__Lcom_raquo_laminar_keys_StyleProp()).$colon$eq__O__Lcom_raquo_laminar_modifiers_KeySetter("40vmin"), $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).height__Lcom_raquo_laminar_keys_StyleProp()).$colon$eq__O__Lcom_raquo_laminar_modifiers_KeySetter("40vmin")])));
-        var p$4 = vegaEmbed($n(newDiv$2).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_ref, specObj, $m_Lviz_vega_facades_EmbedOptions$());
+        var p$4 = vegaEmbed($n(newDiv$2).Lcom_raquo_laminar_nodes_ReactiveHtmlElement__f_ref, specObj, new ($a_Lviz_vega_facades_EmbedOptions())());
         var \u03b43$___1 = newDiv$2;
         var \u03b43$___2 = p$4;
         break matchResult3
@@ -9262,21 +9262,6 @@ function $m_Lviz_extensions_package$RawIterables$() {
     $n_Lviz_extensions_package$RawIterables$ = new $c_Lviz_extensions_package$RawIterables$()
   };
   return $n_Lviz_extensions_package$RawIterables$
-}
-function $f_Lviz_vega_facades_EmbedOptions__$init$__V($thiz) {
-  /*<skip>*/
-}
-function $is_Lviz_vega_facades_EmbedOptions(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lviz_vega_facades_EmbedOptions)))
-}
-function $as_Lviz_vega_facades_EmbedOptions(obj) {
-  return (($is_Lviz_vega_facades_EmbedOptions(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "viz.vega.facades.EmbedOptions"))
-}
-function $isArrayOf_Lviz_vega_facades_EmbedOptions(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lviz_vega_facades_EmbedOptions)))
-}
-function $asArrayOf_Lviz_vega_facades_EmbedOptions(obj, depth) {
-  return (($isArrayOf_Lviz_vega_facades_EmbedOptions(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lviz.vega.facades.EmbedOptions;", depth))
 }
 /** @constructor */
 function $c_Lviz_vega_facades_Helpers$() {
@@ -12916,7 +12901,7 @@ function $f_Lviz_PlatformShow__show__Lorg_scalajs_dom_HTMLDivElement__V($thiz, i
     var temp = $m_ju_UUID$().randomUUID__ju_UUID();
     inDiv.setAttribute("id", $n(temp).toString__T())
   };
-  var opts = $m_Lviz_vega_facades_EmbedOptions$();
+  var opts = new ($a_Lviz_vega_facades_EmbedOptions())();
   var parsed = JSON.parse($thiz.spec__T());
   vegaEmbed.embed(("#" + anId), parsed, opts)
 }
@@ -13127,33 +13112,6 @@ var $d_Lviz_doNothing_DoNothing$package$$anon$1 = new $TypeData().initClass({
   Lviz_LowPriorityPlotTarget: 1
 });
 $c_Lviz_doNothing_DoNothing$package$$anon$1.prototype.$classData = $d_Lviz_doNothing_DoNothing$package$$anon$1;
-/** @constructor */
-function $c_Lviz_vega_facades_EmbedOptions$() {
-  $n_Lviz_vega_facades_EmbedOptions$ = this;
-  $f_Lviz_vega_facades_EmbedOptions__$init$__V(this)
-}
-$c_Lviz_vega_facades_EmbedOptions$.prototype = new $h_O();
-$c_Lviz_vega_facades_EmbedOptions$.prototype.constructor = $c_Lviz_vega_facades_EmbedOptions$;
-/** @constructor */
-function $h_Lviz_vega_facades_EmbedOptions$() {
-  /*<skip>*/
-}
-$h_Lviz_vega_facades_EmbedOptions$.prototype = $c_Lviz_vega_facades_EmbedOptions$.prototype;
-var $d_Lviz_vega_facades_EmbedOptions$ = new $TypeData().initClass({
-  Lviz_vega_facades_EmbedOptions$: 0
-}, false, "viz.vega.facades.EmbedOptions$", {
-  Lviz_vega_facades_EmbedOptions$: 1,
-  O: 1,
-  Lviz_vega_facades_EmbedOptions: 1
-});
-$c_Lviz_vega_facades_EmbedOptions$.prototype.$classData = $d_Lviz_vega_facades_EmbedOptions$;
-var $n_Lviz_vega_facades_EmbedOptions$;
-function $m_Lviz_vega_facades_EmbedOptions$() {
-  if ((!$n_Lviz_vega_facades_EmbedOptions$)) {
-    $n_Lviz_vega_facades_EmbedOptions$ = new $c_Lviz_vega_facades_EmbedOptions$()
-  };
-  return $n_Lviz_vega_facades_EmbedOptions$
-}
 /** @constructor */
 function $c_Lviz_vega_plots_BarChart$() {
   $n_Lviz_vega_plots_BarChart$ = this;
@@ -15922,6 +15880,197 @@ function $m_Lviz_vega_Framework$() {
     $n_Lviz_vega_Framework$ = new $c_Lviz_vega_Framework$()
   };
   return $n_Lviz_vega_Framework$
+}
+var $b_Lviz_vega_facades_EmbedOptions;
+function $a_Lviz_vega_facades_EmbedOptions() {
+  if ((!$b_Lviz_vega_facades_EmbedOptions)) {
+    $b_Lviz_vega_facades_EmbedOptions = class $b_Lviz_vega_facades_EmbedOptions extends Object {
+      constructor(...rest) {
+        var actions = null;
+        var ast = null;
+        var bind = null;
+        var config = null;
+        var defaultStyle = null;
+        var downloadFileName = null;
+        var editorUrl = null;
+        var height = null;
+        var hover = null;
+        var loader = null;
+        var logLevel = null;
+        var mode = null;
+        var padding = null;
+        var scaleFactor = null;
+        var sourceFooter = null;
+        var sourceHeader = null;
+        var theme = null;
+        var tooltip = null;
+        var viewClass = null;
+        var width = null;
+        actions = ((rest[0] === (void 0)) || rest[0]);
+        ast = ((rest[1] === (void 0)) ? (void 0) : rest[1]);
+        bind = ((rest[2] === (void 0)) ? (void 0) : rest[2]);
+        config = ((rest[3] === (void 0)) ? (void 0) : rest[3]);
+        defaultStyle = ((rest[4] === (void 0)) ? (void 0) : rest[4]);
+        downloadFileName = ((rest[5] === (void 0)) ? (void 0) : rest[5]);
+        editorUrl = ((rest[6] === (void 0)) ? (void 0) : rest[6]);
+        height = ((rest[7] === (void 0)) ? (void 0) : rest[7]);
+        hover = ((rest[8] === (void 0)) || rest[8]);
+        loader = ((rest[9] === (void 0)) ? (void 0) : rest[9]);
+        logLevel = ((rest[10] === (void 0)) ? (void 0) : rest[10]);
+        mode = ((rest[11] === (void 0)) ? (void 0) : rest[11]);
+        padding = ((rest[12] === (void 0)) ? (void 0) : rest[12]);
+        scaleFactor = ((rest[13] === (void 0)) ? (void 0) : rest[13]);
+        sourceFooter = ((rest[14] === (void 0)) ? (void 0) : rest[14]);
+        sourceHeader = ((rest[15] === (void 0)) ? (void 0) : rest[15]);
+        theme = ((rest[16] === (void 0)) ? (void 0) : rest[16]);
+        tooltip = ((rest[17] === (void 0)) ? (void 0) : rest[17]);
+        viewClass = ((rest[18] === (void 0)) ? (void 0) : rest[18]);
+        width = ((rest[19] === (void 0)) ? (void 0) : rest[19]);
+        super();
+        Object.defineProperty(this, "actions", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "ast", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "bind", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "config", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "defaultStyle", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "downloadFileName", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "editorUrl", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "height", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "hover", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "loader", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "logLevel", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "mode", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "padding", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "scaleFactor", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "sourceFooter", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "sourceHeader", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "theme", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "tooltip", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "viewClass", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "width", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        this.actions = actions;
+        this.ast = ast;
+        this.bind = bind;
+        this.config = config;
+        this.defaultStyle = defaultStyle;
+        this.downloadFileName = downloadFileName;
+        this.editorUrl = editorUrl;
+        this.height = height;
+        this.hover = hover;
+        this.loader = loader;
+        this.logLevel = logLevel;
+        this.mode = mode;
+        this.padding = padding;
+        this.scaleFactor = scaleFactor;
+        this.sourceFooter = sourceFooter;
+        this.sourceHeader = sourceHeader;
+        this.theme = theme;
+        this.tooltip = tooltip;
+        this.viewClass = viewClass;
+        this.width = width
+      };
+    }
+  };
+  return $b_Lviz_vega_facades_EmbedOptions
 }
 function $s_Lviz_vega_plots_SpecUrl$__BarChart__Lviz_vega_plots_SpecUrl() {
   $m_Lviz_vega_plots_SpecUrl$();

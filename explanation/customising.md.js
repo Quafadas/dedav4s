@@ -1037,35 +1037,6 @@ function $m_jl_FloatingPointBits$() {
   };
   return $n_jl_FloatingPointBits$
 }
-/** @constructor */
-function $c_jl_System$Streams$() {
-  this.jl_System$Streams$__f_out = null;
-  this.jl_System$Streams$__f_err = null;
-  $n_jl_System$Streams$ = this;
-  this.jl_System$Streams$__f_out = new $c_jl_JSConsoleBasedPrintStream(false);
-  this.jl_System$Streams$__f_err = new $c_jl_JSConsoleBasedPrintStream(true)
-}
-$c_jl_System$Streams$.prototype = new $h_O();
-$c_jl_System$Streams$.prototype.constructor = $c_jl_System$Streams$;
-/** @constructor */
-function $h_jl_System$Streams$() {
-  /*<skip>*/
-}
-$h_jl_System$Streams$.prototype = $c_jl_System$Streams$.prototype;
-var $d_jl_System$Streams$ = new $TypeData().initClass({
-  jl_System$Streams$: 0
-}, false, "java.lang.System$Streams$", {
-  jl_System$Streams$: 1,
-  O: 1
-});
-$c_jl_System$Streams$.prototype.$classData = $d_jl_System$Streams$;
-var $n_jl_System$Streams$;
-function $m_jl_System$Streams$() {
-  if ((!$n_jl_System$Streams$)) {
-    $n_jl_System$Streams$ = new $c_jl_System$Streams$()
-  };
-  return $n_jl_System$Streams$
-}
 function $p_jl_System$SystemProperties$__loadSystemProperties__O($thiz) {
   var result = {};
   result["java.version"] = "1.8";
@@ -1918,28 +1889,6 @@ function $m_sr_Statics$PFMarker$() {
   return $n_sr_Statics$PFMarker$
 }
 /** @constructor */
-function $c_s_util_DynamicVariable(init) {
-  this.s_util_DynamicVariable__f_v = null;
-  this.s_util_DynamicVariable__f_v = init
-}
-$c_s_util_DynamicVariable.prototype = new $h_O();
-$c_s_util_DynamicVariable.prototype.constructor = $c_s_util_DynamicVariable;
-/** @constructor */
-function $h_s_util_DynamicVariable() {
-  /*<skip>*/
-}
-$h_s_util_DynamicVariable.prototype = $c_s_util_DynamicVariable.prototype;
-$c_s_util_DynamicVariable.prototype.toString__T = (function() {
-  return (("DynamicVariable(" + this.s_util_DynamicVariable__f_v) + ")")
-});
-var $d_s_util_DynamicVariable = new $TypeData().initClass({
-  s_util_DynamicVariable: 0
-}, false, "scala.util.DynamicVariable", {
-  s_util_DynamicVariable: 1,
-  O: 1
-});
-$c_s_util_DynamicVariable.prototype.$classData = $d_s_util_DynamicVariable;
-/** @constructor */
 function $c_s_util_hashing_MurmurHash3() {
   /*<skip>*/
 }
@@ -2126,16 +2075,13 @@ function $h_Lviz_doc_showJsDocs$() {
 }
 $h_Lviz_doc_showJsDocs$.prototype = $c_Lviz_doc_showJsDocs$.prototype;
 $c_Lviz_doc_showJsDocs$.prototype.apply__T__Lorg_scalajs_dom_Element__I__V = (function(path, node, width) {
-  var this$2 = $m_s_Console$();
-  var this$3 = $n(this$2.out__Ljava_io_PrintStream());
-  this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V("here!\n");
   var child = document.createElement("div");
-  var this$4 = $n($n($m_s_util_Random$().alphanumeric__sci_LazyList()).take__I__sci_LazyList(8));
-  var anId = ("vega" + $f_sc_IterableOnceOps__mkString__T__T__T__T(this$4, "", "", ""));
+  var this$1 = $n($n($m_s_util_Random$().alphanumeric__sci_LazyList()).take__I__sci_LazyList(8));
+  var anId = ("vega" + $f_sc_IterableOnceOps__mkString__T__T__T__T(this$1, "", "", ""));
   child.id = anId;
   node.appendChild(child);
   child.setAttribute("style", (((("width:" + width) + "vmin;height:") + width) + "vmin"));
-  var opts = $m_Lviz_vega_facades_EmbedOptions$();
+  var opts = new ($a_Lviz_vega_facades_EmbedOptions())();
   var xhr = new XMLHttpRequest();
   xhr.open("GET", (("../assets/" + path) + ".json"), false);
   xhr.send();
@@ -2156,9 +2102,6 @@ function $m_Lviz_doc_showJsDocs$() {
     $n_Lviz_doc_showJsDocs$ = new $c_Lviz_doc_showJsDocs$()
   };
   return $n_Lviz_doc_showJsDocs$
-}
-function $f_Lviz_vega_facades_EmbedOptions__$init$__V($thiz) {
-  /*<skip>*/
 }
 function $p_jl_Character$__nonASCIIZeroDigitCodePoints$lzycompute__AI($thiz) {
   if (((((32 & $thiz.jl_Character$__f_bitmap$0) << 24) >> 24) === 0)) {
@@ -2445,39 +2388,6 @@ function $m_ju_Random$() {
   };
   return $n_ju_Random$
 }
-/** @constructor */
-function $c_s_Console$() {
-  this.s_Console$__f_outVar = null;
-  $n_s_Console$ = this;
-  this.s_Console$__f_outVar = new $c_s_util_DynamicVariable($m_jl_System$Streams$().jl_System$Streams$__f_out);
-  new $c_s_util_DynamicVariable($m_jl_System$Streams$().jl_System$Streams$__f_err);
-  new $c_s_util_DynamicVariable(null)
-}
-$c_s_Console$.prototype = new $h_O();
-$c_s_Console$.prototype.constructor = $c_s_Console$;
-/** @constructor */
-function $h_s_Console$() {
-  /*<skip>*/
-}
-$h_s_Console$.prototype = $c_s_Console$.prototype;
-$c_s_Console$.prototype.out__Ljava_io_PrintStream = (function() {
-  return $as_Ljava_io_PrintStream($n(this.s_Console$__f_outVar).s_util_DynamicVariable__f_v)
-});
-var $d_s_Console$ = new $TypeData().initClass({
-  s_Console$: 0
-}, false, "scala.Console$", {
-  s_Console$: 1,
-  O: 1,
-  s_io_AnsiColor: 1
-});
-$c_s_Console$.prototype.$classData = $d_s_Console$;
-var $n_s_Console$;
-function $m_s_Console$() {
-  if ((!$n_s_Console$)) {
-    $n_s_Console$ = new $c_s_Console$()
-  };
-  return $n_s_Console$
-}
 function $is_sci_LazyList$State(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sci_LazyList$State)))
 }
@@ -2674,33 +2584,6 @@ function $m_s_util_hashing_MurmurHash3$() {
     $n_s_util_hashing_MurmurHash3$ = new $c_s_util_hashing_MurmurHash3$()
   };
   return $n_s_util_hashing_MurmurHash3$
-}
-/** @constructor */
-function $c_Lviz_vega_facades_EmbedOptions$() {
-  $n_Lviz_vega_facades_EmbedOptions$ = this;
-  $f_Lviz_vega_facades_EmbedOptions__$init$__V(this)
-}
-$c_Lviz_vega_facades_EmbedOptions$.prototype = new $h_O();
-$c_Lviz_vega_facades_EmbedOptions$.prototype.constructor = $c_Lviz_vega_facades_EmbedOptions$;
-/** @constructor */
-function $h_Lviz_vega_facades_EmbedOptions$() {
-  /*<skip>*/
-}
-$h_Lviz_vega_facades_EmbedOptions$.prototype = $c_Lviz_vega_facades_EmbedOptions$.prototype;
-var $d_Lviz_vega_facades_EmbedOptions$ = new $TypeData().initClass({
-  Lviz_vega_facades_EmbedOptions$: 0
-}, false, "viz.vega.facades.EmbedOptions$", {
-  Lviz_vega_facades_EmbedOptions$: 1,
-  O: 1,
-  Lviz_vega_facades_EmbedOptions: 1
-});
-$c_Lviz_vega_facades_EmbedOptions$.prototype.$classData = $d_Lviz_vega_facades_EmbedOptions$;
-var $n_Lviz_vega_facades_EmbedOptions$;
-function $m_Lviz_vega_facades_EmbedOptions$() {
-  if ((!$n_Lviz_vega_facades_EmbedOptions$)) {
-    $n_Lviz_vega_facades_EmbedOptions$ = new $c_Lviz_vega_facades_EmbedOptions$()
-  };
-  return $n_Lviz_vega_facades_EmbedOptions$
 }
 /** @constructor */
 function $c_jl_Class(data0) {
@@ -2934,17 +2817,197 @@ function $m_s_util_Random$() {
   };
   return $n_s_util_Random$
 }
-/** @constructor */
-function $c_Ljava_io_OutputStream() {
-  /*<skip>*/
+var $b_Lviz_vega_facades_EmbedOptions;
+function $a_Lviz_vega_facades_EmbedOptions() {
+  if ((!$b_Lviz_vega_facades_EmbedOptions)) {
+    $b_Lviz_vega_facades_EmbedOptions = class $b_Lviz_vega_facades_EmbedOptions extends Object {
+      constructor(...rest) {
+        var actions = null;
+        var ast = null;
+        var bind = null;
+        var config = null;
+        var defaultStyle = null;
+        var downloadFileName = null;
+        var editorUrl = null;
+        var height = null;
+        var hover = null;
+        var loader = null;
+        var logLevel = null;
+        var mode = null;
+        var padding = null;
+        var scaleFactor = null;
+        var sourceFooter = null;
+        var sourceHeader = null;
+        var theme = null;
+        var tooltip = null;
+        var viewClass = null;
+        var width = null;
+        actions = ((rest[0] === (void 0)) || rest[0]);
+        ast = ((rest[1] === (void 0)) ? (void 0) : rest[1]);
+        bind = ((rest[2] === (void 0)) ? (void 0) : rest[2]);
+        config = ((rest[3] === (void 0)) ? (void 0) : rest[3]);
+        defaultStyle = ((rest[4] === (void 0)) ? (void 0) : rest[4]);
+        downloadFileName = ((rest[5] === (void 0)) ? (void 0) : rest[5]);
+        editorUrl = ((rest[6] === (void 0)) ? (void 0) : rest[6]);
+        height = ((rest[7] === (void 0)) ? (void 0) : rest[7]);
+        hover = ((rest[8] === (void 0)) || rest[8]);
+        loader = ((rest[9] === (void 0)) ? (void 0) : rest[9]);
+        logLevel = ((rest[10] === (void 0)) ? (void 0) : rest[10]);
+        mode = ((rest[11] === (void 0)) ? (void 0) : rest[11]);
+        padding = ((rest[12] === (void 0)) ? (void 0) : rest[12]);
+        scaleFactor = ((rest[13] === (void 0)) ? (void 0) : rest[13]);
+        sourceFooter = ((rest[14] === (void 0)) ? (void 0) : rest[14]);
+        sourceHeader = ((rest[15] === (void 0)) ? (void 0) : rest[15]);
+        theme = ((rest[16] === (void 0)) ? (void 0) : rest[16]);
+        tooltip = ((rest[17] === (void 0)) ? (void 0) : rest[17]);
+        viewClass = ((rest[18] === (void 0)) ? (void 0) : rest[18]);
+        width = ((rest[19] === (void 0)) ? (void 0) : rest[19]);
+        super();
+        Object.defineProperty(this, "actions", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "ast", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "bind", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "config", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "defaultStyle", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "downloadFileName", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "editorUrl", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "height", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "hover", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "loader", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "logLevel", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "mode", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "padding", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "scaleFactor", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "sourceFooter", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "sourceHeader", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "theme", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "tooltip", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "viewClass", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        Object.defineProperty(this, "width", {
+          "configurable": true,
+          "enumerable": true,
+          "writable": true,
+          "value": null
+        });
+        this.actions = actions;
+        this.ast = ast;
+        this.bind = bind;
+        this.config = config;
+        this.defaultStyle = defaultStyle;
+        this.downloadFileName = downloadFileName;
+        this.editorUrl = editorUrl;
+        this.height = height;
+        this.hover = hover;
+        this.loader = loader;
+        this.logLevel = logLevel;
+        this.mode = mode;
+        this.padding = padding;
+        this.scaleFactor = scaleFactor;
+        this.sourceFooter = sourceFooter;
+        this.sourceHeader = sourceHeader;
+        this.theme = theme;
+        this.tooltip = tooltip;
+        this.viewClass = viewClass;
+        this.width = width
+      };
+    }
+  };
+  return $b_Lviz_vega_facades_EmbedOptions
 }
-$c_Ljava_io_OutputStream.prototype = new $h_O();
-$c_Ljava_io_OutputStream.prototype.constructor = $c_Ljava_io_OutputStream;
-/** @constructor */
-function $h_Ljava_io_OutputStream() {
-  /*<skip>*/
-}
-$h_Ljava_io_OutputStream.prototype = $c_Ljava_io_OutputStream.prototype;
 function $f_jl_Boolean__hashCode__I($thiz) {
   return ($thiz ? 1231 : 1237)
 }
@@ -3191,20 +3254,6 @@ function $m_sci_LazyList$() {
   };
   return $n_sci_LazyList$
 }
-function $ct_Ljava_io_FilterOutputStream__Ljava_io_OutputStream__($thiz, out) {
-  return $thiz
-}
-/** @constructor */
-function $c_Ljava_io_FilterOutputStream() {
-  /*<skip>*/
-}
-$c_Ljava_io_FilterOutputStream.prototype = new $h_Ljava_io_OutputStream();
-$c_Ljava_io_FilterOutputStream.prototype.constructor = $c_Ljava_io_FilterOutputStream;
-/** @constructor */
-function $h_Ljava_io_FilterOutputStream() {
-  /*<skip>*/
-}
-$h_Ljava_io_FilterOutputStream.prototype = $c_Ljava_io_FilterOutputStream.prototype;
 class $c_jl_ArithmeticException extends $c_jl_RuntimeException {
   constructor(s) {
     super();
@@ -3306,28 +3355,6 @@ var $d_jl_IndexOutOfBoundsException = new $TypeData().initClass({
   Ljava_io_Serializable: 1
 });
 $c_jl_IndexOutOfBoundsException.prototype.$classData = $d_jl_IndexOutOfBoundsException;
-/** @constructor */
-function $c_jl_JSConsoleBasedPrintStream$DummyOutputStream() {
-  /*<skip>*/
-}
-$c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype = new $h_Ljava_io_OutputStream();
-$c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype.constructor = $c_jl_JSConsoleBasedPrintStream$DummyOutputStream;
-/** @constructor */
-function $h_jl_JSConsoleBasedPrintStream$DummyOutputStream() {
-  /*<skip>*/
-}
-$h_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype = $c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype;
-var $d_jl_JSConsoleBasedPrintStream$DummyOutputStream = new $TypeData().initClass({
-  jl_JSConsoleBasedPrintStream$DummyOutputStream: 0
-}, false, "java.lang.JSConsoleBasedPrintStream$DummyOutputStream", {
-  jl_JSConsoleBasedPrintStream$DummyOutputStream: 1,
-  Ljava_io_OutputStream: 1,
-  O: 1,
-  Ljava_io_Closeable: 1,
-  jl_AutoCloseable: 1,
-  Ljava_io_Flushable: 1
-});
-$c_jl_JSConsoleBasedPrintStream$DummyOutputStream.prototype.$classData = $d_jl_JSConsoleBasedPrintStream$DummyOutputStream;
 class $c_jl_NegativeArraySizeException extends $c_jl_RuntimeException {
   constructor() {
     super();
@@ -4177,30 +4204,6 @@ var $d_sci_NewVectorIterator = new $TypeData().initClass({
   jl_Cloneable: 1
 });
 $c_sci_NewVectorIterator.prototype.$classData = $d_sci_NewVectorIterator;
-function $ct_Ljava_io_PrintStream__Ljava_io_OutputStream__Z__Ljava_nio_charset_Charset__($thiz, _out, autoFlush, charset) {
-  $ct_Ljava_io_FilterOutputStream__Ljava_io_OutputStream__($thiz, _out);
-  return $thiz
-}
-/** @constructor */
-function $c_Ljava_io_PrintStream() {
-  /*<skip>*/
-}
-$c_Ljava_io_PrintStream.prototype = new $h_Ljava_io_FilterOutputStream();
-$c_Ljava_io_PrintStream.prototype.constructor = $c_Ljava_io_PrintStream;
-/** @constructor */
-function $h_Ljava_io_PrintStream() {
-  /*<skip>*/
-}
-$h_Ljava_io_PrintStream.prototype = $c_Ljava_io_PrintStream.prototype;
-function $as_Ljava_io_PrintStream(obj) {
-  return (((obj instanceof $c_Ljava_io_PrintStream) || (obj === null)) ? obj : $throwClassCastException(obj, "java.io.PrintStream"))
-}
-function $isArrayOf_Ljava_io_PrintStream(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Ljava_io_PrintStream)))
-}
-function $asArrayOf_Ljava_io_PrintStream(obj, depth) {
-  return (($isArrayOf_Ljava_io_PrintStream(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Ljava.io.PrintStream;", depth))
-}
 function $f_sc_View__toString__T($thiz) {
   return ($thiz.stringPrefix__T() + "(<not computed>)")
 }
@@ -4213,73 +4216,6 @@ function $isArrayOf_sjs_js_JavaScriptException(obj, depth) {
 function $asArrayOf_sjs_js_JavaScriptException(obj, depth) {
   return (($isArrayOf_sjs_js_JavaScriptException(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.scalajs.js.JavaScriptException;", depth))
 }
-function $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V($thiz, line) {
-  if (($as_T((typeof console)) !== "undefined")) {
-    if (($thiz.jl_JSConsoleBasedPrintStream__f_isErr && $uZ((!(!console.error))))) {
-      console.error(line)
-    } else {
-      console.log(line)
-    }
-  }
-}
-/** @constructor */
-function $c_jl_JSConsoleBasedPrintStream(isErr) {
-  this.jl_JSConsoleBasedPrintStream__f_isErr = false;
-  this.jl_JSConsoleBasedPrintStream__f_buffer = null;
-  this.jl_JSConsoleBasedPrintStream__f_isErr = isErr;
-  var out = new $c_jl_JSConsoleBasedPrintStream$DummyOutputStream();
-  $ct_Ljava_io_PrintStream__Ljava_io_OutputStream__Z__Ljava_nio_charset_Charset__(this, out, false, null);
-  this.jl_JSConsoleBasedPrintStream__f_buffer = ""
-}
-$c_jl_JSConsoleBasedPrintStream.prototype = new $h_Ljava_io_PrintStream();
-$c_jl_JSConsoleBasedPrintStream.prototype.constructor = $c_jl_JSConsoleBasedPrintStream;
-/** @constructor */
-function $h_jl_JSConsoleBasedPrintStream() {
-  /*<skip>*/
-}
-$h_jl_JSConsoleBasedPrintStream.prototype = $c_jl_JSConsoleBasedPrintStream.prototype;
-$c_jl_JSConsoleBasedPrintStream.prototype.java$lang$JSConsoleBasedPrintStream$$printString__T__V = (function(s) {
-  var rest = s;
-  while ((rest !== "")) {
-    var this$1 = $n(rest);
-    var nlPos = $uI(this$1.indexOf("\n"));
-    if ((nlPos < 0)) {
-      this.jl_JSConsoleBasedPrintStream__f_buffer = (("" + this.jl_JSConsoleBasedPrintStream__f_buffer) + rest);
-      rest = ""
-    } else {
-      var $x_1 = this.jl_JSConsoleBasedPrintStream__f_buffer;
-      var this$2 = $n(rest);
-      if ((nlPos > this$2.length)) {
-        $charAt(this$2, nlPos)
-      };
-      if ((nlPos < 0)) {
-        $charAt(this$2, (-1))
-      };
-      $p_jl_JSConsoleBasedPrintStream__doWriteLine__T__V(this, (("" + $x_1) + $as_T(this$2.substring(0, nlPos))));
-      this.jl_JSConsoleBasedPrintStream__f_buffer = "";
-      var this$3 = $n(rest);
-      var beginIndex = ((1 + nlPos) | 0);
-      if (((beginIndex < 0) || (beginIndex > this$3.length))) {
-        $charAt(this$3, beginIndex)
-      };
-      rest = $as_T(this$3.substring(beginIndex))
-    }
-  }
-});
-var $d_jl_JSConsoleBasedPrintStream = new $TypeData().initClass({
-  jl_JSConsoleBasedPrintStream: 0
-}, false, "java.lang.JSConsoleBasedPrintStream", {
-  jl_JSConsoleBasedPrintStream: 1,
-  Ljava_io_PrintStream: 1,
-  Ljava_io_FilterOutputStream: 1,
-  Ljava_io_OutputStream: 1,
-  O: 1,
-  Ljava_io_Closeable: 1,
-  jl_AutoCloseable: 1,
-  Ljava_io_Flushable: 1,
-  jl_Appendable: 1
-});
-$c_jl_JSConsoleBasedPrintStream.prototype.$classData = $d_jl_JSConsoleBasedPrintStream;
 function $p_sc_StrictOptimizedLinearSeqOps__loop$2__I__sc_LinearSeq__sc_LinearSeq($thiz, n, s) {
   while (true) {
     if (((n <= 0) || $n(s).isEmpty__Z())) {
