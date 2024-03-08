@@ -166,10 +166,12 @@ lazy val jsdocs = project
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
-    libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13)
+    libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13),
+    // scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.ESModule))
   )
   .dependsOn(dedav_calico, dedav_laminar, core.js)
   .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(ScalaJSImportMapPlugin)
   .enablePlugins(NoPublishPlugin)
 
 lazy val unidocs = project

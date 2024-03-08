@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "imports" : {
+    "##vega-embed": "vega-embed"
+  },
   "dependencies": {
     "vega-embed": "^6.24.0"
   }

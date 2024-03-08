@@ -37,7 +37,7 @@ object showJsDocs:
     xhr.send()
     val text = xhr.responseText
     val parsed = JSON.parse(text)
-    viz.vega.facades.embed.embed(s"#$anId", parsed, opts)
+    viz.vega.facades.embed.embed(s"#$anId", parsed, opts())
     ()
   end apply
 end showJsDocs

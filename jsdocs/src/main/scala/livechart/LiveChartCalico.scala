@@ -54,7 +54,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
             // end yuck
 
             // I had to set the div size down in here. Then it worked. But I have no idea why.
-            viz.CalicoViz.viewEmbed(barChart, Some(chartDiv), Some(EmbedOptions)).map(_._1)
+            viz.CalicoViz.viewEmbed(barChart, Some(chartDiv), Some(EmbedOptions())).map(_._1)
           }
         }
       )

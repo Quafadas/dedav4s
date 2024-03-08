@@ -41,7 +41,7 @@ end Options
   */
 @js.native
 @annotation.nowarn("msg=unused explicit parameter")
-@JSImport("vega-view", JSImport.Default, "vega.View")
+@JSImport("##vega-view", JSImport.Default, "vega.View")
 class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
 
   def runAsync(): Unit = js.native
