@@ -90,7 +90,7 @@ trait EmbedOptions:
 end EmbedOptions
 
 @js.native
-@JSImport("vega-embed", JSImport.Default, "vegaEmbed")
+@JSImport("@vega/npm/vega-embed@6/+esm", JSImport.Namespace, "vegaEmbed")
 object VegaEmbed extends js.Object:
   def apply(element: HTMLElement, spec: js.Object, options: EmbedOptions): js.Promise[EmbedResult] = js.native
 

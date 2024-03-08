@@ -31,5 +31,13 @@ Currently, there are some niggling problems which remain after generation;
 1. Some givens of union types have duplicate shapes, need to comment out the encoder / decoders for some of them
 2. introduce a nulltype parameter.
 
+## Import map
 
+```json
+{
+  "imports": {
+    "@vega/npm": "https://cdn.jsdelivr.net/npm/"
+  }
+}
+```
 
