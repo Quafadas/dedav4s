@@ -86,7 +86,8 @@ Which should bring in it's transitive dependancies. You could also consider goin
 ```json
 {
   "imports": {
-    "@vega/npm/": "https://cdn.jsdelivr.net/npm/"
+    "##vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6/+esm",
+    "##vega-view": "https://cdn.jsdelivr.net/npm/vega-view@5/+esm",
   }
 }
 ```
