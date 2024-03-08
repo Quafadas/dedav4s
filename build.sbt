@@ -156,11 +156,6 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
     },
     scalaJSLinkerConfig ~= {
       _.withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("viz")))
-    },
-    scalaJSImportMap := { (rawImport: String) =>
-      if (rawImport.startsWith("@vega/npm/vega-embed@6/+esm")) {"node_modules/vega-embed/build/vega-embed.js"}
-      else if (rawImport.startsWith("@vega/npm/vega-view@5/+esm")) {"node_modules/vega-view/build/vega-view.js"}
-      else rawImport
     }
   )
   .jsEnablePlugins(ScalaJSImportMapPlugin)
