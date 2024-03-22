@@ -37,9 +37,11 @@ trait WebsocketVizServer extends cask.MainRoutes:
       main(Array())
     }
     firstTime = false
-    8080 + scala.util.Random.nextInt(
+    val p = 8080 + scala.util.Random.nextInt(
       40000
-    ) // hope this doesn't generate a port clash! Probably there is a good way to do this?
+    ) 
+    println(s"viz server at http://localhost:p")
+    p
   end randomPort
 
   override def port = randomPort
