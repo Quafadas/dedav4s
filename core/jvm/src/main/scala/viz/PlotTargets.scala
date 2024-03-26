@@ -169,6 +169,16 @@ object PlotTargets extends SharedTargets:
       )
     end show
 
+  given websocketNoBrowser: UnitTarget = new UnitTarget:
+    override def show(spec: String): Unit =
+      if WebsocketVizServer.firstTime then
+        println(s"starting local server on $port")
+        Thread.sleep(1000) // give undertow a chance to start
+      end if
+      requests.post(s"http://localhost:$port/viz", data = spec)
+      ()
+    end show
+
   given websocket: UnitTarget = new UnitTarget:
     override def show(spec: String): Unit =
       if WebsocketVizServer.firstTime then

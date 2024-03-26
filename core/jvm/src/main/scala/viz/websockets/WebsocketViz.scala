@@ -29,7 +29,9 @@ object WebsocketVizServer extends WebsocketVizServer
 
 trait WebsocketVizServer extends cask.MainRoutes:
 
+  val fixedPort: Option[Int] = Some(8085)
   var firstTime: Boolean = true
+
   lazy val randomPort: Int =
     println("Generating random port and starting server")
     Future {
@@ -37,10 +39,13 @@ trait WebsocketVizServer extends cask.MainRoutes:
       main(Array())
     }
     firstTime = false
-    val p = 8080 + scala.util.Random.nextInt(
-      40000
-    ) 
-    println(s"viz server at http://localhost:p")
+    val p = fixedPort match
+      case Some(port) => port
+      case None =>
+        8080 + scala.util.Random.nextInt(
+          40000
+        )
+    println(s"started viz server at http://localhost:$p")
     p
   end randomPort
 
