@@ -93,7 +93,8 @@
   <ul class="nav-list">
     <li class="level1 nav-node"><a href="#desktop-browser">Desktop Browser</a></li>
     <li class="level2 nav-leaf"><a href="#how-desktop-browser-works">How desktop browser works</a></li>
-    <li class="level1 nav-leaf"><a href="#websocket">Websocket</a></li>
+    <li class="level1 nav-node"><a href="#websocket">Websocket</a></li>
+    <li class="level2 nav-leaf"><a href="#multiple-plots">Multiple plots</a></li>
     <li class="level1 nav-leaf"><a href="#almond"><a href="https://www.almond.sh">Almond</a></a></li>
     <li class="level1 nav-leaf"><a href="#vscode">VSCode</a></li>
     <li class="level1 nav-leaf"><a href="#gitpod">Gitpod</a></li>
@@ -137,11 +138,31 @@
         <p>And we browse to the temporary file created in step one. On some linux distributions, this may not work. Consider using the websocket target instead.</p>
         
         <h2 id="websocket" class="section"><a class="anchor-link left" href="#websocket"><i class="icofont-laika link">&#xef71;</i></a>Websocket</h2>
-        <p>This given will start a webserver which listens on a random port to incoming http requests and updates the plot in your browser.</p>
-        <img src="../assets/websockets2.gif" width=90% height=90%/>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">websockets</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*</span></code></pre>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
+        <p>This given will start a webserver which listens on a random port to incoming http requests and updates plots in your browser. For this to work, it&#39;s far easier, to start the server, on a seperate process. You can do this using coursier in one line.</p>
+        <pre class="keep-together pdf epub"><code class="cs">
+This should start a server on port 8085. Check by visiting http://localhost:8085 in your browser. It should say &quot;connected and waiting&quot;.
+
+You can then use the `publishToPort` plot target, which will send the spec, to the server listening on that port.
+
+```scala
+
+&lt;img src=&quot;../assets/websockets2.gif&quot; width=90% height=90% /&gt;
+
+```scala
+import viz.PlotTargets.publishToPort
+import viz.extensions.*</code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">given</span><span> </span><span class="identifier">port</span><span>: </span><span class="type-name">Int</span><span> = </span><span class="number-literal">8085</span><span>
+</span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
+        
+        <h3 id="multiple-plots" class="section"><a class="anchor-link left" href="#multiple-plots"><i class="icofont-laika link">&#xef71;</i></a>Multiple plots</h3>
+        <p>I often want to see multiple plots. Navigate to
+        <code>http://localhost:8085/view/hi</code>, and you&#39;ll see &quot;connected and waiting&quot; again.
+        <code>http://localhost:8085/view/bob</code>, and you&#39;ll see &quot;connected and waiting&quot; again.</p>
+        <p>Now, you&#39;ll need to update the desription of the chart, to match the trailing path of the url. e.g.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">given</span><span> </span><span class="identifier">port</span><span>: </span><span class="type-name">Int</span><span> = </span><span class="number-literal">8085</span><span>
+</span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">0</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,-</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,</span><span class="number-literal">20</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">spec</span><span> =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;description&quot;</span><span>) = </span><span class="string-literal">&quot;hi&quot;</span><span>))
+</span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">spec</span><span> =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;description&quot;</span><span>) = </span><span class="string-literal">&quot;bob&quot;</span><span>))</span></code></pre>
+        <p>And both browser tabs will now update with their respective plots.</p>
         
         <h2 id="almond" class="section"><a class="anchor-link left" href="#almond"><i class="icofont-laika link">&#xef71;</i></a><a href="https://www.almond.sh">Almond</a></h2>
         <img src="../assets/almond.gif" width=90% height=90%/>
@@ -343,7 +364,7 @@
 // }
 // res2: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.package$RawIterables$$$Lambda$15597/0x0000000803b5f840@bc55d6e
+//     viz.extensions.package$RawIterables$$$Lambda$15490/0x0000000803b8c040@42842aef
 //   )
 // )</span></code></pre>
         
