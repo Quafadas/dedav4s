@@ -6,29 +6,34 @@
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "customizations": {
     "vscode": {
-      "extensions": ["scalameta.metals", "usernamehw.errorlens", "github.copilot", "skellock.just"]
+      "extensions": [
+        "scalameta.metals",
+        "usernamehw.errorlens",
+        "github.copilot",
+        "skellock.just"
+      ]
     }
   },
-
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    },
     "ghcr.io/devcontainers/features/java:1": {
       "version": 21
     },
     "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers-contrib/features/sbt-sdkman:2": {"version": "1.9.9"},
+    "ghcr.io/devcontainers-contrib/features/sbt-sdkman:2": {
+      "version": "1.9.9"
+    },
     "ghcr.io/devcontainers-contrib/features/scalacli-sdkman:2": {}
   },
-
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
-
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "echo 'Hello, Ubuntu!'"
-
   // Configure tool-specific properties.
   // "customizations": {},
-
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "root"
 }
