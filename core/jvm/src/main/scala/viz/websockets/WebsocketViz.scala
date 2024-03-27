@@ -22,34 +22,35 @@ import io.undertow.websockets.spi.WebSocketHttpExchange
 import scalatags.Text.all.*
 import java.awt.Desktop
 import scala.concurrent.Future
+import io.undertow.server.handlers.BlockingHandler
+import java.util.concurrent.Executors
+
+// val executorService = Executors.newVirtualThreadExecutor()
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
-object WebsocketVizServer extends WebsocketVizServer
+@main
+def serve(portIn: Int = 8085): Unit =
+  val s = new WebsocketVizServer(portIn) {}
+  // Start the server
+  s.main(Array())
 
-trait WebsocketVizServer extends cask.MainRoutes:
+  // Keep the JVM alive until the server is stopped
+  while true do
+    try Thread.sleep(3000)
+    catch
+      case _: InterruptedException =>
+        // The sleep was interrupted, probably because the server is stopping
+        // Log the interruption and stop the server
+        println("Server interrupted, stopping...")
+  end while
+end serve
 
-  val fixedPort: Option[Int] = Some(8085)
+object WebsocketVizServer extends WebsocketVizServer(8085)
+
+trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   var firstTime: Boolean = true
-
-  lazy val randomPort: Int =
-    println("Generating random port and starting server")
-    Future {
-      initialize()
-      main(Array())
-    }
-    firstTime = false
-    val p = fixedPort match
-      case Some(port) => port
-      case None =>
-        8080 + scala.util.Random.nextInt(
-          40000
-        )
-    println(s"started viz server at http://localhost:$p")
-    p
-  end randomPort
-
-  override def port = randomPort
+  override def port = portIn
 
   def openBrowserWindow() =
     if Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE) then
@@ -59,17 +60,61 @@ trait WebsocketVizServer extends cask.MainRoutes:
         s"java.awt.Desktop claims the browse action is not supported in this environment. Consider opening a browser at https://localhost:$port , where you should find your plot"
       )
 
+  private val headImports = head(
+    script(src := "https://cdn.jsdelivr.net/npm/vega@5"),
+    script(src := "https://cdn.jsdelivr.net/npm/vega-lite@5"),
+    script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5")
+  )
+
+  private def divId = div(id := "vis", height := "95vmin", width := "95vmin")
+
+  @cask.get("/view/:description")
+  def filerViz(description: String) =
+    html(
+      headImports,
+      body(
+        // h1("viz"),
+        divId,
+        script(raw"""
+        let socket = new WebSocket('ws://localhost:$port/connect/viz');
+        socket.onopen = function(e) {
+          document.getElementById('vis').innerHTML = 'connected and waiting'
+        };
+        socket.onmessage = function(event) {
+          console.log(event.data)
+          const spec = JSON.parse(event.data)
+          if (spec.description === '$description') {
+            vegaEmbed('#vis', spec, {
+              renderer: 'canvas', // renderer (canvas or svg)
+              container: '#vis', // parent DOM container
+              hover: true, // enable hover processing
+              actions: true
+            })
+          }
+        };
+
+        socket.onclose = function(event) {
+          if (event.wasClean) {
+            console.log(`[close] Connection closed cleanly, code=$${event.code} reason=$${event.reason}`);
+          } else {
+            console.error('[close] Connection died');
+          }
+        };
+        socket.onerror = function(error) {
+          console.error(`[error] $${error.message}`);
+        };
+
+        """)
+      )
+    )
+
   @cask.get("/")
   def home() =
     html(
-      head(
-        script(src := "https://cdn.jsdelivr.net/npm/vega@5"),
-        script(src := "https://cdn.jsdelivr.net/npm/vega-lite@5"),
-        script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5")
-      ),
+      headImports,
       body(
         // h1("viz"),
-        div(id := "vis", height := "95vmin", width := "95vmin"),
+        divId,
         script(raw"""
         let socket = new WebSocket('ws://localhost:$port/connect/viz');
         socket.onopen = function(e) {
@@ -104,15 +149,16 @@ trait WebsocketVizServer extends cask.MainRoutes:
       )
     )
 
-  var channelCheat: Option[WebSocketChannel] = None
+  var channelCheat: List[WebSocketChannel] = List.empty
 
   @cask.post("/viz")
   def recievedSpec(request: cask.Request) =
-    val theBody = ujson.read(request.text())
     channelCheat match
-      case None => cask.Response("no client is listening", statusCode = 418)
-      case Some(value) =>
-        WebSockets.sendTextBlocking(ujson.write(theBody), value)
+      case Nil => cask.Response("no client is listening", statusCode = 418)
+      case channels: List[WebSocketChannel] =>
+        channels.foreach { c =>
+          if c.isOpen() then WebSockets.sendTextBlocking(request.text(), c)
+        }
         cask.Response("you should be looking at new viz")
     end match
   end recievedSpec
@@ -121,7 +167,7 @@ trait WebsocketVizServer extends cask.MainRoutes:
   def setup(viz: String): cask.WebsocketResult =
     new WebSocketConnectionCallback():
       override def onConnect(exchange: WebSocketHttpExchange, channel: WebSocketChannel): Unit =
-        channelCheat = Some(channel)
+        channelCheat :+= channel
         channel.getReceiveSetter.set(
           new AbstractReceiveListener():
             override def onFullTextMessage(channel: WebSocketChannel, message: BufferedTextMessage) =
@@ -131,4 +177,7 @@ trait WebsocketVizServer extends cask.MainRoutes:
         )
         channel.resumeReceives()
       end onConnect
+  end setup
+
+  initialize()
 end WebsocketVizServer

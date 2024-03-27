@@ -82,7 +82,7 @@ object PlotTargets extends SharedTargets:
     end if
   end outPath
 
-  lazy val port: Int = WebsocketVizServer.randomPort
+  lazy val port: Int = WebsocketVizServer.port
 
   private def tempFileHtml(spec: String): String = raw"""<!DOCTYPE html>
         <html>
@@ -169,15 +169,12 @@ object PlotTargets extends SharedTargets:
       )
     end show
 
-  given websocketNoBrowser: UnitTarget = new UnitTarget:
+  given publishToPort(using portI: Int): UnitTarget = new UnitTarget:
     override def show(spec: String): Unit =
-      if WebsocketVizServer.firstTime then
-        println(s"starting local server on $port")
-        Thread.sleep(1000) // give undertow a chance to start
-      end if
-      requests.post(s"http://localhost:$port/viz", data = spec)
+      requests.post(s"http://localhost:$portI/viz", data = spec)
       ()
     end show
+  end publishToPort
 
   given websocket: UnitTarget = new UnitTarget:
     override def show(spec: String): Unit =
