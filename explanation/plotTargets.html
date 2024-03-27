@@ -138,21 +138,20 @@
         <p>And we browse to the temporary file created in step one. On some linux distributions, this may not work. Consider using the websocket target instead.</p>
         
         <h2 id="websocket" class="section"><a class="anchor-link left" href="#websocket"><i class="icofont-laika link">&#xef71;</i></a>Websocket</h2>
-        <p>This given will start a webserver which listens on a random port to incoming http requests and updates plots in your browser. For this to work, it&#39;s far easier, to start the server, on a seperate process. You can do this using coursier in one line.</p>
-        <pre class="keep-together pdf epub"><code class="cs">
+        <p>For this to work, it&#39;s far easier, to start the server, on a seperate process. You can do this using coursier in one line.</p>
+        <pre><code class="cs">
 This should start a server on port 8085. Check by visiting http://localhost:8085 in your browser. It should say &quot;connected and waiting&quot;.
 
 You can then use the `publishToPort` plot target, which will send the spec, to the server listening on that port.
-
-```scala
 
 &lt;img src=&quot;../assets/websockets2.gif&quot; width=90% height=90% /&gt;
 
 ```scala
 import viz.PlotTargets.publishToPort
-import viz.extensions.*</code></pre>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">given</span><span> </span><span class="identifier">port</span><span>: </span><span class="type-name">Int</span><span> = </span><span class="number-literal">8085</span><span>
-</span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
+import viz.extensions.*
+
+given port: Int = 8085
+List((&quot;A&quot;,5),(&quot;B&quot;,8),(&quot;C&quot;,-1)).plotBarChart(List())</code></pre>
         
         <h3 id="multiple-plots" class="section"><a class="anchor-link left" href="#multiple-plots"><i class="icofont-laika link">&#xef71;</i></a>Multiple plots</h3>
         <p>I often want to see multiple plots. Navigate to
@@ -364,7 +363,7 @@ import viz.extensions.*</code></pre>
 // }
 // res2: BarChart = BarChart(
 //   mods = List(
-//     viz.extensions.package$RawIterables$$$Lambda$15490/0x0000000803b8c040@42842aef
+//     viz.extensions.package$RawIterables$$$Lambda$15487/0x0000000803b65040@141c9050
 //   )
 // )</span></code></pre>
         
