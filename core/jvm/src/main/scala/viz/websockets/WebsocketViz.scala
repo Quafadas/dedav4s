@@ -21,11 +21,6 @@ import io.undertow.websockets.core.{AbstractReceiveListener, BufferedTextMessage
 import io.undertow.websockets.spi.WebSocketHttpExchange
 import scalatags.Text.all.*
 import java.awt.Desktop
-import scala.concurrent.Future
-import io.undertow.server.handlers.BlockingHandler
-import java.util.concurrent.Executors
-
-// val executorService = Executors.newVirtualThreadExecutor()
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
