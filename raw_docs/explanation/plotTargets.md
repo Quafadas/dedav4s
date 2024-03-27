@@ -48,7 +48,7 @@ And we browse to the temporary file created in step one. On some linux distribut
 
 ## Websocket
 
-This given will start a webserver which listens on a random port to incoming http requests and updates plots in your browser. For this to work, it's far easier, to start the server, on a seperate process. You can do this using coursier in one line.
+For this to work, it's far easier, to start the server, on a seperate process. You can do this using coursier in one line.
 
 ```cs launch io.github.quafadas:dedav4s_3:0.9.0 -M viz.websockets.serve -- 8085```
 
@@ -56,16 +56,12 @@ This should start a server on port 8085. Check by visiting http://localhost:8085
 
 You can then use the `publishToPort` plot target, which will send the spec, to the server listening on that port.
 
-```scala
-
 <img src="../assets/websockets2.gif" width=90% height=90% />
 
 ```scala
 import viz.PlotTargets.publishToPort
 import viz.extensions.*
-```
 
-```scala
 given port: Int = 8085
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
