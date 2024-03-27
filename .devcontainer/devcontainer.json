@@ -6,7 +6,7 @@
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "customizations": {
     "vscode": {
-      "extensions": ["scalameta.metals", "usernamehw.errorlens"]
+      "extensions": ["scalameta.metals", "usernamehw.errorlens", "github.copilot", "skellock.just"]
     }
   },
 
