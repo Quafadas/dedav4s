@@ -120,10 +120,6 @@
 
 </span><span class="keyword">object</span><span> </span><span class="identifier">chartExample</span><span>:
   </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="type-name">Var</span><span>(</span><span class="type-name">List</span><span>(</span><span class="number-literal">2.4</span><span>, </span><span class="number-literal">3.4</span><span>, </span><span class="number-literal">5.1</span><span>, -</span><span class="number-literal">2.3</span><span>))
-  </span><span class="keyword">val</span><span> </span><span class="identifier">chartDiv</span><span> = </span><span class="identifier">div</span><span>(
-    </span><span class="identifier">width</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
-    </span><span class="identifier">height</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
-  )
 
   </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(): </span><span class="type-name">Div</span><span> =
     </span><span class="identifier">div</span><span>(
@@ -137,10 +133,14 @@
         </span><span class="string-literal">&quot;Add a random number&quot;</span><span>,
         </span><span class="identifier">onClick</span><span> --&gt; {</span><span class="identifier">_</span><span>=&gt;</span><span class="identifier">data</span><span>.</span><span class="identifier">update</span><span>{</span><span class="identifier">data</span><span> =&gt;</span><span class="identifier">data</span><span> :+ </span><span class="identifier">scala</span><span>.</span><span class="identifier">util</span><span>.</span><span class="type-name">Random</span><span>.</span><span class="identifier">nextDouble</span><span>() * </span><span class="number-literal">5</span><span>}}),
       </span><span class="identifier">p</span><span>(),
-      </span><span class="identifier">child</span><span> &lt;-- </span><span class="identifier">data</span><span>.</span><span class="identifier">signal</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
-        </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="type-name">BarChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
-        </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">simpleEmbed</span><span>(</span><span class="identifier">barChart</span><span>, </span><span class="type-name">Some</span><span>(</span><span class="identifier">chartDiv</span><span>))
-      },
+      </span><span class="identifier">div</span><span>(
+        </span><span class="identifier">width</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
+        </span><span class="identifier">height</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
+        </span><span class="identifier">child</span><span> &lt;-- </span><span class="identifier">data</span><span>.</span><span class="identifier">signal</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
+          </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="type-name">BarChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
+          </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">simpleEmbed</span><span>(</span><span class="identifier">barChart</span><span>)
+        }
+      ),
       </span><span class="identifier">p</span><span>()
     )
   </span><span class="identifier">end</span><span> </span><span class="identifier">apply</span><span>
