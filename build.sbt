@@ -131,7 +131,7 @@ lazy val dedav_calico = project
 lazy val dedav_laminar = project
   .in(file("laminar"))
   .settings(
-    libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0"
+    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0"
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
@@ -141,7 +141,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M11" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0" % Test
   )
   .jvmSettings(
     name := "tests-jvm",
@@ -164,7 +164,7 @@ lazy val jsdocs = project
   .in(file("jsdocs"))
   .settings(
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0",
     libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("io.github.cquiroz" %%% "scala-java-time" % "2.5.0").cross(CrossVersion.for3Use2_13),
     // scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.ESModule))
