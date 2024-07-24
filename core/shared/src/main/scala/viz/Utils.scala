@@ -34,6 +34,9 @@ object Utils:
       spec("axes") = tmp
     end apply
 
+  val resize: ujson.Value => Unit = (spec: ujson.Value) =>
+    spec("autosize") = ujson.Obj("resize" -> true, "contains" -> "padding", "type" -> "fit")
+
   val fillDiv: ujson.Value => Unit =
     (spec: ujson.Value) =>
       spec.obj.remove("height")
