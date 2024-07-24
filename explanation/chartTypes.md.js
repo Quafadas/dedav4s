@@ -5203,103 +5203,124 @@ function $c_Lviz_Utils$() {
   $n_Lviz_Utils$ = this;
   this.Lviz_Utils$__f_removeXAxis = new $c_Lviz_Utils$$anon$1();
   this.Lviz_Utils$__f_removeYAxis = new $c_Lviz_Utils$$anon$2();
-  this.Lviz_Utils$__f_fillDiv = new $c_sjsr_AnonFunction1(((spec) => {
+  new $c_sjsr_AnonFunction1(((spec) => {
     var spec$1 = $as_Lujson_Value(spec);
-    var this$2 = $n(spec$1);
-    var this$3 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$2));
-    $f_scm_MapOps__remove__O__s_Option(this$3, "height");
-    var this$4 = $n(spec$1);
-    var this$5 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$4));
-    $f_scm_MapOps__remove__O__s_Option(this$5, "width");
-    var this$6 = $n(spec$1);
-    var this$7 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$6));
-    $f_scm_MapOps__remove__O__s_Option(this$7, "autosize");
-    var $x_1 = $m_Lujson_package$();
-    var s = $f_T__trim__T("\n              {\n                \"name\": \"width\",\n                \"init\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n              }\n              ");
-    var signalW = $n($x_1).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
-    var $x_2 = $m_Lujson_package$();
-    var s$1 = $f_T__trim__T("\n          {\n                \"name\": \"height\",\n                \"init\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n          }\n\n        ");
-    var signalH = $n($x_2).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s$1, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
-    var this$11 = $n(spec$1);
-    var s$2 = new $c_Lujson_Value$Selector$StringSelector("$schema");
-    var this$12 = $n(s$2.apply__Lujson_Value__Lujson_Value(this$11));
-    var this$13 = $n($f_Lujson_Value__str__T(this$12));
-    if (($uI(this$13.indexOf("lite")) !== (-1))) {
-      var this$17 = $n(spec$1);
-      var s$3 = new $c_Lujson_Value$Selector$StringSelector("width");
-      var v = new $c_Lujson_Str("container");
-      s$3.update__Lujson_Value__Lujson_Value__V(this$17, v);
-      var this$21 = $n(spec$1);
-      var s$4 = new $c_Lujson_Value$Selector$StringSelector("height");
+    var this$17 = $n(spec$1);
+    var s = new $c_Lujson_Value$Selector$StringSelector("autosize");
+    var $x_2 = $m_sr_ScalaRunTime$();
+    var y = new $c_Lujson_Str("padding");
+    var $x_1 = new $c_T2("contains", y);
+    var y$1 = new $c_Lujson_Str("fit");
+    var items = $n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_1, new $c_T2("type", y$1)]));
+    var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
+    map.put__O__O__s_Option("resize", $m_Lujson_Value$().JsonableBoolean__Z__Lujson_Bool(true));
+    var this$15 = $n(items);
+    var it = this$15.iterator__sc_Iterator();
+    while ($n(it).hasNext__Z()) {
+      var arg1 = $n(it).next__O();
+      var i = $as_T2(arg1);
+      map.put__O__O__s_Option($n(i).T2__f__1, $n(i).T2__f__2)
+    };
+    var v = new $c_Lujson_Obj(map);
+    s.update__Lujson_Value__Lujson_Value__V(this$17, v)
+  }));
+  this.Lviz_Utils$__f_fillDiv = new $c_sjsr_AnonFunction1(((spec$2) => {
+    var spec$3 = $as_Lujson_Value(spec$2);
+    var this$18 = $n(spec$3);
+    var this$19 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$18));
+    $f_scm_MapOps__remove__O__s_Option(this$19, "height");
+    var this$20 = $n(spec$3);
+    var this$21 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$20));
+    $f_scm_MapOps__remove__O__s_Option(this$21, "width");
+    var this$22 = $n(spec$3);
+    var this$23 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$22));
+    $f_scm_MapOps__remove__O__s_Option(this$23, "autosize");
+    var $x_3 = $m_Lujson_package$();
+    var s$1 = $f_T__trim__T("\n              {\n                \"name\": \"width\",\n                \"init\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[0]) ? containerSize()[0] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n              }\n              ");
+    var signalW = $n($x_3).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s$1, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
+    var $x_4 = $m_Lujson_package$();
+    var s$2 = $f_T__trim__T("\n          {\n                \"name\": \"height\",\n                \"init\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                \"on\": [\n                  {\n                    \"update\": \"isFinite(containerSize()[1]) ? containerSize()[1] : 200\",\n                    \"events\": \"window:resize\"\n                  }\n                ]\n          }\n\n        ");
+    var signalH = $n($x_4).read__Lujson_Readable__Z__Lujson_Value(new $c_Lujson_Readable$fromTransformer(s$2, $m_Lujson_StringParser$()), ($m_Lujson_package$(), false));
+    var this$27 = $n(spec$3);
+    var s$3 = new $c_Lujson_Value$Selector$StringSelector("$schema");
+    var this$28 = $n(s$3.apply__Lujson_Value__Lujson_Value(this$27));
+    var this$29 = $n($f_Lujson_Value__str__T(this$28));
+    if (($uI(this$29.indexOf("lite")) !== (-1))) {
+      var this$33 = $n(spec$3);
+      var s$4 = new $c_Lujson_Value$Selector$StringSelector("width");
       var v$1 = new $c_Lujson_Str("container");
-      s$4.update__Lujson_Value__Lujson_Value__V(this$21, v$1)
+      s$4.update__Lujson_Value__Lujson_Value__V(this$33, v$1);
+      var this$37 = $n(spec$3);
+      var s$5 = new $c_Lujson_Value$Selector$StringSelector("height");
+      var v$2 = new $c_Lujson_Str("container");
+      s$5.update__Lujson_Value__Lujson_Value__V(this$37, v$2)
     } else {
-      var this$22 = $n(spec$1);
-      var this$23 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$22));
-      var this$24 = new $c_sc_MapOps$KeySet(this$23);
-      if ($n($m_sci_Seq$().from__sc_IterableOnce__sci_Seq(this$24)).contains__O__Z("signals")) {
-        var this$26 = $n(spec$1);
-        var s$5 = new $c_Lujson_Value$Selector$StringSelector("signals");
-        var this$27 = $n(s$5.apply__Lujson_Value__Lujson_Value(this$26));
-        var this$28 = $n($f_Lujson_Value__arr__scm_ArrayBuffer(this$27));
+      var this$38 = $n(spec$3);
+      var this$39 = $n($f_Lujson_Value__obj__Lupickle_core_LinkedHashMap(this$38));
+      var this$40 = new $c_sc_MapOps$KeySet(this$39);
+      if ($n($m_sci_Seq$().from__sc_IterableOnce__sci_Seq(this$40)).contains__O__Z("signals")) {
+        var this$42 = $n(spec$3);
+        var s$6 = new $c_Lujson_Value$Selector$StringSelector("signals");
+        var this$43 = $n(s$6.apply__Lujson_Value__Lujson_Value(this$42));
+        var this$44 = $n($f_Lujson_Value__arr__scm_ArrayBuffer(this$43));
         $m_scm_ArrayBuffer$();
         var b = new $c_scm_ArrayBuffer$$anon$1();
-        var it = $n(this$28.view__scm_ArrayBufferView()).iterator__sc_Iterator();
-        while ($n(it).hasNext__Z()) {
-          var elem = $n(it).next__O();
+        var it$1 = $n(this$44.view__scm_ArrayBufferView()).iterator__sc_Iterator();
+        while ($n(it$1).hasNext__Z()) {
+          var elem = $n(it$1).next__O();
           var sig = $as_Lujson_Value(elem);
-          var this$31 = $n(sig);
-          var s$6 = new $c_Lujson_Value$Selector$StringSelector("name");
-          var this$32 = $n(s$6.apply__Lujson_Value__Lujson_Value(this$31));
-          if (($f_Lujson_Value__str__T(this$32) === "height")) {
-            var $x_3 = true
+          var this$47 = $n(sig);
+          var s$7 = new $c_Lujson_Value$Selector$StringSelector("name");
+          var this$48 = $n(s$7.apply__Lujson_Value__Lujson_Value(this$47));
+          if (($f_Lujson_Value__str__T(this$48) === "height")) {
+            var $x_5 = true
           } else {
-            var this$34 = $n(sig);
-            var s$7 = new $c_Lujson_Value$Selector$StringSelector("name");
-            var this$35 = $n(s$7.apply__Lujson_Value__Lujson_Value(this$34));
-            var $x_3 = ($f_Lujson_Value__str__T(this$35) === "width")
+            var this$50 = $n(sig);
+            var s$8 = new $c_Lujson_Value$Selector$StringSelector("name");
+            var this$51 = $n(s$8.apply__Lujson_Value__Lujson_Value(this$50));
+            var $x_5 = ($f_Lujson_Value__str__T(this$51) === "width")
           };
-          if (($x_3 !== true)) {
+          if (($x_5 !== true)) {
             b.addOne__O__scm_GrowableBuilder(elem)
           }
         };
         var tmp = $as_scm_ArrayBuffer(b.scm_GrowableBuilder__f_elems);
-        var this$39 = $n(spec$1);
-        var s$8 = new $c_Lujson_Value$Selector$StringSelector("signals");
-        var $x_4 = $m_Lujson_Value$();
-        var this$38 = $m_s_$less$colon$less$();
-        var v$2 = $n($x_4).JsonableSeq__sc_IterableOnce__F1__Lujson_Arr(tmp, this$38.s_$less$colon$less$__f_singleton);
-        s$8.update__Lujson_Value__Lujson_Value__V(this$39, v$2)
-      } else {
-        var this$41 = $n(spec$1);
+        var this$55 = $n(spec$3);
         var s$9 = new $c_Lujson_Value$Selector$StringSelector("signals");
-        var v$3 = $m_Lujson_Arr$().apply__sci_Seq__Lujson_Arr($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lujson_Value.getArrayOf().constr)([])));
-        s$9.update__Lujson_Value__Lujson_Value__V(this$41, v$3)
+        var $x_6 = $m_Lujson_Value$();
+        var this$54 = $m_s_$less$colon$less$();
+        var v$3 = $n($x_6).JsonableSeq__sc_IterableOnce__F1__Lujson_Arr(tmp, this$54.s_$less$colon$less$__f_singleton);
+        s$9.update__Lujson_Value__Lujson_Value__V(this$55, v$3)
+      } else {
+        var this$57 = $n(spec$3);
+        var s$10 = new $c_Lujson_Value$Selector$StringSelector("signals");
+        var v$4 = $m_Lujson_Arr$().apply__sci_Seq__Lujson_Arr($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lujson_Value.getArrayOf().constr)([])));
+        s$10.update__Lujson_Value__Lujson_Value__V(this$57, v$4)
       };
-      var this$57 = $n(spec$1);
-      var s$10 = new $c_Lujson_Value$Selector$StringSelector("autosize");
-      var $x_6 = $m_sr_ScalaRunTime$();
-      var y = $m_Lujson_Value$().JsonableBoolean__Z__Lujson_Bool(true);
-      var $x_5 = new $c_T2("resize", y);
-      var y$1 = new $c_Lujson_Str("padding");
-      var items = $n($x_6).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_5, new $c_T2("contains", y$1)]));
-      var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
-      map.put__O__O__s_Option("type", new $c_Lujson_Str("fit"));
-      var this$55 = $n(items);
-      var it$1 = this$55.iterator__sc_Iterator();
-      while ($n(it$1).hasNext__Z()) {
-        var arg1 = $n(it$1).next__O();
-        var i = $as_T2(arg1);
-        map.put__O__O__s_Option($n(i).T2__f__1, $n(i).T2__f__2)
+      var this$73 = $n(spec$3);
+      var s$11 = new $c_Lujson_Value$Selector$StringSelector("autosize");
+      var $x_8 = $m_sr_ScalaRunTime$();
+      var y$2 = $m_Lujson_Value$().JsonableBoolean__Z__Lujson_Bool(true);
+      var $x_7 = new $c_T2("resize", y$2);
+      var y$3 = new $c_Lujson_Str("padding");
+      var items$1 = $n($x_8).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_7, new $c_T2("contains", y$3)]));
+      var map$1 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
+      map$1.put__O__O__s_Option("type", new $c_Lujson_Str("fit"));
+      var this$71 = $n(items$1);
+      var it$2 = this$71.iterator__sc_Iterator();
+      while ($n(it$2).hasNext__Z()) {
+        var arg1$1 = $n(it$2).next__O();
+        var i$1 = $as_T2(arg1$1);
+        map$1.put__O__O__s_Option($n(i$1).T2__f__1, $n(i$1).T2__f__2)
       };
-      var v$4 = new $c_Lujson_Obj(map);
-      s$10.update__Lujson_Value__Lujson_Value__V(this$57, v$4);
-      var this$59 = $n(spec$1);
-      var s$11 = new $c_Lujson_Value$Selector$StringSelector("signals");
-      var this$60 = $n(s$11.apply__Lujson_Value__Lujson_Value(this$59));
-      var this$61 = $n($f_Lujson_Value__arr__scm_ArrayBuffer(this$60));
-      var this$62 = $n(this$61.addOne__O__scm_ArrayBuffer(signalH));
-      this$62.addOne__O__scm_ArrayBuffer(signalW)
+      var v$5 = new $c_Lujson_Obj(map$1);
+      s$11.update__Lujson_Value__Lujson_Value__V(this$73, v$5);
+      var this$75 = $n(spec$3);
+      var s$12 = new $c_Lujson_Value$Selector$StringSelector("signals");
+      var this$76 = $n(s$12.apply__Lujson_Value__Lujson_Value(this$75));
+      var this$77 = $n($f_Lujson_Value__arr__scm_ArrayBuffer(this$76));
+      var this$78 = $n(this$77.addOne__O__scm_ArrayBuffer(signalH));
+      this$78.addOne__O__scm_ArrayBuffer(signalW)
     }
   }));
   this.Lviz_Utils$__f_fixDefaultDataUrl = new $c_Lviz_Utils$$anon$3()
