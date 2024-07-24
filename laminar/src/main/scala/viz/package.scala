@@ -25,6 +25,8 @@ import viz.vega.facades.VegaView
 import viz.vega.facades.EmbedResult
 
 import viz.vega.facades.Helpers.*
+import org.scalajs.dom.ResizeObserverEntry
+import org.scalajs.dom.ResizeObserver
 
 object LaminarViz:
 
@@ -73,24 +75,46 @@ object LaminarViz:
         (thisDiv, p)
       case (None, Some(opts)) =>
         val newDiv = div(
-          width := "40vmin",
-          height := "40vmin"
+          width := "100%",
+          height := "100%"
         )
         val p: js.Promise[EmbedResult] = viz.vega.facades.embed(newDiv.ref, specObj, opts)
         (newDiv, p)
       case (None, None) =>
         val newDiv = div(
-          width := "40vmin",
-          height := "40vmin"
+          width := "100%",
+          height := "100%"
         )
         val p: js.Promise[EmbedResult] = viz.vega.facades.embed(newDiv.ref, specObj, EmbedOptions())
         (newDiv, p)
 
-    val view: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(in => in.map(_.view))
+    val view: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(er => er.map(_.view))
+
+    val resizeMontitor = new EventBus[ResizeObserverEntry]
+    val resizer = inDivOpt match
+      case None =>
+        val resizeObserver = new ResizeObserver((entries: scala.scalajs.js.Array[ResizeObserverEntry], _) =>
+          entries.foreach(entry => resizeMontitor.emit(entry))
+        )
+        resizeObserver.observe(embeddedIn.ref)
+        Some(resizeObserver)
+
+      case Some(embeddedIn) => None
 
     embedResult.`then`(in =>
       embeddedIn.amend(
-        onUnmountCallback(_ => in.view.finalize())
+        resizeMontitor.events.debounce(100).combineWith(view.changes) --> Observer {
+          (valu: (ResizeObserverEntry, Option[VegaView])) =>
+            valu._2.foreach { view =>
+              view.width(valu._1.contentBoxSize.head.blockSize.toInt)
+              view.height(valu._1.contentBoxSize.head.blockSize.toInt)
+              view.runAsync()
+            }
+        },
+        onUnmountCallback { _ =>
+          in.view.finalize()
+          resizer.foreach(_.disconnect())
+        }
       )
     )
     (embeddedIn, view)

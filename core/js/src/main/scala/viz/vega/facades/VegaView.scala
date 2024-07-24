@@ -62,9 +62,10 @@ class VegaView(parsedSpec: js.Dynamic, config: js.Dynamic) extends js.Object:
 
   def container(): Element = js.native
 
-  // Setters
-  def width(width: Option[Int]): Unit = js.native
-  def height(width: Option[Int]): Unit = js.native
+  def width(): Int = js.native
+  def width(value: Int): VegaView = js.native
+  def height(): Int = js.native
+  def height(value: Int): VegaView = js.native
 
   def origin(): js.Array[Double] = js.native
 
