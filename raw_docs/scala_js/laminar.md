@@ -22,10 +22,6 @@ renderOnDomContentLoaded(appContainer, chartExample())
 
 object chartExample:
   val data = Var(List(2.4, 3.4, 5.1, -2.3))
-  val chartDiv = div(
-    width := "40vmin",
-    height := "40vmin",
-  )
 
   def apply(): Div =
     div(
@@ -39,10 +35,14 @@ object chartExample:
         "Add a random number",
         onClick --> {_=>data.update{data =>data :+ scala.util.Random.nextDouble() * 5}}),
       p(),
-      child <-- data.signal.map { data =>
-        val barChart: BarChart = data.plotBarChart(List(viz.Utils.fillDiv))
-        LaminarViz.simpleEmbed(barChart, Some(chartDiv))
-      },
+      div(
+        width := "40vmin",
+        height := "40vmin",
+        child <-- data.signal.map { data =>
+          val barChart: BarChart = data.plotBarChart(List(viz.Utils.fillDiv))
+          LaminarViz.simpleEmbed(barChart)
+        }
+      ),
       p()
     )
   end apply
