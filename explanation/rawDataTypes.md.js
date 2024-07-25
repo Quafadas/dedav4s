@@ -10843,6 +10843,7 @@ function $a_Lviz_vega_facades_EmbedOptions() {
       var tooltip = null;
       var viewClass = null;
       var width = null;
+      var renderer = null;
       actions = ((rest[0] === (void 0)) || rest[0]);
       ast = ((rest[1] === (void 0)) ? (void 0) : rest[1]);
       bind = ((rest[2] === (void 0)) ? (void 0) : rest[2]);
@@ -10863,6 +10864,7 @@ function $a_Lviz_vega_facades_EmbedOptions() {
       tooltip = ((rest[17] === (void 0)) ? (void 0) : rest[17]);
       viewClass = ((rest[18] === (void 0)) ? (void 0) : rest[18]);
       width = ((rest[19] === (void 0)) ? (void 0) : rest[19]);
+      renderer = ((rest[20] === (void 0)) ? (void 0) : rest[20]);
       super();
       Object.defineProperty(this, "actions", ({
         "configurable": true,
@@ -10984,6 +10986,12 @@ function $a_Lviz_vega_facades_EmbedOptions() {
         "writable": true,
         "value": null
       }));
+      Object.defineProperty(this, "renderer", ({
+        "configurable": true,
+        "enumerable": true,
+        "writable": true,
+        "value": null
+      }));
       this.actions = actions;
       this.ast = ast;
       this.bind = bind;
@@ -11004,6 +11012,7 @@ function $a_Lviz_vega_facades_EmbedOptions() {
       this.tooltip = tooltip;
       this.viewClass = viewClass;
       this.width = width;
+      this.renderer = renderer;
     }
     };
   }
