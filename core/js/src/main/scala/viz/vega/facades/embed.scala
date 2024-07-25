@@ -40,6 +40,8 @@ trait ExportAction extends js.Object:
   var png: js.UndefOr[Boolean] = js.native
 end ExportAction
 
+type renderer = "canvas" | "svg"
+
 class EmbedOptions(
     var actions: js.UndefOr[Boolean | Actions] = true,
     var ast: js.UndefOr[Boolean] = js.undefined,
@@ -64,7 +66,8 @@ class EmbedOptions(
     var viewClass: js.UndefOr[
       /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof View */ Any
     ] = js.undefined,
-    var width: js.UndefOr[Double] = js.undefined
+    var width: js.UndefOr[Double] = js.undefined,
+    var renderer: js.UndefOr[renderer] = js.undefined
 ) extends js.Object
 
 @js.native
