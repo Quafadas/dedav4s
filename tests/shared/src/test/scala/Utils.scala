@@ -69,8 +69,7 @@ class CheckUtils extends munit.FunSuite:
         bigBox: Boolean = false,
         isScala: Boolean = false
     ) extends BarPlottable(category = language, amount = minutes * 60 + seconds)
-        with MarkColour(colour = chooseColor(isScala, bigBox))
-        derives ReadWriter
+        with MarkColour(colour = chooseColor(isScala, bigBox)) derives ReadWriter
 
     val d = QuicktypeTestResult("t", 2, 32)
 
