@@ -1162,7 +1162,7 @@ case class SpecEncoding(
       *      paths should be defined within a square bounding box with coordinates ranging from -1 to 1 along both the x
       *      and y dimensions.)
       *
-      * 2. For `geoshape` marks it should be a field definition of the geojson data
+      *   2. For `geoshape` marks it should be a field definition of the geojson data
       *
       * __Default value:__ If undefined, the default shape depends on [mark
       * config](https://vega.github.io/vega-lite/docs/config.html#point-config)'s `shape` property. (`"circle"` if
@@ -1205,7 +1205,6 @@ case class SpecEncoding(
     val text: Option[TextDef] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[ThetaClass] = None,
@@ -1312,7 +1311,6 @@ case class AngleClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -2236,7 +2234,6 @@ case class ConditionalPredicateValueDefNumberExprRefClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -3214,11 +3211,9 @@ case class Scale(
       *   - A string indicating a [pre-defined named scale
       *     range](https://vega.github.io/vega-lite/docs/scale.html#range-config) (e.g., example, `"symbol"`, or
       *     `"diverging"`).
-      *
       *   - For [continuous scales](https://vega.github.io/vega-lite/docs/scale.html#continuous), two-element array
       *     indicating minimum and maximum values, or an array with more than two entries for specifying a [piecewise
       *     scale](https://vega.github.io/vega-lite/docs/scale.html#piecewise).
-      *
       *   - For [discrete](https://vega.github.io/vega-lite/docs/scale.html#discrete) and
       *     [discretizing](https://vega.github.io/vega-lite/docs/scale.html#discretizing) scales, an array of desired
       *     output values or an object with a `field` property representing the range values. For example, if a field
@@ -3616,11 +3611,9 @@ case class NiceTimeIntervalStep(
   *   - A string indicating a [pre-defined named scale
   *     range](https://vega.github.io/vega-lite/docs/scale.html#range-config) (e.g., example, `"symbol"`, or
   *     `"diverging"`).
-  *
   *   - For [continuous scales](https://vega.github.io/vega-lite/docs/scale.html#continuous), two-element array
   *     indicating minimum and maximum values, or an array with more than two entries for specifying a [piecewise
   *     scale](https://vega.github.io/vega-lite/docs/scale.html#piecewise).
-  *
   *   - For [discrete](https://vega.github.io/vega-lite/docs/scale.html#discrete) and
   *     [discretizing](https://vega.github.io/vega-lite/docs/scale.html#discretizing) scales, an array of desired output
   *     values or an object with a `field` property representing the range values. For example, if a field `color`
@@ -3968,7 +3961,6 @@ case class ColorClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -4288,7 +4280,6 @@ case class ConditionalPValueDefGradientStringNullExprRef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -4475,7 +4466,6 @@ case class RowColumnEncodingFieldDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -4902,7 +4892,6 @@ case class DescriptionClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -5125,7 +5114,6 @@ case class PurpleConditionalPExprRef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -5316,7 +5304,6 @@ case class TypedFieldDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -5454,7 +5441,6 @@ case class FacetEncodingFieldDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -5682,7 +5668,6 @@ case class FillClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -5898,7 +5883,6 @@ case class FillOpacityClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -6093,7 +6077,6 @@ case class HrefClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -6261,7 +6244,6 @@ case class KeyClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -6384,7 +6366,6 @@ case class LatitudeClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -6527,7 +6508,6 @@ case class Latitude2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -6658,7 +6638,6 @@ case class LongitudeClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -6801,7 +6780,6 @@ case class Longitude2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -6958,7 +6936,6 @@ case class OpacityClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -7156,7 +7133,6 @@ case class OrderFieldDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -7278,7 +7254,6 @@ case class OrderDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -7456,7 +7431,6 @@ case class ConditionalPValueDefNumber(
   *
   *   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value of
   *     0 indicates up or “north”, increasing values proceed clockwise.)
-  *
   *   - For text marks, polar coordinate angle in radians.
   *
   * Definition object for a constant value (primitive value or gradient definition) of an encoding channel.
@@ -7479,7 +7453,6 @@ case class RadiusClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -7720,7 +7693,6 @@ case class Radius2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -7838,7 +7810,7 @@ case class Radius2Class(
   *      paths should be defined within a square bounding box with coordinates ranging from -1 to 1 along both the x and
   *      y dimensions.)
   *
-  * 2. For `geoshape` marks it should be a field definition of the geojson data
+  *   2. For `geoshape` marks it should be a field definition of the geojson data
   *
   * __Default value:__ If undefined, the default shape depends on [mark
   * config](https://vega.github.io/vega-lite/docs/config.html#point-config)'s `shape` property. (`"circle"` if unset.)
@@ -7863,7 +7835,6 @@ case class MarkPropDefStringNullTypeForShape(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -8097,7 +8068,6 @@ case class ConditionalPValueDefStringNullExprRef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -8298,7 +8268,6 @@ case class SizeClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -8510,7 +8479,6 @@ case class StrokeClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -8702,7 +8670,6 @@ case class MarkPropDefNumber(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -8936,7 +8903,6 @@ case class ConditionalParameterValueDefNumberExprRefClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -9137,7 +9103,6 @@ case class StrokeOpacityClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -9353,7 +9318,6 @@ case class StrokeWidthClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -9543,7 +9507,6 @@ case class TextDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -9772,7 +9735,6 @@ case class ConditionalP(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -9903,7 +9865,6 @@ case class ConditionalP(
   *
   *   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value of
   *     0 indicates up or “north”, increasing values proceed clockwise.)
-  *
   *   - For text marks, polar coordinate angle in radians.
   *
   * Definition object for a constant value (primitive value or gradient definition) of an encoding channel.
@@ -9926,7 +9887,6 @@ case class ThetaClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -10138,7 +10098,6 @@ case class Theta2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -10280,7 +10239,6 @@ case class StringFieldDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -10427,7 +10385,6 @@ case class FieldOrDatumDefWithConditionStringFieldDefString(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -10635,7 +10592,6 @@ case class FluffyConditionalPExprRef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -10815,7 +10771,6 @@ case class URLClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -10994,7 +10949,6 @@ case class XClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -12296,7 +12250,6 @@ case class X2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -12436,7 +12389,6 @@ case class XErrorClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -12524,7 +12476,6 @@ case class XError2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -12605,7 +12556,6 @@ case class XOffsetClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -12792,7 +12742,6 @@ case class YClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -13011,7 +12960,6 @@ case class Y2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -13151,7 +13099,6 @@ case class YErrorClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -13239,7 +13186,6 @@ case class YError2Class(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -13320,7 +13266,6 @@ case class YOffsetClass(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -13496,7 +13441,6 @@ case class Facet(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -13649,7 +13593,6 @@ case class FacetFieldDef(
       *
       *   - If `true`, default [binning parameters](https://vega.github.io/vega-lite/docs/bin.html#bin-parameters) will
       *     be applied.
-      *
       *   - If `"binned"`, this indicates that the data for the `x` (or `y`) channel are already binned. You can map the
       *     bin-start field to `x` (or `y`) and the bin-end field to `x2` (or `y2`). The scale and axis will be
       *     formatted similar to binning in Vega-Lite. To adjust the axis ticks based on the bin step, you can also set
@@ -14005,7 +13948,7 @@ case class LayerEncoding(
       *      paths should be defined within a square bounding box with coordinates ranging from -1 to 1 along both the x
       *      and y dimensions.)
       *
-      * 2. For `geoshape` marks it should be a field definition of the geojson data
+      *   2. For `geoshape` marks it should be a field definition of the geojson data
       *
       * __Default value:__ If undefined, the default shape depends on [mark
       * config](https://vega.github.io/vega-lite/docs/config.html#point-config)'s `shape` property. (`"circle"` if
@@ -14048,7 +13991,6 @@ case class LayerEncoding(
     val text: Option[TextDef] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[ThetaClass] = None,
@@ -14301,7 +14243,6 @@ case class Def(
     val cornerRadiusBottomLeft: Option[CornerRadius] = None,
     val cornerRadiusBottomRight: Option[CornerRadius] = None,
     /**   - For vertical bars, top-left and top-right corner radius.
-      *
       *   - For horizontal bars, top-right and bottom-right corner radius.
       */
     val cornerRadiusEnd: Option[CornerRadius] = None,
@@ -14339,7 +14280,6 @@ case class Def(
     /** Height of the marks. One of:
       *
       *   - A number representing a fixed pixel height.
-      *
       *   - A relative band size definition. For example, `{band: 0.5}` represents half of the band
       */
     val height: Option[BoxPlotDefHeight] = None,
@@ -14353,7 +14293,6 @@ case class Def(
     /** A flag for overlaying line on top of area marks, or an object defining the properties of the overlayed lines.
       *
       *   - If this value is an empty object (`{}`) or `true`, lines with default properties will be used.
-      *
       *   - If this value is `false`, no lines would be automatically added to area marks.
       *
       * __Default value:__ `false`.
@@ -14376,9 +14315,7 @@ case class Def(
       *
       *   - If this property is `"transparent"`, transparent points will be used (for enhancing tooltips and
       *     selections).
-      *
       *   - If this property is an empty object (`{}`) or `true`, filled points with default properties will be used.
-      *
       *   - If this property is `false`, no points would be automatically added to line or area marks.
       *
       * __Default value:__ `false`.
@@ -14433,7 +14370,6 @@ case class Def(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -14473,7 +14409,6 @@ case class Def(
     /** Width of the marks. One of:
       *
       *   - A number representing a fixed pixel width.
-      *
       *   - A relative band size definition. For example, `{band: 0.5}` represents half of the band.
       */
     val width: Option[BoxPlotDefHeight] = None,
@@ -14716,7 +14651,6 @@ case class Config(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -14771,7 +14705,6 @@ case class Config(
     /** A flag for overlaying line on top of area marks, or an object defining the properties of the overlayed lines.
       *
       *   - If this value is an empty object (`{}`) or `true`, lines with default properties will be used.
-      *
       *   - If this value is `false`, no lines would be automatically added to area marks.
       *
       * __Default value:__ `false`.
@@ -14782,9 +14715,7 @@ case class Config(
       *
       *   - If this property is `"transparent"`, transparent points will be used (for enhancing tooltips and
       *     selections).
-      *
       *   - If this property is an empty object (`{}`) or `true`, filled points with default properties will be used.
-      *
       *   - If this property is `false`, no points would be automatically added to line or area marks.
       *
       * __Default value:__ `false`.
@@ -14802,7 +14733,6 @@ case class Config(
       */
     val continuousBandSize: Option[Double] = None,
     /**   - For vertical bars, top-left and top-right corner radius.
-      *
       *   - For horizontal bars, top-right and bottom-right corner radius.
       */
     val cornerRadiusEnd: Option[CornerRadius] = None,
@@ -15383,7 +15313,6 @@ case class OverlayMarkDef(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -17123,7 +17052,7 @@ case class EdEncoding(
       *      paths should be defined within a square bounding box with coordinates ranging from -1 to 1 along both the x
       *      and y dimensions.)
       *
-      * 2. For `geoshape` marks it should be a field definition of the geojson data
+      *   2. For `geoshape` marks it should be a field definition of the geojson data
       *
       * __Default value:__ If undefined, the default shape depends on [mark
       * config](https://vega.github.io/vega-lite/docs/config.html#point-config)'s `shape` property. (`"circle"` if
@@ -17166,7 +17095,6 @@ case class EdEncoding(
     val text: Option[TextDef] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[ThetaClass] = None,
@@ -17708,7 +17636,6 @@ case class RectConfig(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -17847,7 +17774,6 @@ case class AreaConfig(
     /** A flag for overlaying line on top of area marks, or an object defining the properties of the overlayed lines.
       *
       *   - If this value is an empty object (`{}`) or `true`, lines with default properties will be used.
-      *
       *   - If this value is `false`, no lines would be automatically added to area marks.
       *
       * __Default value:__ `false`.
@@ -17886,9 +17812,7 @@ case class AreaConfig(
       *
       *   - If this property is `"transparent"`, transparent points will be used (for enhancing tooltips and
       *     selections).
-      *
       *   - If this property is an empty object (`{}`) or `true`, filled points with default properties will be used.
-      *
       *   - If this property is `false`, no points would be automatically added to line or area marks.
       *
       * __Default value:__ `false`.
@@ -17940,7 +17864,6 @@ case class AreaConfig(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -18359,7 +18282,6 @@ case class BarConfig(
     val cornerRadiusBottomLeft: Option[CornerRadius] = None,
     val cornerRadiusBottomRight: Option[CornerRadius] = None,
     /**   - For vertical bars, top-left and top-right corner radius.
-      *
       *   - For horizontal bars, top-right and bottom-right corner radius.
       */
     val cornerRadiusEnd: Option[CornerRadius] = None,
@@ -18484,7 +18406,6 @@ case class BarConfig(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -18738,7 +18659,6 @@ case class MarkConfig(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -19356,9 +19276,7 @@ case class LineConfig(
       *
       *   - If this property is `"transparent"`, transparent points will be used (for enhancing tooltips and
       *     selections).
-      *
       *   - If this property is an empty object (`{}`) or `true`, filled points with default properties will be used.
-      *
       *   - If this property is `false`, no points would be automatically added to line or area marks.
       *
       * __Default value:__ `false`.
@@ -19410,7 +19328,6 @@ case class LineConfig(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -20276,7 +20193,6 @@ case class StyleValue(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,
@@ -20331,7 +20247,6 @@ case class StyleValue(
     /** A flag for overlaying line on top of area marks, or an object defining the properties of the overlayed lines.
       *
       *   - If this value is an empty object (`{}`) or `true`, lines with default properties will be used.
-      *
       *   - If this value is `false`, no lines would be automatically added to area marks.
       *
       * __Default value:__ `false`.
@@ -20344,9 +20259,7 @@ case class StyleValue(
       *
       *   - If this property is `"transparent"`, transparent points will be used (for enhancing tooltips and
       *     selections).
-      *
       *   - If this property is an empty object (`{}`) or `true`, filled points with default properties will be used.
-      *
       *   - If this property is `false`, no points would be automatically added to line or area marks.
       *
       * __Default value:__ `false`.
@@ -20355,7 +20268,6 @@ case class StyleValue(
       */
     val point: Option[Point] = None,
     /**   - For vertical bars, top-left and top-right corner radius.
-      *
       *   - For horizontal bars, top-right and bottom-right corner radius.
       */
     val cornerRadiusEnd: Option[CornerRadius] = None,
@@ -20795,7 +20707,6 @@ case class TickConfig(
     val text: Option[TextUnion] = None,
     /**   - For arc marks, the arc length in radians if theta2 is not specified, otherwise the start arc angle. (A value
       *     of 0 indicates up or “north”, increasing values proceed clockwise.)
-      *
       *   - For text marks, polar coordinate angle in radians.
       */
     val theta: Option[CornerRadius] = None,

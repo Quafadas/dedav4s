@@ -28,7 +28,7 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.6.2"
+val scalaV = "3.6.3"
 
 inThisBuild(
   List(
@@ -88,7 +88,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.11.3",
+      "com.lihaoyi" %% "os-lib" % "0.11.4",
       "com.lihaoyi" %% "cask" % "0.10.2",
       "com.lihaoyi" %% "requests" % "0.9.0",
       ("sh.almond" % "scala-kernel-api_3.3.3" % "0.14.0-RC15" % Provided)
@@ -98,7 +98,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
         // .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         // .exclude("com.lihaoyi", "os-lib_2.13")
         // .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.18.3"
+      "org.jsoup" % "jsoup" % "1.19.1"
     )
   )
   .jsSettings(
@@ -162,8 +162,8 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .jvmSettings(
     name := "tests-jvm",
     // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
-    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.49.0" % Test,
-    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.49.0" % Test
+    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.50.0" % Test,
+    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.50.0" % Test
   )
   .jsSettings(
     name := "tests-js",
