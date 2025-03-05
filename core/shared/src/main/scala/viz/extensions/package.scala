@@ -18,25 +18,41 @@ package viz
 
 import scala.util.Random
 import scala.annotation.targetName
-import viz.vega.plots.WordCloud
 import ujson.Value
 
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*
 import reflect.Selectable.reflectiveSelectable
 import upickle.default.Writer
-import com.github.tarao.record4s.%
-//import viz.extensions.jvm.*
+import scala.languageFeature.experimental.macros
+
+object PlotNt:
+  import scala.NamedTuple
+  import scala.NamedTuple.*
+  extension [K <: Tuple, V <: Tuple](
+      data: NamedTuple[K, V]
+  )(using plotTarget: LowPriorityPlotTarget, rw: Writer[NamedTuple[K, V]])
+    def plot(lib: ChartLibrary = ChartLibrary.Vega) =
+      lib match
+        case ChartLibrary.Vega =>
+          new WithBaseSpec(List.empty):
+            override lazy val baseSpec = upickle.default.writeJs(data)
+        case ChartLibrary.Echarts =>
+          new WithBaseSpec(List.empty, ChartLibrary.Echarts):
+            override lazy val baseSpec = upickle.default.writeJs(data)
+
+  end extension
+end PlotNt
 
 package object extensions:
 
-  // extension [R <: % & BarPlotDataEntry](data: Seq[R])(using plotTarget: LowPriorityPlotTarget, rw: Writer[R])
+  // extension [K <: Tuple, V <: Tuple](
+  //     data: Seq[NamedTuple[K, V]]
+  // )(using plotTarget: LowPriorityPlotTarget, rw: Writer[Seq[NamedTuple[K, V]]])
   //   @targetName("recordPlotBarChart")
   //   def plotBarChart(mods: JsonMod) =
   //     BarChart(
-  //       List(
-  //         (spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)
-  //       ) ++ mods
+  //       List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
   //     )
   //   end plotBarChart
   // end extension
@@ -60,16 +76,6 @@ package object extensions:
   // type BarRecordData =
 
   extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget)
-    @targetName("recordPlotBarChart")
-    def plotBarChartR(fct: A => % { val amount: Double; val category: String })(mods: JsonMod) =
-      val chartData = data.map(d =>
-        val tmp = fct(d)
-        ujson.Obj("category" -> tmp.category, "amount" -> tmp.amount)
-      )
-      BarChart(
-        List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
-      )
-    end plotBarChartR
 
     def plotBarChart(fct: A => BarPlotDataEntry)(mods: JsonMod) =
       val chartData = data.map(d =>

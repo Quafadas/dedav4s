@@ -21,12 +21,13 @@ import viz.extensions.*
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import viz.PlotTargets.tempHtmlFile
+import scala.compiletime.uninitialized
 
 class PlaywrightTest extends munit.FunSuite:
 
-  var pw: Playwright = _
-  var browser: Browser = _
-  var page: Page = _
+  var pw: Playwright = uninitialized
+  var browser: Browser = uninitialized
+  var page: Page = uninitialized
 
   override def beforeAll(): Unit =
 
@@ -74,6 +75,74 @@ class PlaywrightTest extends munit.FunSuite:
     end match
     val _ = page.waitForSelector("div#vis")
     assertThat(page.locator("svg.marks")).isVisible()
+  }
+
+  test("Plotting an echart") {
+    import viz.PlotNt.*
+    import viz.NamedTupleReadWriter.given
+    import viz.PlotTargets.desktopBrowser
+    val spec = (
+      title = (
+        text = "ECharts Example"
+      ),
+      xAxis = (
+        data = Seq("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+      ),
+      tooltip = (fake = ""),
+      yAxis = (fake = ""),
+      series = (
+        name = "sales",
+        `type` = "bar",
+        data = Seq(120, 200, 150, 80, 70, 110, 130)
+      )
+    )
+
+    println("Plotting")
+    spec.plot(ChartLibrary.Echarts)
+
+    Thread.sleep(5000)
+
+  }
+
+  test("that we can plot a named tuple") {
+
+    import viz.PlotNt.plot
+    import viz.NamedTupleReadWriter.given
+
+    val data = (
+      `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+      description = "A simple bar chart with embedded data.",
+      data = (
+        values = Seq(
+          (a = "A", b = 28),
+          (a = "B", b = 55),
+          (a = "C", b = 43),
+          (a = "D", b = 91),
+          (a = "E", b = 81),
+          (a = "F", b = 53),
+          (a = "G", b = 19),
+          (a = "H", b = 87),
+          (a = "I", b = 52)
+        )
+      ),
+      mark = "bar",
+      encoding = (
+        x = (field = "a", `type` = "nominal", axis = (labelAngle = 0)),
+        y = (field = "b", `type` = "quantitative")
+      )
+    )
+
+    val tmp = data.plot()
+    tmp.tmpPath match
+      case Some(path) =>
+        println(path)
+        val _ = page.navigate(s"file://$path")
+      case None =>
+        println("no path")
+    end match
+    val _ = page.waitForSelector("div#vis")
+    assertThat(page.locator("svg.marks")).isVisible()
+
   }
 
   override def afterAll(): Unit = super.afterAll()

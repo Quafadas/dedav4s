@@ -976,7 +976,7 @@ object BarChart extends viz.companions.AxisUtils:
     readwriter[ujson.Value].bimap[T & BarData](
       in =>
         var toMerge: scala.collection.mutable.ArraySeq[Obj] = scala.collection.mutable.ArraySeq()
-        val vanilla = writeJs(in)(upickleDefault).obj
+        val vanilla = writeJs(in)(using upickleDefault).obj
 
         in match
           case colorful: MarkColour =>

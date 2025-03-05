@@ -35,7 +35,7 @@ case object Html extends Extension(".html")
 case object Txt extends Extension(".txt")
 
 trait TempFileTarget(val ext: Extension) extends PlotTarget:
-  def showWithTempFile(spec: String, path: os.Path): Unit
+  def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit
 end TempFileTarget
 
 object PlotTargets extends SharedTargets:
@@ -84,72 +84,99 @@ object PlotTargets extends SharedTargets:
 
   lazy val port: Int = WebsocketVizServer.port
 
-  private def tempFileHtml(spec: String): String = raw"""<!DOCTYPE html>
-        <html>
-        <head>
-        <meta charset="utf-8" />
-        <!-- Import Vega & Vega-Lite -->
-        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-        <!-- Import vega-embed -->
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
-        <style>
-            div#vis {
-                width: 95vmin;
-                height:95vmin;
-                style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
-            }
-        </style>
-        </head>
-        <body>
-            <div id="vis"></div>
+  private def tempFileHtml(spec: String, lib: ChartLibrary): String =
+    lib match
+      case ChartLibrary.Vega =>
+        raw"""<!DOCTYPE html>
+            <html>
+            <head>
+            <meta charset="utf-8" />
+            <!-- Import Vega & Vega-Lite -->
+            <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+            <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+            <!-- Import vega-embed -->
+            <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+            <style>
+                div#vis {
+                    width: 95vmin;
+                    height:95vmin;
+                    style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"
+                }
+            </style>
+            </head>
+            <body>
+                <div id="vis"></div>
 
-        <script type="text/javascript">
-        const spec = ${spec};
-         vegaEmbed('#vis', spec, {
-            renderer: "svg", // renderer (canvas or svg)
-            container: "#vis", // parent DOM container
-            hover: true, // enable hover processing
-            actions: {
-              editor : true
-            }
-        }).then(function(result) {
+            <script type="text/javascript">
+            const spec = ${spec};
+            vegaEmbed('#vis', spec, {
+                renderer: "svg", // renderer (canvas or svg)
+                container: "#vis", // parent DOM container
+                hover: true, // enable hover processing
+                actions: {
+                  editor : true
+                }
+            }).then(function(result) {
 
-        })
-        </script>
-        </body>
-        </html>"""
+            })
+            </script>
+            </body>
+            </html>"""
+      case ChartLibrary.Echarts => raw"""
+          <!DOCTYPE html>            <html>
+              <head>
+                <meta charset="utf-8" />
+                <title>ECharts</title>
+                <!-- Include the ECharts file you just downloaded -->
+                <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+              </head>
+              <body>
+                <!-- Prepare a DOM with a defined width and height for ECharts -->
+                <div id="main" style="width: 100vw;height:100vh;"></div>
+                <script type="text/javascript">
+                  // Initialize the echarts instance based on the prepared dom
+                  var myChart = echarts.init(document.getElementById('main'));
+
+                  // Specify the configuration items and data for the chart
+                  var option = $spec;
+
+                  // Display the chart using the configuration items and data just specified.
+                  myChart.setOption(option);
+                </script>
+              </body>
+            </html>
+        """
 
   given tempHtmlFile: PlotTarget = new TempFileTarget(Html):
-    def show(spec: String): VizReturn =
+    def show(spec: String, lib: ChartLibrary): VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
         case None =>
           os.temp(suffix = ".html", prefix = "plot-")
-      showWithTempFile(spec, tmpPath)
+      showWithTempFile(spec, tmpPath, lib)
       tmpPath
     end show
 
-    override def showWithTempFile(spec: String, path: os.Path): Unit =
-      val theHtml = tempFileHtml(spec)
+    override def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit =
+      val theHtml = tempFileHtml(spec, lib)
       os.write.over(path, theHtml)
     end showWithTempFile
 
   given desktopBrowser: PlotTarget = new TempFileTarget(Html):
 
-    def show(spec: String): VizReturn =
+    def show(spec: String, lib: ChartLibrary): VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
         case None =>
           os.temp(suffix = ".html", prefix = "plot-")
-      showWithTempFile(spec, tmpPath)
+      showWithTempFile(spec, tmpPath, lib)
       tmpPath
     end show
 
-    override def showWithTempFile(spec: String, path: os.Path): Unit =
-      val theHtml = tempFileHtml(spec)
+    override def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit =
+      val theHtml = tempFileHtml(spec, lib)
       os.write.over(path, theHtml)
       openBrowserWindow(path.toNIO.toUri())
     end showWithTempFile
@@ -158,7 +185,7 @@ object PlotTargets extends SharedTargets:
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
   given almond: PlotTarget = new UnitTarget:
-    override def show(spec: String): Unit =
+    override def show(spec: String, lib: ChartLibrary): Unit =
       val kernel = summon[JupyterApi]
       kernel.publish.display(
         DisplayData(
@@ -170,14 +197,14 @@ object PlotTargets extends SharedTargets:
     end show
 
   given publishToPort(using portI: Int): UnitTarget = new UnitTarget:
-    override def show(spec: String): Unit =
+    override def show(spec: String, lib: ChartLibrary): Unit =
       requests.post(s"http://localhost:$portI/viz", data = spec)
       ()
     end show
   end publishToPort
 
   given websocket: UnitTarget = new UnitTarget:
-    override def show(spec: String): Unit =
+    override def show(spec: String, lib: ChartLibrary): Unit =
       if WebsocketVizServer.firstTime then
         println(s"starting local server on $port")
         openBrowserWindow(java.net.URI(s"http://localhost:$port"))
@@ -188,7 +215,7 @@ object PlotTargets extends SharedTargets:
     end show
 
   given gitpod: UnitTarget = new UnitTarget:
-    override def show(spec: String): Unit =
+    override def show(spec: String, lib: ChartLibrary): Unit =
       if WebsocketGitPodServer.firstTime then
         println(s"starting local server on $port")
         println(s"Open a browser at https://${WebsocketGitPodServer.port}-${WebsocketGitPodServer.gitpod_address}")
@@ -201,31 +228,31 @@ object PlotTargets extends SharedTargets:
     end show
 
   given tempFileSpec: PlotTarget = new TempFileTarget(Txt):
-    def show(spec: String): viz.VizReturn =
+    def show(spec: String, lib: ChartLibrary): viz.VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".txt", prefix = "plot-")
         case None =>
           os.temp(suffix = ".txt", prefix = "plot-")
-      showWithTempFile(spec, tmpPath)
+      showWithTempFile(spec, tmpPath, lib)
       tmpPath
     end show
 
-    override def showWithTempFile(spec: String, path: os.Path): Unit =
+    override def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit =
       os.write.over(path, spec)
 
   given png: PlotTarget = new TempFileTarget(Png):
 
-    def show(spec: String): viz.VizReturn =
+    def show(spec: String, lib: ChartLibrary): viz.VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".png", prefix = "plot-")
         case None =>
           os.temp(suffix = ".png", prefix = "plot-")
-      showWithTempFile(spec, tmpPath)
+      showWithTempFile(spec, tmpPath, lib)
       tmpPath
     end show
-    override def showWithTempFile(spec: String, path: os.Path): Unit =
+    override def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit =
       val pngBytes = os.proc("vg2png").call(stdin = spec)
       pngBytes.exitCode match
         case 0 =>

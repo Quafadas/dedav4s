@@ -19,23 +19,23 @@ package viz
 //type VizReturn
 
 trait LowPriorityPlotTarget:
-  def show(spec: String): VizReturn
+  def show(spec: String, library: ChartLibrary): VizReturn
 end LowPriorityPlotTarget
 
 trait PlotTarget extends LowPriorityPlotTarget
 //def show(spec: String): Unit
 
 trait UnitTarget extends PlotTarget:
-  def show(spec: String): Unit
+  def show(spec: String, library: ChartLibrary): Unit
 end UnitTarget
 
 trait SharedTargets:
 
   given doNothing: UnitTarget with
-    override def show(spec: String): Unit = ()
+    override def show(spec: String, library: ChartLibrary): Unit = ()
   end doNothing
 
   given printlnTarget: UnitTarget with
-    override def show(spec: String): Unit = println(spec)
+    override def show(spec: String, library: ChartLibrary): Unit = println(spec)
   end printlnTarget
 end SharedTargets

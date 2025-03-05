@@ -16,7 +16,11 @@
 
 package viz
 
-trait Spec:
+enum ChartLibrary:
+  case Vega, Echarts
+end ChartLibrary
+
+trait Spec(chartLibrary: ChartLibrary):
   def spec: String = ???
 
   def jsonSpec = ujson.read(spec)

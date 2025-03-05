@@ -18,7 +18,7 @@ package viz
 
 type VizReturn = Unit | os.Path
 
-trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
+trait PlatformShow(chartLibrary: ChartLibrary)(using plotTarget: LowPriorityPlotTarget) extends Spec:
 
   // def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
 
@@ -34,7 +34,7 @@ trait PlatformShow(using plotTarget: LowPriorityPlotTarget) extends Spec:
   //   end if
   // end outPath
 
-  val tmpPath: Option[os.Path] = plotTarget.show(spec) match
+  val tmpPath: Option[os.Path] = plotTarget.show(spec, chartLibrary) match
     case () => None
     case path =>
       Some(path.asInstanceOf[os.Path])

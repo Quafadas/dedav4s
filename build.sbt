@@ -28,7 +28,7 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.3.1"
+val scalaV = "3.6.2"
 
 inThisBuild(
   List(
@@ -65,14 +65,15 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     description := "Declarative data viz for scala",
     scalacOptions ++= Seq(
       "-Xmax-inlines:2000",
-      """-Wconf:cat=deprecation:s"""
+      """-Wconf:cat=deprecation:s""",
+      "-experimental",
+      "-language:experimental.namedTuples"
+
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "3.1.4",
-      "com.lihaoyi" %%% "scalatags" % "0.12.0",
-      "org.ekrich" %%% "sconfig" % "1.6.0",
-      "com.github.tarao" %%% "record4s" % "0.11.2",
-      "com.github.tarao" %%% "record4s-upickle" % "0.11.2"
+      "com.lihaoyi" %%% "upickle" % "4.1.0",
+      "com.lihaoyi" %%% "scalatags" % "0.13.1",
+      "org.ekrich" %%% "sconfig" % "1.8.1",
       // ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
       //   .cross(CrossVersion.for3Use2_13With("", ".10"))
       //   .exclude("com.lihaoyi", "geny_2.13")
@@ -86,16 +87,17 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.9.3",
-      "com.lihaoyi" %% "cask" % "0.9.2",
-      "com.lihaoyi" %% "requests" % "0.8.0",
-      ("sh.almond" %% "scala-kernel-api" % "0.14.0-RC14" % Provided)
-        .cross(CrossVersion.full)
-        .exclude("com.lihaoyi", "geny_2.13")
-        .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-        .exclude("com.lihaoyi", "os-lib_2.13")
+      "com.lihaoyi" %% "os-lib" % "0.11.3",
+      "com.lihaoyi" %% "cask" % "0.10.2",
+      "com.lihaoyi" %% "requests" % "0.9.0",
+      ("sh.almond" % "scala-kernel-api_3.3.3" % "0.14.0-RC15" % Provided)
         .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.17.2"
+        // .cross(CrossVersion.full)
+        // .exclude("com.lihaoyi", "geny_2.13")
+        // .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
+        // .exclude("com.lihaoyi", "os-lib_2.13")
+        // .exclude("com.github.jupyter", "jvm-repr"),
+      "org.jsoup" % "jsoup" % "1.18.3"
     )
   )
   .jsSettings(
@@ -123,15 +125,24 @@ lazy val dedav_calico = project
   .in(file("calico"))
   .dependsOn(core.jvm)
   .settings(
-    libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.2"
+    libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.3",
+    scalacOptions ++= Seq(
+      "-experimental",
+      "-language:experimental.namedTuples"
+    ),
   )
+
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
 
 lazy val dedav_laminar = project
   .in(file("laminar"))
   .settings(
-    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0"
+    libraryDependencies += "com.raquo" %%% "laminar" % "17.2.0",
+    scalacOptions ++= Seq(
+      "-experimental",
+      "-language:experimental.namedTuples"
+    ),
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
@@ -141,13 +152,17 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "1.1.0" % Test,
+    scalacOptions ++= Seq(
+      "-experimental",
+      "-language:experimental.namedTuples"
+    ),
   )
   .jvmSettings(
     name := "tests-jvm",
     // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
-    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.41.2" % Test,
-    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.41.2" % Test
+    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.49.0" % Test,
+    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.49.0" % Test
   )
   .jsSettings(
     name := "tests-js",

@@ -21,7 +21,7 @@ import scala.scalajs.js.JSON
 
 type VizReturn = Unit
 
-trait PlatformShow(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
+trait PlatformShow(chartLibrary: ChartLibrary)(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
   def show(inDiv: html.Div): Unit =
     val anId = inDiv.id
     val _ = if anId.isEmpty then
