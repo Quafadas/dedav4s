@@ -162,7 +162,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .jvmSettings(
     name := "tests-jvm",
     // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
-    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.49.0" % Test,
+    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.50.0" % Test,
     libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.50.0" % Test
   )
   .jsSettings(
