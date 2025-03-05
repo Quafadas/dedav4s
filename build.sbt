@@ -48,6 +48,7 @@ ThisBuild / tlBaseVersion := "0.9"
 ThisBuild / organization := "io.github.quafadas"
 ThisBuild / organizationName := "quafadas"
 ThisBuild / licenses := Seq(License.Apache2)
+ThisBuild / startYear := Some(2023)
 ThisBuild / developers := List(
   // your GitHub handle and name
   tlGitHubDev("quafadas", "Simon Parten")
