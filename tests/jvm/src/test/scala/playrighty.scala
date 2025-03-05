@@ -97,10 +97,8 @@ class PlaywrightTest extends munit.FunSuite:
       )
     )
 
-    println("Plotting")
+    // println("Plotting")
     spec.plot(ChartLibrary.Echarts)
-
-    Thread.sleep(5000)
 
   }
 
