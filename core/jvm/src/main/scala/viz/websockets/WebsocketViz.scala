@@ -58,7 +58,8 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   private val headImports = head(
     script(src := "https://cdn.jsdelivr.net/npm/vega@5"),
     script(src := "https://cdn.jsdelivr.net/npm/vega-lite@5"),
-    script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5")
+    script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5"),
+    script(src := "https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js")
   )
 
   private def divId = div(id := "vis", height := "95vmin", width := "95vmin")
@@ -85,6 +86,42 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
               hover: true, // enable hover processing
               actions: true
             })
+          }
+        };
+
+        socket.onclose = function(event) {
+          if (event.wasClean) {
+            console.log(`[close] Connection closed cleanly, code=$${event.code} reason=$${event.reason}`);
+          } else {
+            console.error('[close] Connection died');
+          }
+        };
+        socket.onerror = function(error) {
+          console.error(`[error] $${error.message}`);
+        };
+
+        """)
+      )
+    )
+
+  @cask.get("/echart/:title")
+  def echart(title: String) =
+    html(
+      headImports,
+      body(
+        // h1("viz"),
+        divId,
+        script(raw"""
+        let socket = new WebSocket('ws://localhost:$port/connect/viz');
+        socket.onopen = function(e) {
+          document.getElementById('vis').innerHTML = 'connected and waiting'
+        };
+        socket.onmessage = function(event) {
+          console.log(event.data)
+          const spec = JSON.parse(event.data)
+          if (spec.title.text === '$title') {
+            var myChart = echarts.init(document.getElementById('vis'));
+            myChart.setOption(spec);
           }
         };
 
