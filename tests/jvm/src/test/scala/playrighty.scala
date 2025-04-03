@@ -38,9 +38,8 @@ class PlaywrightTest extends munit.FunSuite:
   end beforeAll
 
   test("can plot pie chart") {
-    case class PieD(field: Double, id: String)
     val aSeq = (1 to 5)
-    val tmp = aSeq.plotPieChart(i => PieD(i, i.toString()))(
+    val tmp = aSeq.plotPieChart(i => (i, i.toString()))(
       List(
         (spec: ujson.Value) => spec("height") = 500,
         (spec: ujson.Value) => spec("width") = 500
@@ -61,9 +60,8 @@ class PlaywrightTest extends munit.FunSuite:
   }
 
   test("title") {
-    case class BarD(amount: Double, category: String, extra: String)
     val aSeq = (1 to 5)
-    val tmp = aSeq.plotBarChart(i => BarD(i, i.toString(), "hi"))(
+    val tmp = aSeq.plotBarChart(i => (i.toDouble, i.toString()))(
       List((spec: ujson.Value) => spec("title") = ujson.Obj("text" -> "my title"))
     )
     tmp.tmpPath match
