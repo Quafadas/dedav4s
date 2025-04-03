@@ -25,7 +25,6 @@ import viz.vega.plots.*
 import reflect.Selectable.reflectiveSelectable
 import upickle.default.Writer
 
-
 object PlotNt:
   import NamedTuple.*
   extension [K <: Tuple, V <: Tuple](

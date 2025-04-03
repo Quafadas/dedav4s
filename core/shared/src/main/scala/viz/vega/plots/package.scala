@@ -236,11 +236,9 @@ case class Timelines(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityP
 case class UDistrictCuisine(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.UDistrictCuisine)
 
-case class Clock(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends FromUrl(SpecUrl.Clock)
+case class Clock(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget) extends FromUrl(SpecUrl.Clock)
 
-case class Watch(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends FromUrl(SpecUrl.Watch)
+case class Watch(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget) extends FromUrl(SpecUrl.Watch)
 
 case class CrossfilterFlights(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.CrossfilterFlights)
@@ -269,8 +267,7 @@ case class StockIndexChart(mods: Seq[ujson.Value => Unit] = List())(using LowPri
 case class PiMonteCarlo(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.PiMonteCarlo)
 
-case class Pacman(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
-    extends FromUrl(SpecUrl.Pacman)
+case class Pacman(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget) extends FromUrl(SpecUrl.Pacman)
 
 case class Platformer(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.Platformer)
@@ -312,8 +309,8 @@ case class Normalized_PercentageStackedBarChartLite(mods: Seq[ujson.Value => Uni
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.Normalized_PercentageStackedBarChartLite)
 
-case class Normalized_PercentageStackedBarChartWithLabelsLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class Normalized_PercentageStackedBarChartWithLabelsLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.Normalized_PercentageStackedBarChartWithLabelsLite)
 
 case class GanttChart_RangedBarMarksLite(mods: Seq[ujson.Value => Unit] = List())(using
@@ -502,8 +499,8 @@ case class LineChartwithVaryingSize_usingthetrailmarkLite(mods: Seq[ujson.Value 
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.LineChartwithVaryingSize_usingthetrailmarkLite)
 
-case class AcometchartshowingchangesbetweenbetweentwostatesLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class AcometchartshowingchangesbetweenbetweentwostatesLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.AcometchartshowingchangesbetweenbetweentwostatesLite)
 
 case class LineChartwithMarkersandInvalidValuesLite(mods: Seq[ujson.Value => Unit] = List())(using
@@ -518,8 +515,8 @@ case class LineChartsShowingRanksOverTimeLite(mods: Seq[ujson.Value => Unit] = L
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.LineChartsShowingRanksOverTimeLite)
 
-case class DrawingSineandCosineCurveswiththeSequenceGeneratorLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class DrawingSineandCosineCurveswiththeSequenceGeneratorLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.DrawingSineandCosineCurveswiththeSequenceGeneratorLite)
 
 case class LinechartwithvaryingstrokedashLite(mods: Seq[ujson.Value => Unit] = List())(using
@@ -676,8 +673,8 @@ case class LineChartwithConfidenceIntervalBandLite(mods: Seq[ujson.Value => Unit
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.LineChartwithConfidenceIntervalBandLite)
 
-case class ScatterplotwithMeanandStandardDeviationOverlayLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class ScatterplotwithMeanandStandardDeviationOverlayLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.ScatterplotwithMeanandStandardDeviationOverlayLite)
 
 case class BoxPlotwithMin_MaxWhiskersLite(mods: Seq[ujson.Value => Unit] = List())(using
@@ -785,8 +782,8 @@ case class BeckersBarleyTrellisPlotLite(mods: Seq[ujson.Value => Unit] = List())
 case class TrellisAreaLite(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.TrellisAreaLite)
 
-case class TrellisAreaPlotShowingAnnualTemperaturesinSeattleLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class TrellisAreaPlotShowingAnnualTemperaturesinSeattleLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.TrellisAreaPlotShowingAnnualTemperaturesinSeattleLite)
 
 case class FacetedDensityPlotLite(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
@@ -817,8 +814,8 @@ case class MarginalHistogramsLite(mods: Seq[ujson.Value => Unit] = List())(using
 case class DiscretizingscalesLite(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.DiscretizingscalesLite)
 
-case class NestedViewConcatenationAlignedwithAxisminExtentLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class NestedViewConcatenationAlignedwithAxisminExtentLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.NestedViewConcatenationAlignedwithAxisminExtentLite)
 
 case class PopulationPyramidLite(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
@@ -854,8 +851,8 @@ case class LinebetweenAirportsintheU_S_Lite(mods: Seq[ujson.Value => Unit] = Lis
     LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.LinebetweenAirportsintheU_S_Lite)
 
-case class IncomeintheU_S_byStateFacetedoverIncomeBracketsLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class IncomeintheU_S_byStateFacetedoverIncomeBracketsLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.IncomeintheU_S_byStateFacetedoverIncomeBracketsLite)
 
 case class LondonTubeLinesLite(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
@@ -864,8 +861,8 @@ case class LondonTubeLinesLite(mods: Seq[ujson.Value => Unit] = List())(using Lo
 case class ProjectionexplorerLite(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
     extends FromUrl(SpecUrl.ProjectionexplorerLite)
 
-case class BarChartwithHighlightingonHoverandSelectiononClickLite(mods: Seq[ujson.Value => Unit] = List())(
-    using LowPriorityPlotTarget
+case class BarChartwithHighlightingonHoverandSelectiononClickLite(mods: Seq[ujson.Value => Unit] = List())(using
+    LowPriorityPlotTarget
 ) extends FromUrl(SpecUrl.BarChartwithHighlightingonHoverandSelectiononClickLite)
 
 case class InteractiveLegendLite(mods: Seq[ujson.Value => Unit] = List())(using LowPriorityPlotTarget)
