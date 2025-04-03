@@ -28,7 +28,7 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.6.2"
+val scalaV = "3.6.4"
 
 inThisBuild(
   List(
