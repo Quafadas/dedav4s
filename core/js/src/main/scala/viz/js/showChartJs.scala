@@ -19,7 +19,6 @@ import org.scalajs.dom
 import org.scalajs.dom.html.Div
 import scala.util.Random
 import org.scalajs.dom.Element
-import scala.scalajs.js
 import scala.scalajs.js.JSON
 import viz.Spec
 

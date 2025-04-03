@@ -88,14 +88,14 @@ end VegaView
 object Helpers:
 
   val dataPrintOnlyClickHandler: js.Function2[js.Dynamic, js.Dynamic, js.UndefOr[js.Dynamic]] =
-    (event: js.Dynamic, item: js.Dynamic) =>
+    (_: js.Dynamic, item: js.Dynamic) =>
       val tmp = item.datum
       if tmp == js.undefined then println("No data found")
       else println(JSON.stringify(tmp))
       end if
 
   val dataClickHandler: js.Function2[js.Dynamic, js.Dynamic, js.UndefOr[js.Dynamic]] =
-    (event: js.Dynamic, item: js.Dynamic) => item.datum
+    (_: js.Dynamic, item: js.Dynamic) => item.datum
 
   extension (vv: VegaView)
     def printState(): Unit =
@@ -138,7 +138,7 @@ object Helpers:
         signals.contains(forSignal),
         s"Signal $forSignal not found in this graph - try the getSignals method or getState() to view the list of current signals"
       )
-      val handler: js.Function2[String, js.Dynamic, js.Dynamic] = (str: String, dyn: js.Dynamic) => dyn
+      val handler: js.Function2[String, js.Dynamic, js.Dynamic] = (_: String, dyn: js.Dynamic) => dyn
       vv.addSignalListener(forSignal, handler)
     end getSignalEventHandler
 
@@ -147,7 +147,7 @@ object Helpers:
       val getCircularReplacer: js.Function0[js.Function2[String, js.Any, js.Any]] = () =>
         val seen = new js.Set[js.Object]()
 
-        { (key: String, value: js.Any) =>
+        { (_: String, value: js.Any) =>
           value match
             case v: js.Object =>
               if seen.contains(v) then js.undefined
