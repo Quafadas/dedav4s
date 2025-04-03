@@ -11,8 +11,6 @@ import fs2.concurrent.*
 import fs2.dom.*
 import viz.vega.facades.EmbedOptions
 import NamedTuple.*
-import viz.vega.plots.BarChart.BarPlottable
-import viz.vega.plots.BarPlotDataEntry
 
 object MyCalicoApp extends IOWebApp:
   def render: Resource[IO, HtmlElement[IO]] = calicoChart
@@ -53,7 +51,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
             )
           )
           val chartDiv = div("")
-          chartDiv.flatMap { d =>
+          chartDiv.flatMap { _ =>
             // To my astonishment, this doesn't work...
             /* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
             dCheat.style.height = "40vmin"

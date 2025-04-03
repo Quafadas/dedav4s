@@ -19,7 +19,6 @@ import org.scalajs.dom
 import scala.util.Random
 import org.scalajs.dom.Element
 import org.scalajs.dom.XMLHttpRequest
-import scala.scalajs.js
 import scala.scalajs.js.JSON
 object showJsDocs:
   def apply(path: String, node: Element, width: Int = 50) =
