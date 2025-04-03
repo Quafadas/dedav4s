@@ -11,6 +11,8 @@ import fs2.concurrent.*
 import fs2.dom.*
 import viz.vega.facades.EmbedOptions
 import NamedTuple.*
+import viz.vega.plots.BarChart.BarPlottable
+import viz.vega.plots.BarPlotDataEntry
 
 object MyCalicoApp extends IOWebApp:
   def render: Resource[IO, HtmlElement[IO]] = calicoChart
@@ -41,9 +43,9 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
         data.map { data =>
           val barChart: BarChart = data.plotBarChart(d => 
               (
-                category = d.toString,
-                amount =  d
-              )
+                amount =  d,
+                category = d.toString,                
+              )              
             )(
             List(
               viz.Utils.fillDiv,

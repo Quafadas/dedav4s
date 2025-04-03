@@ -110,7 +110,7 @@ object chartExample:
       p(),
       child <-- data.signal.map { data =>
         val barChart: BarChart = data.plotBarChart(d => 
-          (category = d.toString(), amount = d)
+          (amount = d, category = d.toString())
         )(List(viz.Utils.fillDiv))
         LaminarViz.simpleEmbed(barChart)
       }

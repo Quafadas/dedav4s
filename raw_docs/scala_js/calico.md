@@ -49,7 +49,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
             )
           )
           val chartDiv = div("")
-          chartDiv.flatMap{ d =>
+          chartDiv.flatMap{ _ =>
             // To my astonishment, this doesn't work...
             /* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
             dCheat.style.height = "40vmin"

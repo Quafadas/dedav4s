@@ -12,7 +12,6 @@ If div height and width are not well defined, this will usually result in an err
 import com.raquo.laminar.api.L._
 import org.scalajs.dom
 import viz.extensions.RawIterables.*
-import viz.Utils
 import viz.LaminarViz
 import viz.vega.plots.{BarChart, given}
 
@@ -81,7 +80,6 @@ Inside the apply method we:
 import com.raquo.laminar.api.L.*
 
 import org.scalajs.dom
-import viz.Utils
 import viz.LaminarViz
 import viz.vega.facades.VegaView
 import viz.vega.facades.Helpers.*

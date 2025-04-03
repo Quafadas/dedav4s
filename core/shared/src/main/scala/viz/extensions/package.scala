@@ -22,7 +22,6 @@ import ujson.Value
 
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*
-import reflect.Selectable.reflectiveSelectable
 import upickle.default.Writer
 
 object PlotNt:
