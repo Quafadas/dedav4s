@@ -16,10 +16,14 @@
 
 package viz
 
+import scala.annotation.nowarn
+
 enum ChartLibrary:
   case Vega, Echarts
 end ChartLibrary
 
+// we need the parameter later
+@nowarn
 trait Spec(chartLibrary: ChartLibrary):
   def spec: String = ???
 

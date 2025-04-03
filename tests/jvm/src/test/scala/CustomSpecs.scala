@@ -32,7 +32,6 @@
 
 import viz.PlotTargets.doNothing
 import viz.vega.plots.*
-import scala.NamedTuple.*
 
 class CustomSpecs extends munit.FunSuite:
 

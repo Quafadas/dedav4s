@@ -15,7 +15,7 @@ import js.JSConverters.*
 import viz.vega.plots.BarChart
 import viz.vega.facades.VegaView
 import viz.vega.facades.Helpers.*
-import com.github.tarao.record4s.%
+import NamedTuple.*
 
 // @main
 // def LiveChart(): Unit =
@@ -109,7 +109,9 @@ object chartExample:
       ),
       p(),
       child <-- data.signal.map { data =>
-        val barChart: BarChart = data.plotBarChart(d => %(category = d.toString(), amount = d))(List(viz.Utils.fillDiv))
+        val barChart: BarChart = data.plotBarChart(d => 
+          (category = d.toString(), amount = d)
+        )(List(viz.Utils.fillDiv))
         LaminarViz.simpleEmbed(barChart)
       }
     )

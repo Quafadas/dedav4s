@@ -16,10 +16,8 @@
 
 package viz
 
-import ujson.Value
-
 abstract class WithBaseSpec(
-    val mods: Seq[ujson.Value => Unit] = List(),
+    mods: Seq[ujson.Value => Unit] = List(),
     chartLibrary: ChartLibrary = ChartLibrary.Vega
 )(using LowPriorityPlotTarget)
     extends Spec(chartLibrary)

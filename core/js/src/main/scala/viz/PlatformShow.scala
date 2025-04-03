@@ -18,9 +18,11 @@ package viz
 
 import org.scalajs.dom.html
 import scala.scalajs.js.JSON
+import scala.annotation.nowarn
 
 type VizReturn = Unit
 
+@nowarn
 trait PlatformShow(chartLibrary: ChartLibrary)(using plotTarget: LowPriorityPlotTarget | html.Div) extends Spec:
   def show(inDiv: html.Div): Unit =
     val anId = inDiv.id

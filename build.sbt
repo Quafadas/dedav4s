@@ -28,7 +28,7 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
 Global / onChangedBuildSource := ReloadOnSourceChanges
 import java.io.File
 
-val scalaV = "3.6.4"
+val scalaV = "3.7.0-RC1"
 
 inThisBuild(
   List(
@@ -67,23 +67,12 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     scalacOptions ++= Seq(
       "-Xmax-inlines:2000",
       """-Wconf:cat=deprecation:s""",
-      "-experimental",
-      "-language:experimental.namedTuples"
 
     ),
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "4.1.0",
       "com.lihaoyi" %%% "scalatags" % "0.13.1",
-      "org.ekrich" %%% "sconfig" % "1.8.1",
-      // ("sh.almond" % "scala-kernel-api" % "0.13.14" % Provided)
-      //   .cross(CrossVersion.for3Use2_13With("", ".10"))
-      //   .exclude("com.lihaoyi", "geny_2.13")
-      //   .exclude("com.lihaoyi", "sourcecode_2.13")
-      //   .exclude("com.lihaoyi", "fansi_2.13")
-      //   .exclude("com.lihaoyi", "os-lib_2.13")
-      //   .exclude("com.lihaoyi", "pprint_2.13")
-      //   .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
-      //   .exclude("com.github.jupyter", "jvm-repr")
+      "org.ekrich" %%% "sconfig" % "1.8.1"
     )
   )
   .jvmSettings(
@@ -91,7 +80,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %% "os-lib" % "0.11.3",
       "com.lihaoyi" %% "cask" % "0.10.2",
       "com.lihaoyi" %% "requests" % "0.9.0",
-      ("sh.almond" % "scala-kernel-api_3.3.3" % "0.14.0-RC15" % Provided)
+      ("sh.almond" % "scala-kernel-api_3.3.5" % "0.14.1" % Provided)
         .exclude("com.github.jupyter", "jvm-repr"),
         // .cross(CrossVersion.full)
         // .exclude("com.lihaoyi", "geny_2.13")
@@ -127,10 +116,7 @@ lazy val dedav_calico = project
   .dependsOn(core.jvm)
   .settings(
     libraryDependencies += "com.armanbilge" %%% "calico" % "0.2.3",
-    scalacOptions ++= Seq(
-      "-experimental",
-      "-language:experimental.namedTuples"
-    ),
+
   )
 
   .dependsOn(core.js)
@@ -140,10 +126,6 @@ lazy val dedav_laminar = project
   .in(file("laminar"))
   .settings(
     libraryDependencies += "com.raquo" %%% "laminar" % "17.2.0",
-    scalacOptions ++= Seq(
-      "-experimental",
-      "-language:experimental.namedTuples"
-    ),
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
@@ -154,10 +136,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .dependsOn(core)
   .settings(
     libraryDependencies += "org.scalameta" %%% "munit" % "1.1.0" % Test,
-    scalacOptions ++= Seq(
-      "-experimental",
-      "-language:experimental.namedTuples"
-    ),
+
   )
   .jvmSettings(
     name := "tests-jvm",

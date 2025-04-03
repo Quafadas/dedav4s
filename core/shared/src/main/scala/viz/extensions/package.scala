@@ -24,11 +24,10 @@ import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*
 import reflect.Selectable.reflectiveSelectable
 import upickle.default.Writer
-import scala.languageFeature.experimental.macros
+
 
 object PlotNt:
-  import scala.NamedTuple
-  import scala.NamedTuple.*
+  import NamedTuple.*
   extension [K <: Tuple, V <: Tuple](
       data: NamedTuple[K, V]
   )(using plotTarget: LowPriorityPlotTarget, rw: Writer[NamedTuple[K, V]])

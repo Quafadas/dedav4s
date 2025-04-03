@@ -20,7 +20,7 @@ import viz.vega.Framework
 import viz.vega.Framework.*
 import viz.PlatformGetSpec
 
-enum SpecUrl(override val url: String, override val f: Framework) extends PlatformGetSpec(url, f):
+enum SpecUrl(url: String, f: Framework) extends PlatformGetSpec(url, f):
   // Vega
   case BarChart extends SpecUrl("https://vega.github.io/vega/examples/bar-chart.vg.json", Vega)
   case StackedBarChart extends SpecUrl("https://vega.github.io/vega/examples/stacked-bar-chart.vg.json", Vega)

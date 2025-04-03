@@ -10,7 +10,7 @@ import fs2.*
 import fs2.concurrent.*
 import fs2.dom.*
 import viz.vega.facades.EmbedOptions
-import com.github.tarao.record4s.%
+import NamedTuple.*
 
 object MyCalicoApp extends IOWebApp:
   def render: Resource[IO, HtmlElement[IO]] = calicoChart
@@ -39,7 +39,12 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
         ),
         p(""),
         data.map { data =>
-          val barChart: BarChart = data.plotBarChart(d => %(category = d.toString(), amount = d))(
+          val barChart: BarChart = data.plotBarChart(d => 
+              (
+                category = d.toString,
+                amount =  d
+              )
+            )(
             List(
               viz.Utils.fillDiv,
               viz.Utils.removeYAxis

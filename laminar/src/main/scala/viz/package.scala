@@ -38,7 +38,7 @@ object LaminarViz:
 
   def signalBus: (EventStream[js.Dynamic], (x: String, y: js.Dynamic) => Unit) =
     val (hoverBus, callback) = EventStream.withJsCallback[js.Dynamic]
-    val handler: js.Function2[String, js.Dynamic, js.Dynamic] = (str: String, dyn: js.Dynamic) => dyn
+    val handler: js.Function2[String, js.Dynamic, js.Dynamic] = (_, dyn: js.Dynamic) => dyn
     val fromFct = (x: String, y: js.Dynamic) => callback(handler.apply(x, y))
     (hoverBus, fromFct)
   end signalBus

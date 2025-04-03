@@ -19,7 +19,9 @@ package viz.mdoc
 import mdoc.*
 import scala.meta.inputs.Position
 import scala.util.Random
+import scala.annotation.experimental
 
+@experimental
 class VegaModifier extends mdoc.PostModifier:
   val name = "vegaplot"
   def process(ctx: PostModifierContext): String =

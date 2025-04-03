@@ -33,7 +33,7 @@ class CheckUtils extends munit.FunSuite:
       "update": "trellisExtent[1]"
     }]}""".stripMargin.stripLineEnd)
 
-    case class TestSpec(val baseSpecIn: ujson.Value, override val mods: viz.vega.plots.JsonMod = List())
+    case class TestSpec(val baseSpecIn: ujson.Value, mods: viz.vega.plots.JsonMod = List())
         extends WithBaseSpec(mods):
       override lazy val baseSpec = baseSpecIn
     end TestSpec
