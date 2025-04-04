@@ -16,29 +16,150 @@
 
 package viz
 
+import viz.vega.plots.SpecUrl
+import os.ResourcePath
+import NamedTuple.AnyNamedTuple
+import NamedTuple.NamedTuple
+import upickle.default.Writer
+import ujson.Value
+
 type VizReturn = Unit | os.Path
 
-trait PlatformShow(chartLibrary: ChartLibrary)(using plotTarget: LowPriorityPlotTarget) extends Spec:
+trait NtPlatformPlot[AnyNamedTuple]:
+  extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
+    def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn
+end NtPlatformPlot
 
-  // def show(using plotTarget: PlotTarget): Unit | os.Path = plotTarget.show(spec)
+trait PlatformPlot[T]:
+  extension (plottable: T)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plot: VizReturn
+    def plot(mods: Seq[ujson.Value => Unit]): VizReturn
+  end extension
+end PlatformPlot
 
-  // lazy val tempPath : Option[os.Path] = plotTarget match
-  //   case t : TempFileTarget[A] => Some(t.tempPath(spec))
-  //   case _ => None
+object Plottable:
 
-  // private lazy val conf = org.ekrich.config.ConfigFactory.load()
-  // private lazy val outPath: Option[String] =
-  //   val pathIsSet: Boolean = conf.hasPath("dedavOutPath")
-  //   if pathIsSet then Some(conf.getString("dedavOutPath"))
-  //   else None
-  //   end if
-  // end outPath
+  private def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
+    val temp = spec
+    for m <- mods do m(temp)
+    end for
+    temp
+  end applyMods
 
-  val tmpPath: Option[os.Path] = plotTarget.show(spec, chartLibrary) match
-    case () => None
-    case path =>
-      Some(path.asInstanceOf[os.Path])
+  /** This assumes the string is a valid specification for your charting library and plots it on a hail mary
+    */
+  given PlatformPlot[String] with
+    extension (plottable: String)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
 
-end PlatformShow
+      override def plot(
+          mods: Seq[ujson.Value => Unit]
+      ): VizReturn =
+        val spec = ujson.read(plottable)
+        val modifiedSpec = applyMods(spec, mods)
+        plotTarget.show(modifiedSpec.toString, chartLibrary)
+      end plot
 
-// This is the line, which actually triggers plotting the chart
+      def plot: VizReturn =
+        plotTarget.show(plottable, chartLibrary)
+
+      end plot
+    end extension
+  end given
+
+  /** This assumes the path is a file which contains a valid specification for your charting library
+    */
+  given PlatformPlot[os.Path] with
+    extension (plottable: os.Path)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plot(
+          mods: Seq[ujson.Value => Unit]
+      ): VizReturn =
+        val spec = os.read(plottable)
+        val modifiedSpec = applyMods(ujson.read(spec), mods)
+        plotTarget.show(modifiedSpec.toString, chartLibrary)
+
+      end plot
+
+      def plot: VizReturn =
+        val spec = os.read(plottable)
+        plotTarget.show(spec, chartLibrary)
+
+      end plot
+
+    end extension
+  end given
+
+  /** This assumes the value is a valid specification for your charting library
+    */
+  given ppujson: PlatformPlot[ujson.Value] = new PlatformPlot[ujson.Value]:
+    extension (plottable: ujson.Value)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plot(
+          mods: Seq[ujson.Value => Unit]
+      ): VizReturn =
+        val modifiedSpec = applyMods(plottable, mods)
+        plotTarget.show(modifiedSpec.toString, chartLibrary)
+
+      end plot
+
+      def plot: VizReturn =
+        plotTarget.show(plottable.toString, chartLibrary)
+
+      end plot
+
+    end extension
+
+  /** This assumes the value is a valid specification for your charting library
+    */
+  given PlatformPlot[SpecUrl] with
+    extension (plottable: SpecUrl)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plot(
+          mods: Seq[ujson.Value => Unit]
+      ): VizReturn =
+        val spec = plottable.jsonSpec
+        val modifiedSpec = applyMods(spec, mods)
+        plotTarget.show(modifiedSpec.toString, chartLibrary)
+
+      end plot
+
+      def plot: VizReturn =
+        val spec = plottable.jsonSpec
+        plotTarget.show(spec.toString(), chartLibrary)
+
+      end plot
+
+    end extension
+  end given
+
+  given PlatformPlot[ResourcePath] with
+    extension (plottable: ResourcePath)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plot(
+          mods: Seq[ujson.Value => Unit]
+      ): VizReturn =
+        val spec = os.read(plottable)
+        val modifiedSpec = applyMods(ujson.read(spec), mods)
+        plotTarget.show(modifiedSpec.toString, chartLibrary)
+
+      end plot
+
+      def plot: VizReturn =
+        val spec = os.read(plottable)
+        plotTarget.show(spec, chartLibrary)
+
+      end plot
+
+    end extension
+  end given
+
+  given NtPlatformPlot[AnyNamedTuple] with
+
+    extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
+      def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
+        val spec = upickle.default.writeJs(plottable)
+        val modifiedSpec = applyMods(spec, List.empty)
+        plotTarget.show(modifiedSpec.toString, chartLibrary)
+
+      end plot
+    end extension
+
+  end given
+
+end Plottable

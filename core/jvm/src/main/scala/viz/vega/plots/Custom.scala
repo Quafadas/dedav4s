@@ -16,22 +16,9 @@
 
 package viz.vega.plots
 
-import viz.FromResource
-
-import viz.PlotTarget
-
-case class Sankey(mods: JsonMod = List())(using PlotTarget) extends FromResource:
-  override lazy val path = "Sankey.json"
-end Sankey
-
-case class SunburstDrag(mods: JsonMod = List())(using PlotTarget) extends FromResource:
-  override lazy val path = "SunburstDrag.json"
-end SunburstDrag
-
-case class SimpleRegression(mods: JsonMod = List())(using PlotTarget) extends FromResource:
-  override lazy val path = "SimpleRegression.json"
-end SimpleRegression
-
-case class SeriesScatter(mods: Seq[ujson.Value => Unit] = List())(using PlotTarget) extends FromResource:
-  override lazy val path = "SeriesScatter.json"
-end SeriesScatter
+object CustomPlots:
+  val sankey = os.resource / "Sankey.json"
+  val sunburstDrag = os.resource / "SunburstDrag.json"
+  val simpleRegression = os.resource / "SimpleRegression.json"
+  val seriesScatter = os.resource / "SeriesScatter.json"
+end CustomPlots

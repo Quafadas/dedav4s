@@ -23,23 +23,24 @@ import ujson.Value
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*
 import upickle.default.Writer
+import viz.Plottable.given_PlatformPlot_SpecUrl
 
-object PlotNt:
-  import NamedTuple.*
-  extension [K <: Tuple, V <: Tuple](
-      data: NamedTuple[K, V]
-  )(using plotTarget: LowPriorityPlotTarget, rw: Writer[NamedTuple[K, V]])
-    def plot(lib: ChartLibrary = ChartLibrary.Vega) =
-      lib match
-        case ChartLibrary.Vega =>
-          new WithBaseSpec(List.empty):
-            override lazy val baseSpec = upickle.default.writeJs(data)
-        case ChartLibrary.Echarts =>
-          new WithBaseSpec(List.empty, ChartLibrary.Echarts):
-            override lazy val baseSpec = upickle.default.writeJs(data)
+// object PlotNt:
+//   import NamedTuple.*
+//   extension [K <: Tuple, V <: Tuple](
+//       data: NamedTuple[K, V]
+//   )(using plotTarget: LowPriorityPlotTarget, rw: Writer[NamedTuple[K, V]])
+//     def plot(lib: ChartLibrary = ChartLibrary.Vega) =
+//       lib match
+//         case ChartLibrary.Vega =>
+//           new WithBaseSpec(List.empty):
+//             override lazy val baseSpec = upickle.default.writeJs(data)
+//         case ChartLibrary.Echarts =>
+//           new WithBaseSpec(List.empty, ChartLibrary.Echarts):
+//             override lazy val baseSpec = upickle.default.writeJs(data)
 
-  end extension
-end PlotNt
+//   end extension
+// end PlotNt
 
 package object extensions:
 
@@ -47,7 +48,7 @@ package object extensions:
   //     data: Seq[NamedTuple[K, V]]
   // )(using plotTarget: LowPriorityPlotTarget, rw: Writer[Seq[NamedTuple[K, V]]])
   //   @targetName("recordPlotBarChart")
-  //   def plotBarChart(mods: JsonMod) =
+  //   def plotBarChart(mods: Seq[ujson.Value => Unit]) =
   //     BarChart(
   //       List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
   //     )
@@ -55,61 +56,58 @@ package object extensions:
   // end extension
 
   // extension [D <: BarPlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
-  //   def plotBarChart(mods: JsonMod) =
+  //   def plotBarChart(mods: Seq[ujson.Value => Unit]) =
   //     BarChart(
   //       List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
   //     )
   //   end plotBarChart
   // end extension
 
-  extension [D <: PiePlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
-    def plotPieChart(mods: JsonMod) =
-      PieChart(
-        List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
-      )
+  extension [D <: PiePlotDataEntry: Writer](
+      data: Seq[D]
+  )(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plotPieChart(mods: Seq[ujson.Value => Unit] = List()) =
+      val mods2 = List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
+      SpecUrl.PieChart.plot(mods2)
+
     end plotPieChart
   end extension
 
   // type BarRecordData =
 
-  extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget)
+  extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
 
-    def plotBarChart(fct: A => BarPlotDataEntry)(mods: JsonMod) =
+    def plotBarChart(fct: A => BarPlotDataEntry)(mods: Seq[ujson.Value => Unit]) =
       val chartData = data.map(d =>
         val tmp = fct(d)
         ujson.Obj("category" -> tmp.category, "amount" -> tmp.amount)
       )
-      BarChart(
+      SpecUrl.BarChart.plot(
         List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
       )
     end plotBarChart
 
-    def plotPieChart(fct: A => PiePlotDataEntry)(mods: JsonMod) =
+    def plotPieChart(fct: A => PiePlotDataEntry)(mods: Seq[ujson.Value => Unit]) =
       val chartData = data.map(d =>
         val tmp = fct(d)
         ujson.Obj("id" -> tmp.id, "field" -> tmp.field)
       )
-      PieChart(
+      SpecUrl.PieChart.plot(
         List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
       )
     end plotPieChart
   end extension
 
-  extension (specIn: ujson.Value)(using plotTarget: LowPriorityPlotTarget)
-    def plot(mods: Seq[ujson.Value => Unit] = List()): WithBaseSpec =
-      new WithBaseSpec(mods):
-        override lazy val baseSpec: ujson.Value = specIn
-
   object RawIterables:
-    extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
-      def plotBarChart(mods: JsonMod = List()): BarChart =
+    extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plotBarChart(mods: Seq[ujson.Value => Unit] = List()) =
         val labelToNotShow =
           for (number <- l)
             yield ujson.Obj(
               "category" -> Random.alphanumeric.take(8).mkString(""),
               "amount" -> number.toDouble
             )
-        BarChart(
+        SpecUrl.BarChart.plot(
           List(
             // viz.Utils.fillDiv,
             (spec: Value) => spec("data")(0)("values") = labelToNotShow,
@@ -118,14 +116,14 @@ package object extensions:
         )
       end plotBarChart
 
-      def plotPieChart(mods: JsonMod = List()): PieChart =
+      def plotPieChart(mods: Seq[ujson.Value => Unit] = List()) =
         val labelToNotShow =
           for (number <- l)
             yield ujson.Obj(
               "id" -> Random.alphanumeric.take(8).mkString(""),
               "field" -> number.toDouble
             )
-        new PieChart(
+        SpecUrl.PieChart.plot(
           List(
             // viz.Utils.fillDiv,
             (spec: Value) => spec("data")(0)("values") = labelToNotShow
@@ -133,33 +131,35 @@ package object extensions:
         )
       end plotPieChart
 
-      def plotLineChart(mods: JsonMod = List()): LineChart =
+      def plotLineChart(mods: Seq[ujson.Value => Unit] = List()) =
         val labelToNotShow =
           for ((number, i) <- l.zipWithIndex)
             yield ujson.Obj(
               "x" -> i,
               "y" -> number.toDouble
             )
-        LineChart(
+        SpecUrl.LineChart.plot(
           List((spec: Value) => spec("data")(0)("values") = labelToNotShow) ++ mods
         )
       end plotLineChart
 
-      def plotDotPlot(mods: JsonMod = List()): DotPlot =
-        new DotPlot(
+      def plotDotPlot(mods: Seq[ujson.Value => Unit] = List()) =
+        SpecUrl.DotPlot.plot(
           List((spec: Value) => spec("data")(0)("values") = l.map(_.toDouble)) ++ mods
         )
     end extension
-    extension [T: Numeric](l: Iterable[(String, T)])(using plotTarget: LowPriorityPlotTarget)
+    extension [T: Numeric](
+        l: Iterable[(String, T)]
+    )(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
       @targetName("plotBarChartWithLabels")
-      def plotLineChart(mods: JsonMod): LineChart =
+      def plotLineChart(mods: Seq[ujson.Value => Unit]) =
         val labelled =
           for ((label, number) <- l)
             yield ujson.Obj(
               "x" -> label,
               "y" -> number.toDouble
             )
-        LineChart(
+        SpecUrl.LineChart.plot(
           List((spec: Value) => spec("data")(0)("values") = labelled
           // viz.Utils.fillDiv
           ) ++ mods
@@ -167,29 +167,27 @@ package object extensions:
       end plotLineChart
 
       @targetName("plotLineChartWithLabels")
-      def plotBarChart(mods: JsonMod): BarChart =
+      def plotBarChart(mods: Seq[ujson.Value => Unit]) =
         val labelled =
           for ((label, number) <- l)
             yield ujson.Obj(
               "category" -> label,
               "amount" -> number.toDouble
             )
-        BarChart(
-          List((spec: Value) => spec("data")(0)("values") = labelled
-          // viz.Utils.fillDiv
-          ) ++ mods
+        SpecUrl.BarChart.plot(
+          List((spec: Value) => spec("data")(0)("values") = labelled) ++ mods
         )
       end plotBarChart
 
       @targetName("plotPieChartWithLabels")
-      def plotPieChart(mods: JsonMod): PieChart =
+      def plotPieChart(mods: Seq[ujson.Value => Unit]) =
         val labelled =
           for ((label, number) <- l)
             yield ujson.Obj(
               "id" -> label,
               "field" -> number.toDouble
             )
-        PieChart(
+        SpecUrl.PieChart.plot(
           List(
             (spec: Value) => spec("data")(0)("values") = labelled,
             (spec: Value) => spec("height") = 400,
@@ -202,21 +200,23 @@ package object extensions:
       end plotPieChart
     end extension
 
-    extension [T: Numeric](l: Map[String, T])(using plotTarget: LowPriorityPlotTarget)
+    extension [T: Numeric](l: Map[String, T])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
       @targetName("plotBarChartFromMapWithLabels")
-      def plotBarChart(mods: JsonMod): BarChart = l.iterator.toSeq.plotBarChart(mods)
+      def plotBarChart(mods: Seq[ujson.Value => Unit]): VizReturn = l.iterator.toSeq.plotBarChart(mods)
 
-      def plotLineChart(mods: JsonMod): LineChart = l.iterator.toSeq.plotLineChart(mods)
+      def plotLineChart(mods: Seq[ujson.Value => Unit]): VizReturn = l.iterator.toSeq.plotLineChart(mods)
 
-      def plotPieChart(mods: JsonMod): PieChart = l.iterator.toSeq.plotPieChart(mods)
+      def plotPieChart(mods: Seq[ujson.Value => Unit]): VizReturn = l.iterator.toSeq.plotPieChart(mods)
     end extension
 
-    extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: LowPriorityPlotTarget)
-      def plotScatter(mods: JsonMod = List()): ScatterPlot =
+    extension [N1: Numeric, N2: Numeric](
+        l: Iterable[(N1, N2)]
+    )(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plotScatter(mods: Seq[ujson.Value => Unit] = List()): VizReturn =
         val values = l.map { case (x, y) =>
           ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
         }
-        ScatterPlot(
+        SpecUrl.ScatterPlot.plot(
           List(
             (spec: Value) => spec("data") = ujson.Arr(ujson.Obj("name" -> "source", "values" -> values)),
             (spec: Value) =>
@@ -238,12 +238,12 @@ package object extensions:
           ) ++ mods
         )
 
-    extension (s: String)(using plotTarget: PlotTarget)
-      def plotWordCloud(mods: JsonMod = List()): WordCloud = List(s).plotWordcloud(mods)
+    extension (s: String)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plotWordCloud(mods: Seq[ujson.Value => Unit] = List()) = List(s).plotWordcloud(mods)
 
-    extension (s: Seq[String])(using plotTarget: PlotTarget)
-      def plotWordcloud(mods: JsonMod = List()): WordCloud =
-        WordCloud(
+    extension (s: Seq[String])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+      def plotWordcloud(mods: Seq[ujson.Value => Unit] = List()) =
+        SpecUrl.WordCloud.plot(
           List(
             (spec: Value) => spec("data")(0)("values").arr.clear(),
             (spec: Value) => spec("data")(0)("values") = s

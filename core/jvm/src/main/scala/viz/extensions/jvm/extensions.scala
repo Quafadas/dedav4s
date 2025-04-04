@@ -16,34 +16,24 @@
 
 package viz.extensions.jvm
 
-import viz.PlotTarget
-
 import ujson.Value
-
-import viz.vega.plots.JsonMod
 import math.Numeric.Implicits.infixNumericOps
-import viz.vega.plots.SimpleRegression
 import viz.LowPriorityPlotTarget
-import viz.WithBaseSpec
 
-object plotFromFile:
-  def apply(path: os.Path, mods: Seq[ujson.Value => Unit] = List())(using
-      plotTarget: LowPriorityPlotTarget
-  ): WithBaseSpec =
-    println("read file")
-    new WithBaseSpec(mods):
-      override lazy val baseSpec: ujson.Value = ujson.read(os.read(path))
-    end new
-  end apply
-end plotFromFile
+import viz.Plottable.given_PlatformPlot_ResourcePath
+import viz.ChartLibrary
 
-extension [N1: Numeric, N2: Numeric](l: Iterable[(N1, N2)])(using plotTarget: PlotTarget)
-  def plotRegression(mods: JsonMod = List()): SimpleRegression =
+extension [N1: Numeric, N2: Numeric](
+    l: Iterable[(N1, N2)]
+)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+  def plotRegression(mods: Seq[ujson.Value => Unit] = List()) =
     val values = l.map { case (x, y) =>
       ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
     }
-    SimpleRegression(
-      List((spec: Value) => spec("data")(0)("values") = values) ++ mods
+    viz.vega.plots.CustomPlots.simpleRegression.plot(
+      (
+        List((spec: Value) => spec("data")(0)("values") = values) ++ mods
+      )
     )
   end plotRegression
 end extension
