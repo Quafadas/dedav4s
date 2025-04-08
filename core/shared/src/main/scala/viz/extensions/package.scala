@@ -99,6 +99,7 @@ package object extensions:
     def plot(mods: Seq[ujson.Value => Unit] = List()): WithBaseSpec =
       new WithBaseSpec(mods):
         override lazy val baseSpec: ujson.Value = specIn
+  end extension
 
   object RawIterables:
     extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget)
@@ -160,8 +161,9 @@ package object extensions:
               "y" -> number.toDouble
             )
         LineChart(
-          List((spec: Value) => spec("data")(0)("values") = labelled
-          // viz.Utils.fillDiv
+          List((spec: Value) =>
+            spec("data")(0)("values") = labelled
+            // viz.Utils.fillDiv
           ) ++ mods
         )
       end plotLineChart
@@ -175,8 +177,9 @@ package object extensions:
               "amount" -> number.toDouble
             )
         BarChart(
-          List((spec: Value) => spec("data")(0)("values") = labelled
-          // viz.Utils.fillDiv
+          List((spec: Value) =>
+            spec("data")(0)("values") = labelled
+            // viz.Utils.fillDiv
           ) ++ mods
         )
       end plotBarChart
@@ -237,9 +240,11 @@ package object extensions:
             // viz.Utils.fillDiv
           ) ++ mods
         )
+    end extension
 
     extension (s: String)(using plotTarget: PlotTarget)
       def plotWordCloud(mods: JsonMod = List()): WordCloud = List(s).plotWordcloud(mods)
+    end extension
 
     extension (s: Seq[String])(using plotTarget: PlotTarget)
       def plotWordcloud(mods: JsonMod = List()): WordCloud =
@@ -250,5 +255,6 @@ package object extensions:
             // viz.Utils.fillDiv
           ) ++ mods
         )
+    end extension
   end RawIterables
 end extensions
