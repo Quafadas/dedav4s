@@ -72,12 +72,12 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % "4.1.0",
       "com.lihaoyi" %%% "scalatags" % "0.13.1",
-      "org.ekrich" %%% "sconfig" % "1.8.1"
+      "org.ekrich" %%% "sconfig" % "1.9.0"
     )
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.11.3",
+      "com.lihaoyi" %% "os-lib" % "0.11.4",
       "com.lihaoyi" %% "cask" % "0.10.2",
       "com.lihaoyi" %% "requests" % "0.9.0",
       ("sh.almond" % "scala-kernel-api_3.3.5" % "0.14.1" % Provided)
@@ -87,7 +87,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
         // .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         // .exclude("com.lihaoyi", "os-lib_2.13")
         // .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.18.3"
+      "org.jsoup" % "jsoup" % "1.19.1"
     )
   )
   .jsSettings(
@@ -125,7 +125,7 @@ lazy val dedav_calico = project
 lazy val dedav_laminar = project
   .in(file("laminar"))
   .settings(
-    libraryDependencies += "com.raquo" %%% "laminar" % "17.2.0",
+    libraryDependencies += "com.raquo" %%% "laminar" % "17.2.1",
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
@@ -141,8 +141,8 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .jvmSettings(
     name := "tests-jvm",
     // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
-    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.49.0" % Test,
-    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.49.0" % Test
+    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.51.0" % Test,
+    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.51.0" % Test
   )
   .jsSettings(
     name := "tests-js",
