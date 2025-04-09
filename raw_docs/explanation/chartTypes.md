@@ -12,12 +12,12 @@ In a repl, try tab completion on `viz.vega.plots.[tab]`. Compare the list of ava
 https://vega.github.io/vega/examples/
 
 ```scala mdoc:js
-import viz.vega.plots.{BarChart,LineChart, PieChart, ScatterPlot, given}
+import viz.vega.plots.{SpecUrl, given}
 
-viz.js.showChartJs(BarChart(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(LineChart(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(PieChart(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(ScatterPlot(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(SpecUrl.BarChart.jsonSpec(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.LineChart.jsonSpec(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.PieChart.jsonSpec(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.ScatterPlot.jsonSpec(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
 ```
 
 ## Vega-Lite
@@ -26,12 +26,12 @@ https://vega.github.io/vega-lite/examples/
 ```scala mdoc:js
 import viz.vega.plots.{SimpleBarChartLite, HistogramLite, ScatterplotLite, InteractiveScatterplotMatrixLite, given}
 
-viz.js.showChartJs(SimpleBarChartLite(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(HistogramLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
-viz.js.showChartJs(ScatterplotLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(SpecUrl.SimpleBarChartLite(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.HistogramLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(SpecUrl.ScatterplotLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
 
 viz.js.showChartJs(
-  InteractiveScatterplotMatrixLite(
+  SpecUrl.InteractiveScatterplotMatrixLite(
       List( spec => spec("spec")("data")("url") = "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json" )
   ),
   node,

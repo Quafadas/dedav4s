@@ -26,9 +26,9 @@ class VegaModifier extends mdoc.PostModifier:
   val name = "vegaplot"
   def process(ctx: PostModifierContext): String =
     ctx.lastValue match
-      case spec: viz.Spec =>
+      case spec: String =>
         val anId = Random.alphanumeric.take(8).mkString("")
-        vegaEmbed1(spec.spec, anId)
+        vegaEmbed1(spec, anId)
       case _ =>
         val (pos, obtained) = ctx.variables.lastOption match
           case Some(variable) =>

@@ -12,10 +12,10 @@ import viz.extensions.*
 import viz.LaminarViz
 import js.JSConverters.*
 
-import viz.vega.plots.BarChart
 import viz.vega.facades.VegaView
 import viz.vega.facades.Helpers.*
 import NamedTuple.*
+import viz.vega.plots.SpecUrl
 
 // @main
 // def LiveChart(): Unit =
@@ -35,16 +35,10 @@ object chartExample:
   val (chartDataClickedBus, chartClickCallback) = LaminarViz.dataClickBus
   val (aSignalBus, signalCallback) = LaminarViz.signalBus
   val data = Var(List(2.4, 3.4, 5.1, -2.3))
-  val baseChart = BarChart(
-    List(
-      viz.Utils.fillDiv,
-      viz.Utils.removeXAxis,
-      viz.Utils.removeYAxis
-    )
-  )
+  val baseChart = SpecUrl.BarChart.jsonSpec
 
   def vegaView(): Div =
-    val (chartDiv: Div, viewOpt: Signal[Option[VegaView]]) = LaminarViz.viewEmbed(baseChart)
+    val (chartDiv: Div, viewOpt: Signal[Option[VegaView]]) = LaminarViz.viewEmbed(baseChart.toString())
 
     div(
       viewOpt.map(_.map(vv =>
@@ -109,10 +103,10 @@ object chartExample:
       ),
       p(),
       child <-- data.signal.map { data =>
-        val barChart: BarChart = data.plotBarChart(d => 
-          (amount = d, category = d.toString())
-        )(List(viz.Utils.fillDiv))
-        LaminarViz.simpleEmbed(barChart)
+        val spec = SpecUrl.BarChart.jsonSpec
+        ???
+        // .plotBarChart(d => (amount = d, category = d.toString()))(List(viz.Utils.fillDiv))
+        // LaminarViz.simpleEmbed(barChart)
       }
     )
   end apply

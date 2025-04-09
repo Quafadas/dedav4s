@@ -28,7 +28,7 @@ import viz.ChartLibrary
   * It ought to get you started quickly.
   */
 object showChartJs:
-  def apply(spec: String, node: Element, width: Int = 50)(using chartLib: ChartLibrary) =
+  def apply(spec: ujson.Value, node: Element, width: Int = 50)(using chartLib: ChartLibrary) =
     assert(chartLib == ChartLibrary.Vega, "Only Vega is supported for now")
     val child = dom.document.createElement("div")
     val anId = "vega" + Random.alphanumeric.take(8).mkString("")
@@ -37,7 +37,7 @@ object showChartJs:
     node.appendChild(child)
     child.asInstanceOf[Div]
     val opts = viz.vega.facades.EmbedOptions()
-    val parsed = JSON.parse(spec)
+    val parsed = JSON.parse(spec.toString())
     viz.vega.facades.embed.embed(s"#${child.id}", parsed, opts)
     ()
   end apply
