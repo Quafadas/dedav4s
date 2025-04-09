@@ -16,10 +16,6 @@
 
 package viz
 
-import org.scalajs.dom.html
-import scala.scalajs.js.JSON
-import scala.annotation.nowarn
-import viz.vega.plots.SpecUrl
 
 type VizReturn = Unit
 
@@ -30,7 +26,6 @@ type VizReturn = Unit
 //     def plot(inDiv: html.Div): Unit
 //   end extension
 // end PlatformPlot
-
 
 // object Plottable:
 

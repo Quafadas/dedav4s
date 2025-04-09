@@ -34,7 +34,7 @@ class CheckUtils extends munit.FunSuite:
       "update": "trellisExtent[1]"
     }]}""".stripMargin.stripLineEnd)
 
-    val plotted = specStart.plot(List(viz.Utils.fillDiv))
+    val _ = specStart.plot(List(viz.Utils.fillDiv))
 
     // val numberSignals = ouSpec("signals").arr.length
     // assertEquals(numberSignals, 3) // Should have added width, replaced height

@@ -22,7 +22,6 @@ import org.scalajs.dom.Element
 import scala.scalajs.js.JSON
 import viz.ChartLibrary
 
-
 /** This is a "show" implementation for JS. Importantly, it forces the div to have a well defined width and height on
   * mount Otherwise vega chokes. This can be used as a starting pont for however you'd wish to integrate your own chart.
   *
