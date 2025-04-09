@@ -24,8 +24,8 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
     cond = Some("matrix.project == 'rootJS'")
   ),
     WorkflowStep.Use(
-    UseRef.Public("actions", "coursier/setup-action")
-    name = Some("Setup Coursier")    
+    UseRef.Public("actions", "coursier/setup-action", "v1"),
+    name = Some("Setup Coursier"),
     cond = Some("matrix.project == 'rootJVM'")
   ),
   WorkflowStep.Run(
