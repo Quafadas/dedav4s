@@ -65,6 +65,7 @@ ThisBuild / developers := List(
 ThisBuild / tlSonatypeUseLegacyHost := false
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
+ThisBuild / tlJdkRelease := Some(17)
 
 lazy val root = tlCrossRootProject.aggregate(core, dedav_laminar, dedav_calico, unidocs, tests)
 
