@@ -69,7 +69,7 @@ object PlotTargets extends SharedTargets:
         PR welcome :-) ...
        */
       val runtime = java.lang.Runtime.getRuntime()
-      val _ = runtime.exec(Array[String](s"""xdg-open $uri]"""))
+      val _ = runtime.exec(Array[String](s"""xdg-open $uri"""))
       ()
     end if
   end openBrowserWindow
