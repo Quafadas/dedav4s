@@ -22,7 +22,6 @@ import NamedTuple.AnyNamedTuple
 import NamedTuple.NamedTuple
 import upickle.default.Writer
 
-
 type VizReturn = Unit | os.Path
 
 trait NtPlatformPlot[AnyNamedTuple]:

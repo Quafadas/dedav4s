@@ -16,7 +16,6 @@
 
 package viz
 
-
 type VizReturn = Unit
 
 // @nowarn

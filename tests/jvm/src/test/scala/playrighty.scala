@@ -78,7 +78,7 @@ class PlaywrightTest extends munit.FunSuite:
   }
 
   test("Plotting an echart") {
-    import viz.echartsFlavour    
+    import viz.echartsFlavour
     import viz.PlotTargets.desktopBrowser
     import viz.NamedTupleReadWriter.given
     import viz.Plottable.given_NtPlatformPlot_AnyNamedTuple
