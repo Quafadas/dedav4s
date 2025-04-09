@@ -31,7 +31,7 @@ class PlaywrightTest extends munit.FunSuite:
 
   override def beforeAll(): Unit =
 
-    System.setProperty("playwright.driver.impl", "jsnev.DriverJar")
+    // System.setProperty("playwright.driver.impl", "jsnev.DriverJar")
     pw = Playwright.create()
     browser = pw.chromium().launch();
     page = browser.newPage();
