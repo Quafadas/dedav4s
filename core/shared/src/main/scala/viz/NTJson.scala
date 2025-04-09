@@ -16,9 +16,6 @@
 
 package viz
 
-import upickle.default.*
-import scala.NamedTuple.NamedTuple
-
 import ujson.Value
 
 import upickle.default.*
@@ -27,7 +24,6 @@ import NamedTuple.Names
 import NamedTuple.DropNames
 import NamedTuple.NamedTuple
 import NamedTuple.withNames
-import scala.deriving.Mirror
 import scala.reflect.ClassTag
 import upickle.core.Visitor
 import upickle.core.ObjVisitor

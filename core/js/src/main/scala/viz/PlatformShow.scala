@@ -19,16 +19,48 @@ package viz
 import org.scalajs.dom.html
 import scala.scalajs.js.JSON
 import scala.annotation.nowarn
+import viz.vega.plots.SpecUrl
 
 type VizReturn = Unit
 
-@nowarn
-trait PlatformPlot[T]:
-  extension (plottable: T)
-    def plot()(using plotTarget: LowPriorityPlotTarget): Unit
-    def plot(inDiv: html.Div): Unit
-  end extension
-end PlatformPlot
+// @nowarn
+// trait GetS[T]:
+//   extension (plottable: T)
+//     def getSpec()(using plotTarget: LowPriorityPlotTarget): Unit
+//     def plot(inDiv: html.Div): Unit
+//   end extension
+// end PlatformPlot
+
+
+// object Plottable:
+
+//   private def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
+//     val temp = spec
+//     for m <- mods do m(temp)
+//     end for
+//     temp
+//   end applyMods
+
+//   given PlatformPlot[SpecUrl] with
+//     extension (plottable: SpecUrl)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+//       def plot(
+//           mods: Seq[ujson.Value => Unit]
+//       ): VizReturn =
+//         val spec = plottable.jsonSpec
+//         val modifiedSpec = applyMods(spec, mods)
+//         plotTarget.show(modifiedSpec.toString, chartLibrary)
+
+//       end plot
+
+//       def plot: VizReturn =
+//         val spec = plottable.jsonSpec
+//         plotTarget.show(spec.toString(), chartLibrary)
+
+//       end plot
+
+//     end extension
+//   end given
+
 //   def show(inDiv: html.Div): Unit =
 //     val anId = inDiv.id
 //     val _ = if anId.isEmpty then
