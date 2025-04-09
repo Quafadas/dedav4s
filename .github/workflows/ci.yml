@@ -65,6 +65,9 @@ jobs:
       - if: matrix.project == 'rootJS'
         run: npm install
 
+      - if: matrix.project == 'rootJVM'
+        run: 'cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --with-deps'
+
       - name: Check that workflows are up to date
         run: sbt githubWorkflowCheck
 

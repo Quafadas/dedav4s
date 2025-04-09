@@ -22,7 +22,16 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
   WorkflowStep.Run(
     List("npm install"),
     cond = Some("matrix.project == 'rootJS'")
-  )
+  ),
+    WorkflowStep.Use(
+    UseRef.Public("actions", "coursier/setup-action")
+    name = Some("Setup Coursier")    
+    cond = Some("matrix.project == 'rootJVM'")
+  ),
+  WorkflowStep.Run(
+    List("""cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --with-deps"""),
+    cond = Some("matrix.project == 'rootJVM'")
+  ),
 )
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
