@@ -38,7 +38,7 @@ end PlatformPlot
 
 object Plottable:
 
-  private def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
+  private inline def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
     val temp = spec
     for m <- mods do m(temp)
     end for
@@ -108,7 +108,7 @@ object Plottable:
 
   /** This assumes the value is a valid specification for your charting library
     */
-  given PlatformPlot[SpecUrl] with
+  given ppSpecUrl: PlatformPlot[SpecUrl] = new PlatformPlot[SpecUrl]:
     extension (plottable: SpecUrl)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
       def plot(
           mods: Seq[ujson.Value => Unit]
@@ -126,7 +126,7 @@ object Plottable:
       end plot
 
     end extension
-  end given
+  
 
   given PlatformPlot[ResourcePath] with
     extension (plottable: ResourcePath)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)

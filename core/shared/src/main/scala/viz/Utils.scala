@@ -18,6 +18,15 @@ package viz
 
 import ujson.Value
 
+extension (plottable: ujson.Value)
+  def mod(mods: List[ujson.Value => Unit]): ujson.Value =
+    val temp = plottable
+    for m <- mods do m(temp)
+    end for
+    temp
+  end mod
+end extension
+
 object Utils:
 
   val removeXAxis = new ((Value => Unit)):

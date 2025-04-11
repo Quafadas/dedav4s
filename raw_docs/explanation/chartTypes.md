@@ -12,26 +12,29 @@ In a repl, try tab completion on `viz.vega.plots.[tab]`. Compare the list of ava
 https://vega.github.io/vega/examples/
 
 ```scala mdoc:js
-import viz.vega.plots.{SpecUrl, given}
+import viz.vega.plots.SpecUrl
+import viz.{vegaFlavour, *}
 
-viz.js.showChartJs(SpecUrl.BarChart.jsonSpec(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(SpecUrl.LineChart.jsonSpec(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(SpecUrl.PieChart.jsonSpec(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(SpecUrl.ScatterPlot.jsonSpec(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+
+viz.js.showChartJs(SpecUrl.BarChart.jsonSpec.mod(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.LineChart.jsonSpec.mod(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.PieChart.jsonSpec.mod(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.ScatterPlot.jsonSpec.mod(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
 ```
 
 ## Vega-Lite
 https://vega.github.io/vega-lite/examples/
 
 ```scala mdoc:js
-import viz.vega.plots.{SimpleBarChartLite, HistogramLite, ScatterplotLite, InteractiveScatterplotMatrixLite, given}
+import viz.vega.plots.SpecUrl
+import viz.{vegaFlavour, *}
 
-viz.js.showChartJs(SpecUrl.SimpleBarChartLite(List(viz.Utils.fillDiv)), node, 50)
-viz.js.showChartJs(SpecUrl.HistogramLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
-viz.js.showChartJs(SpecUrl.ScatterplotLite(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(SpecUrl.SimpleBarChartLite.jsonSpec.mod(List(viz.Utils.fillDiv)), node, 50)
+viz.js.showChartJs(SpecUrl.HistogramLite.jsonSpec.mod(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
+viz.js.showChartJs(SpecUrl.ScatterplotLite.jsonSpec.mod(List(viz.Utils.fillDiv, viz.Utils.fixDefaultDataUrl)), node, 50)
 
 viz.js.showChartJs(
-  SpecUrl.InteractiveScatterplotMatrixLite(
+  SpecUrl.InteractiveScatterplotMatrixLite.jsonSpec.mod(
       List( spec => spec("spec")("data")("url") = "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json" )
   ),
   node,

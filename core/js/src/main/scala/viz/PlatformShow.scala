@@ -19,15 +19,13 @@ package viz
 type VizReturn = Unit
 
 // @nowarn
-// trait GetS[T]:
-//   extension (plottable: T)
-//     def getSpec()(using plotTarget: LowPriorityPlotTarget): Unit
-//     def plot(inDiv: html.Div): Unit
-//   end extension
+// trait PlatformPlot:
+
 // end PlatformPlot
 
-// object Plottable:
 
+// object Plottable:
+//   given ujsonMod: PlatformPlot = new PlatformPlot {}
 //   private def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
 //     val temp = spec
 //     for m <- mods do m(temp)

@@ -23,45 +23,49 @@ import ujson.Value
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*
 import upickle.default.Writer
-import viz.Plottable.given_PlatformPlot_SpecUrl
-
-// object PlotNt:
-//   import NamedTuple.*
-//   extension [K <: Tuple, V <: Tuple](
-//       data: NamedTuple[K, V]
-//   )(using plotTarget: LowPriorityPlotTarget, rw: Writer[NamedTuple[K, V]])
-//     def plot(lib: ChartLibrary = ChartLibrary.Vega) =
-//       lib match
-//         case ChartLibrary.Vega =>
-//           new WithBaseSpec(List.empty):
-//             override lazy val baseSpec = upickle.default.writeJs(data)
-//         case ChartLibrary.Echarts =>
-//           new WithBaseSpec(List.empty, ChartLibrary.Echarts):
-//             override lazy val baseSpec = upickle.default.writeJs(data)
-
-//   end extension
-// end PlotNt
+import viz.Plottable.ppSpecUrl
+import NamedTuple.NamedTuple
+import viz.Plottable.given_PlatformPlot_ResourcePath
 
 package object extensions:
+  
+  extension [N1: Numeric, N2: Numeric](
+      l: Iterable[(N1, N2)]
+  )(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plotRegression(mods: Seq[ujson.Value => Unit] = List()) =
+      val values = l.map { case (x, y) =>
+        ujson.Obj("x" -> x.toDouble, "y" -> y.toDouble)
+      }
+      CustomPlots.simpleRegression.plot(
+        (
+          List((spec: Value) => spec("data")(0)("values") = values) ++ mods
+        )
+      )
+    end plotRegression
+  end extension
 
-  // extension [K <: Tuple, V <: Tuple](
-  //     data: Seq[NamedTuple[K, V]]
-  // )(using plotTarget: LowPriorityPlotTarget, rw: Writer[Seq[NamedTuple[K, V]]])
-  //   @targetName("recordPlotBarChart")
-  //   def plotBarChart(mods: Seq[ujson.Value => Unit]) =
-  //     BarChart(
-  //       List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
-  //     )
-  //   end plotBarChart
-  // end extension
+  extension [K <: Tuple, V <: Tuple](
+      data: Seq[NamedTuple[K, V]]
+  )(
+    using plotTarget: LowPriorityPlotTarget, 
+    rw: Writer[Seq[NamedTuple[K, V]]], 
+    chartLibrary: ChartLibrary
+  )
+    @targetName("recordPlotBarChart")
+    def plotBarChart(mods: Seq[ujson.Value => Unit]) =
+      SpecUrl.BarChart.plot(
+        List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
+      )
+    end plotBarChart
+  end extension
 
-  // extension [D <: BarPlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget)
-  //   def plotBarChart(mods: Seq[ujson.Value => Unit]) =
-  //     BarChart(
-  //       List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
-  //     )
-  //   end plotBarChart
-  // end extension
+  extension [D <: BarPlotDataEntry: Writer](data: Seq[D])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plotBarChart(mods: Seq[ujson.Value => Unit]) =
+      SpecUrl.BarChart.plot(
+        List((spec: Value) => spec("data")(0)("values") = upickle.default.writeJs(data)) ++ mods
+      )
+    end plotBarChart
+  end extension
 
   extension [D <: PiePlotDataEntry: Writer](
       data: Seq[D]

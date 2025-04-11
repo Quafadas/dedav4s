@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viz.vega.plots
+package viz
 
 object CustomPlots:
   val sankey = os.resource / "Sankey.json"
