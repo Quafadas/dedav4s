@@ -1,7 +1,7 @@
 package livechart
 
 import viz.extensions.*
-import viz.vega.plots.{BarChart, given}
+import viz.PlotTargets.doNothing
 import calico.*
 import calico.html.io.{*, given}
 import cats.effect.*
@@ -11,6 +11,7 @@ import fs2.concurrent.*
 import fs2.dom.*
 import viz.vega.facades.EmbedOptions
 import NamedTuple.*
+import viz.vega.plots.SpecUrl
 
 object MyCalicoApp extends IOWebApp:
   def render: Resource[IO, HtmlElement[IO]] = calicoChart
@@ -39,28 +40,30 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
         ),
         p(""),
         data.map { data =>
-          val barChart: BarChart = data.plotBarChart(d => 
-              (
-                amount =  d,
-                category = d.toString,                
-              )              
-            )(
-            List(
-              viz.Utils.fillDiv,
-              viz.Utils.removeYAxis
-            )
-          )
+          val barChart = SpecUrl.BarChart.jsonSpec
+          ???
+          //  data.plotBarChart(d =>
+          //   (
+          //     amount = d,
+          //     category = d.toString
+          //   )
+          // )(
+          //   List(
+          //     viz.Utils.fillDiv,
+          //     viz.Utils.removeYAxis
+          //   )
+          // )
           val chartDiv = div("")
-          chartDiv.flatMap { _ =>
-            // To my astonishment, this doesn't work...
-            /* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
-            dCheat.style.height = "40vmin"
-            dCheat.style.width = "40vmin" */
-            // end yuck
+          // chartDiv.flatMap { _ =>
+          //   // To my astonishment, this doesn't work...
+          //   /* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+          //   dCheat.style.height = "40vmin"
+          //   dCheat.style.width = "40vmin" */
+          //   // end yuck
 
-            // I had to set the div size down in here. Then it worked. But I have no idea why.
-            viz.CalicoViz.viewEmbed(barChart, Some(chartDiv), Some(EmbedOptions())).map(_._1)
-          }
+          //   // I had to set the div size down in here. Then it worked. But I have no idea why.
+          viz.CalicoViz.viewEmbed(barChart.toString(), Some(chartDiv), Some(EmbedOptions())).map(_._1)
+        //   }
         }
       )
     }

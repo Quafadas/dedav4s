@@ -21,21 +21,22 @@ The moment where I figured it might be worth an attempt at at publishing this li
 import breeze.stats.distributions._
 import Rand.VariableSeed._
 import viz.PlotTarget
-import viz.vega.plots.ProbabilityDensity
+import viz.*
+import viz.vega.plots.SpecUrl
 
-extension (l: HasInverseCdf)(using plotTarget: PlotTarget)
-    def plotDensity(mods: Seq[ujson.Value => Unit] = List()): ProbabilityDensity =
+extension (l: HasInverseCdf)
+    def plotDensity(mods: Seq[ujson.Value => Unit] = List()) =
         val probs = breeze.linalg.linspace(0.0+1.0/1000.0,1.0-1.0/1000.0,1000)
         val icdfs = probs.map(l.inverseCdf).toScalaVector.zip(probs.toScalaVector)
         val inject = for((i, p) <- icdfs) yield {
             ujson.Obj("u" -> i, "v" -> p)
         }
         val pipeData :ujson.Value => Unit = spec => spec("data")(0) = ujson.Obj("name" -> "points", "values"->inject)
-        ProbabilityDensity(List(pipeData, viz.Utils.fillDiv))
+        SpecUrl.ProbabilityDensity.jsonSpec.mod(List(pipeData, viz.Utils.fillDiv))
 ```
-We extend the trait ```HasInverseCdf```, and now? _Every_ distribution with an inverse CDF is plottable! 
+We extend the trait ```HasInverseCdf```, and now? _Every_ distribution with an inverse CDF is plottable with just 12 lines of code 
 
-in 12. lines. of. code. It took way longer to write the documentation, than implement that entire class of plots :-). 
+It took way longer to write the documentation, than implement that entire class of plots :-). 
 
 
 ```scala mdoc
@@ -44,14 +45,14 @@ LogNormal(1,0.5).plotDensity(Seq(viz.Utils.fillDiv))
 ```
 
 ```scala mdoc:vegaspec:plotDensityGaussian
-Gaussian(2,2).plotDensity(Seq(viz.Utils.fillDiv))
+Gaussian(2,2).plotDensity(Seq(viz.Utils.fillDiv)).toString()
 ```
 ```scala mdoc:js:invisible
 viz.doc.showJsDocs("plotDensityGaussian", node)
 ```
 
 ```scala mdoc:vegaspec:plotDensityLogNormal
-LogNormal(1,0.5).plotDensity(Seq(viz.Utils.fillDiv))
+LogNormal(1,0.5).plotDensity(Seq(viz.Utils.fillDiv)).toString()
 ```
 ```scala mdoc:js:invisible
 viz.doc.showJsDocs("plotDensityLogNormal", node )

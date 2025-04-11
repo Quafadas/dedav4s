@@ -16,16 +16,9 @@
 
 package viz
 
-import scala.annotation.nowarn
-
-enum ChartLibrary:
-  case Vega, Echarts
-end ChartLibrary
-
-// we need the parameter later
-@nowarn
-trait Spec(chartLibrary: ChartLibrary):
-  def spec: String = ???
-
-  def jsonSpec = ujson.read(spec)
-end Spec
+object CustomPlots:
+  val sankey = os.resource / "Sankey.json"
+  val sunburstDrag = os.resource / "SunburstDrag.json"
+  val simpleRegression = os.resource / "SimpleRegression.json"
+  val seriesScatter = os.resource / "SeriesScatter.json"
+end CustomPlots

@@ -16,8 +16,9 @@
 
 package viz
 
-import viz.vega.plots.SpecUrl
+enum ChartLibrary:
+  case Vega, Echarts
+end ChartLibrary
 
-abstract class FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
-  override lazy val baseSpec = location.jsonSpec
-end FromUrl
+given vegaFlavour: ChartLibrary = ChartLibrary.Vega
+given echartsFlavour: ChartLibrary = ChartLibrary.Echarts

@@ -16,14 +16,16 @@
 
 import viz.extensions.jvm.*
 import viz.extensions.RawIterables.*
-//import viz.PlotTargets.websocket // for local testing
+// import viz.PlotTargets.websocket // for local testing
+// import viz.PlotTargets.desktopBrowser // for local testing
 import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
 import scala.util.Random
+import viz.vegaFlavour
 
 class ExtensionSuiteJVM extends munit.FunSuite:
   test("extension methods exist... ") {
 
-    val sleepLenth = 0
+    val sleepLenth = 10
 
     val randomNumbers1: IndexedSeq[Double] = (0 to 20).map(i => i * Random.nextDouble())
     val randomTuple_Int_Double: IndexedSeq[(Int, Double)] = (0 to 20).map(i => (i, i * Random.nextDouble()))

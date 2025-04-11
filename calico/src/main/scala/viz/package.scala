@@ -56,12 +56,12 @@ object CalicoViz:
     *   \- optionally, the embed options you wish to use
     */
   def viewEmbed(
-      chart: Spec,
+      chart: String,
       inDivOpt: Option[Resource[IO, HtmlDivElement[IO]]] = None,
       embedOpt: Option[EmbedOptions] = None
   ): Resource[IO, (HtmlDivElement[IO], IO[VegaView])] =
 
-    val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
+    val specObj = JSON.parse(chart).asInstanceOf[js.Object]
     val tmp = (inDivOpt, embedOpt) match
       case (Some(thisDiv), Some(opts)) =>
         thisDiv.map { (d: HtmlDivElement[IO]) =>

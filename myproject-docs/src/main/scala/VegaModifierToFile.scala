@@ -28,8 +28,8 @@ class VegaModifierToFile extends mdoc.PostModifier:
     // println(out)
     // println(relname)
     ctx.lastValue match
-      case spec: viz.Spec =>
-        os.write.over(os.Path(out) / os.up / "assets" / s"$relname.json", spec.spec)
+      case spec: String =>
+        os.write.over(os.Path(out) / os.up / "assets" / s"$relname.json", spec)
         ""
       case _ =>
         val (pos, obtained) = ctx.variables.lastOption match
@@ -42,7 +42,7 @@ class VegaModifierToFile extends mdoc.PostModifier:
         ctx.reporter.error(
           pos,
           s"""type mismatch:
-  expected: viz.Spec
+  expected: String
   obtained: $obtained"""
         )
         ""
