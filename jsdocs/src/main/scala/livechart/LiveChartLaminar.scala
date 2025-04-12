@@ -6,16 +6,13 @@ import scala.util.Random
 
 import scalajs.js.JSON
 
-import viz.PlotTargets.doNothing
-import viz.extensions.*
-
 import viz.LaminarViz
 import js.JSConverters.*
 
 import viz.vega.facades.VegaView
 import viz.vega.facades.Helpers.*
-import NamedTuple.*
 import viz.vega.plots.SpecUrl
+import viz.js.extensions.*
 
 // @main
 // def LiveChart(): Unit =
@@ -103,10 +100,9 @@ object chartExample:
       ),
       p(),
       child <-- data.signal.map { data =>
-        val spec = SpecUrl.BarChart.jsonSpec
-        ???
-        // .plotBarChart(d => (amount = d, category = d.toString()))(List(viz.Utils.fillDiv))
-        // LaminarViz.simpleEmbed(barChart)
+        val data2 = data.map(d => (d, d.toString()))
+        val barSpec = data2.barSpec(List(viz.Utils.fillDiv))
+        LaminarViz.simpleEmbed(barSpec.toString())
       }
     )
   end apply

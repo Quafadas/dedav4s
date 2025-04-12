@@ -13,9 +13,9 @@ Fire up an sbt console (or in a repl... )
 ```scala mdoc
 import viz.PlotTargets.desktopBrowser
 import viz.vegaFlavour
-import viz.extensions.*
+import viz.Plottable.ppSpecUrl
 
-viz.vega.plots.SpecUrl.BarChart.plot()
+viz.vega.plots.SpecUrl.BarChart.plot
 ```
 
 And a browser window should have popped up, with a bar chart in. It should look very similar, to the chart plotted out of scala JS, below.
