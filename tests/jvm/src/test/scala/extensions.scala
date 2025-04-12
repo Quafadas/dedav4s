@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import viz.extensions.jvm.*
-import viz.extensions.RawIterables.*
+import viz.extensions.*
 // import viz.PlotTargets.websocket // for local testing
 // import viz.PlotTargets.desktopBrowser // for local testing
 import viz.PlotTargets.doNothing // for CI... as we don't have a port available...
@@ -42,10 +41,10 @@ class ExtensionSuiteJVM extends munit.FunSuite:
     List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotPieChart(List())
 
     Thread.sleep(sleepLenth)
-    List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotBarChart(List())
+    List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotBarChart
 
     Thread.sleep(sleepLenth)
-    List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotLineChart(List())
+    List(("hi", 1.5), ("boo", 2.5), ("baz", 3.0)).plotLineChart
 
     Thread.sleep(sleepLenth)
     "interesting stuff stuff interesting".plotWordCloud()

@@ -83,28 +83,28 @@ package object extensions:
 
   // type BarRecordData =
 
-  extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+  // extension [A](data: Seq[A])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
 
-    def plotBarChart(fct: A => BarPlotDataEntry)(mods: Seq[ujson.Value => Unit]) =
-      val chartData = data.map(d =>
-        val tmp = fct(d)
-        ujson.Obj("category" -> tmp.category, "amount" -> tmp.amount)
-      )
-      SpecUrl.BarChart.plot(
-        List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
-      )
-    end plotBarChart
+  //   def plotBarChart(fct: A => BarPlotDataEntry)(mods: Seq[ujson.Value => Unit]) =
+  //     val chartData = data.map(d =>
+  //       val tmp = fct(d)
+  //       ujson.Obj("category" -> tmp.category, "amount" -> tmp.amount)
+  //     )
+  //     SpecUrl.BarChart.plot(
+  //       List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
+  //     )
+  //   end plotBarChart
 
-    def plotPieChart(fct: A => PiePlotDataEntry)(mods: Seq[ujson.Value => Unit]) =
-      val chartData = data.map(d =>
-        val tmp = fct(d)
-        ujson.Obj("id" -> tmp.id, "field" -> tmp.field)
-      )
-      SpecUrl.PieChart.plot(
-        List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
-      )
-    end plotPieChart
-  end extension
+  //   def plotPieChart(fct: A => PiePlotDataEntry)(mods: Seq[ujson.Value => Unit]) =
+  //     val chartData = data.map(d =>
+  //       val tmp = fct(d)
+  //       ujson.Obj("id" -> tmp.id, "field" -> tmp.field)
+  //     )
+  //     SpecUrl.PieChart.plot(
+  //       List((spec: Value) => spec("data")(0)("values") = chartData) ++ mods
+  //     )
+  //   end plotPieChart
+  // end extension
 
   extension [T: Numeric](l: Iterable[T])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
     def plotBarChart(mods: Seq[ujson.Value => Unit] = List()) =

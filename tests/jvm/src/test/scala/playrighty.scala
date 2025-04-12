@@ -49,8 +49,8 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("can plot pie chart") {
     import viz.vegaFlavour
-    val aSeq = (1 to 5)
-    val tmp = aSeq.plotPieChart(i => (i, i.toString()))(
+    val aSeq = (1 to 5).map(i => (i.toDouble, i.toString()))
+    val tmp = aSeq.plotPieChart(
       List(
         (spec: ujson.Value) => spec("height") = 500,
         (spec: ujson.Value) => spec("width") = 500
@@ -68,8 +68,8 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("title") {
     import viz.vegaFlavour
-    val aSeq = (1 to 5)
-    val tmp = aSeq.plotBarChart(i => (i.toDouble, i.toString()))(
+    val aSeq = (1 to 5).map(i => (i.toDouble, i.toString()))
+    val tmp = aSeq.plotBarChart(
       List((spec: ujson.Value) => spec("title") = ujson.Obj("text" -> "my title"))
     )
     navigateTo(tmp, page)
