@@ -1,13 +1,11 @@
 # Customising an existing data structure
 
-The key idea behind the library allows what are, to my mind some exciting extensions. 
-```scala mdoc:invisible
-import viz.PlotTargets.doNothing
-```
+The key idea behind the library allows what are, to my mind some exciting extensions.
 
-It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is a library for linear algebra in scala. 
 
-The below extension method would add line plotting functionality, to _all_ Breeze DenseVectors. What's cool? _You don't need to own either Breeze or dedav to make this work_. 
+It would be very common, to have your own representations of data. An example of a library with it's own data structures (there are many) might [breeze](https://github.com/scalanlp/breeze), which is a library for linear algebra in scala.
+
+The below extension method would add line plotting functionality, to _all_ Breeze DenseVectors. What's cool? _You don't need to own either Breeze or dedav to make this work_.
 
 ```scala
 extension [T: Numeric](l: DenseVector[T])(using plotTarget: PlotTarget)
@@ -16,11 +14,10 @@ extension [T: Numeric](l: DenseVector[T])(using plotTarget: PlotTarget)
 ```
 Give it a go in a project - this turns a breeze vector into a plottable data structure that emits a line chart!
 
-The moment where I figured it might be worth an attempt at at publishing this library was this; 
+The moment where I figured it might be worth an attempt at at publishing this library was this;
 ```scala mdoc
 import breeze.stats.distributions._
 import Rand.VariableSeed._
-import viz.PlotTarget
 import viz.*
 import viz.vega.plots.SpecUrl
 
@@ -32,11 +29,11 @@ extension (l: HasInverseCdf)
             ujson.Obj("u" -> i, "v" -> p)
         }
         val pipeData :ujson.Value => Unit = spec => spec("data")(0) = ujson.Obj("name" -> "points", "values"->inject)
-        SpecUrl.ProbabilityDensity.jsonSpec.mod(List(pipeData, viz.Utils.fillDiv))
+        SpecUrl.ProbabilityDensity.jsonSpec.mod(List(pipeData, viz.Utils.fillDiv) ++ mods)
 ```
-We extend the trait ```HasInverseCdf```, and now? _Every_ distribution with an inverse CDF is plottable with just 12 lines of code 
+We extend the trait ```HasInverseCdf```, and now? _Every_ distribution with an inverse CDF is plottable with just 12 lines of code
 
-It took way longer to write the documentation, than implement that entire class of plots :-). 
+It took way longer to write the documentation, than implement that entire class of plots :-).
 
 
 ```scala mdoc

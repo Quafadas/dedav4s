@@ -10,17 +10,21 @@ Will open a new browser window in your desktop based browser, pointing to a temp
 
 ```scala mdoc:invisible
 import viz.PlotTargets.doNothing
-import viz.extensions.RawIterables.*
+import viz.vegaFlavour
+import viz.extensions.*
 ```
 ```scala
 import viz.PlotTargets.desktopBrowser
-import viz.extensions.RawIterables.*
+import viz.extensions.*
 ```
 ```scala
-List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+val out = List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+out.toString()
 ```
 ```scala mdoc:vegaspec:desktopBrowser
-List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+val out = List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+out.toString()
+```
 ```
 ```scala mdoc:js:invisible
 viz.doc.showJsDocs("desktopBrowser", node, 0 )
@@ -120,6 +124,7 @@ ports:
 
 ```scala
 import viz.PlotTargets.gitpod
+import viz.vegaFlavour
 import viz.extensions.RawIterables.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
@@ -148,7 +153,8 @@ Formats and prints the final JSON spec to the console.
 
 ```scala mdoc:reset
 import viz.PlotTargets.printlnTarget
-import viz.extensions.RawIterables.*
+import viz.vegaFlavour
+import viz.extensions.*
 
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```

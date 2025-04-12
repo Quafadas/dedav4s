@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viz
+package viz.js
 
 import scala.util.Random
 import scala.annotation.targetName
@@ -24,6 +24,7 @@ import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*
 import upickle.default.Writer
 import NamedTuple.NamedTuple
+import viz.mod
 
 package object extensions:
 
@@ -79,7 +80,7 @@ package object extensions:
 
   end extension
 
-  extension [T: Numeric](l: Iterable[T])
+  extension [T: Numeric](l: Seq[T])
     def barSpec(mods: Seq[ujson.Value => Unit] = List()) =
       val labelToNotShow =
         for (number <- l)
@@ -95,7 +96,7 @@ package object extensions:
         ) ++ mods
       )
     end barSpec
-    
+
     def pieSpec(mods: Seq[ujson.Value => Unit]) =
       val labelToNotShow =
         for (number <- l)
@@ -121,6 +122,8 @@ package object extensions:
       SpecUrl.LineChart.jsonSpec.mod(
         List((spec: Value) => spec("data")(0)("values") = labelToNotShow) ++ mods
       )
+    end lineChartSpec
+  end extension
 
   extension [T: Numeric](
       l: Iterable[(String, T)]
@@ -138,7 +141,7 @@ package object extensions:
         // viz.Utils.fillDiv
         ) ++ mods
       )
-    
+    end lineChartSpec
 
     @targetName("plotLineChartWithLabels")
     def pieSpec(mods: Seq[ujson.Value => Unit]) =
@@ -151,7 +154,7 @@ package object extensions:
       SpecUrl.BarChart.jsonSpec.mod(
         List((spec: Value) => spec("data")(0)("values") = labelled) ++ mods
       )
-    
+    end pieSpec
 
     @targetName("plotPieChartWithLabels")
     def pieSpec(mods: Seq[ujson.Value => Unit]) =
@@ -171,7 +174,8 @@ package object extensions:
           (spec: Value) => spec("marks")(0)("encode")("update")("outerRadius") = ujson.Obj("signal" -> "height / 2")
         ) ++ mods
       )
-    
+    end pieSpec
+
   end extension
 
   // extension [T: Numeric](l: Map[String, T])

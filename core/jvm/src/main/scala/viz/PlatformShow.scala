@@ -126,7 +126,6 @@ object Plottable:
       end plot
 
     end extension
-  
 
   given PlatformPlot[ResourcePath] with
     extension (plottable: ResourcePath)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)

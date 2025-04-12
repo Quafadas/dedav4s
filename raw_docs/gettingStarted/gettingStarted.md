@@ -11,22 +11,21 @@ import $ivy.`io.github.quafadas::dedav4s:@VERSION@`
 Fire up an sbt console (or in a repl... )
 
 ```scala mdoc
-import viz.vega.plots.{BarChart, given}
-BarChart()
+import viz.PlotTargets.desktopBrowser
+import viz.vegaFlavour
+import viz.extensions.*
+
+viz.vega.plots.SpecUrl.BarChart.plot()
 ```
 
-And now you have a `BarChart` object. But we can't see it, which sort of defies the point of plotting stuff. Now let's try this;
-```scala
-import viz.PlotTargets.desktopBrowser
-BarChart()
-```
 And a browser window should have popped up, with a bar chart in. It should look very similar, to the chart plotted out of scala JS, below.
 
-This code fence uses scala JS. In scala JS, we construct charts with _exactly the same code_ as on the JVM. The difference is we assign the chart to a variable, so we can plot. I like a big chart... so we'll also apply a modifier to fill the div.
+This code fence uses scala JS. The JS API is different, I concluded the usecases were fundamentally different.
 
 ```scala mdoc:js
-import viz.vega.plots.{BarChart, given}
-val chart = BarChart(
+import viz.vegaFlavour
+import viz.mod
+val chart = viz.vega.plots.SpecUrl.BarChart.jsonSpec.mod(
   List(
     viz.Utils.fillDiv
   )

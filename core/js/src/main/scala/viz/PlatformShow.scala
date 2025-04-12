@@ -23,7 +23,6 @@ type VizReturn = Unit
 
 // end PlatformPlot
 
-
 // object Plottable:
 //   given ujsonMod: PlatformPlot = new PlatformPlot {}
 //   private def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
