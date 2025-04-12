@@ -34,6 +34,7 @@ import viz.PlotTargets.doNothing
 import viz.vega.plots.*
 import viz.Plottable.given_PlatformPlot_ResourcePath.plot
 import viz.vegaFlavour
+import viz.CustomPlots
 
 class CustomSpecs extends munit.FunSuite:
 
