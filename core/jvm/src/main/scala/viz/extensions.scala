@@ -167,8 +167,9 @@ package object extensions:
             "y" -> number.toDouble
           )
       SpecUrl.LineChart.plot(
-        List((spec: Value) => spec("data")(0)("values") = labelled
-        // viz.Utils.fillDiv
+        List((spec: Value) =>
+          spec("data")(0)("values") = labelled
+          // viz.Utils.fillDiv
         ) ++ mods
       )
     end plotLineChart
@@ -244,9 +245,11 @@ package object extensions:
           // viz.Utils.fillDiv
         ) ++ mods
       )
+  end extension
 
   extension (s: String)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
     def plotWordCloud(mods: Seq[ujson.Value => Unit] = List()) = List(s).plotWordcloud(mods)
+  end extension
 
   extension (s: Seq[String])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
     def plotWordcloud(mods: Seq[ujson.Value => Unit] = List()) =
@@ -257,4 +260,5 @@ package object extensions:
           // viz.Utils.fillDiv
         ) ++ mods
       )
+  end extension
 end extensions

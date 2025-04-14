@@ -27,6 +27,7 @@ type VizReturn = Unit | os.Path
 trait NtPlatformPlot[AnyNamedTuple]:
   extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
     def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn
+  end extension
 end NtPlatformPlot
 
 trait PlatformPlot[T]:
@@ -147,7 +148,7 @@ object Plottable:
     end extension
   end given
 
-  given NtPlatformPlot[AnyNamedTuple] with
+  given ppnt: NtPlatformPlot[AnyNamedTuple] = new NtPlatformPlot[AnyNamedTuple]:
 
     extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
       def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
@@ -157,7 +158,5 @@ object Plottable:
 
       end plot
     end extension
-
-  end given
 
 end Plottable

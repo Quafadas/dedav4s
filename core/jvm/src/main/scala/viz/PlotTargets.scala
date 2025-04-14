@@ -217,6 +217,7 @@ object PlotTargets extends SharedTargets:
         println(s"starting local server on $port")
         openBrowserWindow(java.net.URI(s"http://localhost:$port"))
         Thread.sleep(1000) // give undertow a chance to start
+        WebsocketVizServer.setFirstTime
       end if
       requests.post(s"http://localhost:$port/viz", data = spec)
       ()

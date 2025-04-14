@@ -137,8 +137,9 @@ package object extensions:
             "y" -> number.toDouble
           )
       SpecUrl.LineChart.jsonSpec.mod(
-        List((spec: Value) => spec("data")(0)("values") = labelled
-        // viz.Utils.fillDiv
+        List((spec: Value) =>
+          spec("data")(0)("values") = labelled
+          // viz.Utils.fillDiv
         ) ++ mods
       )
     end lineChartSpec
@@ -214,5 +215,6 @@ package object extensions:
           (spec: Value) => spec("marks")(0)("encode")("update")("opacity") = ujson.Obj("value" -> 1)
         ) ++ mods
       )
+  end extension
 
 end extensions

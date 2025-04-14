@@ -45,6 +45,9 @@ object WebsocketVizServer extends WebsocketVizServer(8085)
 
 trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   var firstTime: Boolean = true
+
+  def setFirstTime =
+    firstTime = false
   override def port = portIn
 
   def openBrowserWindow() =
