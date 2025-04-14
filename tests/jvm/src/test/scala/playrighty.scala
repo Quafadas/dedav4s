@@ -81,7 +81,7 @@ class PlaywrightTest extends munit.FunSuite:
     import viz.echartsFlavour
     import viz.PlotTargets.desktopBrowser
     import viz.NamedTupleReadWriter.given
-    import viz.Plottable.given_NtPlatformPlot_AnyNamedTuple
+    import viz.Plottable.ppnt
 
     val spec = (
       title = (
@@ -107,7 +107,7 @@ class PlaywrightTest extends munit.FunSuite:
   test("that we can plot a named tuple") {
     import viz.vegaFlavour
     import viz.Macros.Implicits.given
-    import viz.Plottable.given_NtPlatformPlot_AnyNamedTuple
+    import viz.Plottable.ppnt
 
     val data = (
       `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
