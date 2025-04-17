@@ -16,16 +16,9 @@
 
 package viz
 
-import scala.annotation.nowarn
-
 enum ChartLibrary:
   case Vega, Echarts
 end ChartLibrary
 
-// we need the parameter later
-@nowarn
-trait Spec(chartLibrary: ChartLibrary):
-  def spec: String = ???
-
-  def jsonSpec = ujson.read(spec)
-end Spec
+given vegaFlavour: ChartLibrary = ChartLibrary.Vega
+given echartsFlavour: ChartLibrary = ChartLibrary.Echarts

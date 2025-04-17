@@ -3,9 +3,7 @@
 I did this to prove to myself, that it was possible, and to learn something about calico. Calico worked great, I'm not 100% sure about my integration with it - YMMW, but it follows (as closely as I could tell ) a reactive model which also works nicely with vegas event streams.
 
 ```scala mdoc:js
-
-import viz.extensions.RawIterables.*
-import viz.vega.plots.{BarChart, given}
+import viz.js.extensions.*
 import calico.*
 import calico.html.io.{*, given}
 import calico.unsafe.given
@@ -42,7 +40,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
         ),
         p(""),
         data.map { data =>
-          val barChart: BarChart = data.plotBarChart(
+          val barChart = data.barSpec(
             List(
               viz.Utils.fillDiv,
               viz.Utils.removeYAxis
@@ -57,7 +55,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
             // end yuck
 
             // I had to set the div size down in here. Then it worked.
-            viz.CalicoViz.viewEmbed(barChart, Some(chartDiv), Some(EmbedOptions())).map(_._1)
+            viz.CalicoViz.viewEmbed(barChart.toString(), Some(chartDiv), Some(EmbedOptions())).map(_._1)
           }
         }
       )

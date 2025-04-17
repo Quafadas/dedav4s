@@ -11,8 +11,6 @@ Due to how fundamental the statement above is, we implicitly support _all_ JS UI
 
 ### Laminar
 
-[laminar docs](./laminar.md)
-
 Imports below - SBT
 
 ```scala

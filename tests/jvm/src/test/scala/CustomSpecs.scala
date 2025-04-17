@@ -31,15 +31,17 @@
  */
 
 import viz.PlotTargets.doNothing
-import viz.vega.plots.*
+import viz.Plottable.given_PlatformPlot_ResourcePath.plot
+import viz.vegaFlavour
+import viz.CustomPlots
 
 class CustomSpecs extends munit.FunSuite:
 
-  test("Prove we can instantiate these classes, i.e. that their resource exists") {
+  test("Compiles custom plots") {
 
-    SeriesScatter().spec
-    SimpleRegression().spec
-    SunburstDrag().spec
+    CustomPlots.sankey.plot
+    CustomPlots.simpleRegression.plot
+    CustomPlots.seriesScatter.plot
 
   }
 
