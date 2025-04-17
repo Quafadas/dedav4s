@@ -25,7 +25,7 @@ out.toString()
 val out = List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 out.toString()
 ```
-```
+
 ```scala mdoc:js:invisible
 viz.doc.showJsDocs("desktopBrowser", node, 0 )
 ```
@@ -54,7 +54,9 @@ And we browse to the temporary file created in step one. On some linux distribut
 
 For this to work, it's far easier, to start the server, on a seperate process. You can do this using coursier in one line.
 
-```cs launch io.github.quafadas:dedav4s_3:0.9.0 -M viz.websockets.serve -- 8085```
+```shell
+cs launch io.github.quafadas:dedav4s_3:0.9.0 -M viz.websockets.serve -- 8085
+```
 
 This should start a server on port 8085. Check by visiting http://localhost:8085 in your browser. It should say "connected and waiting".
 

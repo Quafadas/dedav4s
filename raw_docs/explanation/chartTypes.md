@@ -1,4 +1,32 @@
-dedav is a shim to Vega. Anything vega can plot, it can plot. Learning vega is a wonderful journey that this library, does not attempt to insulate you from. Rather it encourages it. Vega is battle tested, has great resources and an internet full of examples. I think it's worth learning.
+dedav is a shim to Vega. Anything vega can plot, it can plot. Learning vega is a fun journey that this library _does not attempt to insulate you from_. Rather it encourages it. Vega is battle tested, has great resources an internet full of examples and is super bot-friendly.
+
+Here's a chart written as a `NamedTuple`.
+
+```scala mdoc:js
+import viz.Macros.Implicits.given_Writer_T
+import viz.vegaFlavour
+
+val spec = (
+  `$schema` = "https://vega.github.io/schema/vega-lite/v6.json",
+  width = "container",
+  height = "container",
+  data = (url = "https://raw.githubusercontent.com/vega/vega/refs/heads/main/docs/data/cars.json"),
+  mark = "bar",
+  encoding = (
+    x = (`field` = "Origin"),
+    y = (
+      aggregate = "count",
+      title = "Number of Cars"
+    )
+  )
+)
+
+val specJs = upickle.default.writeJs(spec)
+
+viz.js.showChartJs(specJs, node, 25)
+```
+
+Note: JSON serialisation only works, if the type inference is more specific than `AnyNamedTuple`.
 
 To get started, find an [existing chart](https://vega.github.io/vega/examples/), and evolve it to what you want... this library hooks directly into vegas repository of example charts.
 

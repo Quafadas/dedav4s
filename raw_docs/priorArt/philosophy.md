@@ -26,25 +26,16 @@ Good data visulaisation is hard. In terms of library authorship, there are two f
 
 It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise.
 
-Fortunately, scala has great JS support. If we can overcome bunding and generally getting libraries built in the right place, we can have our cake and eat it, too.
-
 ## Good news
 There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let's provide a thin shim for one!
 
-Vega/lite let's us square the scala / browser circle. We need only a tiny amount of javascript to shim vega embed and host the libraries. The actual visualisation definition is a JSON object. Scala already has good tools for manipulating JSON objects, if we can create the right object, we just need to pipe it into a page template as a string!
+Vega/lite let's us square the scala / browser circle. We need only a tiny amount of javascript to shim vega embed and host the libraries. The actual visualisation definition is a JSON object. Scala already has good tools for manipulating JSON objects, if we can create the right object, we just need to pipe it into a page template as a string.
 
-It turns out, that vega/lite even publish schema. If we had a way to generate scala case classes from schema... we'd have a convienient, typesafe DSL!
+Scala's NamedTuple feature seems to be a great fit for this domain.
 
 ## What of typesafety?
 Many of the libraries above set out to define a typesafe DSL. Do we need one?
 
-When thinking about this, one has to ask, why? Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost.
+I gave up on a general solution to that. Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost.
 
-In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn't have meaning without a scale - that's easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I'm not even sure you could say *before having the data available*.
-
-So I don't claim the DSL is perfect. It's as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close to typesafety, for your use case.
-
-## The Bad news
-Nothing about the DSL or help getting at the examples, saves you from having to learn at least some of vega itself...
-
-... but I think you will not regret learning a declarative paradigm. The 10 minutes spent learning this library (it's absurdly simple) are sunk cost. I believe you'll quickly earn those minutes back in lovely, publishable plots!
+In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn't have meaning without a scale - that's easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I'm not even sure you could say *before having the data available*. I think a truly typesafe DSL is beyond scala's typesystem.

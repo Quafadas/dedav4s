@@ -81,6 +81,7 @@ class PlaywrightTest extends munit.FunSuite:
     import viz.echartsFlavour
     import viz.PlotTargets.desktopBrowser
     import viz.NamedTupleReadWriter.given
+    // import viz.Macros.Implicits.given_Writer_T
     import viz.Plottable.ppnt
 
     val spec = (
