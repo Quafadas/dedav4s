@@ -40,7 +40,7 @@ import java.io.File
 
 val scalaV = "3.7.0-RC4"
 
-ThisBuild / tlFatalWarnings := false
+// ThisBuild / tlFatalWarnings := false
 
 inThisBuild(
   List(
