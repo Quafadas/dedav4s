@@ -86,7 +86,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.lihaoyi" %%% "upickle" % "4.1.0",
       "com.lihaoyi" %%% "scalatags" % "0.13.1",
       "org.ekrich" %%% "sconfig" % "1.8.1"
-    )
+    ),
+    scalaModuleInfo ~= (_.map(_.withOverrideScalaVersion(true)))
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
