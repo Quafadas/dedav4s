@@ -58,19 +58,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="chartTypes.html">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="customising.html">Customising an existing data structure</a></li>
     <li class="level2 active nav-leaf"><a href="#">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -100,17 +95,20 @@
       <main class="content">
 
         <h1 id="where-do-the-temporary-files-live" class="title">Where do the temporary files live?</h1>
-        <p>By default, the OS temp directory. </p>
+        <p>By default, the OS temp directory.</p>
         <p>You may specify the location of temporary files through configuration. Either by having a suitably located &quot;application.conf&quot;, or by passing in the environment variable <code>DEDAV_OUT_PATH</code>.</p>
-        <p>e.g. </p>
-        <pre><code>sbt -DDEDAV_OUT_PATH=/Users/simon/Pictures   </code></pre>
+        <p>e.g.</p>
+        <pre><code>sbt -DDEDAV_OUT_PATH=/Users/simon/Pictures</code></pre>
         <p>Assuming you have a chart, produced with one of the desktop targets (browser, tempFile, png, svg, pdf)</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>}
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">tempFileSpec</span><span>
-</span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="type-name">BarChart</span><span>()
-</span><span class="comment">// chart: BarChart = BarChart(mods = List())
-</span><span class="identifier">chart</span><span>.</span><span class="identifier">tmpPath</span><span>
-</span><span class="comment">// res0: Option[Path] = Some(value = /tmp/plot-14813590224738042547.txt)</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">tempFileSpec</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Plottable</span><span>.</span><span class="identifier">ppSpecUrl</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vegaFlavour</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">BarChart</span><span>.</span><span class="identifier">plot</span><span>
+</span><span class="comment">// chart: Unit | Path = /tmp/plot-10078446236148691673.txt
+</span><span class="identifier">chart</span><span> </span><span class="keyword">match</span><span>
+  </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span>: </span><span class="type-name">Unit</span><span> =&gt; ()
+  </span><span class="keyword">case</span><span> </span><span class="identifier">p</span><span>: </span><span class="identifier">os</span><span>.</span><span class="type-name">Path</span><span> =&gt; </span><span class="identifier">println</span><span>(</span><span class="identifier">p</span><span>)
+</span><span class="comment">// /tmp/plot-10078446236148691673.txt</span></code></pre>
         <p>It&#39;s location is in the <code>tmpPath</code> field of your chart. You could take advantage of the excellent <code>os</code> library and knowledge of the path of the file, to subsequently move it around. For example if you wish to automate producing a presentation via a script.</p>
 
         

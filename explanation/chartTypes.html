@@ -58,19 +58,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 active nav-leaf"><a href="#">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -101,7 +96,31 @@
 
       <main class="content">
 
-        <p>dedav is a shim to Vega. Anything vega can plot, it can plot. Learning vega is a wonderful journey that this library, does not attempt to insulate you from. Rather it encourages it. Vega is battle tested, has great resources and an internet full of examples. I think it&#39;s worth learning.</p>
+        <p>dedav is a shim to Vega. Anything vega can plot, it can plot. Learning vega is a fun journey that this library <em>does not attempt to insulate you from</em>. Rather it encourages it. Vega is battle tested, has great resources an internet full of examples and is super bot-friendly.</p>
+        <p>Here&#39;s a chart written as a <code>NamedTuple</code>.</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Macros</span><span>.</span><span class="type-name">Implicits</span><span>.</span><span class="identifier">given_Writer_T</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vegaFlavour</span><span>
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">spec</span><span> = (
+  </span><span class="identifier">`$schema`</span><span> = </span><span class="string-literal">&quot;https://vega.github.io/schema/vega-lite/v6.json&quot;</span><span>,
+  </span><span class="identifier">width</span><span> = </span><span class="string-literal">&quot;container&quot;</span><span>,
+  </span><span class="identifier">height</span><span> = </span><span class="string-literal">&quot;container&quot;</span><span>,
+  </span><span class="identifier">data</span><span> = (</span><span class="identifier">url</span><span> = </span><span class="string-literal">&quot;https://raw.githubusercontent.com/vega/vega/refs/heads/main/docs/data/cars.json&quot;</span><span>),
+  </span><span class="identifier">mark</span><span> = </span><span class="string-literal">&quot;bar&quot;</span><span>,
+  </span><span class="identifier">encoding</span><span> = (
+    </span><span class="identifier">x</span><span> = (</span><span class="identifier">`field`</span><span> = </span><span class="string-literal">&quot;Origin&quot;</span><span>),
+    </span><span class="identifier">y</span><span> = (
+      </span><span class="identifier">aggregate</span><span> = </span><span class="string-literal">&quot;count&quot;</span><span>,
+      </span><span class="identifier">title</span><span> = </span><span class="string-literal">&quot;Number of Cars&quot;</span><span>
+    )
+  )
+)
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">specJs</span><span> = </span><span class="identifier">upickle</span><span>.</span><span class="keyword">default</span><span>.</span><span class="identifier">writeJs</span><span>(</span><span class="identifier">spec</span><span>)
+
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="identifier">specJs</span><span>, </span><span class="identifier">node</span><span>, </span><span class="number-literal">25</span><span>)</span></code></pre>
+        <div id="mdoc-html-run0" data-mdoc-js></div>
+        <p>Note: JSON serialisation only works, if the type inference is more specific than <code>AnyNamedTuple</code>.</p>
         <p>To get started, find an <a href="https://vega.github.io/vega/examples/">existing chart</a>, and evolve it to what you want... this library hooks directly into vegas repository of example charts.</p>
         <p>Here are some examples... of using vegas examples (!), but making them bigger.</p>
         <p>In a repl, try tab completion on <code>viz.vega.plots.[tab]</code>. Compare the list of available charts, to the list of vega examples. It ought to be the same...</p>
@@ -109,32 +128,35 @@
         
         <h2 id="vega" class="section"><a class="anchor-link left" href="#vega"><i class="icofont-laika link">&#xef71;</i></a>&nbsp;Vega</h2>
         <p><a href="https://vega.github.io/vega/examples/">https://vega.github.io/vega/examples/</a></p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>,</span><span class="type-name">LineChart</span><span>, </span><span class="type-name">PieChart</span><span>, </span><span class="type-name">ScatterPlot</span><span>, </span><span class="identifier">given</span><span>}
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">SpecUrl</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.{</span><span class="identifier">vegaFlavour</span><span>, *}
 
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">BarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">LineChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">PieChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">ScatterPlot</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)</span></code></pre>
-        <div id="mdoc-html-run0" data-mdoc-js></div>
+
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">BarChart</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">LineChart</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">PieChart</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">ScatterPlot</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)</span></code></pre>
+        <div id="mdoc-html-run1" data-mdoc-js></div>
         
         <h2 id="vega-lite" class="section"><a class="anchor-link left" href="#vega-lite"><i class="icofont-laika link">&#xef71;</i></a>Vega-Lite</h2>
         <p><a href="https://vega.github.io/vega-lite/examples/">https://vega.github.io/vega-lite/examples/</a></p>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">SimpleBarChartLite</span><span>, </span><span class="type-name">HistogramLite</span><span>, </span><span class="type-name">ScatterplotLite</span><span>, </span><span class="type-name">InteractiveScatterplotMatrixLite</span><span>, </span><span class="identifier">given</span><span>}
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">SpecUrl</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.{</span><span class="identifier">vegaFlavour</span><span>, *}
 
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SimpleBarChartLite</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">HistogramLite</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
-</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">ScatterplotLite</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">SimpleBarChartLite</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">HistogramLite</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
+</span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">ScatterplotLite</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fixDefaultDataUrl</span><span>)), </span><span class="identifier">node</span><span>, </span><span class="number-literal">50</span><span>)
 
 </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">showChartJs</span><span>(
-  </span><span class="type-name">InteractiveScatterplotMatrixLite</span><span>(
+  </span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">InteractiveScatterplotMatrixLite</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(
       </span><span class="type-name">List</span><span>( </span><span class="identifier">spec</span><span> =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;spec&quot;</span><span>)(</span><span class="string-literal">&quot;data&quot;</span><span>)(</span><span class="string-literal">&quot;url&quot;</span><span>) = </span><span class="string-literal">&quot;https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json&quot;</span><span> )
   ),
   </span><span class="identifier">node</span><span>,
   </span><span class="number-literal">50</span><span>
 )</span></code></pre>
-        <div id="mdoc-html-run1" data-mdoc-js></div>
-        <p><script type="text/javascript" src="chartTypes.md.js" defer></script>
-        <script type="text/javascript" src="mdoc.js" defer></script></p>
+        <div id="mdoc-html-run2" data-mdoc-js></div>
+        <script type="text/javascript" src="chartTypes.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script>
 
         
 <hr class="footer-rule"/>

@@ -1,13 +1,7 @@
 let mdoc_js_run0;
 (function(){
 'use strict';
-var $linkingInfo = Object.freeze(({
-  "esVersion": 6,
-  "assumingES6": true,
-  "productionMode": false,
-  "linkerVersion": "1.16.0",
-  "fileLevelThis": this
-}));
+var $fileLevelThis = this;
 var $getOwnPropertyDescriptors = (Object.getOwnPropertyDescriptors || (() => {
   var ownKeysFun;
   if ((((typeof Reflect) !== "undefined") && Reflect.ownKeys)) {
@@ -74,21 +68,6 @@ function $n(arg0) {
 function $noIsInstance(arg0) {
   throw new TypeError("Cannot call isInstance() on a Class representing a JS trait/object");
 }
-function $newArrayObject(arg0, arg1) {
-  return $newArrayObjectInternal(arg0, arg1, 0);
-}
-function $newArrayObjectInternal(arg0, arg1, arg2) {
-  var result = new arg0.constr(arg1[arg2]);
-  if ((arg2 < (arg1.length - 1))) {
-    var subArrayClassData = arg0.componentData;
-    var subLengthIndex = (arg2 + 1);
-    var underlying = result.u;
-    for (var i = 0; (i < underlying.length); (i++)) {
-      underlying[i] = $newArrayObjectInternal(subArrayClassData, arg1, subLengthIndex);
-    }
-  }
-  return result;
-}
 function $objectClone(arg0) {
   return Object.create(Object.getPrototypeOf(arg0), $getOwnPropertyDescriptors(arg0));
 }
@@ -122,9 +101,7 @@ function $objectClassName(arg0) {
       return "java.lang.Void";
     }
     default: {
-      if ((arg0 === null)) {
-        $throwNullPointerException();
-      } else if ((arg0 instanceof $c_RTLong)) {
+      if ((arg0 instanceof $c_RTLong)) {
         return "java.lang.Long";
       } else if ((arg0 instanceof $Char)) {
         return "java.lang.Character";
@@ -925,6 +902,8 @@ function $c_jl_FloatingPointBits$() {
   this.jl_FloatingPointBits$__f_int32Array = null;
   this.jl_FloatingPointBits$__f_float64Array = null;
   this.jl_FloatingPointBits$__f_areTypedArraysBigEndian = false;
+  this.jl_FloatingPointBits$__f_highOffset = 0;
+  this.jl_FloatingPointBits$__f_lowOffset = 0;
   this.jl_FloatingPointBits$__f_java$lang$FloatingPointBits$$doublePowsOf2 = null;
   $n_jl_FloatingPointBits$ = this;
   this.jl_FloatingPointBits$__f_java$lang$FloatingPointBits$$_areTypedArraysSupported = true;
@@ -934,6 +913,8 @@ function $c_jl_FloatingPointBits$() {
   this.jl_FloatingPointBits$__f_float64Array = new Float64Array(this.jl_FloatingPointBits$__f_arrayBuffer, 0, 1);
   this.jl_FloatingPointBits$__f_int32Array[0] = 16909060;
   this.jl_FloatingPointBits$__f_areTypedArraysBigEndian = ($uB(new Int8Array(this.jl_FloatingPointBits$__f_arrayBuffer, 0, 8)[0]) === 1);
+  this.jl_FloatingPointBits$__f_highOffset = (this.jl_FloatingPointBits$__f_areTypedArraysBigEndian ? 0 : 1);
+  this.jl_FloatingPointBits$__f_lowOffset = (this.jl_FloatingPointBits$__f_areTypedArraysBigEndian ? 1 : 0);
   this.jl_FloatingPointBits$__f_java$lang$FloatingPointBits$$doublePowsOf2 = null;
 }
 $c_jl_FloatingPointBits$.prototype = new $h_O();
@@ -1625,7 +1606,7 @@ $c_s_util_hashing_MurmurHash3.prototype.orderedHash__sc_IterableOnce__I__I = (fu
     h = this.mix__I__I__I(h, prev);
     var x = $n(it).next__O();
     var hash = $m_sr_Statics$().anyHash__O__I(x);
-    if ((rangeDiff !== ((hash - prev) | 0))) {
+    if (((rangeDiff !== ((hash - prev) | 0)) || (rangeDiff === 0))) {
       h = this.mix__I__I__I(h, hash);
       i = ((1 + i) | 0);
       while ($n(it).hasNext__Z()) {
@@ -1671,7 +1652,7 @@ $c_s_util_hashing_MurmurHash3.prototype.indexedSeqHash__sc_IndexedSeq__I__I = (f
         h = this.mix__I__I__I(h, prev);
         var x$3 = $n(a).apply__I__O(i);
         var hash = $m_sr_Statics$().anyHash__O__I(x$3);
-        if ((rangeDiff !== ((hash - prev) | 0))) {
+        if (((rangeDiff !== ((hash - prev) | 0)) || (rangeDiff === 0))) {
           h = this.mix__I__I__I(h, hash);
           i = ((1 + i) | 0);
           while ((i < l)) {
@@ -1762,11 +1743,10 @@ class $c_jl_Throwable extends Error {
     return this.jl_Throwable__f_s;
   }
   fillInStackTrace__jl_Throwable() {
-    var $x_1 = this;
-    var reference = (false ? $x_1.sjs_js_JavaScriptException__f_exception : $n($x_1));
+    var reference = (false ? this.sjs_js_JavaScriptException__f_exception : this);
     var identifyingString = Object.prototype.toString.call(reference);
     if ((identifyingString !== "[object Error]")) {
-      if ((Error.captureStackTrace === (void 0))) {
+      if (((Error.captureStackTrace === (void 0)) || $uZ(Object.isSealed(this)))) {
         new Error();
       } else {
         Error.captureStackTrace(this);
@@ -1793,67 +1773,6 @@ class $c_jl_Throwable extends Error {
     return this.toString__T();
   }
 }
-function $p_ju_Random__loop$1__I__I($thiz, n$1) {
-  while (true) {
-    var bits = $thiz.next__I__I(31);
-    var value = $intMod(bits, n$1);
-    if ((((((bits - value) | 0) + (((-1) + n$1) | 0)) | 0) < 0)) {
-    } else {
-      return value;
-    }
-  }
-}
-function $ct_ju_Random__J__($thiz, seed_in) {
-  $thiz.setSeed__J__V(seed_in);
-  return $thiz;
-}
-function $ct_ju_Random__($thiz) {
-  $ct_ju_Random__J__($thiz, $m_ju_Random$().java$util$Random$$randomSeed__J());
-  return $thiz;
-}
-/** @constructor */
-function $c_ju_Random() {
-  this.ju_Random__f_seedHi = 0;
-  this.ju_Random__f_seedLo = 0;
-}
-$c_ju_Random.prototype = new $h_O();
-$c_ju_Random.prototype.constructor = $c_ju_Random;
-/** @constructor */
-function $h_ju_Random() {
-}
-$h_ju_Random.prototype = $c_ju_Random.prototype;
-$c_ju_Random.prototype.setSeed__J__V = (function(seed_in) {
-  var lo = ((-554899859) ^ seed_in.RTLong__f_lo);
-  var hi = (5 ^ seed_in.RTLong__f_hi);
-  var hi$1 = (65535 & hi);
-  var lo$1 = (((lo >>> 24) | 0) | (hi$1 << 8));
-  this.ju_Random__f_seedHi = lo$1;
-  this.ju_Random__f_seedLo = (16777215 & lo);
-});
-$c_ju_Random.prototype.next__I__I = (function(bits) {
-  var oldSeedHi = this.ju_Random__f_seedHi;
-  var oldSeedLo = this.ju_Random__f_seedLo;
-  var loProd = ((1.5525485E7 * oldSeedLo) + 11.0);
-  var hiProd = ((1502.0 * oldSeedLo) + (1.5525485E7 * oldSeedHi));
-  var x = (loProd / 1.6777216E7);
-  var newSeedHi = (16777215 & (($uI((x | 0)) + (16777215 & $uI((hiProd | 0)))) | 0));
-  var newSeedLo = (16777215 & $uI((loProd | 0)));
-  this.ju_Random__f_seedHi = newSeedHi;
-  this.ju_Random__f_seedLo = newSeedLo;
-  var result32 = ((newSeedHi << 8) | (newSeedLo >> 16));
-  return ((result32 >>> ((32 - bits) | 0)) | 0);
-});
-$c_ju_Random.prototype.nextInt__I__I = (function(n) {
-  if ((n <= 0)) {
-    throw new $c_jl_IllegalArgumentException("n must be positive");
-  } else {
-    return (((n & ((-n) | 0)) === n) ? (this.next__I__I(31) >> $uI(Math.clz32(n))) : $p_ju_Random__loop$1__I__I(this, n));
-  }
-});
-var $d_ju_Random = new $TypeData().initClass($c_ju_Random, "java.util.Random", ({
-  ju_Random: 1,
-  Ljava_io_Serializable: 1
-}));
 function $p_ju_Random$__randomInt__I($thiz) {
   var a = (4.294967296E9 * $uD(Math.random()));
   return $doubleToInt(($uD(Math.floor(a)) - 2.147483648E9));
@@ -1964,7 +1883,7 @@ function $h_s_util_Random() {
 }
 $h_s_util_Random.prototype = $c_s_util_Random.prototype;
 $c_s_util_Random.prototype.alphanumeric__sci_LazyList = (function() {
-  return $m_sci_LazyList$().continually__F0__sci_LazyList(new $c_sjsr_AnonFunction0((() => $bC($p_s_util_Random__nextAlphaNum$1__C(this)))));
+  return $m_sci_LazyList$().continually__F0__sci_LazyList(new $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855((() => $bC($p_s_util_Random__nextAlphaNum$1__C(this)))));
 });
 /** @constructor */
 function $c_s_util_hashing_MurmurHash3$() {
@@ -2008,6 +1927,68 @@ class $c_jl_Error extends $c_jl_Throwable {
 }
 class $c_jl_Exception extends $c_jl_Throwable {
 }
+function $p_ju_Random__loop$1__I__I($thiz, n$1) {
+  while (true) {
+    var bits = $thiz.next__I__I(31);
+    var value = $intMod(bits, n$1);
+    if ((((((bits - value) | 0) + (((-1) + n$1) | 0)) | 0) < 0)) {
+    } else {
+      return value;
+    }
+  }
+}
+function $ct_ju_Random__J__($thiz, seed_in) {
+  $thiz.setSeed__J__V(seed_in);
+  return $thiz;
+}
+function $ct_ju_Random__($thiz) {
+  $ct_ju_Random__J__($thiz, $m_ju_Random$().java$util$Random$$randomSeed__J());
+  return $thiz;
+}
+/** @constructor */
+function $c_ju_Random() {
+  this.ju_Random__f_java$util$Random$$seedHi = 0;
+  this.ju_Random__f_java$util$Random$$seedLo = 0;
+}
+$c_ju_Random.prototype = new $h_O();
+$c_ju_Random.prototype.constructor = $c_ju_Random;
+/** @constructor */
+function $h_ju_Random() {
+}
+$h_ju_Random.prototype = $c_ju_Random.prototype;
+$c_ju_Random.prototype.setSeed__J__V = (function(seed_in) {
+  var lo = ((-554899859) ^ seed_in.RTLong__f_lo);
+  var hi = (5 ^ seed_in.RTLong__f_hi);
+  var hi$1 = (65535 & hi);
+  var lo$1 = (((lo >>> 24) | 0) | (hi$1 << 8));
+  this.ju_Random__f_java$util$Random$$seedHi = lo$1;
+  this.ju_Random__f_java$util$Random$$seedLo = (16777215 & lo);
+});
+$c_ju_Random.prototype.next__I__I = (function(bits) {
+  var oldSeedHi = this.ju_Random__f_java$util$Random$$seedHi;
+  var oldSeedLo = this.ju_Random__f_java$util$Random$$seedLo;
+  var loProd = ((1.5525485E7 * oldSeedLo) + 11.0);
+  var hiProd = ((1502.0 * oldSeedLo) + (1.5525485E7 * oldSeedHi));
+  var x = (loProd / 1.6777216E7);
+  var newSeedHi = (16777215 & (($uI((x | 0)) + (16777215 & $uI((hiProd | 0)))) | 0));
+  var newSeedLo = (16777215 & $uI((loProd | 0)));
+  this.ju_Random__f_java$util$Random$$seedHi = newSeedHi;
+  this.ju_Random__f_java$util$Random$$seedLo = newSeedLo;
+  var result32 = ((newSeedHi << 8) | (newSeedLo >> 16));
+  return ((result32 >>> ((32 - bits) | 0)) | 0);
+});
+$c_ju_Random.prototype.nextInt__I__I = (function(n) {
+  if ((n <= 0)) {
+    throw new $c_jl_IllegalArgumentException("n must be positive");
+  } else {
+    return (((n & ((-n) | 0)) === n) ? (this.next__I__I(31) >> $uI(Math.clz32(n))) : $p_ju_Random__loop$1__I__I(this, n));
+  }
+});
+var $d_ju_Random = new $TypeData().initClass($c_ju_Random, "java.util.Random", ({
+  ju_Random: 1,
+  ju_random_RandomGenerator: 1,
+  Ljava_io_Serializable: 1
+}));
 /** @constructor */
 function $c_sc_Iterator$() {
   this.sc_Iterator$__f_scala$collection$Iterator$$_empty = null;
@@ -2087,21 +2068,21 @@ function $m_sci_LazyList$State$Empty$() {
   return $n_sci_LazyList$State$Empty$;
 }
 /** @constructor */
-function $c_sjsr_AnonFunction0(f) {
-  this.sjsr_AnonFunction0__f_f = null;
-  this.sjsr_AnonFunction0__f_f = f;
+function $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855(f) {
+  this.sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855__f_f = null;
+  this.sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855__f_f = f;
 }
-$c_sjsr_AnonFunction0.prototype = new $h_sr_AbstractFunction0();
-$c_sjsr_AnonFunction0.prototype.constructor = $c_sjsr_AnonFunction0;
+$c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855.prototype = new $h_sr_AbstractFunction0();
+$c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855.prototype.constructor = $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855;
 /** @constructor */
-function $h_sjsr_AnonFunction0() {
+function $h_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855() {
 }
-$h_sjsr_AnonFunction0.prototype = $c_sjsr_AnonFunction0.prototype;
-$c_sjsr_AnonFunction0.prototype.apply__O = (function() {
-  return (0, this.sjsr_AnonFunction0__f_f)();
+$h_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855.prototype = $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855.prototype;
+$c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855.prototype.apply__O = (function() {
+  return $n(this.sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855__f_f)();
 });
-var $d_sjsr_AnonFunction0 = new $TypeData().initClass($c_sjsr_AnonFunction0, "scala.scalajs.runtime.AnonFunction0", ({
-  sjsr_AnonFunction0: 1,
+var $d_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855 = new $TypeData().initClass($c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855, "scala.runtime.AbstractFunction0.$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855", ({
+  sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855: 1,
   sr_AbstractFunction0: 1,
   F0: 1
 }));
@@ -2430,7 +2411,7 @@ $c_sc_AbstractIterator.prototype.knownSize__I = (function() {
 function $c_sci_LazyList$() {
   this.sci_LazyList$__f__empty = null;
   $n_sci_LazyList$ = this;
-  var state = new $c_sjsr_AnonFunction0((() => $m_sci_LazyList$State$Empty$()));
+  var state = new $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855((() => $m_sci_LazyList$State$Empty$()));
   this.sci_LazyList$__f__empty = new $c_sci_LazyList(state).force__sci_LazyList();
 }
 $c_sci_LazyList$.prototype = new $h_O();
@@ -2442,12 +2423,12 @@ $h_sci_LazyList$.prototype = $c_sci_LazyList$.prototype;
 $c_sci_LazyList$.prototype.scala$collection$immutable$LazyList$$dropImpl__sci_LazyList__I__sci_LazyList = (function(ll, n) {
   var restRef = new $c_sr_ObjectRef(ll);
   var iRef = new $c_sr_IntRef(n);
-  var state = new $c_sjsr_AnonFunction0((() => {
+  var state = new $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855((() => {
     var rest = $as_sci_LazyList(restRef.sr_ObjectRef__f_elem);
     var i = iRef.sr_IntRef__f_elem;
     while (((i > 0) && (!$n(rest).isEmpty__Z()))) {
-      var this$4 = $n(rest);
-      rest = $n(this$4.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).tail__sci_LazyList();
+      var this$3 = $n(rest);
+      rest = $n(this$3.scala$collection$immutable$LazyList$$state__sci_LazyList$State()).tail__sci_LazyList();
       restRef.sr_ObjectRef__f_elem = rest;
       i = (((-1) + i) | 0);
       iRef.sr_IntRef__f_elem = i;
@@ -2457,7 +2438,7 @@ $c_sci_LazyList$.prototype.scala$collection$immutable$LazyList$$dropImpl__sci_La
   return new $c_sci_LazyList(state);
 });
 $c_sci_LazyList$.prototype.continually__F0__sci_LazyList = (function(elem) {
-  var state = new $c_sjsr_AnonFunction0((() => {
+  var state = new $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855((() => {
     $m_sci_LazyList$();
     var hd = $n(elem).apply__O();
     var tl = $m_sci_LazyList$().continually__F0__sci_LazyList(elem);
@@ -2761,7 +2742,8 @@ var $d_jl_Double = new $TypeData().initClass(0, "java.lang.Double", ({
   jl_constant_ConstantDesc: 1
 }), ((x) => ((typeof x) === "number")));
 function $f_jl_Float__hashCode__I($thiz) {
-  return $m_jl_FloatingPointBits$().numberHashCode__D__I($thiz);
+  var value = $thiz;
+  return $m_jl_FloatingPointBits$().numberHashCode__D__I(value);
 }
 function $f_jl_Float__toString__T($thiz) {
   return ("" + $thiz);
@@ -3081,7 +3063,7 @@ $h_scm_AbstractSeq.prototype = $c_scm_AbstractSeq.prototype;
 function $p_sci_LazyList__scala$collection$immutable$LazyList$$state$lzycompute__sci_LazyList$State($thiz) {
   if ((!$thiz.sci_LazyList__f_bitmap$0)) {
     if ($thiz.sci_LazyList__f_midEvaluation) {
-      throw $ct_jl_RuntimeException__T__(new $c_jl_RuntimeException(), "self-referential LazyList or a derivation thereof has no more elements");
+      throw $ct_jl_RuntimeException__T__(new $c_jl_RuntimeException(), "LazyList evaluation depends on its own result (self-reference); see docs for more info");
     }
     $thiz.sci_LazyList__f_midEvaluation = true;
     try {
@@ -3101,7 +3083,7 @@ function $p_sci_LazyList__takeImpl__I__sci_LazyList($thiz, n) {
     return $m_sci_LazyList$().sci_LazyList$__f__empty;
   } else {
     $m_sci_LazyList$();
-    var state = new $c_sjsr_AnonFunction0((() => {
+    var state = new $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855((() => {
       if ($thiz.isEmpty__Z()) {
         return $m_sci_LazyList$State$Empty$();
       } else {
@@ -3297,7 +3279,7 @@ $c_sci_LazyList.prototype.take__I__sci_LazyList = (function(n) {
     return $m_sci_LazyList$().sci_LazyList$__f__empty;
   } else {
     $m_sci_LazyList$();
-    var state = new $c_sjsr_AnonFunction0((() => {
+    var state = new $c_sr_AbstractFunction0_$$Lambda$a02b774b97db8234e08c6a02dd06557c99779855((() => {
       if (this.isEmpty__Z()) {
         return $m_sci_LazyList$State$Empty$();
       } else {

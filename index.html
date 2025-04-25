@@ -59,19 +59,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="explanation/chartTypes.html">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="explanation/yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="explanation/plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="explanation/rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="explanation/customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="explanation/outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -94,7 +89,7 @@
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#elevator-pitch">Elevator Pitch</a></li>
     <li class="level1 nav-leaf"><a href="#background-information">Background Information</a></li>
-    <li class="level1 nav-leaf"><a href="#the-important-links">The important links</a></li>
+    <li class="level1 nav-leaf"><a href="#underlying-libraries">Underlying Libraries</a></li>
     <li class="level1 nav-leaf"><a href="#project-status">Project status</a></li>
     <li class="level1 nav-leaf"><a href="#high-level-design">High Level Design</a></li>
   </ul>
@@ -106,25 +101,25 @@
       <main class="content">
 
         <h1 id="dedav4s" class="title">Dedav4s</h1>
-        <p>Declarative data visualization for scala - a scala plotting concept. </p>
-        <p>It is written exclusively in scala 3. There are currently no plans to backport to scala 2.</p>
+        <p>Declarative data visualization for scala - a scala plotting concept.</p>
         
         <h2 id="elevator-pitch" class="section"><a class="anchor-link left" href="#elevator-pitch"><i class="icofont-laika link">&#xef71;</i></a>Elevator Pitch</h2>
         <img src="assets/dedav_intro.gif" width=90% height=90%/>
         
         <h1 id="background-information" class="section"><a class="anchor-link left" href="#background-information"><i class="icofont-laika link">&#xef71;</i></a>Background Information</h1>
-        <p>This is a thin shim around <a href="https://vega.github.io/vega/">vega</a> and <a href="https://vega.github.io/vega-lite/">vega lite</a>. It&#39;s aims are:</p>
+        <p>This is a thin shim around <a href="https://vega.github.io/vega/">vega</a>,  <a href="https://vega.github.io/vega-lite/">vega lite</a> and <a href="https://echarts.apache.org/">echarts</a>. It&#39;s aims are:</p>
         <ol class="arabic">
           <li>To make exploratory analysis in a repl (or in a notebook) as easy as possible.</li>
           <li>To make the barrier to publication (via scala js) as low as possible.</li>
           <li>To wrap vega / lite in such a manner that charting is robust... with the dream being compile errors for charting</li>
         </ol>
-        <p>It pays to have an understanding (or at least some idea of what bega / lite are), both Vega &amp; Vega-Lite. It may be worth taking a few minutes to orient yourself with this <a href="https://www.youtube.com/watch?v=9uaHRWj04D4">talk/demo</a> from the creators at the Interactive Data Lab (IDL) at University of Washington.</p>
+        <p>It pays to have an understanding (or at least some idea of what vega / lite are), both Vega &amp; Vega-Lite. It may be worth taking a few minutes to orient yourself with this <a href="https://www.youtube.com/watch?v=9uaHRWj04D4">talk/demo</a> from the creators at the Interactive Data Lab (IDL) at University of Washington.</p>
         <p>If you are interested in plotting in general, I think that you will not regret learning a declarative paradigm.</p>
         
-        <h1 id="the-important-links" class="section"><a class="anchor-link left" href="#the-important-links"><i class="icofont-laika link">&#xef71;</i></a>The important links</h1>
+        <h1 id="underlying-libraries" class="section"><a class="anchor-link left" href="#underlying-libraries"><i class="icofont-laika link">&#xef71;</i></a>Underlying Libraries</h1>
         <p><a href="https://vega.github.io/vega/docs/">Vega documentation</a></p>
         <p><a href="https://vega.github.io/vega-lite/docs/">Vega Lite documentation</a></p>
+        <p><a href="https://echarts.apache.org/en/index.html">Echarts documentation</a></p>
         
         <h1 id="project-status" class="section"><a class="anchor-link left" href="#project-status"><i class="icofont-laika link">&#xef71;</i></a>Project status</h1>
         <p>It&#39;s more or less achieved my goals on the JVM. On the JVM it currently contains targets for:</p>
@@ -132,25 +127,13 @@
           <li>repl</li>
           <li>notebooks</li>
           <li>websockets</li>
-          <li>gitpod</li>
           <li>Svg, pdf and png files</li>
         </ol>
-        <p>Many of the targets above rely on writing out temporary files - those are accessible in the case class you get back. You can copy them around and automate your charting workflow.</p>
-        <p>On Scala JS</p>
-        <p>This is current not solved to my satisfaction... but is certainly possible.</p>
+        <p>It further aims to help plotting in scala JS, so that the same charts are easily re-useable in both environments.</p>
         
         <h1 id="high-level-design" class="section"><a class="anchor-link left" href="#high-level-design"><i class="icofont-laika link">&#xef71;</i></a>High Level Design</h1>
-        <p>Vega / Lite work by interpreting a JSON object, and drawing that spec on the screen. It&#39;s at first daunting... but absurdly effective if you can get your head round it.</p>
-        <p>By far the easiest way to get started is to start from a plot the looks close to what you want, and evolve it. Therefore, this project contains the http addresses of the <em>entire</em> suite of vega examples. The aliases are pretty obvious and discoverable through tab completion. </p>
-        <p>The entire example suite is then an http request away. It&#39;s then up to you to pump in your data, mutate the look and feel or create your own.</p>
-        <p>Vega also publish a Schema. That schema has been interpreted (via app quicktype) into a set of scala types which represent the entire opportunity set of vega plots. It is however, ferociously complex.</p>
-        <p>There are three basic approaches enabled.</p>
-        <ol class="arabic">
-          <li>A strongly typed DSL</li>
-          <li>Mutable</li>
-          <li>A mix</li>
-        </ol>
-        <p>I personally favour &quot;A mix&quot;. Each &quot;approach&quot; is documented by example.</p>
+        <p>Vega / Lite, and echarts both work the same way - interpreting a JSON spec. You provide the spec, it does the drawing that spec on the screen. It&#39;s at first daunting... but absurdly effective if you can get your head round it.</p>
+        <p>By far the easiest way to get started is to start from a plot that looks close to what you want, and evolve it. Therefore, this project contains the http addresses of the <em>entire</em> suite of vega examples. The aliases are pretty obvious and discoverable through tab completion in &#39;viz.vega.plots.SpecUrl`</p>
 
         
 <hr class="footer-rule"/>

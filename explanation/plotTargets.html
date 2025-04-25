@@ -58,19 +58,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="chartTypes.html">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="yourData.html">Your Data</a></li>
     <li class="level2 active nav-leaf"><a href="#">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -120,8 +115,9 @@
         <p>Will open a new browser window in your desktop based browser, pointing to a temporary file.</p>
         <img src="../assets/dedav_intro.gif" width=90% height=90%/>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">desktopBrowser</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*</span></code></pre>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">out</span><span> = </span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())
+</span><span class="identifier">out</span><span>.</span><span class="identifier">toString</span><span>()</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
         
         <h3 id="how-desktop-browser-works" class="section"><a class="anchor-link left" href="#how-desktop-browser-works"><i class="icofont-laika link">&#xef71;</i></a>How desktop browser works</h3>
@@ -139,19 +135,15 @@
         
         <h2 id="websocket" class="section"><a class="anchor-link left" href="#websocket"><i class="icofont-laika link">&#xef71;</i></a>Websocket</h2>
         <p>For this to work, it&#39;s far easier, to start the server, on a seperate process. You can do this using coursier in one line.</p>
-        <pre><code class="cs">
-This should start a server on port 8085. Check by visiting http://localhost:8085 in your browser. It should say &quot;connected and waiting&quot;.
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>cs launch io.github.quafadas:dedav4s_</span><span class="number-literal">3</span><span>:</span><span class="number-literal">0.9.0</span><span> -M viz.websockets.serve -- </span><span class="number-literal">8085</span></code></pre>
+        <p>This should start a server on port 8085. Check by visiting <a href="http://localhost:8085">http://localhost:8085</a> in your browser. It should say &quot;connected and waiting&quot;.</p>
+        <p>You can then use the <code>publishToPort</code> plot target, which will send the spec, to the server listening on that port.</p>
+        <img src="../assets/websockets2.gif" width=90% height=90%/>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">publishToPort</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
 
-You can then use the `publishToPort` plot target, which will send the spec, to the server listening on that port.
-
-&lt;img src=&quot;../assets/websockets2.gif&quot; width=90% height=90% /&gt;
-
-```scala
-import viz.PlotTargets.publishToPort
-import viz.extensions.*
-
-given port: Int = 8085
-List((&quot;A&quot;,5),(&quot;B&quot;,8),(&quot;C&quot;,-1)).plotBarChart(List())</code></pre>
+</span><span class="identifier">given</span><span> </span><span class="identifier">port</span><span>: </span><span class="type-name">Int</span><span> = </span><span class="number-literal">8085</span><span>
+</span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())</span></code></pre>
         
         <h3 id="multiple-plots" class="section"><a class="anchor-link left" href="#multiple-plots"><i class="icofont-laika link">&#xef71;</i></a>Multiple plots</h3>
         <p>I often want to see multiple plots. Navigate to
@@ -187,6 +179,7 @@ List((&quot;A&quot;,5),(&quot;B&quot;,8),(&quot;C&quot;,-1)).plotBarChart(List()
     visibility: public</code></pre>
         <p>48485 is if you do not require a custom port. In your repl, try...</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">gitpod</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vegaFlavour</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
 
 </span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())
@@ -205,167 +198,13 @@ List((&quot;A&quot;,5),(&quot;B&quot;,8),(&quot;C&quot;,-1)).plotBarChart(List()
         
         <h2 id="printlntarget" class="section"><a class="anchor-link left" href="#printlntarget"><i class="icofont-laika link">&#xef71;</i></a>printlnTarget</h2>
         <p>Formats and prints the final JSON spec to the console.</p>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">printlnTarget</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTargets</span><span>.</span><span class="identifier">printlnTarget</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vegaFlavour</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.*
 
 </span><span class="type-name">List</span><span>((</span><span class="string-literal">&quot;A&quot;</span><span>,</span><span class="number-literal">5</span><span>),(</span><span class="string-literal">&quot;B&quot;</span><span>,</span><span class="number-literal">8</span><span>),(</span><span class="string-literal">&quot;C&quot;</span><span>,-</span><span class="number-literal">1</span><span>)).</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>())
-</span><span class="comment">// {
-//   &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega/v5.json&quot;,
-//   &quot;description&quot;: &quot;A basic bar chart example, with value labels shown upon pointer hover.&quot;,
-//   &quot;width&quot;: 400,
-//   &quot;height&quot;: 200,
-//   &quot;padding&quot;: 5,
-//   &quot;data&quot;: [
-//     {
-//       &quot;name&quot;: &quot;table&quot;,
-//       &quot;values&quot;: [
-//         {
-//           &quot;category&quot;: &quot;A&quot;,
-//           &quot;amount&quot;: 5
-//         },
-//         {
-//           &quot;category&quot;: &quot;B&quot;,
-//           &quot;amount&quot;: 8
-//         },
-//         {
-//           &quot;category&quot;: &quot;C&quot;,
-//           &quot;amount&quot;: -1
-//         }
-//       ]
-//     }
-//   ],
-//   &quot;signals&quot;: [
-//     {
-//       &quot;name&quot;: &quot;tooltip&quot;,
-//       &quot;value&quot;: {},
-//       &quot;on&quot;: [
-//         {
-//           &quot;events&quot;: &quot;rect:pointerover&quot;,
-//           &quot;update&quot;: &quot;datum&quot;
-//         },
-//         {
-//           &quot;events&quot;: &quot;rect:pointerout&quot;,
-//           &quot;update&quot;: &quot;{}&quot;
-//         }
-//       ]
-//     }
-//   ],
-//   &quot;scales&quot;: [
-//     {
-//       &quot;name&quot;: &quot;xscale&quot;,
-//       &quot;type&quot;: &quot;band&quot;,
-//       &quot;domain&quot;: {
-//         &quot;data&quot;: &quot;table&quot;,
-//         &quot;field&quot;: &quot;category&quot;
-//       },
-//       &quot;range&quot;: &quot;width&quot;,
-//       &quot;padding&quot;: 0.05,
-//       &quot;round&quot;: true
-//     },
-//     {
-//       &quot;name&quot;: &quot;yscale&quot;,
-//       &quot;domain&quot;: {
-//         &quot;data&quot;: &quot;table&quot;,
-//         &quot;field&quot;: &quot;amount&quot;
-//       },
-//       &quot;nice&quot;: true,
-//       &quot;range&quot;: &quot;height&quot;
-//     }
-//   ],
-//   &quot;axes&quot;: [
-//     {
-//       &quot;orient&quot;: &quot;bottom&quot;,
-//       &quot;scale&quot;: &quot;xscale&quot;
-//     },
-//     {
-//       &quot;orient&quot;: &quot;left&quot;,
-//       &quot;scale&quot;: &quot;yscale&quot;
-//     }
-//   ],
-//   &quot;marks&quot;: [
-//     {
-//       &quot;type&quot;: &quot;rect&quot;,
-//       &quot;from&quot;: {
-//         &quot;data&quot;: &quot;table&quot;
-//       },
-//       &quot;encode&quot;: {
-//         &quot;enter&quot;: {
-//           &quot;x&quot;: {
-//             &quot;scale&quot;: &quot;xscale&quot;,
-//             &quot;field&quot;: &quot;category&quot;
-//           },
-//           &quot;width&quot;: {
-//             &quot;scale&quot;: &quot;xscale&quot;,
-//             &quot;band&quot;: 1
-//           },
-//           &quot;y&quot;: {
-//             &quot;scale&quot;: &quot;yscale&quot;,
-//             &quot;field&quot;: &quot;amount&quot;
-//           },
-//           &quot;y2&quot;: {
-//             &quot;scale&quot;: &quot;yscale&quot;,
-//             &quot;value&quot;: 0
-//           }
-//         },
-//         &quot;update&quot;: {
-//           &quot;fill&quot;: {
-//             &quot;value&quot;: &quot;steelblue&quot;
-//           }
-//         },
-//         &quot;hover&quot;: {
-//           &quot;fill&quot;: {
-//             &quot;value&quot;: &quot;red&quot;
-//           }
-//         }
-//       }
-//     },
-//     {
-//       &quot;type&quot;: &quot;text&quot;,
-//       &quot;encode&quot;: {
-//         &quot;enter&quot;: {
-//           &quot;align&quot;: {
-//             &quot;value&quot;: &quot;center&quot;
-//           },
-//           &quot;baseline&quot;: {
-//             &quot;value&quot;: &quot;bottom&quot;
-//           },
-//           &quot;fill&quot;: {
-//             &quot;value&quot;: &quot;#333&quot;
-//           }
-//         },
-//         &quot;update&quot;: {
-//           &quot;x&quot;: {
-//             &quot;scale&quot;: &quot;xscale&quot;,
-//             &quot;signal&quot;: &quot;tooltip.category&quot;,
-//             &quot;band&quot;: 0.5
-//           },
-//           &quot;y&quot;: {
-//             &quot;scale&quot;: &quot;yscale&quot;,
-//             &quot;signal&quot;: &quot;tooltip.amount&quot;,
-//             &quot;offset&quot;: -2
-//           },
-//           &quot;text&quot;: {
-//             &quot;signal&quot;: &quot;tooltip.amount&quot;
-//           },
-//           &quot;fillOpacity&quot;: [
-//             {
-//               &quot;test&quot;: &quot;datum === tooltip&quot;,
-//               &quot;value&quot;: 0
-//             },
-//             {
-//               &quot;value&quot;: 1
-//             }
-//           ]
-//         }
-//       }
-//     }
-//   ]
-// }
-// res2: BarChart = BarChart(
-//   mods = List(
-//     viz.extensions.package$RawIterables$$$Lambda$15411/0x0000000803b94840@31fbf45
-//   )
-// )</span></code></pre>
+</span><span class="comment">// {&quot;$schema&quot;:&quot;https://vega.github.io/schema/vega/v5.json&quot;,&quot;description&quot;:&quot;A basic bar chart example, with value labels shown upon pointer hover.&quot;,&quot;width&quot;:400,&quot;height&quot;:200,&quot;padding&quot;:5,&quot;data&quot;:[{&quot;name&quot;:&quot;table&quot;,&quot;values&quot;:[{&quot;category&quot;:&quot;A&quot;,&quot;amount&quot;:5},{&quot;category&quot;:&quot;B&quot;,&quot;amount&quot;:8},{&quot;category&quot;:&quot;C&quot;,&quot;amount&quot;:-1}]}],&quot;signals&quot;:[{&quot;name&quot;:&quot;tooltip&quot;,&quot;value&quot;:{},&quot;on&quot;:[{&quot;events&quot;:&quot;rect:pointerover&quot;,&quot;update&quot;:&quot;datum&quot;},{&quot;events&quot;:&quot;rect:pointerout&quot;,&quot;update&quot;:&quot;{}&quot;}]}],&quot;scales&quot;:[{&quot;name&quot;:&quot;xscale&quot;,&quot;type&quot;:&quot;band&quot;,&quot;domain&quot;:{&quot;data&quot;:&quot;table&quot;,&quot;field&quot;:&quot;category&quot;},&quot;range&quot;:&quot;width&quot;,&quot;padding&quot;:0.05,&quot;round&quot;:true},{&quot;name&quot;:&quot;yscale&quot;,&quot;domain&quot;:{&quot;data&quot;:&quot;table&quot;,&quot;field&quot;:&quot;amount&quot;},&quot;nice&quot;:true,&quot;range&quot;:&quot;height&quot;}],&quot;axes&quot;:[{&quot;orient&quot;:&quot;bottom&quot;,&quot;scale&quot;:&quot;xscale&quot;},{&quot;orient&quot;:&quot;left&quot;,&quot;scale&quot;:&quot;yscale&quot;}],&quot;marks&quot;:[{&quot;type&quot;:&quot;rect&quot;,&quot;from&quot;:{&quot;data&quot;:&quot;table&quot;},&quot;encode&quot;:{&quot;enter&quot;:{&quot;x&quot;:{&quot;scale&quot;:&quot;xscale&quot;,&quot;field&quot;:&quot;category&quot;},&quot;width&quot;:{&quot;scale&quot;:&quot;xscale&quot;,&quot;band&quot;:1},&quot;y&quot;:{&quot;scale&quot;:&quot;yscale&quot;,&quot;field&quot;:&quot;amount&quot;},&quot;y2&quot;:{&quot;scale&quot;:&quot;yscale&quot;,&quot;value&quot;:0}},&quot;update&quot;:{&quot;fill&quot;:{&quot;value&quot;:&quot;steelblue&quot;}},&quot;hover&quot;:{&quot;fill&quot;:{&quot;value&quot;:&quot;red&quot;}}}},{&quot;type&quot;:&quot;text&quot;,&quot;encode&quot;:{&quot;enter&quot;:{&quot;align&quot;:{&quot;value&quot;:&quot;center&quot;},&quot;baseline&quot;:{&quot;value&quot;:&quot;bottom&quot;},&quot;fill&quot;:{&quot;value&quot;:&quot;#333&quot;}},&quot;update&quot;:{&quot;x&quot;:{&quot;scale&quot;:&quot;xscale&quot;,&quot;signal&quot;:&quot;tooltip.category&quot;,&quot;band&quot;:0.5},&quot;y&quot;:{&quot;scale&quot;:&quot;yscale&quot;,&quot;signal&quot;:&quot;tooltip.amount&quot;,&quot;offset&quot;:-2},&quot;text&quot;:{&quot;signal&quot;:&quot;tooltip.amount&quot;},&quot;fillOpacity&quot;:[{&quot;test&quot;:&quot;datum === tooltip&quot;,&quot;value&quot;:0},{&quot;value&quot;:1}]}}}]}
+// res2: Unit | Path = ()</span></code></pre>
         
         <h2 id="vega-cli-outputs" class="section"><a class="anchor-link left" href="#vega-cli-outputs"><i class="icofont-laika link">&#xef71;</i></a>Vega CLI outputs</h2>
         <p>The <a href="https://vega.github.io/vega/usage/#cli">vega CLI</a> allows you to output pictures to (non interactive) SVG, PNG, and PDF formats.</p>

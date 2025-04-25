@@ -58,19 +58,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -109,10 +104,8 @@
         <h2 id="simple-strategy" class="section"><a class="anchor-link left" href="#simple-strategy"><i class="icofont-laika link">&#xef71;</i></a>Simple strategy</h2>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.</span><span class="identifier">_</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">LaminarViz</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="identifier">given</span><span>}
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">extensions</span><span>.*
 
 </span><span class="keyword">val</span><span> </span><span class="identifier">appContainer</span><span> = </span><span class="identifier">dom</span><span>.</span><span class="identifier">document</span><span>.</span><span class="identifier">querySelector</span><span>(</span><span class="string-literal">s&quot;#</span><span class="substitution">${node.id}</span><span class="string-literal">&quot;</span><span>)
 </span><span class="identifier">node</span><span>.</span><span class="identifier">setAttribute</span><span>(</span><span class="string-literal">&quot;style&quot;</span><span>, </span><span class="string-literal">s&quot;width:50vmin;height:50vmin&quot;</span><span>)
@@ -137,8 +130,8 @@
         </span><span class="identifier">width</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
         </span><span class="identifier">height</span><span> := </span><span class="string-literal">&quot;40vmin&quot;</span><span>,
         </span><span class="identifier">child</span><span> &lt;-- </span><span class="identifier">data</span><span>.</span><span class="identifier">signal</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
-          </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="type-name">BarChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">plotBarChart</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
-          </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">simpleEmbed</span><span>(</span><span class="identifier">barChart</span><span>)
+          </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">barSpec</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
+          </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">simpleEmbed</span><span>(</span><span class="identifier">barChart</span><span>.</span><span class="identifier">toString</span><span>())
         }
       ),
       </span><span class="identifier">p</span><span>()
@@ -178,15 +171,14 @@ view.runAsync() // Don&#39;t forget this or nothing happens :-)</code></pre>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">com</span><span>.</span><span class="identifier">raquo</span><span>.</span><span class="identifier">laminar</span><span>.</span><span class="identifier">api</span><span>.</span><span class="type-name">L</span><span>.*
 
 </span><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">dom</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">LaminarViz</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">facades</span><span>.</span><span class="type-name">VegaView</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">facades</span><span>.</span><span class="type-name">Helpers</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">SpecUrl</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">scala</span><span>.</span><span class="identifier">scalajs</span><span>.</span><span class="identifier">js</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">js</span><span>.</span><span class="type-name">JSConverters</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">scala</span><span>.</span><span class="identifier">util</span><span>.</span><span class="type-name">Random</span><span>
-
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="identifier">given</span><span>}
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.*
 
 </span><span class="keyword">val</span><span> </span><span class="identifier">appContainer</span><span> = </span><span class="identifier">dom</span><span>.</span><span class="identifier">document</span><span>.</span><span class="identifier">querySelector</span><span>(</span><span class="string-literal">s&quot;#</span><span class="substitution">${node.id}</span><span class="string-literal">&quot;</span><span>)
 </span><span class="identifier">node</span><span>.</span><span class="identifier">setAttribute</span><span>(</span><span class="string-literal">&quot;style&quot;</span><span>, </span><span class="string-literal">s&quot;width:50vmin;height:50vmin&quot;</span><span>)
@@ -201,7 +193,7 @@ view.runAsync() // Don&#39;t forget this or nothing happens :-)</code></pre>
   </span><span class="keyword">val</span><span> (</span><span class="identifier">chartDataClickedBus</span><span>, </span><span class="identifier">chartClickCallback</span><span>) = </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">dataClickBus</span><span>
   </span><span class="keyword">val</span><span> (</span><span class="identifier">aSignalBus</span><span>, </span><span class="identifier">signalCallback</span><span>) = </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">signalBus</span><span>
   </span><span class="keyword">val</span><span> </span><span class="identifier">data</span><span> = </span><span class="type-name">Var</span><span>(</span><span class="type-name">List</span><span>(</span><span class="number-literal">2.4</span><span>, </span><span class="number-literal">3.4</span><span>, </span><span class="number-literal">5.1</span><span>, -</span><span class="number-literal">2.3</span><span>))
-  </span><span class="keyword">val</span><span> </span><span class="identifier">baseChart</span><span> = </span><span class="type-name">BarChart</span><span>(
+  </span><span class="keyword">val</span><span> </span><span class="identifier">baseChart</span><span> = </span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">BarChart</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(
     </span><span class="type-name">List</span><span>(
       </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
       </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeXAxis</span><span>,
@@ -215,7 +207,7 @@ view.runAsync() // Don&#39;t forget this or nothing happens :-)</code></pre>
 
   </span><span class="keyword">def</span><span> </span><span class="declaration-name">apply</span><span>(): </span><span class="type-name">Div</span><span> =
     </span><span class="keyword">val</span><span> (</span><span class="identifier">chartDiv</span><span> : </span><span class="type-name">Div</span><span>, </span><span class="identifier">viewOpt</span><span>: </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Option</span><span>[</span><span class="type-name">VegaView</span><span>]]) =
-      </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">viewEmbed</span><span>(</span><span class="identifier">baseChart</span><span>, </span><span class="type-name">Some</span><span>(</span><span class="identifier">setDivSize</span><span>))
+      </span><span class="type-name">LaminarViz</span><span>.</span><span class="identifier">viewEmbed</span><span>(</span><span class="identifier">baseChart</span><span>.</span><span class="identifier">toString</span><span>(), </span><span class="type-name">Some</span><span>(</span><span class="identifier">setDivSize</span><span>))
 
     </span><span class="identifier">div</span><span>(
       </span><span class="identifier">viewOpt</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">vv</span><span> =&gt;
@@ -268,8 +260,8 @@ view.runAsync() // Don&#39;t forget this or nothing happens :-)</code></pre>
         <p>To use it - hover over, and / or click the chart items, and you&#39;ll see the data printed out. So we have &quot;bi-directional&quot; communication with the chart.</p>
         <p>Further, the chart itself, is &quot;updated&quot;, rather than thrown away and replotted every time.</p>
         <p>This sets out some low level building blocks. A motivated developer could establish reliable, typesafe communication with the chart. Due to how close Laminars reactive paradigm is to vegas event stream - they play startling nicely together.</p>
-        <p><script type="text/javascript" src="laminar.md.js" defer></script>
-        <script type="text/javascript" src="mdoc.js" defer></script></p>
+        <script type="text/javascript" src="laminar.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script>
 
         
 <hr class="footer-rule"/>

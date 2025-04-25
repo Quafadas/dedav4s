@@ -58,19 +58,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -101,9 +96,7 @@
 
         <h1 id="calico" class="title">Calico</h1>
         <p>I did this to prove to myself, that it was possible, and to learn something about calico. Calico worked great, I&#39;m not 100% sure about my integration with it - YMMW, but it follows (as closely as I could tell ) a reactive model which also works nicely with vegas event streams.</p>
-        <pre><code class="nohighlight"><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">extensions</span><span>.</span><span class="type-name">RawIterables</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.{</span><span class="type-name">BarChart</span><span>, </span><span class="identifier">given</span><span>}
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">js</span><span>.</span><span class="identifier">extensions</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">html</span><span>.</span><span class="identifier">io</span><span>.{*, </span><span class="identifier">given</span><span>}
 </span><span class="keyword">import</span><span> </span><span class="identifier">calico</span><span>.</span><span class="identifier">unsafe</span><span>.</span><span class="identifier">given</span><span>
@@ -140,14 +133,14 @@
         ),
         </span><span class="identifier">p</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>),
         </span><span class="identifier">data</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">data</span><span> =&gt;
-          </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span>: </span><span class="type-name">BarChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">plotBarChart</span><span>(
+          </span><span class="keyword">val</span><span> </span><span class="identifier">barChart</span><span> = </span><span class="identifier">data</span><span>.</span><span class="identifier">barSpec</span><span>(
             </span><span class="type-name">List</span><span>(
               </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>,
               </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">removeYAxis</span><span>
             )
           )
           </span><span class="keyword">val</span><span> </span><span class="identifier">chartDiv</span><span> = </span><span class="identifier">div</span><span>(</span><span class="string-literal">&quot;&quot;</span><span>)
-          </span><span class="identifier">chartDiv</span><span>.</span><span class="identifier">flatMap</span><span>{ </span><span class="identifier">d</span><span> =&gt;
+          </span><span class="identifier">chartDiv</span><span>.</span><span class="identifier">flatMap</span><span>{ </span><span class="identifier">_</span><span> =&gt;
             </span><span class="comment">// To my astonishment, this doesn&#39;t work...
 </span><span>            </span><span class="comment">/* val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
             dCheat.style.height = &quot;40vmin&quot;
@@ -155,14 +148,14 @@
             </span><span class="comment">// end yuck
 </span><span>
             </span><span class="comment">// I had to set the div size down in here. Then it worked.
-</span><span>            </span><span class="identifier">viz</span><span>.</span><span class="type-name">CalicoViz</span><span>.</span><span class="identifier">viewEmbed</span><span>(</span><span class="identifier">barChart</span><span>, </span><span class="type-name">Some</span><span>(</span><span class="identifier">chartDiv</span><span>), </span><span class="type-name">Some</span><span>(</span><span class="type-name">EmbedOptions</span><span>())).</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span class="number-literal">._1</span><span>)
+</span><span>            </span><span class="identifier">viz</span><span>.</span><span class="type-name">CalicoViz</span><span>.</span><span class="identifier">viewEmbed</span><span>(</span><span class="identifier">barChart</span><span>.</span><span class="identifier">toString</span><span>(), </span><span class="type-name">Some</span><span>(</span><span class="identifier">chartDiv</span><span>), </span><span class="type-name">Some</span><span>(</span><span class="type-name">EmbedOptions</span><span>())).</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span class="number-literal">._1</span><span>)
           }
         }
       )
     }</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
-        <p><script type="text/javascript" src="calico.md.js" defer></script>
-        <script type="text/javascript" src="mdoc.js" defer></script></p>
+        <script type="text/javascript" src="calico.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script>
 
         
 <hr class="footer-rule"/>

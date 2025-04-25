@@ -58,19 +58,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="chartTypes.html">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 active nav-leaf"><a href="#">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -100,48 +95,128 @@
       <main class="content">
 
         <h1 id="customising-an-existing-data-structure" class="title">Customising an existing data structure</h1>
-        <p>The key idea behind the library allows what are, to my mind some exciting extensions. </p>
-        <p>It would be very common, to have your own representations of data. An example of a library with it&#39;s own data structures (there are many) might <a href="https://github.com/scalanlp/breeze">breeze</a>, which is a library for linear algebra in scala. </p>
-        <p>The below extension method would add line plotting functionality, to <em>all</em> Breeze DenseVectors. What&#39;s cool? <em>You don&#39;t need to own either Breeze or dedav to make this work</em>. </p>
+        <p>The key idea behind the library allows what are, to my mind some exciting extensions.</p>
+        <p>It would be very common, to have your own representations of data. An example of a library with it&#39;s own data structures (there are many) might <a href="https://github.com/scalanlp/breeze">breeze</a>, which is a library for linear algebra in scala.</p>
+        <p>The below extension method would add line plotting functionality, to <em>all</em> Breeze DenseVectors. What&#39;s cool? <em>You don&#39;t need to own either Breeze or dedav to make this work</em>.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">extension</span><span> [</span><span class="type-name">T</span><span>: </span><span class="type-name">Numeric</span><span>](</span><span class="identifier">l</span><span>: </span><span class="type-name">DenseVector</span><span>[</span><span class="type-name">T</span><span>])(</span><span class="identifier">using</span><span> </span><span class="identifier">plotTarget</span><span>: </span><span class="type-name">PlotTarget</span><span>)
   </span><span class="keyword">def</span><span> </span><span class="declaration-name">plotLineChart</span><span>(</span><span class="identifier">mods</span><span>: </span><span class="type-name">JsonMod</span><span> = </span><span class="type-name">List</span><span>()): </span><span class="type-name">LineChart</span><span> =
     </span><span class="identifier">l</span><span>.</span><span class="identifier">toArray</span><span>.</span><span class="identifier">plotLineChart</span><span>(</span><span class="identifier">mods</span><span>)</span></code></pre>
         <p>Give it a go in a project - this turns a breeze vector into a plottable data structure that emits a line chart!</p>
-        <p>The moment where I figured it might be worth an attempt at at publishing this library was this; </p>
+        <p>The moment where I figured it might be worth an attempt at at publishing this library was this;</p>
         <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">breeze</span><span>.</span><span class="identifier">stats</span><span>.</span><span class="identifier">distributions</span><span>.</span><span class="identifier">_</span><span>
 </span><span class="keyword">import</span><span> </span><span class="type-name">Rand</span><span>.</span><span class="type-name">VariableSeed</span><span>.</span><span class="identifier">_</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">PlotTarget</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">ProbabilityDensity</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">SpecUrl</span><span>
 
-</span><span class="identifier">extension</span><span> (</span><span class="identifier">l</span><span>: </span><span class="type-name">HasInverseCdf</span><span>)(</span><span class="identifier">using</span><span> </span><span class="identifier">plotTarget</span><span>: </span><span class="type-name">PlotTarget</span><span>)
-    </span><span class="keyword">def</span><span> </span><span class="declaration-name">plotDensity</span><span>(</span><span class="identifier">mods</span><span>: </span><span class="type-name">Seq</span><span>[</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span>] = </span><span class="type-name">List</span><span>()): </span><span class="type-name">ProbabilityDensity</span><span> =
+</span><span class="identifier">extension</span><span> (</span><span class="identifier">l</span><span>: </span><span class="type-name">HasInverseCdf</span><span>)
+    </span><span class="keyword">def</span><span> </span><span class="declaration-name">plotDensity</span><span>(</span><span class="identifier">mods</span><span>: </span><span class="type-name">Seq</span><span>[</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span>] = </span><span class="type-name">List</span><span>()) =
         </span><span class="keyword">val</span><span> </span><span class="identifier">probs</span><span> = </span><span class="identifier">breeze</span><span>.</span><span class="identifier">linalg</span><span>.</span><span class="identifier">linspace</span><span>(</span><span class="number-literal">0.0</span><span>+</span><span class="number-literal">1.0</span><span>/</span><span class="number-literal">1000.0</span><span>,</span><span class="number-literal">1.0</span><span>-</span><span class="number-literal">1.0</span><span>/</span><span class="number-literal">1000.0</span><span>,</span><span class="number-literal">1000</span><span>)
         </span><span class="keyword">val</span><span> </span><span class="identifier">icdfs</span><span> = </span><span class="identifier">probs</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">l</span><span>.</span><span class="identifier">inverseCdf</span><span>).</span><span class="identifier">toScalaVector</span><span>.</span><span class="identifier">zip</span><span>(</span><span class="identifier">probs</span><span>.</span><span class="identifier">toScalaVector</span><span>)
         </span><span class="keyword">val</span><span> </span><span class="identifier">inject</span><span> = </span><span class="keyword">for</span><span>((</span><span class="identifier">i</span><span>, </span><span class="identifier">p</span><span>) &lt;- </span><span class="identifier">icdfs</span><span>) </span><span class="keyword">yield</span><span> {
             </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Obj</span><span>(</span><span class="string-literal">&quot;u&quot;</span><span> -&gt; </span><span class="identifier">i</span><span>, </span><span class="string-literal">&quot;v&quot;</span><span> -&gt; </span><span class="identifier">p</span><span>)
         }
         </span><span class="keyword">val</span><span> </span><span class="identifier">pipeData</span><span> :</span><span class="identifier">ujson</span><span>.</span><span class="type-name">Value</span><span> =&gt; </span><span class="type-name">Unit</span><span> = </span><span class="identifier">spec</span><span> =&gt; </span><span class="identifier">spec</span><span>(</span><span class="string-literal">&quot;data&quot;</span><span>)(</span><span class="number-literal">0</span><span>) = </span><span class="identifier">ujson</span><span>.</span><span class="type-name">Obj</span><span>(</span><span class="string-literal">&quot;name&quot;</span><span> -&gt; </span><span class="string-literal">&quot;points&quot;</span><span>, </span><span class="string-literal">&quot;values&quot;</span><span>-&gt;</span><span class="identifier">inject</span><span>)
-        </span><span class="type-name">ProbabilityDensity</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">pipeData</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))</span></code></pre>
-        <p>We extend the trait <code>HasInverseCdf</code>, and now? <em>Every</em> distribution with an inverse CDF is plottable! </p>
-        <p>in 12. lines. of. code. It took way longer to write the documentation, than implement that entire class of plots :-). </p>
+        </span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">ProbabilityDensity</span><span>.</span><span class="identifier">jsonSpec</span><span>.</span><span class="identifier">mod</span><span>(</span><span class="type-name">List</span><span>(</span><span class="identifier">pipeData</span><span>, </span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>) ++ </span><span class="identifier">mods</span><span>)</span></code></pre>
+        <p>We extend the trait <code>HasInverseCdf</code>, and now? <em>Every</em> distribution with an inverse CDF is plottable with just 12 lines of code</p>
+        <p>It took way longer to write the documentation, than implement that entire class of plots :-).</p>
         <pre><code class="nohighlight"><span class="type-name">Gaussian</span><span>(</span><span class="number-literal">2</span><span>,</span><span class="number-literal">2</span><span>).</span><span class="identifier">plotDensity</span><span>(</span><span class="type-name">Seq</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
-</span><span class="comment">// res0: ProbabilityDensity = ProbabilityDensity(
-//   mods = List(
-//     repl.MdocSession$MdocApp$$Lambda$15157/0x0000000803a90040@2380a02f,
-//     viz.Utils$$$Lambda$15140/0x000000080395e840@4b97359d
-//   )
-// )
+</span><span class="comment">// res0: Value = Obj(
+//   value = Map(
+//     &quot;$schema&quot; -&gt; Str(value = &quot;https://vega.github.io/schema/vega/v5.json&quot;),
+//     &quot;description&quot; -&gt; Str(
+//       value = &quot;Area chart using density estimation to show a probability density or cumulative distribution.&quot;
+//     ),
+//     &quot;padding&quot; -&gt; Num(value = 5.0),
+//     &quot;signals&quot; -&gt; Arr(
+//       value = ArrayBuffer(
+//         Obj(
+//           value = Map(
+//             &quot;name&quot; -&gt; Str(value = &quot;bandwidth&quot;),
+//             &quot;value&quot; -&gt; Num(value = 0.0),
+//             &quot;bind&quot; -&gt; Obj(
+//               value = Map(
+//                 &quot;input&quot; -&gt; Str(value = &quot;range&quot;),
+//                 &quot;min&quot; -&gt; Num(value = 0.0),
+//                 &quot;max&quot; -&gt; Num(value = 0.1),
+//                 &quot;step&quot; -&gt; Num(value = 0.001)
+//               )
+//             )
+//           )
+//         ),
+//         Obj(
+//           value = Map(
+//             &quot;name&quot; -&gt; Str(value = &quot;method&quot;),
+//             &quot;value&quot; -&gt; Str(value = &quot;pdf&quot;),
+//             &quot;bind&quot; -&gt; Obj(
+//               value = Map(
+//                 &quot;input&quot; -&gt; Str(value = &quot;radio&quot;),
+//                 &quot;options&quot; -&gt; Arr(value = ArrayBuffer(Str(value = &quot;pdf&quot;), Str(value = &quot;cdf&quot;)))
+//               )
+//             )
+//           )
+//         ),
+//         Obj(
+//           value = Map(
+//             &quot;name&quot; -&gt; Str(value = &quot;height&quot;),
+//             &quot;init&quot; -&gt; Str(value = &quot;isFinite(containerSize()[1]) ? containerSize()[1] : 200&quot;),
+//             &quot;on&quot; -&gt; Arr(
+//               value = ArrayBuffer(
+//                 Obj(
+//                   value = Map(
+//                     &quot;update&quot; -&gt; Str(value = &quot;isFinite(containerSize()[1]) ? containerSize()[1] : 200&quot;),
+//                     &quot;events&quot; -&gt; Str(value = &quot;window:resize&quot;)
+// ...
 </span><span class="type-name">LogNormal</span><span>(</span><span class="number-literal">1</span><span>,</span><span class="number-literal">0.5</span><span>).</span><span class="identifier">plotDensity</span><span>(</span><span class="type-name">Seq</span><span>(</span><span class="identifier">viz</span><span>.</span><span class="type-name">Utils</span><span>.</span><span class="identifier">fillDiv</span><span>))
-</span><span class="comment">// res1: ProbabilityDensity = ProbabilityDensity(
-//   mods = List(
-//     repl.MdocSession$MdocApp$$Lambda$15157/0x0000000803a90040@3ea27ae8,
-//     viz.Utils$$$Lambda$15140/0x000000080395e840@4b97359d
-//   )
-// )</span></code></pre>
+</span><span class="comment">// res1: Value = Obj(
+//   value = Map(
+//     &quot;$schema&quot; -&gt; Str(value = &quot;https://vega.github.io/schema/vega/v5.json&quot;),
+//     &quot;description&quot; -&gt; Str(
+//       value = &quot;Area chart using density estimation to show a probability density or cumulative distribution.&quot;
+//     ),
+//     &quot;padding&quot; -&gt; Num(value = 5.0),
+//     &quot;signals&quot; -&gt; Arr(
+//       value = ArrayBuffer(
+//         Obj(
+//           value = Map(
+//             &quot;name&quot; -&gt; Str(value = &quot;bandwidth&quot;),
+//             &quot;value&quot; -&gt; Num(value = 0.0),
+//             &quot;bind&quot; -&gt; Obj(
+//               value = Map(
+//                 &quot;input&quot; -&gt; Str(value = &quot;range&quot;),
+//                 &quot;min&quot; -&gt; Num(value = 0.0),
+//                 &quot;max&quot; -&gt; Num(value = 0.1),
+//                 &quot;step&quot; -&gt; Num(value = 0.001)
+//               )
+//             )
+//           )
+//         ),
+//         Obj(
+//           value = Map(
+//             &quot;name&quot; -&gt; Str(value = &quot;method&quot;),
+//             &quot;value&quot; -&gt; Str(value = &quot;pdf&quot;),
+//             &quot;bind&quot; -&gt; Obj(
+//               value = Map(
+//                 &quot;input&quot; -&gt; Str(value = &quot;radio&quot;),
+//                 &quot;options&quot; -&gt; Arr(value = ArrayBuffer(Str(value = &quot;pdf&quot;), Str(value = &quot;cdf&quot;)))
+//               )
+//             )
+//           )
+//         ),
+//         Obj(
+//           value = Map(
+//             &quot;name&quot; -&gt; Str(value = &quot;height&quot;),
+//             &quot;init&quot; -&gt; Str(value = &quot;isFinite(containerSize()[1]) ? containerSize()[1] : 200&quot;),
+//             &quot;on&quot; -&gt; Arr(
+//               value = ArrayBuffer(
+//                 Obj(
+//                   value = Map(
+//                     &quot;update&quot; -&gt; Str(value = &quot;isFinite(containerSize()[1]) ? containerSize()[1] : 200&quot;),
+//                     &quot;events&quot; -&gt; Str(value = &quot;window:resize&quot;)
+// ...</span></code></pre>
         <div id="mdoc-html-run0" data-mdoc-js></div>
         <div id="mdoc-html-run1" data-mdoc-js></div>
-        <p><script type="text/javascript" src="customising.md.js" defer></script>
-        <script type="text/javascript" src="mdoc.js" defer></script></p>
+        <script type="text/javascript" src="customising.md.js" defer></script>
+        <script type="text/javascript" src="mdoc.js" defer></script>
 
         
 <hr class="footer-rule"/>

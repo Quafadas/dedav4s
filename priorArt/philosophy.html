@@ -58,19 +58,14 @@
   <ul class="nav-list">
     <li class="level1 nav-header">Getting Sarted</li>
     <li class="level2 nav-leaf"><a href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
-    <li class="level2 nav-leaf"><a href="../gettingStarted/resources.html">Links</a></li>
     <li class="level1 nav-header">Details</li>
     <li class="level2 nav-leaf"><a href="../explanation/chartTypes.html">Example Charts</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/yourData.html">Your Data</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/plotTargets.html">Plot Targets</a></li>
-    <li class="level2 nav-leaf"><a href="../explanation/rawDataTypes.html">&quot;RawIterables&quot; Extension Methods</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/customising.html">Customising an existing data structure</a></li>
     <li class="level2 nav-leaf"><a href="../explanation/outFiles.html">Where do the temporary files live?</a></li>
     <li class="level1 nav-header">Working With A Chart</li>
     <li class="level2 nav-leaf"><a href="../working_chart/intro.html">Styles</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/mutable.html">Mutable Style</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/typesafe.html">The DSL</a></li>
-    <li class="level2 nav-leaf"><a href="../working_chart/chartSources.html">Chart Sources</a></li>
     <li class="level2 nav-leaf"><a href="../working_chart/gotcha.html">Gotcha</a></li>
     <li class="level1 nav-header">Scala Versions</li>
     <li class="level2 nav-leaf"><a href="../ScalaVersions/scalaVersions.html">Scala Versions</a></li>
@@ -95,7 +90,6 @@
     <li class="level2 nav-leaf"><a href="#from-first-principles">From first principles</a></li>
     <li class="level2 nav-leaf"><a href="#good-news">Good news</a></li>
     <li class="level2 nav-leaf"><a href="#what-of-typesafety">What of typesafety?</a></li>
-    <li class="level2 nav-leaf"><a href="#the-bad-news">The Bad news</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -131,22 +125,16 @@
           <li>Sharing</li>
         </ol>
         <p>It turns out, there are programs which are already amazing at doing this; browsers. When thinking about this problem, I concluded pretty quickly that my first class citizen had to be the browser. The engineering effort to recreate or even dent the two problems above is truly formiddable otherwise.</p>
-        <p>Fortunately, scala has great JS support. If we can overcome bunding and generally getting libraries built in the right place, we can have our cake and eat it, too.</p>
         
         <h2 id="good-news" class="section"><a class="anchor-link left" href="#good-news"><i class="icofont-laika link">&#xef71;</i></a>Good news</h2>
         <p>There are already some very good javascript plotting libraries. Given the prevalence of them in the list of Prior Art above - much of the community already came to the same set of conclusions. Let&#39;s provide a thin shim for one!</p>
-        <p>Vega/lite let&#39;s us square the scala / browser circle. We need only a tiny amount of javascript to shim vega embed and host the libraries. The actual visualisation definition is a JSON object. Scala already has good tools for manipulating JSON objects, if we can create the right object, we just need to pipe it into a page template as a string!</p>
-        <p>It turns out, that vega/lite even publish schema. If we had a way to generate scala case classes from schema... we&#39;d have a convienient, typesafe DSL!</p>
+        <p>Vega/lite let&#39;s us square the scala / browser circle. We need only a tiny amount of javascript to shim vega embed and host the libraries. The actual visualisation definition is a JSON object. Scala already has good tools for manipulating JSON objects, if we can create the right object, we just need to pipe it into a page template as a string.</p>
+        <p>Scala&#39;s NamedTuple feature seems to be a great fit for this domain.</p>
         
         <h2 id="what-of-typesafety" class="section"><a class="anchor-link left" href="#what-of-typesafety"><i class="icofont-laika link">&#xef71;</i></a>What of typesafety?</h2>
         <p>Many of the libraries above set out to define a typesafe DSL. Do we need one?</p>
-        <p>When thinking about this, one has to ask, why? Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost.</p>
-        <p>In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>.</p>
-        <p>So I don&#39;t claim the DSL is perfect. It&#39;s as good as the vega schema. Which is pretty good. It provides abstractions which you could use to get pretty close to typesafety, for your use case.</p>
-        
-        <h2 id="the-bad-news" class="section"><a class="anchor-link left" href="#the-bad-news"><i class="icofont-laika link">&#xef71;</i></a>The Bad news</h2>
-        <p>Nothing about the DSL or help getting at the examples, saves you from having to learn at least some of vega itself...</p>
-        <p>... but I think you will not regret learning a declarative paradigm. The 10 minutes spent learning this library (it&#39;s absurdly simple) are sunk cost. I believe you&#39;ll quickly earn those minutes back in lovely, publishable plots!</p>
+        <p>I gave up on a general solution to that. Typesafety is attractive because of the runtime guarantees it provides. It also comes with cost.</p>
+        <p>In data visualisation, I suspect a genuinely typesafe DSL to be a very hard problem. An axis doesn&#39;t have meaning without a scale - that&#39;s easy I hear you cry! Okay, but which part of the scale are we interested in? Is that sensible / interesting? I&#39;m not even sure you could say <em>before having the data available</em>. I think a truly typesafe DSL is beyond scala&#39;s typesystem.</p>
 
         
 <hr class="footer-rule"/>
