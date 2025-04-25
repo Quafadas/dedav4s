@@ -31,27 +31,34 @@ class PlaywrightTest extends munit.FunSuite:
 
   override def beforeAll(): Unit =
 
-    System.setProperty("playwright.driver.impl", "jsnev.DriverJar")
+    // System.setProperty("playwright.driver.impl", "jsnev.DriverJar")
     pw = Playwright.create()
     browser = pw.chromium().launch();
     page = browser.newPage();
   end beforeAll
 
+  private def navigateTo(toCheck: VizReturn, page: Page) =
+    toCheck match
+      case path: os.Path =>
+        // println(path)
+        val _ = page.navigate(s"file://$path")
+      case _ =>
+        fail("no path")
+    end match
+  end navigateTo
+
   test("can plot pie chart") {
-    val aSeq = (1 to 5)
-    val tmp = aSeq.plotPieChart(i => (i, i.toString()))(
+    import viz.vegaFlavour
+    val aSeq = (1 to 5).map(i => (i.toDouble, i.toString()))
+    val tmp = aSeq.plotPieChart(
       List(
         (spec: ujson.Value) => spec("height") = 500,
         (spec: ujson.Value) => spec("width") = 500
       )
     )
-    tmp.tmpPath match
-      case Some(path) =>
-        println(path)
-        val _ = page.navigate(s"file://$path")
-      case None =>
-        println("no path")
-    end match
+
+    navigateTo(tmp, page)
+
     val _ = page.waitForSelector("div#vis")
     assertThat(page.locator("div#vis")).isVisible()
     assertThat(page.locator("svg.marks")).isVisible()
@@ -60,25 +67,23 @@ class PlaywrightTest extends munit.FunSuite:
   }
 
   test("title") {
-    val aSeq = (1 to 5)
-    val tmp = aSeq.plotBarChart(i => (i.toDouble, i.toString()))(
+    import viz.vegaFlavour
+    val aSeq = (1 to 5).map(i => (i.toDouble, i.toString()))
+    val tmp = aSeq.plotBarChart(
       List((spec: ujson.Value) => spec("title") = ujson.Obj("text" -> "my title"))
     )
-    tmp.tmpPath match
-      case Some(path) =>
-        println(path)
-        val _ = page.navigate(s"file://$path")
-      case None =>
-        println("no path")
-    end match
+    navigateTo(tmp, page)
     val _ = page.waitForSelector("div#vis")
     assertThat(page.locator("svg.marks")).isVisible()
   }
 
   test("Plotting an echart") {
-    import viz.PlotNt.*
-    import viz.NamedTupleReadWriter.given
+    import viz.echartsFlavour
     import viz.PlotTargets.desktopBrowser
+    import viz.NamedTupleReadWriter.given
+    // import viz.Macros.Implicits.given_Writer_T
+    import viz.Plottable.ppnt
+
     val spec = (
       title = (
         text = "ECharts Example"
@@ -96,14 +101,14 @@ class PlaywrightTest extends munit.FunSuite:
     )
 
     // println("Plotting")
-    spec.plot(ChartLibrary.Echarts)
+    spec.plot()
 
   }
 
   test("that we can plot a named tuple") {
-
-    import viz.PlotNt.plot
-    import viz.NamedTupleReadWriter.given
+    import viz.vegaFlavour
+    import viz.Macros.Implicits.given
+    import viz.Plottable.ppnt
 
     val data = (
       `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
@@ -128,19 +133,22 @@ class PlaywrightTest extends munit.FunSuite:
       )
     )
 
-    val tmp = data.plot()
-    tmp.tmpPath match
-      case Some(path) =>
-        println(path)
-        val _ = page.navigate(s"file://$path")
-      case None =>
-        println("no path")
-    end match
+    navigateTo(
+      data.plot(),
+      page
+    )
     val _ = page.waitForSelector("div#vis")
     assertThat(page.locator("svg.marks")).isVisible()
 
+    page.close()
+
   }
 
-  override def afterAll(): Unit = super.afterAll()
+  override def afterAll(): Unit =
+    browser.close()
+    pw.close()
+
+    super.afterAll()
+  end afterAll
 
 end PlaywrightTest

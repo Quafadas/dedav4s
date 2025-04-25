@@ -11,9 +11,8 @@ If div height and width are not well defined, this will usually result in an err
 ```scala mdoc:js
 import com.raquo.laminar.api.L._
 import org.scalajs.dom
-import viz.extensions.RawIterables.*
 import viz.LaminarViz
-import viz.vega.plots.{BarChart, given}
+import viz.js.extensions.*
 
 val appContainer = dom.document.querySelector(s"#${node.id}")
 node.setAttribute("style", s"width:50vmin;height:50vmin")
@@ -38,8 +37,8 @@ object chartExample:
         width := "40vmin",
         height := "40vmin",
         child <-- data.signal.map { data =>
-          val barChart: BarChart = data.plotBarChart(List(viz.Utils.fillDiv))
-          LaminarViz.simpleEmbed(barChart)
+          val barChart: ujson.Value = data.barSpec(List(viz.Utils.fillDiv))
+          LaminarViz.simpleEmbed(barChart.toString())
         }
       ),
       p()
@@ -83,11 +82,11 @@ import org.scalajs.dom
 import viz.LaminarViz
 import viz.vega.facades.VegaView
 import viz.vega.facades.Helpers.*
+import viz.vega.plots.SpecUrl
 import scala.scalajs.js
 import js.JSConverters.*
 import scala.util.Random
-
-import viz.vega.plots.{BarChart, given}
+import viz.*
 
 val appContainer = dom.document.querySelector(s"#${node.id}")
 node.setAttribute("style", s"width:50vmin;height:50vmin")
@@ -102,7 +101,7 @@ object chartExample:
   val (chartDataClickedBus, chartClickCallback) = LaminarViz.dataClickBus
   val (aSignalBus, signalCallback) = LaminarViz.signalBus
   val data = Var(List(2.4, 3.4, 5.1, -2.3))
-  val baseChart = BarChart(
+  val baseChart = SpecUrl.BarChart.jsonSpec.mod(
     List(
       viz.Utils.fillDiv,
       viz.Utils.removeXAxis,
@@ -116,7 +115,7 @@ object chartExample:
 
   def apply(): Div =
     val (chartDiv : Div, viewOpt: Signal[Option[VegaView]]) =
-      LaminarViz.viewEmbed(baseChart, Some(setDivSize))
+      LaminarViz.viewEmbed(baseChart.toString(), Some(setDivSize))
 
     div(
       viewOpt.map(_.map(vv =>

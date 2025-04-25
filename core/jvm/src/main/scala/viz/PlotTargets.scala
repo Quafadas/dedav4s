@@ -69,7 +69,15 @@ object PlotTargets extends SharedTargets:
         PR welcome :-) ...
        */
       val runtime = java.lang.Runtime.getRuntime()
-      val _ = runtime.exec(Array[String](s"""xdg-open $uri]"""))
+
+      try
+        val _ = runtime.exec(Array[String](s"""xdg-open $uri"""))
+      catch
+        case e: Exception =>
+          println(
+            s"Failed to open browser window with xdg-open: ${e.getMessage}. A probably cause is that xdg-utils are not installed."
+          )
+      end try
       ()
     end if
   end openBrowserWindow
@@ -209,6 +217,7 @@ object PlotTargets extends SharedTargets:
         println(s"starting local server on $port")
         openBrowserWindow(java.net.URI(s"http://localhost:$port"))
         Thread.sleep(1000) // give undertow a chance to start
+        WebsocketVizServer.setFirstTime
       end if
       requests.post(s"http://localhost:$port/viz", data = spec)
       ()

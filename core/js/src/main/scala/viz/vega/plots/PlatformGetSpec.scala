@@ -25,7 +25,7 @@ trait PlatformGetSpec(val url: String, val f: Framework):
   // I am aware this is naughty, but everything else is synchronous...
   lazy val jsonSpec: ujson.Value = f match
     case Vega =>
-      println(s"Fetching Vega spec from $url")
+      // println(s"Fetching Vega spec from $url")
       val xhr = new XMLHttpRequest()
       xhr.open("GET", url, false)
       xhr.send()

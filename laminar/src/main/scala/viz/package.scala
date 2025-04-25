@@ -58,19 +58,19 @@ object LaminarViz:
     *   \- optionally, the embed options you wish to use
     */
   def viewEmbed(
-      chart: Spec,
+      chartSpec: String,
       inDivOpt: Option[Div] = None,
       embedOpt: Option[EmbedOptions] = None
   ): (Div, Signal[Option[VegaView]]) =
 
-    val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
+    val specObj = JSON.parse(chartSpec).asInstanceOf[js.Object]
 
     val (embeddedIn, embedResult) = (inDivOpt, embedOpt) match
       case (Some(thisDiv), Some(opts)) =>
         val p: js.Promise[EmbedResult] = viz.vega.facades.embed(thisDiv.ref, specObj, opts)
         (thisDiv, p)
       case (Some(thisDiv), None) =>
-        val specObj = JSON.parse(chart.spec).asInstanceOf[js.Object]
+        val specObj = JSON.parse(chartSpec).asInstanceOf[js.Object]
         val p: js.Promise[EmbedResult] = viz.vega.facades.embed(thisDiv.ref, specObj, EmbedOptions())
         (thisDiv, p)
       case (None, Some(opts)) =>
@@ -134,7 +134,7 @@ object LaminarViz:
     * @param embedOpt
     *   \- optionally, the embed options you wish to use
     */
-  def simpleEmbed(chart: Spec, inDivOpt: Option[Div] = None, embedOpt: Option[EmbedOptions] = None): Div =
+  def simpleEmbed(chart: String, inDivOpt: Option[Div] = None, embedOpt: Option[EmbedOptions] = None): Div =
     viewEmbed(chart, inDivOpt, embedOpt)._1
 
   end simpleEmbed

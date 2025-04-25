@@ -16,8 +16,10 @@
 
 package viz
 
-import viz.vega.plots.SpecUrl
-
-abstract class FromUrl(val location: SpecUrl)(using LowPriorityPlotTarget) extends WithBaseSpec:
-  override lazy val baseSpec = location.jsonSpec
-end FromUrl
+object CustomPlots:
+  val sankey = os.resource / "Sankey.json"
+  val sunburstDrag = os.resource / "SunburstDrag.json"
+  val simpleRegression = os.resource / "SimpleRegression.json"
+  val seriesScatter = os.resource / "SeriesScatter.json"
+  val kdeHistogram = os.resource / "kdeHistogram.vg.json"
+end CustomPlots

@@ -22,13 +22,25 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
   WorkflowStep.Run(
     List("npm install"),
     cond = Some("matrix.project == 'rootJS'")
-  )
+  ),
+    WorkflowStep.Use(
+    UseRef.Public("coursier", "setup-action", "v1"),
+    name = Some("Setup Coursier"),
+    cond = Some("matrix.project == 'rootJVM'")
+  ),
+  WorkflowStep.Run(
+    List("""cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --with-deps"""),
+    cond = Some("matrix.project == 'rootJVM'")
+  ),
 )
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
+
 import java.io.File
 
-val scalaV = "3.7.0-RC1"
+val scalaV = "3.7.0-RC4"
+
+ThisBuild / tlFatalWarnings := false
 
 inThisBuild(
   List(
@@ -53,9 +65,10 @@ ThisBuild / developers := List(
   // your GitHub handle and name
   tlGitHubDev("quafadas", "Simon Parten")
 )
-ThisBuild / tlSonatypeUseLegacyHost := false
+ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeLegacy
 ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
+ThisBuild / tlJdkRelease := Some(17)
 
 lazy val root = tlCrossRootProject.aggregate(core, dedav_laminar, dedav_calico, unidocs, tests)
 
@@ -141,8 +154,8 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   .jvmSettings(
     name := "tests-jvm",
     // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
-    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.49.0" % Test,
-    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.49.0" % Test
+    libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.51.0" % Test,
+    libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.51.0" % Test
   )
   .jsSettings(
     name := "tests-js",
