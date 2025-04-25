@@ -17,7 +17,6 @@
 package viz
 
 import viz.Macros.Implicits.given_Writer_T
-import viz.vegaFlavour
 
 class NTTest extends munit.FunSuite:
   test("That we can serilaise a NamedTuple") {

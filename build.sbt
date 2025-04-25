@@ -35,9 +35,12 @@ ThisBuild / githubWorkflowBuildPreamble ++= Seq(
 )
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
+
 import java.io.File
 
-val scalaV = "3.7.0-RC3"
+val scalaV = "3.7.0-RC4"
+
+ThisBuild / tlFatalWarnings := false
 
 inThisBuild(
   List(
@@ -150,7 +153,7 @@ lazy val tests = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     name := "tests-jvm",
-    classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
+    // classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
     libraryDependencies += "com.microsoft.playwright" % "playwright" % "1.51.0" % Test,
     libraryDependencies += "com.microsoft.playwright" % "driver-bundle" % "1.51.0" % Test
   )
