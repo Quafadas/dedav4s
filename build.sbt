@@ -70,6 +70,9 @@ ThisBuild / tlCiReleaseBranches := Seq("main")
 ThisBuild / scalaVersion := scalaV
 ThisBuild / tlJdkRelease := Some(17)
 
+import xerial.sbt.Sonatype._
+sonatypeProjectHosting := Some(GitHubHosting("quafadas", "dedav4s", "quafadas@gmail.com"))
+
 lazy val root = tlCrossRootProject.aggregate(core, dedav_laminar, dedav_calico, unidocs, tests)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
