@@ -104,11 +104,11 @@
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="type-name">Plottable</span><span>.</span><span class="identifier">ppSpecUrl</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">viz</span><span>.</span><span class="identifier">vegaFlavour</span><span>
 </span><span class="keyword">val</span><span> </span><span class="identifier">chart</span><span> = </span><span class="identifier">viz</span><span>.</span><span class="identifier">vega</span><span>.</span><span class="identifier">plots</span><span>.</span><span class="type-name">SpecUrl</span><span>.</span><span class="type-name">BarChart</span><span>.</span><span class="identifier">plot</span><span>
-</span><span class="comment">// chart: Unit | Path = /tmp/plot-10078446236148691673.txt
+</span><span class="comment">// chart: Unit | Path = /tmp/plot-13245849981733855960.txt
 </span><span class="identifier">chart</span><span> </span><span class="keyword">match</span><span>
   </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span>: </span><span class="type-name">Unit</span><span> =&gt; ()
   </span><span class="keyword">case</span><span> </span><span class="identifier">p</span><span>: </span><span class="identifier">os</span><span>.</span><span class="type-name">Path</span><span> =&gt; </span><span class="identifier">println</span><span>(</span><span class="identifier">p</span><span>)
-</span><span class="comment">// /tmp/plot-10078446236148691673.txt</span></code></pre>
+</span><span class="comment">// /tmp/plot-13245849981733855960.txt</span></code></pre>
         <p>It&#39;s location is in the <code>tmpPath</code> field of your chart. You could take advantage of the excellent <code>os</code> library and knowledge of the path of the file, to subsequently move it around. For example if you wish to automate producing a presentation via a script.</p>
 
         
