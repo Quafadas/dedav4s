@@ -90,7 +90,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "os-lib" % "0.11.3",
+      "com.lihaoyi" %% "os-lib" % "0.11.4",
       "com.lihaoyi" %% "cask" % "0.10.2",
       "com.lihaoyi" %% "requests" % "0.9.0",
       ("sh.almond" % "scala-kernel-api_3.3.5" % "0.14.1" % Provided)
