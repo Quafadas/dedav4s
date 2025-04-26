@@ -138,7 +138,7 @@ lazy val dedav_calico = project
 lazy val dedav_laminar = project
   .in(file("laminar"))
   .settings(
-    libraryDependencies += "com.raquo" %%% "laminar" % "17.2.0",
+    libraryDependencies += "com.raquo" %%% "laminar" % "17.2.1",
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
