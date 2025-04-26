@@ -72,6 +72,8 @@ ThisBuild / tlJdkRelease := Some(17)
 
 import xerial.sbt.Sonatype._
 ThisBuild / sonatypeProjectHosting := Some(GitHubHosting("quafadas", "dedav4s", "quafadas@gmail.com"))
+ThisBuild / scmInfo  := Some(ScmInfo(url("https://github.com/quafadas/dedav4s"), "scm:git@github.com:quafadas/dedav4s.git"))
+ThisBuild / homepage := Some(url("https://github.com/Quafadas"))
 
 lazy val root = tlCrossRootProject.aggregate(core, dedav_laminar, dedav_calico, unidocs, tests)
 
