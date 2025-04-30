@@ -105,7 +105,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
         // .exclude("org.scala-lang.modules", "scala-collection-compat_2.13")
         // .exclude("com.lihaoyi", "os-lib_2.13")
         // .exclude("com.github.jupyter", "jvm-repr"),
-      "org.jsoup" % "jsoup" % "1.19.1"
+      "org.jsoup" % "jsoup" % "1.20.1"
     )
   )
   .jsSettings(
