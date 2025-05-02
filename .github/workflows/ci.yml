@@ -29,12 +29,13 @@ jobs:
         project: [js, jvm]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: formatCheck
-        run: ./mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
       - uses: actions/checkout@main
         with:
           fetch-depth: 0
           fetch-tags: true
+      - name: formatCheck
+        run: ./mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
+
       - uses: coursier/cache-action@v6.4
       - if: matrix.project == 'jvm'
         name: playwright
