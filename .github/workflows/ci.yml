@@ -47,7 +47,7 @@ jobs:
       - name: Compile
         run: ./mill __.compile
       - name: test
-        run: ./mill core.${{matrix.project}}.test
+        run: ./mill core.test.${{matrix.project}}
 
 
   publish:
