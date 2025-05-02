@@ -1,0 +1,15 @@
+package build.laminar
+
+import mill._
+import mill.scalalib._
+import mill.scalajslib._
+import mill.scalajslib.api._
+
+object `package` extends RootModule with build.CommonJs with build.PublishModule {
+  def moduleDeps = Seq(build.core.js)
+  override def ivyDeps = super.ivyDeps() ++
+    Agg(
+      ivy"com.raquo::laminar::17.2.0"
+    )
+
+}

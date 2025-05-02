@@ -1,0 +1,57 @@
+package build.core
+
+
+import mill._
+import mill.scalalib._
+import mill.scalalib.publish._
+import mill.scalajslib._
+import mill.scalajslib.api._
+import build.Config
+
+object `package` extends RootModule {
+
+  trait SharedModule extends build.Common with PlatformScalaModule
+
+  trait SharedTest extends SharedModule with TestModule.Munit {
+    override def ivyDeps = super.ivyDeps() ++
+      Agg(
+        ivy"org.scalameta::munit:1.1.1"
+      )
+  }
+
+  object jvm extends SharedModule with ScalaModule with build.PublishModule {
+    override def compileIvyDeps: T[Agg[Dep]] = super.compileIvyDeps() ++ Agg(
+      ivy"sh.almond:scala-kernel-api_3.3.5:0.14.1".exclude(("com.github.jupyter", "jvm-repr")),
+    )
+    override def ivyDeps = T {
+      super.ivyDeps() ++ Agg(
+        Config.oslib,
+        Config.cask,
+        Config.requests,
+        Config.jsoup,
+      )
+    }
+
+    object test extends SharedTest {
+      override def moduleDeps: Seq[JavaModule] = Seq(jvm)
+    }
+  }
+
+  object js extends SharedModule with build.CommonJs with build.PublishModule
+
+  object test extends Module {
+    object js extends SharedTest {
+      override def moduleDeps: Seq[JavaModule] = Seq(build.core.js)
+
+    }
+    object jvm extends SharedTest {
+      override def moduleDeps: Seq[JavaModule] = Seq(build.core.jvm)
+
+      override def ivyDeps = super.ivyDeps() ++
+        Agg(
+          ivy"com.microsoft.playwright:playwright:${Config.playwright}",
+          ivy"com.microsoft.playwright:driver-bundle:${Config.playwright}"
+        )
+    }
+  }
+}

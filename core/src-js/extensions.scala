@@ -25,8 +25,11 @@ import viz.vega.plots.*
 import upickle.default.Writer
 import NamedTuple.NamedTuple
 import viz.mod
+import scala.deriving.Mirror
 
 package object extensions:
+
+  SpecUrl.values
 
   extension [K <: Tuple, V <: Tuple](
       data: Seq[NamedTuple[K, V]]

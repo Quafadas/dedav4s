@@ -1,0 +1,84 @@
+package build
+
+import mill._
+import mill.scalalib._
+import mill.scalalib.publish._
+import mill.scalajslib._
+import mill.scalajslib.api._
+
+import $packages._
+
+
+object Config {
+
+  val oslib = ivy"com.lihaoyi::os-lib:0.11.3"
+  val cask = ivy"com.lihaoyi::cask:0.10.2"
+  val requests = ivy"com.lihaoyi::requests:0.9.0"
+  val jsoup =ivy"org.jsoup:jsoup:1.18.3"
+
+  val jsDom = ivy"org.scala-js::scalajs-dom:2.8.0"
+  val secRand = ivy"org.scala-js::scalajs-java-securerandom:1.0.0"
+  val playwright = "1.51.0"
+}
+
+
+trait Common extends ScalaModule {
+  override def scalaVersion = "3.7.0-RC4"
+
+  override def scalacOptions = Seq(
+    "-Xmax-inlines:2000",
+    "-Wconf:cat=deprecation:s"
+  )
+  def ivyDeps = super.ivyDeps() ++ Agg(
+    ivy"com.lihaoyi::upickle:4.1.0",
+    ivy"com.lihaoyi::scalatags:0.13.1",
+    ivy"org.ekrich::sconfig:1.8.1"
+  )
+}
+
+trait CommonJs extends Common with ScalaJSModule {
+  def scalaJSVersion = "1.19.0"
+  override def ivyDeps = super.ivyDeps() ++
+    Agg(
+      ivy"org.scala-js::scalajs-dom::2.8.0",
+      ivy"org.scala-js::scalajs-java-securerandom::1.0.0".withDottyCompat(scalaVersion())
+    )
+}
+
+trait PublishModule extends mill.scalalib.PublishModule {
+  def publishVersion = "0.9.0-SNAPSHOT"
+  def pomSettings = PomSettings(
+    description = "Declarative data viz for scala",
+    organization = "io.github.quafadas",
+    url = "https://github.com/quafadas/dedav4s",
+    licenses = Seq(License.`Apache-2.0`),
+    versionControl = VersionControl.github("quafadas", "dedav4s"),
+    developers = Seq(
+      Developer("quafadas", "Simon Parten", "https://github.com/quafadas")
+    )
+  )
+}
+
+
+// object jsdocs extends Common with ScalaJSModule {
+//   def moduleDeps = Seq(dedav_calico, dedav_laminar, core_js)
+
+//   def ivyDeps = Agg(
+//     ivy"org.scala-js::scalajs-dom:2.8.0",
+//     ivy"org.scala-js::scalajs-java-securerandom:1.0.0",
+//     ivy"io.github.cquiroz::scala-java-time:2.5.0"
+//   )
+
+//   def scalaJSVersion = "1.13.2"
+
+//   def mainClass = Some("viz.jsdocs.Main")
+// }
+
+// // Simple docs module, more advanced mdoc configuration can be added later
+// object docs extends Common {
+//   def moduleDeps = Seq(core_jvm)
+
+//   def ivyDeps = Agg(
+//     ivy"org.scalanlp::breeze:2.1.0"
+//   )
+// }
