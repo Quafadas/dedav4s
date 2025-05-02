@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: formatCheck
-        run: ./mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
+        run: mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
       - uses: actions/checkout@main
         with:
           fetch-depth: 0
@@ -40,9 +40,9 @@ jobs:
         name: playwright
         run: cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --with-deps
       - name: Compile
-        run: ./mill __.compile
+        run: mill __.compile
       - name: test
-        run: ./mill core.{{matrix.project}}.test
+        run: mill core.{{matrix.project}}.test
 
 
   publish:
