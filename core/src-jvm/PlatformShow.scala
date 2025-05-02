@@ -24,7 +24,7 @@ import upickle.default.Writer
 
 type VizReturn = Unit | os.Path
 
-trait NtPlatformPlot[AnyNamedTuple]:
+private[viz] trait NtPlatformPlot[AnyNamedTuple]:
   extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
     def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn
   end extension
@@ -149,6 +149,7 @@ object Plottable:
 
     extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
       def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
+        println(plotTarget.toString())
         val spec = upickle.default.writeJs(plottable)
         val modifiedSpec = applyMods(spec, List.empty)
         plotTarget.show(modifiedSpec.toString, chartLibrary)

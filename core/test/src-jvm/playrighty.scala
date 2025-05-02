@@ -40,7 +40,7 @@ class PlaywrightTest extends munit.FunSuite:
   private def navigateTo(toCheck: VizReturn, page: Page) =
     toCheck match
       case path: os.Path =>
-        // println(path)
+        println(path)
         val _ = page.navigate(s"file://$path")
       case _ =>
         fail("no path")
@@ -49,6 +49,7 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("can plot pie chart") {
     import viz.vegaFlavour
+    import viz.PlotTargets.tempHtmlFile
     val aSeq = (1 to 5).map(i => (i.toDouble, i.toString()))
     val tmp = aSeq.plotPieChart(
       List(
@@ -68,6 +69,7 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("title") {
     import viz.vegaFlavour
+    import viz.PlotTargets.tempHtmlFile
     val aSeq = (1 to 5).map(i => (i.toDouble, i.toString()))
     val tmp = aSeq.plotBarChart(
       List((spec: ujson.Value) => spec("title") = ujson.Obj("text" -> "my title"))
@@ -110,6 +112,7 @@ class PlaywrightTest extends munit.FunSuite:
     import viz.vegaFlavour
     import viz.Macros.Implicits.given
     import viz.Plottable.ppnt
+    import viz.PlotTargets.tempHtmlFile
 
     val data = (
       `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
