@@ -25,6 +25,7 @@ object JsDocs:
   def fromUjson(spec: ujson.Value, node: Element, width: Int = 50) =
     val spec_ = upickle.default.write(spec)
     showSpec(spec_, node, width)
+  end fromUjson
 
   def showSpec(spec: String, node: Element, width: Int = 50) =
     val child = dom.document.createElement("div")
@@ -37,7 +38,7 @@ object JsDocs:
     val parsed = JSON.parse(spec)
     viz.vega.facades.embed(s"#$anId", parsed, opts)
     ()
-
+  end showSpec
 
   def showPath(path: String, node: Element, width: Int = 50) =
     val child = dom.document.createElement("div")
@@ -45,7 +46,6 @@ object JsDocs:
     child.id = anId
     child.setAttribute("style", s"width:${width}vmin;height:${width}vmin")
     node.appendChild(child)
-
 
     val opts = viz.vega.facades.EmbedOptions()
     val xhr = new XMLHttpRequest()
@@ -55,5 +55,5 @@ object JsDocs:
     val parsed = JSON.parse(text)
     viz.vega.facades.embed(s"#$anId", parsed, opts)
     ()
-
-
+  end showPath
+end JsDocs

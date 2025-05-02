@@ -19,18 +19,30 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    name: Build and Test
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        scala: [3]
+        java: [temurin@17]
+        project: [js, jvm]
+    runs-on: ${{ matrix.os }}
     steps:
+      - name: formatCheck
+        run: ./mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
       - uses: actions/checkout@main
         with:
           fetch-depth: 0
           fetch-tags: true
       - uses: coursier/cache-action@v6.4
+      - if: matrix.project == 'jvm'
+        name: playwright
+        run: cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --with-deps
       - name: Compile
         run: ./mill __.compile
       - name: test
-        run: ./mill __.test
+        run: ./mill core.{{matrix.project}}.test
 
 
   publish:

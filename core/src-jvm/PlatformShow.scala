@@ -48,7 +48,7 @@ object Plottable:
 
   /** This assumes the string is a valid specification for your charting library and plots it on a hail mary
     */
-  given ppString : PlatformPlot[String] = new PlatformPlot[String]:
+  given ppString: PlatformPlot[String] = new PlatformPlot[String]:
     extension (plottable: String)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
 
       override def plot(
@@ -65,10 +65,9 @@ object Plottable:
       end plot
     end extension
 
-
   /** This assumes the path is a file which contains a valid specification for your charting library
     */
-  given ppOsJson: PlatformPlot[os.Path] = new PlatformPlot[os.Path] :
+  given ppOsJson: PlatformPlot[os.Path] = new PlatformPlot[os.Path]:
     extension (plottable: os.Path)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
       def plot(
           mods: Seq[ujson.Value => Unit]
@@ -86,8 +85,6 @@ object Plottable:
       end plot
 
     end extension
-
-
 
   /** This assumes the value is a valid specification for your charting library
     */
@@ -129,7 +126,7 @@ object Plottable:
 
     end extension
 
-  given pprp:PlatformPlot[ResourcePath] = new PlatformPlot[ResourcePath]:
+  given pprp: PlatformPlot[ResourcePath] = new PlatformPlot[ResourcePath]:
     extension (plottable: ResourcePath)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
       def plot(
           mods: Seq[ujson.Value => Unit]
@@ -147,7 +144,6 @@ object Plottable:
       end plot
 
     end extension
-
 
   given ppnt: NtPlatformPlot[AnyNamedTuple] = new NtPlatformPlot[AnyNamedTuple]:
 

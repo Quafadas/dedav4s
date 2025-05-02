@@ -73,9 +73,12 @@ class EmbedOptions(
 @js.native
 @JSImport("##vega-embed", JSImport.Default)
 object embed extends js.Object:
-  def apply(element: HTMLElement | String, spec: js.Dynamic | js.Object | String, options: EmbedOptions): js.Promise[EmbedResult] = js.native
-
-
+  def apply(
+      element: HTMLElement | String,
+      spec: js.Dynamic | js.Object | String,
+      options: EmbedOptions
+  ): js.Promise[EmbedResult] = js.native
+end embed
 
 @js.native
 trait EmbedResult extends js.Object:
