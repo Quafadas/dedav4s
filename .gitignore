@@ -3,7 +3,7 @@
 .bloop
 .bsp
 .metals
-.vscode
+.vscode/settings.json
 project/project
 project/target
 target
