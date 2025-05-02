@@ -51,7 +51,7 @@ jobs:
 
 
   publish:
-    if: github.repository == 'Quafadas/scautable' && contains(github.ref, 'refs/tags/')
+    if: github.repository == 'Quafadas/dedav4s' && contains(github.ref, 'refs/tags/')
     needs: build
     runs-on: ubuntu-latest
     steps:
