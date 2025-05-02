@@ -47,7 +47,7 @@ jobs:
 
   publish:
     if: github.repository == 'Quafadas/scautable' && contains(github.ref, 'refs/tags/')
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
@@ -69,7 +69,7 @@ jobs:
   # Check that we can _generate_ the docs, but don't run upload / pages actions to actually deploy them for pull requests.
   site_pr_check:
     if: github.event_name == 'pull_request'
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-java@v4
@@ -84,7 +84,7 @@ jobs:
 
   site:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-java@v4
