@@ -1,3 +1,7 @@
+---
+title: Laminar
+---
+
 # Laminar
 
 See the `LaminarViz.simpleEmbed` function, to get started. It returns a `div`, which you can put, anywhere you want in your app.
@@ -8,7 +12,7 @@ If div height and width are not well defined, this will usually result in an err
 
 ## Simple strategy
 
-```scala mdoc:js
+```scala mdoc:js sc:nocompile
 import com.raquo.laminar.api.L._
 import org.scalajs.dom
 import viz.LaminarViz
@@ -75,7 +79,7 @@ Inside the apply method we:
 
 
 
-```scala mdoc:js
+```scala mdoc:js sc:nocompile
 import com.raquo.laminar.api.L.*
 
 import org.scalajs.dom

@@ -22,10 +22,10 @@ trait LowPriorityPlotTarget:
   def show(spec: String, library: ChartLibrary): VizReturn
 end LowPriorityPlotTarget
 
-trait PlotTarget extends LowPriorityPlotTarget
+private[viz] trait PlotTarget extends LowPriorityPlotTarget
 //def show(spec: String): Unit
 
-trait UnitTarget extends PlotTarget:
+private[viz] trait UnitTarget extends PlotTarget:
   def show(spec: String, library: ChartLibrary): Unit
 end UnitTarget
 

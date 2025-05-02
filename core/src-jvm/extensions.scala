@@ -25,7 +25,7 @@ import viz.vega.plots.*
 import upickle.default.Writer
 import viz.Plottable.ppSpecUrl
 import NamedTuple.NamedTuple
-import viz.Plottable.given_PlatformPlot_ResourcePath
+import viz.Plottable.pprp
 
 package object extensions:
 

@@ -31,7 +31,7 @@
  */
 
 import viz.PlotTargets.doNothing
-import viz.Plottable.given_PlatformPlot_ResourcePath.plot
+import viz.Plottable.pprp.plot
 import viz.vegaFlavour
 import viz.CustomPlots
 

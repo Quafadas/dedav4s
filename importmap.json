@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "##vega-embed": "https://esm.run/vega-embed",
+    "##vega-view": "https://esm.run/vega-view"
+  }
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ESM Experiment</title>
+  </head>
+  <body>
+    <h1>Welcome to ESM Experimental</h1>
+
+    <p>This is a simple HTML file for the ESM Experiment project.</p>
+    <div id="viz"></div>
+    <script type="module">
+      import embed from "https://esm.run/vega-embed";
+      // import Embed from "https://esm.run/vega-embed";
+
+      var spec =
+        "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json";
+      embed("#viz", spec)
+        .then(function (result) {
+          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+        })
+        .catch(console.error);
+    </script>
+  </body>
+</html>

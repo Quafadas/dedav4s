@@ -20,7 +20,7 @@ import viz.vega.Framework
 import viz.vega.Framework.*
 import org.scalajs.dom.XMLHttpRequest
 
-trait PlatformGetSpec(val url: String, val f: Framework):
+private[viz] trait PlatformGetSpec(val url: String, val f: Framework):
 
   // I am aware this is naughty, but everything else is synchronous...
   lazy val jsonSpec: ujson.Value = f match

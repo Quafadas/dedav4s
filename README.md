@@ -36,8 +36,8 @@ Currently, there are some niggling problems which remain after generation;
 ```json
 {
   "imports": {
-    "##vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6/+esm",
-    "##vega-view": "https://cdn.jsdelivr.net/npm/vega-view@5/+esm"
+    "##vega-embed": "https://esm.run/vega-embed",
+    "##vega-view": "https://esm.run/vega-view"
   }
 }
 ```

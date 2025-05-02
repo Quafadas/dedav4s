@@ -19,7 +19,7 @@ ujson.read("""
               """
 )
 ```
-Such problems are infuriatingly hard to debug. The simple solution, is to trim all strings in advance of feeding them to `ujson`.
+Such problems are infuriatingly hard to debug. One hint is to trim all strings in advance of feeding them to `ujson`.
 
 ```scala mdoc
 ujson.read("""

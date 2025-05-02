@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 quafadas
+ * Copyright 2022 quafadas
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,42 +14,46 @@
  * limitations under the License.
  */
 
-package viz.js
+package viz.doc
 import org.scalajs.dom
-import org.scalajs.dom.html.Div
 import scala.util.Random
 import org.scalajs.dom.Element
+import org.scalajs.dom.XMLHttpRequest
 import scala.scalajs.js.JSON
-import viz.ChartLibrary
+object JsDocs:
 
-/** This is a "show" implementation for JS. Importantly, it forces the div to have a well defined width and height on
-  * mount Otherwise vega chokes. This can be used as a starting pont for however you'd wish to integrate your own chart.
-  *
-  * It ought to get you started quickly.
-  */
-object showChartJs:
-  def apply(spec: ujson.Value, node: Element, width: Int = 50)(using chartLib: ChartLibrary) =
-    assert(chartLib == ChartLibrary.Vega, "Only Vega is supported for now")
+  def fromUjson(spec: ujson.Value, node: Element, width: Int = 50) =
+    val spec_ = upickle.default.write(spec)
+    showSpec(spec_, node, width)
+
+  def showSpec(spec: String, node: Element, width: Int = 50) =
     val child = dom.document.createElement("div")
     val anId = "vega" + Random.alphanumeric.take(8).mkString("")
     child.id = anId
     child.setAttribute("style", s"width:${width}vmin;height:${width}vmin")
     node.appendChild(child)
-    child.asInstanceOf[Div]
+
     val opts = viz.vega.facades.EmbedOptions()
-    val parsed = JSON.parse(spec.toString())
-    viz.vega.facades.embed(s"#${child.id}", parsed, opts)
+    val parsed = JSON.parse(spec)
+    viz.vega.facades.embed(s"#$anId", parsed, opts)
     ()
-  end apply
-end showChartJs
 
-object makePlotTarget:
-  def apply(node: Element, width: Int = 50): Div =
+
+  def showPath(path: String, node: Element, width: Int = 50) =
     val child = dom.document.createElement("div")
     val anId = "vega" + Random.alphanumeric.take(8).mkString("")
     child.id = anId
     child.setAttribute("style", s"width:${width}vmin;height:${width}vmin")
     node.appendChild(child)
-    child.asInstanceOf[Div]
-  end apply
-end makePlotTarget
+
+
+    val opts = viz.vega.facades.EmbedOptions()
+    val xhr = new XMLHttpRequest()
+    xhr.open("GET", s"../assets/$path.json", false)
+    xhr.send()
+    val text = xhr.responseText
+    val parsed = JSON.parse(text)
+    viz.vega.facades.embed(s"#$anId", parsed, opts)
+    ()
+
+

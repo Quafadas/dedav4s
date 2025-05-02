@@ -30,7 +30,7 @@ trait NtPlatformPlot[AnyNamedTuple]:
   end extension
 end NtPlatformPlot
 
-trait PlatformPlot[T]:
+private[viz] trait PlatformPlot[T]:
   extension (plottable: T)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
     def plot: VizReturn
     def plot(mods: Seq[ujson.Value => Unit]): VizReturn
@@ -48,7 +48,7 @@ object Plottable:
 
   /** This assumes the string is a valid specification for your charting library and plots it on a hail mary
     */
-  given PlatformPlot[String] with
+  given ppString : PlatformPlot[String] = new PlatformPlot[String]:
     extension (plottable: String)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
 
       override def plot(
@@ -64,11 +64,11 @@ object Plottable:
 
       end plot
     end extension
-  end given
+
 
   /** This assumes the path is a file which contains a valid specification for your charting library
     */
-  given PlatformPlot[os.Path] with
+  given ppOsJson: PlatformPlot[os.Path] = new PlatformPlot[os.Path] :
     extension (plottable: os.Path)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
       def plot(
           mods: Seq[ujson.Value => Unit]
@@ -86,7 +86,8 @@ object Plottable:
       end plot
 
     end extension
-  end given
+
+
 
   /** This assumes the value is a valid specification for your charting library
     */
@@ -128,7 +129,7 @@ object Plottable:
 
     end extension
 
-  given PlatformPlot[ResourcePath] with
+  given pprp:PlatformPlot[ResourcePath] = new PlatformPlot[ResourcePath]:
     extension (plottable: ResourcePath)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
       def plot(
           mods: Seq[ujson.Value => Unit]
@@ -146,7 +147,7 @@ object Plottable:
       end plot
 
     end extension
-  end given
+
 
   given ppnt: NtPlatformPlot[AnyNamedTuple] = new NtPlatformPlot[AnyNamedTuple]:
 

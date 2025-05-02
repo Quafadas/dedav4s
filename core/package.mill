@@ -36,7 +36,7 @@ object `package` extends RootModule {
   object js extends SharedModule with build.CommonJs with build.PublishModule
 
   object test extends Module {
-    object js extends SharedTest {
+    object js extends SharedTest with build.CommonJs {
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.js)
 
     }

@@ -5,28 +5,28 @@ I have wanted to see my plots in many places. I haven't yet found one, that vega
 ## Desktop Browser
 Will open a new browser window in your desktop based browser, pointing to a temporary file.
 
-<img src="../assets/dedav_intro.gif" width=90% height=90% />
+<img src="dedav_intro.gif" width=90% height=90% />
 
 
-```scala mdoc:invisible
+```scala mdoc:invisible  sc:nocompile
 import viz.PlotTargets.doNothing
 import viz.vegaFlavour
 import viz.extensions.*
 ```
-```scala
+```scala  sc:nocompile
 import viz.PlotTargets.desktopBrowser
 import viz.extensions.*
 ```
-```scala
+```scala  sc:nocompile
 val out = List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 out.toString()
 ```
-```scala mdoc:vegaspec:desktopBrowser
+```scala mdoc:vegaspec:desktopBrowser  sc:nocompile
 val out = List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 out.toString()
 ```
 
-```scala mdoc:js:invisible
+```scala mdoc:js:invisible  sc:nocompile
 viz.doc.showJsDocs("desktopBrowser", node, 0 )
 ```
 ### How desktop browser works
@@ -62,9 +62,9 @@ This should start a server on port 8085. Check by visiting http://localhost:8085
 
 You can then use the `publishToPort` plot target, which will send the spec, to the server listening on that port.
 
-<img src="../assets/websockets2.gif" width=90% height=90% />
+<img src="websockets2.gif" width=90% height=90% />
 
-```scala
+```scala  sc:nocompile
 import viz.PlotTargets.publishToPort
 import viz.extensions.*
 
@@ -79,7 +79,7 @@ I often want to see multiple plots. Navigate to
 
 Now, you'll need to update the desription of the chart, to match the trailing path of the url. e.g.
 
-```scala
+```scala sc:nocompile
 given port: Int = 8085
 List(("A",0),("B",-8),("C",20)).plotBarChart(List(spec => spec("description") = "hi"))
 List(("A",5),("B",8),("C",-1)).plotBarChart(List(spec => spec("description") = "bob"))
@@ -89,14 +89,14 @@ And both browser tabs will now update with their respective plots.
 
 ## [Almond](https://www.almond.sh)
 
-<img src="../assets/almond.gif" width=90% height=90% />
+<img src="almond.gif" width=90% height=90% />
 
 Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.
 
-```scala
+```scala  sc:nocompile
 import viz.PlotTargets.almond
 ```
-```scala
+```scala  sc:nocompile
 viz.vega.plots.BarChart(
    List(
         spec => spec("title") = "Got Viz?",
@@ -124,7 +124,7 @@ ports:
 ```
 48485 is if you do not require a custom port. In your repl, try...
 
-```scala
+```scala  sc:nocompile
 import viz.PlotTargets.gitpod
 import viz.vegaFlavour
 import viz.extensions.RawIterables.*
@@ -136,10 +136,10 @@ List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 The duplicates command is deliberate. The first request will be ignored - it starts the webserver behind the scenes. Unfortunately, I can't find a way to wait for that process to finish, and then send the request - gitpod appears to wait to open up the ports, until the command has finished executing. I am outsmarted...
 
 The second request however... should work...
-<img src="../assets/gitpod_fast.gif" width=90% height=90% />
+<img src="gitpod_fast.gif" width=90% height=90% />
 
 ## Do Nothing
-```scala
+```scala  sc:nocompile
 import viz.PlotTargets.doNothing
 import viz.extensions.RawIterables.*
 
@@ -153,7 +153,7 @@ Importantly, this is default behaviour - important when we reach scala JS.
 
 Formats and prints the final JSON spec to the console.
 
-```scala mdoc:reset
+```scala mdoc:reset  sc:nocompile
 import viz.PlotTargets.printlnTarget
 import viz.vegaFlavour
 import viz.extensions.*
@@ -168,27 +168,27 @@ This library _does not_ magically set vega cli up for you. It _assumes_ that you
 
 Assuming we're plotting
 
-```scala
+```scala sc:nocompile
 (1 to 10).plotBarChart()
 ```
 
 ### PNG
-```scala
+```scala  sc:nocompile
 import viz.PlotTargets.pdf
 ```
-![as png](../assets/plot-10805531892109353827.png)
+![as png](plot-10805531892109353827.png)
 
 ### PDF
-```scala
+```scala  sc:nocompile
 $import viz.PlotTargets.pdf
 ````
 Markdown can't display this... but it works I promise.
 
 ### SVG
-```scala
+```scala  sc:nocompile
 import viz.PlotTargets.svg
 ````
-![as svg](../assets/plot-15502123500232012865.svg)
+![as svg](plot-15502123500232012865.svg)
 
 ### How it works
 For this library, the first class citizen is a browser...

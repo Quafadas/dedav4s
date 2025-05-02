@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package viz.doNothing
+package viz
 
 import viz.LowPriorityPlotTarget
 import viz.ChartLibrary
 
 // Want a way to instantiate this as a default, but out the way of the user
-given doNothing: LowPriorityPlotTarget = new LowPriorityPlotTarget:
+given dontPlot: LowPriorityPlotTarget = new LowPriorityPlotTarget:
   override def show(spec: String, lib: ChartLibrary): Unit = ()

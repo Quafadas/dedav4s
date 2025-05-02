@@ -26,15 +26,15 @@ import os.Path
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
-sealed trait Extension(val ext: String)
+private[viz] sealed trait Extension(val ext: String)
 
-case object Png extends Extension(".png")
-case object Svg extends Extension(".svg")
-case object Pdf extends Extension(".pdf")
-case object Html extends Extension(".html")
-case object Txt extends Extension(".txt")
+private[viz] case object Png extends Extension(".png")
+private[viz] case object Svg extends Extension(".svg")
+private[viz] case object Pdf extends Extension(".pdf")
+private[viz] case object Html extends Extension(".html")
+private[viz] case object Txt extends Extension(".txt")
 
-trait TempFileTarget(val ext: Extension) extends PlotTarget:
+private[viz] trait TempFileTarget(val ext: Extension) extends PlotTarget:
   def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit
 end TempFileTarget
 
