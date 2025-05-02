@@ -31,10 +31,6 @@ object `package` extends RootModule {
         Config.jsoup,
       )
     }
-
-    object test extends SharedTest {
-      override def moduleDeps: Seq[JavaModule] = Seq(jvm)
-    }
   }
 
   object js extends SharedModule with build.CommonJs with build.PublishModule

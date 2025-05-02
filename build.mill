@@ -25,10 +25,6 @@ object Config {
 trait Common extends ScalaModule {
   override def scalaVersion = "3.7.0-RC4"
 
-  override def scalacOptions = Seq(
-    "-Xmax-inlines:2000",
-    "-Wconf:cat=deprecation:s"
-  )
   def ivyDeps = super.ivyDeps() ++ Agg(
     ivy"com.lihaoyi::upickle:4.1.0",
     ivy"com.lihaoyi::scalatags:0.13.1",
@@ -46,6 +42,7 @@ trait CommonJs extends Common with ScalaJSModule {
 }
 
 trait PublishModule extends mill.scalalib.PublishModule {
+  override def artifactName = "dedav4s"
   def publishVersion = "0.9.0-SNAPSHOT"
   def pomSettings = PomSettings(
     description = "Declarative data viz for scala",
