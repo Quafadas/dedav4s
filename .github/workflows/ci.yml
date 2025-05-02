@@ -36,14 +36,18 @@ jobs:
       - name: formatCheck
         run: ./mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
 
-      - uses: coursier/cache-action@v6.4
+      - uses: coursier/setup-action@main
+        with:
+          jvm: ${{ matrix.java }}
+      - uses: coursier/cache-action@main
+
       - if: matrix.project == 'jvm'
         name: playwright
         run: cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --with-deps
       - name: Compile
         run: ./mill __.compile
       - name: test
-        run: ./mill core.{{matrix.project}}.test
+        run: ./mill core.${{matrix.project}}.test
 
 
   publish:
