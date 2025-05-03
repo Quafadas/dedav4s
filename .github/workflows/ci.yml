@@ -66,10 +66,10 @@ jobs:
       - name: Setup GPG secrets
         run: |
           gpg --version
-          cat <(echo "${{ secrets.PUBLISH_SECRET_KEY }}") | base64 --decode | gpg --batch --import
+          cat <(echo "${{ secrets.PGP_SECRET }}") | base64 --decode | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
       - name: Publish to Maven Central
-        run: ./mill -i mill.scalalib.PublishModule/publishAll --sonatypeUri https://s01.oss.sonatype.org/service/local --sonatypeCreds "${{ secrets.PUBLISH_USER }}:${{ secrets.PUBLISH_PASSWORD }}" --gpgArgs "--passphrase=${{ secrets.PUBLISH_SECRET_KEY_PASSWORD}},--batch,--yes,-a,-b,--pinentry-mode,loopback" --readTimeout 1200000 --awaitTimeout 1200000 --release true --signed true
+        run: ./mill -i mill.scalalib.PublishModule/publishAll --sonatypeUri https://s01.oss.sonatype.org/service/local --sonatypeCreds "${{ secrets.SONATYPE_USERNAME }}:${{ secrets.SONATYPE_PASSWORD }}" --gpgArgs "--passphrase=${{ secrets.PUBLISH_SECRET_KEY_PASSWORD}},--batch,--yes,-a,-b,--pinentry-mode,loopback" --readTimeout 1200000 --awaitTimeout 1200000 --release true --signed true
 
   # Check that we can _generate_ the docs, but don't run upload / pages actions to actually deploy them for pull requests.
   site_pr_check:
