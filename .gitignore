@@ -3,7 +3,7 @@
 .bloop
 .bsp
 .metals
-.vscode
+.vscode/settings.json
 project/project
 project/target
 target
@@ -11,5 +11,4 @@ target
 project/metals.sbt
 .ipynb_checkpoints
 out
-docs/
 node_modules

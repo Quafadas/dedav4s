@@ -1,0 +1,15 @@
+package build.calico
+
+import mill._
+import mill.scalalib._
+import mill.scalajslib._
+import mill.scalajslib.api._
+
+object `package` extends RootModule with build.CommonJs with build.PublishModule {
+  def moduleDeps = Seq(build.core.js)
+  def artifactName = super.artifactName() + "_calico"
+  override def ivyDeps = super.ivyDeps() ++
+    Agg(
+      ivy"com.armanbilge::calico::0.2.3"
+    )
+}

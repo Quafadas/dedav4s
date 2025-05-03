@@ -21,8 +21,8 @@ This library works well enough for my needs, and I've been using it for a couple
 ```json
 {
   "imports": {
-    "##vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6/+esm",
-    "##vega-view": "https://cdn.jsdelivr.net/npm/vega-view@5/+esm"
+    "##vega-embed": "https://esm.run/vega-embed",
+    "##vega-view": "https://esm.run/vega-view"
   }
 }
 ```
