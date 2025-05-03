@@ -43,7 +43,7 @@ jobs:
 
       - if: matrix.project == 'jvm'
         name: playwright
-        run: cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install chromium --only-shell
+        run: cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --only-shell
       - name: Compile
         run: ./mill __.compile
       - name: test
