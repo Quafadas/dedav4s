@@ -1,6 +1,6 @@
 # Plot Targets
 
-I have wanted to see my plots in many places. I haven't yet found one, that vega won't do.
+The below sections set out the environments that dedav4s will work with.
 
 ## Desktop Browser
 Will open a new browser window in your desktop based browser, pointing to a temporary file.

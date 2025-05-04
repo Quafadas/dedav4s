@@ -4,8 +4,7 @@ title: Getting Started
 
 ## Getting Started
 
-Fire up scala-cli (needs scala > 3.7.0)
-
+Fire up scala-cli (needs scala > 3.7.0)...
 ```shell
 scala-cli --dependency io.github.quafadas::dedav4s:{{projectVersion}} --scala 3.7.0
 ```
@@ -52,14 +51,8 @@ viz.doc.JsDocs.showSpec( chartSpec , node, 50)
 ```
 It gets mounted as a child of `node`, which is provided to us by the excellent mdocJS.
 
-Excitingly, the chart we plotted out repl (JVM) and the chart displayed here, share the same definition! That promise - explore in the JVM and publish in scala JS is attractive for me. Further, with playwright we can **make charting unit testable**. We'll come back to that later.
-<script>
-    const sse = new EventSource("/refresh/v1/sse");
-    sse.addEventListener("message", (e) => {
-    const msg = JSON.parse(e.data);
+Excitingly, the chart we plotted out repl (JVM) and the chart displayed here, share the same definition!
 
-    if ("KeepAlive" in msg) console.log("KeepAlive");
+That promise - explore in the JVM and publish in scala JS is attractive for me. Further, with playwright we can **make charting unit testable** - We'll come back to that later.
 
-    if ("PageRefresh" in msg) location.reload();
-    });
-</script>
+<script src="../js/refresh.js"></script>

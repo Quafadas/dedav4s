@@ -1,6 +1,10 @@
+---
+extraJs: js/refresh.js
+---
+
 # Dedav4s
 
-Declarative data visualization for scala - a scala plotting concept.
+Declarative data visualization for scala - a scala plotting concept
 
 ## Elevator Pitch
 <img src="dedav_intro.gif" width=90% height=90% />
@@ -31,15 +35,6 @@ On the JVM it currently contains targets for:
 3. websockets
 5. Svg, pdf and png files
 
-It further aims to help plotting in scala JS, so that the same charts are easily re-useable in both environments. See [getting started](./gettingStarted.mdoc.html) for more information.
+It further aims to help plotting in scala JS, so that the same charts are easily re-useable in both environments. See [getting started](./GettingStarted/index.mdoc.md) for more information...
 
-<script>
-    const sse = new EventSource("/refresh/v1/sse");
-    sse.addEventListener("message", (e) => {
-    const msg = JSON.parse(e.data);
-
-    if ("KeepAlive" in msg) console.log("KeepAlive");
-
-    if ("PageRefresh" in msg) location.reload();
-    });
-</script>
+<script src="../js/refresh.js"></script>
