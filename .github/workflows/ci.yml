@@ -63,13 +63,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Setup GPG secrets
-        run: |
-          gpg --version
-          cat <(echo "${{ secrets.PGP_SECRET }}") | base64 --decode | gpg --batch --import
-          gpg --list-secret-keys --keyid-format LONG
       - name: Publish to Maven Central
-        run: ./mill -i mill.scalalib.PublishModule/publishAll --sonatypeUri https://s01.oss.sonatype.org/service/local --sonatypeCreds "${{ secrets.SONATYPE_USERNAME }}:${{ secrets.SONATYPE_PASSWORD }}" --gpgArgs "--passphrase=${{ secrets.PGP_PASSPHRASE}},--batch,--yes,-a,-b,--pinentry-mode,loopback" --readTimeout 1200000 --awaitTimeout 1200000 --release true --signed true
+        run: ./millw -i mill.scalalib.PublishModule/publishAll --sonatypeUri https://s01.oss.sonatype.org/service/local
+        env:
+          MILL_PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          MILL_PGP_SECRET_BASE64: ${{ secrets.PGP_SECRET }}
+          MILL_SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          MILL_SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
 
   # Check that we can _generate_ the docs, but don't run upload / pages actions to actually deploy them for pull requests.
   site_pr_check:
