@@ -64,7 +64,7 @@ jobs:
           distribution: 'temurin'
           java-version: 17
       - name: Publish to Maven Central
-        run: ./millw -i mill.scalalib.PublishModule/publishAll --sonatypeUri https://s01.oss.sonatype.org/service/local
+        run: ./mill -i mill.scalalib.PublishModule/publishAll --sonatypeUri https://s01.oss.sonatype.org/service/local
         env:
           MILL_PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           MILL_PGP_SECRET_BASE64: ${{ secrets.PGP_SECRET }}
