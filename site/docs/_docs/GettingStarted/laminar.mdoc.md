@@ -20,12 +20,14 @@ import viz.js.extensions.*
 
 val appContainer = dom.document.querySelector(s"#${node.id}")
 node.setAttribute("style", s"width:50vmin;height:50vmin")
-renderOnDomContentLoaded(appContainer, chartExample())
+if dom.document.readyState == "loading" then
+  renderOnDomContentLoaded(node, chartExample())
+else
+  render(node, chartExample())
 
 object chartExample:
-  val data = Var(List(2.4, 3.4, 5.1, -2.3))
-
   def apply(): Div =
+    val data = Var(List(2.4, 3.4, 5.1, -2.3))
     div(
       p("We want to make it as easy as possible, to build a chart and get our data into it."),
       span("Here's a random data set: "),
@@ -93,8 +95,12 @@ import scala.util.Random
 import viz.*
 
 val appContainer = dom.document.querySelector(s"#${node.id}")
-node.setAttribute("style", s"width:50vmin;height:50vmin")
-renderOnDomContentLoaded(appContainer, chartExample())
+node.setAttribute("style", s"width:50vmin;height:65vmin")
+if dom.document.readyState == "loading" then
+  renderOnDomContentLoaded(node, chartExample())
+else
+  render(node, chartExample())
+
 
 def textIfObject(in: js.UndefOr[js.Dynamic]): String =
   if in == js.undefined then "undefined"
@@ -164,7 +170,7 @@ object chartExample:
       chartDiv,
       p("You last clicked on : ", child.text <-- chartDataClickedBus.map(textIfObject)),
       p("You last hovered on : ", child.text <-- aSignalBus.map(textIfObject)),
-      p(),p("")
+      p("\n")
     )
   end apply
 end chartExample

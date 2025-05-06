@@ -8,7 +8,7 @@ import mill.scalajslib.api._
 
 import io.github.quafadas.millSite._
 
-import $ivy.`io.github.quafadas:millSite_mill0.12_2.13:0.0.40-DIRTYbb0fb1ce`
+import $ivy.`io.github.quafadas:millSite_mill0.12_2.13:0.0.41`
 
 import $packages._
 
