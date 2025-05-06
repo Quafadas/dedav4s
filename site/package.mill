@@ -1,0 +1,50 @@
+package build.site
+
+import mill._
+import mill.scalalib._
+import mill.scalajslib._
+import mill.scalajslib.api._
+import io.github.quafadas.millSite.SiteModule
+
+object `package` extends RootModule with SiteModule {
+
+  def scalaVersion = build.core.jvm.scalaVersion
+  override val jsSiteModule = build.jsSite
+  override def pathToImportMap = Some(PathRef(T.workspace / "importmap.json"))
+  override def ivyDeps = super.ivyDeps() ++
+    Agg(
+      ivy"org.scalameta::mdoc:${scalaMdocVersion()}"
+    )
+  override def moduleDeps = Seq(build.core.jvm)
+}
+
+
+/*
+
+<script>
+    const sse = new EventSource("/refresh/v1/sse");
+    sse.addEventListener("message", (e) => {
+    const msg = JSON.parse(e.data);
+
+    if ("KeepAlive" in msg) console.log("KeepAlive");
+
+    if ("PageRefresh" in msg) location.reload();
+    });
+</script>
+
+ */
+
+//   def  liveServer = T{
+//     val sitePath  = live()
+//     os.proc(
+//         "cs",
+//         "launch",
+//         "io.github.quafadas::sjsls:0.2.5",
+//         "--",
+//         "--path-to-index-html", (sitePath).toString(),
+//         "--build-tool", "none",
+//         "--browse-on-open-at", "/docs/index.html",
+//         "--port", "8081"
+//       ).call()
+//   }
+// }

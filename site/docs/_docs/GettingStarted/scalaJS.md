@@ -19,7 +19,6 @@ Ammonite / mill
 import $ivy.`io.github.quafadas::dedav_laminar:@VERSION@`
 ```
 
-
 ### MDoc
 Is how this documentation works. It is recommended to include the vega libs in the page headers, rather than introduce a (complex) bundling solution. The source of this library could provide inspiration :-).
 

@@ -5,5 +5,8 @@ sse.addEventListener("message", (e) => {
 
   if ("KeepAlive" in msg) console.log("KeepAlive");
 
-  if ("PageRefresh" in msg) location.reload();
+  if ("PageRefresh" in msg) {
+    console.log("Page is refreshing...");
+    location.reload();
+  }
 });

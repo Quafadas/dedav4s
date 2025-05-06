@@ -1,7 +1,5 @@
 package build
 
-import $ivy.`io.github.quafadas:millSite_mill0.12_2.13:0.0.38`
-
 import mill._
 import mill.scalalib._
 import mill.scalalib.publish._
@@ -10,8 +8,9 @@ import mill.scalajslib.api._
 
 import io.github.quafadas.millSite._
 
-import $packages._
+import $ivy.`io.github.quafadas:millSite_mill0.12_2.13:0.0.41`
 
+import $packages._
 
 object Config {
 
@@ -60,91 +59,3 @@ trait PublishModule extends mill.scalalib.PublishModule {
     )
   )
 }
-
-object jsSite extends SiteJSModule {
-
-  override def moduleDeps = Seq(build.core.js, build.laminar, build.calico)
-  override def scalaVersion = build.core.js.scalaVersion
-  override def scalaJSVersion = build.core.js.scalaJSVersion
-
-  override def moduleKind = ModuleKind.ESModule
-
-  def ivyDeps = super.ivyDeps() ++ build.core.js.ivyDeps() ++ build.laminar.ivyDeps() ++ build.calico.ivyDeps()
-
-
-  object test extends ScalaJSTests with build.core.SharedTest {
-    def moduleKind = ModuleKind.CommonJSModule
-  }
-}
-
-object site extends SiteModule {
-
-  override val jsSiteModule = jsSite
-
-  def scalaVersion = build.core.jvm.scalaVersion
-
-  override def pathToImportMap = Some(PathRef(T.workspace / "importmap.json"))
-
-  override def ivyDeps = super.ivyDeps() ++
-    Agg(
-      ivy"org.scalameta::mdoc:${scalaMdocVersion()}"
-    )
-
-  override def moduleDeps = Seq(build.core.jvm)
-
-
-/*
-
-<script>
-    const sse = new EventSource("/refresh/v1/sse");
-    sse.addEventListener("message", (e) => {
-    const msg = JSON.parse(e.data);
-
-    if ("KeepAlive" in msg) console.log("KeepAlive");
-
-    if ("PageRefresh" in msg) location.reload();
-    });
-</script>
-
- */
-
-  def  liveServer = T{
-    val sitePath  = live()
-    os.proc(
-        "cs",
-        "launch",
-        "io.github.quafadas::sjsls:0.2.5",
-        "--",
-        "--path-to-index-html", (sitePath).toString(),
-        "--build-tool", "none",
-        "--browse-on-open-at", "/docs/index.html",
-        "--port", "8081"
-      ).call()
-  }
-}
-
-
-//
-
-// object jsdocs extends Common with ScalaJSModule {
-//   def moduleDeps = Seq(dedav_calico, dedav_laminar, core_js)
-
-//   def ivyDeps = Agg(
-//     ivy"org.scala-js::scalajs-dom:2.8.0",
-//     ivy"org.scala-js::scalajs-java-securerandom:1.0.0",
-//     ivy"io.github.cquiroz::scala-java-time:2.5.0"
-//   )
-
-//   def scalaJSVersion = "1.13.2"
-
-//   def mainClass = Some("viz.jsdocs.Main")
-// }
-
-// // Simple docs module, more advanced mdoc configuration can be added later
-// object docs extends Common {
-//   def moduleDeps = Seq(core_jvm)
-
-//   def ivyDeps = Agg(
-//     ivy"org.scalanlp::breeze:2.1.0"
-//   )
-// }
