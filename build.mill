@@ -1,15 +1,15 @@
 package build
 
+
+import $ivy.`io.github.quafadas:millSite_mill0.12_2.13:0.0.41`
+import $ivy.`de.tototec::de.tobiasroeser.mill.vcs.version::0.4.0`
+
 import mill._
 import mill.scalalib._
 import mill.scalalib.publish._
 import mill.scalajslib._
 import mill.scalajslib.api._
-
 import io.github.quafadas.millSite._
-
-import $ivy.`io.github.quafadas:millSite_mill0.12_2.13:0.0.41`
-
 import $packages._
 
 object Config {
@@ -47,7 +47,7 @@ trait CommonJs extends Common with ScalaJSModule {
 
 trait PublishModule extends mill.scalalib.PublishModule {
   override def artifactName = "dedav4s"
-  def publishVersion = "0.9.0-SNAPSHOT"
+  def publishVersion = VcsVersion.vcsState().format()
   def pomSettings = PomSettings(
     description = "Declarative data viz for scala",
     organization = "io.github.quafadas",
