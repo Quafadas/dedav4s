@@ -1,6 +1,5 @@
 package build
 
-
 import $ivy.`io.github.quafadas:millSite_mill0.12_2.13:0.0.41`
 import $ivy.`de.tototec::de.tobiasroeser.mill.vcs.version::0.4.0`
 
@@ -10,6 +9,8 @@ import mill.scalalib.publish._
 import mill.scalajslib._
 import mill.scalajslib.api._
 import io.github.quafadas.millSite._
+import de.tobiasroeser.mill.vcs.version._
+
 import $packages._
 
 object Config {
@@ -20,14 +21,14 @@ object Config {
   val jsoup =ivy"org.jsoup:jsoup:1.18.3"
   val upickle = ivy"com.lihaoyi::upickle::4.1.0"
 
-  val jsDom = ivy"org.scala-js::scalajs-dom:2.8.0"
+  val jsDom = ivy"org.scala-js::scalajs-dom::2.8.0"
   val secRand = ivy"org.scala-js::scalajs-java-securerandom:1.0.0"
   val playwright = "1.51.0"
 }
 
 
 trait Common extends ScalaModule {
-  override def scalaVersion = "3.7.0-RC4"
+  override def scalaVersion = "3.7.0"
 
   def ivyDeps = super.ivyDeps() ++ Agg(
     Config.upickle,
