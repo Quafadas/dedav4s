@@ -13,7 +13,7 @@ Then,
 ```scala sc:nocompile
 import viz.PlotTargets.desktopBrowser
 import viz.vegaFlavour
-import viz.Plottable.ppSpecUrl
+import viz.Plottable.*
 
 viz.vega.plots.SpecUrl.BarChart.plot
 ```

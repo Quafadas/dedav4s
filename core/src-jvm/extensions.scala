@@ -23,9 +23,8 @@ import ujson.Value
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*
 import upickle.default.Writer
-import viz.Plottable.ppSpecUrl
+import viz.Plottable.*
 import NamedTuple.NamedTuple
-import viz.Plottable.pprp
 
 package object extensions:
 

@@ -48,113 +48,112 @@ object Plottable:
 
   /** This assumes the string is a valid specification for your charting library and plots it on a hail mary
     */
-  given ppString: PlatformPlot[String] = new PlatformPlot[String]:
-    extension (plottable: String)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+  // given ppString: PlatformPlot[String] = new PlatformPlot[String]:
+  extension (plottable: String)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plot(
+        mods: Seq[ujson.Value => Unit]
+    ): VizReturn =
+      val spec = ujson.read(plottable)
+      val modifiedSpec = applyMods(spec, mods)
+      plotTarget.show(modifiedSpec.toString, chartLibrary)
+    end plot
 
-      override def plot(
-          mods: Seq[ujson.Value => Unit]
-      ): VizReturn =
-        val spec = ujson.read(plottable)
-        val modifiedSpec = applyMods(spec, mods)
-        plotTarget.show(modifiedSpec.toString, chartLibrary)
-      end plot
+    def plot: VizReturn =
+      plotTarget.show(plottable, chartLibrary)
 
-      def plot: VizReturn =
-        plotTarget.show(plottable, chartLibrary)
-
-      end plot
-    end extension
+    end plot
+  end extension
 
   /** This assumes the path is a file which contains a valid specification for your charting library
     */
-  given ppOsJson: PlatformPlot[os.Path] = new PlatformPlot[os.Path]:
-    extension (plottable: os.Path)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
-      def plot(
-          mods: Seq[ujson.Value => Unit]
-      ): VizReturn =
-        val spec = os.read(plottable)
-        val modifiedSpec = applyMods(ujson.read(spec), mods)
-        plotTarget.show(modifiedSpec.toString, chartLibrary)
+  // given ppOsJson: PlatformPlot[os.Path] = new PlatformPlot[os.Path]:
+  extension (plottable: os.Path)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plot(
+        mods: Seq[ujson.Value => Unit]
+    ): VizReturn =
+      val spec = os.read(plottable)
+      val modifiedSpec = applyMods(ujson.read(spec), mods)
+      plotTarget.show(modifiedSpec.toString, chartLibrary)
 
-      end plot
+    end plot
 
-      def plot: VizReturn =
-        val spec = os.read(plottable)
-        plotTarget.show(spec, chartLibrary)
+    def plot: VizReturn =
+      val spec = os.read(plottable)
+      plotTarget.show(spec, chartLibrary)
 
-      end plot
+    end plot
 
-    end extension
-
-  /** This assumes the value is a valid specification for your charting library
-    */
-  given ppujson: PlatformPlot[ujson.Value] = new PlatformPlot[ujson.Value]:
-    extension (plottable: ujson.Value)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
-      def plot(
-          mods: Seq[ujson.Value => Unit]
-      ): VizReturn =
-        val modifiedSpec = applyMods(plottable, mods)
-        plotTarget.show(modifiedSpec.toString, chartLibrary)
-
-      end plot
-
-      def plot: VizReturn =
-        plotTarget.show(plottable.toString, chartLibrary)
-
-      end plot
-
-    end extension
+  end extension
 
   /** This assumes the value is a valid specification for your charting library
     */
-  given ppSpecUrl: PlatformPlot[SpecUrl] = new PlatformPlot[SpecUrl]:
-    extension (plottable: SpecUrl)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
-      def plot(
-          mods: Seq[ujson.Value => Unit]
-      ): VizReturn =
-        val spec = plottable.jsonSpec
-        val modifiedSpec = applyMods(spec, mods)
-        plotTarget.show(modifiedSpec.toString, chartLibrary)
+  // given ppujson: PlatformPlot[ujson.Value] = new PlatformPlot[ujson.Value]:
+  extension (plottable: ujson.Value)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plot(
+        mods: Seq[ujson.Value => Unit]
+    ): VizReturn =
+      val modifiedSpec = applyMods(plottable, mods)
+      plotTarget.show(modifiedSpec.toString, chartLibrary)
 
-      end plot
+    end plot
 
-      def plot: VizReturn =
-        val spec = plottable.jsonSpec
-        plotTarget.show(spec.toString(), chartLibrary)
+    def plot: VizReturn =
+      plotTarget.show(plottable.toString, chartLibrary)
 
-      end plot
+    end plot
 
-    end extension
+  end extension
 
-  given pprp: PlatformPlot[ResourcePath] = new PlatformPlot[ResourcePath]:
-    extension (plottable: ResourcePath)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
-      def plot(
-          mods: Seq[ujson.Value => Unit]
-      ): VizReturn =
-        val spec = os.read(plottable)
-        val modifiedSpec = applyMods(ujson.read(spec), mods)
-        plotTarget.show(modifiedSpec.toString, chartLibrary)
+  /** This assumes the value is a valid specification for your charting library
+    */
+  // given ppSpecUrl: PlatformPlot[SpecUrl] = new PlatformPlot[SpecUrl]:
+  extension (plottable: SpecUrl)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plot(
+        mods: Seq[ujson.Value => Unit]
+    ): VizReturn =
+      val spec = plottable.jsonSpec
+      val modifiedSpec = applyMods(spec, mods)
+      plotTarget.show(modifiedSpec.toString, chartLibrary)
 
-      end plot
+    end plot
 
-      def plot: VizReturn =
-        val spec = os.read(plottable)
-        plotTarget.show(spec, chartLibrary)
+    def plot: VizReturn =
+      val spec = plottable.jsonSpec
+      plotTarget.show(spec.toString(), chartLibrary)
 
-      end plot
+    end plot
 
-    end extension
+  end extension
 
-  given ppnt: NtPlatformPlot[AnyNamedTuple] = new NtPlatformPlot[AnyNamedTuple]:
+  // given pprp: PlatformPlot[ResourcePath] = new PlatformPlot[ResourcePath]:
+  extension (plottable: ResourcePath)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plot(
+        mods: Seq[ujson.Value => Unit]
+    ): VizReturn =
+      val spec = os.read(plottable)
+      val modifiedSpec = applyMods(ujson.read(spec), mods)
+      plotTarget.show(modifiedSpec.toString, chartLibrary)
 
-    extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
-      def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
-        println(plotTarget.toString())
-        val spec = upickle.default.writeJs(plottable)
-        val modifiedSpec = applyMods(spec, List.empty)
-        plotTarget.show(modifiedSpec.toString, chartLibrary)
+    end plot
 
-      end plot
-    end extension
+    def plot: VizReturn =
+      val spec = os.read(plottable)
+      plotTarget.show(spec, chartLibrary)
+
+    end plot
+
+  end extension
+
+  // given ppnt: NtPlatformPlot[AnyNamedTuple] = new NtPlatformPlot[AnyNamedTuple]:
+
+  extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
+    def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
+      println(plotTarget.toString())
+      val spec = upickle.default.writeJs(plottable)
+      val modifiedSpec = applyMods(spec, List.empty)
+      plotTarget.show(modifiedSpec.toString, chartLibrary)
+
+    end plot
+  end extension
 
 end Plottable

@@ -12,7 +12,7 @@ Assuming you have a chart, produced with one of the desktop targets (browser, te
 
 ```scala mdoc
 import viz.PlotTargets.tempFileSpec
-import viz.Plottable.ppSpecUrl
+import viz.Plottable.*
 import viz.vegaFlavour
 val chart = viz.vega.plots.SpecUrl.BarChart.plot
 chart match
