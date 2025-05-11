@@ -31,7 +31,7 @@
  */
 
 import viz.PlotTargets.doNothing
-import viz.Plottable.pprp.plot
+import viz.Plottable.*
 import viz.vegaFlavour
 import viz.CustomPlots
 

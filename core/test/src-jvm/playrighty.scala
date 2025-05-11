@@ -21,6 +21,7 @@ import viz.extensions.*
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import viz.PlotTargets.tempHtmlFile
+import viz.Plottable.*
 import scala.compiletime.uninitialized
 
 class PlaywrightTest extends munit.FunSuite:
@@ -84,8 +85,6 @@ class PlaywrightTest extends munit.FunSuite:
     // import viz.PlotTargets.desktopBrowser
     import viz.PlotTargets.doNothing
     import viz.NamedTupleReadWriter.given
-    // import viz.Macros.Implicits.given_Writer_T
-    import viz.Plottable.ppnt
 
     val spec = (
       title = (
@@ -111,7 +110,6 @@ class PlaywrightTest extends munit.FunSuite:
   test("that we can plot a named tuple") {
     import viz.vegaFlavour
     import viz.Macros.Implicits.given
-    import viz.Plottable.ppnt
     import viz.PlotTargets.tempHtmlFile
 
     val data = (

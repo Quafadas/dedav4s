@@ -20,7 +20,7 @@ class CheckUtils extends munit.FunSuite:
 
   import viz.PlotTargets.tempHtmlFile
   import viz.vegaFlavour
-  import viz.Plottable.ppujson
+  import viz.Plottable.*
 
   test("spec with existing height signal, gets overriten") {
     val specStart = ujson.read("""{"$schema": "https://vega.github.io/schema/vega/v5.json",
