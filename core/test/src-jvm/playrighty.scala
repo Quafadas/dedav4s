@@ -126,7 +126,7 @@ class PlaywrightTest extends munit.FunSuite:
     assertThat(page.locator("svg.marks")).isVisible()
   }
 
-  test("that we can use the viz server".only) {
+  test("that we can use the viz server") {
     import viz.vegaFlavour
     import viz.PlotTargets.websocket
     given port: Int = 8085
