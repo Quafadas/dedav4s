@@ -148,7 +148,7 @@ object Plottable:
 
   extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
     def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
-      println(plotTarget.toString())
+      // println(plotTarget.toString())
       val spec = upickle.default.writeJs(plottable)
       val modifiedSpec = applyMods(spec, List.empty)
       plotTarget.show(modifiedSpec.toString, chartLibrary)

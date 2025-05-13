@@ -21,6 +21,8 @@ import io.undertow.websockets.core.{AbstractReceiveListener, BufferedTextMessage
 import io.undertow.websockets.spi.WebSocketHttpExchange
 import scalatags.Text.all.*
 import java.awt.Desktop
+import org.jsoup.Connection.Request
+import io.undertow.Undertow
 
 implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
@@ -28,7 +30,11 @@ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionC
 def serve(portIn: Int = 8085): Unit =
   val s = new WebsocketVizServer(portIn) {}
   // Start the server
-  s.main(Array())
+  val server = Undertow.builder
+      .addHttpListener(port, "localhost")
+      .setHandler(s.defaultHandler)
+      .build
+  server.start()
 
   // Keep the JVM alive until the server is stopped
   while true do
@@ -41,7 +47,7 @@ def serve(portIn: Int = 8085): Unit =
   end while
 end serve
 
-object WebsocketVizServer extends WebsocketVizServer(8085)
+lazy object WebsocketVizServer extends WebsocketVizServer(8085)
 
 trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   var firstTime: Boolean = true
@@ -59,6 +65,7 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
       )
 
   private val headImports = head(
+    meta(charset := "utf-8", name := "viewport", content := "width=device-width, initial-scale=1"),
     script(src := "https://cdn.jsdelivr.net/npm/vega@5"),
     script(src := "https://cdn.jsdelivr.net/npm/vega-lite@5"),
     script(src := "https://cdn.jsdelivr.net/npm/vega-embed@5"),
@@ -70,6 +77,7 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   @cask.get("/view/:description")
   def filerViz(description: String) =
     html(
+      lang := "en",
       headImports,
       body(
         // h1("viz"),
@@ -110,6 +118,7 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   @cask.get("/echart/:title")
   def echart(title: String) =
     html(
+      lang := "en",
       headImports,
       body(
         // h1("viz"),
@@ -144,8 +153,9 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
     )
 
   @cask.get("/")
-  def home() =
+  def home() =    
     html(
+      lang := "en",
       headImports,
       body(
         // h1("viz"),
@@ -214,5 +224,6 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
       end onConnect
   end setup
 
-  initialize()
+  initialize()    
+
 end WebsocketVizServer

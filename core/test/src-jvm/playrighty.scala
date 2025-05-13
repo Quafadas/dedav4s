@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package viz
 // import viz.PlotTargets.websocket // for local testing
 
 import viz.extensions.*
@@ -23,6 +21,14 @@ import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import viz.PlotTargets.tempHtmlFile
 import viz.Plottable.*
 import scala.compiletime.uninitialized
+import viz.Macros.Implicits.given
+import scala.concurrent.Future
+import viz.*
+import io.undertow.Undertow
+import java.net.HttpURLConnection
+import java.net.URL
+import com.microsoft.playwright.options.WaitUntilState
+// import scala.concurrent.ExecutionContext.Implicits.global
 
 class PlaywrightTest extends munit.FunSuite:
 
@@ -41,7 +47,7 @@ class PlaywrightTest extends munit.FunSuite:
   private def navigateTo(toCheck: VizReturn, page: Page) =
     toCheck match
       case path: os.Path =>
-        println(path)
+        // println(path)
         val _ = page.navigate(s"file://$path")
       case _ =>
         fail("no path")
@@ -109,12 +115,81 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("that we can plot a named tuple") {
     import viz.vegaFlavour
-    import viz.Macros.Implicits.given
-    import viz.PlotTargets.tempHtmlFile
+    
+    import viz.PlotTargets.tempHtmlFile    
 
-    val data = (
+    navigateTo(
+      barPlot.plot(),
+      page
+    )
+    val _ = page.waitForSelector("div#vis")
+    assertThat(page.locator("svg.marks")).isVisible()
+
+    page.close()
+
+  }
+
+  test("that we can use the viz server") {
+    import viz.vegaFlavour
+    import viz.PlotTargets.websocket
+    given port : Int = 8085
+    
+    
+    val s: viz.websockets.WebsocketVizServer = new viz.websockets.WebsocketVizServer(port) {}
+    val server = Undertow.builder
+      .addHttpListener(port, "localhost")
+      .setHandler(s.defaultHandler)
+      .build
+    server.start()
+
+    // Future(s.main(Array.empty[String]))
+    
+
+    // if (!undertow) {
+    //   Thread.sleep(1000)
+    // }
+
+    // def isServerReady(host: String, port: Int): Boolean =
+    //   try
+    //     val url = new URL(s"http://$host:$port")
+    //     val connection = url.openConnection().asInstanceOf[HttpURLConnection]
+    //     connection.setRequestMethod("HEAD")
+    //     connection.setConnectTimeout(2000) // 2 seconds timeout
+    //     connection.connect()
+    //     connection.getResponseCode == 200 // Check if the server responds with HTTP 200
+    //   catch
+    //     case _: Exception => false // If any exception occurs, the server is not ready
+    // end isServerReady
+    
+    // while !(isServerReady("localhost", port)) do
+    //   println("Waiting for server to start...")
+    //   Thread.sleep(1000) // Wait for 1 second before checking again
+    // end while
+
+     // Give the server some time to start
+    val url = s"http://localhost:$port/view/${barPlot.description}"
+    println(url)
+   
+    println(requests.get(url).text() )
+    
+
+    barPlot.plot()        
+    
+
+    Thread.sleep(5000)
+    
+    assertThat(page.locator("svg.marks")).isVisible()
+    page.close()
+
+    println("plotted")
+    Thread.sleep(10000)
+
+  }
+  
+
+  val barPlot = (
       `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
-      description = "A simple bar chart with embedded data.",
+      description = "BarChart",
       data = (
         values = Seq(
           (a = "A", b = 28),
@@ -135,16 +210,8 @@ class PlaywrightTest extends munit.FunSuite:
       )
     )
 
-    navigateTo(
-      data.plot(),
-      page
-    )
-    val _ = page.waitForSelector("div#vis")
-    assertThat(page.locator("svg.marks")).isVisible()
 
-    page.close()
-
-  }
+  
 
   override def afterAll(): Unit =
     browser.close()
