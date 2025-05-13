@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package viz
 // import viz.PlotTargets.websocket // for local testing
 
 import viz.extensions.*
@@ -23,6 +21,14 @@ import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import viz.PlotTargets.tempHtmlFile
 import viz.Plottable.*
 import scala.compiletime.uninitialized
+import viz.Macros.Implicits.given
+import scala.concurrent.Future
+import viz.*
+import io.undertow.Undertow
+import java.net.HttpURLConnection
+import java.net.URL
+import com.microsoft.playwright.options.WaitUntilState
+// import scala.concurrent.ExecutionContext.Implicits.global
 
 class PlaywrightTest extends munit.FunSuite:
 
@@ -41,7 +47,7 @@ class PlaywrightTest extends munit.FunSuite:
   private def navigateTo(toCheck: VizReturn, page: Page) =
     toCheck match
       case path: os.Path =>
-        println(path)
+        // println(path)
         val _ = page.navigate(s"file://$path")
       case _ =>
         fail("no path")
@@ -109,44 +115,64 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("that we can plot a named tuple") {
     import viz.vegaFlavour
-    import viz.Macros.Implicits.given
+
     import viz.PlotTargets.tempHtmlFile
 
-    val data = (
-      `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
-      description = "A simple bar chart with embedded data.",
-      data = (
-        values = Seq(
-          (a = "A", b = 28),
-          (a = "B", b = 55),
-          (a = "C", b = 43),
-          (a = "D", b = 91),
-          (a = "E", b = 81),
-          (a = "F", b = 53),
-          (a = "G", b = 19),
-          (a = "H", b = 87),
-          (a = "I", b = 52)
-        )
-      ),
-      mark = "bar",
-      encoding = (
-        x = (field = "a", `type` = "nominal", axis = (labelAngle = 0)),
-        y = (field = "b", `type` = "quantitative")
-      )
-    )
-
     navigateTo(
-      data.plot(),
+      barPlot.plot(),
       page
     )
     val _ = page.waitForSelector("div#vis")
     assertThat(page.locator("svg.marks")).isVisible()
-
-    page.close()
-
   }
 
+  test("that we can use the viz server") {
+    import viz.vegaFlavour
+    import viz.PlotTargets.websocket
+    given port: Int = 8085
+
+    val s: viz.websockets.WebsocketVizServer = new viz.websockets.WebsocketVizServer(port) {}
+    val server = Undertow.builder
+      .addHttpListener(port, "localhost")
+      .setHandler(s.defaultHandler)
+      .build
+    server.start()
+
+    val url = s"http://localhost:$port/view/${barPlot.description}"
+
+    page.navigate(url)
+
+    barPlot.plot()
+
+    assertThat(page.locator("svg.marks")).isVisible()
+    server.stop()
+  }
+
+  val barPlot = (
+    `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+    description = "BarChart",
+    data = (
+      values = Seq(
+        (a = "A", b = 28),
+        (a = "B", b = 55),
+        (a = "C", b = 43),
+        (a = "D", b = 91),
+        (a = "E", b = 81),
+        (a = "F", b = 53),
+        (a = "G", b = 19),
+        (a = "H", b = 87),
+        (a = "I", b = 52)
+      )
+    ),
+    mark = "bar",
+    encoding = (
+      x = (field = "a", `type` = "nominal", axis = (labelAngle = 0)),
+      y = (field = "b", `type` = "quantitative")
+    )
+  )
+
   override def afterAll(): Unit =
+    page.close()
     browser.close()
     pw.close()
 
