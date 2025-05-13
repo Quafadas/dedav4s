@@ -31,9 +31,9 @@ def serve(portIn: Int = 8085): Unit =
   val s = new WebsocketVizServer(portIn) {}
   // Start the server
   val server = Undertow.builder
-      .addHttpListener(port, "localhost")
-      .setHandler(s.defaultHandler)
-      .build
+    .addHttpListener(portIn, "localhost")
+    .setHandler(s.defaultHandler)
+    .build
   server.start()
 
   // Keep the JVM alive until the server is stopped
@@ -92,7 +92,7 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
           const spec = JSON.parse(event.data)
           if (spec.description === '$description') {
             vegaEmbed('#vis', spec, {
-              renderer: 'canvas', // renderer (canvas or svg)
+              renderer: 'svg', // renderer (canvas or svg)
               container: '#vis', // parent DOM container
               hover: true, // enable hover processing
               actions: true
@@ -153,7 +153,7 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
     )
 
   @cask.get("/")
-  def home() =    
+  def home() =
     html(
       lang := "en",
       headImports,
@@ -169,7 +169,7 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
           console.log(event.data)
           const spec = JSON.parse(event.data)
           vegaEmbed('#vis', spec, {
-            renderer: 'canvas', // renderer (canvas or svg)
+            renderer: 'svg', // renderer (canvas or svg)
             container: '#vis', // parent DOM container
             hover: true, // enable hover processing
             actions: true
@@ -224,6 +224,6 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
       end onConnect
   end setup
 
-  initialize()    
+  initialize()
 
 end WebsocketVizServer

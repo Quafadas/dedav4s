@@ -115,8 +115,8 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("that we can plot a named tuple") {
     import viz.vegaFlavour
-    
-    import viz.PlotTargets.tempHtmlFile    
+
+    import viz.PlotTargets.tempHtmlFile
 
     navigateTo(
       barPlot.plot(),
@@ -124,17 +124,13 @@ class PlaywrightTest extends munit.FunSuite:
     )
     val _ = page.waitForSelector("div#vis")
     assertThat(page.locator("svg.marks")).isVisible()
-
-    page.close()
-
   }
 
-  test("that we can use the viz server") {
+  test("that we can use the viz server".only) {
     import viz.vegaFlavour
     import viz.PlotTargets.websocket
-    given port : Int = 8085
-    
-    
+    given port: Int = 8085
+
     val s: viz.websockets.WebsocketVizServer = new viz.websockets.WebsocketVizServer(port) {}
     val server = Undertow.builder
       .addHttpListener(port, "localhost")
@@ -142,78 +138,41 @@ class PlaywrightTest extends munit.FunSuite:
       .build
     server.start()
 
-    // Future(s.main(Array.empty[String]))
-    
-
-    // if (!undertow) {
-    //   Thread.sleep(1000)
-    // }
-
-    // def isServerReady(host: String, port: Int): Boolean =
-    //   try
-    //     val url = new URL(s"http://$host:$port")
-    //     val connection = url.openConnection().asInstanceOf[HttpURLConnection]
-    //     connection.setRequestMethod("HEAD")
-    //     connection.setConnectTimeout(2000) // 2 seconds timeout
-    //     connection.connect()
-    //     connection.getResponseCode == 200 // Check if the server responds with HTTP 200
-    //   catch
-    //     case _: Exception => false // If any exception occurs, the server is not ready
-    // end isServerReady
-    
-    // while !(isServerReady("localhost", port)) do
-    //   println("Waiting for server to start...")
-    //   Thread.sleep(1000) // Wait for 1 second before checking again
-    // end while
-
-     // Give the server some time to start
     val url = s"http://localhost:$port/view/${barPlot.description}"
-    println(url)
-   
-    println(requests.get(url).text() )
-    
 
-    barPlot.plot()        
-    
+    page.navigate(url)
 
-    Thread.sleep(5000)
-    
+    barPlot.plot()
+
     assertThat(page.locator("svg.marks")).isVisible()
-    page.close()
-
-    println("plotted")
-    Thread.sleep(10000)
-
+    server.stop()
   }
-  
 
   val barPlot = (
-      `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
-      description = "BarChart",
-      data = (
-        values = Seq(
-          (a = "A", b = 28),
-          (a = "B", b = 55),
-          (a = "C", b = 43),
-          (a = "D", b = 91),
-          (a = "E", b = 81),
-          (a = "F", b = 53),
-          (a = "G", b = 19),
-          (a = "H", b = 87),
-          (a = "I", b = 52)
-        )
-      ),
-      mark = "bar",
-      encoding = (
-        x = (field = "a", `type` = "nominal", axis = (labelAngle = 0)),
-        y = (field = "b", `type` = "quantitative")
+    `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+    description = "BarChart",
+    data = (
+      values = Seq(
+        (a = "A", b = 28),
+        (a = "B", b = 55),
+        (a = "C", b = 43),
+        (a = "D", b = 91),
+        (a = "E", b = 81),
+        (a = "F", b = 53),
+        (a = "G", b = 19),
+        (a = "H", b = 87),
+        (a = "I", b = 52)
       )
+    ),
+    mark = "bar",
+    encoding = (
+      x = (field = "a", `type` = "nominal", axis = (labelAngle = 0)),
+      y = (field = "b", `type` = "quantitative")
     )
-
-
-  
+  )
 
   override def afterAll(): Unit =
+    page.close()
     browser.close()
     pw.close()
 
