@@ -91,18 +91,17 @@ object LaminarViz:
 
     val view: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(er => er.map(_.view))
 
-    val resizeMontitor = new EventBus[ResizeObserverEntry]
-    val resizer = inDivOpt match
-      case None =>
-        val resizeObserver = new ResizeObserver((entries: scala.scalajs.js.Array[ResizeObserverEntry], _) =>
-          entries.foreach(entry => resizeMontitor.emit(entry))
-        )
-        resizeObserver.observe(embeddedIn.ref)
-        Some(resizeObserver)
-
-      case Some(embeddedIn) => None
-
     if (attemptAutoResize) {
+      val resizeMontitor = new EventBus[ResizeObserverEntry]
+      val resizer = inDivOpt match
+        case None =>
+          val resizeObserver = new ResizeObserver((entries: scala.scalajs.js.Array[ResizeObserverEntry], _) =>
+            entries.foreach(entry => resizeMontitor.emit(entry))
+          )
+          resizeObserver.observe(embeddedIn.ref)
+          Some(resizeObserver)
+  
+        case Some(embeddedIn) => None
       embedResult.`then`(in =>
         embeddedIn.amend(
           resizeMontitor.events.debounce(100).combineWith(view.changes) --> Observer {
