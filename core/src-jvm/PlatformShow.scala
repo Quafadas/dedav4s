@@ -39,13 +39,6 @@ end PlatformPlot
 
 object Plottable:
 
-  private inline def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
-    val temp = spec
-    for m <- mods do m(temp)
-    end for
-    temp
-  end applyMods
-
   /** This assumes the string is a valid specification for your charting library and plots it on a hail mary
     */
   // given ppString: PlatformPlot[String] = new PlatformPlot[String]:

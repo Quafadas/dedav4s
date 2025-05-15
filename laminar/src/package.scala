@@ -60,7 +60,8 @@ object LaminarViz:
   def viewEmbed(
       chartSpec: String,
       inDivOpt: Option[Div] = None,
-      embedOpt: Option[EmbedOptions] = None
+      embedOpt: Option[EmbedOptions] = None,
+      attemptAutoResize: Boolean = false
   ): (Div, Signal[Option[VegaView]]) =
 
     val specObj = JSON.parse(chartSpec).asInstanceOf[js.Object]
@@ -101,22 +102,24 @@ object LaminarViz:
 
       case Some(embeddedIn) => None
 
-    embedResult.`then`(in =>
-      embeddedIn.amend(
-        resizeMontitor.events.debounce(100).combineWith(view.changes) --> Observer {
-          (valu: (ResizeObserverEntry, Option[VegaView])) =>
-            valu._2.foreach { view =>
-              view.width(valu._1.contentBoxSize.head.blockSize.toInt)
-              view.height(valu._1.contentBoxSize.head.blockSize.toInt)
-              view.runAsync()
-            }
-        },
-        onUnmountCallback { _ =>
-          in.view.finalize()
-          resizer.foreach(_.disconnect())
-        }
+    if (attemptAutoResize) {
+      embedResult.`then`(in =>
+        embeddedIn.amend(
+          resizeMontitor.events.debounce(100).combineWith(view.changes) --> Observer {
+            (valu: (ResizeObserverEntry, Option[VegaView])) =>
+              valu._2.foreach { view =>
+                view.width(valu._1.contentBoxSize.head.blockSize.toInt)
+                view.height(valu._1.contentBoxSize.head.blockSize.toInt)
+                view.runAsync()
+              }
+          },
+          onUnmountCallback { _ =>
+            in.view.finalize()
+            resizer.foreach(_.disconnect())
+          }
+        )
       )
-    )
+    }
     (embeddedIn, view)
   end viewEmbed
 
