@@ -95,7 +95,12 @@ object Helpers:
       end if
 
   val dataClickHandler: js.Function2[js.Dynamic, js.Dynamic, js.UndefOr[js.Dynamic]] =
-    (_: js.Dynamic, item: js.Dynamic) => item.datum
+    (event: js.Dynamic, item: js.Dynamic) =>
+      // println(JSON.stringify(event, space = 1))
+      // println(JSON.stringify(item.datum, space = 1))
+      if js.typeOf(item) == "object" && js.Object.hasProperty(item.asInstanceOf[js.Object], "datum") then item.datum
+      else js.undefined
+      end if
 
   extension (vv: VegaView)
     def printState(): Unit =

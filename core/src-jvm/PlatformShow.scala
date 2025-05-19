@@ -47,7 +47,7 @@ object Plottable:
         mods: Seq[ujson.Value => Unit]
     ): VizReturn =
       val spec = ujson.read(plottable)
-      val modifiedSpec = applyMods(spec, mods)
+      val modifiedSpec = spec.applyMods(mods)
       plotTarget.show(modifiedSpec.toString, chartLibrary)
     end plot
 
@@ -65,7 +65,7 @@ object Plottable:
         mods: Seq[ujson.Value => Unit]
     ): VizReturn =
       val spec = os.read(plottable)
-      val modifiedSpec = applyMods(ujson.read(spec), mods)
+      val modifiedSpec = ujson.read(spec).applyMods(mods)
       plotTarget.show(modifiedSpec.toString, chartLibrary)
 
     end plot
@@ -85,7 +85,7 @@ object Plottable:
     def plot(
         mods: Seq[ujson.Value => Unit]
     ): VizReturn =
-      val modifiedSpec = applyMods(plottable, mods)
+      val modifiedSpec = plottable.applyMods(mods)
       plotTarget.show(modifiedSpec.toString, chartLibrary)
 
     end plot
@@ -105,7 +105,7 @@ object Plottable:
         mods: Seq[ujson.Value => Unit]
     ): VizReturn =
       val spec = plottable.jsonSpec
-      val modifiedSpec = applyMods(spec, mods)
+      val modifiedSpec = spec.applyMods(mods)
       plotTarget.show(modifiedSpec.toString, chartLibrary)
 
     end plot
@@ -124,7 +124,7 @@ object Plottable:
         mods: Seq[ujson.Value => Unit]
     ): VizReturn =
       val spec = os.read(plottable)
-      val modifiedSpec = applyMods(ujson.read(spec), mods)
+      val modifiedSpec = ujson.read(spec).applyMods(mods)
       plotTarget.show(modifiedSpec.toString, chartLibrary)
 
     end plot
@@ -143,7 +143,7 @@ object Plottable:
     def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
       // println(plotTarget.toString())
       val spec = upickle.default.writeJs(plottable)
-      val modifiedSpec = applyMods(spec, List.empty)
+      val modifiedSpec = spec.applyMods(List.empty)
       plotTarget.show(modifiedSpec.toString, chartLibrary)
 
     end plot

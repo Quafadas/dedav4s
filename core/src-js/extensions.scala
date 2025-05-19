@@ -29,7 +29,7 @@ import scala.deriving.Mirror
 
 package object extensions:
 
-  SpecUrl.values
+  // SpecUrl.values
 
   extension [K <: Tuple, V <: Tuple](
       data: Seq[NamedTuple[K, V]]

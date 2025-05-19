@@ -5,6 +5,17 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
+import $ivy.`com.lihaoyi::mill-contrib-buildinfo:`
+import mill.contrib.buildinfo.BuildInfo
+
+
+import build.Config
+// import $ivy.`io.github.quafadas::sjsls:0.2.5`
+
+// import io.github.quafadas.sjsls.*
+// import cats.effect.*
+// import cats.implicits.*
+
 object `package` extends RootModule with build.CommonJs with build.PublishModule {
   def moduleDeps = Seq(build.core.js)
   def artifactName = super.artifactName() + "_laminar"
@@ -12,5 +23,87 @@ object `package` extends RootModule with build.CommonJs with build.PublishModule
     Agg(
       ivy"com.raquo::laminar::17.2.0"
     )
+
+  object integration extends Module {
+    object app extends build.CommonJs {
+      def moduleDeps = Seq(build.laminar)
+
+      def moduleKind = ModuleKind.ESModule
+      def moduleSplitStyle = ModuleSplitStyle.SmallModulesFor(List("integrationapp"))
+
+      override def scalaJSImportMap = Seq(
+        ESModuleImportMapping.Prefix("##vega-embed", "https://cdn.jsdelivr.net/npm/vega-embed@7/+esm"),
+        ESModuleImportMapping.Prefix("##vega-view", "https://cdn.jsdelivr.net/npm/vega-view@5/+esm"),
+      )
+
+      def runShellCommand() = T.command {
+
+        val cmd = List(
+          "cs launch io.github.quafadas::sjsls:0.2.5",
+          "--",
+          "--path-to-index-html",
+          resources().head.path,
+          "--mill-module-name",
+          "laminar.integration.app",
+          "--out-dir",
+          fastLinkJS().dest.path,
+          "--build-tool",
+          "mill"
+        )
+        println(cmd.mkString("\n"," ", "\n"))
+      }
+      // override def run(args: mill.define.Task[mill.Args]) = T.command{
+
+      //   os.proc(
+      //     "cs",
+      //     "launch",
+
+      //   )
+
+      // }
+
+      // override def run(args: mill.define.Task[mill.Args]) = T.command{
+      //   val fljs = fastLinkJS()
+      //   val resourcePath = resources()
+      //   println(resourcePath)
+
+      //   // arg, circular!
+      //   val lsc = LiveServerConfig(
+      //     port = 8080,
+      //     indexHtmlTemplateOpt = Some(resourcePath),
+      //   )
+      //   LiveServer.main(lsc).useForever
+      //   .as(ExitCode.Success)
+
+      // }
+
+    }
+    object test extends build.Common with build.SharedMunitTest with BuildInfo {
+
+      val name = "dedav4s-laminar"
+      val buildInfoPackageName = "viz.laminar"
+      def buildInfoMembers = T{
+        Seq(
+          BuildInfo.Value("pathToIndex", app.resources().head.path.toString),
+          BuildInfo.Value("pathToJS", app.fastLinkJS().dest.path.toString),
+            BuildInfo.Value("rootDir", T.workspace.toString),
+        )
+      }
+
+      def test() = T.command {
+        val linkResult = app.fastLinkJS()
+        super.test()()
+      }
+
+      override def ivyDeps = super.ivyDeps() ++
+        Agg(
+          ivy"org.typelevel::munit-cats-effect::2.1.0",
+          ivy"io.github.quafadas::sjsls:0.2.5",
+          ivy"com.microsoft.playwright:playwright:${Config.playwright}",
+          ivy"com.microsoft.playwright:driver-bundle:${Config.playwright}",
+          Config.oslib
+        )
+      }
+  }
 
 }

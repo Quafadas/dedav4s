@@ -20,6 +20,7 @@ object Config {
   val requests = ivy"com.lihaoyi::requests:0.9.0"
   val jsoup =ivy"org.jsoup:jsoup:1.18.3"
   val upickle = ivy"com.lihaoyi::upickle::4.1.0"
+  val munit = "1.1.1"
 
   val jsDom = ivy"org.scala-js::scalajs-dom::2.8.0"
   val secRand = ivy"org.scala-js::scalajs-java-securerandom:1.0.0"
@@ -35,6 +36,13 @@ trait Common extends ScalaModule {
     ivy"com.lihaoyi::scalatags:0.13.1",
     ivy"org.ekrich::sconfig:1.8.1"
   )
+}
+
+trait SharedMunitTest extends TestModule.Munit {
+  override def ivyDeps = super.ivyDeps() ++
+    Agg(
+      ivy"org.scalameta::munit::${Config.munit}",
+    )
 }
 
 trait CommonJs extends Common with ScalaJSModule {

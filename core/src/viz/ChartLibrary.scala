@@ -23,9 +23,12 @@ end ChartLibrary
 given vegaFlavour: ChartLibrary = ChartLibrary.Vega
 given echartsFlavour: ChartLibrary = ChartLibrary.Echarts
 
-inline def applyMods(spec: ujson.Value, mods: Seq[ujson.Value => Unit]): ujson.Value =
-  val temp = spec
-  for m <- mods do m(temp)
-  end for
-  temp
-end applyMods
+extension (spec: ujson.Value)
+
+  inline def applyMods(mods: Seq[ujson.Value => Unit]): ujson.Value =
+    val temp = spec
+    for m <- mods do m(temp)
+    end for
+    temp
+  end applyMods
+end extension

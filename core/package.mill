@@ -10,10 +10,10 @@ object `package` extends RootModule {
 
   trait SharedModule extends build.Common with PlatformScalaModule
 
-  trait SharedTest extends SharedModule with TestModule.Munit {
+  trait SharedTest extends SharedModule with build.SharedMunitTest {
     override def ivyDeps = super.ivyDeps() ++
       Agg(
-        ivy"org.scalameta::munit::1.1.1"
+        ivy"org.scalameta::munit::${Config.munit}",
       )
   }
 

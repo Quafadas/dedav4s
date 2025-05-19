@@ -30,12 +30,38 @@ import org.scalajs.dom.ResizeObserver
 
 object LaminarViz:
 
+  /** This function signature is intended to work with the vega view "addEventListener" function
+    *
+    * @return
+    */
   def dataClickBus: (EventStream[js.UndefOr[js.Dynamic]], (x: js.Dynamic, y: js.Dynamic) => Unit) =
     val (dataClickedBus, callback) = EventStream.withJsCallback[js.UndefOr[js.Dynamic]]
     val fromFct = (x: js.Dynamic, y: js.Dynamic) => callback(dataClickHandler.apply(x, y))
     (dataClickedBus, fromFct)
   end dataClickBus
 
+  /** This function signature is intended to work with the vega view "addSignalListener" function in the vega.View
+    * facade.
+    *
+    * This example is for a vega spec.
+    *
+    * ```scala
+    *
+    * val (aSignalBus, signalCallback: ((x: String, y: scala.scalajs.js.Dynamic) => Unit)) = LaminarViz.signalBus
+    *
+    * ...
+    *
+    * div( child <-- aSignalBus.map { x => JSON.stringify(x).toString } )
+    * ...
+    *
+    * (v: Signal[Option[VegaView]]).map((vvOpt: Option[VegaView]) =>
+    *        vvOpt.map((vv: VegaView) => vv.safeAddSignalListener("tooltip", signalCallback))
+    *      ) --> Observer(_ => ())
+    *
+    * ```
+    *
+    * @return
+    */
   def signalBus: (EventStream[js.Dynamic], (x: String, y: js.Dynamic) => Unit) =
     val (hoverBus, callback) = EventStream.withJsCallback[js.Dynamic]
     val handler: js.Function2[String, js.Dynamic, js.Dynamic] = (_, dyn: js.Dynamic) => dyn
@@ -91,7 +117,7 @@ object LaminarViz:
 
     val view: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(er => er.map(_.view))
 
-    if (attemptAutoResize) {
+    if attemptAutoResize then
       val resizeMontitor = new EventBus[ResizeObserverEntry]
       val resizer = inDivOpt match
         case None =>
@@ -100,7 +126,7 @@ object LaminarViz:
           )
           resizeObserver.observe(embeddedIn.ref)
           Some(resizeObserver)
-  
+
         case Some(embeddedIn) => None
       embedResult.`then`(in =>
         embeddedIn.amend(
@@ -113,12 +139,17 @@ object LaminarViz:
               }
           },
           onUnmountCallback { _ =>
-            in.view.finalize()
             resizer.foreach(_.disconnect())
           }
         )
       )
-    }
+    end if
+    embedResult.`then`(in =>
+      onUnmountCallback { _ =>
+        in.view.finalize()
+      }
+    )
+    embeddedIn.amend()
     (embeddedIn, view)
   end viewEmbed
 

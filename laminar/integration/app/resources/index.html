@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="importmap">
+      {
+        "imports": {
+          "npm/": "https://cdn.jsdelivr.net/npm/"
+        }
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet/less" type="text/css" href="/index.less" />
+    <title>Viz Test</title>
+  </head>
+  <body overflow="hidden">
+    <script>
+      less = {
+        env: "development",
+        async: true,
+        fileAsync: true,
+        dumpLineNumbers: "comments",
+        relativeUrls: false,
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/less"></script>
+    <!-- <script>
+      less.watch();
+    </script> -->
+    <script>
+      const sse = new EventSource("/refresh/v1/sse");
+      sse.addEventListener("message", (e) => {
+        const msg = JSON.parse(e.data);
+
+        if ("KeepAlive" in msg) console.log("KeepAlive");
+
+        if ("PageRefresh" in msg) location.reload();
+      });
+    </script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
