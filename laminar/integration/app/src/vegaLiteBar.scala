@@ -44,7 +44,7 @@ def vegaLiteBar: Div =
   )
 
   d.amend(
-    v.map(_.map(vv => vv.addEventListener("click", signalCallback))) --> Observer(_ => ())
+    v.map(_.map(vv => vv.addEventListener("hover", signalCallback))) --> Observer(_ => ())
   )
   parentDiv
 end vegaLiteBar

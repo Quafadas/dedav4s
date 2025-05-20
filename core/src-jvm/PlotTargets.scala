@@ -90,8 +90,6 @@ object PlotTargets extends SharedTargets:
     end if
   end outPath
 
-  lazy val port: Int = WebsocketVizServer.port
-
   private def tempFileHtml(spec: String, lib: ChartLibrary): String =
     lib match
       case ChartLibrary.Vega =>
@@ -213,28 +211,22 @@ object PlotTargets extends SharedTargets:
 
   given websocket: UnitTarget = new UnitTarget:
     override def show(spec: String, lib: ChartLibrary): Unit =
-      if WebsocketVizServer.firstTime then
-        println(s"starting local server on $port")
-        openBrowserWindow(java.net.URI(s"http://localhost:$port"))
-        Thread.sleep(1000) // give undertow a chance to start
-        WebsocketVizServer.setFirstTime
-      end if
-      requests.post(s"http://localhost:$port/viz", data = spec)
+      requests.post(s"http://localhost:8085/viz", data = spec)
       ()
     end show
 
-  given gitpod: UnitTarget = new UnitTarget:
-    override def show(spec: String, lib: ChartLibrary): Unit =
-      if WebsocketGitPodServer.firstTime then
-        println(s"starting local server on $port")
-        println(s"Open a browser at https://${WebsocketGitPodServer.port}-${WebsocketGitPodServer.gitpod_address}")
-        println(
-          "Your plot request was ignored because it appeared to be the first one and we needed to start a webserver. Try it again..."
-        )
-      else requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)
-      end if
-      ()
-    end show
+  // given gitpod: UnitTarget = new UnitTarget:
+  //   override def show(spec: String, lib: ChartLibrary): Unit =
+  //     if WebsocketGitPodServer.firstTime then
+  //       println(s"starting local server on $port")
+  //       println(s"Open a browser at https://${WebsocketGitPodServer.port}-${WebsocketGitPodServer.gitpod_address}")
+  //       println(
+  //         "Your plot request was ignored because it appeared to be the first one and we needed to start a webserver. Try it again..."
+  //       )
+  //     else requests.post(s"${WebsocketGitPodServer.gitpod_postTo}", data = spec)
+  //     end if
+  //     ()
+  //   end show
 
   given tempFileSpec: PlotTarget = new TempFileTarget(Txt):
     def show(spec: String, lib: ChartLibrary): viz.VizReturn =

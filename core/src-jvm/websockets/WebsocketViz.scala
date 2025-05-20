@@ -35,6 +35,7 @@ def serve(portIn: Int = 8085): Unit =
     .setHandler(s.defaultHandler)
     .build
   server.start()
+  println(s"Server started on port $portIn")
 
   // Keep the JVM alive until the server is stopped
   while true do
@@ -47,7 +48,7 @@ def serve(portIn: Int = 8085): Unit =
   end while
 end serve
 
-lazy object WebsocketVizServer extends WebsocketVizServer(8085)
+// lazy object WebsocketVizServer extends WebsocketVizServer(8085)
 
 trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   var firstTime: Boolean = true
