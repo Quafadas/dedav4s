@@ -129,7 +129,7 @@ class PlaywrightTest extends munit.FunSuite:
   test("that we can use the viz server") {
     import viz.vegaFlavour
     import viz.PlotTargets.websocket
-    given port: Int = 8085
+    val port = 8085
 
     val s: viz.websockets.WebsocketVizServer = new viz.websockets.WebsocketVizServer(port) {}
     val server = Undertow.builder
@@ -137,10 +137,12 @@ class PlaywrightTest extends munit.FunSuite:
       .setHandler(s.defaultHandler)
       .build
     server.start()
+    println(s"Server started on port $port")
 
     val url = s"http://localhost:$port/view/${barPlot.description}"
 
     page.navigate(url)
+    page.waitForSelector("div#vis")
 
     barPlot.plot()
 

@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "dedav4s-metals": {
+      "url": "http://localhost:49621/sse",
+      "type": "sse"
+    }
+  }
+}

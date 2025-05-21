@@ -32,7 +32,7 @@ def vegaLiteBar: Div =
 
   val parentDiv = div(
     cls := "parent-div",
-    child.text <-- aSignalBus.map(textIfObject),
+    child <-- aSignalBus.map(o => p(textIfObject(o))),
     dchart2
   )
 
@@ -44,7 +44,7 @@ def vegaLiteBar: Div =
   )
 
   d.amend(
-    v.map(_.map(vv => vv.addEventListener("hover", signalCallback))) --> Observer(_ => ())
+    v.map(_.map(vv => vv.addEventListener("click", signalCallback))) --> Observer(_ => ())
   )
   parentDiv
 end vegaLiteBar

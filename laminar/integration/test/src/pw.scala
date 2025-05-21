@@ -30,6 +30,7 @@ import cats.effect.ExitCode
 import cats.effect.unsafe.implicits.global
 import cats.effect.{IO, SyncIO}
 import munit.CatsEffectSuite
+import com.microsoft.playwright.options.AriaRole
 
 class PwTest extends CatsEffectSuite:
 
@@ -78,25 +79,42 @@ class PwTest extends CatsEffectSuite:
   test("hover over third path under g.mark-rect.role-mark updates h1") {
     val titleP = page.locator("h1")
     val text = titleP.textContent()
-    assert(text.contains("hello simon. hovering at"))
+    assert(text.contains("Viz Play"))
 
     val rectGroup = page.locator("g.mark-rect.role-mark")
     val thirdPath = rectGroup.locator("path")
 
     page.setViewportSize(1920, 1080)
 
-    println(thirdPath.count())
     thirdPath.nth(2).hover()
     // Wait for the h1 to update
     page.waitForTimeout(100)
-    val h1Text = page.locator("h1").textContent()
-    println(h1Text)
-    assert(h1Text.contains("""{"category":"C","amount":43}"""))
+    val parentDiv = page.locator("div.parent-div")
+
+    assert(parentDiv.textContent().contains("""{"category":"C","amount":43}"""))
 
     titleP.hover()
     page.waitForTimeout(100)
-    val h1Text2 = page.locator("h1").textContent()
-    assert(h1Text2.contains("""{}"""))
+    assert(parentDiv.textContent().contains("""{}"""))
+  }
+
+  test("vega lite data click") {
+    val button = page.getByRole(AriaRole.BUTTON, Page.GetByRoleOptions().setName("Vega Lite Bar"))
+    button.click()
+    page.waitForTimeout(200)
+
+    val parentDiv = page.locator("div.parent-div p")
+    assert(parentDiv.count() == 0)
+
+    val rectGroup = page.locator("g.mark-rect.role-mark")
+    val thirdPath = rectGroup.locator("path")
+
+    page.setViewportSize(1920, 1080)
+
+    thirdPath.nth(2).click()
+    assert(parentDiv.count() == 1)
+    assert(parentDiv.textContent().contains("""{"name"""))
+
   }
 
   override def afterAll(): Unit =
