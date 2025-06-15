@@ -16,7 +16,7 @@ import $packages._
 object Config {
 
   val oslib = ivy"com.lihaoyi::os-lib:0.11.3"
-  val cask = ivy"com.lihaoyi::cask:0.9.7"
+  val cask = ivy"com.lihaoyi::cask:0.10.2"
   val requests = ivy"com.lihaoyi::requests:0.9.0"
   val jsoup =ivy"org.jsoup:jsoup:1.18.3"
   val upickle = ivy"com.lihaoyi::upickle::4.1.0"
