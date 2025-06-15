@@ -34,7 +34,7 @@ trait Common extends ScalaModule {
   def ivyDeps = super.ivyDeps() ++ Agg(
     Config.upickle,
     ivy"com.lihaoyi::scalatags:0.13.1",
-    ivy"org.ekrich::sconfig:1.8.1"
+    ivy"org.ekrich::sconfig:1.10.0"
   )
 }
 
