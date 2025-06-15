@@ -94,7 +94,7 @@ object WebsocketGitPodServer extends cask.MainRoutes:
   def recievedSpec(request: cask.Request) =
     val theBody = ujson.read(request.text())
     channelCheat match
-      case None => cask.Response("no client is listening", statusCode = 418)
+      case None        => cask.Response("no client is listening", statusCode = 418)
       case Some(value) =>
         WebSockets.sendTextBlocking(ujson.write(theBody), value)
         cask.Response("you should be looking at new viz")
