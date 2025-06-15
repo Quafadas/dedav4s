@@ -21,7 +21,7 @@ object `package` extends RootModule with build.CommonJs with build.PublishModule
   def artifactName = super.artifactName() + "_laminar"
   override def ivyDeps = super.ivyDeps() ++
     Agg(
-      ivy"com.raquo::laminar::17.2.0"
+      ivy"com.raquo::laminar::17.2.1"
     )
 
   object integration extends Module {
