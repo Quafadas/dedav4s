@@ -24,7 +24,7 @@ object Config {
 
   val jsDom = ivy"org.scala-js::scalajs-dom::2.8.0"
   val secRand = ivy"org.scala-js::scalajs-java-securerandom:1.0.0"
-  val playwright = "1.51.0"
+  val playwright = "1.52.0"
 }
 
 
