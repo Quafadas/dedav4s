@@ -98,7 +98,7 @@ object `package` extends RootModule with build.CommonJs with build.PublishModule
       override def ivyDeps = super.ivyDeps() ++
         Agg(
           ivy"org.typelevel::munit-cats-effect::2.1.0",
-          ivy"io.github.quafadas::sjsls:0.2.5",
+          ivy"io.github.quafadas::sjsls:0.2.8",
           ivy"com.microsoft.playwright:playwright:${Config.playwright}",
           ivy"com.microsoft.playwright:driver-bundle:${Config.playwright}",
           Config.oslib
