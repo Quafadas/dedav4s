@@ -45,7 +45,7 @@ object NamedTupleReadWriter:
       val namesAndRWs = names.zip(readWriters)
       val valueList = namesAndRWs.map: (name, rw) =>
         map.get(name) match
-          case None => throw new Exception(s"Missing field: $name")
+          case None    => throw new Exception(s"Missing field: $name")
           case Some(v) =>
             read(v)(using rw.asInstanceOf[ReadWriter[Any]])
 

@@ -15,26 +15,26 @@ import $packages._
 
 object Config {
 
-  val oslib = ivy"com.lihaoyi::os-lib:0.11.3"
-  val cask = ivy"com.lihaoyi::cask:0.9.7"
+  val oslib = ivy"com.lihaoyi::os-lib:0.11.4"
+  val cask = ivy"com.lihaoyi::cask:0.10.2"
   val requests = ivy"com.lihaoyi::requests:0.9.0"
-  val jsoup =ivy"org.jsoup:jsoup:1.18.3"
-  val upickle = ivy"com.lihaoyi::upickle::4.1.0"
+  val jsoup =ivy"org.jsoup:jsoup:1.20.1"
+  val upickle = ivy"com.lihaoyi::upickle::4.2.1"
   val munit = "1.1.1"
 
   val jsDom = ivy"org.scala-js::scalajs-dom::2.8.0"
   val secRand = ivy"org.scala-js::scalajs-java-securerandom:1.0.0"
-  val playwright = "1.51.0"
+  val playwright = "1.52.0"
 }
 
 
 trait Common extends ScalaModule {
-  override def scalaVersion = "3.7.0"
+  override def scalaVersion = "3.7.1"
 
   def ivyDeps = super.ivyDeps() ++ Agg(
     Config.upickle,
     ivy"com.lihaoyi::scalatags:0.13.1",
-    ivy"org.ekrich::sconfig:1.8.1"
+    ivy"org.ekrich::sconfig:1.10.0"
   )
 }
 

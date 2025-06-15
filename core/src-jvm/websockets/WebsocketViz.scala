@@ -200,7 +200,7 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
   @cask.post("/viz")
   def recievedSpec(request: cask.Request) =
     channelCheat match
-      case Nil => cask.Response("no client is listening", statusCode = 418)
+      case Nil                              => cask.Response("no client is listening", statusCode = 418)
       case channels: List[WebSocketChannel] =>
         channels.foreach { c =>
           if c.isOpen() then WebSockets.sendTextBlocking(request.text(), c)
