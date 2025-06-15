@@ -19,7 +19,7 @@ object Config {
   val cask = ivy"com.lihaoyi::cask:0.10.2"
   val requests = ivy"com.lihaoyi::requests:0.9.0"
   val jsoup =ivy"org.jsoup:jsoup:1.18.3"
-  val upickle = ivy"com.lihaoyi::upickle::4.1.0"
+  val upickle = ivy"com.lihaoyi::upickle::4.2.1"
   val munit = "1.1.1"
 
   val jsDom = ivy"org.scala-js::scalajs-dom::2.8.0"
