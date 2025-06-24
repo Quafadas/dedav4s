@@ -17,6 +17,7 @@
 package viz
 
 import java.awt.Desktop
+import java.net.URLEncoder
 import almond.api.JupyterApi
 import almond.interpreter.api.DisplayData
 import almond.api.JupyterAPIHolder.value
@@ -154,13 +155,13 @@ object PlotTargets extends SharedTargets:
         """
 
   given tempHtmlFile: PlotTarget = new TempFileTarget(Html):
-    def show(spec: String, lib: ChartLibrary): VizReturn =
+    def show(spec: ujson.Value, lib: ChartLibrary): VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
         case None =>
           os.temp(suffix = ".html", prefix = "plot-")
-      showWithTempFile(spec, tmpPath, lib)
+      showWithTempFile(spec.toString, tmpPath, lib)
       tmpPath
     end show
 
@@ -171,13 +172,13 @@ object PlotTargets extends SharedTargets:
 
   given desktopBrowser: PlotTarget = new TempFileTarget(Html):
 
-    def show(spec: String, lib: ChartLibrary): VizReturn =
+    def show(spec: ujson.Value, lib: ChartLibrary): VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
         case None =>
           os.temp(suffix = ".html", prefix = "plot-")
-      showWithTempFile(spec, tmpPath, lib)
+      showWithTempFile(spec.toString, tmpPath, lib)
       tmpPath
     end show
 
@@ -191,29 +192,35 @@ object PlotTargets extends SharedTargets:
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
   given almond: PlotTarget = new UnitTarget:
-    override def show(spec: String, lib: ChartLibrary): Unit =
+    override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
       val kernel = summon[JupyterApi]
       kernel.publish.display(
         DisplayData(
           data = Map(
-            "application/vnd.vega.v5+json" -> spec
+            "application/vnd.vega.v5+json" -> spec.toString
           )
         )
       )
     end show
 
   given publishToPort(using portI: Int): UnitTarget = new UnitTarget:
-    override def show(spec: String, lib: ChartLibrary): Unit =
-      requests.post(s"http://localhost:$portI/viz", data = spec)
+    override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
+      val chartType = lib match
+        case ChartLibrary.Vega    => "vega"
+        case ChartLibrary.Echarts => "echarts"
+      val descriptionOrHashcode = spec.objOpt
+        .flatMap(_.get("description"))
+        .flatMap(_.strOpt)
+        .getOrElse(spec.hashCode.toString)
+      val chartId = URLEncoder.encode(descriptionOrHashcode, "UTF-8")
+
+      requests.post(s"http://localhost:$portI/viz/$chartType/$chartId", data = spec)
       ()
     end show
   end publishToPort
 
-  given websocket: UnitTarget = new UnitTarget:
-    override def show(spec: String, lib: ChartLibrary): Unit =
-      requests.post(s"http://localhost:8085/viz", data = spec)
-      ()
-    end show
+  inline def DEFAULT_WEBSOCKET_SERVER_PORT = 8085
+  given websocket: UnitTarget = publishToPort(using DEFAULT_WEBSOCKET_SERVER_PORT)
 
   // given gitpod: UnitTarget = new UnitTarget:
   //   override def show(spec: String, lib: ChartLibrary): Unit =
@@ -229,13 +236,13 @@ object PlotTargets extends SharedTargets:
   //   end show
 
   given tempFileSpec: PlotTarget = new TempFileTarget(Txt):
-    def show(spec: String, lib: ChartLibrary): viz.VizReturn =
+    def show(spec: ujson.Value, lib: ChartLibrary): viz.VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".txt", prefix = "plot-")
         case None =>
           os.temp(suffix = ".txt", prefix = "plot-")
-      showWithTempFile(spec, tmpPath, lib)
+      showWithTempFile(spec.toString, tmpPath, lib)
       tmpPath
     end show
 
@@ -244,13 +251,13 @@ object PlotTargets extends SharedTargets:
 
   given png: PlotTarget = new TempFileTarget(Png):
 
-    def show(spec: String, lib: ChartLibrary): viz.VizReturn =
+    def show(spec: ujson.Value, lib: ChartLibrary): viz.VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
           os.temp(dir = os.Path(path), suffix = ".png", prefix = "plot-")
         case None =>
           os.temp(suffix = ".png", prefix = "plot-")
-      showWithTempFile(spec, tmpPath, lib)
+      showWithTempFile(spec.toString, tmpPath, lib)
       tmpPath
     end show
     override def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit =
