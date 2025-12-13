@@ -86,11 +86,11 @@ package object extensions:
   extension [T: Numeric](l: Seq[T])
     def barSpec(mods: Seq[ujson.Value => Unit] = List()) =
       val labelToNotShow =
-        for (number <- l)
-          yield ujson.Obj(
-            "category" -> Random.alphanumeric.take(8).mkString(""),
-            "amount" -> number.toDouble
-          )
+        for number <- l
+        yield ujson.Obj(
+          "category" -> Random.alphanumeric.take(8).mkString(""),
+          "amount" -> number.toDouble
+        )
       SpecUrl.BarChart.jsonSpec.mod(
         List(
           // viz.Utils.fillDiv,
@@ -102,11 +102,11 @@ package object extensions:
 
     def pieSpec(mods: Seq[ujson.Value => Unit]) =
       val labelToNotShow =
-        for (number <- l)
-          yield ujson.Obj(
-            "id" -> Random.alphanumeric.take(8).mkString(""),
-            "field" -> number.toDouble
-          )
+        for number <- l
+        yield ujson.Obj(
+          "id" -> Random.alphanumeric.take(8).mkString(""),
+          "field" -> number.toDouble
+        )
       SpecUrl.PieChart.jsonSpec.mod(
         List(
           // viz.Utils.fillDiv,
@@ -117,11 +117,11 @@ package object extensions:
 
     def lineChartSpec(mods: Seq[ujson.Value => Unit] = List()) =
       val labelToNotShow =
-        for ((number, i) <- l.zipWithIndex)
-          yield ujson.Obj(
-            "x" -> i,
-            "y" -> number.toDouble
-          )
+        for (number, i) <- l.zipWithIndex
+        yield ujson.Obj(
+          "x" -> i,
+          "y" -> number.toDouble
+        )
       SpecUrl.LineChart.jsonSpec.mod(
         List((spec: Value) => spec("data")(0)("values") = labelToNotShow) ++ mods
       )
@@ -134,11 +134,11 @@ package object extensions:
     @targetName("plotBarChartWithLabels")
     def lineChartSpec(mods: Seq[ujson.Value => Unit]) =
       val labelled =
-        for ((label, number) <- l)
-          yield ujson.Obj(
-            "x" -> label,
-            "y" -> number.toDouble
-          )
+        for (label, number) <- l
+        yield ujson.Obj(
+          "x" -> label,
+          "y" -> number.toDouble
+        )
       SpecUrl.LineChart.jsonSpec.mod(
         List((spec: Value) =>
           spec("data")(0)("values") = labelled
@@ -150,11 +150,11 @@ package object extensions:
     @targetName("plotLineChartWithLabels")
     def pieSpec(mods: Seq[ujson.Value => Unit]) =
       val labelled =
-        for ((label, number) <- l)
-          yield ujson.Obj(
-            "category" -> label,
-            "amount" -> number.toDouble
-          )
+        for (label, number) <- l
+        yield ujson.Obj(
+          "category" -> label,
+          "amount" -> number.toDouble
+        )
       SpecUrl.BarChart.jsonSpec.mod(
         List((spec: Value) => spec("data")(0)("values") = labelled) ++ mods
       )
@@ -163,11 +163,11 @@ package object extensions:
     @targetName("plotPieChartWithLabels")
     def pieSpec(mods: Seq[ujson.Value => Unit]) =
       val labelled =
-        for ((label, number) <- l)
-          yield ujson.Obj(
-            "id" -> label,
-            "field" -> number.toDouble
-          )
+        for (label, number) <- l
+        yield ujson.Obj(
+          "id" -> label,
+          "field" -> number.toDouble
+        )
       SpecUrl.PieChart.jsonSpec.mod(
         List(
           (spec: Value) => spec("data")(0)("values") = labelled,

@@ -1,5 +1,6 @@
 
-
+format:
+  mill mill.scalalib.scalafmt/
 
 installCoursier:
   curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > cs

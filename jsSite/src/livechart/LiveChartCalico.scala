@@ -37,7 +37,6 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
         ),
         p(""),
         data.map { data =>
-
           val tmp = data.map(d => (d, d.toString))
           val barChart = tmp.barSpec(
             List(
@@ -55,7 +54,7 @@ def calicoChart: Resource[IO, HtmlElement[IO]] =
 
           //   // I had to set the div size down in here. Then it worked. But I have no idea why.
           viz.CalicoViz.viewEmbed(barChart.toString(), Some(chartDiv), Some(EmbedOptions())).map(_._1)
-        //   }
+          //   }
         }
       )
     }
