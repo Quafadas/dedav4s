@@ -50,6 +50,7 @@ object PlotTargets extends SharedTargets:
   def openBrowserWindow(uri: java.net.URI): Unit =
     println(s"opening browser window at $uri")
     if Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE) then
+      println("using java.awt.Desktop")
       Desktop.getDesktop().browse(uri)
     else
       /* Hail Mary...
@@ -78,6 +79,7 @@ object PlotTargets extends SharedTargets:
             s"Failed to open browser window with xdg-open: ${e.getMessage}. A probably cause is that xdg-utils are not installed."
           )
       end try
+      println("opened browser window")
       ()
     end if
   end openBrowserWindow
@@ -160,7 +162,9 @@ object PlotTargets extends SharedTargets:
           os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
         case None =>
           os.temp(suffix = ".html", prefix = "plot-")
+      println("wring temp file")
       showWithTempFile(spec, tmpPath, lib)
+      println("showing temp file")
       tmpPath
     end show
 

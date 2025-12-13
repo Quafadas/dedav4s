@@ -6,16 +6,9 @@ import mill.scalajslib._
 import mill.scalajslib.api._
 import io.github.quafadas.millSite.SiteModule
 
-object `package` extends RootModule with SiteModule {
+object `package` extends Module with SiteModule {
 
-  def scalaVersion = build.core.jvm.scalaVersion
-  override val jsSiteModule = build.jsSite
-  override def pathToImportMap = Some(PathRef(T.workspace / "importmap.json"))
-  override def ivyDeps = super.ivyDeps() ++
-    Agg(
-      ivy"org.scalameta::mdoc:${scalaMdocVersion()}"
-    )
-  override def moduleDeps = Seq(build.core.jvm)
+  override def pathToImportMap = Task { Some(PathRef(Task.dest / os.up / os.up / os.up / os.up / "importmap.json")) }
 }
 
 
