@@ -14,7 +14,7 @@ object VegaPlot:
    *   import spec.mods.*
    *   spec.plot(
    *     title("New Title"),
-   *     width("500")
+   *     width(800)
    *   )
    */
   transparent inline def fromFile(inline path: String): VegaPlotSpec = 
@@ -30,7 +30,8 @@ object VegaPlot:
     val jsonContent = try {
       var stream: java.io.InputStream = null
       try {
-        stream = getClass.getResourceAsStream(s"/$path")
+        // Use this class's classloader to find resources in the macros module
+        stream = classOf[VegaPlotSpec].getClassLoader.getResourceAsStream(path)
         if (stream == null) {
           report.errorAndAbort(s"Could not find resource: $path")
         }
@@ -67,7 +68,8 @@ object VegaPlot:
         def plot(mods: (ujson.Value => Unit)*): ujson.Value = {
           var stream: java.io.InputStream = null
           try {
-            stream = getClass.getResourceAsStream("/" + specPath)
+            // Use this class's classloader to find resources at runtime
+            stream = classOf[VegaPlotSpec].getClassLoader.getResourceAsStream(specPath)
             if (stream == null) {
               throw new RuntimeException(s"Resource not found: $specPath")
             }
