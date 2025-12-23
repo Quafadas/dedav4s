@@ -2,7 +2,7 @@
 
 ## Overview
 
-This POC implements compile-time code generation for type-safe Vega-Lite spec modification helpers using Scala 3 macros.
+This POC implements compile-time code generation for type-safe Vega-Lite spec modification helpers using Scala 3 macros. **Helper methods are dynamically generated** from the JSON spec structure at compile time, not hardcoded.
 
 ## Usage Example
 
@@ -10,22 +10,44 @@ This POC implements compile-time code generation for type-safe Vega-Lite spec mo
 import viz.macros.VegaPlot
 
 // Load a Vega-Lite spec from resources at compile time
+// The macro analyzes the JSON and generates helpers automatically
 val spec = VegaPlot.fromFile("pie.vl.json")
 
-// Import the generated helpers
+// Import the dynamically generated helpers
 import spec.mods.*
 
 // Use type-safe helpers to modify the spec
 val result = spec.plot(
-  title("Custom Title"),                    // Primitive: String
-  width(800),                                // Primitive: Int
-  height(600),                               // Primitive: Int
-  encoding.theta.field("custom_field"),      // Nested object access
-  layer(0).mark.tooltip(false),              // Structural array with index
-  layer(1).encoding.text.field("value")      // Deep nesting in array
+  title("Custom Title"),                     // Generated from "title": "..."
+  width(800),                                 // Generated from "width": "..."
+  height(600),                                // Generated from "height": "..."
+  encoding.theta.field("custom_field"),       // Generated from nested "encoding.theta.field"
+  layer(0).mark.tooltip(false),               // Generated from array "layer[0].mark.tooltip"
+  layer(1).encoding.text.field("value")       // Generated from deep nesting
 )
 
 // result is a ujson.Value containing the modified spec
+```
+
+## Dynamic Code Generation
+
+The macro **analyzes the JSON structure at compile time** and generates appropriate helper methods:
+
+### Type Inference from JSON
+
+| JSON Value | Generated Scala Type | Example |
+|------------|---------------------|---------|
+| `"string"` | `def field(s: String)` | `"title": "Hello"` → `title(s: String)` |
+| `123` (whole) | `def field(i: Int)` | `"width": 800` → `width(i: Int)` |
+| `1.5` | `def field(d: Double)` | `"opacity": 0.5` → `opacity(d: Double)` |
+| `true`/`false` | `def field(b: Boolean)` | `"tooltip": true` → `tooltip(b: Boolean)` |
+| `{...}` | Nested object | Generates child object with recursive helpers |
+| `[{...}]` | Structural array | Generates indexed accessor `array(idx)` |
+| `null` | ujson.Value only | `def field(json: ujson.Value)` |
+
+**All helpers also have a `ujson.Value` overload** for complex expressions:
+```scala
+layer(0).mark.outerRadius(ujson.Obj("expr" -> "width / 3"))
 ```
 
 ## Features Implemented
@@ -78,9 +100,55 @@ layer(0).mark.outerRadius(ujson.Obj("expr" -> "width / 3"))
 ### Macro Implementation
 
 1. **Compile-time file reading**: `VegaPlot.fromFile()` reads JSON at compile time
-2. **JSON parsing**: Uses ujson to parse the spec structure
-3. **Code generation**: Returns an anonymous class implementing `VegaPlotSpec`
-4. **Static helpers**: All helper methods are defined in the `mods` object
+2. **JSON parsing and analysis**: Uses ujson to parse and analyze the spec structure
+3. **Dynamic code generation**: Generates Scala code as strings based on JSON structure
+4. **Code synthesis**: Parses generated strings into Scala AST expressions
+
+### Code Generation Algorithm
+
+The macro recursively analyzes the JSON structure:
+
+1. **For each field in the JSON**:
+   - Skip internal fields (starting with `$`)
+   - Infer Scala type from JSON value type
+   - Generate typed helper method
+   - Generate ujson.Value overload
+
+2. **For nested objects**:
+   - Generate nested `object` with recursive analysis
+   - All nested helpers accessible via dot notation
+
+3. **For structural arrays**:
+   - Detect array of objects vs data/primitive arrays
+   - Generate indexed accessor class
+   - Union all fields from all array elements
+   - All union fields accessible on any index
+
+### Generated Structure
+
+```scala
+object mods {
+  // Primitives
+  def title(s: String): ujson.Value => Unit = ...
+  def title(json: ujson.Value): ujson.Value => Unit = ...
+  
+  // Nested objects
+  object encoding {
+    object theta {
+      def field(s: String): ujson.Value => Unit = ...
+    }
+  }
+  
+  // Structural arrays
+  object layer {
+    def apply(idx: Int) = new LayerElement(idx)
+    class LayerElement(idx: Int) {
+      object mark { ... }
+      object encoding { ... }
+    }
+  }
+}
+```
 
 ### Generated Structure
 

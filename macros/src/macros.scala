@@ -7,7 +7,8 @@ object VegaPlot:
   
   /** 
    * Macro to generate type-safe helpers from a Vega-Lite JSON spec file.
-   * The macro reads the JSON at compile time and generates helper methods.
+   * The macro reads the JSON at compile time and dynamically generates helper methods
+   * based on the structure of the JSON spec.
    * 
    * Usage:
    *   val spec = VegaPlot.fromFile("pie.vl.json")
@@ -17,10 +18,10 @@ object VegaPlot:
    *     width(800)
    *   )
    */
-  transparent inline def fromFile(inline path: String): VegaPlotSpec = 
+  transparent inline def fromFile(inline path: String): Any = 
     ${ fromFileImpl('path) }
 
-  private def fromFileImpl(pathExpr: Expr[String])(using Quotes): Expr[VegaPlotSpec] =
+  private def fromFileImpl(pathExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
     
     // Extract the path string at compile time
@@ -59,19 +60,26 @@ object VegaPlot:
         report.errorAndAbort(s"Error parsing JSON from $path: ${e.getMessage}")
     }
     
-    // For the POC, return a basic implementation
-    // In a full implementation, we would generate the mods methods dynamically
-    '{
-      new VegaPlotSpec {
-        val specPath = $pathExpr
+    // Generate helper methods dynamically from the JSON structure
+    generateSpec(spec, pathExpr)
+  
+  private def generateSpec(spec: ujson.Value, pathExpr: Expr[String])(using Quotes): Expr[Any] =
+    import quotes.reflect.*
+    
+    // Analyze the JSON structure and generate code as a string
+    val modMethodsCode = analyzeAndGenerateCode(spec.obj.toMap, Nil)
+    
+    // Build the complete class code as a string
+    val classCodeStr = s"""
+      new viz.macros.VegaPlotSpec {
+        val specPath = ${pathExpr.show}
         
         def plot(mods: (ujson.Value => Unit)*): ujson.Value = {
           var stream: java.io.InputStream = null
           try {
-            // Use this class's classloader to find resources at runtime
-            stream = classOf[VegaPlotSpec].getClassLoader.getResourceAsStream(specPath)
+            stream = classOf[viz.macros.VegaPlotSpec].getClassLoader.getResourceAsStream(specPath)
             if (stream == null) {
-              throw new RuntimeException(s"Resource not found: $specPath")
+              throw new RuntimeException("Resource not found: " + specPath)
             }
             val source = scala.io.Source.fromInputStream(stream)
             val content = try {
@@ -90,125 +98,127 @@ object VegaPlot:
         }
         
         object mods {
-          // Simple helpers for common fields
-          def title(s: String): ujson.Value => Unit = 
-            spec => spec("title") = ujson.Str(s)
+          $modMethodsCode
+        }
+      }
+    """
+    
+    // Parse the string into an expression
+    classCodeStr.asTerm.asExprOf[Any]
+  
+  private def analyzeAndGenerateCode(obj: Map[String, ujson.Value], path: List[String])(using Quotes): String =
+    import quotes.reflect.*
+    
+    obj.flatMap { case (key, value) =>
+      // Skip internal fields like $schema
+      if (key.startsWith("$")) {
+        Nil
+      } else {
+        val sanitizedKey = if (key.matches("^[a-zA-Z_][a-zA-Z0-9_]*$")) key else s"`$key`"
+        val fullPath = path :+ key
+        
+        value match {
+          case str: ujson.Str =>
+            generatePrimitiveHelpersCode(sanitizedKey, fullPath, "String", "ujson.Str")
           
-          def title(json: ujson.Value): ujson.Value => Unit = 
-            spec => spec("title") = json
-          
-          def width(i: Int): ujson.Value => Unit = 
-            spec => spec("width") = ujson.Num(i)
-          
-          def width(json: ujson.Value): ujson.Value => Unit = 
-            spec => spec("width") = json
-          
-          def height(i: Int): ujson.Value => Unit = 
-            spec => spec("height") = ujson.Num(i)
-          
-          def height(json: ujson.Value): ujson.Value => Unit = 
-            spec => spec("height") = json
-          
-          def description(s: String): ujson.Value => Unit = 
-            spec => spec("description") = ujson.Str(s)
-          
-          def description(json: ujson.Value): ujson.Value => Unit = 
-            spec => spec("description") = json
-          
-          // Nested object example: encoding
-          object encoding {
-            def apply(json: ujson.Value): ujson.Value => Unit = 
-              spec => spec("encoding") = json
-            
-            object theta {
-              def apply(json: ujson.Value): ujson.Value => Unit = 
-                spec => spec("encoding")("theta") = json
-              
-              def field(s: String): ujson.Value => Unit = 
-                spec => spec("encoding")("theta")("field") = ujson.Str(s)
-              
-              def `type`(s: String): ujson.Value => Unit = 
-                spec => spec("encoding")("theta")("type") = ujson.Str(s)
-              
-              def stack(b: Boolean): ujson.Value => Unit = 
-                spec => spec("encoding")("theta")("stack") = ujson.Bool(b)
+          case num: ujson.Num =>
+            if (num.value.isWhole) {
+              generatePrimitiveHelpersCode(sanitizedKey, fullPath, "Int", "ujson.Num")
+            } else {
+              generatePrimitiveHelpersCode(sanitizedKey, fullPath, "Double", "ujson.Num")
             }
-            
-            object color {
-              def apply(json: ujson.Value): ujson.Value => Unit = 
-                spec => spec("encoding")("color") = json
-              
-              def field(s: String): ujson.Value => Unit = 
-                spec => spec("encoding")("color")("field") = ujson.Str(s)
-              
-              def `type`(s: String): ujson.Value => Unit = 
-                spec => spec("encoding")("color")("type") = ujson.Str(s)
-              
-              def legend(json: ujson.Value): ujson.Value => Unit = 
-                spec => spec("encoding")("color")("legend") = json
-            }
-          }
           
-          // Structural array example: layer
-          object layer {
-            def apply(idx: Int) = new LayerElement(idx)
-            
-            class LayerElement(idx: Int) {
-              def mark(json: ujson.Value): ujson.Value => Unit = 
-                spec => spec("layer")(idx)("mark") = json
-              
-              object mark {
-                def apply(json: ujson.Value): ujson.Value => Unit = 
-                  spec => spec("layer")(idx)("mark") = json
-                
-                def `type`(s: String): ujson.Value => Unit = 
-                  spec => spec("layer")(idx)("mark")("type") = ujson.Str(s)
-                
-                def outerRadius(json: ujson.Value): ujson.Value => Unit = 
-                  spec => spec("layer")(idx)("mark")("outerRadius") = json
-                
-                def tooltip(b: Boolean): ujson.Value => Unit = 
-                  spec => spec("layer")(idx)("mark")("tooltip") = ujson.Bool(b)
-                
-                def fontSize(json: ujson.Value): ujson.Value => Unit = 
-                  spec => spec("layer")(idx)("mark")("fontSize") = json
-                
-                def radius(json: ujson.Value): ujson.Value => Unit = 
-                  spec => spec("layer")(idx)("mark")("radius") = json
-              }
-              
-              def encoding(json: ujson.Value): ujson.Value => Unit = 
-                spec => spec("layer")(idx)("encoding") = json
-              
-              object encoding {
-                def apply(json: ujson.Value): ujson.Value => Unit = 
-                  spec => spec("layer")(idx)("encoding") = json
-                
-                object text {
-                  def apply(json: ujson.Value): ujson.Value => Unit = 
-                    spec => spec("layer")(idx)("encoding")("text") = json
-                  
-                  def field(s: String): ujson.Value => Unit = 
-                    spec => spec("layer")(idx)("encoding")("text")("field") = ujson.Str(s)
-                  
-                  def `type`(s: String): ujson.Value => Unit = 
-                    spec => spec("layer")(idx)("encoding")("text")("type") = ujson.Str(s)
-                }
-              }
-            }
-          }
+          case bool: ujson.Bool =>
+            generatePrimitiveHelpersCode(sanitizedKey, fullPath, "Boolean", "ujson.Bool")
           
-          // Data helper
-          object data {
-            def apply(json: ujson.Value): ujson.Value => Unit = 
-              spec => spec("data") = json
-            
-            def values(json: ujson.Value): ujson.Value => Unit = 
-              spec => spec("data")("values") = json
-          }
+          case obj: ujson.Obj =>
+            generateObjectHelpersCode(sanitizedKey, fullPath, obj.value.toMap)
+          
+          case arr: ujson.Arr =>
+            generateArrayHelpersCode(sanitizedKey, fullPath, arr.value.toSeq)
+          
+          case ujson.Null =>
+            generateNullHelperCode(sanitizedKey, fullPath)
+        }
+      }
+    }.mkString("\n\n")
+  
+  private def generatePrimitiveHelpersCode(name: String, path: List[String], scalaType: String, ujsonType: String)(using Quotes): List[String] =
+    val pathAccessor = path.map(k => s"""("$k")""").mkString
+    val typeChar = scalaType.head.toLower
+    
+    List(
+      s"""def $name($typeChar: $scalaType): ujson.Value => Unit = 
+         |  spec => spec$pathAccessor = $ujsonType($typeChar)""".stripMargin,
+      s"""def $name(json: ujson.Value): ujson.Value => Unit = 
+         |  spec => spec$pathAccessor = json""".stripMargin
+    )
+  
+  private def generateObjectHelpersCode(name: String, path: List[String], obj: Map[String, ujson.Value])(using Quotes): List[String] =
+    val pathAccessor = path.map(k => s"""("$k")""").mkString
+    
+    // Generate ujson.Value overload
+    val jsonMethod = s"""def $name(json: ujson.Value): ujson.Value => Unit = 
+       |  spec => spec$pathAccessor = json""".stripMargin
+    
+    // Generate nested object with recursive analysis
+    val nestedMethods = analyzeAndGenerateCode(obj, path)
+    val nestedCode = if (nestedMethods.nonEmpty) {
+      s"""object $name {
+         |  $nestedMethods
+         |}""".stripMargin
+    } else {
+      ""
+    }
+    
+    List(jsonMethod, nestedCode).filter(_.nonEmpty)
+  
+  private def generateArrayHelpersCode(name: String, path: List[String], arr: Seq[ujson.Value])(using Quotes): List[String] =
+    // Check if this is a structural array (array of objects)
+    val isStructural = arr.headOption.exists(_.isInstanceOf[ujson.Obj])
+    
+    if (isStructural && arr.nonEmpty) {
+      // Generate indexed accessor for structural arrays
+      generateStructuralArrayHelperCode(name, path, arr.collect { case o: ujson.Obj => o.value.toMap })
+    } else {
+      // For data/primitive arrays, just provide ujson.Value accessor
+      val pathAccessor = path.map(k => s"""("$k")""").mkString
+      List(s"""def $name(json: ujson.Value): ujson.Value => Unit = 
+              |  spec => spec$pathAccessor = json""".stripMargin)
+    }
+  
+  private def generateStructuralArrayHelperCode(name: String, path: List[String], elements: Seq[Map[String, ujson.Value]])(using Quotes): List[String] =
+    // Union all fields from all array elements
+    val allFields = elements.foldLeft(Map.empty[String, ujson.Value]) { (acc, elem) =>
+      elem.foldLeft(acc) { case (m, (k, v)) =>
+        m.get(k) match {
+          case Some(existing) => m // Keep first occurrence for type inference
+          case None => m + (k -> v)
         }
       }
     }
+    
+    // Replace (idx) in the path with the actual index variable
+    val elementPath = path :+ "(idx)"
+    
+    // Generate methods for the union of fields
+    val elementMethods = analyzeAndGenerateCode(allFields, elementPath)
+    val capitalizedName = name.capitalize
+    
+    val code = s"""object $name {
+       |  def apply(idx: Int) = new ${capitalizedName}Element(idx)
+       |  
+       |  class ${capitalizedName}Element(idx: Int) {
+       |    $elementMethods
+       |  }
+       |}""".stripMargin
+    
+    List(code)
+  
+  private def generateNullHelperCode(name: String, path: List[String])(using Quotes): List[String] =
+    val pathAccessor = path.map(k => s"""("$k")""").mkString
+    List(s"""def $name(json: ujson.Value): ujson.Value => Unit = 
+            |  spec => spec$pathAccessor = json""".stripMargin)
 
 // Base trait for the generated spec
 trait VegaPlotSpec:
