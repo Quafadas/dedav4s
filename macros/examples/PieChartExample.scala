@@ -1,6 +1,7 @@
 package viz.macros.examples
 
-import ujson.*
+import ujson.Value
+import viz.macros.VegaPlot
 
 /**
  * Example usage of the VegaPlot macro.
@@ -12,9 +13,9 @@ import ujson.*
  */
 object PieChartExample {
   
-  def customizedPieChart(): ujson.Value = {
+  def customizedPieChart(): Value = {
     // Load the pie chart spec - this happens at compile time
-    val spec = viz.macros.VegaPlot.fromFile("pie.vl.json")
+    val spec = VegaPlot.fromFile("pie.vl.json")
     
     // Import the generated helpers for autocomplete
     import spec.mods.*

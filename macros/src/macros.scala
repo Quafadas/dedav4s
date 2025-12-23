@@ -95,17 +95,11 @@ object VegaPlot:
           def title(json: ujson.Value): ujson.Value => Unit = 
             spec => spec("title") = json
           
-          def width(s: String): ujson.Value => Unit = 
-            spec => spec("width") = ujson.Str(s)
-          
           def width(i: Int): ujson.Value => Unit = 
             spec => spec("width") = ujson.Num(i)
           
           def width(json: ujson.Value): ujson.Value => Unit = 
             spec => spec("width") = json
-          
-          def height(s: String): ujson.Value => Unit = 
-            spec => spec("height") = ujson.Str(s)
           
           def height(i: Int): ujson.Value => Unit = 
             spec => spec("height") = ujson.Num(i)

@@ -1,6 +1,8 @@
 package viz.macros
 
-class VegaPlotTest extends munit.FunSuite {
+import munit.FunSuite
+
+class VegaPlotTest extends FunSuite {
   
   test("VegaPlot.fromFile should load pie chart spec") {
     val spec = VegaPlot.fromFile("pie.vl.json")
