@@ -2,7 +2,56 @@
 
 ## Overview
 
-Successfully implemented a complete proof-of-concept for the VizMods proposal, replacing the untyped `mods: Seq[ujson.Value => Unit]` API with compile-time generated type-safe helpers using Scala 3 macros.
+Successfully implemented a complete proof-of-concept for the VizMods proposal, replacing the untyped `mods: Seq[ujson.Value => Unit]` API with compile-time **dynamically generated** type-safe helpers using Scala 3 macros.
+
+## Key Achievement: Dynamic Code Generation
+
+**The macro now automatically generates helper methods** from the JSON spec structure at compile time - no hardcoding required!
+
+### How It Works
+
+1. **Compile-time Analysis**: Reads and parses JSON spec from resources
+2. **Type Inference**: Infers Scala types from JSON values
+   - `"string"` → `def field(s: String)`
+   - `123` → `def field(i: Int)`
+   - `1.5` → `def field(d: Double)`
+   - `true/false` → `def field(b: Boolean)`
+3. **Code Generation**: Generates Scala code as strings recursively
+4. **AST Synthesis**: Parses generated code into Scala AST expressions
+5. **Nested Structures**: Handles nested objects and structural arrays automatically
+
+### Example
+
+For this JSON:
+```json
+{
+  "title": "Population",
+  "width": 800,
+  "encoding": {
+    "theta": {
+      "field": "value"
+    }
+  }
+}
+```
+
+The macro automatically generates:
+```scala
+object mods {
+  def title(s: String): ujson.Value => Unit = ...
+  def title(json: ujson.Value): ujson.Value => Unit = ...
+  
+  def width(i: Int): ujson.Value => Unit = ...
+  def width(json: ujson.Value): ujson.Value => Unit = ...
+  
+  object encoding {
+    object theta {
+      def field(s: String): ujson.Value => Unit = ...
+      def field(json: ujson.Value): ujson.Value => Unit = ...
+    }
+  }
+}
+```
 
 ## Implementation Status
 
@@ -142,13 +191,14 @@ Once Mill 1.1.0-RC3 is available:
 ### For Future Development
 
 **In Scope (POC Complete):**
-- ✅ Basic type-safe helpers
+- ✅ Dynamic type-safe helpers from JSON structure
+- ✅ Automatic type inference from JSON values
 - ✅ Nested object navigation
-- ✅ Structural array indexing
+- ✅ Structural array indexing with field unions
 - ✅ IDE autocomplete
 
 **Out of Scope (Future Work):**
-- Full code generation from JSON structure (currently hand-coded)
+- Schema validation against Vega-Lite schema
 - Schema validation against Vega-Lite schema
 - Data array typed accessors (uniform data shapes)
 - Vega (not Vega-Lite) support
@@ -156,12 +206,53 @@ Once Mill 1.1.0-RC3 is available:
 
 ## Technical Details
 
-### Macro Implementation
+### Dynamic Macro Implementation
 
-- Uses Scala 3 quoted/splicing API
-- Reads JSON at compile time with error reporting
-- Returns anonymous class implementing VegaPlotSpec
-- All helpers return `ujson.Value => Unit` for composition
+The macro uses a recursive algorithm to analyze and generate code:
+
+```scala
+// 1. Analyze JSON structure recursively
+private def analyzeAndGenerateCode(
+  obj: Map[String, ujson.Value], 
+  path: List[String]
+): String
+
+// 2. Generate helpers based on value type
+case str: ujson.Str => generatePrimitiveHelpersCode(...)
+case num: ujson.Num => generatePrimitiveHelpersCode(...)
+case bool: ujson.Bool => generatePrimitiveHelpersCode(...)
+case obj: ujson.Obj => generateObjectHelpersCode(...)
+case arr: ujson.Arr => generateArrayHelpersCode(...)
+
+// 3. Build complete class with generated code
+val classCode = s"""
+  new VegaPlotSpec {
+    object mods {
+      $generatedCode
+    }
+  }
+"""
+
+// 4. Parse into AST expression
+classCode.asTerm.asExprOf[Any]
+```
+
+### Special Handling
+
+**Internal Fields**: Skips fields starting with `$` (e.g., `$schema`)
+
+**Structural Arrays**: 
+- Detects arrays of objects vs data/primitive arrays
+- Generates indexed accessor with field union
+- Example: `layer(idx)` with all fields from all elements
+
+**Nested Objects**:
+- Recursively generates nested object hierarchies
+- Full dot notation support: `encoding.theta.field()`
+
+**Type Safety**:
+- Always generates both typed and `ujson.Value` overloads
+- Allows complex expressions while maintaining type safety for common cases
 
 ### Architecture
 
