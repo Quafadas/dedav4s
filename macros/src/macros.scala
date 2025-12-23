@@ -28,13 +28,23 @@ object VegaPlot:
     
     // Read the JSON file from resources at compile time
     val jsonContent = try {
-      val stream = getClass.getResourceAsStream(s"/$path")
-      if (stream == null) {
-        report.errorAndAbort(s"Could not find resource: $path")
+      var stream: java.io.InputStream = null
+      try {
+        stream = getClass.getResourceAsStream(s"/$path")
+        if (stream == null) {
+          report.errorAndAbort(s"Could not find resource: $path")
+        }
+        val source = scala.io.Source.fromInputStream(stream)
+        try {
+          source.mkString
+        } finally {
+          source.close()
+        }
+      } finally {
+        if (stream != null) {
+          try { stream.close() } catch { case _: Exception => }
+        }
       }
-      val content = scala.io.Source.fromInputStream(stream).mkString
-      stream.close()
-      content
     } catch {
       case e: Exception =>
         report.errorAndAbort(s"Error reading file $path: ${e.getMessage}")
@@ -55,15 +65,26 @@ object VegaPlot:
         val specPath = $pathExpr
         
         def plot(mods: (ujson.Value => Unit)*): ujson.Value = {
-          val stream = getClass.getResourceAsStream("/" + specPath)
-          if (stream == null) {
-            throw new RuntimeException(s"Resource not found: $specPath")
+          var stream: java.io.InputStream = null
+          try {
+            stream = getClass.getResourceAsStream("/" + specPath)
+            if (stream == null) {
+              throw new RuntimeException(s"Resource not found: $specPath")
+            }
+            val source = scala.io.Source.fromInputStream(stream)
+            val content = try {
+              source.mkString
+            } finally {
+              source.close()
+            }
+            val spec = ujson.read(content)
+            mods.foreach(_(spec))
+            spec
+          } finally {
+            if (stream != null) {
+              try { stream.close() } catch { case _: Exception => }
+            }
           }
-          val content = scala.io.Source.fromInputStream(stream).mkString
-          stream.close()
-          val spec = ujson.read(content)
-          mods.foreach(_(spec))
-          spec
         }
         
         object mods {

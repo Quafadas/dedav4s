@@ -1,5 +1,7 @@
 package viz.macros.examples
 
+import ujson.*
+
 /**
  * Example usage of the VegaPlot macro.
  * 
