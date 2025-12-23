@@ -43,6 +43,63 @@ spec.plot(
 
 ```
 
+### Arrays
+
+- Structural arrays (e.g., layer, transform, params): Generate indexed accessors array(idx) with field union from all observed elements
+- Data arrays (e.g., data.values): Require uniform structure, generate typed List[NamedTuple] accessor if shape is consistent, otherwise accept ujson.Value
+- Primitive arrays (e.g., domain: [0, 100]): Accept List[T] where T is inferred from elements
+
+e.g. for structural arrays:
+
+```scala
+object VizMods:
+  object layer:
+    // Access by index - returns a scoped modifier builder
+    def apply(idx: Int) = LayerElement(idx)
+
+    // For each layer element, generate from union of all fields seen across array
+    class LayerElement(idx: Int):
+      def mark(json: ujson.Value) = (spec: ujson.Value) =>
+        spec("layer")(idx)("mark") = json
+
+      object mark:
+        def `type`(s: String) = (spec: ujson.Value) =>
+          spec("layer")(idx)("mark")("type") = s
+        def outerRadius(json: ujson.Value) = (spec: ujson.Value) =>
+          spec("layer")(idx)("mark")("outerRadius") = json
+        def tooltip(b: Boolean) = (spec: ujson.Value) =>
+          spec("layer")(idx)("mark")("tooltip") = b
+        def fontSize(json: ujson.Value) = (spec: ujson.Value) =>
+          spec("layer")(idx)("mark")("fontSize") = json
+        def radius(json: ujson.Value) = (spec: ujson.Value) =>
+          spec("layer")(idx)("mark")("radius") = json
+
+      // encoding only exists in layer[1], but we generate it anyway
+      def encoding(json: ujson.Value) = (spec: ujson.Value) =>
+        spec("layer")(idx)("encoding") = json
+
+      object encoding:
+        def text(json: ujson.Value) = (spec: ujson.Value) =>
+          spec("layer")(idx)("encoding")("text") = json
+
+//useage
+spec.plot(
+  layer(0).mark.tooltip(false),
+  layer(1).mark.fontSize(ujson.Obj("expr" -> "width / 30")),
+  layer(1).encoding.text(ujson.Obj("field" -> "value", "type" -> "quantitative"))
+)
+```
+
+Fro data arrays:
+
+```scala
+// entries in data.values must have the same shape. Where they don't, use option.
+type DataEntry = (category: String, value: Double, heterogenus: Option[String])
+def data(entries: List[DataEntry]) = (spec: ujson.Value) =>
+  spec("data")("values") = upickle.default.write(entries)
+
+```
+
 ### Codegen
 
 For a Spec like the following Vega-Lite JSON:
@@ -134,3 +191,5 @@ object VizMods:
 ```
 Our goal would be to analyze the spec at each point, and generate these helper methods to allow users to easily modify the spec without needing to understand the underlying JSON structure.
 
+Notes:
+- The generated DSLs inside core/generated/shared are deprecated. Practically, I found them difficult to maintain and of limited value due to the complexity and barely-typed nature. They were too general, and too ambitious and should be ignored.
