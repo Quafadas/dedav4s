@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "A simple pie chart with labels.",
+  "title": "Population by Gender",
+  "data": {
+    "values": [
+      { "category": "Male", "value": 577 },
+      { "category": "Female", "value": 314 }
+    ]
+  },
+  "encoding": {
+    "theta": { "field": "value", "type": "quantitative", "stack": true },
+    "color": { "field": "category", "type": "nominal", "legend": null }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "outerRadius": {
+          "expr": "width / 3"
+        },
+        "tooltip": true
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": {
+          "expr": "width / 40"
+        },
+        "radius": {
+          "expr": "width / 2.5"
+        }
+      },
+      "encoding": {
+        "text": {
+          "field": "category",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "width": "container",
+  "height": "container"
+}
