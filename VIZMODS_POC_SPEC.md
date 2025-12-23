@@ -33,7 +33,7 @@
 
 ```scala
 // VegaPlot.fromFile is a macro which analyzes the JSON spec at compile time
-val spec = VegaPlot.fromFile("pie.vj.json")
+val spec = VegaPlot.fromFile("pie.vj.json")  // Should be .vl.json for Vega-Lite
 
 import spec.*
 
@@ -99,6 +99,20 @@ def data(entries: List[DataEntry]) = (spec: ujson.Value) =>
   spec("data")("values") = upickle.default.write(entries)
 
 ```
+
+
+#### Type Inference Rules
+
+
+| JSON Type | Scala Type | Example |
+|-----------|------------|---------|
+| `"string"` | `String` | `"title": "Hello"` → `def title(s: String)` |
+| `123` | `Int` | `"fontSize": 14` → `def fontSize(i: Int)` |
+| `1.5` | `Double` | `"opacity": 0.5` → `def opacity(d: Double)` |
+| `true`/`false` | `Boolean` | `"tooltip": true` → `def tooltip(b: Boolean)` |
+| `null` | nullary method | See null handling |
+| `{...}` | nested object | Generate child accessors |
+| `[...]` | See array rules | Structural vs data vs primitive |
 
 ### Codegen
 
@@ -191,5 +205,18 @@ object VizMods:
 ```
 Our goal would be to analyze the spec at each point, and generate these helper methods to allow users to easily modify the spec without needing to understand the underlying JSON structure.
 
-Notes:
+# Notes:
 - The generated DSLs inside core/generated/shared are deprecated. Practically, I found them difficult to maintain and of limited value due to the complexity and barely-typed nature. They were too general, and too ambitious and should be ignored.
+
+## POC Success Criteria
+
+1. [ ] Generate helpers for a single Vega-Lite spec (pie chart)
+2. [ ] Demonstrate IDE autocomplete working
+3. [ ] Handle nested objects (e.g., `encoding.theta.field`)
+4. [ ] Handle at least one structural array (`layer`)
+5. [ ] All generated code compiles on JVM and JS
+
+## Out of Scope for POC
+- Full Vega schema coverage
+- Validation against Vega-Lite schema
+- Migration tooling from existing `mods` usage
