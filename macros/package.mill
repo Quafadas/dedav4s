@@ -1,0 +1,19 @@
+package build.macros
+
+import mill._
+import mill.scalalib._
+import mill.scalajslib._
+import mill.scalajslib.api._
+import build.Config
+
+object `package` extends ScalaModule with build.PublishModule {
+
+  override def scalaVersion = Config.scalaVersion
+
+  override def mvnDeps = Task {
+    super.mvnDeps() ++ Seq(
+      Config.oslib
+    )
+  }
+
+}

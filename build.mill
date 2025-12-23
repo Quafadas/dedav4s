@@ -27,11 +27,13 @@ object Config {
   val jsDom = mvn"org.scala-js::scalajs-dom::2.8.0"
   val secRand = mvn"org.scala-js::scalajs-java-securerandom:1.0.0"
   val playwright = "1.51.0"
+
+  val scalaVersion = "3.7.0"
 }
 
 
 trait Common extends ScalaModule {
-  override def scalaVersion = "3.7.0"
+  override def scalaVersion = Config.scalaVersion
 
   def mvnDeps = super.mvnDeps() ++ Seq(
     Config.upickle,
