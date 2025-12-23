@@ -4,6 +4,59 @@
 
 This POC implements compile-time code generation for type-safe Vega-Lite spec modification helpers using Scala 3 macros. **Helper methods are dynamically generated** from the JSON spec structure at compile time, not hardcoded.
 
+## Entry Points
+
+The VegaPlot macro provides three entry points for creating type-safe specs:
+
+### 1. `fromFile` - Load from Resource File
+
+```scala
+import viz.macros.VegaPlot
+
+// Load a Vega-Lite spec from resources at compile time
+val spec = VegaPlot.fromFile("pie.vl.json")
+import spec.mods.*
+
+spec.plot(
+  title("Custom Title"),
+  width(800)
+)
+```
+
+Best for: Spec files bundled with your application as resources.
+
+### 2. `fromString` - Parse JSON String
+
+```scala
+import viz.macros.VegaPlot
+
+// Parse JSON string at compile time
+val jsonStr = """{"title": "Chart", "width": 800}"""
+val spec = VegaPlot.fromString(jsonStr)
+import spec.mods.*
+
+spec.plot(
+  title("Updated Title"),
+  width(1000)
+)
+```
+
+Best for: Inline JSON specs or compile-time constants.
+
+### 3. `fromJson` - From ujson.Value
+
+```scala
+import viz.macros.VegaPlot
+
+// Create from ujson.Value at runtime
+val jsonValue = ujson.Obj("title" -> "Chart", "width" -> 800)
+val spec = VegaPlot.fromJson(jsonValue)
+
+spec.plot()  // Note: No typed helpers available
+```
+
+Best for: Runtime-generated specs. **Note:** This doesn't generate typed helpers since the structure isn't known at compile time. Use `fromString` or `fromFile` for full type safety.
+
 ## Usage Example
 
 ```scala

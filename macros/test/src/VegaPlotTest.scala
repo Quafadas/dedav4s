@@ -60,4 +60,46 @@ class VegaPlotTest extends FunSuite {
     assert(result("layer")(0)("mark")("tooltip").bool == false)
     assert(result("layer")(1)("encoding")("text")("field").str == "value")
   }
+  
+  test("VegaPlot.fromString should parse JSON string and generate helpers") {
+    val jsonStr = """{"title": "Test Chart", "width": 500, "height": 300}"""
+    val spec = VegaPlot.fromString(jsonStr)
+    import spec.mods.*
+    
+    val result = spec.plot(
+      title("Updated Title"),
+      width(800)
+    )
+    
+    assert(result("title").str == "Updated Title")
+    assert(result("width").num == 800)
+    assert(result("height").num == 300)
+  }
+  
+  test("VegaPlot.fromString should handle nested structures") {
+    val jsonStr = """{"encoding": {"x": {"field": "category", "type": "nominal"}}}"""
+    val spec = VegaPlot.fromString(jsonStr)
+    import spec.mods.*
+    
+    val result = spec.plot(
+      encoding.x.field("updated_field")
+    )
+    
+    assert(result("encoding")("x")("field").str == "updated_field")
+  }
+  
+  test("VegaPlot.fromJson should work with ujson.Value") {
+    val jsonValue = ujson.Obj(
+      "title" -> "Runtime Chart",
+      "width" -> 400
+    )
+    val spec = VegaPlot.fromJson(jsonValue)
+    
+    // Note: fromJson doesn't generate typed helpers since structure isn't known at compile time
+    // But it should still work for creating a spec
+    val result = spec.plot()
+    
+    assert(result("title").str == "Runtime Chart")
+    assert(result("width").num == 400)
+  }
 }

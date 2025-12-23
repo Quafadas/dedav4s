@@ -42,4 +42,50 @@ object PieChartExample {
       layer(1).encoding.text.`type`("nominal")
     )
   }
+  
+  def fromStringExample(): Value = {
+    // Create a spec from a JSON string
+    val jsonStr = """{
+      "title": "Simple Bar Chart",
+      "width": 600,
+      "height": 400,
+      "data": {
+        "values": [
+          {"category": "A", "value": 28},
+          {"category": "B", "value": 55}
+        ]
+      },
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "category", "type": "nominal"},
+        "y": {"field": "value", "type": "quantitative"}
+      }
+    }"""
+    
+    val spec = VegaPlot.fromString(jsonStr)
+    import spec.mods.*
+    
+    // Modify using generated helpers
+    spec.plot(
+      title("Updated Bar Chart"),
+      width(800),
+      encoding.x.field("updated_category")
+    )
+  }
+  
+  def fromJsonExample(): Value = {
+    // Create a spec from ujson.Value at runtime
+    val jsonValue = ujson.Obj(
+      "title" -> "Runtime Chart",
+      "width" -> 500,
+      "height" -> 300,
+      "mark" -> "point"
+    )
+    
+    val spec = VegaPlot.fromJson(jsonValue)
+    
+    // Note: fromJson doesn't generate typed helpers since structure isn't known at compile time
+    // Use fromString or fromFile for full type safety
+    spec.plot()
+  }
 }
