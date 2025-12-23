@@ -12,3 +12,5 @@ project/metals.sbt
 .ipynb_checkpoints
 out
 node_modules
+mill.*
+!mill
