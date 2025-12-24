@@ -12,8 +12,19 @@ object `package` extends ScalaModule with build.PublishModule {
 
   override def mvnDeps = Task {
     super.mvnDeps() ++ Seq(
-      Config.oslib
+      Config.oslib,
+      Config.upickle,
+      mvn"io.circe::circe-optics:0.15.0",
+      mvn"io.circe::circe-parser:0.14.15",
+      mvn"io.circe::circe-literal:0.14.15"
     )
+  }
+
+  object test extends ScalaTests with TestModule.Munit {
+    override def mvnDeps = super.mvnDeps() ++
+      Seq(
+        mvn"org.scalameta::munit::${Config.munit}",
+      )
   }
 
 }

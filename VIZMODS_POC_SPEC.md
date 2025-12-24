@@ -33,7 +33,7 @@
 
 ```scala
 // VegaPlot.fromFile is a macro which analyzes the JSON spec at compile time
-val spec = VegaPlot.fromFile("pie.vj.json")  // Should be .vl.json for Vega-Lite
+val spec = VegaPlot.fromFile("pie.vl.json")
 
 import spec.*
 
@@ -90,11 +90,11 @@ spec.plot(
 )
 ```
 
-Fro data arrays:
+For data arrays:
 
 ```scala
 // entries in data.values must have the same shape. Where they don't, use option.
-type DataEntry = (category: String, value: Double, heterogenus: Option[String])
+type DataEntry = (category: String, value: Double, heterogeneous: Option[String])
 def data(entries: List[DataEntry]) = (spec: ujson.Value) =>
   spec("data")("values") = upickle.default.write(entries)
 
