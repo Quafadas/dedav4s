@@ -208,11 +208,11 @@ class DynamicModsBuilder(specPath: String, jsonString: Option[String] = None) ex
   def selectDynamic(name: String): Any = {
     spec.obj.get(name) match {
       case Some(value: ujson.Obj) => 
-        new NestedModsBuilder(List(name))
+        NestedModsBuilder(List(name), this)
       case Some(value: ujson.Arr) if value.arr.headOption.exists(_.isInstanceOf[ujson.Obj]) =>
-        new ArrayModsBuilder(List(name))
+        ArrayModsBuilder(List(name), this)
       case _ =>
-        new FieldModifier(List(name))
+        FieldModifier(List(name), this)
     }
   }
   
@@ -233,120 +233,15 @@ class DynamicModsBuilder(specPath: String, jsonString: Option[String] = None) ex
     }
   }
   
-  class NestedModsBuilder(path: List[String]) extends scala.Dynamic:
-    def selectDynamic(name: String): Any = {
-      val newPath = path :+ name
-      val current = getAtPath(spec, path)
-      current.obj.get(name) match {
-        case Some(value: ujson.Obj) =>
-          new NestedModsBuilder(newPath)
-        case Some(value: ujson.Arr) if value.arr.headOption.exists(_.isInstanceOf[ujson.Obj]) =>
-          new ArrayModsBuilder(newPath)
-        case _ =>
-          new FieldModifier(newPath)
-      }
-    }
-    
-    def applyDynamic(name: String)(args: Any*): ujson.Value => Unit = {
-      val newPath = path :+ name
-      args.headOption match {
-        case Some(s: String) =>
-          spec => setAtPath(spec, newPath, ujson.Str(s))
-        case Some(i: Int) =>
-          spec => setAtPath(spec, newPath, ujson.Num(i))
-        case Some(d: Double) =>
-          spec => setAtPath(spec, newPath, ujson.Num(d))
-        case Some(b: Boolean) =>
-          spec => setAtPath(spec, newPath, ujson.Bool(b))
-        case Some(j: ujson.Value) =>
-          spec => setAtPath(spec, newPath, j)
-        case _ =>
-          spec => () // no-op
-      }
-    }
+  private[DynamicModsBuilder] def getSpec: ujson.Value = spec
   
-  class ArrayModsBuilder(path: List[String]):
-    def apply(idx: Int): ArrayElementBuilder = new ArrayElementBuilder(path, idx)
-  
-  class ArrayElementBuilder(path: List[String], idx: Int) extends scala.Dynamic:
-    def selectDynamic(name: String): Any = {
-      val newPath = path :+ s"[$idx]" :+ name
-      val arrayElem = getAtPath(spec, path).arr(idx)
-      arrayElem.obj.get(name) match {
-        case Some(value: ujson.Obj) =>
-          new NestedArrayElementBuilder(path, idx, List(name))
-        case _ =>
-          new ArrayFieldModifier(path, idx, List(name))
-      }
-    }
-  
-  class NestedArrayElementBuilder(arrayPath: List[String], idx: Int, elemPath: List[String]) extends scala.Dynamic:
-    def selectDynamic(name: String): Any = {
-      val newElemPath = elemPath :+ name
-      new ArrayFieldModifier(arrayPath, idx, newElemPath)
-    }
-    
-    def applyDynamic(name: String)(args: Any*): ujson.Value => Unit = {
-      val newElemPath = elemPath :+ name
-      args.headOption match {
-        case Some(s: String) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Str(s))
-        case Some(i: Int) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Num(i))
-        case Some(d: Double) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Num(d))
-        case Some(b: Boolean) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Bool(b))
-        case Some(j: ujson.Value) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, j)
-        case _ =>
-          spec => () // no-op
-      }
-    }
-  
-  class ArrayFieldModifier(arrayPath: List[String], idx: Int, elemPath: List[String]):
-    def apply(args: Any*): ujson.Value => Unit = {
-      args.headOption match {
-        case Some(s: String) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Str(s))
-        case Some(i: Int) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Num(i))
-        case Some(d: Double) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Num(d))
-        case Some(b: Boolean) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Bool(b))
-        case Some(j: ujson.Value) =>
-          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, j)
-        case _ =>
-          spec => () // no-op
-      }
-    }
-  
-  class FieldModifier(path: List[String]):
-    def apply(args: Any*): ujson.Value => Unit = {
-      args.headOption match {
-        case Some(s: String) =>
-          spec => setAtPath(spec, path, ujson.Str(s))
-        case Some(i: Int) =>
-          spec => setAtPath(spec, path, ujson.Num(i))
-        case Some(d: Double) =>
-          spec => setAtPath(spec, path, ujson.Num(d))
-        case Some(b: Boolean) =>
-          spec => setAtPath(spec, path, ujson.Bool(b))
-        case Some(j: ujson.Value) =>
-          spec => setAtPath(spec, path, j)
-        case _ =>
-          spec => () // no-op
-      }
-    }
-  
-  private def getAtPath(root: ujson.Value, path: List[String]): ujson.Value = {
+  private[DynamicModsBuilder] def getAtPath(root: ujson.Value, path: List[String]): ujson.Value = {
     path.foldLeft(root) { (current, key) =>
       current(key)
     }
   }
   
-  private def setAtPath(root: ujson.Value, path: List[String], value: ujson.Value): Unit = {
+  private[DynamicModsBuilder] def setAtPath(root: ujson.Value, path: List[String], value: ujson.Value): Unit = {
     if (path.isEmpty) return
     if (path.length == 1) {
       root(path.head) = value
@@ -356,7 +251,7 @@ class DynamicModsBuilder(specPath: String, jsonString: Option[String] = None) ex
     }
   }
   
-  private def setAtArrayPath(root: ujson.Value, arrayPath: List[String], idx: Int, elemPath: List[String], value: ujson.Value): Unit = {
+  private[DynamicModsBuilder] def setAtArrayPath(root: ujson.Value, arrayPath: List[String], idx: Int, elemPath: List[String], value: ujson.Value): Unit = {
     val array = getAtPath(root, arrayPath)
     val elem = array.arr(idx)
     if (elemPath.length == 1) {
@@ -366,3 +261,110 @@ class DynamicModsBuilder(specPath: String, jsonString: Option[String] = None) ex
       parent(elemPath.last) = value
     }
   }
+
+case class NestedModsBuilder(path: List[String], outer: DynamicModsBuilder) extends scala.Dynamic:
+  def selectDynamic(name: String): Any = {
+    val newPath = path :+ name
+    val current = outer.getAtPath(outer.getSpec, path)
+    current.obj.get(name) match {
+      case Some(value: ujson.Obj) =>
+        NestedModsBuilder(newPath, outer)
+      case Some(value: ujson.Arr) if value.arr.headOption.exists(_.isInstanceOf[ujson.Obj]) =>
+        ArrayModsBuilder(newPath, outer)
+      case _ =>
+        FieldModifier(newPath, outer)
+    }
+  }
+  
+  def applyDynamic(name: String)(args: Any*): ujson.Value => Unit = {
+    val newPath = path :+ name
+    args.headOption match {
+      case Some(s: String) =>
+        spec => outer.setAtPath(spec, newPath, ujson.Str(s))
+      case Some(i: Int) =>
+        spec => outer.setAtPath(spec, newPath, ujson.Num(i))
+      case Some(d: Double) =>
+        spec => outer.setAtPath(spec, newPath, ujson.Num(d))
+      case Some(b: Boolean) =>
+        spec => outer.setAtPath(spec, newPath, ujson.Bool(b))
+      case Some(j: ujson.Value) =>
+        spec => outer.setAtPath(spec, newPath, j)
+      case _ =>
+        spec => () // no-op
+    }
+  }
+
+case class ArrayModsBuilder(path: List[String], outer: DynamicModsBuilder):
+  def apply(idx: Int): ArrayElementBuilder = ArrayElementBuilder(path, idx, outer)
+
+case class ArrayElementBuilder(path: List[String], idx: Int, outer: DynamicModsBuilder) extends scala.Dynamic:
+  def selectDynamic(name: String): Any = {
+    val arrayElem = outer.getAtPath(outer.getSpec, path).arr(idx)
+    arrayElem.obj.get(name) match {
+      case Some(value: ujson.Obj) =>
+        NestedArrayElementBuilder(path, idx, List(name), outer)
+      case _ =>
+        ArrayFieldModifier(path, idx, List(name), outer)
+    }
+  }
+
+case class NestedArrayElementBuilder(arrayPath: List[String], idx: Int, elemPath: List[String], outer: DynamicModsBuilder) extends scala.Dynamic:
+  def selectDynamic(name: String): Any = {
+    val newElemPath = elemPath :+ name
+    ArrayFieldModifier(arrayPath, idx, newElemPath, outer)
+  }
+  
+  def applyDynamic(name: String)(args: Any*): ujson.Value => Unit = {
+    val newElemPath = elemPath :+ name
+    args.headOption match {
+      case Some(s: String) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Str(s))
+      case Some(i: Int) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Num(i))
+      case Some(d: Double) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Num(d))
+      case Some(b: Boolean) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Bool(b))
+      case Some(j: ujson.Value) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, newElemPath, j)
+      case _ =>
+        spec => () // no-op
+    }
+  }
+
+case class ArrayFieldModifier(arrayPath: List[String], idx: Int, elemPath: List[String], outer: DynamicModsBuilder):
+  def apply(args: Any*): ujson.Value => Unit = {
+    args.headOption match {
+      case Some(s: String) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Str(s))
+      case Some(i: Int) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Num(i))
+      case Some(d: Double) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Num(d))
+      case Some(b: Boolean) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Bool(b))
+      case Some(j: ujson.Value) =>
+        spec => outer.setAtArrayPath(spec, arrayPath, idx, elemPath, j)
+      case _ =>
+        spec => () // no-op
+    }
+  }
+
+case class FieldModifier(path: List[String], outer: DynamicModsBuilder):
+  def apply(args: Any*): ujson.Value => Unit = {
+    args.headOption match {
+      case Some(s: String) =>
+        spec => outer.setAtPath(spec, path, ujson.Str(s))
+      case Some(i: Int) =>
+        spec => outer.setAtPath(spec, path, ujson.Num(i))
+      case Some(d: Double) =>
+        spec => outer.setAtPath(spec, path, ujson.Num(d))
+      case Some(b: Boolean) =>
+        spec => outer.setAtPath(spec, path, ujson.Bool(b))
+      case Some(j: ujson.Value) =>
+        spec => outer.setAtPath(spec, path, j)
+      case _ =>
+        spec => () // no-op
+    }
+  }
+
