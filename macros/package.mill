@@ -10,6 +10,8 @@ object `package` extends ScalaModule with build.PublishModule {
 
   override def scalaVersion = Config.scalaVersion
 
+  override def moduleDeps = Seq(build.core.jvm)
+
   override def mvnDeps = Task {
     super.mvnDeps() ++ Seq(
       Config.oslib,

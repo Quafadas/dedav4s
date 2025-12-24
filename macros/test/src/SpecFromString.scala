@@ -12,7 +12,7 @@ class VegaPlotTest extends FunSuite {
     val spec = VegaPlot.fromString("""{"title": "Population by Gender"}""")
     import spec.mod._
 
-    val result = spec.plot(title("New Title"))
+    val result = spec.build(title("New Title"))
 
     assertEquals(root.title.string.getOption(result), Some("New Title"))
   }
@@ -21,7 +21,7 @@ class VegaPlotTest extends FunSuite {
     val spec = VegaPlot.fromString("""{"title": "Population by Gender"}""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       title(JsonObject("text" -> Json.fromString("Complex Title"), "fontSize" -> Json.fromInt(20)))
     )
 
@@ -37,7 +37,7 @@ class VegaPlotTest extends FunSuite {
     }""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       title("Updated Title"),
       description("New description"),
       width(800)
@@ -56,7 +56,7 @@ class VegaPlotTest extends FunSuite {
     }""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       width(800),
       height(600.5),
       padding(10)
@@ -74,7 +74,7 @@ class VegaPlotTest extends FunSuite {
     }""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       autosize(false)
     )
 
@@ -89,7 +89,7 @@ class VegaPlotTest extends FunSuite {
     }""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       title("Modified")
     )
 
@@ -102,7 +102,7 @@ class VegaPlotTest extends FunSuite {
     val spec = VegaPlot.fromString("""{"title": "Original"}""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       title("Modified")
     )
 
@@ -120,7 +120,7 @@ class VegaPlotTest extends FunSuite {
     }""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       title.text("New Title"),
       title.fontSize(20),
     )
@@ -139,7 +139,7 @@ class VegaPlotTest extends FunSuite {
     }""")
     import spec.mod._
 
-    val result = spec.plot(
+    val result = spec.build(
       title(json"""{"text": "New Title", "fontSize": 20}""")
     )
 
@@ -189,7 +189,7 @@ class VegaPlotTest extends FunSuite {
     import spec.mod._
 
     // All these should compile with proper types inferred from the spec
-    val result = spec.plot(
+    val result = spec.build(
       title.text("New Title"),    // StringField.apply(String)
       title.fontSize(24),         // NumField.apply(Int)
       title.bold(true),           // BoolField.apply(Boolean)

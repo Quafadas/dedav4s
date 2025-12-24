@@ -8,6 +8,8 @@ import io.circe.parser.parse
 import io.circe.optics.JsonPath
 import io.circe.optics.JsonPath._
 import monocle.Optional
+import viz.*
+import viz.Plottable.plot
 
 /** Type alias for spec modifier functions using circe Json */
 type SpecMod = Json => Json
@@ -60,8 +62,12 @@ class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectabl
  */
 class VegaSpec[M](val rawSpec: Json, val mod: M):
   /** Apply modifications and return the modified spec */
-  def plot(mods: SpecMod*): Json =
+  def build(mods: SpecMod*): Json =
     mods.foldLeft(rawSpec)((json, mod) => mod(json))
+
+  def plot(mods: SpecMod*)(using plotTarget: LowPriorityPlotTarget): VizReturn =
+    given ChartLibrary = ChartLibrary.Vega
+    ujson.read(build(mods: _*).toString).plot
 
 object VegaPlot:
   transparent inline def fromString(inline specContent: String): Any =
