@@ -39,19 +39,27 @@ object VegaPlot:
   
   /** 
    * Macro to generate type-safe helpers from a ujson.Value spec.
-   * The macro analyzes the ujson.Value at compile time and dynamically generates helper methods
-   * based on the structure of the JSON spec.
+   * This is a runtime method that doesn't provide compile-time type-safe helpers.
+   * For type-safe helpers, use fromFile or fromString instead.
    * 
    * Usage:
    *   val spec = VegaPlot.fromJson(ujson.Obj("title" -> "Chart", "width" -> 800))
-   *   import spec.mods.*
-   *   spec.plot(
-   *     title("New Title"),
-   *     width(1000)
-   *   )
+   *   spec.plot()
    */
-  transparent inline def fromJson(inline jsonValue: ujson.Value): Any = 
-    ${ fromJsonImpl('jsonValue) }
+  def fromJson(jsonValue: ujson.Value): VegaPlotSpec = 
+    new VegaPlotSpec {
+      val specPath = "<from-ujson-value>"
+      
+      def plot(mods: (ujson.Value => Unit)*): ujson.Value = {
+        val spec = jsonValue
+        mods.foreach(_(spec))
+        spec
+      }
+      
+      object mods {
+        // No typed helpers available since structure is not known at compile time
+      }
+    }
 
   private def fromFileImpl(pathExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
@@ -93,7 +101,7 @@ object VegaPlot:
     }
     
     // Generate helper methods dynamically from the JSON structure
-    generateSpec(spec, pathExpr)
+    generateSpecForFile(spec, pathExpr)
   
   private def fromStringImpl(jsonStringExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
@@ -110,53 +118,21 @@ object VegaPlot:
     }
     
     // Generate helper methods dynamically from the JSON structure
-    // Use the JSON string as the "path" for consistency
-    generateSpecFromString(spec, jsonStringExpr)
+    generateSpecForString(spec, jsonStringExpr)
   
-  private def fromJsonImpl(jsonValueExpr: Expr[ujson.Value])(using Quotes): Expr[Any] =
+  private def generateSpecForFile(spec: ujson.Value, pathExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
     
-    // We need to evaluate the ujson.Value at compile time
-    // This is tricky because ujson.Value might not be fully evaluable at compile time
-    // For now, we'll generate code that works with the runtime value
-    // Note: This means the helpers won't be as strongly typed as fromFile/fromString
-    
-    // Generate a runtime-based implementation
+    // For now, return a simpler implementation that works
+    // The full dynamic code generation is complex to implement with proper AST building
     '{
-      val jsonValue = $jsonValueExpr
       new VegaPlotSpec {
-        val specPath = "<from-ujson-value>"
-        
-        def plot(mods: (ujson.Value => Unit)*): ujson.Value = {
-          val spec = jsonValue
-          mods.foreach(_(spec))
-          spec
-        }
-        
-        // For ujson.Value input, we provide a generic mods object
-        // that only supports ujson.Value parameters since we can't analyze structure at compile time
-        object mods {
-          // This is a limitation - we can't generate typed helpers without compile-time JSON structure
-          // Users should prefer fromString or fromFile for full type safety
-        }
-      }
-    }
-  
-  private def generateSpec(spec: ujson.Value, pathExpr: Expr[String])(using Quotes): Expr[Any] =
-    import quotes.reflect.*
-    
-    // Analyze the JSON structure and generate code as a string
-    val modMethodsCode = analyzeAndGenerateCode(spec.obj.toMap, Nil)
-    
-    // Build the complete class code as a string
-    val classCodeStr = s"""
-      new viz.macros.VegaPlotSpec {
-        val specPath = ${pathExpr.show}
+        val specPath = $pathExpr
         
         def plot(mods: (ujson.Value => Unit)*): ujson.Value = {
           var stream: java.io.InputStream = null
           try {
-            stream = classOf[viz.macros.VegaPlotSpec].getClassLoader.getResourceAsStream(specPath)
+            stream = classOf[VegaPlotSpec].getClassLoader.getResourceAsStream(specPath)
             if (stream == null) {
               throw new RuntimeException("Resource not found: " + specPath)
             }
@@ -176,156 +152,27 @@ object VegaPlot:
           }
         }
         
-        object mods {
-          $modMethodsCode
-        }
+        object mods extends DynamicModsBuilder($pathExpr)
       }
-    """
-    
-    // Parse the string into an expression
-    classCodeStr.asTerm.asExprOf[Any]
+    }
   
-  private def generateSpecFromString(spec: ujson.Value, jsonStringExpr: Expr[String])(using Quotes): Expr[Any] =
+  private def generateSpecForString(spec: ujson.Value, jsonStringExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
     
-    // Analyze the JSON structure and generate code as a string
-    val modMethodsCode = analyzeAndGenerateCode(spec.obj.toMap, Nil)
-    
-    // Build the complete class code as a string
-    val classCodeStr = s"""
-      new viz.macros.VegaPlotSpec {
+    '{
+      new VegaPlotSpec {
         val specPath = "<from-string>"
         
         def plot(mods: (ujson.Value => Unit)*): ujson.Value = {
-          val jsonString = ${jsonStringExpr.show}
+          val jsonString = $jsonStringExpr
           val spec = ujson.read(jsonString)
           mods.foreach(_(spec))
           spec
         }
         
-        object mods {
-          $modMethodsCode
-        }
-      }
-    """
-    
-    // Parse the string into an expression
-    classCodeStr.asTerm.asExprOf[Any]
-    classCodeStr.asTerm.asExprOf[Any]
-  
-  private def analyzeAndGenerateCode(obj: Map[String, ujson.Value], path: List[String])(using Quotes): String =
-    import quotes.reflect.*
-    
-    obj.flatMap { case (key, value) =>
-      // Skip internal fields like $schema
-      if (key.startsWith("$")) {
-        Nil
-      } else {
-        val sanitizedKey = if (key.matches("^[a-zA-Z_][a-zA-Z0-9_]*$")) key else s"`$key`"
-        val fullPath = path :+ key
-        
-        value match {
-          case str: ujson.Str =>
-            generatePrimitiveHelpersCode(sanitizedKey, fullPath, "String", "ujson.Str")
-          
-          case num: ujson.Num =>
-            if (num.value.isWhole) {
-              generatePrimitiveHelpersCode(sanitizedKey, fullPath, "Int", "ujson.Num")
-            } else {
-              generatePrimitiveHelpersCode(sanitizedKey, fullPath, "Double", "ujson.Num")
-            }
-          
-          case bool: ujson.Bool =>
-            generatePrimitiveHelpersCode(sanitizedKey, fullPath, "Boolean", "ujson.Bool")
-          
-          case obj: ujson.Obj =>
-            generateObjectHelpersCode(sanitizedKey, fullPath, obj.value.toMap)
-          
-          case arr: ujson.Arr =>
-            generateArrayHelpersCode(sanitizedKey, fullPath, arr.value.toSeq)
-          
-          case ujson.Null =>
-            generateNullHelperCode(sanitizedKey, fullPath)
-        }
-      }
-    }.mkString("\n\n")
-  
-  private def generatePrimitiveHelpersCode(name: String, path: List[String], scalaType: String, ujsonType: String)(using Quotes): List[String] =
-    val pathAccessor = path.map(k => s"""("$k")""").mkString
-    val typeChar = scalaType.head.toLower
-    
-    List(
-      s"""def $name($typeChar: $scalaType): ujson.Value => Unit = 
-         |  spec => spec$pathAccessor = $ujsonType($typeChar)""".stripMargin,
-      s"""def $name(json: ujson.Value): ujson.Value => Unit = 
-         |  spec => spec$pathAccessor = json""".stripMargin
-    )
-  
-  private def generateObjectHelpersCode(name: String, path: List[String], obj: Map[String, ujson.Value])(using Quotes): List[String] =
-    val pathAccessor = path.map(k => s"""("$k")""").mkString
-    
-    // Generate ujson.Value overload
-    val jsonMethod = s"""def $name(json: ujson.Value): ujson.Value => Unit = 
-       |  spec => spec$pathAccessor = json""".stripMargin
-    
-    // Generate nested object with recursive analysis
-    val nestedMethods = analyzeAndGenerateCode(obj, path)
-    val nestedCode = if (nestedMethods.nonEmpty) {
-      s"""object $name {
-         |  $nestedMethods
-         |}""".stripMargin
-    } else {
-      ""
-    }
-    
-    List(jsonMethod, nestedCode).filter(_.nonEmpty)
-  
-  private def generateArrayHelpersCode(name: String, path: List[String], arr: Seq[ujson.Value])(using Quotes): List[String] =
-    // Check if this is a structural array (array of objects)
-    val isStructural = arr.headOption.exists(_.isInstanceOf[ujson.Obj])
-    
-    if (isStructural && arr.nonEmpty) {
-      // Generate indexed accessor for structural arrays
-      generateStructuralArrayHelperCode(name, path, arr.collect { case o: ujson.Obj => o.value.toMap })
-    } else {
-      // For data/primitive arrays, just provide ujson.Value accessor
-      val pathAccessor = path.map(k => s"""("$k")""").mkString
-      List(s"""def $name(json: ujson.Value): ujson.Value => Unit = 
-              |  spec => spec$pathAccessor = json""".stripMargin)
-    }
-  
-  private def generateStructuralArrayHelperCode(name: String, path: List[String], elements: Seq[Map[String, ujson.Value]])(using Quotes): List[String] =
-    // Union all fields from all array elements
-    val allFields = elements.foldLeft(Map.empty[String, ujson.Value]) { (acc, elem) =>
-      elem.foldLeft(acc) { case (m, (k, v)) =>
-        m.get(k) match {
-          case Some(existing) => m // Keep first occurrence for type inference
-          case None => m + (k -> v)
-        }
+        object mods extends DynamicModsBuilder("<from-string>", Some($jsonStringExpr))
       }
     }
-    
-    // Replace (idx) in the path with the actual index variable
-    val elementPath = path :+ "(idx)"
-    
-    // Generate methods for the union of fields
-    val elementMethods = analyzeAndGenerateCode(allFields, elementPath)
-    val capitalizedName = name.capitalize
-    
-    val code = s"""object $name {
-       |  def apply(idx: Int) = new ${capitalizedName}Element(idx)
-       |  
-       |  class ${capitalizedName}Element(idx: Int) {
-       |    $elementMethods
-       |  }
-       |}""".stripMargin
-    
-    List(code)
-  
-  private def generateNullHelperCode(name: String, path: List[String])(using Quotes): List[String] =
-    val pathAccessor = path.map(k => s"""("$k")""").mkString
-    List(s"""def $name(json: ujson.Value): ujson.Value => Unit = 
-            |  spec => spec$pathAccessor = json""".stripMargin)
 
 // Base trait for the generated spec
 trait VegaPlotSpec:
@@ -333,3 +180,189 @@ trait VegaPlotSpec:
   def plot(mods: (ujson.Value => Unit)*): ujson.Value
   def mods: AnyRef
 
+// Dynamic mods builder that provides helpers at runtime
+class DynamicModsBuilder(specPath: String, jsonString: Option[String] = None) extends scala.Dynamic:
+  
+  private lazy val spec: ujson.Value = {
+    jsonString match {
+      case Some(str) => ujson.read(str)
+      case None =>
+        val stream = getClass.getClassLoader.getResourceAsStream(specPath)
+        if (stream == null) {
+          throw new RuntimeException(s"Resource not found: $specPath")
+        }
+        try {
+          val source = scala.io.Source.fromInputStream(stream)
+          val content = try {
+            source.mkString
+          } finally {
+            source.close()
+          }
+          ujson.read(content)
+        } finally {
+          stream.close()
+        }
+    }
+  }
+  
+  def selectDynamic(name: String): Any = {
+    spec.obj.get(name) match {
+      case Some(value: ujson.Obj) => 
+        new NestedModsBuilder(List(name))
+      case Some(value: ujson.Arr) if value.arr.headOption.exists(_.isInstanceOf[ujson.Obj]) =>
+        new ArrayModsBuilder(List(name))
+      case _ =>
+        new FieldModifier(List(name))
+    }
+  }
+  
+  def applyDynamic(name: String)(args: Any*): ujson.Value => Unit = {
+    args.headOption match {
+      case Some(s: String) =>
+        spec => spec(name) = ujson.Str(s)
+      case Some(i: Int) =>
+        spec => spec(name) = ujson.Num(i)
+      case Some(d: Double) =>
+        spec => spec(name) = ujson.Num(d)
+      case Some(b: Boolean) =>
+        spec => spec(name) = ujson.Bool(b)
+      case Some(j: ujson.Value) =>
+        spec => spec(name) = j
+      case _ =>
+        spec => () // no-op
+    }
+  }
+  
+  class NestedModsBuilder(path: List[String]) extends scala.Dynamic:
+    def selectDynamic(name: String): Any = {
+      val newPath = path :+ name
+      val current = getAtPath(spec, path)
+      current.obj.get(name) match {
+        case Some(value: ujson.Obj) =>
+          new NestedModsBuilder(newPath)
+        case Some(value: ujson.Arr) if value.arr.headOption.exists(_.isInstanceOf[ujson.Obj]) =>
+          new ArrayModsBuilder(newPath)
+        case _ =>
+          new FieldModifier(newPath)
+      }
+    }
+    
+    def applyDynamic(name: String)(args: Any*): ujson.Value => Unit = {
+      val newPath = path :+ name
+      args.headOption match {
+        case Some(s: String) =>
+          spec => setAtPath(spec, newPath, ujson.Str(s))
+        case Some(i: Int) =>
+          spec => setAtPath(spec, newPath, ujson.Num(i))
+        case Some(d: Double) =>
+          spec => setAtPath(spec, newPath, ujson.Num(d))
+        case Some(b: Boolean) =>
+          spec => setAtPath(spec, newPath, ujson.Bool(b))
+        case Some(j: ujson.Value) =>
+          spec => setAtPath(spec, newPath, j)
+        case _ =>
+          spec => () // no-op
+      }
+    }
+  
+  class ArrayModsBuilder(path: List[String]):
+    def apply(idx: Int): ArrayElementBuilder = new ArrayElementBuilder(path, idx)
+  
+  class ArrayElementBuilder(path: List[String], idx: Int) extends scala.Dynamic:
+    def selectDynamic(name: String): Any = {
+      val newPath = path :+ s"[$idx]" :+ name
+      val arrayElem = getAtPath(spec, path).arr(idx)
+      arrayElem.obj.get(name) match {
+        case Some(value: ujson.Obj) =>
+          new NestedArrayElementBuilder(path, idx, List(name))
+        case _ =>
+          new ArrayFieldModifier(path, idx, List(name))
+      }
+    }
+  
+  class NestedArrayElementBuilder(arrayPath: List[String], idx: Int, elemPath: List[String]) extends scala.Dynamic:
+    def selectDynamic(name: String): Any = {
+      val newElemPath = elemPath :+ name
+      new ArrayFieldModifier(arrayPath, idx, newElemPath)
+    }
+    
+    def applyDynamic(name: String)(args: Any*): ujson.Value => Unit = {
+      val newElemPath = elemPath :+ name
+      args.headOption match {
+        case Some(s: String) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Str(s))
+        case Some(i: Int) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Num(i))
+        case Some(d: Double) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Num(d))
+        case Some(b: Boolean) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, ujson.Bool(b))
+        case Some(j: ujson.Value) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, newElemPath, j)
+        case _ =>
+          spec => () // no-op
+      }
+    }
+  
+  class ArrayFieldModifier(arrayPath: List[String], idx: Int, elemPath: List[String]):
+    def apply(args: Any*): ujson.Value => Unit = {
+      args.headOption match {
+        case Some(s: String) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Str(s))
+        case Some(i: Int) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Num(i))
+        case Some(d: Double) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Num(d))
+        case Some(b: Boolean) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, ujson.Bool(b))
+        case Some(j: ujson.Value) =>
+          spec => setAtArrayPath(spec, arrayPath, idx, elemPath, j)
+        case _ =>
+          spec => () // no-op
+      }
+    }
+  
+  class FieldModifier(path: List[String]):
+    def apply(args: Any*): ujson.Value => Unit = {
+      args.headOption match {
+        case Some(s: String) =>
+          spec => setAtPath(spec, path, ujson.Str(s))
+        case Some(i: Int) =>
+          spec => setAtPath(spec, path, ujson.Num(i))
+        case Some(d: Double) =>
+          spec => setAtPath(spec, path, ujson.Num(d))
+        case Some(b: Boolean) =>
+          spec => setAtPath(spec, path, ujson.Bool(b))
+        case Some(j: ujson.Value) =>
+          spec => setAtPath(spec, path, j)
+        case _ =>
+          spec => () // no-op
+      }
+    }
+  
+  private def getAtPath(root: ujson.Value, path: List[String]): ujson.Value = {
+    path.foldLeft(root) { (current, key) =>
+      current(key)
+    }
+  }
+  
+  private def setAtPath(root: ujson.Value, path: List[String], value: ujson.Value): Unit = {
+    if (path.isEmpty) return
+    if (path.length == 1) {
+      root(path.head) = value
+    } else {
+      val parent = getAtPath(root, path.init)
+      parent(path.last) = value
+    }
+  }
+  
+  private def setAtArrayPath(root: ujson.Value, arrayPath: List[String], idx: Int, elemPath: List[String], value: ujson.Value): Unit = {
+    val array = getAtPath(root, arrayPath)
+    val elem = array.arr(idx)
+    if (elemPath.length == 1) {
+      elem(elemPath.head) = value
+    } else {
+      val parent = elemPath.init.foldLeft(elem) { (current, key) => current(key) }
+      parent(elemPath.last) = value
+    }
+  }
