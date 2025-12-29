@@ -1,4 +1,4 @@
-package build.jsSite
+package build.siteJs
 
 import mill._
 import mill.scalalib._
@@ -14,6 +14,14 @@ object `package` extends Module with SiteJSModule {
   override def moduleKind = ModuleKind.ESModule
 
   def mvnDeps = super.mvnDeps() ++ build.core.js.mvnDeps() ++ build.laminar.mvnDeps() ++ build.calico.mvnDeps()
+
+
+  override def scalaJSImportMap = Task{
+    Seq(
+      ESModuleImportMapping.Prefix("##vega-embed", "https://esm.run/vega-embed" ),
+      ESModuleImportMapping.Prefix("##vega-view", "https://esm.run/vega-view@6.1.0" )
+    )
+  }
 
   object test extends ScalaJSTests with build.core.SharedTest {
     def moduleKind = ModuleKind.CommonJSModule

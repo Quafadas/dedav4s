@@ -1,6 +1,4 @@
-```
-title: Chart Types
-```
+# Chart Types
 
 dedav is a shim to Vega. Anything vega can plot, it can plot. Learning vega is a fun journey that this library _does not attempt to insulate you from_. Rather it encourages it. Vega is battle tested, has great resources an internet full of examples and is super bot-friendly.
 
@@ -28,13 +26,10 @@ val specJson = upickle.default.writeJs(spec)
 viz.doc.JsDocs.fromUjson(specJson, node, 25)
 ```
 
-Note: JSON serialisation only works, if the type inference is more specific than `AnyNamedTuple`.
+Relies on JSON serialisation of NamedTupleds. YMMV.
 
 To get started, find an [existing chart](https://vega.github.io/vega/examples/), and evolve it to what you want... this library hooks directly into vegas repository of example charts.
 
-Here are some examples... of using vegas examples (!), but making them bigger.
-
-In a repl, try tab completion on `viz.vega.plots.[tab]`. Compare the list of available charts, to the list of vega examples. It ought to be the same...
 
 # Example Charts
 

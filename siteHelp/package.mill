@@ -1,0 +1,13 @@
+package build.siteHelp
+
+import mill._
+import mill.scalalib._
+import mill.scalajslib._
+import mill.scalajslib.api._
+
+object `package` extends build.Common {
+  def moduleDeps = Seq(build.core.jvm)
+  def mvnDeps = super.mvnDeps() ++ Seq(
+    mvn"org.scalameta::mdoc::${build.Config.mdocVersion}"
+  )
+}

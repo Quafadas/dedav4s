@@ -8,9 +8,9 @@ import io.github.quafadas.millSite.*
 
 object `package` extends SiteModule {
 
-  override lazy val jsSiteModule = Some(build.jsSite)
+  override lazy val jsSiteModule = Some(build.siteJs)
 
-  override def unidocDeps = Seq(build.core.jvm)
+  override def unidocDeps = Seq(build.core.jvm, build.siteHelp)
 
   override def pathToImportMap = Task { Some(PathRef(Task.dest / os.up / os.up / os.up / os.up / "importmap.json")) }
 

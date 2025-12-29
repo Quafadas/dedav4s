@@ -1,13 +1,9 @@
----
-extraJs: js/refresh.js
----
-
 # Dedav4s
 
 Declarative data visualization for scala - a scala plotting concept
 
 ## Elevator Pitch
-<img src="dedav_intro.gif" width=90% height=90% />
+<img src="assets/dedav_intro.gif" width=90% height=90% />
 
 # Background Information
 This is a thin shim around [vega](https://vega.github.io/vega/),  [vega lite](https://vega.github.io/vega-lite/) and [echarts](https://echarts.apache.org/). It's aims are:
@@ -35,6 +31,6 @@ On the JVM it currently contains targets for:
 3. websockets
 5. Svg, pdf and png files
 
-It further aims to help plotting in scala JS, so that the same charts are easily re-useable in both environments. See [getting started](./GettingStarted/index.mdoc.md) for more information...
+It further aims to help plotting in scala JS, so that the same charts are easily re-useable in both environments. See Getting started for more information...
 
-<script src="../js/refresh.js"></script>
+<script src="assets/js/refresh.js"></script>

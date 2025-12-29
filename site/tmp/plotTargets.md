@@ -8,25 +8,25 @@ Will open a new browser window in your desktop based browser, pointing to a temp
 <img src="dedav_intro.gif" width=90% height=90% />
 
 
-```scala mdoc:invisible  sc:nocompile
+```scala mdoc:invisible
 import viz.PlotTargets.doNothing
 import viz.vegaFlavour
 import viz.extensions.*
 ```
-```scala  sc:nocompile
+```scala
 import viz.PlotTargets.desktopBrowser
 import viz.extensions.*
 ```
-```scala  sc:nocompile
+```scala
 val out = List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 out.toString()
 ```
-```scala mdoc:vegaspec:desktopBrowser  sc:nocompile
+```scala mdoc:vegaspec:desktopBrowse
 val out = List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 out.toString()
 ```
 
-```scala mdoc:js:invisible  sc:nocompile
+```scala mdoc:js:invisible
 viz.doc.showJsDocs("desktopBrowser", node, 0 )
 ```
 ### How desktop browser works
@@ -64,7 +64,7 @@ You can then use the `publishToPort` plot target, which will send the spec, to t
 
 <img src="websockets2.gif" width=90% height=90% />
 
-```scala  sc:nocompile
+```scala
 import viz.PlotTargets.publishToPort
 import viz.extensions.*
 
@@ -79,7 +79,7 @@ I often want to see multiple plots. Navigate to
 
 Now, you'll need to update the desription of the chart, to match the trailing path of the url. e.g.
 
-```scala sc:nocompile
+```scal
 given port: Int = 8085
 List(("A",0),("B",-8),("C",20)).plotBarChart(List(spec => spec("description") = "hi"))
 List(("A",5),("B",8),("C",-1)).plotBarChart(List(spec => spec("description") = "bob"))
@@ -93,10 +93,10 @@ And both browser tabs will now update with their respective plots.
 
 Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment.
 
-```scala  sc:nocompile
+```scala
 import viz.PlotTargets.almond
 ```
-```scala  sc:nocompile
+```scala
 viz.vega.plots.BarChart(
    List(
         spec => spec("title") = "Got Viz?",
@@ -124,7 +124,7 @@ ports:
 ```
 48485 is if you do not require a custom port. In your repl, try...
 
-```scala  sc:nocompile
+```scala
 import viz.PlotTargets.gitpod
 import viz.vegaFlavour
 import viz.extensions.RawIterables.*
@@ -139,7 +139,7 @@ The second request however... should work...
 <img src="gitpod_fast.gif" width=90% height=90% />
 
 ## Do Nothing
-```scala  sc:nocompile
+```scala
 import viz.PlotTargets.doNothing
 import viz.extensions.RawIterables.*
 
@@ -153,7 +153,7 @@ Importantly, this is default behaviour - important when we reach scala JS.
 
 Formats and prints the final JSON spec to the console.
 
-```scala mdoc:reset  sc:nocompile
+```scala mdoc:reset
 import viz.PlotTargets.printlnTarget
 import viz.vegaFlavour
 import viz.extensions.*
@@ -168,24 +168,24 @@ This library _does not_ magically set vega cli up for you. It _assumes_ that you
 
 Assuming we're plotting
 
-```scala sc:nocompile
+```scal
 (1 to 10).plotBarChart()
 ```
 
 ### PNG
-```scala  sc:nocompile
+```scala
 import viz.PlotTargets.pdf
 ```
 ![as png](plot-10805531892109353827.png)
 
 ### PDF
-```scala  sc:nocompile
+```scala
 $import viz.PlotTargets.pdf
 ````
 Markdown can't display this... but it works I promise.
 
 ### SVG
-```scala  sc:nocompile
+```scala
 import viz.PlotTargets.svg
 ````
 ![as svg](plot-15502123500232012865.svg)

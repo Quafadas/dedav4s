@@ -32,6 +32,8 @@ object Config {
 
   val laminar = mvn"com.raquo::laminar::17.2.0"
 
+  val mdocVersion = "2.8.2"
+
   val scalaVersion = "3.7.0"
   val scalaJSVersion = "1.20.1"
 }
