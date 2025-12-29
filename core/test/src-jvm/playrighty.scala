@@ -31,10 +31,15 @@ import com.microsoft.playwright.options.WaitUntilState
 // import scala.concurrent.ExecutionContext.Implicits.global
 
 class PlaywrightTest extends munit.FunSuite:
+  val VIZ_SERVER_PORT = 8085
+  val VIZ_SERVER_ENDPOINT = s"http://localhost:$VIZ_SERVER_PORT/view"
 
   var pw: Playwright = uninitialized
   var browser: Browser = uninitialized
   var page: Page = uninitialized
+
+  var handler: viz.websockets.WebsocketVizServer = uninitialized
+  var server: Undertow = uninitialized
 
   override def beforeAll(): Unit =
 
@@ -42,7 +47,19 @@ class PlaywrightTest extends munit.FunSuite:
     pw = Playwright.create()
     browser = pw.chromium().launch();
     page = browser.newPage();
+
+    handler = new viz.websockets.WebsocketVizServer(VIZ_SERVER_PORT) {}
+    server = Undertow.builder
+      .addHttpListener(VIZ_SERVER_PORT, "localhost")
+      .setHandler(handler.defaultHandler)
+      .build
+    server.start()
+    println(s"Server started on port $VIZ_SERVER_PORT")
   end beforeAll
+
+  override def afterEach(context: AfterEach): Unit =
+    handler.charts.clear()
+  end afterEach
 
   private def navigateTo(toCheck: VizReturn, page: Page) =
     toCheck match
@@ -92,25 +109,8 @@ class PlaywrightTest extends munit.FunSuite:
     import viz.PlotTargets.doNothing
     import viz.NamedTupleReadWriter.given
 
-    val spec = (
-      title = (
-        text = "ECharts Example"
-      ),
-      xAxis = (
-        data = Seq("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-      ),
-      tooltip = (fake = ""),
-      yAxis = (fake = ""),
-      series = (
-        name = "sales",
-        `type` = "bar",
-        data = Seq(120, 200, 150, 80, 70, 110, 130)
-      )
-    )
-
     // println("Plotting")
-    spec.plot()
-
+    echartsPlot.plot()
   }
 
   test("that we can plot a named tuple") {
@@ -129,25 +129,35 @@ class PlaywrightTest extends munit.FunSuite:
   test("that we can use the viz server") {
     import viz.vegaFlavour
     import viz.PlotTargets.websocket
-    val port = 8085
 
-    val s: viz.websockets.WebsocketVizServer = new viz.websockets.WebsocketVizServer(port) {}
-    val server = Undertow.builder
-      .addHttpListener(port, "localhost")
-      .setHandler(s.defaultHandler)
-      .build
-    server.start()
-    println(s"Server started on port $port")
-
-    val url = s"http://localhost:$port/view/${barPlot.description}"
-
-    page.navigate(url)
-    page.waitForSelector("div#vis")
+    val id = barPlot.description
+    val url = s"$VIZ_SERVER_ENDPOINT/$id"
 
     barPlot.plot()
 
+    page.navigate(url)
+    page.waitForLoadState()
+
     assertThat(page.locator("svg.marks")).isVisible()
-    server.stop()
+  }
+
+  test("that we can plot an echart on viz server") {
+    import viz.echartsFlavour
+    import viz.PlotTargets.websocket
+
+    // Because NamedTuples are converted to ujson.Value,
+    // their hashes differ from those sent to the server.
+    val jsonSpec = upickle.default.writeJs(echartsPlot)
+
+    val id = jsonSpec.hashCode
+    val url = s"$VIZ_SERVER_ENDPOINT/$id"
+
+    jsonSpec.plot(List.empty)
+
+    page.navigate(url)
+    page.waitForLoadState()
+
+    assertThat(page.locator("div.chart canvas")).isVisible()
   }
 
   val barPlot = (
@@ -173,10 +183,28 @@ class PlaywrightTest extends munit.FunSuite:
     )
   )
 
+  val echartsPlot = (
+    title = (
+      text = "ECharts Example"
+    ),
+    xAxis = (
+      data = Seq("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    ),
+    tooltip = (fake = ""),
+    yAxis = (fake = ""),
+    series = (
+      name = "sales",
+      `type` = "bar",
+      data = Seq(120, 200, 150, 80, 70, 110, 130)
+    )
+  )
+
   override def afterAll(): Unit =
     page.close()
     browser.close()
     pw.close()
+
+    server.stop()
 
     super.afterAll()
   end afterAll

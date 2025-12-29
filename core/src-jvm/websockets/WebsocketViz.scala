@@ -16,8 +16,17 @@
 
 package viz.websockets
 
+import scala.collection.mutable
+import scala.util.{Try, Success, Failure}
+
 import io.undertow.websockets.WebSocketConnectionCallback
-import io.undertow.websockets.core.{AbstractReceiveListener, BufferedTextMessage, WebSocketChannel, WebSockets}
+import io.undertow.websockets.core.{
+  AbstractReceiveListener,
+  BufferedTextMessage,
+  WebSocketChannel,
+  WebSockets,
+  StreamSourceFrameChannel
+}
 import io.undertow.websockets.spi.WebSocketHttpExchange
 import scalatags.Text.all.*
 import java.awt.Desktop
@@ -50,7 +59,14 @@ end serve
 
 // lazy object WebsocketVizServer extends WebsocketVizServer(8085)
 
+case class ChartSpec(chartType: String, spec: String)
+
 trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
+  inline def LATEST_CHART_ID = "latest"
+
+  val charts = mutable.Map[String, ChartSpec]()
+  val connectedChannels = mutable.ListBuffer[WebSocketChannel]()
+
   var firstTime: Boolean = true
 
   def setFirstTime =
@@ -73,157 +89,178 @@ trait WebsocketVizServer(portIn: Int) extends cask.MainRoutes:
     script(src := "https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js")
   )
 
-  private def divId = div(id := "vis", height := "95vmin", width := "95vmin")
+  protected val supportedChartTypes = Map(
+    "vega" -> vegaView,
+    "echarts" -> eChartsView
+  )
 
-  @cask.get("/view/:description")
-  def filerViz(description: String) =
-    html(
-      lang := "en",
-      headImports,
-      body(
-        // h1("viz"),
-        divId,
-        script(raw"""
-        let socket = new WebSocket('ws://localhost:$port/connect/viz');
-        socket.onopen = function(e) {
-          document.getElementById('vis').innerHTML = 'connected and waiting'
-        };
-        socket.onmessage = function(event) {
-          console.log(event.data)
-          const spec = JSON.parse(event.data)
-          if (spec.description === '$description') {
-            vegaEmbed('#vis', spec, {
-              renderer: 'svg', // renderer (canvas or svg)
-              container: '#vis', // parent DOM container
-              hover: true, // enable hover processing
-              actions: true
-            })
-          }
-        };
+  protected def autoReloadPageOnChart(watchId: String = "") =
+    // Always reload the page if watchId is empty.
+    val conditional = if watchId != "" then s"if (info.id === '$watchId')" else ""
+    script(raw"""
+      |let socket = new WebSocket('/connect/viz');
+      |socket.onmessage = function(event) {
+      |  const info = JSON.parse(event.data)
+      |  $conditional {
+      |    location.reload();
+      |  }
+      |};
+    """.stripMargin)
+  end autoReloadPageOnChart
 
-        socket.onclose = function(event) {
-          if (event.wasClean) {
-            console.log(`[close] Connection closed cleanly, code=$${event.code} reason=$${event.reason}`);
-          } else {
-            console.error('[close] Connection died');
-          }
-        };
-        socket.onerror = function(error) {
-          console.error(`[error] $${error.message}`);
-        };
-
-        """)
-      )
+  protected def vegaView(chartId: String, spec: String) =
+    div(
+      span(`class` := "spec", display := "none", spec),
+      div(`class` := "chart", height := "95vmin", width := "95vmin"),
+      script(raw"""
+        |let self = document.currentScript;
+        |let specEl = self.parentNode.querySelector('.spec');
+        |let chartEl = self.parentNode.querySelector('.chart');
+        |const spec = JSON.parse(specEl.textContent);
+        |vegaEmbed(chartEl, spec, {
+        |  renderer: 'svg', // renderer (canvas or svg)
+        |  hover: true, // enable hover processing
+        |  actions: true
+        |});
+      """.stripMargin)
     )
+  end vegaView
 
-  @cask.get("/echart/:title")
-  def echart(title: String) =
-    html(
-      lang := "en",
-      headImports,
-      body(
-        // h1("viz"),
-        divId,
-        script(raw"""
-        let socket = new WebSocket('ws://localhost:$port/connect/viz');
-        socket.onopen = function(e) {
-          document.getElementById('vis').innerHTML = 'connected and waiting'
-        };
-        socket.onmessage = function(event) {
-          console.log(event.data)
-          const spec = JSON.parse(event.data)
-          if (spec.title.text === '$title') {
-            var myChart = echarts.init(document.getElementById('vis'));
-            myChart.setOption(spec);
-          }
-        };
-
-        socket.onclose = function(event) {
-          if (event.wasClean) {
-            console.log(`[close] Connection closed cleanly, code=$${event.code} reason=$${event.reason}`);
-          } else {
-            console.error('[close] Connection died');
-          }
-        };
-        socket.onerror = function(error) {
-          console.error(`[error] $${error.message}`);
-        };
-
-        """)
-      )
+  protected def eChartsView(chartId: String, spec: String) =
+    div(
+      span(`class` := "spec", display := "none", spec),
+      div(`class` := "chart", height := "95vmin", width := "95vmin"),
+      script(raw"""
+        |let self = document.currentScript;
+        |let specEl = self.parentNode.querySelector('.spec');
+        |let chartEl = self.parentNode.querySelector('.chart');
+        |const spec = JSON.parse(specEl.textContent);
+        |var chart = echarts.init(chartEl);
+        |chart.setOption(spec);
+      """.stripMargin)
     )
 
   @cask.get("/")
   def home() =
+    val maybeChart = charts.get(LATEST_CHART_ID)
     html(
       lang := "en",
       headImports,
       body(
-        // h1("viz"),
-        divId,
-        script(raw"""
-        let socket = new WebSocket('ws://localhost:$port/connect/viz');
-        socket.onopen = function(e) {
-          document.getElementById('vis').innerHTML = 'connected and waiting'
-        };
-        socket.onmessage = function(event) {
-          console.log(event.data)
-          const spec = JSON.parse(event.data)
-          vegaEmbed('#vis', spec, {
-            renderer: 'svg', // renderer (canvas or svg)
-            container: '#vis', // parent DOM container
-            hover: true, // enable hover processing
-            actions: true
-        }).then(function(result) {
-            console.log(`rendered spec`);
-          })
-        console.log(`Data received from server`);
-        };
-
-        socket.onclose = function(event) {
-          if (event.wasClean) {
-            console.log(`[close] Connection closed cleanly, code=$${event.code} reason=$${event.reason}`);
-          } else {
-            console.error('[close] Connection died');
+        autoReloadPageOnChart(),
+        maybeChart
+          .map { case ChartSpec(chartType, spec) =>
+            val chartComponent = supportedChartTypes(chartType)
+            chartComponent(LATEST_CHART_ID, spec)
           }
-        };
-        socket.onerror = function(error) {
-          console.error(`[error] $${error.message}`);
-        };
-
-        """)
+          .getOrElse(p("Connected"))
       )
     )
+  end home
 
-  var channelCheat: List[WebSocketChannel] = List.empty
+  @cask.get("/view/:chartId")
+  def filerViz(chartId: String) =
+    val maybeChart = charts.get(chartId)
+    html(
+      lang := "en",
+      headImports,
+      body(
+        autoReloadPageOnChart(chartId),
+        maybeChart
+          .map { case ChartSpec(chartType, spec) =>
+            val chartComponent = supportedChartTypes(chartType)
+            chartComponent(LATEST_CHART_ID, spec)
+          }
+          .getOrElse(p("Connected"))
+      )
+    )
+  end filerViz
 
-  @cask.post("/viz")
-  def recievedSpec(request: cask.Request) =
-    channelCheat match
-      case Nil                              => cask.Response("no client is listening", statusCode = 418)
-      case channels: List[WebSocketChannel] =>
-        channels.foreach { c =>
-          if c.isOpen() then WebSockets.sendTextBlocking(request.text(), c)
-        }
-        cask.Response("you should be looking at new viz")
-    end match
-  end recievedSpec
+  def updateOrCreateChart(chartId: String, chartType: String, spec: String) =
+    val newSpec = ChartSpec(chartType, spec)
+    charts ++= Seq(
+      LATEST_CHART_ID -> newSpec,
+      chartId -> newSpec
+    )
+  end updateOrCreateChart
+
+  def notifyChangeToClients(chartId: String) =
+    val jsonMessage = ujson.Obj("id" -> chartId).toString
+    connectedChannels.foreach(c => if c.isOpen() then WebSockets.sendTextBlocking(jsonMessage, c))
+  end notifyChangeToClients
+
+  @cask.post("/viz/:chartType/:chartId")
+  def receivedSpec(request: cask.Request, chartType: String, chartId: String) =
+    // TODO: Improve response messages
+    if !supportedChartTypes.contains(chartType) then
+      val supportedTypes = supportedChartTypes.keys.reduce((a, b) => s"'$a', '$b'")
+      cask.Response(s"Unsupported type '$chartType'. Supported types are [$supportedTypes].\n", 400)
+    else
+      val spec = request.text()
+
+      Try(ujson.validate(spec)) match
+        case Success(_) =>
+          updateOrCreateChart(chartId, chartType, spec)
+          notifyChangeToClients(chartId)
+          cask.Response("Chart was successfully added.\n")
+
+        case Failure(e: ujson.ParseException) =>
+          cask.Response(formatErrorMessage(spec, e))
+
+        case Failure(e) =>
+          cask.Response(s"An unkown error ocurrered while validating the spec.\n", 400)
+      end match
+  end receivedSpec
 
   @cask.websocket("/connect/:viz")
   def setup(viz: String): cask.WebsocketResult =
     new WebSocketConnectionCallback():
       override def onConnect(exchange: WebSocketHttpExchange, channel: WebSocketChannel): Unit =
-        channelCheat :+= channel
+        connectedChannels += channel
         channel.getReceiveSetter.set(
           new AbstractReceiveListener():
             override def onFullTextMessage(channel: WebSocketChannel, message: BufferedTextMessage) =
               message.getData match
                 case ""   => channel.close()
                 case data => WebSockets.sendTextBlocking(viz + " " + data, channel)
+            override def onClose(webSocketChannel: WebSocketChannel, _channel: StreamSourceFrameChannel) =
+              connectedChannels -= webSocketChannel
         )
         channel.resumeReceives()
       end onConnect
   end setup
+
+  private def formatErrorMessage(spec: String, e: ujson.ParseException): String =
+    def findLine(text: String, index: Int) =
+      var lineStartIdx = 0
+      var lineEndIdx = 0
+      var lineNum = 1
+      while
+        lineEndIdx = text.indexOf("\n", lineStartIdx)
+        lineEndIdx + 1 < index && lineEndIdx != -1
+      do
+        lineNum += 1
+        lineStartIdx = lineEndIdx + 1
+      end while
+      lineEndIdx = if lineEndIdx != -1 then lineEndIdx else text.length()
+
+      (text.substring(lineStartIdx, lineEndIdx), lineStartIdx, lineNum)
+    end findLine
+
+    def leftPadded(relativeTo: String, upTo: Int, text: String) =
+      relativeTo.take(upTo - text.length).foldLeft("") {
+        case (pad, '\t') => pad + '\t'
+        case (pad, _)    => pad + ' '
+      } + text
+
+    val (lineText, lineStartIdx, lineNum) = findLine(spec, e.index)
+    val column = e.index - lineStartIdx
+    s"""|[$lineNum:${e.index - lineStartIdx}] Failed to parse json:
+        |$lineText
+        |${leftPadded(lineText, column, "^")}
+        |${leftPadded(lineText, column, e.clue)}
+        |""".stripMargin
+  end formatErrorMessage
 
   initialize()
 
