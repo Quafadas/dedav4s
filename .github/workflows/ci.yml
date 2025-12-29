@@ -85,7 +85,7 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - run: ./mill site.publishDocs
+      - run: ./mill site.siteGen
 
   site:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -106,7 +106,7 @@ jobs:
       - uses: actions/upload-artifact@main
         with:
           name: page
-          path: out/site/publishDocs.dest
+          path: out/site/laika/generateSite.dest
           if-no-files-found: error
 
   deploy:
