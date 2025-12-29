@@ -48,7 +48,7 @@ object Plottable:
     ): VizReturn =
       val spec = ujson.read(plottable)
       val modifiedSpec = spec.applyMods(mods)
-      plotTarget.show(modifiedSpec.toString, chartLibrary)
+      plotTarget.show(modifiedSpec, chartLibrary)
     end plot
 
     def plot: VizReturn =
@@ -66,7 +66,7 @@ object Plottable:
     ): VizReturn =
       val spec = os.read(plottable)
       val modifiedSpec = ujson.read(spec).applyMods(mods)
-      plotTarget.show(modifiedSpec.toString, chartLibrary)
+      plotTarget.show(modifiedSpec, chartLibrary)
 
     end plot
 
@@ -86,12 +86,12 @@ object Plottable:
         mods: Seq[ujson.Value => Unit]
     ): VizReturn =
       val modifiedSpec = plottable.applyMods(mods)
-      plotTarget.show(modifiedSpec.toString, chartLibrary)
+      plotTarget.show(modifiedSpec, chartLibrary)
 
     end plot
 
     def plot: VizReturn =
-      plotTarget.show(plottable.toString, chartLibrary)
+      plotTarget.show(plottable, chartLibrary)
 
     end plot
 
@@ -106,13 +106,13 @@ object Plottable:
     ): VizReturn =
       val spec = plottable.jsonSpec
       val modifiedSpec = spec.applyMods(mods)
-      plotTarget.show(modifiedSpec.toString, chartLibrary)
+      plotTarget.show(modifiedSpec, chartLibrary)
 
     end plot
 
     def plot: VizReturn =
       val spec = plottable.jsonSpec
-      plotTarget.show(spec.toString(), chartLibrary)
+      plotTarget.show(spec, chartLibrary)
 
     end plot
 
@@ -125,7 +125,7 @@ object Plottable:
     ): VizReturn =
       val spec = os.read(plottable)
       val modifiedSpec = ujson.read(spec).applyMods(mods)
-      plotTarget.show(modifiedSpec.toString, chartLibrary)
+      plotTarget.show(modifiedSpec, chartLibrary)
 
     end plot
 
@@ -144,7 +144,7 @@ object Plottable:
       // println(plotTarget.toString())
       val spec = upickle.default.writeJs(plottable)
       val modifiedSpec = spec.applyMods(List.empty)
-      plotTarget.show(modifiedSpec.toString, chartLibrary)
+      plotTarget.show(modifiedSpec, chartLibrary)
 
     end plot
   end extension
