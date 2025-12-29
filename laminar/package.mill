@@ -19,6 +19,7 @@ import mill.api.BuildCtx
 object `package` extends Module with build.CommonJs with build.PublishModule {
   def moduleDeps = Seq(build.core.js)
   override def artifactName = "dedav4s_laminar"
+  override def enableBsp = false
   override def mvnDeps = super.mvnDeps() ++
     Seq(
       Config.laminar

@@ -12,4 +12,5 @@ object `package` extends Module with build.CommonJs with build.PublishModule {
     Seq(
       mvn"com.armanbilge::calico::0.2.3"
     )
+  override def enableBsp = false
 }

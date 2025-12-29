@@ -13,6 +13,8 @@ object `package` extends Module with SiteJSModule {
   override def scalaJSVersion = build.core.js.scalaJSVersion
   override def moduleKind = ModuleKind.ESModule
 
+  override def enableBsp = false
+
   def mvnDeps = super.mvnDeps() ++ build.core.js.mvnDeps() ++ build.laminar.mvnDeps() ++ build.calico.mvnDeps()
 
 

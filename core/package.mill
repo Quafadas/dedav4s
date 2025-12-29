@@ -31,11 +31,14 @@ object `package` extends Module {
     }
   }
 
-  object js extends SharedModule with build.CommonJs with build.PublishModule
+  object js extends SharedModule with build.CommonJs with build.PublishModule{
+    override def enableBsp = false
+  }
 
   object test extends Module {
     object js extends SharedTest with build.CommonJs with TestScalaJSModule {
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.js)
+      override def enableBsp = false
 
     }
     object jvm extends SharedTest {
