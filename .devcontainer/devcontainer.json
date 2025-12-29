@@ -23,7 +23,7 @@
       "version": 21
     },
     "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers-contrib/features/scalacli-sdkman:2": {},
+    "ghcr.io/devcontainers-extra/features/scalacli-sdkman:2": {},
     "ghcr.io/guiyomh/features/just:0" :{}
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
