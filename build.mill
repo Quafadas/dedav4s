@@ -5,6 +5,8 @@
 //| - com.goyeau::mill-scalafix::0.6.0
 //| - com.lihaoyi::mill-contrib-buildinfo:$MILL_VERSION
 
+
+// mill mill.scalalib.scalafmt/
 package build
 
 import mill._

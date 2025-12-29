@@ -1,16 +1,16 @@
 package viz.macros
 
 import munit.FunSuite
-import io.circe._
+import io.circe.*
 import io.circe.syntax.*
 import io.circe.optics.JsonPath.*
 import io.circe.literal.*
 
-class VegaPlotTest extends FunSuite {
+class VegaPlotTest extends FunSuite:
 
   test("VegaPlot.fromString should generate title accessor for string title") {
     val spec = VegaPlot.fromString("""{"title": "Population by Gender"}""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(title("New Title"))
 
@@ -19,7 +19,7 @@ class VegaPlotTest extends FunSuite {
 
   test("VegaPlot.fromString should allow Json for title") {
     val spec = VegaPlot.fromString("""{"title": "Population by Gender"}""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       title(JsonObject("text" -> Json.fromString("Complex Title"), "fontSize" -> Json.fromInt(20)))
@@ -35,7 +35,7 @@ class VegaPlotTest extends FunSuite {
       "description": "A description",
       "width": 400
     }""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       title("Updated Title"),
@@ -54,7 +54,7 @@ class VegaPlotTest extends FunSuite {
       "height": 300,
       "padding": 5
     }""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       width(800),
@@ -72,7 +72,7 @@ class VegaPlotTest extends FunSuite {
       "autosize": true,
       "background": "white"
     }""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       autosize(false)
@@ -87,7 +87,7 @@ class VegaPlotTest extends FunSuite {
       "width": 400,
       "height": 300
     }""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       title("Modified")
@@ -100,7 +100,7 @@ class VegaPlotTest extends FunSuite {
 
   test("original spec should not be mutated") {
     val spec = VegaPlot.fromString("""{"title": "Original"}""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       title("Modified")
@@ -118,11 +118,11 @@ class VegaPlotTest extends FunSuite {
       },
       "width": 400
     }""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       title.text("New Title"),
-      title.fontSize(20),
+      title.fontSize(20)
     )
 
     assertEquals(result.hcursor.downField("title").get[String]("text").toOption, Some("New Title"))
@@ -137,7 +137,7 @@ class VegaPlotTest extends FunSuite {
       },
       "width": 400
     }""")
-    import spec.mod._
+    import spec.mod.*
 
     val result = spec.build(
       title(json"""{"text": "New Title", "fontSize": 20}""")
@@ -151,28 +151,28 @@ class VegaPlotTest extends FunSuite {
     // This test verifies at compile time that only known fields are accessible
 
     // Uncomment any of these to see compile errors:
-      {
-        val spec1 = VegaPlot.fromString("""{"title": "Test"}""")
-        import spec1.mod._
-        val errors = compileErrors("""nonexistent("value")""")
-        assert(errors.nonEmpty, "Expected compile errors for nonexistent field")
-      }
+    {
+      val spec1 = VegaPlot.fromString("""{"title": "Test"}""")
+      import spec1.mod.*
+      val errors = compileErrors("""nonexistent("value")""")
+      assert(errors.nonEmpty, "Expected compile errors for nonexistent field")
+    }
 
     // Invalid: accessing nested field that doesn't exist
-      {
-        val spec2 = VegaPlot.fromString("""{"title": {"text": "Test"}}""")
-        import spec2.mod._
-        val errors = compileErrors("""title.invalid("value")""")
-        assert(errors.nonEmpty, "Expected compile errors for invalid nested field")
-      }
+    {
+      val spec2 = VegaPlot.fromString("""{"title": {"text": "Test"}}""")
+      import spec2.mod.*
+      val errors = compileErrors("""title.invalid("value")""")
+      assert(errors.nonEmpty, "Expected compile errors for invalid nested field")
+    }
 
-      // Invalid: wrong type for numeric field
-      {
-        val spec3 = VegaPlot.fromString("""{"width": 400}""")
-        import spec3.mod._
-        val errors = compileErrors("""width("string")""")
-        assert(errors.nonEmpty, "Expected compile errors for wrong type")
-      }
+    // Invalid: wrong type for numeric field
+    {
+      val spec3 = VegaPlot.fromString("""{"width": 400}""")
+      import spec3.mod.*
+      val errors = compileErrors("""width("string")""")
+      assert(errors.nonEmpty, "Expected compile errors for wrong type")
+    }
   }
 
   test("type safety - correct types should work") {
@@ -186,16 +186,16 @@ class VegaPlotTest extends FunSuite {
       "height": 300.5,
       "autosize": false
     }""")
-    import spec.mod._
+    import spec.mod.*
 
     // All these should compile with proper types inferred from the spec
     val result = spec.build(
-      title.text("New Title"),    // StringField.apply(String)
-      title.fontSize(24),         // NumField.apply(Int)
-      title.bold(true),           // BoolField.apply(Boolean)
-      width(800),                 // NumField.apply(Int)
-      height(600.0),              // NumField.apply(Double)
-      autosize(true)              // BoolField.apply(Boolean)
+      title.text("New Title"), // StringField.apply(String)
+      title.fontSize(24), // NumField.apply(Int)
+      title.bold(true), // BoolField.apply(Boolean)
+      width(800), // NumField.apply(Int)
+      height(600.0), // NumField.apply(Double)
+      autosize(true) // BoolField.apply(Boolean)
     )
 
     assertEquals(result.hcursor.downField("title").get[String]("text").toOption, Some("New Title"))
@@ -205,7 +205,4 @@ class VegaPlotTest extends FunSuite {
     assertEquals(result.hcursor.get[Double]("height").toOption, Some(600.0))
     assertEquals(result.hcursor.get[Boolean]("autosize").toOption, Some(true))
   }
-
-
-
-}
+end VegaPlotTest
