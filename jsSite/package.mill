@@ -6,14 +6,14 @@ import mill.scalajslib._
 import mill.scalajslib.api._
 import io.github.quafadas.millSite.SiteJSModule
 
-object `package` extends RootModule with SiteJSModule {
+object `package` extends Module with SiteJSModule {
 
   override def moduleDeps = Seq(build.core.js, build.laminar, build.calico)
   override def scalaVersion = build.core.js.scalaVersion
   override def scalaJSVersion = build.core.js.scalaJSVersion
   override def moduleKind = ModuleKind.ESModule
 
-  def ivyDeps = super.ivyDeps() ++ build.core.js.ivyDeps() ++ build.laminar.ivyDeps() ++ build.calico.ivyDeps()
+  def mvnDeps = super.mvnDeps() ++ build.core.js.mvnDeps() ++ build.laminar.mvnDeps() ++ build.calico.mvnDeps()
 
   object test extends ScalaJSTests with build.core.SharedTest {
     def moduleKind = ModuleKind.CommonJSModule
