@@ -1,7 +1,7 @@
 //| mill-version: 1.1.0-RC3
 //| mill-jvm-version: 25
 //| mvnDeps:
-//| - io.github.quafadas:millSite_mill1_3.7:0.0.53
+//| - io.github.quafadas:millSite_mill1_3.7:0.0.54
 //| - com.goyeau::mill-scalafix::0.6.0
 //| - com.lihaoyi::mill-contrib-buildinfo:$MILL_VERSION
 
@@ -30,7 +30,10 @@ object Config {
   val secRand = mvn"org.scala-js::scalajs-java-securerandom:1.0.0"
   val playwright = "1.51.0"
 
+  val laminar = mvn"com.raquo::laminar::17.2.0"
+
   val scalaVersion = "3.7.0"
+  val scalaJSVersion = "1.20.1"
 }
 
 
@@ -52,7 +55,8 @@ trait SharedMunitTest extends TestModule.Munit {
 }
 
 trait CommonJs extends Common with ScalaJSModule {
-  def scalaJSVersion = "1.19.0"
+  def scalaJSVersion = Config.scalaJSVersion
+
   override def mvnDeps = super.mvnDeps() ++
     Seq(
       mvn"org.scala-js::scalajs-dom::2.8.0",
