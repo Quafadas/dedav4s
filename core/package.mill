@@ -27,6 +27,9 @@ object `package` extends Module {
         Config.cask,
         Config.requests,
         Config.jsoup,
+        mvn"io.circe::circe-optics:0.15.0",
+        mvn"io.circe::circe-parser:0.14.15",
+        mvn"io.circe::circe-literal:0.14.15"
       )
     }
   }

@@ -205,4 +205,40 @@ class VegaPlotTest extends FunSuite:
     assertEquals(result.hcursor.get[Double]("height").toOption, Some(600.0))
     assertEquals(result.hcursor.get[Boolean]("autosize").toOption, Some(true))
   }
+
+  test("data values") {
+    val spec = VegaPlot.fromString("""{
+      "data": {
+        "values": [
+          {"category": "A", "value": 28},
+          {"category": "B", "value": 55}
+        ]
+      }
+    }""")
+    import spec.mod.*
+    import viz.NtCirce.given
+
+    val data = List((category = "cat1", value = 100) , (category = "cat2", value = 200))
+
+    val result = spec.build(
+      data.values(data.asJson)
+    )
+
+    val extractedValues = root.data.values.arr.getOption(result).map { arr =>
+      arr.toList.map { item =>
+        Map(
+          "category" -> item.hcursor.get[String]("category").getOrElse(""),
+          "value" -> item.hcursor.get[Int]("value").getOrElse(0)
+        )
+      }
+    }
+
+    assertEquals(
+      extractedValues,
+      Some(List(
+        Map("category" -> "cat1", "value" -> 100),
+        Map("category" -> "cat2", "value" -> 200)
+      ))
+    )
+  }
 end VegaPlotTest
