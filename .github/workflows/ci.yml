@@ -25,7 +25,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         scala: [3]
-        java: [temurin@17]
+        java: [temurin@25]
         project: [js, jvm]
     runs-on: ${{ matrix.os }}
     steps:
@@ -62,7 +62,7 @@ jobs:
       - uses: actions/setup-java@main
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 25
       - name: Publish to Maven Central
         run: ./mill --import "ivy:com.lihaoyi::mill-contrib-sonatypecentral:" mill.contrib.sonatypecentral.SonatypeCentralPublishModule/publishAll --publishArtifacts __.publishArtifacts
         env:
