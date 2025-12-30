@@ -1,17 +1,12 @@
 package viz
 
 import io.circe.*
-import io.circe.derivation.{
-  Configuration,
-  ConfiguredCodec,
-  Default,
-  SumOrProduct
-}
+import io.circe.derivation.{Configuration, ConfiguredCodec, Default, SumOrProduct}
 
 import scala.compiletime.*
 
-object NtCirce: 
-  inline given namedTupleCodec[X <: NamedTuple.AnyNamedTuple]: Codec[X] = {
+object NtCirce:
+  inline given namedTupleCodec[X <: NamedTuple.AnyNamedTuple]: Codec[X] =
     type V = NamedTuple.DropNames[X]
 
     val labels =
@@ -25,14 +20,14 @@ object NtCirce:
 
     namedTupleCodecImpl[NamedTuple.Names[X], V](labels, encoders, decoders)
       .asInstanceOf[Codec[X]]
-  }
+  end namedTupleCodec
 
   private def namedTupleCodecImpl[K <: Tuple, V <: Tuple](
       labels: List[String],
       encoders: List[Encoder[?]],
       decoders: List[Decoder[?]]
   )(using Configuration): ConfiguredCodec[NamedTuple.NamedTuple[K, V]] =
-    new ConfiguredCodec[NamedTuple.NamedTuple[K, V]] {
+    new ConfiguredCodec[NamedTuple.NamedTuple[K, V]]:
       val name = "NotUsed"
       lazy val elemDecoders = decoders
       lazy val elemEncoders = encoders
@@ -45,9 +40,8 @@ object NtCirce:
       def encodeObject(a: NamedTuple.NamedTuple[K, V]) = encodeProduct(a)
       override def decodeAccumulating(c: HCursor) =
         decodeProductAccumulating(c, x => x.asInstanceOf[V])
-    }
 
-  private val emptyDefaults: Default[Nothing] = new Default[Nothing] {
+  private val emptyDefaults: Default[Nothing] = new Default[Nothing]:
     type Out = EmptyTuple.type
     def defaults = EmptyTuple
-  }
+end NtCirce

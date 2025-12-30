@@ -10,7 +10,7 @@ import io.circe.parser.decode
 class NtCodec extends FunSuite:
 
   test("NamedTuple codec should encode and decode correctly") {
-    
+
     val tupleInstance = (name = "Alice", age = 25, isStudent = true)
 
     import viz.NtCirce.given
@@ -23,7 +23,7 @@ class NtCodec extends FunSuite:
   }
 
   test("Nested named tuples should encode and decode correctly") {
-    
+
     val nestedInstance = (person = (name = "Bob", age = 30), address = (city = "New York", zip = "10001"))
 
     import viz.NtCirce.given
@@ -34,3 +34,4 @@ class NtCodec extends FunSuite:
     val decoded = decode[(person: (name: String, age: Int), address: (city: String, zip: String))](json)
     assertEquals(decoded, Right(nestedInstance))
   }
+end NtCodec

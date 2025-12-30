@@ -1,0 +1,69 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.scala text
+*.sbt text
+*.sc text
+*.java text
+*.js text
+*.ts text
+*.json text
+*.xml text
+*.html text
+*.css text
+*.md text
+*.yml text
+*.yaml text
+
+# Mill build files
+mill text
+*.mill text
+
+# Configuration files
+*.conf text
+*.properties text
+*.toml text
+
+# Documentation
+*.txt text
+*.rst text
+
+# Archives
+*.7z binary
+*.gz binary
+*.jar binary
+*.rar binary
+*.tar binary
+*.zip binary
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+
+# Executables
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+
+# IDE files
+*.iml text
+*.ipr text
+*.iws text
+
+# OS generated files
+.DS_Store binary
+Thumbs.db binary
+
+# Line ending normalization for shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows batch files
+*.bat text eol=crlf
+*.cmd text eol=crlf

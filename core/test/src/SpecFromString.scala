@@ -218,7 +218,7 @@ class VegaPlotTest extends FunSuite:
     import spec.mod.*
     import viz.NtCirce.given
 
-    val data = List((category = "cat1", value = 100) , (category = "cat2", value = 200))
+    val data = List((category = "cat1", value = 100), (category = "cat2", value = 200))
 
     val result = spec.build(
       data.values(data.asJson)
@@ -235,10 +235,12 @@ class VegaPlotTest extends FunSuite:
 
     assertEquals(
       extractedValues,
-      Some(List(
-        Map("category" -> "cat1", "value" -> 100),
-        Map("category" -> "cat2", "value" -> 200)
-      ))
+      Some(
+        List(
+          Map("category" -> "cat1", "value" -> 100),
+          Map("category" -> "cat2", "value" -> 200)
+        )
+      )
     )
   }
 end VegaPlotTest
