@@ -10,9 +10,7 @@ object `package` extends SiteModule {
 
   override lazy val jsSiteModule = Some(build.siteJs)
 
-  override def unidocDeps = Seq(build.core.jvm, build.siteHelp)
-
-  override def pathToImportMap = Task { Some(PathRef(Task.dest / os.up / os.up / os.up / os.up / "importmap.json")) }
+  override def unidocDeps = Seq(build.core.jvm, build.siteHelp)  
 
   def scalaVersion = build.Config.scalaVersion
 }
