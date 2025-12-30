@@ -1,11 +1,11 @@
 package build.calico
 
-import mill._
-import mill.scalalib._
-import mill.scalajslib._
-import mill.scalajslib.api._
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
 
-object `package` extends Module with build.CommonJs with build.PublishModule {
+object `package` extends Module with build.CommonJs with build.PublishModule:
   def moduleDeps = Seq(build.core.js)
   override def artifactName = "dedav4s_calico"
   override def mvnDeps = super.mvnDeps() ++
@@ -13,4 +13,4 @@ object `package` extends Module with build.CommonJs with build.PublishModule {
       mvn"com.armanbilge::calico::0.2.3"
     )
   override def enableBsp = false
-}
+end `package`

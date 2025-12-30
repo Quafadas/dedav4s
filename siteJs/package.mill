@@ -1,12 +1,12 @@
 package build.siteJs
 
-import mill._
-import mill.scalalib._
-import mill.scalajslib._
-import mill.scalajslib.api._
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
 import io.github.quafadas.millSite.SiteJSModule
 
-object `package` extends Module with SiteJSModule {
+object `package` extends Module with SiteJSModule:
 
   override def moduleDeps = Seq(build.core.js, build.laminar, build.calico)
   override def scalaVersion = build.core.js.scalaVersion
@@ -17,15 +17,14 @@ object `package` extends Module with SiteJSModule {
 
   def mvnDeps = super.mvnDeps() ++ build.core.js.mvnDeps() ++ build.laminar.mvnDeps() ++ build.calico.mvnDeps()
 
-
-  override def scalaJSImportMap = Task{
+  override def scalaJSImportMap = Task {
     Seq(
-      ESModuleImportMapping.Prefix("##vega-embed", "https://esm.run/vega-embed" ),
-      ESModuleImportMapping.Prefix("##vega-view", "https://esm.run/vega-view@6.1.0" )
+      ESModuleImportMapping.Prefix("##vega-embed", "https://esm.run/vega-embed"),
+      ESModuleImportMapping.Prefix("##vega-view", "https://esm.run/vega-view@6.1.0")
     )
   }
 
-  object test extends ScalaJSTests with build.core.SharedTest {
+  object test extends ScalaJSTests with build.core.SharedTest:
     def moduleKind = ModuleKind.CommonJSModule
-  }
-}
+  end test
+end `package`

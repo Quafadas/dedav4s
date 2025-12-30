@@ -5,24 +5,23 @@
 //| - com.goyeau::mill-scalafix::0.6.0
 //| - com.lihaoyi::mill-contrib-buildinfo:$MILL_VERSION
 
-
 // mill mill.scalalib.scalafmt/
 package build
 
-import mill._
-import mill.scalalib._
-import mill.scalalib.publish._
-import mill.scalajslib._
-import mill.scalajslib.api._
-import io.github.quafadas.millSite._
+import mill.*
+import mill.scalalib.*
+import mill.scalalib.publish.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
+import io.github.quafadas.millSite.*
 import mill.util.VcsVersion
 
-object Config {
+object Config:
 
   val oslib = mvn"com.lihaoyi::os-lib:0.11.3"
   val cask = mvn"com.lihaoyi::cask:0.9.7"
   val requests = mvn"com.lihaoyi::requests:0.9.0"
-  val jsoup =mvn"org.jsoup:jsoup:1.18.3"
+  val jsoup = mvn"org.jsoup:jsoup:1.18.3"
   val upickle = mvn"com.lihaoyi::upickle::4.1.0"
   val munit = "1.1.1"
 
@@ -36,10 +35,9 @@ object Config {
 
   val scalaVersion = "3.7.0"
   val scalaJSVersion = "1.20.1"
-}
+end Config
 
-
-trait Common extends ScalaModule {
+trait Common extends ScalaModule:
   override def scalaVersion = Config.scalaVersion
 
   def mvnDeps = super.mvnDeps() ++ Seq(
@@ -47,16 +45,16 @@ trait Common extends ScalaModule {
     mvn"com.lihaoyi::scalatags::0.13.1",
     mvn"org.ekrich::sconfig::1.8.1"
   )
-}
+end Common
 
-trait SharedMunitTest extends TestModule.Munit {
+trait SharedMunitTest extends TestModule.Munit:
   override def mvnDeps = super.mvnDeps() ++
     Seq(
-      mvn"org.scalameta::munit::${Config.munit}",
+      mvn"org.scalameta::munit::${Config.munit}"
     )
-}
+end SharedMunitTest
 
-trait CommonJs extends Common with ScalaJSModule {
+trait CommonJs extends Common with ScalaJSModule:
   def scalaJSVersion = Config.scalaJSVersion
 
   override def mvnDeps = super.mvnDeps() ++
@@ -64,9 +62,9 @@ trait CommonJs extends Common with ScalaJSModule {
       mvn"org.scala-js::scalajs-dom::2.8.0",
       mvn"org.scala-js::scalajs-java-securerandom::1.0.0".withDottyCompat(scalaVersion())
     )
-}
+end CommonJs
 
-trait PublishModule extends mill.scalalib.PublishModule {
+trait PublishModule extends mill.scalalib.PublishModule:
   override def artifactName = "dedav4s"
   def publishVersion = mill.util.VcsVersion.vcsState().format()
   def pomSettings = PomSettings(
@@ -79,4 +77,4 @@ trait PublishModule extends mill.scalalib.PublishModule {
       Developer("quafadas", "Simon Parten", "https://github.com/quafadas")
     )
   )
-}
+end PublishModule
