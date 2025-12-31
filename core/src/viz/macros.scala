@@ -9,12 +9,11 @@ import io.circe.optics.JsonPath
 import io.circe.optics.JsonPath.*
 import monocle.Optional
 import viz.*
-import viz.Plottable.plot
+import viz.vega.VegaSpec
+
 
 /** Type alias for spec modifier functions using circe Json */
 type SpecMod = Json => Json
-
-// === Typed accessor classes - each only accepts appropriate types ===
 
 /** Accessor for string fields */
 class StringField(path: List[String]):
@@ -61,19 +60,6 @@ class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectabl
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
   def selectDynamic(name: String): Any = fieldMap(name)
 end ObjField
-
-/** Vega spec with typed accessors inferred from the JSON structure.
-  */
-class VegaSpec[M](val rawSpec: Json, val mod: M):
-  /** Apply modifications and return the modified spec */
-  def build(mods: SpecMod*): Json =
-    mods.foldLeft(rawSpec)((json, mod) => mod(json))
-
-  def plot(mods: SpecMod*)(using plotTarget: LowPriorityPlotTarget): VizReturn =
-    given ChartLibrary = ChartLibrary.Vega
-    ujson.read(build(mods*).toString).plot
-  end plot
-end VegaSpec
 
 object VegaPlot:
   transparent inline def fromString(inline specContent: String): Any =

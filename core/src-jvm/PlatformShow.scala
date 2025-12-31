@@ -21,6 +21,8 @@ import os.ResourcePath
 import NamedTuple.AnyNamedTuple
 import NamedTuple.NamedTuple
 import upickle.default.Writer
+import viz.vega.VegaSpec
+import viz.macros.SpecMod
 
 type VizReturn = Unit | os.Path
 
@@ -114,6 +116,15 @@ object Plottable:
       val spec = plottable.jsonSpec
       plotTarget.show(spec, chartLibrary)
 
+    end plot
+
+  end extension
+
+  extension [A](plottable: VegaSpec[A])(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+
+    def plot(mods: Seq[SpecMod]): VizReturn =
+      given ChartLibrary = ChartLibrary.Vega
+      ujson.read(plottable.build(mods*).toString).plot
     end plot
 
   end extension

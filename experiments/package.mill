@@ -1,0 +1,22 @@
+package build.experiments
+
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
+
+object `package` extends build.Common with ShareCompileResources:
+  def moduleDeps = Seq(build.core.jvm)
+
+  def mvnDeps = super.mvnDeps() ++ Seq(
+    mvn"io.github.quafadas::scautable::0.0.34"
+  )
+
+  override def enableBsp = false
+end `package`
+
+
+
+trait ShareCompileResources extends ScalaModule {
+	override def compileResources = super.compileResources() ++ resources()
+}

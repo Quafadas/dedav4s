@@ -8,7 +8,14 @@ import build.Config
 
 object `package` extends Module:
 
-  trait SharedModule extends build.Common with PlatformScalaModule
+  trait SharedModule extends build.Common with PlatformScalaModule:
+    override def mvnDeps = super.mvnDeps() ++
+      Seq(
+        mvn"io.circe::circe-optics::0.15.0",
+        mvn"io.circe::circe-parser::0.14.15",
+        mvn"io.circe::circe-literal::0.14.15"
+    )
+
 
   trait SharedTest extends SharedModule with build.SharedMunitTest:
     override def mvnDeps = super.mvnDeps() ++
@@ -21,17 +28,14 @@ object `package` extends Module:
     override def compileMvnDeps = super.compileMvnDeps() ++ Seq(
       mvn"sh.almond:scala-kernel-api_3.3.5:0.14.1".exclude(("com.github.jupyter", "jvm-repr"))
     )
-    override def mvnDeps = Task {
+    override def mvnDeps =
       super.mvnDeps() ++ Seq(
         Config.oslib,
         Config.cask,
         Config.requests,
         Config.jsoup,
-        mvn"io.circe::circe-optics:0.15.0",
-        mvn"io.circe::circe-parser:0.14.15",
-        mvn"io.circe::circe-literal:0.14.15"
       )
-    }
+
   end jvm
 
   object js extends SharedModule with build.CommonJs with build.PublishModule:
