@@ -1,9 +1,9 @@
 package build.laminar
 
-import mill._
-import mill.scalalib._
-import mill.scalajslib._
-import mill.scalajslib.api._
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
 
 import build.Config
 import mill.contrib.buildinfo.BuildInfo
@@ -16,7 +16,7 @@ import mill.api.BuildCtx
 // import cats.effect.*
 // import cats.implicits.*
 
-object `package` extends Module with build.CommonJs with build.PublishModule {
+object `package` extends Module with build.CommonJs with build.PublishModule:
   def moduleDeps = Seq(build.core.js)
   override def artifactName = "dedav4s_laminar"
   override def enableBsp = false
@@ -25,8 +25,8 @@ object `package` extends Module with build.CommonJs with build.PublishModule {
       Config.laminar
     )
 
-  object integration extends Module {
-    object app extends build.CommonJs {
+  object integration extends Module:
+    object app extends build.CommonJs:
       def moduleDeps = Seq(build.laminar)
 
       def moduleKind = ModuleKind.ESModule
@@ -34,7 +34,7 @@ object `package` extends Module with build.CommonJs with build.PublishModule {
 
       override def scalaJSImportMap = Seq(
         ESModuleImportMapping.Prefix("##vega-embed", "https://cdn.jsdelivr.net/npm/vega-embed@7/+esm"),
-        ESModuleImportMapping.Prefix("##vega-view", "https://cdn.jsdelivr.net/npm/vega-view@5/+esm"),
+        ESModuleImportMapping.Prefix("##vega-view", "https://cdn.jsdelivr.net/npm/vega-view@5/+esm")
       )
 
       def runShellCommand() = Task.Command {
@@ -51,7 +51,7 @@ object `package` extends Module with build.CommonJs with build.PublishModule {
           "--build-tool",
           "mill"
         )
-        println(cmd.mkString("\n"," ", "\n"))
+        println(cmd.mkString("\n", " ", "\n"))
       }
       // override def run(args: mill.define.Task[mill.Args]) = T.command{
 
@@ -77,17 +77,17 @@ object `package` extends Module with build.CommonJs with build.PublishModule {
       //   .as(ExitCode.Success)
 
       // }
+    end app
 
-    }
-    object test extends build.Common with build.SharedMunitTest with BuildInfo {
+    object test extends build.Common with build.SharedMunitTest with BuildInfo:
 
       val name = "dedav4s-laminar"
       val buildInfoPackageName = "viz.laminar"
-      def buildInfoMembers = Task{
+      def buildInfoMembers = Task {
         Seq(
           BuildInfo.Value("pathToIndex", app.resources().head.path.toString),
           BuildInfo.Value("pathToJS", app.fastLinkJS().dest.path.toString),
-          BuildInfo.Value("rootDir", BuildCtx.workspaceRoot.toString),
+          BuildInfo.Value("rootDir", BuildCtx.workspaceRoot.toString)
         )
       }
 
@@ -105,7 +105,6 @@ object `package` extends Module with build.CommonJs with build.PublishModule {
           mvn"com.microsoft.playwright:driver-bundle:${Config.playwright}",
           Config.oslib
         )
-      }
-  }
-
-}
+    end test
+  end integration
+end `package`

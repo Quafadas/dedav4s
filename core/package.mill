@@ -1,25 +1,25 @@
 package build.core
 
-import mill._
-import mill.scalalib._
-import mill.scalajslib._
-import mill.scalajslib.api._
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
 import build.Config
 
-object `package` extends Module {
+object `package` extends Module:
 
   trait SharedModule extends build.Common with PlatformScalaModule
 
-  trait SharedTest extends SharedModule with build.SharedMunitTest {
+  trait SharedTest extends SharedModule with build.SharedMunitTest:
     override def mvnDeps = super.mvnDeps() ++
       Seq(
-        mvn"org.scalameta::munit::${Config.munit}",
+        mvn"org.scalameta::munit::${Config.munit}"
       )
-  }
+  end SharedTest
 
-  object jvm extends SharedModule with ScalaModule with build.PublishModule {
+  object jvm extends SharedModule with ScalaModule with build.PublishModule:
     override def compileMvnDeps = super.compileMvnDeps() ++ Seq(
-      mvn"sh.almond:scala-kernel-api_3.3.5:0.14.1".exclude(("com.github.jupyter", "jvm-repr")),
+      mvn"sh.almond:scala-kernel-api_3.3.5:0.14.1".exclude(("com.github.jupyter", "jvm-repr"))
     )
     override def mvnDeps = Task {
       super.mvnDeps() ++ Seq(
@@ -32,19 +32,19 @@ object `package` extends Module {
         mvn"io.circe::circe-literal:0.14.15"
       )
     }
-  }
+  end jvm
 
-  object js extends SharedModule with build.CommonJs with build.PublishModule{
+  object js extends SharedModule with build.CommonJs with build.PublishModule:
     override def enableBsp = false
-  }
+  end js
 
-  object test extends Module {
-    object js extends SharedTest with build.CommonJs with TestScalaJSModule {
+  object test extends Module:
+    object js extends SharedTest with build.CommonJs with TestScalaJSModule:
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.js)
       override def enableBsp = false
+    end js
 
-    }
-    object jvm extends SharedTest {
+    object jvm extends SharedTest:
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.jvm)
 
       override def mvnDeps = super.mvnDeps() ++
@@ -52,6 +52,6 @@ object `package` extends Module {
           mvn"com.microsoft.playwright:playwright:${Config.playwright}",
           mvn"com.microsoft.playwright:driver-bundle:${Config.playwright}"
         )
-    }
-  }
-}
+    end jvm
+  end test
+end `package`

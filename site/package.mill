@@ -1,20 +1,19 @@
 package build.site
 
-import mill._
-import mill.scalalib._
-import mill.scalajslib._
-import mill.scalajslib.api._
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
 import io.github.quafadas.millSite.*
 
-object `package` extends SiteModule {
+object `package` extends SiteModule:
 
   override lazy val jsSiteModule = Some(build.siteJs)
 
-  override def unidocDeps = Seq(build.core.jvm, build.siteHelp)  
+  override def unidocDeps = Seq(build.core.jvm, build.siteHelp)
 
   def scalaVersion = build.Config.scalaVersion
-}
-
+end `package`
 
 /*
 
