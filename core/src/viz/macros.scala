@@ -21,6 +21,9 @@ class StringField(path: List[String]):
   def apply(s: String): SpecMod = optic.replace(Json.fromString(s))
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
+  def :=(s: String): SpecMod = apply(s)
+  def :=(j: Json): SpecMod = apply(j)
+  def :=(obj: JsonObject): SpecMod = apply(obj)
 end StringField
 
 /** Accessor for numeric fields */
@@ -29,6 +32,9 @@ class NumField(path: List[String]):
   def apply(n: Int): SpecMod = optic.replace(Json.fromInt(n))
   def apply(n: Double): SpecMod = optic.replace(Json.fromDoubleOrNull(n))
   def apply(j: Json): SpecMod = optic.replace(j)
+  def :=(n: Int): SpecMod = apply(n)
+  def :=(n: Double): SpecMod = apply(n)
+  def :=(j: Json): SpecMod = apply(j)
 end NumField
 
 /** Accessor for boolean fields */
@@ -36,6 +42,8 @@ class BoolField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(b: Boolean): SpecMod = optic.replace(Json.fromBoolean(b))
   def apply(j: Json): SpecMod = optic.replace(j)
+  def :=(b: Boolean): SpecMod = apply(b)
+  def :=(j: Json): SpecMod = apply(j)
 end BoolField
 
 /** Accessor for array fields */
@@ -43,12 +51,15 @@ class ArrField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(arr: Vector[Json]): SpecMod = optic.replace(Json.fromValues(arr))
+  def :=(j: Json): SpecMod = apply(j)
+  def :=(arr: Vector[Json]): SpecMod = apply(arr)
 end ArrField
 
 /** Accessor for null fields */
 class NullField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(j: Json): SpecMod = optic.replace(j)
+  def :=(j: Json): SpecMod = apply(j)
 end NullField
 
 /** Base class for object field accessors. Can replace the whole object, and provides typed access to nested fields via
@@ -58,12 +69,27 @@ class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectabl
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
+  def :=(j: Json): SpecMod = apply(j)
+  def :=(obj: JsonObject): SpecMod = apply(obj)
   def selectDynamic(name: String): Any = fieldMap(name)
 end ObjField
 
 object VegaPlot:
+
+  transparent inline def fromResource(inline resourcePath: String): Any =
+    ${ fromResourceImpl('resourcePath) }
+
+  private def fromResourceImpl(resourcePathE: Expr[String])(using Quotes): Expr[Any] =
+      import quotes.reflect.*
+      val resourcePath = resourcePathE.valueOrAbort
+      val specContent = scala.io.Source.fromResource(resourcePath).mkString
+      fromStringImpl(Expr(specContent))
+  end fromResourceImpl
+
+
   transparent inline def fromString(inline specContent: String): Any =
     ${ fromStringImpl('specContent) }
+
 
   private def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
