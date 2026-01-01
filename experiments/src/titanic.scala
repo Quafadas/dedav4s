@@ -1,17 +1,12 @@
 package experiments
 
 import io.github.quafadas.table.{*, given}
-
-import viz.vega.VegaSpec
-import viz.vega.plots.*
-import viz.NtCirce.given
-import viz.macros.*
-import viz.Plottable.*
-import viz.PlotTargets.desktopBrowser
+import io.github.quafadas.plots.SetupVega.{*, given}
 import io.circe.syntax.*
-import io.circe.Json
+import viz.PlotTargets.publishToPort
 
 @main def titanic =
+  given port:Int = 8085
   val data = CSV.resource("titanic.csv").toVector
 
   val ages = data.collect {
@@ -26,4 +21,7 @@ import io.circe.Json
     _.encoding.x.field := "age",
     _.encoding.x.bin.step := 5
   )
+
+
+
 end titanic
