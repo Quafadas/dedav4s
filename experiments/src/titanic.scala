@@ -3,7 +3,7 @@ package experiments
 import io.github.quafadas.table.{*, given}
 import io.github.quafadas.plots.SetupVega.{*, given}
 import io.circe.syntax.*
-import viz.PlotTargets.publishToPort
+import viz.PlotTargets.websocket
 
 @main def titanic =
   given port:Int = 8085
@@ -19,7 +19,7 @@ import viz.PlotTargets.publishToPort
     _.data.values := ages.asJson,
     _.title := "Age Distribution of female passengers",
     _.encoding.x.field := "age",
-    _.encoding.x.bin.step := 5
+    _.encoding.x.bin.step := 10
   )
 
 
