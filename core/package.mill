@@ -11,11 +11,11 @@ object `package` extends Module:
   trait SharedModule extends build.Common with PlatformScalaModule:
     override def mvnDeps = super.mvnDeps() ++
       Seq(
-        mvn"io.circe::circe-optics::0.15.0",
-        mvn"io.circe::circe-parser::0.14.15",
-        mvn"io.circe::circe-literal::0.14.15"
-    )
-
+        mvn"io.circe::circe-optics::${Config.circeOptics}",
+        mvn"io.circe::circe-parser::${Config.circeVersion}",
+        mvn"io.circe::circe-literal::${Config.circeVersion}"
+      )
+  end SharedModule
 
   trait SharedTest extends SharedModule with build.SharedMunitTest:
     override def mvnDeps = super.mvnDeps() ++
@@ -33,19 +33,29 @@ object `package` extends Module:
         Config.oslib,
         Config.cask,
         Config.requests,
-        Config.jsoup,
+        Config.jsoup
       )
 
   end jvm
 
   object js extends SharedModule with build.CommonJs with build.PublishModule:
     override def enableBsp = false
+    // JVM versions of circe needed at compile time for macros that parse JSON
+    def compileMvnDeps = super.compileMvnDeps() ++ Seq(
+      mvn"io.circe:circe-parser_3:${Config.circeVersion}",
+      mvn"io.circe:circe-jawn_3:${Config.circeVersion}"
+    )
   end js
 
   object test extends Module:
     object js extends SharedTest with build.CommonJs with TestScalaJSModule:
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.js)
       override def enableBsp = false
+      // JVM versions of circe needed at compile time for macros that parse JSON
+      def compileMvnDeps = super.compileMvnDeps() ++ Seq(
+        mvn"io.circe:circe-parser_3:${Config.circeVersion}",
+        mvn"io.circe:circe-jawn_3:${Config.circeVersion}"
+      )
     end js
 
     object jvm extends SharedTest:

@@ -30,6 +30,8 @@ object Config:
   val jsDom = mvn"org.scala-js::scalajs-dom::2.8.0"
   val secRand = mvn"org.scala-js::scalajs-java-securerandom:1.0.0"
   val playwright = "1.51.0"
+  val circeVersion = "0.14.15"
+  val circeOptics = "0.15.1"
 
   val laminar = mvn"com.raquo::laminar::17.2.0"
 

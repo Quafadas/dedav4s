@@ -15,8 +15,6 @@ object `package` extends build.Common with ShareCompileResources:
   override def enableBsp = false
 end `package`
 
-
-
-trait ShareCompileResources extends ScalaModule {
-	override def compileResources = super.compileResources() ++ resources()
-}
+trait ShareCompileResources extends ScalaModule:
+  override def compileResources = super.compileResources() ++ resources()
+end ShareCompileResources
