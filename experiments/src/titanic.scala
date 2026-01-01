@@ -9,17 +9,19 @@ import viz.PlotTargets.websocket
   given port:Int = 8085
   val data = CSV.resource("titanic.csv").toVector
 
+  val filterSex = "female"
+
   val ages = data.collect {
-    case r if r.Age.isDefined && r.Sex == "female" => (age = r.Age.get)
+    case r if r.Age.isDefined && r.Sex == filterSex => (age = r.Age.get)
   }
 
   val histogram = VegaPlot.fromResource("histogram.vl.json")
 
   histogram.plot(
     _.data.values := ages.asJson,
-    _.title := "Age Distribution of female passengers",
+    _.title := s"Age Distribution of $filterSex passengers",
     _.encoding.x.field := "age",
-    _.encoding.x.bin.step := 10
+    _.encoding.x.bin.step := 5
   )
 
 

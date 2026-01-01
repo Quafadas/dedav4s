@@ -19,7 +19,20 @@ object SetupVegaBrowser:
 
 end SetupVegaBrowser
 
-
+/**
+ * Sends a Vega-Lite specification to a local WebSocket server for visualization.
+ *
+ * Before calling this method, you must start the WebSocket server by running
+ * the following command in a separate terminal:
+ *
+ * {{{
+ * cs launch io.github.quafadas:dedav4s_3:0.10.0 -M viz.websockets.serve -- 8085
+ * }}}
+ *
+ * After the server is running, visualizations will be displayed at http://localhost:8085
+ * and are updated via a websocket message every time the plot method is called, with eith the
+ * `websocket` or `publishToPort` plot target given in scope.
+ */
 lazy object SetupVegaServer:
   export SetupVega.{*, given}
   export viz.PlotTargets.websocket
