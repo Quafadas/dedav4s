@@ -110,7 +110,6 @@ object Plottable:
       val ujsonSpec = ujson.read(finalSpec.toString)
       plotTarget.show(ujsonSpec, chartLibrary)
 
-
     end plot
 
   end extension

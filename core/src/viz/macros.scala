@@ -11,7 +11,6 @@ import monocle.Optional
 import viz.*
 import viz.vega.VegaSpec
 
-
 /** Type alias for spec modifier functions using circe Json */
 type SpecMod = Json => Json
 
@@ -80,16 +79,14 @@ object VegaPlot:
     ${ fromResourceImpl('resourcePath) }
 
   private def fromResourceImpl(resourcePathE: Expr[String])(using Quotes): Expr[Any] =
-      import quotes.reflect.*
-      val resourcePath = resourcePathE.valueOrAbort
-      val specContent = scala.io.Source.fromResource(resourcePath).mkString
-      fromStringImpl(Expr(specContent))
+    import quotes.reflect.*
+    val resourcePath = resourcePathE.valueOrAbort
+    val specContent = scala.io.Source.fromResource(resourcePath).mkString
+    fromStringImpl(Expr(specContent))
   end fromResourceImpl
-
 
   transparent inline def fromString(inline specContent: String): Any =
     ${ fromStringImpl('specContent) }
-
 
   private def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*

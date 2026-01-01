@@ -5,16 +5,18 @@
 //| - com.goyeau::mill-scalafix::0.6.0
 //| - com.lihaoyi::mill-contrib-buildinfo:$MILL_VERSION
 
-// mill mill.scalalib.scalafmt/
+// mill mill.scalalib.scalafmt/scalafmt
 package build
 
 import mill.*
 import mill.scalalib.*
+import mill.scalalib.scalafmt.ScalafmtModule
 import mill.scalalib.publish.*
 import mill.scalajslib.*
 import mill.scalajslib.api.*
 import io.github.quafadas.millSite.*
 import mill.util.VcsVersion
+import mill.javalib.dependency.Format
 
 object Config:
 
@@ -37,7 +39,7 @@ object Config:
   val scalaJSVersion = "1.20.1"
 end Config
 
-trait Common extends ScalaModule:
+trait Common extends ScalaModule with ScalafmtModule:
   override def scalaVersion = Config.scalaVersion
 
   def mvnDeps = super.mvnDeps() ++ Seq(

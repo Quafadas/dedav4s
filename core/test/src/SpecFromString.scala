@@ -171,12 +171,12 @@ class VegaPlotTest extends FunSuite:
 
     // All these should compile with proper types inferred from the spec
     val result = spec.build(
-      _.title.text := "New Title",     // StringField.:=(String)
-      _.title.fontSize := 24,          // NumField.:=(Int)
-      _.title.bold := true,            // BoolField.:=(Boolean)
-      _.width := 800,                  // NumField.:=(Int)
-      _.height := 600.0,               // NumField.:=(Double)
-      _.autosize := true               // BoolField.:=(Boolean)
+      _.title.text := "New Title", // StringField.:=(String)
+      _.title.fontSize := 24, // NumField.:=(Int)
+      _.title.bold := true, // BoolField.:=(Boolean)
+      _.width := 800, // NumField.:=(Int)
+      _.height := 600.0, // NumField.:=(Double)
+      _.autosize := true // BoolField.:=(Boolean)
     )
 
     assertEquals(result.hcursor.downField("title").get[String]("text").toOption, Some("New Title"))
