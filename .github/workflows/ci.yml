@@ -64,7 +64,7 @@ jobs:
           distribution: 'temurin'
           java-version: 25
       - name: Publish to Maven Central
-        run: ./mill --import "ivy:com.lihaoyi::mill-contrib-sonatypecentral:" mill.contrib.sonatypecentral.SonatypeCentralPublishModule/publishAll --publishArtifacts __.publishArtifacts
+        run: ./mill mill.javalib.SonatypeCentralPublishModule/
         env:
           MILL_PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           MILL_PGP_SECRET_BASE64: ${{ secrets.PGP_SECRET }}
