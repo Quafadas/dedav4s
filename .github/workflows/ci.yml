@@ -100,7 +100,7 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - run: ./mill site.publishDocs
+      - run: ./mill site.siteGen
       - name: Setup Pages
         uses: actions/configure-pages@main
       - uses: actions/upload-artifact@main
