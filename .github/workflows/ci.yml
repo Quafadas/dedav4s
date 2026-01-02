@@ -25,7 +25,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         scala: [3]
-        java: [temurin@17]
+        java: [temurin@25]
         project: [js, jvm]
     runs-on: ${{ matrix.os }}
     steps:
@@ -62,7 +62,7 @@ jobs:
       - uses: actions/setup-java@main
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 25
       - name: Publish to Maven Central
         run: ./mill --import "ivy:com.lihaoyi::mill-contrib-sonatypecentral:" mill.contrib.sonatypecentral.SonatypeCentralPublishModule/publishAll --publishArtifacts __.publishArtifacts
         env:
@@ -85,7 +85,7 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - run: ./mill site.publishDocs
+      - run: ./mill site.siteGen
 
   site:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -106,7 +106,7 @@ jobs:
       - uses: actions/upload-artifact@main
         with:
           name: page
-          path: out/site/publishDocs.dest
+          path: out/site/laika/generateSite.dest
           if-no-files-found: error
 
   deploy:

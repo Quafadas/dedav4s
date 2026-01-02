@@ -29,6 +29,7 @@ object Conversion:
     def u: ujson.Value =
       val enc = summon[Encoder[T]]
       ujson.read(enc(moreJson).toString)
+  end extension
 end Conversion
 
 case class DslSpec(in: VegaDsl | VegaLiteDsl)(using LowPriorityPlotTarget) extends PlatformShow:
@@ -42,11 +43,14 @@ object DslPlot:
   extension (vega: VegaDsl)
     def plot(using LowPriorityPlotTarget) =
       DslSpec(vega)
+  end extension
   extension (vega: VegaLiteDsl)
     def plot(using LowPriorityPlotTarget) =
       DslSpec(vega)
+  end extension
 
   extension (vega: VegaDsl | VegaLiteDsl)
     def plot(using LowPriorityPlotTarget) =
       DslSpec(vega)
+  end extension
 end DslPlot

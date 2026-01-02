@@ -1,8 +1,4 @@
----
-title: Getting Started
----
-
-## Getting Started
+# Getting Started
 
 Fire up scala-cli (needs scala > 3.7.0)...
 ```shell

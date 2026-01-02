@@ -1,16 +1,19 @@
 package build.site
 
-import mill._
-import mill.scalalib._
-import mill.scalajslib._
-import mill.scalajslib.api._
-import io.github.quafadas.millSite.SiteModule
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
+import io.github.quafadas.millSite.*
 
-object `package` extends Module with SiteModule {
+object `package` extends SiteModule:
 
-  override def pathToImportMap = Task { Some(PathRef(Task.dest / os.up / os.up / os.up / os.up / "importmap.json")) }
-}
+  override lazy val jsSiteModule = Some(build.siteJs)
 
+  override def unidocDeps = Seq(build.core.jvm, build.siteHelp)
+
+  def scalaVersion = build.Config.scalaVersion
+end `package`
 
 /*
 

@@ -21,6 +21,8 @@ import os.ResourcePath
 import NamedTuple.AnyNamedTuple
 import NamedTuple.NamedTuple
 import upickle.default.Writer
+import viz.vega.VegaSpec
+import viz.macros.SpecMod
 
 type VizReturn = Unit | os.Path
 
@@ -99,6 +101,21 @@ object Plottable:
 
   /** This assumes the value is a valid specification for your charting library
     */
+  // given ppujson: PlatformPlot[ujson.Value] = new PlatformPlot[ujson.Value]:
+  extension (plottable: io.circe.Json)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
+    def plot(
+        mods: viz.macros.SpecMod*
+    ): VizReturn =
+      val finalSpec = mods.foldLeft(plottable)((json, modFn) => modFn(json))
+      val ujsonSpec = ujson.read(finalSpec.toString)
+      plotTarget.show(ujsonSpec, chartLibrary)
+
+    end plot
+
+  end extension
+
+  /** This assumes the value is a valid specification for your charting library
+    */
   // given ppSpecUrl: PlatformPlot[SpecUrl] = new PlatformPlot[SpecUrl]:
   extension (plottable: SpecUrl)(using plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary)
     def plot(
@@ -115,6 +132,22 @@ object Plottable:
       plotTarget.show(spec, chartLibrary)
 
     end plot
+
+  end extension
+
+  extension [A](plottable: VegaSpec[A])(using plotTarget: LowPriorityPlotTarget)
+
+    /** Plot with lambda syntax: spec.plot(_.title := "New") */
+    def plot(mods: (A => SpecMod)*): VizReturn =
+      given ChartLibrary = ChartLibrary.Vega
+      ujson.read(plottable.build(mods*).toString).plot(using plotTarget, ChartLibrary.Vega)
+    end plot
+
+    /** Plot with pre-built SpecMod sequence */
+    def plotWith(mods: Seq[SpecMod]): VizReturn =
+      given ChartLibrary = ChartLibrary.Vega
+      ujson.read(plottable.buildWith(mods*).toString).plot(using plotTarget, ChartLibrary.Vega)
+    end plotWith
 
   end extension
 

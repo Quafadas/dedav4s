@@ -8,7 +8,7 @@ val previews = doc.select(".imagegroup")
 
 var found = ArrayBuffer[String]()
 var already = ArrayBuffer[String]()
-val codeGen = for (p <- previews.asScala) yield
+val codeGen = for p <- previews.asScala yield
 
   val className = p.text
     .replace(" ", "")
@@ -42,12 +42,13 @@ val codeGenFromList = codeGen.toList
 val exampleStub = "https://vega.github.io"
 
 val specUrlStub =
-  for (plot <- codeGenFromList) yield s"""case ${plot._2}Lite extends SpecUrl("$exampleStub${plot._1}", VegaLite) """
+  for plot <- codeGenFromList yield s"""case ${plot._2}Lite extends SpecUrl("$exampleStub${plot._1}", VegaLite) """
 
 val toPasteSpecUrls = "\n    " + specUrlStub.mkString("\n    ")
 show(toPasteSpecUrls)
 
-val classDefs = for (plot <- codeGenFromList)
+val classDefs =
+  for plot <- codeGenFromList
   yield s"""case class ${plot._2}Lite (override val mods : JsonMod=List())(using PlotTarget) extends FromUrl(SpecUrl.${plot._2}Lite)"""
 
 val toPastClasses = "\n    " + classDefs.mkString("\n")

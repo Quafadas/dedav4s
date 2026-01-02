@@ -1,0 +1,20 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "data": {"values": [
+      10,12,13
+  ]},
+  "title": "Age Distribution ",
+  "width": "container",
+  "height": "container",
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+    },
+  "encoding": {
+    "x": {
+      "field": "Col",
+      "bin": {"step": 10}
+    },
+    "y": {"aggregate": "count"}
+  }
+}

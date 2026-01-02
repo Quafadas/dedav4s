@@ -1,51 +1,71 @@
 package build.core
 
-import mill._
-import mill.scalalib._
-import mill.scalajslib._
-import mill.scalajslib.api._
+import mill.*
+import mill.scalalib.*
+import mill.scalajslib.*
+import mill.scalajslib.api.*
 import build.Config
 
-object `package` extends Module {
+object `package` extends Module:
 
-  trait SharedModule extends build.Common with PlatformScalaModule
-
-  trait SharedTest extends SharedModule with build.SharedMunitTest {
+  trait SharedModule extends build.Common with PlatformScalaModule:
     override def mvnDeps = super.mvnDeps() ++
       Seq(
-        ivy"org.scalameta::munit::${Config.munit}",
+        mvn"io.circe::circe-optics::${Config.circeOptics}",
+        mvn"io.circe::circe-parser::${Config.circeVersion}",
+        mvn"io.circe::circe-literal::${Config.circeVersion}"
       )
-  }
+  end SharedModule
 
-  object jvm extends SharedModule with ScalaModule with build.PublishModule {
+  trait SharedTest extends SharedModule with build.SharedMunitTest:
+    override def mvnDeps = super.mvnDeps() ++
+      Seq(
+        mvn"org.scalameta::munit::${Config.munit}"
+      )
+  end SharedTest
+
+  object jvm extends SharedModule with ScalaModule with build.PublishModule:
     override def compileMvnDeps = super.compileMvnDeps() ++ Seq(
-      ivy"sh.almond:scala-kernel-api_3.3.5:0.14.1".exclude(("com.github.jupyter", "jvm-repr")),
+      mvn"sh.almond:scala-kernel-api_3.3.5:0.14.1".exclude(("com.github.jupyter", "jvm-repr"))
     )
-    override def mvnDeps = Task {
+    override def mvnDeps =
       super.mvnDeps() ++ Seq(
         Config.oslib,
         Config.cask,
         Config.requests,
-        Config.jsoup,
+        Config.jsoup
       )
-    }
-  }
 
-  object js extends SharedModule with build.CommonJs with build.PublishModule
+  end jvm
 
-  object test extends Module {
-    object js extends SharedTest with build.CommonJs with TestScalaJSModule {
+  object js extends SharedModule with build.CommonJs with build.PublishModule:
+    override def enableBsp = false
+    // JVM versions of circe needed at compile time for macros that parse JSON
+    def compileMvnDeps = super.compileMvnDeps() ++ Seq(
+      mvn"io.circe:circe-parser_3:${Config.circeVersion}",
+      mvn"io.circe:circe-jawn_3:${Config.circeVersion}"
+    )
+  end js
+
+  object test extends Module:
+    object js extends SharedTest with build.CommonJs with TestScalaJSModule:
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.js)
+      override def enableBsp = false
+      // JVM versions of circe needed at compile time for macros that parse JSON
+      def compileMvnDeps = super.compileMvnDeps() ++ Seq(
+        mvn"io.circe:circe-parser_3:${Config.circeVersion}",
+        mvn"io.circe:circe-jawn_3:${Config.circeVersion}"
+      )
+    end js
 
-    }
-    object jvm extends SharedTest {
+    object jvm extends SharedTest:
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.jvm)
 
       override def mvnDeps = super.mvnDeps() ++
         Seq(
-          ivy"com.microsoft.playwright:playwright:${Config.playwright}",
-          ivy"com.microsoft.playwright:driver-bundle:${Config.playwright}"
+          mvn"com.microsoft.playwright:playwright:${Config.playwright}",
+          mvn"com.microsoft.playwright:driver-bundle:${Config.playwright}"
         )
-    }
-  }
-}
+    end jvm
+  end test
+end `package`

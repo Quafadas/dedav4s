@@ -45,6 +45,7 @@ def serve(portIn: Int = 8085): Unit =
     .build
   server.start()
   println(s"Server started on port $portIn")
+  println(s"http://localhost:$portIn")
 
   // Keep the JVM alive until the server is stopped
   while true do
