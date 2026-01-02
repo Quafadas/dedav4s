@@ -45,7 +45,7 @@ jobs:
         name: playwright
         run: cs launch com.microsoft.playwright:playwright:1.51.0 -M "com.microsoft.playwright.CLI" -- install --only-shell
       - name: Compile
-        run: ./mill __.compile
+        run: ./mill core.${{matrix.project}}.compile
       - name: test
         run: ./mill core.test.${{matrix.project}}
 
