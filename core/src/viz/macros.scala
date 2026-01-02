@@ -82,7 +82,7 @@ object VegaPlot:
     import quotes.reflect.*
     val fileName = fileNameE.valueOrAbort
     val path = os.pwd / fileName
-    val specContent = scala.io.Source.fromResource(path.toString).mkString
+    val specContent = scala.io.Source.fromFile(path.toString).mkString
     fromStringImpl(Expr(specContent))
   end pwdImpl
 
