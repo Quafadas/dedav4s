@@ -75,6 +75,18 @@ end ObjField
 
 object VegaPlot:
 
+  transparent inline def pwd(inline fileName: String): Any =
+    ${ pwdImpl('fileName) }
+
+  private def pwdImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
+    import quotes.reflect.*
+    val fileName = fileNameE.valueOrAbort
+    val path = os.pwd / fileName
+    val specContent = scala.io.Source.fromResource(path.toString).mkString
+    fromStringImpl(Expr(specContent))
+  end pwdImpl
+
+
   transparent inline def fromResource(inline resourcePath: String): Any =
     ${ fromResourceImpl('resourcePath) }
 
