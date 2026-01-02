@@ -86,7 +86,6 @@ object VegaPlot:
     fromStringImpl(Expr(specContent))
   end pwdImpl
 
-
   transparent inline def fromResource(inline resourcePath: String): Any =
     ${ fromResourceImpl('resourcePath) }
 
