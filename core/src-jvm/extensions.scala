@@ -19,6 +19,25 @@ package viz
 import scala.util.Random
 import scala.annotation.targetName
 import ujson.Value
+import scala.quoted.Expr
+import scala.quoted.*
+import io.circe.Json
+import io.circe.parser.parse
+import viz.macros.VegaPlotMacroImpl
+
+object VegaPlotJvm:
+
+  transparent inline def pwd(inline fileName: String): Any =
+    ${ pwdImpl('fileName) }
+
+  private def pwdImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
+    import quotes.reflect.*
+    val fileName = fileNameE.valueOrAbort
+    val path = os.pwd / fileName
+    val specContent = scala.io.Source.fromFile(path.toString).mkString
+    VegaPlotMacroImpl.fromStringImpl(Expr(specContent))
+  end pwdImpl
+end VegaPlotJvm
 
 import math.Numeric.Implicits.infixNumericOps
 import viz.vega.plots.*

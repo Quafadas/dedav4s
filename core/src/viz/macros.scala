@@ -75,17 +75,6 @@ end ObjField
 
 object VegaPlot:
 
-  transparent inline def pwd(inline fileName: String): Any =
-    ${ pwdImpl('fileName) }
-
-  private def pwdImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
-    import quotes.reflect.*
-    val fileName = fileNameE.valueOrAbort
-    val path = os.pwd / fileName
-    val specContent = scala.io.Source.fromFile(path.toString).mkString
-    fromStringImpl(Expr(specContent))
-  end pwdImpl
-
   transparent inline def fromResource(inline resourcePath: String): Any =
     ${ fromResourceImpl('resourcePath) }
 
@@ -93,13 +82,15 @@ object VegaPlot:
     import quotes.reflect.*
     val resourcePath = resourcePathE.valueOrAbort
     val specContent = scala.io.Source.fromResource(resourcePath).mkString
-    fromStringImpl(Expr(specContent))
+    VegaPlotMacroImpl.fromStringImpl(Expr(specContent))
   end fromResourceImpl
 
   transparent inline def fromString(inline specContent: String): Any =
-    ${ fromStringImpl('specContent) }
+    ${ VegaPlotMacroImpl.fromStringImpl('specContent) }
+end VegaPlot
 
-  private def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
+object VegaPlotMacroImpl:
+  def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
 
     val jsonString = specContentExpr.valueOrAbort
@@ -193,4 +184,4 @@ object VegaPlot:
         report.errorAndAbort("VegaPlot.fromString requires a JSON object at the top level")
     end match
   end fromStringImpl
-end VegaPlot
+end VegaPlotMacroImpl
