@@ -6,7 +6,7 @@ import io.circe.syntax.*
 import viz.PlotTargets.websocket
 
 @main def titanic =
-  given port:Int = 8085
+  given port: Int = 8085
   val data = CSV.resource("titanic.csv").toVector
 
   val filterSex = "female"
@@ -23,7 +23,5 @@ import viz.PlotTargets.websocket
     _.encoding.x.field := "age",
     _.encoding.x.bin.step := 5
   )
-
-
 
 end titanic
