@@ -23,6 +23,8 @@ import NamedTuple.NamedTuple
 import upickle.default.Writer
 import viz.vega.VegaSpec
 import viz.macros.SpecMod
+import io.circe.Codec
+import io.circe.syntax.*
 
 type VizReturn = Unit | os.Path
 
@@ -172,10 +174,10 @@ object Plottable:
 
   // given ppnt: NtPlatformPlot[AnyNamedTuple] = new NtPlatformPlot[AnyNamedTuple]:
 
-  extension [N <: Tuple, V <: Tuple, T <: NamedTuple[N, V]](plottable: T)
-    def plot()(using w: Writer[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
+  extension [T <: NamedTuple.AnyNamedTuple](plottable: T)
+    def plot()(using w: Codec[T], plotTarget: LowPriorityPlotTarget, chartLibrary: ChartLibrary): VizReturn =
       // println(plotTarget.toString())
-      val spec = upickle.default.writeJs(plottable)
+      val spec = ujson.read(plottable.asJson.toString)
       val modifiedSpec = spec.applyMods(List.empty)
       plotTarget.show(modifiedSpec, chartLibrary)
 

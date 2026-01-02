@@ -107,7 +107,7 @@ class PlaywrightTest extends munit.FunSuite:
     import viz.echartsFlavour
     // import viz.PlotTargets.desktopBrowser
     import viz.PlotTargets.doNothing
-    import viz.NamedTupleReadWriter.given
+    import viz.NtCirce.given
 
     // println("Plotting")
     echartsPlot.plot()
@@ -115,7 +115,7 @@ class PlaywrightTest extends munit.FunSuite:
 
   test("that we can plot a named tuple") {
     import viz.vegaFlavour
-
+    import viz.NtCirce.given
     import viz.PlotTargets.tempHtmlFile
 
     navigateTo(
@@ -129,6 +129,7 @@ class PlaywrightTest extends munit.FunSuite:
   test("that we can use the viz server") {
     import viz.vegaFlavour
     import viz.PlotTargets.websocket
+    import viz.NtCirce.given
 
     val id = barPlot.description
     val url = s"$VIZ_SERVER_ENDPOINT/$id"
@@ -144,6 +145,7 @@ class PlaywrightTest extends munit.FunSuite:
   test("that we can plot an echart on viz server") {
     import viz.echartsFlavour
     import viz.PlotTargets.websocket
+    import viz.NtCirce.given
 
     // Because NamedTuples are converted to ujson.Value,
     // their hashes differ from those sent to the server.
