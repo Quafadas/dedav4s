@@ -13,6 +13,11 @@ object `package` extends SiteModule:
   override def unidocDeps = Seq(build.core.jvm, build.siteHelp)
 
   def scalaVersion = build.Config.scalaVersion
+
+  override def repoLink = Task(
+    build.core.jvm.pomSettings().url
+  )
+
 end `package`
 
 /*
