@@ -157,6 +157,10 @@ class VegaPlotTest extends FunSuite:
     }
   }
 
+  // test("invalid JSON") {
+  //   val badSpec = VegaPlot.fromString("""{title: "Missing quotes"}""")
+  // }
+
   test("type safety - correct types should work") {
     val spec = VegaPlot.fromString("""{
       "title": {
