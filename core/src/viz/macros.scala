@@ -95,7 +95,7 @@ object VegaPlotMacroImpl:
 
     val jsonString = specContentExpr.valueOrAbort
     val parseResult = parse(jsonString)
-    
+
     // Parse JSON and abort macro expansion on failure
     val circeJson = parseResult match
       case Left(error) =>
@@ -193,12 +193,12 @@ object VegaPlotMacroImpl:
       case _ =>
         // JSON is valid but not an object
         val jsonType = circeJson match
-          case j if j.isArray => "array"
-          case j if j.isString => "string"
-          case j if j.isNumber => "number"
+          case j if j.isArray   => "array"
+          case j if j.isString  => "string"
+          case j if j.isNumber  => "number"
           case j if j.isBoolean => "boolean"
-          case j if j.isNull => "null"
-          case _ => "unknown type"
+          case j if j.isNull    => "null"
+          case _                => "unknown type"
         report.errorAndAbort(s"VegaPlot.fromString requires JSON object but got $jsonType")
     end match
   end fromStringImpl

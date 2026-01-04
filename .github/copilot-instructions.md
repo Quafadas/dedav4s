@@ -18,6 +18,7 @@ Dedav4s is a Scala 3 project using the mill (version 1.1.0+) build tool. It seek
 - Use `Seq` not `Agg`. Agg doesn't exist in mill 1+
 
 After making changes to the codebase;
+- Format code - `./mill mill.scalalib.scalafmt.ScalafmtModule/reformatAll __.sources`
 - Compile all - `./mill __.compile`
 - Test all - `./mill __.test`
 - Generate docs - `./mill site.siteGen`
