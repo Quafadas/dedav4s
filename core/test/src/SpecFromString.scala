@@ -226,60 +226,55 @@ class VegaPlotTest extends FunSuite:
 
   test("fromString should report detailed error for invalid JSON with parse error") {
     // Test with trailing comma (from the issue)
-    val errors1 = compileErrors("""
-      VegaPlot.fromString(\"\"\" {
-        "data": {
-          "values": [
-            {"category": "cat1", "value": 4},
-          ]
-        }
-      }\"\"\")
-    """)
+    // Note: Using inline literals since compileErrors is a macro
+    val errors1 = compileErrors(
+      "VegaPlot.fromString(\"\"\"{ \"data\": { \"values\": [ {\"category\": \"cat1\", \"value\": 4}, ] } }\"\"\")"
+    )
     assert(errors1.contains("Invalid JSON"), s"Expected 'Invalid JSON' in error message, got: $errors1")
 
     // Test with missing closing brace
-    val errors2 = compileErrors("""
-      VegaPlot.fromString("{\"title\": \"test\"")
-    """)
+    val errors2 = compileErrors(
+      "VegaPlot.fromString(\"{\\\"title\\\": \\\"test\\\"\")"
+    )
     assert(errors2.contains("Invalid JSON"), s"Expected 'Invalid JSON' in error message, got: $errors2")
 
     // Test with missing quotes
-    val errors3 = compileErrors("""
-      VegaPlot.fromString("{title: \"test\"}")
-    """)
+    val errors3 = compileErrors(
+      "VegaPlot.fromString(\"{title: \\\"test\\\"}\")"
+    )
     assert(errors3.contains("Invalid JSON"), s"Expected 'Invalid JSON' in error message, got: $errors3")
   }
 
   test("fromString should report specific type error for non-object JSON") {
-    // Test with array
-    val errors1 = compileErrors("""
-      VegaPlot.fromString("[1, 2, 3]")
-    """)
+    // Test with array - use inline literals since compileErrors is a macro
+    val errors1 = compileErrors(
+      "VegaPlot.fromString(\"[1, 2, 3]\")"
+    )
     assert(errors1.contains("array"), s"Expected 'array' in error message, got: $errors1")
     assert(errors1.contains("JSON object"), s"Expected 'JSON object' in error message, got: $errors1")
 
     // Test with string
-    val errors2 = compileErrors("""
-      VegaPlot.fromString("\"just a string\"")
-    """)
+    val errors2 = compileErrors(
+      "VegaPlot.fromString(\"\\\"just a string\\\"\")"
+    )
     assert(errors2.contains("string"), s"Expected 'string' in error message, got: $errors2")
 
     // Test with number
-    val errors3 = compileErrors("""
-      VegaPlot.fromString("42")
-    """)
+    val errors3 = compileErrors(
+      "VegaPlot.fromString(\"42\")"
+    )
     assert(errors3.contains("number"), s"Expected 'number' in error message, got: $errors3")
 
     // Test with boolean
-    val errors4 = compileErrors("""
-      VegaPlot.fromString("true")
-    """)
+    val errors4 = compileErrors(
+      "VegaPlot.fromString(\"true\")"
+    )
     assert(errors4.contains("boolean"), s"Expected 'boolean' in error message, got: $errors4")
 
     // Test with null
-    val errors5 = compileErrors("""
-      VegaPlot.fromString("null")
-    """)
+    val errors5 = compileErrors(
+      "VegaPlot.fromString(\"null\")"
+    )
     assert(errors5.contains("null"), s"Expected 'null' in error message, got: $errors5")
   }
 end VegaPlotTest
