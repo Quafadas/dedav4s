@@ -1,4 +1,3 @@
-
 package viz
 
 import scala.scalajs.js
