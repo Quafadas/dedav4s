@@ -77,6 +77,38 @@ And both browser tabs will now update with their respective plots.
 
 Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment. Juypter ships with Vega, so it works OOTB, which is nice.
 
+### GitHub-Compatible Almond Targets
+
+GitHub's notebook renderer has limited support for Vega/Vega-Lite MIME types. If you want your charts to display correctly when viewing notebooks on GitHub, use one of these alternative targets:
+
+#### `almondGithubCompat`
+This target automatically detects whether your spec is Vega or Vega-Lite and uses GitHub-compatible MIME types:
+- `application/vnd.vega.v3+json` for Vega specs
+- `application/vnd.vegalite.v4+json` for Vega-Lite specs
+
+Detection is based on the `$schema` field in your specification. This relies on Vega's backward compatibility to render v5/v6 specs using older MIME types.
+
+```scala
+import viz.PlotTargets.almondGithubCompat
+import viz.vegaFlavour
+import viz.extensions.*
+
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
+
+#### `almondPngFallback`
+This target generates both a PNG image and the original JSON spec. The PNG ensures charts are visible on GitHub (and other environments), while the JSON spec allows interactive viewing in full Jupyter environments.
+
+Requires the [vega CLI](https://vega.github.io/vega/usage/#cli) to be installed (`npm install -g vega-cli`).
+
+```scala
+import viz.PlotTargets.almondPngFallback
+import viz.vegaFlavour
+import viz.extensions.*
+
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
+
 ## VSCode
 Use the almond target and a `.ipynb`...
 
