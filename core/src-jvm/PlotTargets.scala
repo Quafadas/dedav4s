@@ -189,6 +189,69 @@ object PlotTargets extends SharedTargets:
       )
     end show
 
+  /** PlotTarget for Almond that uses GitHub-compatible MIME types.
+    *
+    * GitHub's notebook renderer only supports older Vega/Vega-Lite versions:
+    * - application/vnd.vega.v3+json for Vega
+    * - application/vnd.vegalite.v4+json for Vega-Lite
+    *
+    * This target detects the chart type from the $schema field and uses the appropriate MIME type.
+    */
+  given almondGithubCompat: PlotTarget = new UnitTarget:
+    override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
+      val kernel = summon[JupyterApi]
+      
+      // Detect if it's Vega or Vega-Lite from the $schema field
+      val schemaUrl = spec.objOpt
+        .flatMap(_.get("$schema"))
+        .flatMap(_.strOpt)
+        .getOrElse("")
+      
+      val mimeType = 
+        if schemaUrl.contains("vega-lite") then
+          "application/vnd.vegalite.v4+json"
+        else
+          "application/vnd.vega.v3+json"
+      
+      kernel.publish.display(
+        almond.interpreter.api.DisplayData().addStringifiedJson(
+          mimeType,
+          ujson.write(spec)
+        )
+      )
+    end show
+
+  /** PlotTarget for Almond that provides a PNG fallback for GitHub compatibility.
+    *
+    * This target generates both a PNG image and the original JSON spec.
+    * The PNG ensures the chart is visible on GitHub, while the JSON spec
+    * allows interactive viewing in environments that support it.
+    *
+    * Requires the vg2png command-line tool to be installed.
+    */
+  given almondPngFallback: PlotTarget = new UnitTarget:
+    override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
+      val kernel = summon[JupyterApi]
+      
+      // Generate PNG using vg2png command
+      val pngBytes = os.proc("vg2png").call(stdin = spec.toString)
+      
+      pngBytes.exitCode match
+        case 0 =>
+          // Encode PNG as base64
+          val base64Png = java.util.Base64.getEncoder.encodeToString(pngBytes.out.bytes)
+          
+          // Create DisplayData with both PNG and JSON spec
+          kernel.publish.display(
+            almond.interpreter.api.DisplayData()
+              .addStringifiedJson("application/vnd.vega.v5+json", ujson.write(spec))
+              .add("image/png" -> base64Png)
+          )
+        case _ =>
+          throw new Exception(s"Failed to generate PNG: ${pngBytes.err.text()}")
+      end match
+    end show
+
   given publishToPort(using portI: Int): UnitTarget = new UnitTarget:
     override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
       val chartType = lib match
