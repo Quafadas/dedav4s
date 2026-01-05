@@ -104,7 +104,6 @@ object VegaPlotMacroImpl:
         report.errorAndAbort(errorMsg)
       case Right(json) =>
         json
-    end match
 
     // Recursively build accessor type and expression for a JSON value at a given path
     def buildAccessor(json: Json, path: List[String]): (TypeRepr, Expr[Any]) =
