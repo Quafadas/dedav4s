@@ -252,6 +252,43 @@ object PlotTargets extends SharedTargets:
       end match
     end show
 
+  /** PlotTarget for Almond that embeds HTML with CDN-loaded libraries.
+    *
+    * This approach mimics Altair's strategy: it embeds a complete HTML document
+    * with Vega/Vega-Lite/Echarts libraries loaded from a CDN. GitHub will render
+    * this HTML, making charts visible without relying on specific MIME type support.
+    *
+    * This is the most reliable method for GitHub compatibility as it doesn't depend
+    * on GitHub's MIME type support - the HTML is self-contained and executable.
+    */
+  given almondHtmlEmbed: PlotTarget = new UnitTarget:
+    override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
+      val kernel = summon[JupyterApi]
+      
+      // Generate HTML with embedded spec and CDN libraries
+      val html = lib match
+        case ChartLibrary.Vega =>
+          raw"""<div id="vis-${spec.hashCode.abs}"></div>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script type="text/javascript">
+  vegaEmbed('#vis-${spec.hashCode.abs}', ${spec.toString()}).catch(console.error);
+</script>"""
+        case ChartLibrary.Echarts =>
+          raw"""<div id="chart-${spec.hashCode.abs}" style="width: 600px; height: 400px;"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById('chart-${spec.hashCode.abs}'));
+  myChart.setOption(${spec.toString()});
+</script>"""
+      
+      kernel.publish.display(
+        almond.interpreter.api.DisplayData()
+          .add("text/html" -> html)
+      )
+    end show
+
   given publishToPort(using portI: Int): UnitTarget = new UnitTarget:
     override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
       val chartType = lib match

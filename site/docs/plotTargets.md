@@ -81,6 +81,22 @@ Feeds a jupyter computing instance the correct MIME type and the JSON spec, to d
 
 GitHub's notebook renderer has limited support for Vega/Vega-Lite MIME types. If you want your charts to display correctly when viewing notebooks on GitHub, use one of these alternative targets:
 
+#### `almondHtmlEmbed` (Recommended)
+This target embeds a complete HTML document with Vega/Vega-Lite/Echarts libraries loaded from a CDN. This approach mimics Altair's strategy and is the most reliable method for GitHub compatibility as it doesn't depend on GitHub's MIME type support - the HTML is self-contained and executable.
+
+```scala
+import viz.PlotTargets.almondHtmlEmbed
+import viz.vegaFlavour
+import viz.extensions.*
+
+List(("A",5),("B",8),("C",-1)).plotBarChart(List())
+```
+
+This is the **recommended approach** for GitHub compatibility as it:
+- Works on all platforms (GitHub, JupyterLab, VSCode, etc.)
+- Requires no external tools
+- Produces self-contained, executable HTML
+
 #### `almondGithubCompat`
 This target automatically detects whether your spec is Vega or Vega-Lite and uses GitHub-compatible MIME types:
 - `application/vnd.vega.v3+json` for Vega specs
