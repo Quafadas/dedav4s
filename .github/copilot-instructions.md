@@ -17,8 +17,24 @@ Dedav4s is a Scala 3 project using the mill (version 1.1.0+) build tool. It seek
 ** BUILD **
 - Use `Seq` not `Agg`. Agg doesn't exist in mill 1+
 
-After making changes to the codebase;
-- Compile all - `./mill __.compile`
-- Test all - `./mill __.test`
-- Generate docs - `./mill site.siteGen`
+## After Making Changes
+
+**CRITICAL**: After EVERY code change, you MUST run the following commands in order and ensure each succeeds before proceeding:
+
+1. **Format code** - `./mill mill.scalalib.scalafmt.ScalafmtModule/reformatAll __.sources`
+   - MUST run this after every code change
+   - Ensures consistent code style
+   
+2. **Compile** - `./mill __.compile`
+   - MUST verify compilation succeeds after formatting
+   - If compilation fails, fix the issues before proceeding
+   
+3. **Test** - `./mill __.test`
+   - MUST verify all tests pass
+   - If tests fail, fix the failing tests before proceeding
+
+4. **Generate docs** (optional for code changes) - `./mill site.siteGen`
+   - Required for documentation changes
+
+**Do NOT commit changes until formatting, compilation, and tests all succeed.**
 

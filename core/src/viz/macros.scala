@@ -94,7 +94,16 @@ object VegaPlotMacroImpl:
     import quotes.reflect.*
 
     val jsonString = specContentExpr.valueOrAbort
-    val circeJson = parse(jsonString).getOrElse(Json.Null)
+    val parseResult = parse(jsonString)
+
+    // Parse JSON and abort macro expansion on failure
+    val circeJson = parseResult match
+      case Left(error) =>
+        // Provide detailed error message including location
+        val errorMsg = s"Invalid JSON: ${error.message}"
+        report.errorAndAbort(errorMsg)
+      case Right(json) =>
+        json
 
     // Recursively build accessor type and expression for a JSON value at a given path
     def buildAccessor(json: Json, path: List[String]): (TypeRepr, Expr[Any]) =
@@ -181,7 +190,15 @@ object VegaPlotMacroImpl:
         end if
 
       case _ =>
-        report.errorAndAbort("VegaPlot.fromString requires a JSON object at the top level")
+        // JSON is valid but not an object
+        val jsonType = circeJson match
+          case j if j.isArray   => "array"
+          case j if j.isString  => "string"
+          case j if j.isNumber  => "number"
+          case j if j.isBoolean => "boolean"
+          case j if j.isNull    => "null"
+          case _                => "unknown type"
+        report.errorAndAbort(s"VegaPlot.fromString requires JSON object but got $jsonType")
     end match
   end fromStringImpl
 end VegaPlotMacroImpl
