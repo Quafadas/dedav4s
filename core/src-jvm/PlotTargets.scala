@@ -232,7 +232,25 @@ object PlotTargets extends SharedTargets:
           const vegaLite = await import("https://cdn.jsdelivr.net/npm/vega-lite@5/+esm");
           const vegaEmbed = await import("https://cdn.jsdelivr.net/npm/vega-embed@6/+esm");
 
-          await vegaEmbed.default(outputDiv, ${ujson.write(spec)}, {mode: "vega-lite"});
+          // Detect dark mode - check multiple sources
+          function isDarkMode() {
+            // 1. Check CSS media query (works in most browsers)
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              return true;
+            }
+            // 2. Check VS Code's body attribute (notebook specific)
+            if (document.body.getAttribute('data-vscode-theme-kind')?.includes('dark')) {
+              return true;
+            }
+            // 3. Check for dark class on body
+            if (document.body.classList.contains('vscode-dark')) {
+              return true;
+            }
+          return false;
+          }
+          const theme = isDarkMode() ? 'dark' : 'default';
+
+          await vegaEmbed.default(outputDiv, ${ujson.write(spec)}, {mode: "vega-lite", theme: theme});
         } catch (err) {
           outputDiv.innerHTML = "<b style='color:red'>Error: " + err.message + "</b>";
         }
