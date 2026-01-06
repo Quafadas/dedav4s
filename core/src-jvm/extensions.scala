@@ -8,13 +8,10 @@ import scala.quoted.*
 import io.circe.Json
 import io.circe.parser.parse
 import viz.macros.VegaPlotMacroImpl
+import viz.macros.VegaPlot
 
 object VegaPlotJvm:
-
-  transparent inline def pwd(inline fileName: String): Any =
-    ${ pwdImpl('fileName) }
-
-  private def pwdImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
+  def pwdImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
     val fileName = fileNameE.valueOrAbort
     val path = os.pwd / fileName

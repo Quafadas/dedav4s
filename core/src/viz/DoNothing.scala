@@ -1,4 +1,3 @@
-
 package viz
 
 import viz.LowPriorityPlotTarget

@@ -75,6 +75,9 @@ end ObjField
 
 object VegaPlot:
 
+  transparent inline def pwd(inline fileName: String): Any =
+    ${ VegaPlotJvm.pwdImpl('fileName) }
+
   transparent inline def fromResource(inline resourcePath: String): Any =
     ${ fromResourceImpl('resourcePath) }
 
