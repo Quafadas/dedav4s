@@ -1,3 +1,35 @@
 body {
   overflow: hidden;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #ffffff;
+    color: #1a1a1a;
+  }
+}
+button {
+  background-color: #333333;
+  color: #e0e0e0;
+  border: 1px solid #555555;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #444444;
+}
+
+@media (prefers-color-scheme: light) {
+  button {
+    background-color: #f0f0f0;
+    color: #1a1a1a;
+    border: 1px solid #cccccc;
+  }
+
+  button:hover {
+    background-color: #e0e0e0;
+  }
 }

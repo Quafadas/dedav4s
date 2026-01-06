@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import org.scalajs.dom.HTMLElement
 
-type Theme = "excel" | "ggplot2" | "quartz" | "vox" | "dark"
+type Theme = "excel" | "ggplot2" | "quartz" | "vox" | "dark" | "default"
 
 @js.native
 trait Actions extends js.Object:
