@@ -177,8 +177,14 @@ object PlotTargets extends SharedTargets:
   /*   given vsCodeNotebook: PlotTarget with
     override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
 
+  /** This PlotTarget uses a mimetype of application/vnd.vega.v5+json to display Vega plots in Jupyter / VS Code
+    * notebooks. This strategy doesn't appear to be well supported, it will not display in NBViewer or github for
+    * example.
+    */
   given almond: PlotTarget = new UnitTarget:
     override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
+      if lib != ChartLibrary.Vega then throw new Exception("almond_js PlotTarget only supports Vega / Vega-Lite charts")
+      end if
       val kernel = summon[JupyterApi]
       kernel.publish.display(
         DisplayData(
@@ -187,6 +193,51 @@ object PlotTargets extends SharedTargets:
           )
         )
       )
+    end show
+
+  /** A PlotTarget implementation for rendering Vega-Lite visualizations in Almond Jupyter notebooks.
+    *
+    * This target creates an HTML div container with a unique ID, applies custom styling for proper embedding, and
+    * executes JavaScript to load Vega, Vega-Lite, and Vega-Embed libraries from CDN before rendering the visualization
+    * specification.
+    *
+    * The rendering is performed asynchronously using ES modules imported from jsDelivr CDN. Any errors during the
+    * rendering process are caught and displayed as red error messages in the output div.
+    *
+    * @note
+    *   Requires an implicit `JupyterApi` (Almond kernel) to be in scope for publishing HTML and JavaScript content to
+    *   the notebook.
+    * @note
+    *   The visualization is rendered in "vega-lite" mode using vega-embed.
+    */
+  given almond_js: PlotTarget = new UnitTarget:
+    override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
+      if lib != ChartLibrary.Vega then throw new Exception("almond_js PlotTarget only supports Vega / Vega-Lite charts")
+      end if
+
+      val kernel = summon[JupyterApi]
+      val vizId3 = s"viz-${java.util.UUID.randomUUID().toString.replace("-", "")}"
+
+      kernel.publish.html(s"""<div id="$vizId3"></div>""")
+      kernel.publish.html(
+        s"""<style> #$vizId3.vega-embed {width:100%; display:flex;} #$vizId3.vega-embed details, #$vizId3.vega-embed summary {position: relative;} </style>"""
+      )
+
+      kernel.publish.js(s"""
+      (async function() {
+        var outputDiv = document.getElementById("$vizId3");
+
+        try {
+          const vega = await import("https://cdn.jsdelivr.net/npm/vega@5/+esm");
+          const vegaLite = await import("https://cdn.jsdelivr.net/npm/vega-lite@5/+esm");
+          const vegaEmbed = await import("https://cdn.jsdelivr.net/npm/vega-embed@6/+esm");
+
+          await vegaEmbed.default(outputDiv, ${ujson.write(spec)}, {mode: "vega-lite"});
+        } catch (err) {
+          outputDiv.innerHTML = "<b style='color:red'>Error: " + err.message + "</b>";
+        }
+      })();
+      """)
     end show
 
   given publishToPort(using portI: Int): UnitTarget = new UnitTarget:
