@@ -5,6 +5,7 @@ The concept is that the macro parses some JSON template which represents a visua
 The macro parses the JSON object and generates
 - setters for every field that match the JSON AST provided - e.g. title would usually be a String.
 - setters which accept a circe `Json` value. This is the escape hatch - you can put anything in here.
+- Under the hood, it takes advantages of circe's optics module
 
 ## Example
 
@@ -111,3 +112,16 @@ barChart.plot(
 This exposes the entire oportunity set of vega / lite in a reasonably convienient manner.
 
 One can easily build fairly robust, typesafe visualiations on top of this small set of abstractions.
+
+Sometimes, we might want to add new fields to the spec.
+
+```scala
+val scatterPlot = VegaPlot.pwd("scatter.vl.json")
+scatterPlot.plot(
+  _.data.values := data.asJson,
+  _.encoding.x.field := "Miles_per_Gallon",
+  _.encoding.y.field := "Horsepower",
+  _.encoding += json""" {"color": { "field": "Origin", "type": "nominal" }} """,
+)
+```
+The final lines usees `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
