@@ -1,4 +1,8 @@
 name: CI
+
+env:
+  FORCE_COLOR: '1'
+
 on:
   push:
     branches:
@@ -48,6 +52,17 @@ jobs:
         run: ./mill core.${{matrix.project}}.compile
       - name: test
         run: ./mill core.test.${{matrix.project}}
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v5
+        if: always()
+        with:
+          fail_on_failure: false
+          include_passed: false
+          detailed_summary: true
+          annotate_only: true
+          require_tests: false
+          report_paths: 'out/**/test-report.xml'
+
 
 
   publish:
