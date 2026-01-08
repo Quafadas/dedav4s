@@ -14,52 +14,129 @@ import viz.vega.VegaSpec
 /** Type alias for spec modifier functions using circe Json */
 type SpecMod = Json => Json
 
-/** Accessor for string fields */
+/** Accessor for string fields in a Vega/Vega-Lite spec.
+  *
+  * Provides type-safe modification of string-valued JSON fields.
+  *
+  * @example
+  *   {{{spec.build(_.title := "New Title")}}}
+  *
+  * @param path
+  *   The JSON path to this field as a list of field names
+  */
 class StringField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(s: String): SpecMod = optic.replace(Json.fromString(s))
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
+
+  /** Replace the field value with a string */
   def :=(s: String): SpecMod = apply(s)
+
+  /** Replace the field value with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Replace the field value with a JSON object */
   def :=(obj: JsonObject): SpecMod = apply(obj)
+
+  /** Deep merge JSON into this field. For string fields, this effectively replaces the value. */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+
+  /** Deep merge a JSON object into this field */
   def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end StringField
 
-/** Accessor for numeric fields */
+/** Accessor for numeric fields in a Vega/Vega-Lite spec.
+  *
+  * Provides type-safe modification of number-valued JSON fields.
+  *
+  * @example
+  *   {{{spec.build(_.width := 800, _.height := 600.5)}}}
+  *
+  * @param path
+  *   The JSON path to this field as a list of field names
+  */
 class NumField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(n: Int): SpecMod = optic.replace(Json.fromInt(n))
   def apply(n: Double): SpecMod = optic.replace(Json.fromDoubleOrNull(n))
   def apply(j: Json): SpecMod = optic.replace(j)
+
+  /** Replace the field value with an integer */
   def :=(n: Int): SpecMod = apply(n)
+
+  /** Replace the field value with a double */
   def :=(n: Double): SpecMod = apply(n)
+
+  /** Replace the field value with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Deep merge JSON into this field. For numeric fields, this effectively replaces the value. */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+
+  /** Deep merge a JSON object into this field */
   def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end NumField
 
-/** Accessor for boolean fields */
+/** Accessor for boolean fields in a Vega/Vega-Lite spec.
+  *
+  * Provides type-safe modification of boolean-valued JSON fields.
+  *
+  * @example
+  *   {{{spec.build(_.autosize := false)}}}
+  *
+  * @param path
+  *   The JSON path to this field as a list of field names
+  */
 class BoolField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(b: Boolean): SpecMod = optic.replace(Json.fromBoolean(b))
   def apply(j: Json): SpecMod = optic.replace(j)
+
+  /** Replace the field value with a boolean */
   def :=(b: Boolean): SpecMod = apply(b)
+
+  /** Replace the field value with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Deep merge JSON into this field. For boolean fields, this effectively replaces the value. */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+
+  /** Deep merge a JSON object into this field */
   def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end BoolField
 
-/** Accessor for array fields */
+/** Accessor for array fields in a Vega/Vega-Lite spec.
+  *
+  * Provides type-safe modification of array-valued JSON fields. Unlike other field types, the `+=` operator on arrays
+  * appends elements rather than deep merging.
+  *
+  * @example
+  *   {{{// Replace the entire array spec.build(_.data.values := json"[{\"a\": 1}, {\"a\": 2}]")
+  *
+  * // Append a single element spec.build(_.data.values += json"{\"a\": 3}")
+  *
+  * // Append multiple elements spec.build(_.signals += Vector(json"{\"name\": \"sig1\"}", json"{\"name\": \"sig2\"}"))
+  * }}}
+  *
+  * @param path
+  *   The JSON path to this field as a list of field names
+  */
 class ArrField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(arr: Vector[Json]): SpecMod = optic.replace(Json.fromValues(arr))
+
+  /** Replace the entire array with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Replace the entire array with a Vector of JSON values */
   def :=(arr: Vector[Json]): SpecMod = apply(arr)
 
-  /** Append a single JSON element to the array */
+  /** Append a single JSON element to the array.
+    *
+    * If the current value is not an array, creates a new array with this element.
+    */
   def +=(j: Json): SpecMod = optic.modify { existing =>
     existing.asArray match
       case Some(arr) => Json.fromValues(arr :+ j)
@@ -77,29 +154,68 @@ class ArrField(path: List[String]):
   def +=(obj: JsonObject): SpecMod = +=(Json.fromJsonObject(obj))
 end ArrField
 
-/** Accessor for null fields */
+/** Accessor for null-valued fields in a Vega/Vega-Lite spec.
+  *
+  * Provides modification of fields that are initially null in the spec.
+  *
+  * @param path
+  *   The JSON path to this field as a list of field names
+  */
 class NullField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(j: Json): SpecMod = optic.replace(j)
+
+  /** Replace the null value with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Deep merge JSON into this field */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+
+  /** Deep merge a JSON object into this field */
   def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end NullField
 
-/** Base class for object field accessors. Can replace the whole object, and provides typed access to nested fields via
-  * Selectable.
+/** Accessor for object fields in a Vega/Vega-Lite spec.
+  *
+  * Provides type-safe modification of object-valued JSON fields. Extends `Selectable` to allow compile-time checked
+  * access to nested fields via dot notation.
+  *
+  * The `:=` operator replaces the entire object, while `+=` performs a deep merge preserving existing fields.
+  *
+  * @example
+  *   {{{// Replace entire object spec.build(_.title := json"{\"text\": \"New\", \"fontSize\": 20}")
+  *
+  * // Deep merge - adds/updates fields while preserving others spec.build(_.title += json"{\"color\": \"red\"}")
+  *
+  * // Access nested fields with compile-time checking spec.build(_.title.text := "New Title", _.title.fontSize := 20)
+  * }}}
+  *
+  * @param path
+  *   The JSON path to this field as a list of field names
+  * @param fieldMap
+  *   Map of nested field names to their accessor objects (used by `selectDynamic`)
   */
 class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectable:
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
+
+  /** Replace the entire object with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Replace the entire object with a JSON object */
   def :=(obj: JsonObject): SpecMod = apply(obj)
 
-  /** Deep merge a JSON value into this object */
+  /** Deep merge a JSON value into this object.
+    *
+    * Existing fields not present in `j` are preserved. Fields present in both are overwritten by `j`.
+    */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
 
-  /** Deep merge a JSON object into this object */
+  /** Deep merge a JSON object into this object.
+    *
+    * Existing fields not present in `obj` are preserved. Fields present in both are overwritten by `obj`.
+    */
   def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
   def selectDynamic(name: String): Any = fieldMap(name)
 end ObjField
