@@ -23,6 +23,8 @@ class StringField(path: List[String]):
   def :=(s: String): SpecMod = apply(s)
   def :=(j: Json): SpecMod = apply(j)
   def :=(obj: JsonObject): SpecMod = apply(obj)
+  def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+  def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end StringField
 
 /** Accessor for numeric fields */
@@ -34,6 +36,8 @@ class NumField(path: List[String]):
   def :=(n: Int): SpecMod = apply(n)
   def :=(n: Double): SpecMod = apply(n)
   def :=(j: Json): SpecMod = apply(j)
+  def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+  def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end NumField
 
 /** Accessor for boolean fields */
@@ -43,6 +47,8 @@ class BoolField(path: List[String]):
   def apply(j: Json): SpecMod = optic.replace(j)
   def :=(b: Boolean): SpecMod = apply(b)
   def :=(j: Json): SpecMod = apply(j)
+  def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+  def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end BoolField
 
 /** Accessor for array fields */
@@ -52,6 +58,23 @@ class ArrField(path: List[String]):
   def apply(arr: Vector[Json]): SpecMod = optic.replace(Json.fromValues(arr))
   def :=(j: Json): SpecMod = apply(j)
   def :=(arr: Vector[Json]): SpecMod = apply(arr)
+
+  /** Append a single JSON element to the array */
+  def +=(j: Json): SpecMod = optic.modify { existing =>
+    existing.asArray match
+      case Some(arr) => Json.fromValues(arr :+ j)
+      case None      => Json.arr(j) // If not an array, create new array with this element
+  }
+
+  /** Append multiple JSON elements to the array */
+  def +=(arr: Vector[Json]): SpecMod = optic.modify { existing =>
+    existing.asArray match
+      case Some(existingArr) => Json.fromValues(existingArr ++ arr)
+      case None              => Json.fromValues(arr)
+  }
+
+  /** Append a JSON object element to the array */
+  def +=(obj: JsonObject): SpecMod = +=(Json.fromJsonObject(obj))
 end ArrField
 
 /** Accessor for null fields */
@@ -59,6 +82,8 @@ class NullField(path: List[String]):
   private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
   def apply(j: Json): SpecMod = optic.replace(j)
   def :=(j: Json): SpecMod = apply(j)
+  def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+  def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
 end NullField
 
 /** Base class for object field accessors. Can replace the whole object, and provides typed access to nested fields via
@@ -70,6 +95,12 @@ class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectabl
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
   def :=(j: Json): SpecMod = apply(j)
   def :=(obj: JsonObject): SpecMod = apply(obj)
+
+  /** Deep merge a JSON value into this object */
+  def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
+
+  /** Deep merge a JSON object into this object */
+  def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
   def selectDynamic(name: String): Any = fieldMap(name)
 end ObjField
 

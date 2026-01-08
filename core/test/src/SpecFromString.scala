@@ -157,6 +157,36 @@ class VegaPlotTest extends FunSuite:
     }
   }
 
+  test("type safety - += should not compile for invalid paths") {
+    // Invalid: accessing a field that doesn't exist with +=
+    {
+      val spec1 = VegaPlot.fromString("""{"title": "Test"}""")
+      val errors = compileErrors("""spec1.build(_.nonexistent += json"{}")""")
+      assert(errors.nonEmpty, "Expected compile errors for nonexistent field with +=")
+    }
+
+    // Invalid: accessing nested field that doesn't exist with +=
+    {
+      val spec2 = VegaPlot.fromString("""{"title": {"text": "Test"}}""")
+      val errors = compileErrors("""spec2.build(_.title.invalid += json"{}")""")
+      assert(errors.nonEmpty, "Expected compile errors for invalid nested field with +=")
+    }
+
+    // Invalid: deeply nested path that doesn't exist
+    {
+      val spec3 = VegaPlot.fromString("""{"config": {"view": {"stroke": "black"}}}""")
+      val errors = compileErrors("""spec3.build(_.config.view.nonexistent += json"{}")""")
+      assert(errors.nonEmpty, "Expected compile errors for invalid deeply nested field with +=")
+    }
+
+    // Invalid: chaining through a primitive field
+    {
+      val spec4 = VegaPlot.fromString("""{"width": 400}""")
+      val errors = compileErrors("""spec4.build(_.width.nested += json"{}")""")
+      assert(errors.nonEmpty, "Expected compile errors for accessing nested on primitive with +=")
+    }
+  }
+
   // test("invalid JSON") {
   //   val badSpec = VegaPlot.fromString("""{title: "Missing quotes"}""")
   // }
@@ -280,5 +310,104 @@ class VegaPlotTest extends FunSuite:
       "VegaPlot.fromString(\"null\")"
     )
     assert(errors5.contains("null"), s"Expected 'null' in error message, got: $errors5")
+  }
+
+  test("+= should deep merge JSON into object fields") {
+    val spec = VegaPlot.fromString("""{
+      "title": {
+        "text": "Original Title",
+        "fontSize": 12
+      },
+      "width": 400
+    }""")
+
+    val result = spec.build(
+      _.title += json"""{"color": "red", "fontSize": 20}"""
+    )
+
+    // Original field preserved
+    assertEquals(result.hcursor.downField("title").get[String]("text").toOption, Some("Original Title"))
+    // New field added
+    assertEquals(result.hcursor.downField("title").get[String]("color").toOption, Some("red"))
+    // Existing field overwritten by merge
+    assertEquals(result.hcursor.downField("title").get[Int]("fontSize").toOption, Some(20))
+  }
+
+  test("+= should append element to array fields") {
+    val spec = VegaPlot.fromString("""{
+      "data": {
+        "values": [
+          {"category": "A", "value": 28}
+        ]
+      }
+    }""")
+
+    val result = spec.build(
+      _.data.values += json"""{"category": "B", "value": 55}"""
+    )
+
+    val values = root.data.values.arr.getOption(result)
+    assertEquals(values.map(_.size), Some(2))
+    assertEquals(
+      values.flatMap(_.lastOption).flatMap(_.hcursor.get[String]("category").toOption),
+      Some("B")
+    )
+  }
+
+  test("+= should append multiple elements to array fields") {
+    val spec = VegaPlot.fromString("""{
+      "signals": [
+        {"name": "sig1", "value": 1}
+      ]
+    }""")
+
+    val result = spec.build(
+      _.signals += Vector(
+        json"""{"name": "sig2", "value": 2}""",
+        json"""{"name": "sig3", "value": 3}"""
+      )
+    )
+
+    val signals = root.signals.arr.getOption(result)
+    assertEquals(signals.map(_.size), Some(3))
+  }
+
+  test("+= with JsonObject should deep merge into object") {
+    val spec = VegaPlot.fromString("""{
+      "config": {
+        "view": {"stroke": "transparent"}
+      }
+    }""")
+
+    val result = spec.build(
+      _.config += JsonObject("axis" -> json"""{"labelFontSize": 14}""")
+    )
+
+    // Original nested field preserved
+    assertEquals(
+      result.hcursor.downField("config").downField("view").get[String]("stroke").toOption,
+      Some("transparent")
+    )
+    // New nested field added
+    assertEquals(
+      result.hcursor.downField("config").downField("axis").get[Int]("labelFontSize").toOption,
+      Some(14)
+    )
+  }
+
+  test("+= on root level should merge into entire spec") {
+    val spec = VegaPlot.fromString("""{
+      "title": "Original",
+      "width": 400
+    }""")
+
+    val result = spec.build(
+      _ += json"""{"height": 300, "description": "Added via merge"}"""
+    )
+
+    assertEquals(result.hcursor.get[String]("title").toOption, Some("Original"))
+    assertEquals(result.hcursor.get[Int]("width").toOption, Some(400))
+    assertEquals(result.hcursor.get[Int]("height").toOption, Some(300))
+    assertEquals(result.hcursor.get[String]("description").toOption, Some("Added via merge"))
   }
 end VegaPlotTest
