@@ -25,7 +25,7 @@ import viz.PlotTargets.websocket
     _.title := s"Age Distribution of $filterSex passengers",
     _.encoding.x.field := "Age",
     _.encoding.x.bin.step := 5,
-    _.encoding += (column = (field = "Pclass")  ).asJson
+    _.encoding += (column = (field = "Pclass")).asJson
   )
 
 end titanic

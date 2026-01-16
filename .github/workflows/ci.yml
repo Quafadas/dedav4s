@@ -37,7 +37,9 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - name: formatCheck
+
+      - if: matrix.project == 'jvm'
+        name: formatCheck
         run: ./mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
 
       - uses: coursier/setup-action@main
