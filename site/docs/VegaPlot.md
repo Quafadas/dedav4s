@@ -125,3 +125,24 @@ scatterPlot.plot(
 )
 ```
 The final lines usees `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
+
+
+## FromResource
+
+Mill is my preferred build tool. Note that something like this;
+
+```scala 
+lazy val plot = VegaPlot.fromResource("simple.vl.json")
+```
+
+May (confusingly) throw a compile error at you. Key point: VegaPlot is asking the compiler to analyze the JSON spec.
+
+Mill seperates compile resources and run resources. From the compilers point of view, "simple.csv" is indeed not a resource by default in mill.
+
+Now that we know this, it's easy enough to work around in a few ways. Here's one way that adds the runtime resources to the compilers resource path - thus ensuring that the CSV file is available to the compiler, at compile time.
+
+```scala
+trait ShareCompileResources extends ScalaModule {
+  override def compileResources = super.compileResources() ++ resources()
+}
+```
