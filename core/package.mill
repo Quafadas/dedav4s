@@ -33,7 +33,12 @@ object `package` extends Module:
         Config.oslib,
         Config.cask,
         Config.requests,
-        Config.jsoup
+        Config.jsoup,
+        Config.elk,
+        Config.elkAlgorithms,
+        Config.elkGraph,
+        Config.elkService,
+        Config.xtextLib
       )
 
   end jvm
