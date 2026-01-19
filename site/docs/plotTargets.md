@@ -142,7 +142,7 @@ Assuming we're plotting
 import viz.PlotTargets.pdf
 val pathToPDF = (1 to 10).plotBarChart()
 ```
-![as png](plot-10805531892109353827.png)
+![as png](assets/plot-10805531892109353827.png)
 
 ### PDF
 ```scala
