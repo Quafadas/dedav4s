@@ -101,6 +101,31 @@ LayoutDirection.Left
 
 ## Output Formats
 
+### Using Plot Targets (Recommended)
+
+Graph visualizations integrate with dedav4s plot target system:
+
+```scala
+import viz.PlotTargets
+
+// Display in browser (default)
+given viz.PlotTarget = PlotTargets.desktopBrowser
+val viz = GraphViz.simple("A" -> "B", "B" -> "C")
+viz.plot("My Graph")
+
+// Save to temp file
+given viz.PlotTarget = PlotTargets.tempHtmlFile
+val path = viz.plot("My Graph")
+println(s"Saved to: $path")
+
+// Use with Jupyter notebooks
+given viz.PlotTarget = PlotTargets.almond_js // Note: Graph uses HTML, not Vega
+
+// WebSocket server (for remote viewing)
+given viz.PlotTarget = PlotTargets.websocket
+viz.plot("My Graph")
+```
+
 ### HTML with Embedded SVG
 
 ```scala

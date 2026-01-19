@@ -54,4 +54,25 @@ class GraphVisualization(val layout: LayoutResult):
   def toJsonString: String =
     ujson.write(toJson, indent = 2)
 
+  /** Displays the graph using the configured plot target
+    *
+    * This method integrates with dedav4s plot target system. The HTML is stored in a JSON wrapper to maintain
+    * compatibility with the ujson.Value interface used by plot targets.
+    *
+    * @param plotTarget
+    *   The target for rendering (e.g., desktopBrowser, tempHtmlFile)
+    * @param title
+    *   Optional title for the graph visualization
+    * @return
+    *   The result from the plot target (typically a file path)
+    */
+  def plot(title: String = "Graph Visualization")(using
+      plotTarget: viz.LowPriorityPlotTarget
+  ): viz.VizReturn =
+    // Wrap the HTML in a ujson string for the plot target
+    val html = toHtml(title)
+    val spec = ujson.Str(html)
+    plotTarget.show(spec, viz.ChartLibrary.Graph)
+  end plot
+
 end GraphVisualization

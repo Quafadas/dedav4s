@@ -1,11 +1,12 @@
 package viz
 
 enum ChartLibrary:
-  case Vega, Echarts
+  case Vega, Echarts, Graph
 end ChartLibrary
 
 given vegaFlavour: ChartLibrary = ChartLibrary.Vega
 given echartsFlavour: ChartLibrary = ChartLibrary.Echarts
+given graphFlavour: ChartLibrary = ChartLibrary.Graph
 
 extension (spec: ujson.Value)
 
