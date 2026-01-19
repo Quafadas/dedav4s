@@ -30,10 +30,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup NodeJS v18 LTS
-        uses: actions/setup-node@v3
+      - name: Setup NodeJS
+        uses: actions/setup-node@main
         with:
-          node-version: 26
+          node-version: 24
           cache: npm
 
       - name: Setup Java 21
