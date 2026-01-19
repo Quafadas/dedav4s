@@ -33,7 +33,7 @@ jobs:
       - name: Setup NodeJS v18 LTS
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 26
           cache: npm
 
       - name: Setup Java 21
