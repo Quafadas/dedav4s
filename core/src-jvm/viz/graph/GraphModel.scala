@@ -42,19 +42,18 @@ case class DAG(
         visited: Set[String],
         recStack: Set[String]
     ): Boolean =
-      if recStack.contains(node) then return true
-      end if
-      if visited.contains(node) then return false
-      end if
+      if recStack.contains(node) then true
+      else if visited.contains(node) then false
+      else
+        val newVisited = visited + node
+        val newRecStack = recStack + node
 
-      val newVisited = visited + node
-      val newRecStack = recStack + node
-
-      adjacencyList.get(node) match
-        case Some(neighbors) =>
-          neighbors.exists(neighbor => dfs(neighbor, newVisited, newRecStack))
-        case None => false
-      end match
+        adjacencyList.get(node) match
+          case Some(neighbors) =>
+            neighbors.exists(neighbor => dfs(neighbor, newVisited, newRecStack))
+          case None => false
+        end match
+      end if
     end dfs
 
     nodes.map(_.id).exists(nodeId => dfs(nodeId, Set.empty, Set.empty))
