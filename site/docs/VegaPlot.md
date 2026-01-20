@@ -127,6 +127,55 @@ scatterPlot.plot(
 The final lines usees `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
 
 
+## Accessing Array Elements
+
+When working with Vega specs that have arrays of objects (like the `data` array in full Vega specs), you can access fields within the first element of the array using the `.head` property.
+
+For example, consider a Vega spec with this structure:
+
+```json
+{
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {"category": "A", "amount": 28}
+      ]
+    }
+  ]
+}
+```
+
+You can update the `values` field in the first data element:
+
+```scala
+val spec = VegaPlot.fromResource("seasonality.vg.json")
+
+val data: Vector[(category: String, amount: Double)] = Vector(
+  (category = "A", amount = 100),
+  (category = "B", amount = 200),
+  (category = "C", amount = 300)
+)
+
+spec.plot(
+  _.data.head.values := data.asJson
+)
+```
+
+You can also update multiple fields in the first array element:
+
+```scala
+spec.plot(
+  _.data.head.name := "updated_table",
+  _.data.head.values := data.asJson
+)
+```
+
+The `.head` accessor is type-safe and provides compile-time checking for nested fields within the first array element. If the array is empty or doesn't contain objects, the `.head` accessor won't be available.
+
+This feature is particularly useful when working with Vega specs (as opposed to Vega-Lite) where the `data` field is an array rather than a single object.
+
+
 ## FromResource
 
 Mill is my preferred build tool. Note that something like this;
