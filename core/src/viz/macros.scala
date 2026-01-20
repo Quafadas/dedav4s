@@ -27,7 +27,7 @@ type SpecMod = Json => Json
 class StringField(path: List[String]):
   private def optic = path
     .foldLeft(root: JsonPath) { (p, f) =>
-      if f.matches("\\d+") then p.index(f.toInt)
+      if f.forall(_.isDigit) then p.index(f.toInt)
       else p.selectDynamic(f)
     }
     .json
@@ -64,7 +64,7 @@ end StringField
 class NumField(path: List[String]):
   private def optic = path
     .foldLeft(root: JsonPath) { (p, f) =>
-      if f.matches("\\d+") then p.index(f.toInt)
+      if f.forall(_.isDigit) then p.index(f.toInt)
       else p.selectDynamic(f)
     }
     .json
@@ -101,7 +101,7 @@ end NumField
 class BoolField(path: List[String]):
   private def optic = path
     .foldLeft(root: JsonPath) { (p, f) =>
-      if f.matches("\\d+") then p.index(f.toInt)
+      if f.forall(_.isDigit) then p.index(f.toInt)
       else p.selectDynamic(f)
     }
     .json
@@ -143,13 +143,13 @@ end BoolField
 class ArrField(path: List[String], headAccessor: Option[Any] = None) extends Selectable:
   private def optic = path
     .foldLeft(root: JsonPath) { (p, f) =>
-      if f.matches("\\d+") then p.index(f.toInt)
+      if f.forall(_.isDigit) then p.index(f.toInt)
       else p.selectDynamic(f)
     }
     .json
   private def indexOptic(idx: Int) = path
     .foldLeft(root: JsonPath) { (p, f) =>
-      if f.matches("\\d+") then p.index(f.toInt)
+      if f.forall(_.isDigit) then p.index(f.toInt)
       else p.selectDynamic(f)
     }
     .index(idx)
@@ -187,7 +187,9 @@ class ArrField(path: List[String], headAccessor: Option[Any] = None) extends Sel
   def selectDynamic(name: String): Any =
     if name == "head" then
       headAccessor.getOrElse(
-        throw new NoSuchElementException("Array element accessor not available - array was empty or not an object")
+        throw new NoSuchElementException(
+          "Array element accessor not available - array is empty or contains non-object elements"
+        )
       )
     else throw new NoSuchElementException(s"No such field: $name")
 end ArrField
@@ -202,7 +204,7 @@ end ArrField
 class NullField(path: List[String]):
   private def optic = path
     .foldLeft(root: JsonPath) { (p, f) =>
-      if f.matches("\\d+") then p.index(f.toInt)
+      if f.forall(_.isDigit) then p.index(f.toInt)
       else p.selectDynamic(f)
     }
     .json
@@ -241,8 +243,7 @@ end NullField
 class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectable:
   private def optic = path
     .foldLeft(root: JsonPath) { (p, f) =>
-      // Handle numeric indices for array access
-      if f.matches("\\d+") then p.index(f.toInt)
+      if f.forall(_.isDigit) then p.index(f.toInt)
       else p.selectDynamic(f)
     }
     .json
@@ -289,6 +290,9 @@ object VegaPlot:
 end VegaPlot
 
 object VegaPlotMacroImpl:
+  // Index for accessing the first element in an array
+  private val FirstElementIndex = "0"
+
   def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
 
@@ -322,7 +326,7 @@ object VegaPlotMacroImpl:
           else
             // Build accessor for the first element (at index 0)
             val firstElement = arr.head
-            val (headType, headExpr) = buildAccessor(firstElement, path :+ "0")
+            val (headType, headExpr) = buildAccessor(firstElement, path :+ FirstElementIndex)
 
             // Build refinement type: ArrField { def head: HeadType }
             val refinedType = Refinement(TypeRepr.of[ArrField], "head", headType)

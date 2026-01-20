@@ -124,7 +124,7 @@ scatterPlot.plot(
   _.encoding += json""" {"color": { "field": "Origin", "type": "nominal" }} """,
 )
 ```
-The final lines usees `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
+The final lines uses `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
 
 
 ## Accessing Array Elements
