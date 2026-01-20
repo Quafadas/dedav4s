@@ -410,4 +410,114 @@ class VegaPlotTest extends FunSuite:
     assertEquals(result.hcursor.get[Int]("height").toOption, Some(300))
     assertEquals(result.hcursor.get[String]("description").toOption, Some("Added via merge"))
   }
+
+  test("array element access with head - update nested field in first array element") {
+    val spec = VegaPlot.fromString("""{
+      "data": [
+        {
+          "name": "table",
+          "values": [
+            {
+              "category": "2022-12-31",
+              "amount": 0,
+              "color": true
+            }
+          ]
+        }
+      ]
+    }""")
+
+    import viz.NtCirce.given
+    val newData = List((category = "2023-01-01", amount = 100), (category = "2023-02-01", amount = 200))
+
+    val result = spec.build(
+      _.data.head.values := newData.asJson
+    )
+
+    // Verify the values were updated correctly
+    val extractedValues = root.data.arr
+      .getOption(result)
+      .flatMap(_.headOption)
+      .flatMap(_.hcursor.downField("values").as[Vector[Json]].toOption)
+
+    val expected = newData.map { case (cat, amt) =>
+      Map("category" -> cat, "amount" -> amt)
+    }
+
+    assertEquals(
+      extractedValues.map(_.map { item =>
+        Map(
+          "category" -> item.hcursor.get[String]("category").getOrElse(""),
+          "amount" -> item.hcursor.get[Int]("amount").getOrElse(0)
+        )
+      }.toList),
+      Some(expected)
+    )
+  }
+
+  test("array element access with head - update multiple fields in first element") {
+    val spec = VegaPlot.fromString("""{
+      "data": [
+        {
+          "name": "table",
+          "values": [
+            {"category": "A", "amount": 28}
+          ]
+        },
+        {
+          "name": "other",
+          "values": []
+        }
+      ]
+    }""")
+
+    val result = spec.build(
+      _.data.head.name := "updated_table",
+      _.data.head.values := json"""[{"category": "B", "amount": 55}]"""
+    )
+
+    // Verify the first element was updated
+    val firstElement = root.data.arr.getOption(result).flatMap(_.headOption)
+    assertEquals(firstElement.flatMap(_.hcursor.get[String]("name").toOption), Some("updated_table"))
+
+    val firstValues = firstElement.flatMap(_.hcursor.downField("values").as[Vector[Json]].toOption)
+    assertEquals(firstValues.map(_.size), Some(1))
+    assertEquals(
+      firstValues.flatMap(_.headOption).flatMap(_.hcursor.get[String]("category").toOption),
+      Some("B")
+    )
+
+    // Verify the second element was not changed
+    val secondElement = root.data.arr.getOption(result).flatMap(_.lift(1))
+    assertEquals(secondElement.flatMap(_.hcursor.get[String]("name").toOption), Some("other"))
+  }
+
+  test("array element access with head - type safety") {
+    // Verify compile-time type checking for nested array access
+    val spec = VegaPlot.fromString("""{
+      "data": [
+        {
+          "name": "table",
+          "values": [{"category": "A"}]
+        }
+      ]
+    }""")
+
+    // Invalid: accessing non-existent nested field
+    val errors = compileErrors("""spec.build(_.data.head.nonexistent := "value")""")
+    assert(errors.nonEmpty, "Expected compile errors for nonexistent nested field in array element")
+  }
+
+  test("empty array should not have head accessor") {
+    val spec = VegaPlot.fromString("""{
+      "data": []
+    }""")
+
+    // This should compile since data is an array field
+    val result = spec.build(
+      _.data := json"""[{"name": "new"}]"""
+    )
+
+    assertEquals(root.data.arr.getOption(result).map(_.size), Some(1))
+  }
 end VegaPlotTest

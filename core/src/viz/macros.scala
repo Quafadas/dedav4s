@@ -25,7 +25,12 @@ type SpecMod = Json => Json
   *   The JSON path to this field as a list of field names
   */
 class StringField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.matches("\\d+") then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(s: String): SpecMod = optic.replace(Json.fromString(s))
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
@@ -57,7 +62,12 @@ end StringField
   *   The JSON path to this field as a list of field names
   */
 class NumField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.matches("\\d+") then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(n: Int): SpecMod = optic.replace(Json.fromInt(n))
   def apply(n: Double): SpecMod = optic.replace(Json.fromDoubleOrNull(n))
   def apply(j: Json): SpecMod = optic.replace(j)
@@ -89,7 +99,12 @@ end NumField
   *   The JSON path to this field as a list of field names
   */
 class BoolField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.matches("\\d+") then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(b: Boolean): SpecMod = optic.replace(Json.fromBoolean(b))
   def apply(j: Json): SpecMod = optic.replace(j)
 
@@ -117,13 +132,29 @@ end BoolField
   * // Append a single element spec.build(_.data.values += json"{\"a\": 3}")
   *
   * // Append multiple elements spec.build(_.signals += Vector(json"{\"name\": \"sig1\"}", json"{\"name\": \"sig2\"}"))
-  * }}}
+  *
+  * // Access first element's nested field spec.build(_.data.head.values := json"[{\"a\": 1}]") }}}
   *
   * @param path
   *   The JSON path to this field as a list of field names
+  * @param headAccessor
+  *   Optional accessor for the first element of the array (if available)
   */
-class ArrField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+class ArrField(path: List[String], headAccessor: Option[Any] = None) extends Selectable:
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.matches("\\d+") then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
+  private def indexOptic(idx: Int) = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.matches("\\d+") then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .index(idx)
+    .json
+
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(arr: Vector[Json]): SpecMod = optic.replace(Json.fromValues(arr))
 
@@ -152,6 +183,13 @@ class ArrField(path: List[String]):
 
   /** Append a JSON object element to the array */
   def +=(obj: JsonObject): SpecMod = +=(Json.fromJsonObject(obj))
+
+  def selectDynamic(name: String): Any =
+    if name == "head" then
+      headAccessor.getOrElse(
+        throw new NoSuchElementException("Array element accessor not available - array was empty or not an object")
+      )
+    else throw new NoSuchElementException(s"No such field: $name")
 end ArrField
 
 /** Accessor for null-valued fields in a Vega/Vega-Lite spec.
@@ -162,7 +200,12 @@ end ArrField
   *   The JSON path to this field as a list of field names
   */
 class NullField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.matches("\\d+") then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(j: Json): SpecMod = optic.replace(j)
 
   /** Replace the null value with arbitrary JSON */
@@ -196,7 +239,13 @@ end NullField
   *   Map of nested field names to their accessor objects (used by `selectDynamic`)
   */
 class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectable:
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      // Handle numeric indices for array access
+      if f.matches("\\d+") then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
 
@@ -266,7 +315,24 @@ object VegaPlotMacroImpl:
         case j if j.isBoolean =>
           (TypeRepr.of[BoolField], '{ new BoolField($pathExpr) })
         case j if j.isArray =>
-          (TypeRepr.of[ArrField], '{ new ArrField($pathExpr) })
+          val arr = j.asArray.get
+          if arr.isEmpty || !arr.head.isObject then
+            // Empty array or non-object elements - no head accessor
+            (TypeRepr.of[ArrField], '{ new ArrField($pathExpr, None) })
+          else
+            // Build accessor for the first element (at index 0)
+            val firstElement = arr.head
+            val (headType, headExpr) = buildAccessor(firstElement, path :+ "0")
+
+            // Build refinement type: ArrField { def head: HeadType }
+            val refinedType = Refinement(TypeRepr.of[ArrField], "head", headType)
+
+            refinedType.asType match
+              case '[t] =>
+                val arrExpr = '{ new ArrField($pathExpr, Some($headExpr)).asInstanceOf[t] }
+                (refinedType, arrExpr)
+            end match
+          end if
         case j if j.isNull =>
           (TypeRepr.of[NullField], '{ new NullField($pathExpr) })
         case j if j.isObject =>
