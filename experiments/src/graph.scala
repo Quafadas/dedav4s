@@ -17,3 +17,4 @@ import viz.PlotTargets.desktopBrowser
   )
   val layout = GraphViz.visualize(dag, LayoutDirection.Right, nodeSpacing = 30, layerSpacing = 60)
   layout.plot("My Graph")
+end graph

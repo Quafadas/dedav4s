@@ -1,6 +1,8 @@
 package viz.graph
 
 import munit.FunSuite
+import io.circe.*
+import io.circe.parser.*
 
 class GraphVizTest extends FunSuite:
 
@@ -11,8 +13,11 @@ class GraphVizTest extends FunSuite:
     )
 
     val json = viz.toJson
-    assertEquals(json("type").str, "graph")
-    assert(json("children").arr.nonEmpty)
+    val typeField = json.hcursor.downField("type").as[String]
+    val children = json.hcursor.downField("children").as[List[Json]]
+
+    assertEquals(typeField, Right("graph"))
+    assert(children.isRight && children.toOption.get.nonEmpty)
   }
 
   test("GraphViz.visualize validates DAG") {
@@ -61,8 +66,17 @@ class GraphVizTest extends FunSuite:
     val viz = GraphViz.visualize(dag, LayoutDirection.Down)
     val json = viz.toJson
 
-    val nodes = json("children").arr.filter(_.obj.get("position").isDefined)
-    val edges = json("children").arr.filter(_("type").str == "edge")
+    val cursor = json.hcursor
+    val children = cursor.downField("children").as[List[Json]]
+
+    assert(children.isRight)
+    val childList = children.toOption.get
+
+    // Count nodes (have position field) and edges (have type == "edge")
+    val nodes = childList.filter(_.hcursor.downField("position").succeeded)
+    val edges = childList.filter { child =>
+      child.hcursor.downField("type").as[String].contains("edge")
+    }
 
     assertEquals(nodes.size, 6) // Root, Child1, Child2, Leaf1, Leaf2, Leaf3
     assertEquals(edges.size, 6)

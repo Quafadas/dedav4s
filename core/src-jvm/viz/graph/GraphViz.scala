@@ -1,5 +1,7 @@
 package viz.graph
 
+import io.circe.Json
+
 /** High-level API for graph visualization */
 object GraphViz:
 
@@ -37,7 +39,7 @@ end GraphViz
 class GraphVisualization(val layout: LayoutResult):
 
   /** Exports to Sprotty-compatible JSON */
-  def toJson: ujson.Value =
+  def toJson: Json =
     SprottyExporter.toSprottyJson(layout)
 
   /** Exports to a standalone HTML file */
@@ -52,7 +54,7 @@ class GraphVisualization(val layout: LayoutResult):
 
   /** Returns the JSON as a formatted string */
   def toJsonString: String =
-    ujson.write(toJson, indent = 2)
+    toJson.spaces2
 
   /** Displays the graph using the configured plot target
     *
