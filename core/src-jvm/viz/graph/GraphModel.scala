@@ -1,5 +1,7 @@
 package viz.graph
 
+import io.circe.syntax.*
+
 /** Represents a node in the directed graph */
 case class GraphNode(
     id: String,
@@ -20,7 +22,7 @@ case class GraphEdge(
     id: String,
     source: String,
     target: String
-)
+) derives io.circe.Encoder
 
 /** Represents a directed acyclic graph */
 case class DAG(

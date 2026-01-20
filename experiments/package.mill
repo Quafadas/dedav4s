@@ -12,7 +12,7 @@ object `package` extends build.Common with ShareCompileResources:
     mvn"io.github.quafadas::scautable::0.0.34"
   )
 
-  override def enableBsp = false
+  override def enableBsp = true
 end `package`
 
 trait ShareCompileResources extends ScalaModule:

@@ -1,4 +1,4 @@
-package viz.graph.examples
+package experiments.examples
 
 import viz.graph.*
 

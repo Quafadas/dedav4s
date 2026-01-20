@@ -2,7 +2,7 @@
 
 ALWAYS reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
 
-Dedav4s is a Scala 3 project using the mill (version 1.1.0+) build tool. It seeks to wrap vega, vega-lite and echarts plotting libraries, primarily for use in the termainal or scripting environments.
+Dedav4s is a Scala 3 project using the mill (version 1.1.0+) build tool. It seeks to wrap vega, vega-lite, echarts and ELK plotting libraries, primarily for use in the termainal or scripting environments.
 
 - **BUILDS**: Mill cold compilation can be slow a minute or so, stay patient, incremental compilation should be fast
 - Compile all modules:
@@ -24,11 +24,11 @@ Dedav4s is a Scala 3 project using the mill (version 1.1.0+) build tool. It seek
 1. **Format code** - `./mill mill.scalalib.scalafmt.ScalafmtModule/reformatAll __.sources`
    - MUST run this after every code change
    - Ensures consistent code style
-   
+
 2. **Compile** - `./mill __.compile`
    - MUST verify compilation succeeds after formatting
    - If compilation fails, fix the issues before proceeding
-   
+
 3. **Test** - `./mill __.test`
    - MUST verify all tests pass
    - If tests fail, fix the failing tests before proceeding

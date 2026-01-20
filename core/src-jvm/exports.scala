@@ -62,3 +62,9 @@ object SetupVega:
   export io.circe.Json
   export io.circe.literal.json
 end SetupVega
+
+object SetupElkGraph:
+  export viz.Plottable.*
+  export viz.graphFlavour
+  export viz.NtCirce.given
+end SetupElkGraph

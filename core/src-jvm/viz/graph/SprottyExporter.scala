@@ -98,27 +98,27 @@ object SprottyExporter:
        |  <script type="module">
        |    // Graph data embedded from backend
        |    const graphData = $jsonString;
-       |    
+       |
        |    // Initialize viewer
        |    const container = document.getElementById('graph-container');
-       |    
+       |
        |    // Simple SVG rendering
        |    container.innerHTML = renderGraphSVG(graphData);
-       |    
+       |
        |    function renderGraphSVG(data) {
        |      const width = Math.max(...data.children.filter(c => c.position).map(c => c.position.x + c.size.width)) + 50;
        |      const height = Math.max(...data.children.filter(c => c.position).map(c => c.position.y + c.size.height)) + 50;
-       |      
+       |
        |      let svg = `<svg width="$${width}" height="$${height}" xmlns="http://www.w3.org/2000/svg">`;
-       |      
+       |
        |      // Arrow marker definition
        |      svg += `<defs>
-       |        <marker id="arrowhead" markerWidth="10" markerHeight="10" 
+       |        <marker id="arrowhead" markerWidth="10" markerHeight="10"
        |                refX="9" refY="3" orient="auto">
        |          <polygon points="0 0, 10 3, 0 6" fill="#666"/>
        |        </marker>
        |      </defs>`;
-       |      
+       |
        |      // Render edges first (so they appear behind nodes)
        |      data.children.filter(c => c.type === 'edge').forEach(edge => {
        |        const source = data.children.find(n => n.id === edge.sourceId);
@@ -128,31 +128,31 @@ object SprottyExporter:
        |          const y1 = source.position.y + source.size.height;
        |          const x2 = target.position.x + target.size.width / 2;
        |          const y2 = target.position.y;
-       |          svg += `<line x1="$${x1}" y1="$${y1}" x2="$${x2}" y2="$${y2}" 
+       |          svg += `<line x1="$${x1}" y1="$${y1}" x2="$${x2}" y2="$${y2}"
        |                  stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>`;
        |        }
        |      });
-       |      
+       |
        |      // Render nodes
        |      data.children.filter(c => c.position).forEach(node => {
        |        const x = node.position.x;
        |        const y = node.position.y;
        |        const w = node.size.width;
        |        const h = node.size.height;
-       |        
+       |
        |        // Node rectangle
-       |        svg += `<rect x="$${x}" y="$${y}" width="$${w}" height="$${h}" 
+       |        svg += `<rect x="$${x}" y="$${y}" width="$${w}" height="$${h}"
        |                fill="#e8f4f8" stroke="#333" stroke-width="2" rx="5"/>`;
-       |        
+       |
        |        // Node label
        |        if (node.children && node.children.length > 0) {
        |          const label = node.children[0].text;
-       |          svg += `<text x="$${x + w/2}" y="$${y + h/2}" 
-       |                  text-anchor="middle" dominant-baseline="middle" 
+       |          svg += `<text x="$${x + w/2}" y="$${y + h/2}"
+       |                  text-anchor="middle" dominant-baseline="middle"
        |                  font-family="Arial, sans-serif" font-size="14">$${label}</text>`;
        |        }
        |      });
-       |      
+       |
        |      svg += '</svg>';
        |      return svg;
        |    }
