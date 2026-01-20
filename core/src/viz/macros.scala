@@ -147,13 +147,6 @@ class ArrField(path: List[String], headAccessor: Option[Any] = None) extends Sel
       else p.selectDynamic(f)
     }
     .json
-  private def indexOptic(idx: Int) = path
-    .foldLeft(root: JsonPath) { (p, f) =>
-      if f.forall(_.isDigit) then p.index(f.toInt)
-      else p.selectDynamic(f)
-    }
-    .index(idx)
-    .json
 
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(arr: Vector[Json]): SpecMod = optic.replace(Json.fromValues(arr))
