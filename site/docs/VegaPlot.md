@@ -124,7 +124,87 @@ scatterPlot.plot(
   _.encoding += json""" {"color": { "field": "Origin", "type": "nominal" }} """,
 )
 ```
-The final lines usees `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
+The final lines uses `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
+
+
+## Accessing Array Elements
+
+When working with Vega specs that have arrays of objects (like the `data` array in full Vega specs), you can access fields within array elements using either the `.head` property for the first element or index notation for any element.
+
+For example, consider a Vega spec with this structure:
+
+```json
+{
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {"category": "A", "amount": 28}
+      ]
+    }
+  ]
+}
+```
+
+### Accessing the First Element
+
+You can update the `values` field in the first data element using `.head`:
+
+```scala
+val spec = VegaPlot.fromResource("seasonality.vg.json")
+
+val data: Vector[(category: String, amount: Double)] = Vector(
+  (category = "A", amount = 100),
+  (category = "B", amount = 200),
+  (category = "C", amount = 300)
+)
+
+spec.plot(
+  _.data.head.values := data.asJson
+)
+```
+
+You can also update multiple fields in the first array element:
+
+```scala
+spec.plot(
+  _.data.head.name := "updated_table",
+  _.data.head.values := data.asJson
+)
+```
+
+### Accessing Elements by Index
+
+For accessing elements at specific positions (not just the first), use index notation with parentheses:
+
+```scala
+// Update the second element (index 1)
+spec.plot(
+  _.data(1).name := "second_table",
+  _.data(1).values := newData.asJson
+)
+
+// Update the third element (index 2)
+spec.plot(
+  _.data(2).values := otherData.asJson
+)
+```
+
+The index accessor is equivalent to `.head` when using index 0:
+
+```scala
+// These are equivalent:
+spec.plot(_.data.head.name := "table")
+spec.plot(_.data(0).name := "table")
+```
+
+### Type Safety
+
+Both `.head` and index access are type-safe and provide compile-time checking for nested fields within array elements. The element type is determined by the first element in the array at compile time, so all elements are assumed to have the same structure.
+
+If the array is empty or doesn't contain objects, neither `.head` nor index access will be available.
+
+This feature is particularly useful when working with Vega specs (as opposed to Vega-Lite) where the `data` field is an array rather than a single object.
 
 
 ## FromResource

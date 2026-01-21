@@ -25,7 +25,12 @@ type SpecMod = Json => Json
   *   The JSON path to this field as a list of field names
   */
 class StringField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.forall(_.isDigit) then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(s: String): SpecMod = optic.replace(Json.fromString(s))
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
@@ -57,7 +62,12 @@ end StringField
   *   The JSON path to this field as a list of field names
   */
 class NumField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.forall(_.isDigit) then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(n: Int): SpecMod = optic.replace(Json.fromInt(n))
   def apply(n: Double): SpecMod = optic.replace(Json.fromDoubleOrNull(n))
   def apply(j: Json): SpecMod = optic.replace(j)
@@ -89,7 +99,12 @@ end NumField
   *   The JSON path to this field as a list of field names
   */
 class BoolField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.forall(_.isDigit) then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(b: Boolean): SpecMod = optic.replace(Json.fromBoolean(b))
   def apply(j: Json): SpecMod = optic.replace(j)
 
@@ -117,13 +132,70 @@ end BoolField
   * // Append a single element spec.build(_.data.values += json"{\"a\": 3}")
   *
   * // Append multiple elements spec.build(_.signals += Vector(json"{\"name\": \"sig1\"}", json"{\"name\": \"sig2\"}"))
-  * }}}
+  *
+  * // Access first element's nested field spec.build(_.data.head.values := json"[{\"a\": 1}]") }}}
   *
   * @param path
   *   The JSON path to this field as a list of field names
+  * @param headAccessor
+  *   Optional accessor for the first element of the array (if available)
   */
-class ArrField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+/** Accessor for array fields in a Vega/Vega-Lite spec.
+  *
+  * Provides type-safe modification of array-valued JSON fields. Unlike other field types, the `+=` operator on arrays
+  * appends elements rather than deep merging.
+  *
+  * @example
+  *   {{{// Replace the entire array spec.build(_.data.values := json"[{\"a\": 1}, {\"a\": 2}]")
+  *
+  * // Append a single element spec.build(_.data.values += json"{\"a\": 3}")
+  *
+  * // Append multiple elements spec.build(_.signals += Vector(json"{\"name\": \"sig1\"}", json"{\"name\": \"sig2\"}"))
+  *
+  * // Access first element's nested field spec.build(_.data.head.values := json"[{\"a\": 1}]")
+  *
+  * // Access element at index 2 spec.build(_.data(2).values := json"[{\"a\": 1}]") }}}
+  *
+  * @param path
+  *   The JSON path to this field as a list of field names
+  * @param headAccessor
+  *   Optional accessor for the first element of the array (if available)
+  * @param elementAccessorFactory
+  *   Optional factory function to create accessors for array elements at any index
+  */
+class ArrField(
+    path: List[String],
+    headAccessor: Option[Any] = None,
+    elementAccessorFactory: Option[Int => Any] = None
+) extends Selectable:
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.forall(_.isDigit) then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
+
+  /** Access an element at a specific index in the array.
+    *
+    * Returns an accessor for the element at the given index. The element type is determined by the first element in the
+    * array at compile time, so all elements are assumed to have the same structure.
+    *
+    * @param index
+    *   The zero-based index of the element to access
+    * @return
+    *   An accessor for the element at the specified index with the same type as `.head`
+    * @example
+    *   {{{spec.build(_.data(1).name := "updated")}}}
+    */
+  def apply(index: Int): Any =
+    elementAccessorFactory
+      .map(_(index))
+      .getOrElse(
+        throw new NoSuchElementException(
+          "Array element accessor not available - array is empty or contains non-object elements"
+        )
+      )
+
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(arr: Vector[Json]): SpecMod = optic.replace(Json.fromValues(arr))
 
@@ -152,6 +224,15 @@ class ArrField(path: List[String]):
 
   /** Append a JSON object element to the array */
   def +=(obj: JsonObject): SpecMod = +=(Json.fromJsonObject(obj))
+
+  def selectDynamic(name: String): Any =
+    if name == "head" then
+      headAccessor.getOrElse(
+        throw new NoSuchElementException(
+          "Array element accessor not available - array is empty or contains non-object elements"
+        )
+      )
+    else throw new NoSuchElementException(s"No such field: $name")
 end ArrField
 
 /** Accessor for null-valued fields in a Vega/Vega-Lite spec.
@@ -162,7 +243,12 @@ end ArrField
   *   The JSON path to this field as a list of field names
   */
 class NullField(path: List[String]):
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.forall(_.isDigit) then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(j: Json): SpecMod = optic.replace(j)
 
   /** Replace the null value with arbitrary JSON */
@@ -196,7 +282,12 @@ end NullField
   *   Map of nested field names to their accessor objects (used by `selectDynamic`)
   */
 class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectable:
-  private def optic = path.foldLeft(root: JsonPath)((p, f) => p.selectDynamic(f)).json
+  private def optic = path
+    .foldLeft(root: JsonPath) { (p, f) =>
+      if f.forall(_.isDigit) then p.index(f.toInt)
+      else p.selectDynamic(f)
+    }
+    .json
   def apply(j: Json): SpecMod = optic.replace(j)
   def apply(obj: JsonObject): SpecMod = optic.replace(Json.fromJsonObject(obj))
 
@@ -240,6 +331,9 @@ object VegaPlot:
 end VegaPlot
 
 object VegaPlotMacroImpl:
+  // Index for accessing the first element in an array
+  private val FirstElementIndex = "0"
+
   def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
     import quotes.reflect.*
 
@@ -255,6 +349,62 @@ object VegaPlotMacroImpl:
       case Right(json) =>
         json
 
+    // Helper function to build an accessor for an array element at a runtime-specified index
+    def buildAccessorForIndex(json: Json, basePath: List[String], indexExpr: Expr[Int])(using
+        Quotes
+    ): Expr[Any] =
+      import quotes.reflect.*
+      // Build the path with the runtime index
+      val pathWithIndexExpr = '{ ${ Expr(basePath) } :+ $indexExpr.toString }
+
+      // Recursively build the accessor structure based on the JSON element
+      json match
+        case j if j.isString =>
+          '{ new StringField($pathWithIndexExpr) }
+        case j if j.isNumber =>
+          '{ new NumField($pathWithIndexExpr) }
+        case j if j.isBoolean =>
+          '{ new BoolField($pathWithIndexExpr) }
+        case j if j.isArray =>
+          '{ new ArrField($pathWithIndexExpr, None, None) }
+        case j if j.isNull =>
+          '{ new NullField($pathWithIndexExpr) }
+        case j if j.isObject =>
+          val obj = j.asObject.get
+          val fields = obj.toList
+
+          if fields.isEmpty then '{ new ObjField($pathWithIndexExpr, Map.empty) }
+          else
+            // Build nested accessors for each field
+            val nestedAccessors: List[(String, Expr[Any])] = fields.map { case (name, value) =>
+              val nestedPath = '{ $pathWithIndexExpr :+ ${ Expr(name) } }
+              val nestedExpr = value match
+                case v if v.isString  => '{ new StringField($nestedPath) }
+                case v if v.isNumber  => '{ new NumField($nestedPath) }
+                case v if v.isBoolean => '{ new BoolField($nestedPath) }
+                case v if v.isArray   => '{ new ArrField($nestedPath, None, None) }
+                case v if v.isNull    => '{ new NullField($nestedPath) }
+                case v if v.isObject  =>
+                  // For nested objects, we need to recurse, but we'll keep it simple for now
+                  '{ new ObjField($nestedPath, Map.empty) }
+                case _ => '{ new NullField($nestedPath) }
+              (name, nestedExpr)
+            }
+
+            // Build the field map expression
+            val mapEntries: List[Expr[(String, Any)]] = nestedAccessors.map { case (name, expr) =>
+              val nameExpr = Expr(name)
+              '{ ($nameExpr, $expr) }
+            }
+            val mapExpr = '{ Map(${ Varargs(mapEntries) }*) }
+
+            '{ new ObjField($pathWithIndexExpr, $mapExpr) }
+          end if
+        case _ =>
+          '{ new NullField($pathWithIndexExpr) }
+      end match
+    end buildAccessorForIndex
+
     // Recursively build accessor type and expression for a JSON value at a given path
     def buildAccessor(json: Json, path: List[String]): (TypeRepr, Expr[Any]) =
       val pathExpr = Expr(path)
@@ -266,7 +416,38 @@ object VegaPlotMacroImpl:
         case j if j.isBoolean =>
           (TypeRepr.of[BoolField], '{ new BoolField($pathExpr) })
         case j if j.isArray =>
-          (TypeRepr.of[ArrField], '{ new ArrField($pathExpr) })
+          val arr = j.asArray.get
+          if arr.isEmpty || !arr.head.isObject then
+            // Empty array or non-object elements - no accessor
+            (TypeRepr.of[ArrField], '{ new ArrField($pathExpr, None, None) })
+          else
+            // Build accessor for the first element (at index 0)
+            val firstElement = arr.head
+            val (headType, headExpr) = buildAccessor(firstElement, path :+ FirstElementIndex)
+
+            // Build a factory function that creates accessors for any index
+            // The factory will create the same accessor structure but with a different index
+            val factoryExpr = '{ (index: Int) =>
+              ${ buildAccessorForIndex(firstElement, path, 'index) }
+            }
+
+            // Build refinement type: ArrField { def head: HeadType; def apply(Int): HeadType }
+            val refinedType = Refinement(
+              Refinement(TypeRepr.of[ArrField], "head", headType),
+              "apply",
+              MethodType(List("index"))(
+                _ => List(TypeRepr.of[Int]),
+                _ => headType
+              )
+            )
+
+            refinedType.asType match
+              case '[t] =>
+                val arrExpr =
+                  '{ new ArrField($pathExpr, Some($headExpr), Some($factoryExpr)).asInstanceOf[t] }
+                (refinedType, arrExpr)
+            end match
+          end if
         case j if j.isNull =>
           (TypeRepr.of[NullField], '{ new NullField($pathExpr) })
         case j if j.isObject =>
