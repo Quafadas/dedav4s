@@ -520,4 +520,117 @@ class VegaPlotTest extends FunSuite:
 
     assertEquals(root.data.arr.getOption(result).map(_.size), Some(1))
   }
+
+  test("array element access with arbitrary index - update nested field at index 1") {
+    val spec = VegaPlot.fromString("""{
+      "data": [
+        {
+          "name": "first",
+          "values": [{"category": "A", "amount": 28}]
+        },
+        {
+          "name": "second",
+          "values": [{"category": "B", "amount": 55}]
+        },
+        {
+          "name": "third",
+          "values": [{"category": "C", "amount": 43}]
+        }
+      ]
+    }""")
+
+    import viz.NtCirce.given
+    val newData = List((category = "Updated", amount = 999))
+
+    val result = spec.build(
+      _.data(1).values := newData.asJson
+    )
+
+    // Verify the values at index 1 were updated correctly
+    val extractedValues = root.data.arr
+      .getOption(result)
+      .flatMap(_.lift(1))
+      .flatMap(_.hcursor.downField("values").as[Vector[Json]].toOption)
+
+    val expected = newData.map { case (cat, amt) =>
+      Map("category" -> cat, "amount" -> amt)
+    }
+
+    assertEquals(
+      extractedValues.map(_.map { item =>
+        Map(
+          "category" -> item.hcursor.get[String]("category").getOrElse(""),
+          "amount" -> item.hcursor.get[Int]("amount").getOrElse(0)
+        )
+      }.toList),
+      Some(expected)
+    )
+
+    // Verify other elements weren't changed
+    val firstElement = root.data.arr.getOption(result).flatMap(_.headOption)
+    assertEquals(firstElement.flatMap(_.hcursor.get[String]("name").toOption), Some("first"))
+
+    val thirdElement = root.data.arr.getOption(result).flatMap(_.lift(2))
+    assertEquals(thirdElement.flatMap(_.hcursor.get[String]("name").toOption), Some("third"))
+  }
+
+  test("array element access with index - update multiple fields at index 2") {
+    val spec = VegaPlot.fromString("""{
+      "data": [
+        {
+          "name": "table1",
+          "values": []
+        },
+        {
+          "name": "table2",
+          "values": []
+        },
+        {
+          "name": "table3",
+          "values": []
+        }
+      ]
+    }""")
+
+    import viz.NtCirce.given
+    val newData = List((category = "X", amount = 100))
+
+    val result = spec.build(
+      _.data(2).name := "updated_table",
+      _.data(2).values := newData.asJson
+    )
+
+    // Verify the element at index 2 was updated
+    val element = root.data.arr.getOption(result).flatMap(_.lift(2))
+    assertEquals(element.flatMap(_.hcursor.get[String]("name").toOption), Some("updated_table"))
+
+    val values = element.flatMap(_.hcursor.downField("values").as[Vector[Json]].toOption)
+    assertEquals(values.map(_.size), Some(1))
+  }
+
+  test("array element access with index 0 behaves same as head") {
+    val spec = VegaPlot.fromString("""{
+      "data": [
+        {
+          "name": "table",
+          "values": [{"category": "A", "amount": 28}]
+        }
+      ]
+    }""")
+
+    val result1 = spec.build(
+      _.data.head.name := "updated_via_head"
+    )
+
+    val result2 = spec.build(
+      _.data(0).name := "updated_via_index"
+    )
+
+    // Both should produce the same result structure
+    val name1 = root.data.arr.getOption(result1).flatMap(_.headOption).flatMap(_.hcursor.get[String]("name").toOption)
+    val name2 = root.data.arr.getOption(result2).flatMap(_.headOption).flatMap(_.hcursor.get[String]("name").toOption)
+
+    assertEquals(name1, Some("updated_via_head"))
+    assertEquals(name2, Some("updated_via_index"))
+  }
 end VegaPlotTest

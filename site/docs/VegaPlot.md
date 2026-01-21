@@ -129,7 +129,7 @@ The final lines uses `+=` to add a new field to the encoding object. Under the h
 
 ## Accessing Array Elements
 
-When working with Vega specs that have arrays of objects (like the `data` array in full Vega specs), you can access fields within the first element of the array using the `.head` property.
+When working with Vega specs that have arrays of objects (like the `data` array in full Vega specs), you can access fields within array elements using either the `.head` property for the first element or index notation for any element.
 
 For example, consider a Vega spec with this structure:
 
@@ -146,7 +146,9 @@ For example, consider a Vega spec with this structure:
 }
 ```
 
-You can update the `values` field in the first data element:
+### Accessing the First Element
+
+You can update the `values` field in the first data element using `.head`:
 
 ```scala
 val spec = VegaPlot.fromResource("seasonality.vg.json")
@@ -171,7 +173,36 @@ spec.plot(
 )
 ```
 
-The `.head` accessor is type-safe and provides compile-time checking for nested fields within the first array element. If the array is empty or doesn't contain objects, the `.head` accessor won't be available.
+### Accessing Elements by Index
+
+For accessing elements at specific positions (not just the first), use index notation with parentheses:
+
+```scala
+// Update the second element (index 1)
+spec.plot(
+  _.data(1).name := "second_table",
+  _.data(1).values := newData.asJson
+)
+
+// Update the third element (index 2)
+spec.plot(
+  _.data(2).values := otherData.asJson
+)
+```
+
+The index accessor is equivalent to `.head` when using index 0:
+
+```scala
+// These are equivalent:
+spec.plot(_.data.head.name := "table")
+spec.plot(_.data(0).name := "table")
+```
+
+### Type Safety
+
+Both `.head` and index access are type-safe and provide compile-time checking for nested fields within array elements. The element type is determined by the first element in the array at compile time, so all elements are assumed to have the same structure.
+
+If the array is empty or doesn't contain objects, neither `.head` nor index access will be available.
 
 This feature is particularly useful when working with Vega specs (as opposed to Vega-Lite) where the `data` field is an array rather than a single object.
 
