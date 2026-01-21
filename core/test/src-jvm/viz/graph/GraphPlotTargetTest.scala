@@ -37,7 +37,7 @@ class GraphPlotTargetTest extends FunSuite:
     val content = os.read(path)
     assert(content.contains("<!DOCTYPE html>"))
     assert(content.contains("Integration Test"))
-    assert(content.contains("graph-container"))
+    assert(content.contains("sprotty"))
 
     // Clean up
     os.remove(path)

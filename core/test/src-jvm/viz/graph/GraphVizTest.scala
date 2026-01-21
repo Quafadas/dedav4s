@@ -42,7 +42,7 @@ class GraphVizTest extends FunSuite:
 
     assert(html.contains("<!DOCTYPE html>"))
     assert(html.contains("Test Graph"))
-    assert(html.contains("graph-container"))
+    assert(html.contains("sprotty"))
   }
 
   test("GraphVisualization exports to JSON string") {

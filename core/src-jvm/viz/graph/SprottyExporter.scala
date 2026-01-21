@@ -140,73 +140,43 @@ object SprottyExporter:
        |<head>
        |  <meta charset="UTF-8">
        |  <title>$title</title>
-       |  ${
-        if includeStyles then defaultStyles else ""
-      }
+       |  ${if includeStyles then defaultStyles else ""}
        |</head>
        |<body>
-       |  <div id="graph-container"></div>
+       |  <div id="sprotty"></div>
        |  <script type="module">
+       |    // Import Sprotty as ESM module from CDN
+       |    import { TYPES, ConsoleLogger, LogLevel, loadDefaultModules, LocalModelSource, 
+       |             SGraphView, SLabelView, PolylineEdgeView, configureModelElement, 
+       |             SGraph, SNode, SEdge, SLabel, SGraphFactory } from 'https://unpkg.com/sprotty@1.1.0/lib/index.js';
+       |    import { Container } from 'https://unpkg.com/inversify@6.0.2/es/index.js';
+       |    
        |    // Graph data embedded from backend
        |    const graphData = $jsonString;
-       |
-       |    // Initialize viewer
-       |    const container = document.getElementById('graph-container');
-       |
-       |    // Simple SVG rendering
-       |    container.innerHTML = renderGraphSVG(graphData);
-       |
-       |    function renderGraphSVG(data) {
-       |      const width = Math.max(...data.children.filter(c => c.position).map(c => c.position.x + c.size.width)) + 50;
-       |      const height = Math.max(...data.children.filter(c => c.position).map(c => c.position.y + c.size.height)) + 50;
-       |
-       |      let svg = `<svg width="$${width}" height="$${height}" xmlns="http://www.w3.org/2000/svg">`;
-       |
-       |      // Arrow marker definition
-       |      svg += `<defs>
-       |        <marker id="arrowhead" markerWidth="10" markerHeight="10"
-       |                refX="9" refY="3" orient="auto">
-       |          <polygon points="0 0, 10 3, 0 6" fill="#666"/>
-       |        </marker>
-       |      </defs>`;
-       |
-       |      // Render edges first (so they appear behind nodes)
-       |      data.children.filter(c => c.type === 'edge').forEach(edge => {
-       |        const source = data.children.find(n => n.id === edge.sourceId);
-       |        const target = data.children.find(n => n.id === edge.targetId);
-       |        if (source && target) {
-       |          const x1 = source.position.x + source.size.width / 2;
-       |          const y1 = source.position.y + source.size.height;
-       |          const x2 = target.position.x + target.size.width / 2;
-       |          const y2 = target.position.y;
-       |          svg += `<line x1="$${x1}" y1="$${y1}" x2="$${x2}" y2="$${y2}"
-       |                  stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>`;
-       |        }
-       |      });
-       |
-       |      // Render nodes
-       |      data.children.filter(c => c.position).forEach(node => {
-       |        const x = node.position.x;
-       |        const y = node.position.y;
-       |        const w = node.size.width;
-       |        const h = node.size.height;
-       |
-       |        // Node rectangle
-       |        svg += `<rect x="$${x}" y="$${y}" width="$${w}" height="$${h}"
-       |                fill="#e8f4f8" stroke="#333" stroke-width="2" rx="5"/>`;
-       |
-       |        // Node label
-       |        if (node.children && node.children.length > 0) {
-       |          const label = node.children[0].text;
-       |          svg += `<text x="$${x + w/2}" y="$${y + h/2}"
-       |                  text-anchor="middle" dominant-baseline="middle"
-       |                  font-family="Arial, sans-serif" font-size="14">$${label}</text>`;
-       |        }
-       |      });
-       |
-       |      svg += '</svg>';
-       |      return svg;
-       |    }
+       |    
+       |    // Create Sprotty container with default modules
+       |    const container = new Container();
+       |    loadDefaultModules(container);
+       |    
+       |    // Configure view for node types
+       |    configureModelElement(container, 'graph', SGraph, SGraphView);
+       |    configureModelElement(container, 'node:simple', SNode, SGraphView);
+       |    configureModelElement(container, 'node:table', SNode, SGraphView);
+       |    configureModelElement(container, 'label', SLabel, SLabelView);
+       |    configureModelElement(container, 'edge', SEdge, PolylineEdgeView);
+       |    
+       |    // Set up logger
+       |    container.bind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
+       |    container.bind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
+       |    
+       |    // Create model source
+       |    const modelSource = container.get(LocalModelSource);
+       |    
+       |    // Set the model and render
+       |    modelSource.setModel(graphData);
+       |    
+       |    // Initialize Sprotty on the container div
+       |    modelSource.updateModel();
        |  </script>
        |</body>
        |</html>""".stripMargin
@@ -220,12 +190,34 @@ object SprottyExporter:
       |    font-family: Arial, sans-serif;
       |    background: #f5f5f5;
       |  }
-      |  #graph-container {
+      |  #sprotty {
       |    background: white;
       |    border: 1px solid #ddd;
       |    border-radius: 8px;
       |    padding: 20px;
       |    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      |    width: 100%;
+      |    height: 600px;
+      |  }
+      |  /* Sprotty SVG styling */
+      |  .sprotty-graph > .sprotty-node {
+      |    fill: #e8f4f8;
+      |    stroke: #333;
+      |    stroke-width: 2px;
+      |  }
+      |  .sprotty-edge {
+      |    stroke: #666;
+      |    stroke-width: 2px;
+      |    fill: none;
+      |  }
+      |  .sprotty-edge > .arrow {
+      |    fill: #666;
+      |  }
+      |  .sprotty-label {
+      |    font-family: Arial, sans-serif;
+      |    font-size: 14px;
+      |    text-anchor: middle;
+      |    dominant-baseline: middle;
       |  }
       |</style>""".stripMargin
 
