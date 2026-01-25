@@ -11,6 +11,8 @@ import monocle.Optional
 import viz.*
 import viz.vega.VegaSpec
 import viz.vega.SourceInfo
+import viz.vega.FileSourceInfo
+import viz.vega.ResourceSourceInfo
 
 /** Type alias for spec modifier functions using circe Json */
 type SpecMod = Json => Json
@@ -324,7 +326,11 @@ object VegaPlot:
     import quotes.reflect.*
     val resourcePath = resourcePathE.valueOrAbort
     val specContent = scala.io.Source.fromResource(resourcePath).mkString
-    VegaPlotMacroImpl.fromStringImpl(Expr(specContent))
+    val contentHash = specContent.hashCode
+    VegaPlotMacroImpl.fromStringWithSourceImpl(
+      Expr(specContent),
+      Some(Left((Expr(resourcePath), Expr(contentHash))))
+    )
   end fromResourceImpl
 
   transparent inline def fromString(inline specContent: String): Any =
@@ -338,9 +344,12 @@ object VegaPlotMacroImpl:
   def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
     fromStringWithSourceImpl(specContentExpr, None)
 
+  /** @param sourceInfoExprs
+    *   Left = resource path, Right = file path
+    */
   def fromStringWithSourceImpl(
       specContentExpr: Expr[String],
-      sourceInfoExprs: Option[(Expr[String], Expr[Int])]
+      sourceInfoExprs: Option[Either[(Expr[String], Expr[Int]), (Expr[String], Expr[Int])]]
   )(using Quotes): Expr[Any] =
     import quotes.reflect.*
 
@@ -494,8 +503,10 @@ object VegaPlotMacroImpl:
 
     // Build the sourceInfo expression if we have source tracking
     val sourceInfoExpr: Expr[Option[SourceInfo]] = sourceInfoExprs match
-      case Some((pathExpr, hashExpr)) =>
-        '{ Some(SourceInfo($pathExpr, $hashExpr)) }
+      case Some(Left((resourcePathExpr, hashExpr))) =>
+        '{ Some(ResourceSourceInfo($resourcePathExpr, $hashExpr)) }
+      case Some(Right((filePathExpr, hashExpr))) =>
+        '{ Some(FileSourceInfo($filePathExpr, $hashExpr)) }
       case None =>
         '{ None }
 

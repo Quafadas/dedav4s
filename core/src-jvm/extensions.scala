@@ -20,7 +20,7 @@ object VegaPlotJvm:
     val contentHash = specContent.hashCode
     VegaPlotMacroImpl.fromStringWithSourceImpl(
       Expr(specContent),
-      Some((Expr(pathStr), Expr(contentHash)))
+      Some(Right((Expr(pathStr), Expr(contentHash))))
     )
   end pwdImpl
 end VegaPlotJvm
