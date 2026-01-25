@@ -15,8 +15,13 @@ object VegaPlotJvm:
     import quotes.reflect.*
     val fileName = fileNameE.valueOrAbort
     val path = os.pwd / fileName
-    val specContent = scala.io.Source.fromFile(path.toString).mkString
-    VegaPlotMacroImpl.fromStringImpl(Expr(specContent))
+    val pathStr = path.toString
+    val specContent = scala.io.Source.fromFile(pathStr).mkString
+    val contentHash = specContent.hashCode
+    VegaPlotMacroImpl.fromStringWithSourceImpl(
+      Expr(specContent),
+      Some(Right((Expr(pathStr), Expr(contentHash))))
+    )
   end pwdImpl
 end VegaPlotJvm
 

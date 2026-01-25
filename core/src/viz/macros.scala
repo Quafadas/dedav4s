@@ -10,6 +10,9 @@ import io.circe.optics.JsonPath.*
 import monocle.Optional
 import viz.*
 import viz.vega.VegaSpec
+import viz.vega.SourceInfo
+import viz.vega.FileSourceInfo
+import viz.vega.ResourceSourceInfo
 
 /** Type alias for spec modifier functions using circe Json */
 type SpecMod = Json => Json
@@ -323,7 +326,11 @@ object VegaPlot:
     import quotes.reflect.*
     val resourcePath = resourcePathE.valueOrAbort
     val specContent = scala.io.Source.fromResource(resourcePath).mkString
-    VegaPlotMacroImpl.fromStringImpl(Expr(specContent))
+    val contentHash = specContent.hashCode
+    VegaPlotMacroImpl.fromStringWithSourceImpl(
+      Expr(specContent),
+      Some(Left((Expr(resourcePath), Expr(contentHash))))
+    )
   end fromResourceImpl
 
   transparent inline def fromString(inline specContent: String): Any =
@@ -335,6 +342,15 @@ object VegaPlotMacroImpl:
   private val FirstElementIndex = "0"
 
   def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
+    fromStringWithSourceImpl(specContentExpr, None)
+
+  /** @param sourceInfoExprs
+    *   Left = resource path, Right = file path
+    */
+  def fromStringWithSourceImpl(
+      specContentExpr: Expr[String],
+      sourceInfoExprs: Option[Either[(Expr[String], Expr[Int]), (Expr[String], Expr[Int])]]
+  )(using Quotes): Expr[Any] =
     import quotes.reflect.*
 
     val jsonString = specContentExpr.valueOrAbort
@@ -485,12 +501,21 @@ object VegaPlotMacroImpl:
       end match
     end buildAccessor
 
+    // Build the sourceInfo expression if we have source tracking
+    val sourceInfoExpr: Expr[Option[SourceInfo]] = sourceInfoExprs match
+      case Some(Left((resourcePathExpr, hashExpr))) =>
+        '{ Some(ResourceSourceInfo($resourcePathExpr, $hashExpr)) }
+      case Some(Right((filePathExpr, hashExpr))) =>
+        '{ Some(FileSourceInfo($filePathExpr, $hashExpr)) }
+      case None =>
+        '{ None }
+
     circeJson match
       case obj if obj.isObject =>
         val fields = obj.asObject.get.toList
 
         if fields.isEmpty then
-          '{ new VegaSpec(parse($specContentExpr).getOrElse(Json.Null), new ObjField(Nil, Map.empty)) }
+          '{ new VegaSpec(parse($specContentExpr).getOrElse(Json.Null), new ObjField(Nil, Map.empty), $sourceInfoExpr) }
         else
           // Build accessors for all top-level fields
           val accessors: List[(String, TypeRepr, Expr[Any])] = fields.map { case (name, value) =>
@@ -515,7 +540,7 @@ object VegaPlotMacroImpl:
               '{
                 val rawSpec = parse($specContentExpr).getOrElse(Json.Null)
                 val mod = new ObjField(Nil, $mapExpr).asInstanceOf[modT]
-                new VegaSpec[modT](rawSpec, mod)
+                new VegaSpec[modT](rawSpec, mod, $sourceInfoExpr)
               }
           end match
         end if
@@ -531,5 +556,5 @@ object VegaPlotMacroImpl:
           case _                => "unknown type"
         report.errorAndAbort(s"VegaPlot.fromString requires JSON object but got $jsonType")
     end match
-  end fromStringImpl
+  end fromStringWithSourceImpl
 end VegaPlotMacroImpl
