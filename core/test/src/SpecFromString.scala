@@ -633,4 +633,5 @@ class VegaPlotTest extends FunSuite:
     assertEquals(name1, Some("updated_via_head"))
     assertEquals(name2, Some("updated_via_index"))
   }
+
 end VegaPlotTest
