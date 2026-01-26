@@ -1,0 +1,19 @@
+name: 'autofix.ci'
+on:
+  pull_request:
+jobs:
+  autofix:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 25
+
+      - name: Run autoformat
+        run: ./mill mill.scalalib.scalafmt.ScalafmtModule/reformatAll __.sources
+
+      - uses: autofix-ci/action@ff86a557419858bb967097bfc916833f5647fa8c
