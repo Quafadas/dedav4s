@@ -173,9 +173,9 @@ spec.plot(
 )
 ```
 
-### Accessing Elements by Index
+### Accessing Elements by Index (Homogeneous Arrays)
 
-For accessing elements at specific positions (not just the first), use index notation with parentheses:
+For accessing elements at specific positions (not just the first) in arrays where all elements have the **same structure**, use index notation with parentheses:
 
 ```scala
 // Update the second element (index 1)
@@ -198,9 +198,41 @@ spec.plot(_.data.head.name := "table")
 spec.plot(_.data(0).name := "table")
 ```
 
+**Important**: The `apply(index)` accessor uses the **first element's type** for all indices. This means it assumes all array elements have the same structure. If you need to access elements with different structures, use tuple-style accessors instead.
+
+### Tuple-Style Accessors (Heterogeneous Arrays)
+
+For arrays where elements have **different structures**, use tuple-style accessors (`_0`, `_1`, `_2`, etc.). Each accessor has the precise type of that specific element:
+
+```json
+{
+  "layer": [
+    { "data": { "values": [{"x": 1}] } },
+    { "data": { "sequence": {"start": 0, "stop": 10, "step": 1} } }
+  ]
+}
+```
+
+In this example, `layer[0]` has `data.values` while `layer[1]` has `data.sequence`. To access these correctly:
+
+```scala
+spec.plot(
+  // _0 has type with data.values
+  _.layer._0.data.values := newValues.asJson,
+  // _1 has type with data.sequence  
+  _.layer._1.data.sequence.start := 5
+)
+```
+
+Using `apply(1)` here would fail to compile because it uses the first element's type (which has `values`, not `sequence`).
+
+**When to use which:**
+- Use `apply(index)` (e.g., `_.data(2)`) for **homogeneous** arrays where all elements share the same structure
+- Use tuple accessors (e.g., `_.layer._1`) for **heterogeneous** arrays where elements have different structures
+
 ### Type Safety
 
-Both `.head` and index access are type-safe and provide compile-time checking for nested fields within array elements. The element type is determined by the first element in the array at compile time, so all elements are assumed to have the same structure.
+Both `.head` and index access are type-safe and provide compile-time checking for nested fields within array elements. The element type is determined by the first element in the array at compile time for `apply(index)`, while tuple-style accessors (`_0`, `_1`, etc.) provide precise per-element types.
 
 If the array is empty or doesn't contain objects, neither `.head` nor index access will be available.
 
