@@ -129,24 +129,8 @@ end BoolField
   * Provides type-safe modification of array-valued JSON fields. Unlike other field types, the `+=` operator on arrays
   * appends elements rather than deep merging.
   *
-  * @example
-  *   {{{// Replace the entire array spec.build(_.data.values := json"[{\"a\": 1}, {\"a\": 2}]")
-  *
-  * // Append a single element spec.build(_.data.values += json"{\"a\": 3}")
-  *
-  * // Append multiple elements spec.build(_.signals += Vector(json"{\"name\": \"sig1\"}", json"{\"name\": \"sig2\"}"))
-  *
-  * // Access first element's nested field spec.build(_.data.head.values := json"[{\"a\": 1}]") }}}
-  *
-  * @param path
-  *   The JSON path to this field as a list of field names
-  * @param headAccessor
-  *   Optional accessor for the first element of the array (if available)
-  */
-/** Accessor for array fields in a Vega/Vega-Lite spec.
-  *
-  * Provides type-safe modification of array-valued JSON fields. Unlike other field types, the `+=` operator on arrays
-  * appends elements rather than deep merging.
+  * For heterogeneous arrays (where elements have different structures), tuple-style accessors are available: `_0`,
+  * `_1`, `_2`, etc. Each accessor has the precise type of that specific element.
   *
   * @example
   *   {{{// Replace the entire array spec.build(_.data.values := json"[{\"a\": 1}, {\"a\": 2}]")
@@ -157,7 +141,11 @@ end BoolField
   *
   * // Access first element's nested field spec.build(_.data.head.values := json"[{\"a\": 1}]")
   *
-  * // Access element at index 2 spec.build(_.data(2).values := json"[{\"a\": 1}]") }}}
+  * // Access element at index 2 with tuple-style accessor (precise type) spec.build(_.layer._2.data.sequence.start :=
+  * 5)
+  *
+  * // Access element at index 2 with apply (uses first element's type) spec.build(_.data(2).values := json"[{\"a\":
+  * 1}]") }}}
   *
   * @param path
   *   The JSON path to this field as a list of field names
@@ -165,11 +153,14 @@ end BoolField
   *   Optional accessor for the first element of the array (if available)
   * @param elementAccessorFactory
   *   Optional factory function to create accessors for array elements at any index
+  * @param tupleAccessors
+  *   Map of tuple-style accessors (_0, _1, etc.) for precise per-element types
   */
 class ArrField(
     path: List[String],
     headAccessor: Option[Any] = None,
-    elementAccessorFactory: Option[Int => Any] = None
+    elementAccessorFactory: Option[Int => Any] = None,
+    tupleAccessors: Map[String, Any] = Map.empty
 ) extends Selectable:
   private def optic = path
     .foldLeft(root: JsonPath) { (p, f) =>
@@ -229,13 +220,18 @@ class ArrField(
   def +=(obj: JsonObject): SpecMod = +=(Json.fromJsonObject(obj))
 
   def selectDynamic(name: String): Any =
-    if name == "head" then
-      headAccessor.getOrElse(
-        throw new NoSuchElementException(
-          "Array element accessor not available - array is empty or contains non-object elements"
-        )
-      )
-    else throw new NoSuchElementException(s"No such field: $name")
+    // First check tuple accessors map (includes "head" and "_0", "_1", etc.)
+    tupleAccessors.get(name) match
+      case Some(accessor) => accessor
+      case None           =>
+        // Fallback to headAccessor for "head" if not in map (backwards compatibility)
+        if name == "head" then
+          headAccessor.getOrElse(
+            throw new NoSuchElementException(
+              "Array element accessor not available - array is empty or contains non-object elements"
+            )
+          )
+        else throw new NoSuchElementException(s"No such field: $name")
 end ArrField
 
 /** Accessor for null-valued fields in a Vega/Vega-Lite spec.
@@ -341,6 +337,9 @@ object VegaPlotMacroImpl:
   // Index for accessing the first element in an array
   private val FirstElementIndex = "0"
 
+  // Maximum number of tuple-style accessors to generate for arrays
+  private val MaxTupleAccessors = 22
+
   def fromStringImpl(specContentExpr: Expr[String])(using Quotes): Expr[Any] =
     fromStringWithSourceImpl(specContentExpr, None)
 
@@ -433,22 +432,33 @@ object VegaPlotMacroImpl:
           (TypeRepr.of[BoolField], '{ new BoolField($pathExpr) })
         case j if j.isArray =>
           val arr = j.asArray.get
-          if arr.isEmpty || !arr.head.isObject then
-            // Empty array or non-object elements - no accessor
+          // Filter to only object elements that can have typed accessors
+          val objectElements = arr.filter(_.isObject)
+
+          if objectElements.isEmpty then
+            // Empty array or non-object elements - no typed accessors
             (TypeRepr.of[ArrField], '{ new ArrField($pathExpr, None, None) })
           else
-            // Build accessor for the first element (at index 0)
-            val firstElement = arr.head
-            val (headType, headExpr) = buildAccessor(firstElement, path :+ FirstElementIndex)
+            // Build typed accessors for each element up to MaxTupleAccessors
+            // Each element gets its own specific type: _0, _1, _2, etc.
+            val elementsToType = arr.take(MaxTupleAccessors).zipWithIndex
+            val tupleAccessors: List[(String, TypeRepr, Expr[Any])] = elementsToType.collect {
+              case (elem, idx) if elem.isObject =>
+                val accessorName = s"_$idx"
+                val (elemType, elemExpr) = buildAccessor(elem, path :+ idx.toString)
+                (accessorName, elemType, elemExpr)
+            }.toList
 
-            // Build a factory function that creates accessors for any index
-            // The factory will create the same accessor structure but with a different index
+            // head is an alias for _0
+            val (headType, headExpr) = buildAccessor(arr.head, path :+ FirstElementIndex)
+
+            // Build a factory function for apply(index) - uses head's structure for dynamic access
             val factoryExpr = '{ (index: Int) =>
-              ${ buildAccessorForIndex(firstElement, path, 'index) }
+              ${ buildAccessorForIndex(arr.head, path, 'index) }
             }
 
-            // Build refinement type: ArrField { def head: HeadType; def apply(Int): HeadType }
-            val refinedType = Refinement(
+            // Build refinement type starting with head and apply
+            val baseRefinedType = Refinement(
               Refinement(TypeRepr.of[ArrField], "head", headType),
               "apply",
               MethodType(List("index"))(
@@ -457,11 +467,26 @@ object VegaPlotMacroImpl:
               )
             )
 
-            refinedType.asType match
+            // Add refinements for each tuple accessor _0, _1, _2, etc.
+            val fullyRefinedType = tupleAccessors.foldLeft(baseRefinedType) { case (acc, (name, tpe, _)) =>
+              Refinement(acc, name, tpe)
+            }
+
+            // Build the field map with all tuple accessors
+            val tupleMapEntries: List[Expr[(String, Any)]] = tupleAccessors.map { case (name, _, expr) =>
+              val nameExpr = Expr(name)
+              '{ ($nameExpr, $expr) }
+            }
+            // Also include "head" pointing to the first element
+            val headEntry = '{ ("head", $headExpr) }
+            val allMapEntries = headEntry :: tupleMapEntries
+            val mapExpr = '{ Map(${ Varargs(allMapEntries) }*) }
+
+            fullyRefinedType.asType match
               case '[t] =>
                 val arrExpr =
-                  '{ new ArrField($pathExpr, Some($headExpr), Some($factoryExpr)).asInstanceOf[t] }
-                (refinedType, arrExpr)
+                  '{ new ArrField($pathExpr, Some($headExpr), Some($factoryExpr), $mapExpr).asInstanceOf[t] }
+                (fullyRefinedType, arrExpr)
             end match
           end if
         case j if j.isNull =>

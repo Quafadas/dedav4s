@@ -82,3 +82,7 @@ trait PublishModule extends mill.scalalib.PublishModule:
     )
   )
 end PublishModule
+
+trait ShareCompileResources extends ScalaModule:
+  override def compileResources = super.compileResources() ++ resources()
+end ShareCompileResources

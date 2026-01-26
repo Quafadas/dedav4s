@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Pareto PDF with correctly normalized log-binned histogram and analytic overlay",
+  "width": 600,
+  "height": 300,
+
+  "layer": [
+    {
+      "data": {
+        "values": [{ "x": 1.02 }]
+      },
+      "mark": {
+        "type": "bar",
+        "opacity": 0.6
+      }
+    },
+
+    {
+      "data": {
+        "sequence": {
+          "start": 1,
+          "stop": 20,
+          "step": 0.05
+        }
+      },
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2
+      }
+    }
+  ]
+}

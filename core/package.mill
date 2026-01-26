@@ -58,7 +58,7 @@ object `package` extends Module:
       )
     end js
 
-    object jvm extends SharedTest:
+    object jvm extends SharedTest with build.ShareCompileResources:
       override def moduleDeps: Seq[JavaModule] = Seq(build.core.jvm)
 
       override def mvnDeps = super.mvnDeps() ++
