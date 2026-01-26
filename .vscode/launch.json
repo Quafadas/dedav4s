@@ -1,41 +1,15 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      // Main class configuration
-      {
-        "type": "scala",
-        "request": "launch",
-        // configuration name visible for the user
-        "name": "Launch Main",
-        // full name of the class to run
-        "mainClass": "viz.play.Main",
-        // optional arguments for the main class
-        "args": [],
-        // optional jvm properties to use
-        "jvmOptions": []
-      },
-      // Test class configuration
-      {
-        "type": "scala",
-        "request": "launch",
-        // configuration name visible for the user
-        "name": "Launch Test",
-        "buildTarget": "core.test.jvm",
-        // full name of the class to run
-        "testClass": "PlaywrightTest"
-      },
-      // Attach debugger when running via:
-      // `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=localhost:5005`
-      {
-        "type": "scala",
-        "request": "attach",
-        "name": "Attach debugger",
-        // name of the module that is being debugging
-        "buildTarget": "root",
-        // Host of the jvm to connect to
-        "hostName": "localhost",
-        // Port to connect to
-        "port": 5005
-      }
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "scala",
+      "request": "launch",
+      "name": "graph",
+      "mainClass": "experiments.graph",
+      "buildTarget": "file:///Users/simon/Code/dedav4s/experiments",
+      "args": [],
+      "jvmOptions": [],
+      "env": {}
+    }
+  ]
+}

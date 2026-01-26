@@ -39,6 +39,14 @@ object Config:
 
   val scalaVersion = "3.7.0"
   val scalaJSVersion = "1.20.1"
+  
+  // ELK (Eclipse Layout Kernel) for graph layout
+  val elkVersion = "0.11.0"
+  val elk = mvn"org.eclipse.elk:org.eclipse.elk.core:${elkVersion}"
+  val elkAlgorithms = mvn"org.eclipse.elk:org.eclipse.elk.alg.layered:${elkVersion}"
+  val elkGraph = mvn"org.eclipse.elk:org.eclipse.elk.graph:${elkVersion}"
+  val elkService = mvn"org.eclipse.elk:org.eclipse.elk.core.service:${elkVersion}"
+  val xtextLib = mvn"org.eclipse.xtext:org.eclipse.xtext.xbase.lib:2.35.0"
 end Config
 
 trait Common extends ScalaModule with ScalafmtModule:

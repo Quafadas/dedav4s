@@ -12,5 +12,5 @@ object `package` extends build.Common with build.ShareCompileResources:
     mvn"io.github.quafadas::scautable::0.0.34"
   )
 
-  override def enableBsp = false
+  override def enableBsp = true
 end `package`
