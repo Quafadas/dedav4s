@@ -9,7 +9,7 @@ object `package` extends build.Common with build.ShareCompileResources:
   def moduleDeps = Seq(build.core.jvm)
 
   def mvnDeps = super.mvnDeps() ++ Seq(
-    mvn"io.github.quafadas::scautable::0.0.34"
+    mvn"io.github.quafadas::scautable::0.0.37"
   )
 
   override def enableBsp = false
