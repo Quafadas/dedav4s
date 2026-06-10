@@ -37,7 +37,7 @@ object Config:
 
   val mdocVersion = "2.8.2"
 
-  val scalaVersion = "3.7.0"
+  val scalaVersion = "3.7.4"
   val scalaJSVersion = "1.20.2"
 end Config
 
