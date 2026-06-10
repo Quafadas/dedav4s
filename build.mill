@@ -33,7 +33,7 @@ object Config:
   val circeVersion = "0.14.15"
   val circeOptics = "0.15.1"
 
-  val laminar = mvn"com.raquo::laminar::17.2.0"
+  val laminar = mvn"com.raquo::laminar::17.2.1"
 
   val mdocVersion = "2.8.2"
 
