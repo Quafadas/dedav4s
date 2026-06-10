@@ -27,7 +27,7 @@ object Config:
   val upickle = mvn"com.lihaoyi::upickle::4.4.3"
   val munit = "1.1.1"
 
-  val jsDom = mvn"org.scala-js::scalajs-dom::2.8.0"
+  val jsDom = mvn"org.scala-js::scalajs-dom::2.8.1"
   val secRand = mvn"org.scala-js::scalajs-java-securerandom:1.0.0"
   val playwright = "1.60.0"
   val circeVersion = "0.14.15"
@@ -63,7 +63,7 @@ trait CommonJs extends Common with ScalaJSModule:
 
   override def mvnDeps = super.mvnDeps() ++
     Seq(
-      mvn"org.scala-js::scalajs-dom::2.8.0",
+      mvn"org.scala-js::scalajs-dom::2.8.1",
       mvn"org.scala-js::scalajs-java-securerandom::1.0.0".withDottyCompat(scalaVersion())
     )
 end CommonJs
