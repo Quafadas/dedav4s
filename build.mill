@@ -21,7 +21,7 @@ import mill.javalib.dependency.Format
 object Config:
 
   val oslib = mvn"com.lihaoyi::os-lib:0.11.3"
-  val cask = mvn"com.lihaoyi::cask:0.9.7"
+  val cask = mvn"com.lihaoyi::cask:0.11.3"
   val requests = mvn"com.lihaoyi::requests:0.9.0"
   val jsoup = mvn"org.jsoup:jsoup:1.18.3"
   val upickle = mvn"com.lihaoyi::upickle::4.1.0"
