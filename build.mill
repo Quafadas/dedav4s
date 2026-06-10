@@ -24,7 +24,7 @@ object Config:
   val cask = mvn"com.lihaoyi::cask:0.11.3"
   val requests = mvn"com.lihaoyi::requests:0.9.3"
   val jsoup = mvn"org.jsoup:jsoup:1.18.3"
-  val upickle = mvn"com.lihaoyi::upickle::4.1.0"
+  val upickle = mvn"com.lihaoyi::upickle::4.4.3"
   val munit = "1.1.1"
 
   val jsDom = mvn"org.scala-js::scalajs-dom::2.8.0"
