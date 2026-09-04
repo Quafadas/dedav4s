@@ -38,7 +38,7 @@ object Config:
   val mdocVersion = "2.9.0"
 
   val scalaVersion = "3.7.4"
-  val scalaJSVersion = "1.20.2"
+  val scalaJSVersion = "1.22.0"
 end Config
 
 trait Common extends ScalaModule with ScalafmtModule:
