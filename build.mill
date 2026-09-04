@@ -47,7 +47,7 @@ trait Common extends ScalaModule with ScalafmtModule:
   def mvnDeps = super.mvnDeps() ++ Seq(
     Config.upickle,
     mvn"com.lihaoyi::scalatags::0.13.1",
-    mvn"org.ekrich::sconfig::1.12.4"
+    mvn"org.ekrich::sconfig::2.0.0"
   )
 end Common
 
