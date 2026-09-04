@@ -49,7 +49,7 @@ jobs:
 
       - if: matrix.project == 'jvm'
         name: playwright
-        run: cs launch com.microsoft.playwright:playwright:1.60.0 -M "com.microsoft.playwright.CLI" -- install --only-shell
+        run: cs launch com.microsoft.playwright:playwright:1.62.0 -M "com.microsoft.playwright.CLI" -- install --only-shell
       - name: Compile
         run: ./mill core.${{matrix.project}}.compile
       - name: test
