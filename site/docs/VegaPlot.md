@@ -126,6 +126,12 @@ scatterPlot.plot(
 ```
 The final lines uses `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
 
+`VegaPlot.pwd` resolves the file relative to the current working directory. If you need to load a spec from a fully qualified location instead, use `VegaPlot.absolutePath`:
+
+```scala
+val scatterPlotAbs = VegaPlot.absolutePath("/full/path/to/scatter.vl.json")
+```
+
 
 ## Accessing Array Elements
 

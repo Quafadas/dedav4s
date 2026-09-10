@@ -23,6 +23,19 @@ object VegaPlotJvm:
       Some(Right((Expr(pathStr), Expr(contentHash))))
     )
   end pwdImpl
+
+  def absolutePathImpl(filePathE: Expr[String])(using Quotes): Expr[Any] =
+    import quotes.reflect.*
+    val filePath = filePathE.valueOrAbort
+    val path = os.Path(filePath)
+    val pathStr = path.toString
+    val specContent = scala.io.Source.fromFile(pathStr).mkString
+    val contentHash = specContent.hashCode
+    VegaPlotMacroImpl.fromStringWithSourceImpl(
+      Expr(specContent),
+      Some(Right((Expr(pathStr), Expr(contentHash))))
+    )
+  end absolutePathImpl
 end VegaPlotJvm
 
 import math.Numeric.Implicits.infixNumericOps

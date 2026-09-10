@@ -40,9 +40,9 @@ end ResourceSourceInfo
 
 /** Vega spec wrapper to generate typed accessors inferred from the JSON structure.
   *
-  * When created from a file via `VegaPlot.pwd` or resource via `VegaPlot.fromResource`, this class tracks the source
-  * and automatically uses fresh content if it has changed since compilation. This ensures the output is always correct,
-  * even if the typed accessors are stale.
+  * When created from a file via `VegaPlot.pwd`/`VegaPlot.absolutePath` or resource via `VegaPlot.fromResource`, this
+  * class tracks the source and automatically uses fresh content if it has changed since compilation. This ensures the
+  * output is always correct, even if the typed accessors are stale.
   *
   * @param rawSpec
   *   The JSON spec as parsed at compile time
