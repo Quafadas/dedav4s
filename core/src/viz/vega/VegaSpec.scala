@@ -85,10 +85,6 @@ class VegaSpec[M](val rawSpec: Json, val mod: M, val sourceInfo: Option[SourceIn
   def build(mods: (M => SpecMod)*): Json =
     mods.foldLeft(freshSpec)((json, modFn) => modFn(mod)(json))
 
-  /** Apply modifications directly: spec.buildWith(titleMod, widthMod)
-    *
-    * If the source has changed, modifications are applied to the fresh content.
-    */
   def buildWith(mods: SpecMod*): Json =
     mods.foldLeft(freshSpec)((json, m) => m(json))
 
