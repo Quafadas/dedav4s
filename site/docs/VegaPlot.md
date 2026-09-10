@@ -223,7 +223,7 @@ In this example, `layer[0]` has `data.values` while `layer[1]` has `data.sequenc
 spec.plot(
   // _0 has type with data.values
   _.layer._0.data.values := newValues.asJson,
-  // _1 has type with data.sequence  
+  // _1 has type with data.sequence
   _.layer._1.data.sequence.start := 5
 )
 ```
@@ -247,7 +247,7 @@ This feature is particularly useful when working with Vega specs (as opposed to 
 
 Mill is my preferred build tool. Note that something like this;
 
-```scala 
+```scala
 lazy val plot = VegaPlot.fromResource("simple.vl.json")
 ```
 
