@@ -315,6 +315,18 @@ object VegaPlot:
   transparent inline def pwd(inline fileName: String): Any =
     ${ VegaPlotJvm.pwdImpl('fileName) }
 
+  /** Loads a Vega or Vega-Lite spec from an explicit filesystem path. */
+  transparent inline def absolutePath(inline fileName: String): Any =
+    ${ VegaPlotJvm.absolutePathImpl('fileName) }
+
+  /** Loads a Vega or Vega-Lite spec relative to the source file containing this call. */
+  transparent inline def relativeToSource(inline fileName: String): Any =
+    ${ VegaPlotJvm.relativeToSourceImpl('fileName) }
+
+  /** Loads a Vega or Vega-Lite spec relative to the nearest ancestor containing a project marker. */
+  transparent inline def projectRoot(inline fileName: String): Any =
+    ${ VegaPlotJvm.projectRootImpl('fileName) }
+
   transparent inline def fromResource(inline resourcePath: String): Any =
     ${ fromResourceImpl('resourcePath) }
 

@@ -113,10 +113,14 @@ This exposes the entire oportunity set of vega / lite in a reasonably convienien
 
 One can easily build fairly robust, typesafe visualiations on top of this small set of abstractions.
 
-Sometimes, we might want to add new fields to the spec.
+Specs can be loaded from an absolute path, relative to the source file containing the call, or relative to the nearest
+ancestor containing a project marker such as `build.mill`, `build.sbt`, or `.git`.
 
 ```scala
-val scatterPlot = VegaPlot.pwd("scatter.vl.json")
+val scatterPlot = VegaPlot.relativeToSource("scatter.vl.json")
+val projectPlot = VegaPlot.projectRoot("specs/scatter.vl.json")
+val absolutePlot = VegaPlot.absolutePath("/absolute/path/to/scatter.vl.json")
+
 scatterPlot.plot(
   _.data.values := data.asJson,
   _.encoding.x.field := "Miles_per_Gallon",
@@ -124,7 +128,7 @@ scatterPlot.plot(
   _.encoding += json""" {"color": { "field": "Origin", "type": "nominal" }} """,
 )
 ```
-The final lines uses `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
+The final line uses `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
 
 
 ## Accessing Array Elements

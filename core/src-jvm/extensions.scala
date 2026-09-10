@@ -9,20 +9,88 @@ import io.circe.Json
 import io.circe.parser.parse
 import viz.macros.VegaPlotMacroImpl
 import viz.macros.VegaPlot
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 
 object VegaPlotJvm:
   def pwdImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
-    import quotes.reflect.*
     val fileName = fileNameE.valueOrAbort
-    val path = os.pwd / fileName
-    val pathStr = path.toString
+    fromFile(Paths.get("").toAbsolutePath.normalize.resolve(fileName))
+  end pwdImpl
+
+  def absolutePathImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
+    fromFile(Paths.get(fileNameE.valueOrAbort).toAbsolutePath.normalize)
+  end absolutePathImpl
+
+  def relativeToSourceImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
+    val sourceDir = callSiteDir.getOrElse {
+      val workingDir = Paths.get("").toAbsolutePath.normalize
+      quotes.reflect.report.warning(
+        s"dedav4s: no file on disk for this call site, so the path resolves against '$workingDir'."
+      )
+      workingDir
+    }
+    fromFile(sourceDir.resolve(anchorRelative(fileNameE.valueOrAbort)).normalize)
+  end relativeToSourceImpl
+
+  def projectRootImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
+    val start = callSiteDir.getOrElse {
+      val workingDir = Paths.get("").toAbsolutePath.normalize
+      quotes.reflect.report.warning(
+        s"dedav4s: no file on disk for this call site, so the project root is discovered from '$workingDir'."
+      )
+      workingDir
+    }
+    fromFile(projectRootFrom(start).resolve(anchorRelative(fileNameE.valueOrAbort)).normalize)
+  end projectRootImpl
+
+  private val rootMarkers = Set(
+    "build.sbt",
+    "project.scala",
+    "build.sc",
+    "build.mill",
+    "build.mill.scala",
+    ".scala-build",
+    ".git",
+    "pom.xml",
+    "build.gradle"
+  )
+
+  private def callSiteDir(using Quotes): Option[Path] =
+    quotes.reflect.Position.ofMacroExpansion.sourceFile.getJPath.map { path =>
+      val absolute = path.toAbsolutePath.normalize
+      val sourceDir = Option(absolute.getParent).getOrElse(absolute)
+      Iterator
+        .iterate(Option(sourceDir))(_.flatMap(current => Option(current.getParent)))
+        .takeWhile(_.isDefined)
+        .flatten
+        .find(directory => Option(directory.getFileName).exists(_.toString == ".scala-build"))
+        .flatMap(directory => Option(directory.getParent))
+        .getOrElse(sourceDir)
+    }
+  end callSiteDir
+
+  private def projectRootFrom(path: Path): Path =
+    Iterator
+      .iterate(Option(path))(_.flatMap(current => Option(current.getParent)))
+      .takeWhile(_.isDefined)
+      .flatten
+      .find(directory => rootMarkers.exists(marker => Files.exists(directory.resolve(marker))))
+      .getOrElse(path)
+  end projectRootFrom
+
+  private def anchorRelative(path: String): String = path.dropWhile(char => char == '/' || char == '\\')
+
+  private def fromFile(path: Path)(using Quotes): Expr[Any] =
+    val pathStr = path.toAbsolutePath.normalize.toString
     val specContent = scala.io.Source.fromFile(pathStr).mkString
     val contentHash = specContent.hashCode
     VegaPlotMacroImpl.fromStringWithSourceImpl(
       Expr(specContent),
       Some(Right((Expr(pathStr), Expr(contentHash))))
     )
-  end pwdImpl
+  end fromFile
 end VegaPlotJvm
 
 import math.Numeric.Implicits.infixNumericOps

@@ -40,9 +40,8 @@ end ResourceSourceInfo
 
 /** Vega spec wrapper to generate typed accessors inferred from the JSON structure.
   *
-  * When created from a file via `VegaPlot.pwd` or resource via `VegaPlot.fromResource`, this class tracks the source
-  * and automatically uses fresh content if it has changed since compilation. This ensures the output is always correct,
-  * even if the typed accessors are stale.
+  * When created from a file or resource, this class tracks the source and automatically uses fresh content if it has
+  * changed since compilation. This ensures the output is always correct, even if the typed accessors are stale.
   *
   * @param rawSpec
   *   The JSON spec as parsed at compile time
@@ -70,7 +69,7 @@ class VegaSpec[M](val rawSpec: Json, val mod: M, val sourceInfo: Option[SourceIn
               stalenessWarned = true
               System.err.println(
                 s"⚠️  ${info.description} has changed since compilation - using fresh content. " +
-                  s"Re-evaluate VegaPlot.pwd/fromResource(...) to access any new fields."
+                  s"Re-evaluate the VegaPlot constructor to access any new fields."
               )
             end if
             parse(currentContent).getOrElse(rawSpec)

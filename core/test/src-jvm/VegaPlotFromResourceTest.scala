@@ -8,6 +8,16 @@ import viz.NtCirce.given
 
 class VegaPlotFromResourceTest extends FunSuite:
 
+  test("relativeToSource resolves from the call-site source directory") {
+    val spec = VegaPlot.relativeToSource("../resources/BarChartLite.json")
+    assertEquals(spec.rawSpec.hcursor.get[String]("mark").toOption, Some("bar"))
+  }
+
+  test("projectRoot resolves from the nearest project marker") {
+    val spec = VegaPlot.projectRoot("core/test/resources/BarChartLite.json")
+    assertEquals(spec.rawSpec.hcursor.get[String]("mark").toOption, Some("bar"))
+  }
+
   test("array access with fromResource - tuple-style accessor for heterogeneous arrays") {
     val spec = VegaPlot.fromResource("arr.vl.json")
     val result = spec.build(
