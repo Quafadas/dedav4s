@@ -92,4 +92,7 @@ class VegaSpec[M](val rawSpec: Json, val mod: M, val sourceInfo: Option[SourceIn
   def buildWith(mods: SpecMod*): Json =
     mods.foldLeft(freshSpec)((json, m) => m(json))
 
+  def overlay(mods: (M => SpecMod)*): VegaSpec[M] =
+    new VegaSpec(build(mods*), mod, sourceInfo)
+
 end VegaSpec
