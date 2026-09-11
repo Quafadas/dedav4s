@@ -100,7 +100,7 @@ object `package` extends Module with build.CommonJs with build.PublishModule:
       override def mvnDeps = super.mvnDeps() ++
         Seq(
           mvn"org.typelevel::munit-cats-effect::2.2.0",
-          mvn"io.github.quafadas::sjsls:0.2.12",
+          mvn"io.github.quafadas::sjsls:0.14.17",
           mvn"com.microsoft.playwright:playwright:${Config.playwright}",
           mvn"com.microsoft.playwright:driver-bundle:${Config.playwright}",
           Config.oslib
