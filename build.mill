@@ -64,12 +64,7 @@ trait CommonJs extends Common with ScalaJSModule:
   override def mvnDeps = super.mvnDeps() ++
     Seq(
       mvn"org.scala-js::scalajs-dom::2.8.1",
-      mvn"org.scala-js::scalajs-java-securerandom::1.0.0".withDottyCompat(scalaVersion()),
-      // Force scalajs-* artifacts to match scalaJSVersion; some test deps (e.g. munit) may otherwise
-      // pull in a newer scalajs-library/test-interface whose IR isn't supported by this mill's Scala.js linker.
-      mvn"org.scala-js:scalajs-library_2.13:${Config.scalaJSVersion}".forceVersion(),
-      mvn"org.scala-js:scalajs-test-interface_2.13:${Config.scalaJSVersion}".forceVersion(),
-      mvn"org.scala-js:scalajs-junit-test-runtime_2.13:${Config.scalaJSVersion}".forceVersion()
+      mvn"org.scala-js::scalajs-java-securerandom::1.0.0".withDottyCompat(scalaVersion())
     )
 end CommonJs
 
