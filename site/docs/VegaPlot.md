@@ -116,7 +116,7 @@ One can easily build fairly robust, typesafe visualiations on top of this small 
 Sometimes, we might want to add new fields to the spec.
 
 ```scala
-val scatterPlot = VegaPlot.pwd("scatter.vl.json")
+val scatterPlot = VegaPlot.relativeToSource("scatter.vl.json")
 scatterPlot.plot(
   _.data.values := data.asJson,
   _.encoding.x.field := "Miles_per_Gallon",
@@ -125,6 +125,29 @@ scatterPlot.plot(
 )
 ```
 The final lines uses `+=` to add a new field to the encoding object. Under the hood, this is circe's `deepMerge` function.
+
+## Path anchors
+
+A spec has to be found twice - once by the macro during compilation, and again at runtime if it changed in between. There are four ways to say where it lives.
+
+- `relativeToSource("scatter.vl.json")` resolves from the directory of the source file containing the call.
+- `projectRoot("core/resources/scatter.vl.json")` resolves from the first ancestor holding a build marker (`build.mill`, `build.sbt`, `.git`, ...).
+- `fromResource("scatter.vl.json")` resolves from the classpath.
+- `absolutePath("/full/path/to/scatter.vl.json")` resolves from an explicit absolute path.
+
+```scala
+val scatterPlotRoot = VegaPlot.projectRoot("core/resources/scatter.vl.json")
+val scatterPlotAbs = VegaPlot.absolutePath("/full/path/to/scatter.vl.json")
+```
+
+`pwd(...)` has been removed - it anchored to the _compiler's_ working directory, which is rarely where you think it is. Behind a build server that directory belongs to a daemon, not to your project. Prefer `relativeToSource(...)`.
+
+In a notebook or REPL (almond, ammonite) there is no source file on disk to anchor to. For those, declare the anchor outright and it takes priority over anything the two anchored constructors would otherwise infer:
+
+- `-Xmacro-settings:dedav4s.root=/path/to/dir` travels with the compile request, so it reaches a build server daemon.
+- `System.setProperty("dedav4s.root", "/path/to/dir")` from an earlier cell, for a notebook kernel that compiles in its own JVM.
+
+Without one, the anchored constructors fall back to the working directory and emit a compile time warning saying so.
 
 
 ## Accessing Array Elements

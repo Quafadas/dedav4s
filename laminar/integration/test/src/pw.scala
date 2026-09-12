@@ -29,13 +29,13 @@ class PwTest extends CatsEffectSuite:
 
   def startServer = ResourceSuiteLocalFixture(
     "server", {
-      val lsc = LiveServer.LiveServerConfig(
+      val lsc = LiveServerConfig(
         baseDir = Some(BuildInfo.rootDir),
         port = Port.fromInt(port).get,
         indexHtmlTemplate = Some(BuildInfo.pathToIndex),
         openBrowserAt = "/",
         preventBrowserOpen = true,
-        buildTool = io.github.quafadas.sjsls.None(),
+        buildTool = NoBuildTool(),
         outDir = Some(BuildInfo.pathToJS),
         millModuleName = Some("laminar.integration.app")
       )

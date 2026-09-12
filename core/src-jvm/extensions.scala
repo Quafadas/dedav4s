@@ -11,18 +11,41 @@ import viz.macros.VegaPlotMacroImpl
 import viz.macros.VegaPlot
 
 object VegaPlotJvm:
-  def pwdImpl(fileNameE: Expr[String])(using Quotes): Expr[Any] =
+
+  def absolutePathImpl(filePathE: Expr[String])(using Quotes): Expr[Any] =
+    specFrom(os.Path(filePathE.valueOrAbort).toString)
+
+  def relativeToSourceImpl(pathE: Expr[String])(using Quotes): Expr[Any] =
+    val anchored = SourceAnchor.relativeToSource(pathE.valueOrAbort)
+    specFrom(anchored.absolutePath.toString, Some(anchored))
+  end relativeToSourceImpl
+
+  def projectRootImpl(pathE: Expr[String])(using Quotes): Expr[Any] =
+    val anchored = SourceAnchor.projectRoot(pathE.valueOrAbort)
+    specFrom(anchored.absolutePath.toString, Some(anchored))
+  end projectRootImpl
+
+  /** Reads the spec at `pathStr` and hands it to the accessor-building macro, tracking the file so a spec edited after
+    * compilation is picked up at runtime.
+    *
+    * `anchored` is only there for the error message: when the file is missing it says which anchor was searched and how
+    * to point the macro somewhere else.
+    */
+  private def specFrom(pathStr: String, anchored: Option[SourceAnchor.Anchored] = None)(using Quotes): Expr[Any] =
     import quotes.reflect.*
-    val fileName = fileNameE.valueOrAbort
-    val path = os.pwd / fileName
-    val pathStr = path.toString
-    val specContent = scala.io.Source.fromFile(pathStr).mkString
-    val contentHash = specContent.hashCode
+    val file = java.io.File(pathStr)
+    if !file.isFile then
+      val where = anchored match
+        case Some(a) => s" Resolved against ${a.provenance.describe} ('${a.projectRoot}'). ${SourceAnchor.anchorAdvice}"
+        case None    => ""
+      report.errorAndAbort(s"Vega spec not found at '$pathStr'.$where")
+    end if
+    val specContent = scala.io.Source.fromFile(file).mkString
     VegaPlotMacroImpl.fromStringWithSourceImpl(
       Expr(specContent),
-      Some(Right((Expr(pathStr), Expr(contentHash))))
+      Some(Right((Expr(pathStr), Expr(specContent.hashCode))))
     )
-  end pwdImpl
+  end specFrom
 end VegaPlotJvm
 
 import math.Numeric.Implicits.infixNumericOps
