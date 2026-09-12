@@ -5,9 +5,6 @@
       "label": "compiledClassesAndSemanticDbFiles",
       "type": "shell",
       "command": "./mill __.compiledClassesAndSemanticDbFiles",
-      "runOptions": {
-        "runOn": "folderOpen"
-      },
       "problemMatcher": [],
       "group": {
         "kind": "build"
