@@ -312,11 +312,42 @@ end ObjField
 
 object VegaPlot:
 
-  transparent inline def pwd(inline fileName: String): Any =
-    ${ VegaPlotJvm.pwdImpl('fileName) }
-
+  /** Load a spec from an explicit absolute path on the machine doing the compiling. */
   transparent inline def absolutePath(inline filePath: String): Any =
     ${ VegaPlotJvm.absolutePathImpl('filePath) }
+
+  /** Load a spec at a path relative to the source file this is called from.
+    *
+    * The path is anchored to the calling source file rather than to the compiler's working directory, so it resolves
+    * the same way no matter where the build was invoked from.
+    *
+    * In a notebook or REPL there is no source file on disk, so the path resolves against the working directory instead
+    * and a compile time warning says so. Declare an anchor with `-Xmacro-settings:dedav4s.root=/path/to/dir` or
+    * `System.setProperty("dedav4s.root", "/path/to/dir")` to override that.
+    *
+    * {{{
+    * val scatter = VegaPlot.relativeToSource("specs/scatter.vl.json")
+    * }}}
+    */
+  transparent inline def relativeToSource(inline filePath: String): Any =
+    ${ VegaPlotJvm.relativeToSourceImpl('filePath) }
+
+  /** Load a spec at a path relative to the discovered project root.
+    *
+    * The root is the first ancestor of the calling source file holding a build marker (`build.mill`, `build.sbt`,
+    * `.git`, ...).
+    *
+    * In a notebook or REPL there is no source file on disk to search upwards from, so the root is discovered from the
+    * working directory instead and a compile time warning says so. Declare an anchor with
+    * `-Xmacro-settings:dedav4s.root=/path/to/dir` or `System.setProperty("dedav4s.root", "/path/to/dir")` to override
+    * that - a declared anchor is taken as the root as given.
+    *
+    * {{{
+    * val scatter = VegaPlot.projectRoot("core/resources/scatter.vl.json")
+    * }}}
+    */
+  transparent inline def projectRoot(inline filePath: String): Any =
+    ${ VegaPlotJvm.projectRootImpl('filePath) }
 
   transparent inline def fromResource(inline resourcePath: String): Any =
     ${ fromResourceImpl('resourcePath) }
