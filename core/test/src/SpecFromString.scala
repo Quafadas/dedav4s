@@ -634,4 +634,23 @@ class VegaPlotTest extends FunSuite:
     assertEquals(name2, Some("updated_via_index"))
   }
 
+  test("overlay should chain lambda mods, keeping earlier ones") {
+    val spec = VegaPlot.fromString("""{"title": "Old", "width": 400}""")
+
+    val result = spec.overlay(_.title := "New").overlay(_.width := 800).build()
+
+    assertEquals(root.title.string.getOption(result), Some("New"))
+    assertEquals(root.width.int.getOption(result), Some(800))
+  }
+
+  test("overlayWith should apply pre-built SpecMods") {
+    val spec = VegaPlot.fromString("""{"title": "Old", "width": 400}""")
+
+    val titleMod: SpecMod = spec.mod.title := "Direct"
+    val result = spec.overlayWith(titleMod).build(_.width := 800)
+
+    assertEquals(root.title.string.getOption(result), Some("Direct"))
+    assertEquals(root.width.int.getOption(result), Some(800))
+  }
+
 end VegaPlotTest

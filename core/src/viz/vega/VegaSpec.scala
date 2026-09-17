@@ -93,7 +93,23 @@ class VegaSpec[M](val rawSpec: Json, val mod: M, val sourceInfo: Option[SourceIn
   def buildWith(mods: SpecMod*): Json =
     mods.foldLeft(freshSpec)((json, m) => m(json))
 
-  def overlay(mods: SpecMod*): VegaSpec[M] =
-    VegaSpec[M](buildWith(mods*), mod, sourceInfo)
+  /** Apply modifications, returning a new spec so they can be chained: spec.overlay(_.title := "New").build(...)
+    *
+    * If the source has changed, modifications are applied to the fresh content. The returned spec carries the already
+    * modified JSON and no longer tracks the source, since re-reading it would discard these modifications.
+    */
+  def overlay(mods: (M => SpecMod)*): VegaSpec[M] =
+    VegaSpec(mods.foldLeft(freshSpec)((json, modFn) => modFn(mod)(json)), mod, None)
+
+  /** Apply modifications directly, returning a new spec so they can be chained: spec.overlayWith(titleMod).build(...)
+    *
+    * This cannot be an overload of `overlay`: SpecMod is itself a function type, so a lambda like `_.title := "x"`
+    * matches both signatures and the call is ambiguous. Named like `build`/`buildWith` for the same reason.
+    *
+    * If the source has changed, modifications are applied to the fresh content. The returned spec carries the already
+    * modified JSON and no longer tracks the source, since re-reading it would discard these modifications.
+    */
+  def overlayWith(mods: SpecMod*): VegaSpec[M] =
+    VegaSpec(mods.foldLeft(freshSpec)((json, m) => m(json)), mod, None)
 
 end VegaSpec
