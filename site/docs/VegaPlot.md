@@ -13,7 +13,6 @@ Let's make a bar chart. The vega-lite spec for a bar chart is [here](https://veg
 
 ```scala
 import io.github.quafadas.plots.SetupVegaBrowser.{*, given}
-import io.circe.syntax.*
 
 val barChart = VegaPlot.fromString("""{
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
@@ -51,7 +50,6 @@ This is a compile error because there is no title field in the JSON spec. If we 
 
 ```scala
 import io.github.quafadas.plots.SetupVegaBrowser.{*, given}
-import io.circe.syntax.*
 
 val barChart = VegaPlot.fromString("""{
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
@@ -105,10 +103,29 @@ barChart.plot(
     (a = "A", b = 10),
     (a = "B", b = 20),
     (a = "C", b = 30)
-  ).asJson,
+  ),
   _.title := (text = "Custom Data", fontSize = 25).asJson
 )
 ```
+Note that the `List` above needs no `.asJson`: an array field accepts any `Seq` of encodable values directly. The
+`.asJson` on the title is still needed, because a named tuple encodes to a JSON *object* and `title` is a string
+field - the escape hatch is what makes it legal there. `.asJson` comes from the `SetupVegaBrowser` import, so there
+is no need to `import io.circe.syntax.*` as well.
+
+What each kind of field accepts:
+
+| Field in the spec | `:=` accepts |
+| --- | --- |
+| string | `String`, `Json`, `JsonObject` |
+| number | any number, `Json` |
+| boolean | `Boolean`, `Json` |
+| array | `Seq` of encodable values, `Vector[Json]`, `Json` |
+| object | anything with an `Encoder.AsObject` (a named tuple, say), `JsonObject`, `Json` |
+| null | `Json` |
+
+Assign something a field cannot hold and the compiler names the field kind and what it wanted. Anything else you can
+reach by calling `.asJson` on your value first.
+
 This exposes the entire oportunity set of vega / lite in a reasonably convienient manner.
 
 One can easily build fairly robust, typesafe visualiations on top of this small set of abstractions.
@@ -183,7 +200,7 @@ val data: Vector[(category: String, amount: Double)] = Vector(
 )
 
 spec.plot(
-  _.data.head.values := data.asJson
+  _.data.head.values := data
 )
 ```
 
@@ -192,7 +209,7 @@ You can also update multiple fields in the first array element:
 ```scala
 spec.plot(
   _.data.head.name := "updated_table",
-  _.data.head.values := data.asJson
+  _.data.head.values := data
 )
 ```
 

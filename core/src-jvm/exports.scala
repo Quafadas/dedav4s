@@ -61,4 +61,7 @@ object SetupVega:
   export viz.vega.VegaSpec
   export io.circe.Json
   export io.circe.literal.json
+  // Only the `.asJson` half of circe's syntax. Exporting the whole package would also bring in `KeyOps`,
+  // whose `:=` on any type silently captures `:=` calls on the field accessors and reports a baffling error.
+  export io.circe.syntax.EncoderOps
 end SetupVega

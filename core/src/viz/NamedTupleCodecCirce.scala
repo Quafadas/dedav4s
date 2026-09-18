@@ -6,7 +6,9 @@ import io.circe.derivation.{Configuration, ConfiguredCodec, Default, SumOrProduc
 import scala.compiletime.*
 
 object NtCirce:
-  inline given namedTupleCodec[X <: NamedTuple.AnyNamedTuple]: Codec[X] =
+  // Declared as Codec.AsObject (not just Codec) so that a named tuple also satisfies Encoder.AsObject —
+  // the bound that object-valued field accessors ask for. The underlying ConfiguredCodec already is one.
+  inline given namedTupleCodec[X <: NamedTuple.AnyNamedTuple]: Codec.AsObject[X] =
     type V = NamedTuple.DropNames[X]
 
     val labels =
@@ -19,7 +21,7 @@ object NtCirce:
     given conf: Configuration = Configuration.default.withDefaults
 
     namedTupleCodecImpl[NamedTuple.Names[X], V](labels, encoders, decoders)
-      .asInstanceOf[Codec[X]]
+      .asInstanceOf[Codec.AsObject[X]]
   end namedTupleCodec
 
   private def namedTupleCodecImpl[K <: Tuple, V <: Tuple](
