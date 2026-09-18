@@ -4,6 +4,8 @@ import scala.quoted.Expr
 import scala.quoted.*
 import io.circe.Json
 import io.circe.JsonObject
+import io.circe.Encoder
+import scala.annotation.implicitNotFound
 import io.circe.parser.parse
 import io.circe.optics.JsonPath
 import io.circe.optics.JsonPath.*
@@ -47,6 +49,13 @@ class StringField(path: List[String]):
   /** Replace the field value with a JSON object */
   def :=(obj: JsonObject): SpecMod = apply(obj)
 
+  /** Reject anything else with a message about this field, rather than letting the call fall through to an unrelated
+    * `:=` that happens to be in scope (circe's `KeyOps`, say).
+    */
+  inline def :=[A](inline a: A): SpecMod = compiletime.error(
+    "`:=` on a string field needs a String, a Json or a JsonObject. Call .asJson on your value to get a Json."
+  )
+
   /** Deep merge JSON into this field. For string fields, this effectively replaces the value. */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
 
@@ -84,6 +93,13 @@ class NumField(path: List[String]):
   /** Replace the field value with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
 
+  /** Reject anything else with a message about this field, rather than letting the call fall through to an unrelated
+    * `:=` that happens to be in scope (circe's `KeyOps`, say).
+    */
+  inline def :=[A](inline a: A): SpecMod = compiletime.error(
+    "`:=` on a numeric field needs a number or a Json. Call .asJson on your value to get a Json."
+  )
+
   /** Deep merge JSON into this field. For numeric fields, this effectively replaces the value. */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
 
@@ -116,6 +132,13 @@ class BoolField(path: List[String]):
 
   /** Replace the field value with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Reject anything else with a message about this field, rather than letting the call fall through to an unrelated
+    * `:=` that happens to be in scope (circe's `KeyOps`, say).
+    */
+  inline def :=[A](inline a: A): SpecMod = compiletime.error(
+    "`:=` on a boolean field needs a Boolean or a Json. Call .asJson on your value to get a Json."
+  )
 
   /** Deep merge JSON into this field. For boolean fields, this effectively replaces the value. */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
@@ -199,6 +222,19 @@ class ArrField(
   /** Replace the entire array with a Vector of JSON values */
   def :=(arr: Vector[Json]): SpecMod = apply(arr)
 
+  /** Replace the entire array with a sequence of encodable values.
+    *
+    * {{{spec.build(_.data.values := List((a = "A", b = 28), (a = "B", b = 55)))}}}
+    */
+  def :=[A](values: Seq[A])(using enc: Encoder[A]): SpecMod = apply(values.map(enc.apply).toVector)
+
+  /** Reject anything else with a message about this field, rather than letting the call fall through to an unrelated
+    * `:=` that happens to be in scope (circe's `KeyOps`, say).
+    */
+  inline def :=[A](inline a: A): SpecMod = compiletime.error(
+    "`:=` on an array field needs a JSON array: pass a Seq of encodable values, a Vector[Json], or call .asJson."
+  )
+
   /** Append a single JSON element to the array.
     *
     * If the current value is not an array, creates a new array with this element.
@@ -215,6 +251,9 @@ class ArrField(
       case Some(existingArr) => Json.fromValues(existingArr ++ arr)
       case None              => Json.fromValues(arr)
   }
+
+  /** Append a sequence of encodable values to the array */
+  def +=[A](values: Seq[A])(using enc: Encoder[A]): SpecMod = +=(values.map(enc.apply).toVector)
 
   /** Append a JSON object element to the array */
   def +=(obj: JsonObject): SpecMod = +=(Json.fromJsonObject(obj))
@@ -252,6 +291,13 @@ class NullField(path: List[String]):
 
   /** Replace the null value with arbitrary JSON */
   def :=(j: Json): SpecMod = apply(j)
+
+  /** Reject anything else with a message about this field, rather than letting the call fall through to an unrelated
+    * `:=` that happens to be in scope (circe's `KeyOps`, say).
+    */
+  inline def :=[A](inline a: A): SpecMod = compiletime.error(
+    "`:=` on a null field needs a Json. Call .asJson on your value to get a Json."
+  )
 
   /** Deep merge JSON into this field */
   def +=(j: Json): SpecMod = optic.modify(existing => existing.deepMerge(j))
@@ -296,6 +342,12 @@ class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectabl
   /** Replace the entire object with a JSON object */
   def :=(obj: JsonObject): SpecMod = apply(obj)
 
+  /** Replace the entire object with a value that encodes to a JSON object.
+    *
+    * {{{spec.build(_.data := (name = "table", format = "json"))}}}
+    */
+  def :=[A](a: A)(using ev: ObjField.EncodesToObject[A]): SpecMod = apply(ev.enc.encodeObject(a))
+
   /** Deep merge a JSON value into this object.
     *
     * Existing fields not present in `j` are preserved. Fields present in both are overwritten by `j`.
@@ -308,6 +360,23 @@ class ObjField(path: List[String], fieldMap: Map[String, Any]) extends Selectabl
     */
   def +=(obj: JsonObject): SpecMod = optic.modify(existing => existing.deepMerge(Json.fromJsonObject(obj)))
   def selectDynamic(name: String): Any = fieldMap(name)
+end ObjField
+
+object ObjField:
+
+  /** Evidence that `A` encodes to a JSON object, and so is a legal value for an object-valued field.
+    *
+    * A thin wrapper over `Encoder.AsObject` that exists only to own the `@implicitNotFound` message: asking for
+    * `Encoder.AsObject` directly reports circe's internals instead of saying what this field wants.
+    */
+  @implicitNotFound(
+    "`:=` on an object field needs a JSON object: pass a Json, a JsonObject, or a value with an io.circe.Encoder.AsObject (a named tuple, say). Call .asJson on your value if it encodes to something other than an object"
+  )
+  final class EncodesToObject[A](val enc: Encoder.AsObject[A])
+
+  object EncodesToObject:
+    given fromAsObjectEncoder: [A] => (enc: Encoder.AsObject[A]) => EncodesToObject[A] = new EncodesToObject(enc)
+  end EncodesToObject
 end ObjField
 
 object VegaPlot:

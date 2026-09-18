@@ -7,14 +7,13 @@ Declarative data visualization for scala - a scala plotting concept.
 Fire up scala-cli.
 
 ```sh
-scala-cli --dep io.github.quafadas:dedav4s_3:@VERSION@ --repl-init-script 'import io.github.quafadas.plots.SetupVegaBrowser.{*, given}; import io.circe.syntax.*'
+scala-cli --dep io.github.quafadas:dedav4s_3:@VERSION@ --repl-init-script 'import io.github.quafadas.plots.SetupVegaBrowser.{*, given}'
 ```
 
 Paste this into a repl / main method. Note the imports...
 
 ```scala
 import io.github.quafadas.plots.SetupVegaBrowser.{*, given}
-import io.circe.syntax.*
 
 // source: https://vega.github.io/vega-lite/examples/arc_pie.html
 val piePlot = VegaPlot.fromString("""{
@@ -40,7 +39,7 @@ piePlot.plot(
     (category = "cat1", value = 4),
     (category = "cat2", value = 6),
     (category = "cat3", value = 10)
-  ).asJson
+  )
 )
 
 ```
