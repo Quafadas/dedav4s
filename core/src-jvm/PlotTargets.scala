@@ -32,9 +32,19 @@ object PlotTargets extends SharedTargets:
     end if
   end outPathRoot
 
+  /** WSL sets WSL_DISTRO_NAME in every shell, and its kernels identify as microsoft */
+  lazy val isWsl: Boolean =
+    sys.env.contains("WSL_DISTRO_NAME") ||
+      scala.util.Try(os.read(os.root / "proc" / "version").toLowerCase.contains("microsoft")).getOrElse(false)
+
   def openBrowserWindow(uri: java.net.URI): Unit =
     println(s"opening browser window at $uri")
-    if Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE) then
+    if isWsl then
+      // Hand the file to Windows - wslpath gives a \\wsl.localhost\... path a Windows browser can read
+      val winPath = os.proc("wslpath", "-w", os.Path(java.nio.file.Paths.get(uri)).toString).call().out.trim()
+      // explorer.exe exits with 1 even when it succeeds
+      val _ = os.proc("explorer.exe", winPath).call(check = false)
+    else if Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE) then
       println("using java.awt.Desktop")
       Desktop.getDesktop().browse(uri)
     else
@@ -57,7 +67,7 @@ object PlotTargets extends SharedTargets:
       val runtime = java.lang.Runtime.getRuntime()
 
       try
-        val _ = runtime.exec(Array[String](s"""xdg-open $uri"""))
+        val _ = runtime.exec(Array[String]("xdg-open", uri.toString))
       catch
         case e: Exception =>
           println(
@@ -161,9 +171,9 @@ object PlotTargets extends SharedTargets:
     def show(spec: ujson.Value, lib: ChartLibrary): VizReturn =
       val tmpPath = outPath match
         case Some(path) =>
-          os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-")
+          os.temp(dir = os.Path(path), suffix = ".html", prefix = "plot-", deleteOnExit = false)
         case None =>
-          os.temp(suffix = ".html", prefix = "plot-")
+          os.temp(suffix = ".html", prefix = "plot-", deleteOnExit = false)
       showWithTempFile(spec.toString, tmpPath, lib)
       tmpPath
     end show
