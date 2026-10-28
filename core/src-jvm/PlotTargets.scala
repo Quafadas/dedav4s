@@ -3,7 +3,6 @@ package viz
 import java.awt.Desktop
 import java.net.URLEncoder
 import almond.api.JupyterApi
-import almond.interpreter.api.DisplayData
 import almond.api.JupyterAPIHolder.value
 import viz.websockets.WebsocketVizServer
 import viz.websockets.WebsocketGitPodServer
@@ -184,26 +183,8 @@ object PlotTargets extends SharedTargets:
       openBrowserWindow(path.toNIO.toUri())
     end showWithTempFile
 
-  /*   given vsCodeNotebook: PlotTarget with
-    override def show(spec: String)(using kernel: JupyterApi) = almond.show(spec)  */
-
-  /** This PlotTarget uses a mimetype of application/vnd.vega.v5+json to display Vega plots in Jupyter / VS Code
-    * notebooks. This strategy doesn't appear to be well supported, it will not display in NBViewer or github for
-    * example.
-    */
-  given almond: PlotTarget = new UnitTarget:
-    override def show(spec: ujson.Value, lib: ChartLibrary): Unit =
-      if lib != ChartLibrary.Vega then throw new Exception("almond_js PlotTarget only supports Vega / Vega-Lite charts")
-      end if
-      val kernel = summon[JupyterApi]
-      kernel.publish.display(
-        DisplayData(
-          data = Map(
-            "application/vnd.vega.v5+json" -> spec.toString
-          )
-        )
-      )
-    end show
+  // The `almond` target lives in the dedav4s_notebook module (viz.notebook.NotebookTargets.almond), with a static
+  // SVG fallback that needs a JS engine.
 
   /** A PlotTarget implementation for rendering Vega-Lite visualizations in Almond Jupyter notebooks.
     *

@@ -54,6 +54,9 @@ jobs:
         run: ./mill core.${{matrix.project}}.compile
       - name: test
         run: ./mill core.test.${{matrix.project}}
+      - if: matrix.project == 'jvm'
+        name: test notebook
+        run: ./mill notebook.test
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v5
         if: always()
