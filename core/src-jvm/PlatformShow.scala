@@ -40,7 +40,7 @@ object Plottable:
     end plot
 
     def plot: VizReturn =
-      plotTarget.show(plottable, chartLibrary)
+      plotTarget.show(ujson.read(plottable), chartLibrary)
 
     end plot
   end extension
@@ -60,7 +60,7 @@ object Plottable:
 
     def plot: VizReturn =
       val spec = os.read(plottable)
-      plotTarget.show(spec, chartLibrary)
+      plotTarget.show(ujson.read(spec), chartLibrary)
 
     end plot
 
@@ -150,7 +150,7 @@ object Plottable:
 
     def plot: VizReturn =
       val spec = os.read(plottable)
-      plotTarget.show(spec, chartLibrary)
+      plotTarget.show(ujson.read(spec), chartLibrary)
 
     end plot
 
