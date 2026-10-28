@@ -19,7 +19,8 @@ scala-cli --dep io.github.quafadas:dedav4s_3:@VERSION@ -M viz.websockets.serve -
 ```
 
 - `PlotTargets.publishToPort` sends the plot to a websocket server, which you must have started separately.
-- `PlotTargets.almond` shows the plot in a Jupyter notebook (or VSCode notebook) environment.
+- `viz.notebook.NotebookTargets.almond` (in the `dedav4s_notebook` module) shows the plot in a Jupyter notebook (or VSCode notebook), and keeps a static copy that survives pushing the notebook to e.g. GitHub. See [Almond](#almond).
+- `PlotTargets.almond_js` shows Vega-Lite plots in a notebook with vega-embed, including tooltips and dark mode.
 
 e.g. `import viz.PlotTargets.websocket`
 
@@ -75,7 +76,30 @@ And both browser tabs will now update with their respective plots.
 
 <img src="almond.gif" width=90% height=90% />
 
-Feeds a jupyter computing instance the correct MIME type and the JSON spec, to display the plot in the Jupyter notebook (or VSCode notebook!) environment. Juypter ships with Vega, so it works OOTB, which is nice.
+The almond target lives in its own module, because it brings a JavaScript engine with it:
+
+```scala
+//> using dep io.github.quafadas::dedav4s_notebook:@VERSION@
+
+import io.github.quafadas.plots.SetupVegaNotebook.{*, given}
+```
+
+Each plot is published as one notebook output with several representations, and each viewer shows the best one it can:
+
+- Vega and Vega-Lite specs as their own mimetypes, which JupyterLab and VS Code render interactively.
+- A static SVG. Static viewers, such as GitHub or nbviewer, don't run code and don't know the Vega mimetypes, so they show this instead. Without it, a pushed notebook loses its plots.
+- Plain text, as a last resort.
+
+Vega and Vega-Lite plots are followed by a link that opens the spec in the [online Vega editor](https://vega.github.io/editor/).
+
+The SVG is rendered in the JVM, by running the vega, vega-lite and echarts browser bundles in [GraalJS](https://www.graalvm.org/javascript/). Nothing extra needs installing, but there is a cost: the module adds about 64MB of dependencies, and the first plot of a session takes a second or so while the engine starts. Plots after that render in tens of milliseconds.
+
+- **ECharts** has no notebook mimetype, so ECharts plots are shown as the static SVG everywhere.
+- **Sizing**: specs sized to their container (`"width": "container"`, or `Utils.fillDiv`) and ECharts plots are rendered at 640 x 400. To change that, or to turn the SVG or the editor link off, use `NotebookTargets.almondWith(NotebookOptions(...))`.
+- **Data from URLs** is fetched over http(s) for the static render, as a browser would. Relative URLs can't be resolved; those plots get no static image, and a one line note on stderr says why. The interactive plot is unaffected.
+- **JDK 24+** prints a one-time JVM warning about GraalJS's use of native access and `sun.misc.Unsafe`. It goes to the kernel's log, not the notebook. `--enable-native-access=ALL-UNNAMED --sun-misc-unsafe-memory-access=allow` in the kernel's JVM options silence it.
+
+For interactive Vega-Lite plots with tooltips and dark mode, `PlotTargets.almond_js` (in core) renders with vega-embed instead. Its output is JavaScript, which static viewers drop.
 
 ## VSCode
 Use the almond target and a `.ipynb`...

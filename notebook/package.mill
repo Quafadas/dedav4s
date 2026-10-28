@@ -1,0 +1,73 @@
+package build.notebook
+
+import mill.*
+import mill.scalalib.*
+
+import build.Config
+
+/** Jupyter (almond) support. Lives outside core because it pulls in GraalJS (~64MB of jars), which renders a static
+  * SVG of each plot inside the JVM so that notebooks still show their plots in static viewers such as GitHub.
+  */
+object `package` extends build.Common with build.PublishModule:
+  def moduleDeps = Seq(build.core.jvm)
+  override def artifactName = "dedav4s_notebook"
+
+  // Provided by the kernel at runtime
+  override def compileMvnDeps = super.compileMvnDeps() ++ Seq(Config.almondKernelApi)
+
+  override def mvnDeps = super.mvnDeps() ++ Seq(
+    mvn"org.graalvm.polyglot:polyglot:${Config.graalJs}",
+    mvn"org.graalvm.js:js-language:${Config.graalJs}",
+    mvn"org.graalvm.truffle:truffle-runtime:${Config.graalJs}"
+  )
+
+  /** Browser bundles run by the static renderer, pinned by version and checksum. Bump the version and the sha256
+    * together; the build fails if a download doesn't match.
+    */
+  val jsBundles = Seq(
+    (
+      "vega.min.js",
+      "https://cdn.jsdelivr.net/npm/vega@6.4.0/build/vega.min.js",
+      "8f6a3587cf8d4f42c7e08120e3eb05d067e746d554e39d2dcf52acc0bd5ba28f"
+    ),
+    (
+      "vega-lite.min.js",
+      "https://cdn.jsdelivr.net/npm/vega-lite@6.5.0/build/vega-lite.min.js",
+      "83e215e84e308ee8688fa6503ba0f1cf8a3c05c0d61df2841a0b92bf86809e00"
+    ),
+    (
+      "echarts.min.js",
+      "https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js",
+      "bf4a223524e40b77c304bec67e1222cf551f14880cf42c69dc046558e11c07b1"
+    ),
+    (
+      "lz-string.min.js",
+      "https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js",
+      "95f4d1cbf099f57161b664bc048426ec3df92637801a4c79116e83315aa787e7"
+    )
+  )
+
+  def fetchJsBundles = Task {
+    val client = java.net.http.HttpClient.newBuilder().followRedirects(java.net.http.HttpClient.Redirect.NORMAL).build()
+    for (name, url, sha256) <- jsBundles do
+      val request = java.net.http.HttpRequest.newBuilder(java.net.URI.create(url)).build()
+      val response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofByteArray())
+      if response.statusCode() != 200 then sys.error(s"Downloading $url failed with HTTP ${response.statusCode()}")
+      val actual = java.security.MessageDigest
+        .getInstance("SHA-256")
+        .digest(response.body())
+        .map(b => f"$b%02x")
+        .mkString
+      if actual != sha256 then sys.error(s"Checksum mismatch for $url: expected $sha256, got $actual")
+      os.write(Task.dest / "dedav4s-notebook" / "js" / name, response.body(), createFolders = true)
+    end for
+    PathRef(Task.dest)
+  }
+
+  override def resources = Task(super.resources() :+ fetchJsBundles())
+
+  object test extends build.Common with build.SharedMunitTest:
+    override def moduleDeps = Seq(build.notebook)
+    override def mvnDeps = super.mvnDeps() ++ Seq(Config.almondKernelApi)
+  end test
+end `package`
