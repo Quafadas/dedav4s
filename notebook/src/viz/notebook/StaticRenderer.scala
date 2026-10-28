@@ -70,13 +70,17 @@ object StaticRenderer:
 
   private def describe(e: Throwable): String = Option(e.getMessage).getOrElse(e.getClass.getName)
 
-  private def call(fn: String, args: Any*): Either[String, Value] =
+  /** Runs `fn` and reads its result with `read`, both under the lock: touching a [[Value]] enters the context, so it
+    * must never escape to another thread.
+    */
+  private def call[A](fn: String, args: Any*)(read: Value => Either[String, A]): Either[String, A] =
     synchronized {
       context.flatMap { ctx =>
         Try(
-          ctx.getBindings("js").getMember("__dedav").getMember(fn).execute(args.map(_.asInstanceOf[AnyRef])*)
+          read(ctx.getBindings("js").getMember("__dedav").getMember(fn).execute(args.map(_.asInstanceOf[AnyRef])*))
         ).toEither.left
           .map(describe)
+          .flatten
       }
     }
 
@@ -91,14 +95,14 @@ object StaticRenderer:
 
   /** Vega or Vega-Lite (decided by [[isVegaLite]]) to SVG. `width` and `height` apply to container-sized specs. */
   def vegaSvg(spec: ujson.Value, width: Int, height: Int): Either[String, String] =
-    call("vega", spec.render(), isVegaLite(spec), width, height).flatMap(svgResult)
+    call("vega", spec.render(), isVegaLite(spec), width, height)(svgResult)
 
   def echartsSvg(option: ujson.Value, width: Int, height: Int): Either[String, String] =
-    call("echarts", option.render(), width, height).flatMap(svgResult)
+    call("echarts", option.render(), width, height)(svgResult)
 
   /** lz-string's `compressToEncodedURIComponent`, the encoding the Vega editor reads from its URL. */
   def compressForUrl(text: String): Either[String, String] =
-    call("compressForUrl", text).map(_.asString)
+    call("compressForUrl", text)(v => Right(v.asString))
 
   /** By `$schema` when present, otherwise by shape: Vega-Lite has a `mark` or a composition, Vega has `marks`. */
   def isVegaLite(spec: ujson.Value): Boolean =
