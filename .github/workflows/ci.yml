@@ -57,6 +57,9 @@ jobs:
       - if: matrix.project == 'jvm'
         name: test notebook
         run: ./mill notebook.test
+      - if: matrix.project == 'jvm'
+        name: test laminar and calico in a browser
+        run: ./mill "{laminar,calico}.integration.test"
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v5
         if: always()
