@@ -5,9 +5,8 @@ import com.raquo.laminar.api.L.*
 import viz.vega.facades.EmbedOptions
 
 // A fixed 400 x 200 chart that can only follow its container through attemptAutoResize: no containerSize() signals,
-// and autosize "none" with no padding, so the svg is exactly the view's width and height. It is written out here
-// rather than taken from SpecUrl, because applyMods mutates the shared SpecUrl specs (the other tabs add fillDiv).
-// The container is deliberately not square, so mixing up width and height shows.
+// and autosize "none" with no padding, so the svg is exactly the view's width and height. The container is
+// deliberately not square, so mixing up width and height shows.
 val autoResizeSpec = """{
   "$schema": "https://vega.github.io/schema/vega/v6.json",
   "width": 400,
