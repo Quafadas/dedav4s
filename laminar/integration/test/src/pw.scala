@@ -197,6 +197,19 @@ class PwTest extends CatsEffectSuite:
     assertEquals(chartListenerCounts, withReusedChart)
   }
 
+  test("attemptAutoResize sizes the chart to its container") {
+    // The container is 80vw by 300px.
+    page.setViewportSize(1000, 800)
+    selectTab("Auto-resize")
+    val svg = page.locator("div.auto-resize svg").first()
+    assertThat(svg).hasAttribute("width", "800")
+    assertThat(svg).hasAttribute("height", "300")
+
+    page.setViewportSize(1500, 800)
+    assertThat(svg).hasAttribute("width", "1200")
+    assertThat(svg).hasAttribute("height", "300")
+  }
+
   override def afterAll(): Unit =
     page.close()
     browser.close()

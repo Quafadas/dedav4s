@@ -24,7 +24,8 @@ def main(): Unit =
   val tabs = Seq(
     "Vega Bar" -> (() => vegaBar),
     "Vega Lite Bar" -> (() => vegaLiteBar),
-    "Reused chart" -> (() => reusedChart)
+    "Reused chart" -> (() => reusedChart),
+    "Auto-resize" -> (() => autoResizeBar)
   )
   val selectedTab = Var(0)
 

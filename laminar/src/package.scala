@@ -191,8 +191,9 @@ object LaminarViz:
               entry <- valu._1
               v <- valu._2
             do
-              v.width(entry.contentBoxSize.head.blockSize.toInt)
-              v.height(entry.contentBoxSize.head.blockSize.toInt)
+              // contentRect is the physical width and height. contentBoxSize is in writing-mode terms (inline / block).
+              v.width(entry.contentRect.width.toInt)
+              v.height(entry.contentRect.height.toInt)
               v.runAsync()
         }
       )
