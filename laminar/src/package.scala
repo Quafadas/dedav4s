@@ -14,6 +14,8 @@ import org.scalajs.dom.ResizeObserverEntry
 import org.scalajs.dom.ResizeObserver
 import org.scalajs.dom.window
 import org.scalajs.dom.document
+import scala.concurrent.Future
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 object LaminarViz:
 
@@ -93,6 +95,12 @@ object LaminarViz:
     *
     * If it does not the chart will not initialize properly, and it will not recover from this failure.
     *
+    * The chart is embedded straight away. When the div is unmounted the vega view is finalized, which removes its event
+    * listeners (including `window:resize`) and timers, and the returned signal goes back to `None`. If the same div is
+    * mounted again, a fresh view is embedded and emitted on the signal, so attach listeners by observing the signal
+    * rather than holding on to a single view. A div that is never mounted is never unmounted, so it is never cleaned
+    * up.
+    *
     * @param chart
     *   \- the chart you wish to plot
     * @param inDivOpt
@@ -118,53 +126,78 @@ object LaminarViz:
       case None =>
         EmbedOptions(theme = detectTheme)
 
-    val (embeddedIn, embedResult) = inDivOpt match
-      case Some(thisDiv) =>
-        val p: js.Promise[EmbedResult] = viz.vega.facades.embed(thisDiv.ref, specObj, effectiveEmbedOpt)
-        (thisDiv, p)
-      case None =>
-        val newDiv = div(
-          width := "100%",
-          height := "100%"
-        )
-        val p: js.Promise[EmbedResult] = viz.vega.facades.embed(newDiv.ref, specObj, effectiveEmbedOpt)
-        (newDiv, p)
+    val embeddedIn: Div = inDivOpt.getOrElse(
+      div(
+        width := "100%",
+        height := "100%"
+      )
+    )
 
-    val view: Signal[Option[VegaView]] = Signal.fromJsPromise(embedResult).map(er => er.map(_.view))
+    val viewVar = Var(Option.empty[VegaView])
+    val view: Signal[Option[VegaView]] = viewVar.signal
 
-    if attemptAutoResize then
-      val resizeMontitor = new EventBus[ResizeObserverEntry]
-      val resizer = inDivOpt match
-        case None =>
-          val resizeObserver = new ResizeObserver((entries: scala.scalajs.js.Array[ResizeObserverEntry], _) =>
-            entries.foreach(entry => resizeMontitor.emit(entry))
-          )
-          resizeObserver.observe(embeddedIn.ref)
-          Some(resizeObserver)
+    // The embed that currently owns the div. Kept as a future, not the result, so a chart that is unmounted before
+    // vega-embed resolves is still finalized once it does resolve.
+    var live: Option[Future[EmbedResult]] = None
+    // Completes once the previous embed has been finalized. A new embed waits for it, so two vega-embed calls never
+    // write into the div at the same time (unmounted and mounted again before the first embed resolved).
+    var previousReleased: Future[Unit] = Future.unit
 
-        case Some(embeddedIn) => None
-      embedResult.`then`(in =>
-        embeddedIn.amend(
-          resizeMontitor.events.debounce(100).combineWith(view.changes) --> Observer {
-            (valu: (ResizeObserverEntry, Option[VegaView])) =>
-              valu._2.foreach { view =>
-                view.width(valu._1.contentBoxSize.head.blockSize.toInt)
-                view.height(valu._1.contentBoxSize.head.blockSize.toInt)
-                view.runAsync()
-              }
-          },
-          onUnmountCallback { _ =>
-            resizer.foreach(_.disconnect())
-          }
-        )
+    def embedChart(): Unit =
+      def start() = viz.vega.facades.embed(embeddedIn.ref, specObj, effectiveEmbedOpt).toFuture
+      val embedded = if previousReleased.isCompleted then start() else previousReleased.flatMap(_ => start())
+      live = Some(embedded)
+      embedded.onComplete { result =>
+        // If the chart was released while vega-embed was still working, don't publish a view that is already finalized.
+        if live.exists(_ eq embedded) then viewVar.setTry(result.map(er => Some(er.view)))
+      }
+    end embedChart
+
+    // EmbedResult.finalize runs view.finalize(), which removes vega's own listeners and timers (e.g. the window:resize
+    // listener that width: "container" compiles to). It also removes vega-embed's document click listener for the
+    // actions menu.
+    def releaseChart(): Unit =
+      live.foreach { embedded =>
+        previousReleased = embedded.map(_.finalize()).recover { case _ => () }
+      }
+      live = None
+      viewVar.set(None)
+    end releaseChart
+
+    // Embed straight away, as before, so the view is ready as soon as possible.
+    embedChart()
+
+    embeddedIn.amend(
+      onMountUnmountCallback(
+        // Mounting again after an unmount: the previous view was finalized, so embed a fresh one.
+        mount = _ => if live.isEmpty then embedChart(),
+        unmount = _ => releaseChart()
+      )
+    )
+
+    if attemptAutoResize && inDivOpt.isEmpty then
+      val resizeMonitor = new EventBus[ResizeObserverEntry]
+      val resizeObserver = new ResizeObserver((entries: js.Array[ResizeObserverEntry], _) =>
+        entries.foreach(entry => resizeMonitor.emit(entry))
+      )
+      embeddedIn.amend(
+        onMountUnmountCallback(
+          mount = _ => resizeObserver.observe(embeddedIn.ref),
+          unmount = _ => resizeObserver.disconnect()
+        ),
+        resizeMonitor.events.debounce(100).toWeakSignal.combineWith(view) --> Observer {
+          (valu: (Option[ResizeObserverEntry], Option[VegaView])) =>
+            for
+              entry <- valu._1
+              v <- valu._2
+            do
+              v.width(entry.contentBoxSize.head.blockSize.toInt)
+              v.height(entry.contentBoxSize.head.blockSize.toInt)
+              v.runAsync()
+        }
       )
     end if
-    embedResult.`then`(in =>
-      onUnmountCallback { _ =>
-        in.view.finalize()
-      }
-    )
-    embeddedIn.amend()
+
     (embeddedIn, view)
   end viewEmbed
 

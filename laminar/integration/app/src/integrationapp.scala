@@ -18,9 +18,13 @@ def main(): Unit =
   )
   val (bus, callback) = LaminarViz.dataClickBus
 
+  // Built once and put back every time its tab is selected, so the same chart div is unmounted and mounted again.
+  lazy val reusedChart = vegaLiteBar
+
   val tabs = Seq(
     "Vega Bar" -> (() => vegaBar),
-    "Vega Lite Bar" -> (() => vegaLiteBar)
+    "Vega Lite Bar" -> (() => vegaLiteBar),
+    "Reused chart" -> (() => reusedChart)
   )
   val selectedTab = Var(0)
 
