@@ -1,6 +1,6 @@
 # Out Files
 
-Depending on the plot target you choose, dedav4s may produce temporary files. For example if you choose to produce a png, svg or pdf file, these will be written to disk as temporary files. You may find them in the path of the returned value of the plot function.
+Depending on the plot target you choose, dedav4s may produce temporary files. For example if you choose to produce a png or svg file, these will be written to disk as temporary files. You may find them in the path of the returned value of the plot function.
 
 ## Where do the temporary files live?
 
@@ -12,7 +12,7 @@ e.g.
 ```sh
 set DEDAV_OUT_PATH=/Users/simon/Pictures scala-cli
 ```
-Assuming you have a chart, produced with one of the desktop targets (browser, tempFile, png, svg, pdf)
+Assuming you have a chart, produced with one of the desktop targets (browser, tempFile, png, svg)
 
 ```scala mdoc
 import viz.PlotTargets.tempFileSpec

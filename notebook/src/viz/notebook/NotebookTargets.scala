@@ -3,6 +3,7 @@ package viz.notebook
 import almond.api.JupyterApi
 import almond.api.JupyterAPIHolder.value
 import almond.interpreter.api.DisplayData
+import viz.static.StaticRenderer
 import viz.ChartLibrary
 import viz.PlotTarget
 import viz.UnitTarget

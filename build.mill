@@ -39,6 +39,7 @@ object Config:
 
   val almondKernelApi = mvn"sh.almond::scala-kernel-api:0.15.0".exclude(("com.github.jupyter", "jvm-repr"))
   val graalJs = "25.0.5"
+  val jsvg = "2.2.0"
 
   val scalaVersion = "3.9.0"
   val scalaJSVersion = "1.22.0"

@@ -70,7 +70,7 @@ On the JVM it currently contains targets for:
 1. repl
 2. notebooks
 3. websockets
-5. Svg, pdf and png files
+4. Svg and png files
 
 It further aims to help plotting in scala JS, so that the same charts are easily re-useable in both environments. See Getting started for more information...
 

@@ -92,7 +92,7 @@ Each plot is published as one notebook output with several representations, and 
 
 Vega and Vega-Lite plots are followed by a link that opens the spec in the [online Vega editor](https://vega.github.io/editor/).
 
-The SVG is rendered in the JVM, by running the vega, vega-lite and echarts browser bundles in [GraalJS](https://www.graalvm.org/javascript/). Nothing extra needs installing, but there is a cost: the module adds about 64MB of dependencies, and the first plot of a session takes a second or so while the engine starts. Plots after that render in tens of milliseconds.
+The SVG is rendered in the JVM, by the same renderer as the [SVG and PNG targets](#svg-and-png-files). Nothing extra needs installing, but there is a cost: the module adds about 64MB of dependencies, and the first plot of a session takes a second or so while the engine starts. Plots after that render in tens of milliseconds.
 
 - **ECharts** has no notebook mimetype, so ECharts plots are shown as the static SVG everywhere.
 - **Sizing**: specs sized to their container (`"width": "container"`, or `Utils.fillDiv`) and ECharts plots are rendered at 640 x 400. To change that, or to turn the SVG or the editor link off, use `NotebookTargets.almondWith(NotebookOptions(...))`.
@@ -155,26 +155,26 @@ import viz.extensions.*
 List(("A",5),("B",8),("C",-1)).plotBarChart(List())
 ```
 
-## Vega CLI outputs
-The [vega CLI](https://vega.github.io/vega/usage/#cli) allows you to output pictures to (non interactive) SVG, PNG, and PDF formats.
+## SVG and PNG files
 
-This library _does not_ magically set vega cli up for you. It _assumes_ that you have sucessfully done that yourself - i.e. probably you need node.js and have successfully run ```npm install -g vega-cli```... and tested that worked.
-
-Assuming we're plotting
+The `svg` and `png` targets write the plot to an image file and return its path. They live in their own module, because they bring a JavaScript engine with them:
 
 ```scala
-import viz.PlotTargets.pdf
-val pathToPDF = (1 to 10).plotBarChart()
+//> using dep io.github.quafadas::dedav4s_static:@VERSION@
+
+import viz.static.StaticTargets.png
+val pathToPNG = (1 to 10).plotBarChart()
 ```
 ![as png](assets/plot-10805531892109353827.png)
 
-### PDF
 ```scala
-import viz.PlotTargets.pdf
-```
-
-### SVG
-```scala
-import viz.PlotTargets.svg
+import viz.static.StaticTargets.svg
 val pathToSVG = (1 to 10).plotBarChart()
 ```
+
+Both work for Vega, Vega-Lite and ECharts plots. Nothing extra needs installing: the SVG is rendered in the JVM by running the vega, vega-lite and echarts browser bundles in [GraalJS](https://www.graalvm.org/javascript/), and the PNG is that SVG rasterised by [JSVG](https://github.com/weisJ/jsvg). The module adds about 65MB of dependencies, and the first plot of a session takes a second or so while the engine starts.
+
+- **Sizing**: specs sized to their container (`"width": "container"`, or `Utils.fillDiv`) and ECharts plots are rendered at 640 x 400. PNGs are rasterised at 2 pixels per SVG unit, to stay sharp on high density screens. To change either, use `StaticTargets.svgWith(StaticOptions(...))` or `StaticTargets.pngWith(StaticOptions(...))`.
+- **Data from URLs** is fetched over http(s), as a browser would. Relative URLs can't be resolved, and the plot fails with an exception saying why.
+- **In code**, without a plot target: `viz.static.StaticRenderer.svg` and `.png` return the image, or the reason it failed.
+- **PDF**: there is no PDF target.
