@@ -184,7 +184,7 @@ object PlotTargets extends SharedTargets:
     end showWithTempFile
 
   // The `almond` target lives in the dedav4s_notebook module (viz.notebook.NotebookTargets.almond), with a static
-  // SVG fallback that needs a JS engine.
+  // SVG fallback from dedav4s_static.
 
   /** A PlotTarget implementation for rendering Vega-Lite visualizations in Almond Jupyter notebooks.
     *
@@ -295,43 +295,6 @@ object PlotTargets extends SharedTargets:
     override def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit =
       os.write.over(path, spec)
 
-  given png: PlotTarget = new TempFileTarget(Png):
-
-    def show(spec: ujson.Value, lib: ChartLibrary): viz.VizReturn =
-      val tmpPath = outPath match
-        case Some(path) =>
-          os.temp(dir = os.Path(path), suffix = ".png", prefix = "plot-")
-        case None =>
-          os.temp(suffix = ".png", prefix = "plot-")
-      showWithTempFile(spec.toString, tmpPath, lib)
-      tmpPath
-    end show
-    override def showWithTempFile(spec: String, path: os.Path, lib: ChartLibrary): Unit =
-      val pngBytes = os.proc("vg2png").call(stdin = spec)
-      pngBytes.exitCode match
-        case 0 =>
-          os.write.over(path, pngBytes.out.bytes)
-        case _ => throw new Exception(pngBytes.err.text())
-      end match
-    end showWithTempFile
-
-  // given pdf: PlotTarget = new TempFileTarget(Pdf):
-  //   override def showWithTempFile(spec: String, path: os.Path): Unit =
-  //     val pngBytes = os.proc("vg2pdf").call(stdin = spec)
-  //     pngBytes.exitCode match
-  //       case 0 =>
-  //         os.write.over(path, pngBytes.out.bytes)
-  //       case _ => throw new Exception(pngBytes.err.text())
-  //     end match
-  //   end showWithTempFile
-
-  // given svg: PlotTarget = new TempFileTarget(Svg):
-  //   override def showWithTempFile(spec: String, path: os.Path): Unit =
-  //     val pngBytes = os.proc("vg2svg").call(stdin = spec)
-  //     pngBytes.exitCode match
-  //       case 0 =>
-  //         os.write.over(path, pngBytes.out.bytes)
-  //       case _ => throw new Exception(pngBytes.err.text())
-  //     end match
-  //   end showWithTempFile
+  // The `png` and `svg` targets live in the dedav4s_static module (viz.static.StaticTargets), which renders inside the
+  // JVM with a JS engine.
 end PlotTargets

@@ -55,6 +55,9 @@ jobs:
       - name: test
         run: ./mill core.test.${{matrix.project}}
       - if: matrix.project == 'jvm'
+        name: test static
+        run: ./mill static.test
+      - if: matrix.project == 'jvm'
         name: test notebook
         run: ./mill notebook.test
       - if: matrix.project == 'jvm'

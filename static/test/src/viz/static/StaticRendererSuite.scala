@@ -1,4 +1,4 @@
-package viz.notebook
+package viz.static
 
 import java.net.InetSocketAddress
 import java.util.concurrent.Executors
@@ -153,37 +153,44 @@ class StaticRendererSuite extends FunSuite:
     assertEquals(StaticRenderer.compressForUrl("hello"), Right("BYUwNmD2Q"))
   }
 
-  test("vega outputs: interactive mimetype, svg, text, then the editor link") {
-    val outputs = NotebookTargets.outputs(liteBar, ChartLibrary.Vega, NotebookOptions())
-    assertEquals(outputs.length, 2)
-    val plot = outputs.head.detailedData
-    assertEquals(plot.keys.toList, List(NotebookTargets.VegaLiteMime, "image/svg+xml", "text/plain"))
-    assert(plot(NotebookTargets.VegaLiteMime).isInstanceOf[almond.interpreter.api.DisplayData.Value.Json])
-    assertEquals(plot("text/plain").asString, Some("Vega-Lite plot: letters"))
-    val link = outputs(1).detailedData
-    assertEquals(link.keys.toList, List("text/markdown", "text/html", "text/plain"))
-    assert(link("text/markdown").asString.exists(_.contains("https://vega.github.io/editor/#/url/vega-lite/")))
+  private def pngSize(bytes: Array[Byte]): (Int, Int) =
+    val image = javax.imageio.ImageIO.read(java.io.ByteArrayInputStream(bytes))
+    assert(image != null, "not a readable PNG")
+    (image.getWidth, image.getHeight)
+  end pngSize
 
-    val vegaPlot = NotebookTargets.outputs(vegaBar, ChartLibrary.Vega, NotebookOptions(editorLink = false))
-    assertEquals(vegaPlot.length, 1)
-    assertEquals(vegaPlot.head.detailedData.keys.head, NotebookTargets.VegaMime)
+  test("png is the svg rasterised at the requested scale") {
+    val bytes = StaticRenderer.png(echartsBar, ChartLibrary.Echarts, 500, 300, 2.0)
+    assertEquals(bytes.map(pngSize), Right((1000, 600)))
+
+    val vega = StaticRenderer.png(liteBar, ChartLibrary.Vega, 640, 400, 1.0)
+    assert(vega.isRight, vega.left.toString)
   }
 
-  test("echarts outputs: svg and text") {
-    val outputs = NotebookTargets.outputs(echartsBar, ChartLibrary.Echarts, NotebookOptions())
-    assertEquals(outputs.map(_.detailedData.keys.toList), Seq(List("image/svg+xml", "text/plain")))
+  test("png draws the chart, not a blank image") {
+    val bytes = StaticRenderer.png(vegaBar, ChartLibrary.Vega, 640, 400, 1.0).fold(fail(_), identity)
+    val image = javax.imageio.ImageIO.read(java.io.ByteArrayInputStream(bytes))
+    val colours =
+      (for x <- 0 until image.getWidth by 4; y <- 0 until image.getHeight by 4 yield image.getRGB(x, y)).toSet
+    assert(colours.size > 2, s"expected more than a background, got ${colours.size} colours")
   }
 
-  test("a failed static render still publishes the interactive plot") {
+  test("svgToPng rejects something that isn't svg") {
+    assert(StaticRenderer.svgToPng("not svg", 1.0).isLeft)
+  }
+
+  test("svg and png targets write files") {
+    val svgPath = StaticTargets.svg.show(liteBar, ChartLibrary.Vega).asInstanceOf[os.Path]
+    assert(os.read(svgPath).startsWith("<svg"))
+    val pngPath = StaticTargets.png.show(echartsBar, ChartLibrary.Echarts).asInstanceOf[os.Path]
+    assertEquals(svgPath.ext, "svg")
+    assertEquals(pngPath.ext, "png")
+    assertEquals(pngSize(os.read.bytes(pngPath)), (1280, 800))
+  }
+
+  test("file targets throw when the render fails") {
     val spec = ujson.copy(liteBar)
     spec("data") = ujson.Obj("url" -> "data/cars.json")
-    val keys = NotebookTargets.outputs(spec, ChartLibrary.Vega, NotebookOptions()).head.detailedData.keys.toList
-    assertEquals(keys, List(NotebookTargets.VegaLiteMime, "text/plain"))
-  }
-
-  test("huge specs get no editor link") {
-    val big = ujson.copy(liteBar)
-    big("data") = ujson.Obj("values" -> ujson.Arr.from((1 to 20000).map(i => ujson.Obj("a" -> s"k$i", "b" -> i))))
-    assertEquals(NotebookTargets.editorLink(big, lite = true), None)
+    intercept[Exception](StaticTargets.png.show(spec, ChartLibrary.Vega))
   }
 end StaticRendererSuite
