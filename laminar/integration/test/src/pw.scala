@@ -16,6 +16,8 @@ import cats.effect.unsafe.implicits.global
 import cats.effect.{IO, SyncIO}
 import munit.CatsEffectSuite
 import com.microsoft.playwright.options.AriaRole
+import com.microsoft.playwright.options.WaitForSelectorState
+import com.google.gson.JsonObject
 
 class PwTest extends CatsEffectSuite:
 
@@ -100,6 +102,112 @@ class PwTest extends CatsEffectSuite:
     assert(parentDiv.count() == 1)
     assert(parentDiv.textContent().contains("""{"name"""))
 
+  }
+
+  def selectTab(name: String): Unit =
+    page.getByRole(AriaRole.BUTTON, Page.GetByRoleOptions().setName(name).setExact(true)).click()
+    // The old chart is removed synchronously on click, so the first mark we find belongs to the new chart.
+    page.locator("g.mark-rect.role-mark path").first().waitFor()
+  end selectTab
+
+  /** Counts the listeners of `eventType` registered on a global object ("window" or "document"), using the Chrome
+    * DevTools protocol.
+    */
+  def listenerCount(target: String, eventType: String): Int =
+    val cdp = page.context().newCDPSession(page)
+    try
+      val evalArgs = new JsonObject()
+      evalArgs.addProperty("expression", target)
+      val objectId = cdp.send("Runtime.evaluate", evalArgs).getAsJsonObject("result").get("objectId").getAsString
+
+      val listenerArgs = new JsonObject()
+      listenerArgs.addProperty("objectId", objectId)
+      val listeners = cdp.send("DOMDebugger.getEventListeners", listenerArgs).getAsJsonArray("listeners")
+      (0 until listeners.size()).count(i => listeners.get(i).getAsJsonObject.get("type").getAsString == eventType)
+    finally cdp.detach()
+    end try
+  end listenerCount
+
+  def chartListenerCounts: (Int, Int) =
+    (listenerCount("window", "resize"), listenerCount("document", "click"))
+
+  test("switching charts does not leak window:resize or document click listeners") {
+    page.setViewportSize(1920, 1080)
+    selectTab("Vega Bar")
+    selectTab("Vega Lite Bar")
+    val afterOneSwitch = chartListenerCounts
+    assert(afterOneSwitch._1 > 0, "expected the width: \"container\" chart to listen for window:resize")
+
+    for _ <- 1 to 5 do
+      selectTab("Vega Bar")
+      selectTab("Vega Lite Bar")
+    end for
+
+    assertEquals(chartListenerCounts, afterOneSwitch)
+  }
+
+  test("a chart that is unmounted and mounted again is still live") {
+    page.setViewportSize(1920, 1080)
+    selectTab("Vega Bar")
+    val withoutReusedChart = chartListenerCounts
+
+    selectTab("Reused chart")
+    val bars = page.locator("g.mark-rect.role-mark path")
+    val clicked = page.locator("div.parent-div p")
+    bars.nth(0).click()
+    val firstClick = clicked.textContent()
+    assert(firstClick.contains("""{"name"""), firstClick)
+    val withReusedChart = chartListenerCounts
+
+    selectTab("Vega Bar")
+    assertEquals(chartListenerCounts, withoutReusedChart)
+
+    selectTab("Reused chart")
+    assertEquals(chartListenerCounts, withReusedChart)
+    // Only a freshly embedded view responds to clicks; the finalized one has had its listeners removed.
+    bars.nth(2).click()
+    val secondClick = clicked.textContent()
+    assert(secondClick.contains("""{"name"""), secondClick)
+    assertNotEquals(secondClick, firstClick)
+  }
+
+  test("a chart mounted again before its first embed finishes shows only one chart") {
+    page.setViewportSize(1920, 1080)
+    selectTab("Vega Bar")
+    selectTab("Reused chart")
+    val withReusedChart = chartListenerCounts
+    selectTab("Vega Bar")
+
+    // Mount, unmount and mount again in one tick, so the second embed starts while the first is still in flight.
+    page.evaluate("""() => {
+      const tab = name => [...document.querySelectorAll("button")].find(b => b.textContent === name);
+      tab("Reused chart").click();
+      tab("Vega Bar").click();
+      tab("Reused chart").click();
+    }""")
+
+    // vega-embed adds its actions menu only after the view has rendered, so give a late first embed time to land.
+    page
+      .locator("div.parent-div details")
+      .first()
+      .waitFor(Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED))
+    page.waitForTimeout(1000)
+    assertEquals(page.locator("div.parent-div details").count(), 1)
+    assertEquals(page.locator("div.parent-div .chart-wrapper").count(), 1)
+    assertEquals(chartListenerCounts, withReusedChart)
+  }
+
+  test("attemptAutoResize sizes the chart to its container") {
+    // The container is 80vw by 300px.
+    page.setViewportSize(1000, 800)
+    selectTab("Auto-resize")
+    val svg = page.locator("div.auto-resize svg").first()
+    assertThat(svg).hasAttribute("width", "800")
+    assertThat(svg).hasAttribute("height", "300")
+
+    page.setViewportSize(1500, 800)
+    assertThat(svg).hasAttribute("width", "1200")
+    assertThat(svg).hasAttribute("height", "300")
   }
 
   override def afterAll(): Unit =

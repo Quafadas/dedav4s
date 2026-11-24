@@ -3,8 +3,11 @@ package viz
 import ujson.Value
 
 extension (plottable: ujson.Value)
+  /** Returns a copy of the spec with each mod applied in turn. The spec this is called on is left unchanged, so it is
+    * safe to call on a shared spec such as `SpecUrl.BarChart.jsonSpec`.
+    */
   def mod(mods: List[ujson.Value => Unit]): ujson.Value =
-    val temp = plottable
+    val temp = ujson.copy(plottable)
     for m <- mods do m(temp)
     end for
     temp

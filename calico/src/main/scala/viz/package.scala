@@ -48,14 +48,21 @@ object CalicoViz:
     val specObj = JSON.parse(chart).asInstanceOf[js.Object]
     val tmp = (inDivOpt, embedOpt) match
       case (Some(thisDiv), Some(opts)) =>
-        thisDiv.map { (d: HtmlDivElement[IO]) =>
-          val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
-          dCheat.style.height = "40vmin"
-          dCheat.style.width = "40vmin"
-          val p: js.Promise[EmbedResult] =
-            viz.vega.facades.embed(d.asInstanceOf[org.scalajs.dom.html.Div], specObj, opts)
-          val pIop = IO.fromPromise(IO(p))
-          (d, pIop.map(_.view))
+        thisDiv.flatMap { (d: HtmlDivElement[IO]) =>
+          val embedChart = IO {
+            val dCheat = d.asInstanceOf[org.scalajs.dom.html.Div]
+            dCheat.style.height = "40vmin"
+            dCheat.style.width = "40vmin"
+            viz.vega.facades.embed(dCheat, specObj, opts)
+          }
+          // On release, finalize the view: this removes vega's listeners and timers (e.g. the window:resize listener
+          // that width: "container" compiles to) and vega-embed's document click listener for the actions menu. Waits
+          // for an embed that is still in flight. A failed embed has nothing to finalize.
+          def finalizeChart(p: js.Promise[EmbedResult]) =
+            IO.fromPromise(IO(p)).flatMap(er => IO(er.finalize())).voidError
+          Resource
+            .make(embedChart)(finalizeChart)
+            .map(p => (d, IO.fromPromise(IO(p)).map(_.view)))
         }
       // case (Some(thisDiv), None) => ???
       // This case doesn't work
